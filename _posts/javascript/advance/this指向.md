@@ -1,0 +1,87 @@
+---
+slug: "/posts/javascript/advance/js-this"
+date: "2020-05-19"
+title: "this的指向"
+path: "/posts/javascript/advance/js-this"
+tags: ["js"]
+---
+![](https://cdn.jsdelivr.net/gh/funnypan/pics@master/img/20200413141906.png)
+
+## this指向
+
+this 总是指向函数的直接调⽤者（⽽⾮间接调⽤者）
+
+如果有 new 关键字， this 指向 new 出来的那个对象
+
+在事件中， this 指向触发这个事件的对象，特殊的是， IE 中的 attachEvent 中的 this 总是指向全局对象 Window
+
+> 创建⼀个空对象，并且 this 变量引⽤该对象，同时还继承了该函数的原型属性和⽅法被加⼊到 this 引⽤的对象中新创建的对象由 this 所引⽤，并且最后隐式的返回 this
+
+
+``` javascript
+var test={
+    prop:42,
+    func:function(){
+        return this.prop
+    }
+}
+
+console.log(test.func());//42，调用者是test
+//42
+
+var fullname = 'David Jones'
+var obj ={
+    fullname: 'Colin Brown',
+    prop:{
+        fullname:'Aurelio Deftch',
+        getFullname: function(){
+            return this.fullname;
+        }
+    }
+}
+var test = obj.prop.getFullname
+console.log(test()) // David Jones，调用者是window，window.fullname是David Jones
+obj.prop.getFullname() // Aurelio Deftch，调用者是obj.prop，obj.prop.fullname是Aurelio Deftch
+```
+
+## 扩展（call、bind、apply）
+
+- apply 、 call 、bind 三者都是用来改变函数的this对象的指向的；
+- apply 、 call 、bind 三者第一个参数都是this要指向的对象，也就是想指定的上下文；
+- apply 、 call 、bind 三者都可以利用后续参数传参；
+- bind 是返回对应函数，便于稍后调用；apply 、call 则是立即调用 。
+
+### apply、call
+
+- apply、call是为了改变某个函数运行时的上下文（context）而存在的，即改变函数体内部的this指向
+- 作用一样，区别在于接受的参数不一样
+- func.call(this,args)
+- func.apply(this,[args])
+- 用法：当知道参数数量的时候用call，不确定的时候用apply
+
+``` javascript
+function log(){
+    var _args=[...arguments];
+    console.log(_args)
+    args.unshift('(app)')
+
+    console.log.apply(console,args)
+}
+log(1,2,3)//(app) 1 2 3
+```
+
+### bind
+
+> MDN的解释是：bind()方法会创建一个新函数，称为绑定函数，当调用这个绑定函数时，绑定函数会以创建它时传入 bind()方法的第一个参数作为 this，传入 bind() 方法的第二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数。
+
+``` javascript
+var bar=function(){
+    console.log(this.x)
+}
+var foo={
+    x:3
+}
+bar();// undefined
+var func=bar.bind(foo);
+func();// 3,this指向了foo
+```

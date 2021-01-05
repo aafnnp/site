@@ -1,0 +1,11 @@
+.gitignore
+.prettierignore
+yarn.lock
+yarn-error.log
+package-lock.json
+node_modules
+LICENSE
+*.ejs
+*.bat
+dist
+public/*

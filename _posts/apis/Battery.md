@@ -1,0 +1,61 @@
+---
+slug: "/posts/apis/battery"
+date: "2019-05-21"
+title: "Apis-Battery"
+path: "/posts/apis/battery"
+tags: ["js"]
+description: "Battery Api提供了有关系统充电级别的信息并提供了通过电池等级或者充电状态的改变提醒用户的事件"
+---
+
+## Battery Api
+
+> 提供了有关系统充电级别的信息并提供了通过电池等级或者充电状态的改变提醒用户的事件，Battery Status API 向 window.navigator 扩展了一个 navigator.getBattery 方法，其返回了一个battery promise, 完成后传递一个 BatteryManager 对象，并提供了一些新的可以操作电池状态的事件。
+
+![Chrome][chrome-image] | ![Edge][edge-image] | ![Firefox][firefox-image] | ![IE][ie-image] | ![Opera][opera-image] | ![Safari][safari-image]
+:-: | :-: | :-: | :-: | :-: | :-: |
+   38 ✔  | 79 ✔ | 43-51 ✔ |  ✖ |  25 ✔ |  ✖  |
+
+## 方法
+
+- chargingchange
+- levelchange
+- chargingtimechange
+- dischargingtimechange
+
+``` javascript
+navigator.getBattery().then(function(battery) {
+
+  console.log("Battery charging? " + (battery.charging ? "Yes" : "No"));
+  console.log("Battery level: " + battery.level * 100 + "%");
+  console.log("Battery charging time: " + battery.chargingTime + " seconds");
+  console.log("Battery discharging time: " + battery.dischargingTime + " seconds");
+
+  battery.addEventListener('chargingchange', function() {
+    console.log("Battery charging? " + (battery.charging ? "Yes" : "No"));
+  });
+
+  battery.addEventListener('levelchange', function() {
+    console.log("Battery level: " + battery.level * 100 + "%");
+  });
+
+  battery.addEventListener('chargingtimechange', function() {
+    console.log("Battery charging time: " + battery.chargingTime + " seconds");
+  });
+
+  battery.addEventListener('dischargingtimechange', function() {
+    console.log("Battery discharging time: " + battery.dischargingTime + " seconds");
+  });
+
+});
+```
+
+![r63S43](https://cdn.jsdelivr.net/gh/funnypan/pics@master/uPic/r63S43.png)
+
+
+[chrome-image]: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/CDWccX.jpg
+[firefox-image]: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mqRvLw.jpg
+[ie-image]: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/uKn6gH.jpg
+[opera-image]: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mpzJp6.jpg
+[safari-image]: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mIxpPG.jpg
+[edge-image]: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/aoF7l0.jpg
+

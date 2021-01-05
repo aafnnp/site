@@ -1,0 +1,50 @@
+---
+slug: "/posts/linux/linux-commands-ping"
+date: "2020-10-12"
+title: "Linux命令ping"
+path: "/posts/linux/linux-commands-ping"
+tags: ["Linux"]
+description: "ping命令用于检测主机"
+---
+
+Linux ping命令用于检测主机。
+
+执行ping指令会使用ICMP传输协议，发出要求回应的信息，若远端主机的网络功能没有问题，就会回应该信息，因而得知该主机运作正常。
+
+如下是ping baidu.com：
+
+![XimNX7](https://cdn.jsdelivr.net/gh/funnyPan/pics@master/uPic/XimNX7.png)
+
+**ping**发出请求到对应的主机，主机返回结果。
+
+默认情况**ping**会每秒发出请求，直到使用**ctrl+c**中断，也可以使用-c times指定接收包的次数，如：
+
+``` shell
+ping -c 2 baidu.com
+```
+
+当结束**ping**命令时，屏幕上会打印出统计结果，其中包括丢包率以及速率
+
+``` shell
+ping -i 3 -s 1024 -t 255 baidu.com
+
+# -i 3 发送周期为 3秒 -s 设置发送包的大小 -t 设置TTL值为 255
+```
+
+## 参数
+
+- -d 使用Socket的SO_DEBUG功能。
+- -c<完成次数> 设置完成要求回应的次数。
+- -f 极限检测。
+- -i<间隔秒数> 指定收发信息的间隔时间。
+- -I<网络界面> 使用指定的网络接口送出数据包。
+- -l<前置载入> 设置在送出要求信息之前，先行发出的数据包。
+- -n 只输出数值。
+- -p<范本样式> 设置填满数据包的范本样式。
+- -q 不显示指令执行过程，开头和结尾的相关信息除外。
+- -r 忽略普通的Routing Table，直接将数据包送到远端主机上。
+- -R 记录路由过程。
+- -s<数据包大小> 设置数据包的大小。
+- -t<存活数值> 设置存活数值TTL的大小。
+- -v 详细显示指令的执行过程。
+

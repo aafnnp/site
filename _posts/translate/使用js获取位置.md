@@ -1,0 +1,111 @@
+---
+slug: "/posts/translate/detecting-location-with-javascript"
+date: "2020-01-19"
+title: "使用js获取位置"
+path: "/posts/translate/detecting-location-withi-javascript"
+tags: ["translate"]
+---
+
+![quick-tip-detecting-your-location-with-javascript](https://cdn.jsdelivr.net/gh/funnypan/pics@master/images/20190121163457.png)
+
+首先，我们使用caniuse-cmd查看下geolocation的兼容性,几乎所有的现代浏览器都支持geolocation
+
+Geolocation
+通过使用GPS、WIFI、IP地址检测自己的位置信息，开发人员可使用这些信息给用户提供更好的搜索建议，比如附近的便利店，并实现互动。
+
+本地资源（location sources）
+JavaScript提供了一个简单，但功能强大的工具来定位设备的地理定位API的形式。它包括一个小的一组易于使用的方法，可以获得设备的位置：
+
+GPS-主要在移动设备，精确到10米
+WIFI-几乎所有的联网设备
+IP-仅限于区域，备选方案
+采用哪种方案取决于浏览器支持，一般情况下WIFI快于GPS快于IP
+
+使用geolocation api
+通过使用caniuse-cmd，我们知道大部分浏览器支持geolocation，但我们需要做好判断，请确保可以正常使用geolocation
+
+``` javascript
+if (navigator.geolocation) {
+  // 支持geolocation
+} 
+else {
+  // 不支持geolocation
+}
+```
+
+navigator.geolocation有如下几个方法：
+
+- Geolocation.getCurrentPosition() //获取当前位置
+- Geolocation.watchPosition() //监测定位
+- Geolocation.clearWatch() //清除监测
+
+getCurrentPosition() and watchPosition() methods 的工作方式是基本相同的。这两方法目的基本相同，都是用来去获取device的位置信息吧， 都是以一个异步的工作形式来获取位置信息的， 他们也都依赖于一个attempt call的结果
+
+``` javascript
+navigator.geolocation.getCurrentPosition(
+
+    // 位置获取成功
+    function(position) {
+
+        position = {
+            coords: {
+                latitude - //纬度.
+                longitude - //经度. 
+                altitude - //高度.
+                accuracy - //精确度. 
+                altitudeAccuracy - //高度的准确性. 
+                heading - //. 
+                speed - //.
+            }
+            timestamp - //时间戳.
+        }
+
+    },
+
+    // 位置获取失败
+    function(error){
+
+    }
+);
+```
+如上，使用geolocation api很简单，只需要正确调用方法，等待返回坐标即可。
+
+用户权限
+由于geolocation api会暴露用户信息，所以当应用程序访问的时候，将以弹窗请求用户操作，如下
+
+
+
+主机安全
+另一个保护措施是使用HTTPS连接。由于一个新的网络安全策略，谷歌浏览器（桌面版和手机版）不再允许非安全的主机上运行的geolocation api。使用https可以最大限度的减少数据信息的盗用或被滥用的风险。
+
+这里查看更多关于这个问题。
+
+``` javascript
+一个简单的Demo
+findMeButton.on("click", function(){
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+        // Get the coordinates of the current position.
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+
+        // Create a new map and place a marker at the device location.
+        var map = new GMaps({
+            el: "#map",
+            lat: lat,
+            lng: lng
+        });
+
+        map.addMarker({
+            lat: lat,
+            lng: lng
+        });
+
+    });
+
+});
+```
+[在线demo](https://jsfiddle.net/dannymarkov/ubrvm4ao/ "https://jsfiddle.net/dannymarkov/ubrvm4ao/")
+
+翻译自[Detecting Your Location With JavaScript](http://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript/ "http://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript/")

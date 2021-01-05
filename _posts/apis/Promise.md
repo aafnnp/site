@@ -1,0 +1,61 @@
+---
+slug: "/posts/apis/Promise"
+date: "2019-03-11"
+title: "Promise"
+path: "/posts/apis/Promise"
+tags: ["js"]
+---
+## Promise
+
+> 用于一个异步操作的最终完成或失败及其结果
+
+## 状态
+
+1. pending，初识状态
+2. fulfilled，操作成功
+3. rejected，操作失败
+
+## 流程
+
+![](https://cdn.jsdelivr.net/gh/funnypan/pics@master/img/20190830101852.png)
+
+## 语法
+
+```javascript
+new Promise((resolve, reject) => {
+	/*executor*/
+});
+```
+
+> Promise 执行时立即调用 executor 函数（通常是一些异步操作），resovle 将 Promise 的状态改为 fulfilled，reject 将 Promise 的状态改为 rejected，如果 catch 到了错误，将忽略 executor 内的返回值，Promise 的状态被改成 rejected
+
+## 属性
+
+1. Promise.length //1
+2. Promise.prototype //Promise 的构造器的原型
+
+## 方法
+
+1. Promise.all //Promise.all 方法常被用于处理多个 promise 对象的状态集合
+2. Promise.race //当 iterable 参数里的任意一个子 promise 被成功或失败后，父 promise 马上也会用子 promise 的成功返回值或失败详情作为参数调用父 promise 绑定的相应句柄，并返回该 promise 对象。
+3. Promise.reject //返回一个状态为失败的 Promise 对象，并将给定的失败信息传递给对应的处理方法
+4. Promise.resolve //返回的 Promise 对象状态为 fulfilled
+
+## 原型
+
+1. Promise.prototype.constructor //返回被创建的实例函数. 默认为 Promise 函数.
+2. Promise.prototype.catch //添加一个拒绝(rejection) 回调到当前 promise, 返回一个新的 promise
+3. Promise.prototype.then //添加解决(fulfillment)和拒绝(rejection)回调到当前 promise, 返回一个新的 promise, 将以回调的返回值来 resolve.
+4. Promise.prototype.finally //添加一个事件处理回调于当前 promise 对象，并且在原 promise 对象解析完毕后，返回一个新的 promise 对象。回调会在当前 promise 运行完毕后被调用，无论当前 promise 的状态是完成(fulfilled)还是失败(rejected)
+
+## 使用
+
+```javascript
+const P=new Promise((resolve,reject)=>{
+    if(/*success*/){
+        resolve()
+    }else{
+        reject()
+    }
+})
+```

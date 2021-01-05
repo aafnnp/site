@@ -1,0 +1,69 @@
+---
+slug: "/posts/javascript/base/number"
+date: "2018-05-13"
+title: "Number"
+path: "/posts/javascript/base/number"
+tags: ["js"]
+---
+## Number
+
+```javascript
+const age = 36;
+typeof age; //number
+
+const age = Number(36);
+typeof age; //number
+
+//使用new声明的Number返回object类型，可使用valueOf获取原始值
+const age = new Number(36);
+typeof age; //object
+```
+
+### 属性
+
+1. EPSILON - 两个数字之间的最小间隔
+2. MAX_SAFE_INTEGER - 可表示的最大整数值
+3. MAX_VALUE - 可表示的最大正值
+4. MIN_SAFE_INTEGER - 可表示的最小整数值
+5. MIN_VALUE - 可表示的最小正值
+6. NAN - not a number
+7. NEGATIVE_INFINITY - 正向无穷大
+8. POSITIVE_INFINITY - 负向无穷大
+
+```javascript
+Number.EPSILON; //2.220446049250313e-16
+Number.MAX_SAFE_INTEGER; //9007199254740991
+Number.MAX_VALUE; //1.7976931348623157e+308
+Number.MIN_SAFE_INTEGER; //-9007199254740991
+Number.MIN_VALUE; //5e-324
+Number.NAN; //NaN
+Number.NEGATIVE_INFINITY; //-Infinity
+Number.POSITIVE_INFINITY; //Infinity
+```
+
+### 方法
+
+- Number.isNaN(value) //当 value 为非 number 时返回 true
+- Number.isFinite(value) //当 value 是有穷值返回 true
+- Number.isInteger(value) //当 value 是整型值返回 true
+- Number.isSafeInteger(value) //当 value 是安全整型值返回 true
+- Number.parseFloat(value) //将值转换成浮点类型并返回
+- Number.parseInt(value) //将值转换成整形并返回
+
+### 实例方法
+
+当使用 new 关键词声明一个数值，将会返回 object，并且提供如下方法。
+
+```javascript
+const age = new Number(36);
+typeof age; //object
+```
+
+- .toExponential() //将值转换成指数计数法
+- .toFixed() //返回小数点后 N 位
+- .toLocaleString() //将值转换成字符类型
+- .toPrecision() //返回指定的精度
+- .toString() //将值转换成字符类型
+- .valueOf() //返回原始值
+
+### 扩展学习
