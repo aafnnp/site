@@ -3,6 +3,7 @@ slug: "/posts/docker/docker-images"
 date: "2020-12-21"
 title: "Docker images"
 path: "/posts/docker/docker-images"
+description: "Docker 把应用程序及其依赖，打包在 image 文件里面。只有通过这个文件，才能生成 Docker 容器"
 tags: ["docker"]
 ---
 
