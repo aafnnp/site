@@ -8,8 +8,8 @@ export const Post = ({ post }) => {
 				<Link href={`/posts${link}`}><a className="font-bold">{data.title}</a></Link>
 				<span className="text-sm font-normal">{data.date}</span>
 			</h2>
-			<div className="flex justify-between">
-				<p className="text-gray-500">{data.description}</p>
+			<div className="flex justify-between items-start">
+				<p className="text-gray-500 w-2/3">{data.description}</p>
 				<p className={`tag ${data.tags}`}>{data.tags}</p>
 			</div>
 		</article>

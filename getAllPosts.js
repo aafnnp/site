@@ -35,7 +35,7 @@ const ALLPOSTS = ALLFILES.map(item => {
 //导出所有slug
 export const GetAllSlug = ALLFILES.map(item => item.link.substr(1).split("/"));
 
-//导出所有文章
+//文章按时间排序
 export const posts = ALLPOSTS.sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date))
 
 //导出所有标签
@@ -45,16 +45,7 @@ export const tags = [...new Set(ALLPOSTS.map(item => item.data.tags).flat(1))]
 //导出所有文章
 export const GetAllPosts = () => {
 	return new Promise(resolve => {
-		const files = importAll(require.context("./_posts/", true, /\.md$/));
-		const allposts = files.map(item => {
-			const { data, content } = matter(item.module.default)
-			return {
-				link: item.link,
-				data,
-				content
-			};
-		})
-		resolve(allposts)
+		resolve(posts)
 	})
 }
 //根据slug导出文章

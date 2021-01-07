@@ -1,7 +1,5 @@
 const marked = require('marked');
 
-// Set options
-// `highlight` example uses `highlight.js`
 marked.setOptions({
     renderer: new marked.Renderer(),
     highlight: function (code, language) {

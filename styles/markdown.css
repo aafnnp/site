@@ -990,3 +990,9 @@
 .markdown-body pre{
   @apply shadow-lg;
 }
+.markdown-body input[type="checkbox"]+a{
+  @apply text-gray-500 line-through;
+}
+.markdown-body input:checked+a{
+  @apply text-black no-underline border-b border-dotted;
+}
