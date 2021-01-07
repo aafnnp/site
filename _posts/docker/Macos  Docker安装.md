@@ -3,7 +3,7 @@ slug: "/posts/docker/install-docker-on-macos"
 date: "2020-12-21"
 title: "Macos Docker安装"
 path: "/posts/docker/install-docker-on-macos"
-tags: ["docker"]
+tags: docker
 ---
 
 ## brew安装docker

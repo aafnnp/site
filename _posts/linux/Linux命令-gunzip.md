@@ -3,7 +3,7 @@ slug: "/posts/linux/linux-commands-gunzip"
 date: "2020-10-12"
 title: "Linux命令gunzip"
 path: "/posts/linux/linux-commands-gunzip"
-tags: ["Linux"]
+tags: linux
 description: "“gunzip”命令的快速指南，用于解压缩gzip文件。"
 ---
 

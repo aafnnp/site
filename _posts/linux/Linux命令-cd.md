@@ -3,7 +3,7 @@ slug: "/posts/linux/linux-commands-cd"
 date: "2020-10-13"
 title: "Linux命令cd"
 path: "/posts/linux/linux-commands-cd"
-tags: ["Linux"]
+tags: linux
 description: "cd命令用于切换当前工作目录"
 ---
 

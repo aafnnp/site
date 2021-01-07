@@ -3,7 +3,7 @@ slug: "/posts/linux/linux-commands-gzip"
 date: "2020-10-09"
 title: "Linux命令gzip"
 path: "/posts/linux/linux-commands-gzip"
-tags: ["Linux"]
+tags: linux
 description: "“gzip”命令的快速指南，用于压缩文件"
 ---
 

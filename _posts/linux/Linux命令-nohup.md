@@ -3,7 +3,7 @@ slug: "/posts/linux/linux-commands-nohup"
 date: "2020-10-11"
 title: "Linux命令nohup"
 path: "/posts/linux/linux-commands-nohup"
-tags: ["Linux"]
+tags: linux
 description: "用于忽略 SIGHUP (挂断信号) 在系统后台不挂断地运行命令，退出终端不会影响程序的运行"
 ---
 

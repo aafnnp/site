@@ -3,7 +3,7 @@ slug: "/posts/vue/how-to-boost-vue-js-performance"
 date: "2019-05-21"
 title: "如何提高Vue.js的性能"
 path: "/posts/vue/how-to-boost-vue-js-performance"
-tags: ["js"]
+tags: js
 ---
 
 ![mFYkyS](https://cdn.jsdelivr.net/gh/funnyPan/pics@master/uPic/mFYkyS.png)

@@ -3,7 +3,7 @@ slug: "/posts/javascript/base/undefined"
 date: "2018-05-07"
 title: "Undefined"
 path: "/posts/javascript/base/undefined"
-tags: ["js"]
+tags: js
 ---
 Undefined 类型只有一个值-undefined，即声明变量但未赋值
 ，这个变量的值就是 undefined。

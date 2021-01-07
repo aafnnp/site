@@ -3,7 +3,7 @@ slug: "/posts/server/how-to-install-certbot"
 date: "2020-12-16"
 title: "安装Certbot"
 path: "/posts/server/how-to-install-certbot"
-tags: ["Server"]
+tags: server
 ---
 
 ![Fkz8eJ](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Fkz8eJ.jpg)

@@ -39,7 +39,7 @@ export const GetAllSlug = ALLFILES.map(item => item.link.substr(1).split("/"));
 export const posts = ALLPOSTS.sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date))
 
 //导出所有标签
-export const tags = [...new Set(ALLPOSTS.map(item => item.data.tags).flat(1))]
+export const tags = [...new Set(ALLPOSTS.map(item => item.data.tags))]
 
 
 //导出所有文章
@@ -62,6 +62,6 @@ export const GetPostBySlug = slug => {
 //根据tag展示文章
 export const GetPostByTag = tag => {
 	console.log(tag)
-	return ALLPOSTS.filter(item => item.data.tags.includes(tag))
+	return ALLPOSTS.filter(item => item.data.tags===tag)
 }
 

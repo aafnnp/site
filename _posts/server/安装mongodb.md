@@ -3,7 +3,7 @@ slug: "/posts/server/how-to-install-mongodb"
 date: "2019-10-19"
 title: "安装mongodb"
 path: "/posts/server/how-to-install-mongodb"
-tags: ["Server"]
+tags: server
 ---
 ## 安装mongodb
 

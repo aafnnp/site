@@ -3,7 +3,7 @@ slug: "/posts/javascript/base/boolean"
 date: "2018-05-10"
 title: "Boolean"
 path: "/posts/javascript/base/boolean"
-tags: ["js"]
+tags: js
 ---
 Boolean 有两个值 true/false。
 

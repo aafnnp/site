@@ -3,7 +3,7 @@ slug: "/posts/interview/js/instanceof"
 date: "2020-05-19"
 title: "面试题-手写instanceof"
 path: "/posts/interview/js/instanceof"
-tags: ["js"]
+tags: js
 ---
 ## 实现instanceof
 > 核心考察点 [getPrototypeOf](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/GetPrototypeOf)

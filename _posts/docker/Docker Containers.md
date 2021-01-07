@@ -4,7 +4,7 @@ date: "2021-01-07"
 title: "Docker Containers"
 path: "/posts/docker/docker-containers"
 description: "Docker 把应用程序及其依赖，打包在 image 文件里面。只有通过这个文件，才能生成 Docker 容器"
-tags: ["docker"]
+tags: docker
 ---
 
 image 文件生成的容器实例，本身也是一个文件，称为容器文件。也就是说，一旦容器生成，就会同时存在两个文件： image 文件和容器文件。而且关闭容器并不会删除容器文件，只是容器停止运行而已。

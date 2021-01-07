@@ -3,7 +3,7 @@ slug: "/posts/translate/detecting-location-with-javascript"
 date: "2020-01-19"
 title: "使用js获取位置"
 path: "/posts/translate/detecting-location-withi-javascript"
-tags: ["translate"]
+tags: translate
 ---
 
 ![quick-tip-detecting-your-location-with-javascript](https://cdn.jsdelivr.net/gh/funnypan/pics@master/images/20190121163457.png)

@@ -3,7 +3,7 @@ slug: "/posts/css/draw-triangle"
 date: "2017-07-12"
 title: "三角形绘制方法"
 path: "/posts/css/draw-triangle"
-tags: ["css"]
+tags: css
 description: "在做UI（页面重构）的时候，免不了和各种小图标打交道，这其中最多的应该是三角形以及箭头"
 ---
 

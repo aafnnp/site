@@ -3,7 +3,7 @@ slug: "/posts/server/how-to-install-nvm&nodejs"
 date: "2019-11-19"
 title: "安装nvm和nodejs"
 path: "/posts/server/how-to-install-nvm&nodejs"
-tags: ["Server"]
+tags: server
 ---
 ## 通过nvm安装nodejs
 

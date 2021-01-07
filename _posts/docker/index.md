@@ -3,7 +3,7 @@ slug: "/posts/docker"
 date: "2020-12-21"
 title: "Docker"
 path: "/posts/docker"
-tags: ["docker"]
+tags: docker
 description: "Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。"
 ---
 

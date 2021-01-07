@@ -3,7 +3,7 @@ slug: "/posts/apis/online-offline"
 date: "2019-02-10"
 title: "online&offline"
 path: "/posts/apis/online-offline"
-tags: ["js"]
+tags: js
 description: "当浏览器从在线与离线状态中切换时，这两个事件会在页面的 body 上触发"
 ---
 

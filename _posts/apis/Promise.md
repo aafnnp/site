@@ -3,7 +3,7 @@ slug: "/posts/apis/Promise"
 date: "2019-03-11"
 title: "Promise"
 path: "/posts/apis/Promise"
-tags: ["js"]
+tags: js
 ---
 ## Promise
 

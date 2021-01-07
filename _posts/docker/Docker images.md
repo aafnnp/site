@@ -4,7 +4,7 @@ date: "2020-12-21"
 title: "Docker images"
 path: "/posts/docker/docker-images"
 description: "Docker 把应用程序及其依赖，打包在 image 文件里面。只有通过这个文件，才能生成 Docker 容器"
-tags: ["docker"]
+tags: docker
 ---
 
 Docker 把应用程序及其依赖，打包在 image 文件里面。只有通过这个文件，才能生成 Docker 容器。image 文件可以看作是容器的模板。Docker 根据 image 文件生成容器的实例。同一个 image 文件，可以生成多个同时运行的容器实例。

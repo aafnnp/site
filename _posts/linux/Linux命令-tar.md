@@ -3,7 +3,7 @@ slug: "/posts/linux/linux-commands-tar"
 date: "2020-10-30"
 title: "Linux命令tar"
 path: "/posts/linux/linux-commands-tar"
-tags: ["Linux"]
+tags: linux
 description: "tar用于linux的文件和目录创建档案，利用tar命令，可以把一大堆的文件和目录全部打包成一个文件"
 ---
 

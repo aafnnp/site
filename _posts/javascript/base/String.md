@@ -3,7 +3,7 @@ slug: "/posts/javascript/base/string"
 date: "2018-05-09"
 title: "String"
 path: "/posts/javascript/base/string"
-tags: ["js"]
+tags: js
 ---
 ## String
 

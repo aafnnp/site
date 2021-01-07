@@ -3,7 +3,7 @@ slug: "/posts/javascript/base/number"
 date: "2018-05-13"
 title: "Number"
 path: "/posts/javascript/base/number"
-tags: ["js"]
+tags: js
 ---
 ## Number
 
