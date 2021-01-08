@@ -23,7 +23,7 @@ Docker从上到下的顺序运行Dockerfile的指令，第一条指令必须是F
 
 用于添加标签，设置映像标签
 
-``` shell
+``` dockerfile
 LABEL maintainer="manon.icu"
 ```
 
@@ -31,7 +31,7 @@ LABEL maintainer="manon.icu"
 
 用于执行当前映像的任何命令
 
-``` shell
+``` dockerfile
 RUN /bin/bash -c "source $HOME/.bashrc;echo $HOME"
 ```
 
@@ -39,7 +39,7 @@ RUN /bin/bash -c "source $HOME/.bashrc;echo $HOME"
 
 用于执行映像的应用程序
 
-``` shell
+``` dockerfile
 CMD ["executable","param1","param2"]
 ```
 
@@ -47,7 +47,7 @@ CMD ["executable","param1","param2"]
 
 用于将源文件复制到目的地
 
-``` shell
+``` dockerfile
 COPY dist /www/dist
 ```
 
