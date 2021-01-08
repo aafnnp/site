@@ -6,11 +6,12 @@ const Comments=dynamic(()=>{
 }, { ssr: false })
 
 export default function BlogPost({ children, meta }) {
+	console.log(meta)
 	return (
 		<>
 			<HeadPost meta={meta} isBlogPost />
 			<article className="blogpost">{children}</article>
-			<Comments/>
+			<Comments data={ meta }/>
 		</>
 	);
 }

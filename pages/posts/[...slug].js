@@ -14,7 +14,6 @@ const Markdown = dynamic(() => {
 export default function Post({ post }) {
     const router = useRouter();
     const { data,content } = post;
-    console.log(data)
     if (!router.isFallback && !post) {
         return <div>fallback</div>
     }
@@ -27,7 +26,7 @@ export default function Post({ post }) {
         </Head>
         <h2 className="text-3xl mb-8 py-4 font-bold border-b border-dashed">{ data.title}</h2>
         <Markdown content={content} />
-        <Comments />
+        <Comments data={ data }/>
     </>
 }
 

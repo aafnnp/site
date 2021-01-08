@@ -8,13 +8,13 @@ export default function Header() {
 			<h1 className="text-center text-4xl mb-4 font-bold font-serif"><Link href="/"><a>Manon.icu</a></Link></h1>
 			<div className="nav-items mb-8 flex justify-center my-8 text-2xl">
 				<Link href="https://twitter.com/ManonIcu">
-					<a className="mr-2 block"><ion-icon name="logo-twitter" /></a>
+					<a className="mr-2 block"><img src="/twitter.svg" className="w-5 h-5" /></a>
 				</Link>
 				<Link href="https://github.com/Manonicu">
-					<a className="mr-2 block"><ion-icon name="logo-github" /></a>
+					<a className="mr-2 block"><img src="/github.svg" className="w-5 h-5" /></a>
 				</Link>
 				<Link href="mailto:gemini0525@foxmail.com">
-					<a className="block"><ion-icon name="mail-outline" /></a>
+					<a className="block"><img src="/gmail.svg" className="w-5 h-5" /></a>
 				</Link>
 			</div>
 			<div className="tags mb-8">
@@ -26,7 +26,7 @@ export default function Header() {
 			</div>
 			<div className="navs">
 				<Link href="/http-status">
-					<a className="mr-2 flex mb-4 border-b border-dotted items-center leading-10"><span className="mr-2"><ion-icon name="globe-outline" /></span>HTTP状态码</a>
+					<a className="mr-2 flex mb-4 border-b border-dotted items-center leading-10">HTTP状态码</a>
 				</Link>
 			</div>
 		</nav>
