@@ -22,17 +22,3 @@ image 文件是通用的，一台机器的 image 文件拷贝到另一台机器�
 
 ## 更多
 
-- [x] [Docker镜像](./Docker镜像)
-- [x] [Docker容器](./Docker容器)
-- [x] [Dockerfiles](./Dockerfiles)
-- [x] [Docker更新容器](./Docker更新容器)
-- [x] [Docker更新镜像](./Docker更新容器)
-- [ ] [How to access files outside a Docker image]()
-- [ ] [Sharing Docker Images on Docker Hub]()
-- [ ] [Working with Docker Images from the command line]()
-- [ ] [Working with Docker Containers from the command line]()
-- [ ] [What to do if a Docker container immediately exits]()
-- [ ] [Create a simple Node.js Hello World Docker Container from scratch]()
-- [ ] [Using Docker Desktop to manage a Container]()
-- [ ] [First steps with Docker after the installation]()
-- [x] [Macos安装Docker](./Macos安装Docker)

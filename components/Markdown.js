@@ -17,5 +17,5 @@ marked.setOptions({
 });
 
 export default function Markdown({content}) { 
-    return <section dangerouslySetInnerHTML={{ __html: marked(content) }} className="markdown-body"></section>
+    return <section dangerouslySetInnerHTML={{ __html: marked(content) }}></section>
 }

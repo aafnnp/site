@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Header from "./Header";
+import Aside from "./Aside";
 
 export default function Layout({children, pageTitle, description}) {
 	return (
@@ -11,7 +11,7 @@ export default function Layout({children, pageTitle, description}) {
 				<title>{pageTitle}</title>
 			</Head>
 			<main className="flex min-h-screen px-10 py-4">
-				<Header />
+				<Aside />
 				<div className="content px-10 w-4/5">{children}</div>
 			</main>
 		</>

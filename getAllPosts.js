@@ -2,6 +2,7 @@ import matter from "gray-matter";
 import dayjs from "dayjs";
 import { join } from "path"
 import fs from "fs"
+import { getRandomArrayElements } from "./utils"
 
 
 //文章目录
@@ -13,11 +14,6 @@ function importAll(r) {
 		module: r(fileName)
 	}));
 }
-const chunk = (arr, size) =>
-	Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
-		arr.slice(i * size, i * size + size)
-	);
-
 
 const ALLFILES = importAll(require.context("./_posts/", true, /\.md$/));
 
@@ -48,6 +44,13 @@ export const GetAllPosts = () => {
 		resolve(posts)
 	})
 }
+
+//根据tag导出随机文章
+export const GetRandomPost = tag => {
+	const _posts = posts.filter(item => item.data.tags === tag);
+	return getRandomArrayElements(_posts, 6)
+}
+
 //根据slug导出文章
 export const GetPostBySlug = slug => {
 	const realslug = slug.join("/");
@@ -62,6 +65,6 @@ export const GetPostBySlug = slug => {
 //根据tag展示文章
 export const GetPostByTag = tag => {
 	console.log(tag)
-	return ALLPOSTS.filter(item => item.data.tags===tag)
+	return ALLPOSTS.filter(item => item.data.tags === tag)
 }
 

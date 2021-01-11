@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const Post = ({ post }) => {
+const List = ({ post }) => {
 	const { link, data } = post;
 	return (
 		<article className="py-8 border-b border-dashed hover:bg-blue-50 transition cursor-pointer">
@@ -15,3 +15,5 @@ export const Post = ({ post }) => {
 		</article>
 	);
 };
+
+export default List;

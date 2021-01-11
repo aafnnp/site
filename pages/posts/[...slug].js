@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
-import { GetAllPosts, GetPostBySlug } from "../../getAllPosts"
+import { GetAllPosts, GetPostBySlug, GetRandomPost } from "../../getAllPosts"
 import dynamic from "next/dynamic";
 import Head from "next/head"
+import RandomPost from "../../components/RandomPost"
 
 const Comments = dynamic(() => {
     return import("../../components/Comments");
@@ -13,7 +14,9 @@ const Markdown = dynamic(() => {
 
 export default function Post({ post }) {
     const router = useRouter();
-    const { data,content } = post;
+    const { data, content } = post;
+    const { tags } = data;
+    const randomPost = GetRandomPost(tags)
     if (!router.isFallback && !post) {
         return <div>fallback</div>
     }
@@ -24,9 +27,12 @@ export default function Post({ post }) {
                 href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"
             />
         </Head>
-        <h2 className="text-3xl mb-8 py-4 font-bold border-b border-dashed">{ data.title}</h2>
-        <Markdown content={content} />
-        <Comments data={ data }/>
+        <h2 className="text-3xl mb-8 py-4 font-bold border-b border-dashed">{data.title}</h2>
+        <div className="markdown-body">
+            <Markdown content={content} tag={tags} />
+            <RandomPost data={randomPost} />
+        </div>
+        <Comments data={data} />
     </>
 }
 
@@ -45,7 +51,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    console.log(params)
     const { data, content } = await GetPostBySlug(params.slug)
     return {
         props: {

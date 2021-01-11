@@ -993,6 +993,9 @@
 .markdown-body input[type="checkbox"]+a{
   @apply text-gray-500 line-through;
 }
-.markdown-body input:checked+a{
+.markdown-body input:checked+a,.markdown-body .related-post li a{
   @apply text-black no-underline border-b border-dotted;
+}
+.markdown-body .related-post li a{
+  @apply text-gray-500;
 }

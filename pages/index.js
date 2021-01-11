@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { GetAllPosts } from "../getAllPosts";
-import {Post} from "../components/Post"
+import List from "../components/List"
 
 const IndexPage = (props) => {
 	const { AllPosts } = props
@@ -8,7 +7,7 @@ const IndexPage = (props) => {
 		<>
 			{
 				AllPosts.map((item, key) => (
-					<Post post={item} key={key} />
+					<List post={item} key={key} />
 				))
 			}
 		</>
