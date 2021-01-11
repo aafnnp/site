@@ -1,8 +1,6 @@
 ---
-slug: "/posts/apis/battery"
 date: "2019-05-21"
 title: "Apis-Battery"
-path: "/posts/apis/battery"
 tags: js
 description: "Battery Api提供了有关系统充电级别的信息并提供了通过电池等级或者充电状态的改变提醒用户的事件"
 ---

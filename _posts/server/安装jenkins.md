@@ -1,8 +1,6 @@
 ---
-slug: "/posts/server/how-to-install-jenkins"
 date: "2019-09-19"
 title: "安装jenkins"
-path: "/posts/server/how-to-install-jenkins"
 tags: server
 ---
 基于centos 7.2

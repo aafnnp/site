@@ -1,8 +1,6 @@
 ---
-slug: "/posts/interview/css/bfc"
 date: "2020-10-19"
 title: "css-BFC"
-path: "/posts/interview/css/bfc"
 tags: css
 ---
 

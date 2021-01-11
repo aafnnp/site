@@ -1,8 +1,6 @@
 ---
-slug: "/posts/linux/linux-commands-ping"
 date: "2020-10-12"
 title: "Linux命令ping"
-path: "/posts/linux/linux-commands-ping"
 tags: linux
 description: "ping命令用于检测主机"
 ---

@@ -1,8 +1,6 @@
 ---
-slug: "/posts/translate/macbook-settings"
 date: "2020-05-19"
 title: "MacbookPro-前端开发环境配置"
-path: "/posts/translate/macbook-settings"
 tags: translate
 ---
 

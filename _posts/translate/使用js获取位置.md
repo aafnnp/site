@@ -1,8 +1,6 @@
 ---
-slug: "/posts/translate/detecting-location-with-javascript"
 date: "2020-01-19"
 title: "使用js获取位置"
-path: "/posts/translate/detecting-location-withi-javascript"
 tags: translate
 ---
 

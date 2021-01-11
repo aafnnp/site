@@ -1,8 +1,6 @@
 ---
-slug: "/posts/javascript/advance/js-inherit"
 date: "2020-05-19"
 title: "继承"
-path: "/posts/javascript/advance/js-inherit"
 tags: js
 ---
 

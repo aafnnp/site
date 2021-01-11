@@ -1,8 +1,6 @@
 ---
-slug: "/posts/javascript/advance/event-loop"
 date: "2020-05-19"
 title: "事件循环"
-path: "/posts/javascript/advance/event-loop"
 tags: js
 ---
 ![k6XBHW](https://cdn.jsdelivr.net/gh/funnypan/pics@master/uPic/k6XBHW.jpg)

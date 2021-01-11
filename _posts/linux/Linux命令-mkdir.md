@@ -1,8 +1,6 @@
 ---
-slug: "/posts/linux/linux-commands-mkdir"
 date: "2020-10-13"
 title: "Linux命令mkdir"
-path: "/posts/linux/linux-commands-mkdir"
 tags: linux
 description: "用于显示目前在 Linux 系统上的文件系统磁盘使用情况统计" 
 ---

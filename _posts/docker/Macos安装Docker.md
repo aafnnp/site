@@ -1,8 +1,6 @@
 ---
-slug: "/posts/docker/install-docker-on-macos"
 date: "2020-12-21"
 title: "Macos Docker安装"
-path: "/posts/docker/install-docker-on-macos"
 tags: docker
 ---
 
@@ -51,11 +49,11 @@ Docker version 19.03.14, build 5eb3275
 
 ## 更多
 
-- [x] [Docker images](./Docker%20images)
-- [x] [Docker Containers](./Docker%20Containers)
+- [x] [Docker镜像](./Docker镜像)
+- [x] [Docker容器](./Docker容器)
 - [x] [Dockerfiles](./Dockerfiles)
-- [ ] [Updating a deployed container based on a Docker image]()
-- [ ] [How to commit changes to a Docker image]()
+- [x] [Docker更新容器](./Docker更新容器)
+- [x] [Docker更新镜像](./Docker更新容器)
 - [ ] [How to access files outside a Docker image]()
 - [ ] [Sharing Docker Images on Docker Hub]()
 - [ ] [Working with Docker Images from the command line]()
@@ -64,4 +62,4 @@ Docker version 19.03.14, build 5eb3275
 - [ ] [Create a simple Node.js Hello World Docker Container from scratch]()
 - [ ] [Using Docker Desktop to manage a Container]()
 - [ ] [First steps with Docker after the installation]()
-- [ ] [Mac os Docker安装](./Macos%20%20Docker安装)
+- [x] [Macos安装Docker](./Macos安装Docker)

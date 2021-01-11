@@ -1,8 +1,6 @@
 ---
-slug: "/posts/docker/dockerfiles"
 date: "2021-01-08"
 title: "Dockerfile"
-path: "/posts/docker/dockerfiles"
 description: "Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明"
 tags: docker
 ---
@@ -70,11 +68,11 @@ CMD ["npm", "start"]
 
 ## 更多
 
-- [x] [Docker images](./Docker%20images)
-- [x] [Docker Containers](./Docker%20Containers)
+- [x] [Docker镜像](./Docker镜像)
+- [x] [Docker容器](./Docker容器)
 - [x] [Dockerfiles](./Dockerfiles)
-- [ ] [Updating a deployed container based on a Docker image]()
-- [ ] [How to commit changes to a Docker image]()
+- [x] [Docker更新容器](./Docker更新容器)
+- [x] [Docker更新镜像](./Docker更新容器)
 - [ ] [How to access files outside a Docker image]()
 - [ ] [Sharing Docker Images on Docker Hub]()
 - [ ] [Working with Docker Images from the command line]()
@@ -83,4 +81,4 @@ CMD ["npm", "start"]
 - [ ] [Create a simple Node.js Hello World Docker Container from scratch]()
 - [ ] [Using Docker Desktop to manage a Container]()
 - [ ] [First steps with Docker after the installation]()
-- [ ] [Mac os Docker安装](./Macos%20%20Docker安装)
+- [x] [Macos安装Docker](./Macos安装Docker)

@@ -1,8 +1,6 @@
 ---
-slug: "/posts/linux/linux-commands-export"
 date: "2020-11-02"
 title: "Linux命令export"
-path: "/posts/linux/linux-commands-export"
 tags: linux
 description: "export用于设置或显示环境变量。"
 ---

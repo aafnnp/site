@@ -1,8 +1,6 @@
 ---
-slug: "/posts/linux/linux-commands-traceroute"
 date: "2020-10-28"
 title: "Linux命令traceroute"
-path: "/posts/linux/linux-commands-traceroute"
 tags: linux
 description: "traceroute命令用于显示数据包到主机之间的路径"
 ---

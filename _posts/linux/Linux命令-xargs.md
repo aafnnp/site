@@ -1,8 +1,6 @@
 ---
-slug: "/posts/linux/linux-commands-xargs"
 date: "2020-10-10"
 title: "Linux命令xargs"
-path: "/posts/linux/linux-commands-xargs"
 tags: linux
 description: "xargs（英文全拼： eXtended ARGuments）是给命令传递参数的一个过滤器，也是组合多个命令的一个工具"
 ---

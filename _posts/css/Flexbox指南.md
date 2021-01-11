@@ -1,8 +1,6 @@
 ---
-slug: "/posts/css/dive-into-flexbox"
 date: "2018-04-12"
 title: "Flexbox指南"
-path: "/posts/css/dive-into-flexbox"
 tags: css
 description: "Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。"
 ---

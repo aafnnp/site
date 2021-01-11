@@ -1,8 +1,6 @@
 ---
-slug: "/posts/javascript/base/null"
 date: "2018-05-11"
 title: "Null"
-path: "/posts/javascript/base/null"
 tags: js
 ---
 Null 和 Undefined 一样，只有一个值，就是 null

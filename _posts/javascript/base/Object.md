@@ -1,8 +1,6 @@
 ---
-slug: "/posts/javascript/base/object"
 date: "2018-05-12"
 title: "Object"
-path: "/posts/javascript/base/object"
 tags: js
 ---
 ## Object

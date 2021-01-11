@@ -1,8 +1,6 @@
 ---
-slug: "/posts/javascript/base/array"
 date: "2018-05-15"
 title: "Array"
-path: "/posts/javascript/base/array"
 tags: js
 ---
 ## 属性

@@ -1,8 +1,6 @@
 ---
-slug: "/posts/docker"
 date: "2020-12-21"
 title: "Docker"
-path: "/posts/docker"
 tags: docker
 description: "Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。"
 ---
@@ -30,11 +28,11 @@ Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级�
 
 ## 目录
 
-- [x] [Docker images](./Docker%20images)
-- [x] [Docker Containers](./Docker%20Containers)
+- [x] [Docker镜像](./Docker镜像)
+- [x] [Docker容器](./Docker容器)
 - [x] [Dockerfiles](./Dockerfiles)
-- [x] [Updating a deployed container based on a Docker image](./Docker%20update%20Container)
-- [ ] [How to commit changes to a Docker image]()
+- [x] [Docker更新容器](./Docker更新容器)
+- [x] [Docker更新镜像](./Docker更新容器)
 - [ ] [How to access files outside a Docker image]()
 - [ ] [Sharing Docker Images on Docker Hub]()
 - [ ] [Working with Docker Images from the command line]()
@@ -43,4 +41,4 @@ Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级�
 - [ ] [Create a simple Node.js Hello World Docker Container from scratch]()
 - [ ] [Using Docker Desktop to manage a Container]()
 - [ ] [First steps with Docker after the installation]()
-- [x] [Mac os Docker安装](./Macos%20%20Docker安装)
+- [x] [Macos安装Docker](./Macos安装Docker)

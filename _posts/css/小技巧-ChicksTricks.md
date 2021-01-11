@@ -1,8 +1,6 @@
 ---
-slug: "/posts/css/css-tips"
 date: "2017-07-30"
 title: "css的小技巧"
-path: "/posts/css/css-tips"
 tags: css
 ---
 1. 使用CSS复位

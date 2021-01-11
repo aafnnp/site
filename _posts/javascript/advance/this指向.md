@@ -1,8 +1,6 @@
 ---
-slug: "/posts/javascript/advance/js-this"
 date: "2020-05-19"
 title: "this的指向"
-path: "/posts/javascript/advance/js-this"
 tags: js
 ---
 ![](https://cdn.jsdelivr.net/gh/funnypan/pics@master/img/20200413141906.png)

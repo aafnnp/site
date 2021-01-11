@@ -1,8 +1,6 @@
 ---
-slug: "/posts/translate/dive-into-cypress"
 date: "2020-05-20"
 title: "Cypress入门"
-path: "/posts/translate/dive-into-cypress"
 tags: translate
 ---
 

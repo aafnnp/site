@@ -1,8 +1,6 @@
 ---
-slug: "/posts/docker/dockerfiles"
 date: "2021-01-08"
 title: "基于Docker镜像的更新"
-path: "/posts/docker/dockerfiles"
 tags: docker
 ---
 
@@ -32,11 +30,11 @@ docker run <image name> ...options
 
 ## 更多
 
-- [x] [Docker images](./Docker%20images)
-- [x] [Docker Containers](./Docker%20Containers)
+- [x] [Docker镜像](./Docker镜像)
+- [x] [Docker容器](./Docker容器)
 - [x] [Dockerfiles](./Dockerfiles)
-- [x] [Updating a deployed container based on a Docker image](./Docker%20update%20Container)
-- [ ] [How to commit changes to a Docker image]()
+- [x] [Docker更新容器](./Docker更新容器)
+- [x] [Docker更新镜像](./Docker更新容器)
 - [ ] [How to access files outside a Docker image]()
 - [ ] [Sharing Docker Images on Docker Hub]()
 - [ ] [Working with Docker Images from the command line]()
@@ -45,4 +43,4 @@ docker run <image name> ...options
 - [ ] [Create a simple Node.js Hello World Docker Container from scratch]()
 - [ ] [Using Docker Desktop to manage a Container]()
 - [ ] [First steps with Docker after the installation]()
-- [x] [Mac os Docker安装](./Macos%20%20Docker安装)
+- [x] [Macos安装Docker](./Macos安装Docker)

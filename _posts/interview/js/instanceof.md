@@ -1,8 +1,6 @@
 ---
-slug: "/posts/interview/js/instanceof"
 date: "2020-05-19"
 title: "面试题-手写instanceof"
-path: "/posts/interview/js/instanceof"
 tags: js
 ---
 ## 实现instanceof

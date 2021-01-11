@@ -1,8 +1,6 @@
 ---
-slug: "/posts/docker/docker-images"
 date: "2020-12-21"
 title: "Docker images"
-path: "/posts/docker/docker-images"
 description: "Docker 把应用程序及其依赖，打包在 image 文件里面。只有通过这个文件，才能生成 Docker 容器"
 tags: docker
 ---
@@ -24,11 +22,11 @@ image 文件是通用的，一台机器的 image 文件拷贝到另一台机器�
 
 ## 更多
 
-- [x] [Docker images](./Docker%20images)
-- [x] [Docker Containers](./Docker%20Containers)
+- [x] [Docker镜像](./Docker镜像)
+- [x] [Docker容器](./Docker容器)
 - [x] [Dockerfiles](./Dockerfiles)
-- [x] [Updating a deployed container based on a Docker image](./Docker%20update%20Container)
-- [ ] [How to commit changes to a Docker image]()
+- [x] [Docker更新容器](./Docker更新容器)
+- [x] [Docker更新镜像](./Docker更新容器)
 - [ ] [How to access files outside a Docker image]()
 - [ ] [Sharing Docker Images on Docker Hub]()
 - [ ] [Working with Docker Images from the command line]()
@@ -37,4 +35,4 @@ image 文件是通用的，一台机器的 image 文件拷贝到另一台机器�
 - [ ] [Create a simple Node.js Hello World Docker Container from scratch]()
 - [ ] [Using Docker Desktop to manage a Container]()
 - [ ] [First steps with Docker after the installation]()
-- [x] [Mac os Docker安装](./Macos%20%20Docker安装)
+- [x] [Macos安装Docker](./Macos安装Docker)
