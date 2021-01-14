@@ -1,6 +1,6 @@
 ---
 date: "2020-12-21"
-title: "Docker"
+title: "Docker入门"
 tags: docker
 description: "Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。"
 ---
@@ -32,7 +32,7 @@ Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级�
 - [x] [Docker容器](./Docker容器)
 - [x] [Dockerfiles](./Dockerfiles)
 - [x] [Docker更新容器](./Docker更新容器)
-- [x] [Docker更新镜像](./Docker更新容器)
+- [x] [Docker更新镜像](./Docker更新镜像)
 - [ ] [How to access files outside a Docker image]()
 - [ ] [Sharing Docker Images on Docker Hub]()
 - [ ] [Working with Docker Images from the command line]()
