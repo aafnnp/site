@@ -10,7 +10,6 @@
 	"dependencies": {
 		"@mdx-js/loader": "^1.6.22",
 		"@next/mdx": "^10.0.4",
-		"@tailwindcss/postcss7-compat": "^2.0.2",
 		"@zeit/next-sass": "^1.0.1",
 		"autoprefixer": "^9.8.6",
 		"dayjs": "^1.9.7",
