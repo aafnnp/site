@@ -48,7 +48,7 @@ export const GetAllPosts = () => {
 //根据tag导出随机文章
 export const GetRandomPost = tag => {
 	const _posts = posts.filter(item => item.data.tags === tag);
-	return getRandomArrayElements(_posts, 6)
+	return getRandomArrayElements(_posts, _posts.length<6?_posts.length-1:6)
 }
 
 //根据slug导出文章

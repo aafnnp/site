@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { GetPostByTag } from "../../getAllPosts"
-import { Post } from "../../components/Post"
+import List  from "../../components/List"
 
 export default function Tag() {
     const router = useRouter();
@@ -10,7 +10,7 @@ export default function Tag() {
         <>
             {
                 AllPosts.map((item, key) => (
-                    <Post post={item} key={key} />
+                    <List post={item} key={key} />
                 ))
             }
         </>
