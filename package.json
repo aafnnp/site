@@ -39,6 +39,7 @@
 		"useTabs": true
 	},
 	"devDependencies": {
+		"fbjs": "^0.8.17",
 		"gray-matter": "^4.0.2",
 		"postcss-preset-env": "^6.7.0",
 		"react-markdown": "^5.0.3"
