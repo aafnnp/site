@@ -10,9 +10,9 @@
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",
     "@next/mdx": "^10.0.8",
+    "@tailwindcss/postcss7-compat": "^2.0.3",
     "@zeit/next-sass": "^1.0.1",
     "autoprefixer": "^9.8.6",
-    "create-react-class": "^15.7.0",
     "dayjs": "^1.10.4",
     "fs-extra": "^9.1.0",
     "gitalk": "^1.7.2",
@@ -20,30 +20,15 @@
     "highlight.js": "^10.6.0",
     "lodash": "^4.17.21",
     "marked": "^2.0.1",
-    "next": "^10.0.8",
-    "postcss": "^8.2.8",
+    "next": "10.0.10-canary.0",
+    "postcss": "^7.0.35",
     "raw-loader": "^4.0.2",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.0.3"
-  },
-  "prettier": {
-    "arrowParens": "avoid",
-    "bracketSpacing": false,
-    "jsxBracketSameLine": false,
-    "jsxSingleQuote": false,
-    "printWidth": 160,
-    "semi": true,
-    "singleQuote": false,
-    "tabWidth": 4,
-    "trailingComma": "none",
-    "useTabs": true
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
   },
   "devDependencies": {
-    "fbjs": "^3.0.0",
     "gray-matter": "^4.0.2",
-    "postcss-preset-env": "^6.7.0",
-    "react-markdown": "^5.0.3",
-    "webpack": "^4.46.0"
+    "react-markdown": "^5.0.3"
   }
 }
