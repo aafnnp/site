@@ -43,6 +43,7 @@
     "fbjs": "^3.0.0",
     "gray-matter": "^4.0.2",
     "postcss-preset-env": "^6.7.0",
-    "react-markdown": "^5.0.3"
+    "react-markdown": "^5.0.3",
+    "webpack": "^4.46.0"
   }
 }
