@@ -1,47 +1,48 @@
 {
-	"name": "site",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start"
-	},
-	"dependencies": {
-		"@mdx-js/loader": "^1.6.22",
-		"@next/mdx": "^10.0.4",
-		"@zeit/next-sass": "^1.0.1",
-		"autoprefixer": "^9.8.6",
-		"dayjs": "^1.9.7",
-		"fs-extra": "^9.0.1",
-		"gitalk": "^1.7.0",
-		"github-markdown-css": "^4.0.0",
-		"highlight.js": "^10.5.0",
-		"lodash": "^4.17.20",
-		"marked": "^1.2.7",
-		"next": "^10.0.4",
-		"postcss": "^7.0.35",
-		"raw-loader": "^4.0.2",
-		"react": "17.0.1",
-		"react-dom": "17.0.1",
-		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2"
-	},
-	"prettier": {
-		"arrowParens": "avoid",
-		"bracketSpacing": false,
-		"jsxBracketSameLine": false,
-		"jsxSingleQuote": false,
-		"printWidth": 160,
-		"semi": true,
-		"singleQuote": false,
-		"tabWidth": 4,
-		"trailingComma": "none",
-		"useTabs": true
-	},
-	"devDependencies": {
-		"fbjs": "^0.8.17",
-		"gray-matter": "^4.0.2",
-		"postcss-preset-env": "^6.7.0",
-		"react-markdown": "^5.0.3"
-	}
+  "name": "site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^1.6.22",
+    "@next/mdx": "^10.0.8",
+    "@zeit/next-sass": "^1.0.1",
+    "autoprefixer": "^9.8.6",
+    "create-react-class": "^15.7.0",
+    "dayjs": "^1.10.4",
+    "fs-extra": "^9.1.0",
+    "gitalk": "^1.7.2",
+    "github-markdown-css": "^4.0.0",
+    "highlight.js": "^10.6.0",
+    "lodash": "^4.17.21",
+    "marked": "^2.0.1",
+    "next": "^10.0.8",
+    "postcss": "^8.2.8",
+    "raw-loader": "^4.0.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.0.3"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "bracketSpacing": false,
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": false,
+    "printWidth": 160,
+    "semi": true,
+    "singleQuote": false,
+    "tabWidth": 4,
+    "trailingComma": "none",
+    "useTabs": true
+  },
+  "devDependencies": {
+    "fbjs": "^3.0.0",
+    "gray-matter": "^4.0.2",
+    "postcss-preset-env": "^6.7.0",
+    "react-markdown": "^5.0.3"
+  }
 }
