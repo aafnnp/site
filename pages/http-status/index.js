@@ -1,4 +1,4 @@
-const config = require("./config")
+const config = require("../../utils/config")
 
 const HttpStatus = () => {
     return <div>
