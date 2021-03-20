@@ -1,4 +1,5 @@
 module.exports = {
+	target: 'serverless',
 	webpack: (config, { isServer }) => {
 		if (!isServer) {
 			config.node = {
