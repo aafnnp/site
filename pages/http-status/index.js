@@ -1,8 +1,4 @@
-import dynamic from "next/dynamic";
 import config from "./config"
-const Comments = dynamic(() => {
-    return import("../../components/Comments");
-}, { ssr: false })
 
 const HttpStatus = () => {
     return <div>
@@ -29,7 +25,6 @@ const HttpStatus = () => {
                 })
             }
         </div>
-        <Comments data={{ title: "http状态码" }} />
     </div>
 }
 

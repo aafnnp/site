@@ -4,10 +4,6 @@ import dynamic from "next/dynamic";
 import Head from "next/head"
 import RandomPost from "../../components/RandomPost"
 
-const Comments = dynamic(() => {
-    return import("../../components/Comments");
-}, { ssr: false })
-
 const Markdown = dynamic(() => {
     return import("../../components/Markdown");
 }, { ssr: false })
@@ -32,7 +28,6 @@ export default function Post({ post }) {
             <Markdown content={content} tag={tags} />
             <RandomPost data={randomPost} />
         </div>
-        <Comments data={data} />
     </>
 }
 
