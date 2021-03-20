@@ -1,4 +1,4 @@
-export default {
+module.exports= {
     title:["Informational", "Successful", "Redirect", "Client Error", "Server Error"],
     data:[
             [
