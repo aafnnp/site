@@ -8,13 +8,13 @@ export default function Header() {
 			<h1 className="text-center text-4xl mb-4 font-bold font-serif"><Link href="/"><a>Manon.icu</a></Link></h1>
 			<div className="nav-items mb-8 flex justify-center my-8 text-2xl">
 				<Link href="https://twitter.com/ManonIcu">
-					<a className="mr-2 block"><img src="/twitter.svg" className="w-5 h-5" /></a>
+					<a className="mr-2 block"><img src="/twitter.svg" className="w-5 h-5"  alt="twitter"/></a>
 				</Link>
 				<Link href="https://github.com/Manonicu">
-					<a className="mr-2 block"><img src="/github.svg" className="w-5 h-5" /></a>
+					<a className="mr-2 block"><img src="/github.svg" className="w-5 h-5" alt="github"/></a>
 				</Link>
 				<Link href="mailto:gemini0525@foxmail.com">
-					<a className="block"><img src="/gmail.svg" className="w-5 h-5" /></a>
+					<a className="block"><img src="/gmail.svg" className="w-5 h-5" alt="gmail"/></a>
 				</Link>
 			</div>
 			<div className="tags mb-8">

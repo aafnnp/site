@@ -8,24 +8,21 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.22",
-    "@next/mdx": "^10.0.8",
-    "@tailwindcss/postcss7-compat": "^2.0.3",
     "@zeit/next-sass": "^1.0.1",
-    "autoprefixer": "^9.8.6",
+    "autoprefixer": "^10.2.5",
     "dayjs": "^1.10.4",
     "fs-extra": "^9.1.0",
     "gitalk": "^1.7.2",
     "github-markdown-css": "^4.0.0",
     "highlight.js": "^10.6.0",
     "lodash": "^4.17.21",
-    "marked": "^2.0.1",
     "next": "10.0.10-canary.0",
-    "postcss": "^7.0.35",
+    "postcss": "^8.2.8",
     "raw-loader": "^4.0.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
+    "sass": "^1.32.8",
+    "tailwindcss": "^2.0.4"
   },
   "devDependencies": {
     "gray-matter": "^4.0.2",

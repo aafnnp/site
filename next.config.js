@@ -1,6 +1,4 @@
-const withCss = require("@zeit/next-css");
-
-module.exports = withCss({
+module.exports = {
 	webpack: (config, { isServer }) => {
 		if (!isServer) {
 			config.node = {
@@ -13,4 +11,4 @@ module.exports = withCss({
 		});
 		return config;
 	}
-})
+}
