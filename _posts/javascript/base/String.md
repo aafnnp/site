@@ -284,3 +284,15 @@ alert(x.valueOf()); // Displays "Hello world"
 ```
 
 ### 扩展学习
+
+``` javascript
+1 + "5" //"15"
+[1, 3, 5] + 1 //"1,3,51"
+10 + true // 11
+15 + {} // "15[object Object]"
+8 + null // 8
+"queen" + null // "queennull"
+12 + undefined // NaN
+```
+
+[See examples in jsbin](http://jsbin.com/fiwemir/2/edit?js,console)
