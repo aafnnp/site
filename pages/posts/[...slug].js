@@ -16,7 +16,6 @@ export default function Post({post}) {
 	const router = useRouter();
 	const {data, content} = post;
 	const {tags} = data;
-	console.log(data);
 	const randomPost = GetRandomPost(tags);
 	if (!router.isFallback && !post) {
 		return <div>fallback</div>;
@@ -24,14 +23,13 @@ export default function Post({post}) {
 	return (
 		<>
 			<Head>
-				<link rel="preload" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css" as="style" />
-				<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css" />
+				<title>{data.title}</title>
 			</Head>
 			<h2 className="text-3xl mb-8 py-4 font-bold border-b border-dashed">{data.title}</h2>
 			<div className="markdown-body">
 				<Markdown content={content} tag={tags} />
 				<RandomPost data={randomPost} />
-				<Comments data={data} />
+				<Comments />
 			</div>
 		</>
 	);
