@@ -1,44 +1,44 @@
 {
-  "name": "site",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "@zeit/next-sass": "^1.0.1",
-    "autoprefixer": "^10.2.5",
-    "dayjs": "^1.10.4",
-    "fs-extra": "^9.1.0",
-    "gitalk": "^1.7.2",
-    "github-markdown-css": "^4.0.0",
-    "highlight.js": "^10.7.1",
-    "lodash": "^4.17.21",
-    "marked": "^2.0.1",
-    "next": "10.1.2",
-    "postcss": "^8.2.9",
-    "raw-loader": "^4.0.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "sass": "^1.32.8",
-    "tailwindcss": "^2.0.4"
-  },
-  "devDependencies": {
-    "gray-matter": "^4.0.2",
-    "husky": "^4.3.8",
-    "lint-staged": "^10.5.4",
-    "react-markdown": "^5.0.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,vue}": [
-      "eslint --cache --fix"
-    ]
-  }
+	"name": "site",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "eslint --ext .js,.jsx"
+	},
+	"dependencies": {
+		"@zeit/next-sass": "^1.0.1",
+		"autoprefixer": "^10.2.5",
+		"dayjs": "^1.10.4",
+		"fs-extra": "^9.1.0",
+		"gitalk": "^1.7.2",
+		"github-markdown-css": "^4.0.0",
+		"highlight.js": "^10.7.1",
+		"lodash": "^4.17.21",
+		"marked": "^2.0.1",
+		"next": "10.1.2",
+		"postcss": "^8.2.9",
+		"pretty-quick": "^3.1.0",
+		"raw-loader": "^4.0.2",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"sass": "^1.32.8",
+		"tailwindcss": "^2.0.4"
+	},
+	"devDependencies": {
+		"@babel/eslint-parser": "^7.13.14",
+		"@next/eslint-plugin-next": "^10.1.2",
+		"eslint": "^7.23.0",
+		"gray-matter": "^4.0.2",
+		"husky": "^4.3.8",
+		"lint-staged": "^10.5.4",
+		"react-markdown": "^5.0.3"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "pretty-quick --staged && npm run lint"
+		}
+	}
 }
