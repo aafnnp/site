@@ -18,7 +18,7 @@
 .tag {
 	@apply px-3 py-1 text-white rounded shadow-sm;
 }
-.tags .tag{
+.tags .tag {
 	@apply mr-4 mb-4;
 }
 .tag.js {
