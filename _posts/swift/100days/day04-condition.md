@@ -2,7 +2,7 @@
 date: "2021-04-05"
 title: "条件判断"
 tags: swift
-description: Swift 有三种循环：for、while、repeat
+description: Swift 有三种条件判断：if else、switch、ternary `三元运算`
 ---
 
 Swift 有三种条件判断：
