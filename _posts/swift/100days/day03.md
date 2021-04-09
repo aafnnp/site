@@ -1,8 +1,8 @@
 ---
-date: "2021-04-05"
-title: "条件判断"
+date: "2021-04-04"
+title: "操作符、条件判断"
 tags: swift
-description: Swift 有三种条件判断：if else、switch、ternary `三元运算`
+description: 取得成功的秘诀就是开始
 ---
 
 Swift 有三种条件判断：

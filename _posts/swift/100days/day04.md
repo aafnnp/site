@@ -1,8 +1,8 @@
 ---
-date: "2021-04-06"
+date: "2021-04-05"
 title: "循环"
 tags: swift
-description: Swift 有三种循环：for、while、repeat
+description: 取得成功的秘诀就是开始
 ---
 
 Swift 有三种循环：

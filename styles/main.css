@@ -52,3 +52,7 @@
 	background-color: var(--docker);
 }
 /*.content article */
+
+nav {
+	left: calc(-50vw + 50%);
+}
