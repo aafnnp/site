@@ -1,7 +1,7 @@
-import Link from "next/link";
-import Head from "next/head";
+import Link from 'next/link';
+import Head from 'next/head';
 
-export default function Layout({children, pageTitle, description}) {
+export default function Layout({ children, pageTitle, description }) {
 	return (
 		<>
 			<Head>
@@ -15,7 +15,7 @@ export default function Layout({children, pageTitle, description}) {
 				<header className="header flex justify-between items-center text-base">
 					<Link href="/">
 						<a className="flex items-center text-lg font-bold">
-							<img src="/terminal.svg" className="mr-2 w-5 h-5" />
+							<img src="/terminal.svg" alt="logo" className="mr-2 w-5 h-5" />
 							Manon.Icu
 						</a>
 					</Link>
