@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Head from "next/head";
-import "../styles/header.module.css";
 
 export default function Layout({children, pageTitle, description}) {
 	return (
