@@ -30,6 +30,7 @@
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.13.14",
 		"@next/eslint-plugin-next": "^10.1.2",
+		"@umijs/fabric": "^2.5.7",
 		"eslint": "^7.23.0",
 		"gray-matter": "^4.0.2",
 		"husky": "^4.3.8",
