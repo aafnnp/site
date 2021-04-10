@@ -2,7 +2,7 @@
 date: "2021-04-02"
 title: "变量、基本数据类型、字符串插值"
 tags: swift
-description: 取得成功的秘诀就是开始
+description: swift 提供的数据类型包括：整形 Int、浮点数 Double 和 Float、布尔类型 Bool 以及字符串类型 String、Optional、Array、Dictionary、Struct、Class 等。
 ---
 
 ## 变量
@@ -41,29 +41,78 @@ var name = "manon"
 print("\(name)") //manon
 ```
 
-<!-- ## 基本数据类型
+标准 Swift 字符串使用双引号，但不能包含换行符，如果您想要多行字符串，使用三个双引号开始和结束，如下所示：
 
-swift 提供的数据类型包括：整形 Int、浮点数 Double 和 Float、布尔类型 Bool 以及字符串类型 String、Optional、Array、Dictionary、Struct、Class 等。
+```swift
+var str1 = """
+This goes
+over multiple
+lines
+"""
+print(str1) // "This goes\nover multiple\nlines"
+```
 
+如果不希望显示`\`，应该如下写：
 
-## 常量声明
+```swift
+var str2 = """
+This goes \
+over multiple \
+lines
+"""
+print(str2) //"This goes nover multiple nlines"
+```
+
+## 浮点和布尔值
+
+Swift 中的另外两种基本数据类型是双精度和布尔值。
+
+```swift
+var pi = 3.141
+var awesome = true
+```
+
+## 字符串插值
+
+> 将变量放置在字符串中
+
+```swift
+var score = 85
+var str = "Your score was \(score)"
+
+var results = "The test results are here: \(str)"
+```
+
+## 常量
 
 > 常量一旦赋值，不能再次赋值，否则会报错。
 
 ```swift
+//声明
 let _const = <initial value>
 let _const:Float = 3.1415926
+
+// 命名
+和变量命名相同
+// 输出
+和变量命名相同
 ```
 
-## 常量命名
+## 类型声明
 
-和变量命名相同
+在创建变量或常量的时候可以声明数据类型，如果没有，swift 将推导其数据类型，如下：
 
-## 常量输出
+```swift
+let str = "Hello, playground" //swift推导str为String
 
-和变量命名相同
+// 主动声明类型
+let album: String = "Reputation"
+let year: Int = 1989
+let height: Double = 1.78
+let taylorRocks: Bool = true
+```
 
-
+## 扩展
 
 字符串是一系列字符的集合，比如`hello world`，它的数据类型为 String
 
@@ -108,4 +157,4 @@ if str1==str2{
 -   count `计算字符串的长度`
 -   utf8、utf16 `遍历String的utf8属性访问utf8、utf16编码`
 -   unicodeScalars `遍历String的unicodeScalars属性访问Unicode标量编码`
--   +、+=、==、<、！= `字符串操作符` -->
+-   +、+=、==、<、！= `字符串操作符`
