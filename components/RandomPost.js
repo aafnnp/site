@@ -3,7 +3,7 @@ import Link from "next/link";
 const RandomPost = ({data}) => {
 	return (
 		<>
-			<h4>更多文章</h4>
+			<h2 className="font-medium text-xl mt-8">更多文章</h2>
 			<ul className="related-post">
 				{data.map((item, key) => {
 					return (

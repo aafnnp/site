@@ -15,6 +15,7 @@ const Markdown = dynamic(
 export default function Post({post}) {
 	const router = useRouter();
 	const {data, content} = post;
+	console.log("🚀 ~ file: [...slug].js ~ line 18 ~ Post ~ data", data);
 	const {tags} = data;
 	const randomPost = GetRandomPost(tags);
 	if (!router.isFallback && !post) {
@@ -25,8 +26,14 @@ export default function Post({post}) {
 			<Head>
 				<title>{data.title}</title>
 			</Head>
-			<h2 className="text-3xl mb-8 py-4 font-bold border-b border-dashed">{data.title}</h2>
-			<div className="markdown-body">
+			<h1 className="font-bold text-2xl pb-2">{data.title}</h1>
+			<div className="post-info text-sm">
+				<div className="flex items-center">
+					<img src="/github.svg" className="rounded-full w-5 h-5 mr-2" />
+					<span className="mr-2">Manon.icu</span>/ {data.date}({data.fromNow})
+				</div>
+			</div>
+			<div className="markdown-body text-sm">
 				<Markdown content={content} tag={tags} />
 				<RandomPost data={randomPost} />
 				<Comments />

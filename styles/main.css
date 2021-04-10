@@ -1,58 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root {
-	--js: rgb(91, 94, 166);
-	--linux: rgb(188, 112, 164);
-	--css: rgb(206, 49, 117);
-	--vue: rgb(14, 101, 201);
-	--go: rgb(26, 199, 230);
-	--server: rgb(221, 65, 50);
-	--translate: rgb(191, 214, 65);
-	--swift: rgb(228, 65, 24);
-	--docker: rgb(9, 52, 168);
-}
-.tags {
-	@apply flex flex-wrap;
-}
-.tag {
-	@apply px-3 py-1 text-white rounded shadow-sm;
-}
-.tags .tag {
-	@apply mr-4 mb-4;
-}
-.tag.js {
-	background-color: var(--js);
-}
-.tag.linux,
-.tag.Linux {
-	background-color: var(--linux);
-}
-.tag.css {
-	background-color: var(--css);
-}
-.tag.vue {
-	background-color: var(--vue);
-}
-.tag.go,
-.tag.Go {
-	background-color: var(--go);
-}
-.tag.server,
-.tag.Server {
-	background-color: var(--server);
-}
-.tag.translate {
-	background-color: var(--translate);
-}
-.tag.swift {
-	background-color: var(--swift);
-}
-.tag.docker {
-	background-color: var(--docker);
-}
-/*.content article */
 
-nav {
-	left: calc(-50vw + 50%);
+body {
+	@apply font-sans leading-normal text-base;
+	scoll-behavior: smooth;
+	text-rendering: optimizeSpeed;
+}
+
+.main {
+	@apply p-3;
+}
+
+.header {
+	@apply py-3 mx-auto;
+	width: 42rem;
+}
+
+.content {
+	width: 42rem;
+}
+
+.content li span {
+	display: inline-block;
+	width: 160px;
+	padding-right: 10px;
+	text-align: right;
+	font-size: inherit;
+	color: rgba(91, 91, 91, 1);
+}
+
+.content li a {
+	@apply text-blue-600;
+	padding: 10px 15px;
+	transition: background-color 150ms ease-in 0s;
+}
+
+.content li a:hover {
+	background: rgb(238, 238, 238);
+}
+
+.post-info {
+	color: #4f4f4f;
 }

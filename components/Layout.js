@@ -1,36 +1,36 @@
 import Link from "next/link";
 import Head from "next/head";
-import {tags} from "../getAllPosts";
+import "../styles/header.module.css";
 
 export default function Layout({children, pageTitle, description}) {
 	return (
-		<html lang="zh">
+		<>
 			<Head>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta charSet="utf-8" />
 				<meta name="Description" content={description} />
 				<title>{pageTitle}</title>
 			</Head>
-			<main className="container mx-auto px-4 flex flex-col">
-				<header className="py-6 text-4xl text-center">
-					<h1>Manon.icu</h1>
+
+			<main className="p-3">
+				<header className="header flex justify-between items-center text-base">
+					<Link href="/">
+						<a className="flex items-center text-lg font-bold">
+							<img src="/terminal.svg" className="mr-2 w-5 h-5" />
+							Manon.Icu
+						</a>
+					</Link>
+					<nav className="text-xs">
+						<Link href="https://github.com/Manonicu/site">
+							<a className="py-2 px-3">Source</a>
+						</Link>
+						<Link href="https://github.com/Manonicu">
+							<a className="py-2 px-3 bg-black text-white">Follow Me</a>
+						</Link>
+					</nav>
 				</header>
-				<nav className="relative w-screen border-b">
-					<ul className="container mx-auto px-4 flex py-2">
-						{tags.map((item, key) => {
-							const NAME = `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
-							return (
-								<li>
-									<Link href={`/tag/${item}`} key={key}>
-										<a className="p-2 text-blue-400">{NAME}</a>
-									</Link>
-								</li>
-							);
-						})}
-					</ul>
-				</nav>
-				<div className="content">{children}</div>
+				<div className="content py-5 mx-auto">{children}</div>
 			</main>
-		</html>
+		</>
 	);
 }
