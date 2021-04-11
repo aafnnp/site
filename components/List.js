@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const List = ({ post }) => {
 	const {
@@ -12,9 +13,9 @@ const List = ({ post }) => {
 			<Link href={`/posts${link}`}>
 				<a className="mr-2">{title}</a>
 			</Link>
-			<img
+			<Image
 				alt={tags}
-				src={`/${tags}.svg`}
+				src={`/${tags}.png`}
 				width="16"
 				height="16"
 				className={`tag inline-block ${tags}`}
