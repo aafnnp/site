@@ -16,7 +16,7 @@
 
 body {
 	@apply font-sans leading-normal text-base;
-	scoll-behavior: smooth;
+	scroll-behavior: smooth;
 	text-rendering: optimizeSpeed;
 }
 
@@ -31,25 +31,24 @@ body {
 
 .content {
 	width: 42rem;
-}
-
-.content li span {
-	display: inline-block;
-	width: 160px;
-	padding-right: 10px;
-	color: rgba(91, 91, 91, 1);
-	font-size: inherit;
-	text-align: right;
-}
-
-.content li a {
-	@apply text-blue-600;
-	padding: 10px 15px;
-	transition: background-color 150ms ease-in 0s;
-}
-
-.content li a:hover {
-	background: rgb(238, 238, 238);
+	li {
+		a {
+			@apply text-blue-600;
+			padding: 10px 15px;
+			transition: background-color 150ms ease-in 0s;
+			&:hover {
+				background: rgb(238, 238, 238);
+			}
+		}
+		span {
+			display: inline-block;
+			width: 160px;
+			padding-right: 10px;
+			color: rgba(91, 91, 91, 1);
+			font-size: inherit;
+			text-align: right;
+		}
+	}
 }
 
 .post-info {
