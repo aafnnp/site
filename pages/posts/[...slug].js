@@ -34,8 +34,14 @@ export default function Post({ post }) {
 			<h1 className="font-bold text-2xl pb-2">{data.title}</h1>
 			<div className="post-info text-sm">
 				<div className="flex items-center">
-					<img src="/github.svg" alt="manonicu" className="rounded-full w-5 h-5 mr-2" />
-					<span className="mr-2">Manon.icu</span>/ {data.date}({data.fromNow})
+					<img
+						src="/github.svg"
+						alt="manonicu"
+						width="18"
+						height="18"
+						className="rounded-full mr-2"
+					/>
+					<span className="mr-2">Manon.icu</span>/ {data.date}（{data.fromNow}）
 				</div>
 			</div>
 			<div className="markdown-body text-sm">

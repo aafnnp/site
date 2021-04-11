@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* :root {
+	--js: rgb(91, 94, 166);
+	--linux: rgb(188, 112, 164);
+	--css: rgb(206, 49, 117);
+	--vue: rgb(14, 101, 201);
+	--go: rgb(26, 199, 230);
+	--server: rgb(221, 65, 50);
+	--translate: rgb(191, 214, 65);
+	--swift: rgb(228, 65, 24);
+	--docker: rgb(9, 52, 168);
+} */
+
 body {
 	@apply font-sans leading-normal text-base;
 	scoll-behavior: smooth;
@@ -25,9 +37,9 @@ body {
 	display: inline-block;
 	width: 160px;
 	padding-right: 10px;
-	text-align: right;
-	font-size: inherit;
 	color: rgba(91, 91, 91, 1);
+	font-size: inherit;
+	text-align: right;
 }
 
 .content li a {
