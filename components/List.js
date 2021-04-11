@@ -1,24 +1,21 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 const List = ({ post }) => {
 	const {
 		link,
 		data: { date, title, tags },
 	} = post;
-	console.log('🚀 ~ file: List.js ~ line 8 ~ List ~ tags', tags);
+
 	return (
 		<li className="py-3 px-4">
 			<span>{date}</span>
 			<Link href={`/posts${link}`}>
 				<a className="mr-2">{title}</a>
 			</Link>
-			<Image
+			<img
 				alt={tags}
-				src={`/${tags}.png`}
-				width="16"
-				height="16"
-				className={`tag inline-block ${tags}`}
+				src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${tags}.png`}
+				className={`tag inline-block w-4 h-4 ${tags}`}
 			/>
 		</li>
 	);
