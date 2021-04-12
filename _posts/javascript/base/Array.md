@@ -1,8 +1,9 @@
 ---
-date: "2018-05-15"
-title: "Array"
-tags: js
+date: '2018-05-15'
+title: 'Array'
+tags: javascript
 ---
+
 ## 属性
 
 1. Array.length - 静态属性，值为 1
@@ -67,16 +68,16 @@ tags: js
 
 1. 循环
 
-``` javascript
+```javascript
 function push(fromArray, toArray) {
-     for(let i = 0, len = fromArray.length; i < len; i++) {
-            toArray.push(fromArray[i]);
-     }
-      return toArray;
+	for (let i = 0, len = fromArray.length; i < len; i++) {
+		toArray.push(fromArray[i]);
+	}
+	return toArray;
 }
 
-var array1 = [1,2,3,4,5];
-var array2= [6,7,8,9,10];
+var array1 = [1, 2, 3, 4, 5];
+var array2 = [6, 7, 8, 9, 10];
 var array3 = [];
 push(array1, array3);
 push(array2, array3);
@@ -84,9 +85,9 @@ push(array2, array3);
 
 2. 解构
 
-``` javascript
-var array1 = [1,2,3,4,5];
-var array2 = [6,7,8,9,10];
+```javascript
+var array1 = [1, 2, 3, 4, 5];
+var array2 = [6, 7, 8, 9, 10];
 var array3 = [...array1, ...array2];
 var array3 = Array.of(...array2, ...array1);
 array3; // [1,2,3,4,5,6,7,8,9,10];
@@ -94,9 +95,9 @@ array3; // [1,2,3,4,5,6,7,8,9,10];
 
 3. concat
 
-``` javascript
-var array1 = [1,2,3,4,5]
-var array2 = [6,7,8,9,10];
+```javascript
+var array1 = [1, 2, 3, 4, 5];
+var array2 = [6, 7, 8, 9, 10];
 
 var array3 = array1.concat(array2);
 // or
@@ -105,7 +106,7 @@ var array3 = [].concat(array1, array2);
 
 4. reduce
 
-``` javascript
+```javascript
 var array1 = [1,2,3,4,5];
 var array2 = [6,7,8,9,10];
 var array3 = array2.reduce((newArray, item) => {

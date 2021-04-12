@@ -1,5 +1,5 @@
 ---
-date: "2018-05-08"
-title: "Symbol"
-tags: js
+date: '2018-05-08'
+title: 'Symbol'
+tags: javascript
 ---

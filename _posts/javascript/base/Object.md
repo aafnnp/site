@@ -1,8 +1,9 @@
 ---
-date: "2018-05-12"
-title: "Object"
-tags: js
+date: '2018-05-12'
+title: 'Object'
+tags: javascript
 ---
+
 ## Object
 
 > 任何非原始类型的值（字符串，数字，布尔值，符号，null 或未定义）都是对象，数组和函数也不例外。
@@ -80,27 +81,27 @@ const car = Object.create();
 
 ```javascript
 const person = {
-  age: 36,
-  name: "funny",
-  speak: () => {
-    //speak
-  }
+	age: 36,
+	name: 'funny',
+	speak: () => {
+		//speak
+	},
 };
 
 const person = Object({
-  age: 36,
-  name: "funny",
-  speak: () => {
-    //speak
-  }
+	age: 36,
+	name: 'funny',
+	speak: () => {
+		//speak
+	},
 });
 
 const person = new Object({
-  age: 36,
-  name: "funny",
-  speak: () => {
-    //speak
-  }
+	age: 36,
+	name: 'funny',
+	speak: () => {
+		//speak
+	},
 });
 ```
 
@@ -114,15 +115,15 @@ const copied = Object.assign({}, target1, target2, ...target);
 
 ```javascript
 const original = {
-  name: "Fiesta",
-  car: {
-    color: "blue"
-  }
+	name: 'Fiesta',
+	car: {
+		color: 'blue',
+	},
 };
 const copied = Object.assign({}, original);
 
-original.name = "Focus";
-original.car.color = "yellow";
+original.name = 'Focus';
+original.car.color = 'yellow';
 
 copied.name; //Fiesta
 copied.car.color; //yellow
@@ -144,9 +145,9 @@ const dog = Object.create(animal);
 
 const animal = {};
 const dog = Object.create(animal, {
-  breed: {
-    value: "Siberian Husky"
-  }
+	breed: {
+		value: 'Siberian Husky',
+	},
 });
 console.log(dog.breed); //'Siberian Husky'
 ```
@@ -157,8 +158,8 @@ console.log(dog.breed); //'Siberian Husky'
 
 ```javascript
 const dog = {};
-Object.defineProperty(dog, "breed", {
-  value: "Siberian Husky"
+Object.defineProperty(dog, 'breed', {
+	value: 'Siberian Husky',
 });
 console.log(dog.breed); //'Siberian Husky'
 ```
@@ -172,9 +173,9 @@ console.log(dog.breed); //'Siberian Husky'
 ```javascript
 const dog = {};
 Object.defineProperties(dog, {
-  breed: {
-    value: "Siberian Husky"
-  }
+	breed: {
+		value: 'Siberian Husky',
+	},
 });
 console.log(dog.breed); //'Siberian Husky'
 ```
@@ -184,10 +185,10 @@ console.log(dog.breed); //'Siberian Husky'
 > ES2017,返回自身可枚举属性的键值对数组
 
 ```javascript
-const person = { name: "Fred", age: 87 };
+const person = { name: 'Fred', age: 87 };
 Object.entries(person); // [['name', 'Fred'], ['age', 87]]
 
-const people = ["Fred", "Tony"];
+const people = ['Fred', 'Tony'];
 Object.entries(people); // [['0', 'Fred'], ['1', 'Tony']]
 ```
 
@@ -197,14 +198,14 @@ Object.entries(people); // [['0', 'Fred'], ['1', 'Tony']]
 
 ```javascript
 const dog = {};
-dog.breed = "Siberian Husky";
+dog.breed = 'Siberian Husky';
 const myDog = Object.freeze(dog);
 
 Object.isFrozen(dog); //true
 Object.isFrozen(myDog); //true
 dog === myDog; //true
 
-dog.name = "Roger"; //TypeError: 无法添加name属性，dog是不可扩展的
+dog.name = 'Roger'; //TypeError: 无法添加name属性，dog是不可扩展的
 ```
 
 ### Object.getOwnPropertyDescriptor()
@@ -214,11 +215,11 @@ dog.name = "Roger"; //TypeError: 无法添加name属性，dog是不可扩展的
 ```javascript
 const dog = {};
 Object.defineProperties(dog, {
-  breed: {
-    value: "Siberian Husky"
-  }
+	breed: {
+		value: 'Siberian Husky',
+	},
 });
-Object.getOwnPropertyDescriptor(dog, "breed");
+Object.getOwnPropertyDescriptor(dog, 'breed');
 /*
 {
   value: 'Siberian Husky',
@@ -235,8 +236,8 @@ Object.getOwnPropertyDescriptor(dog, "breed");
 
 ```javascript
 const dog = {};
-dog.breed = "Siberian Husky";
-dog.name = "Roger";
+dog.breed = 'Siberian Husky';
+dog.name = 'Roger';
 
 Object.getOwnPropertyNames(dog); //[ 'breed', 'name' ]
 ```
@@ -247,15 +248,15 @@ Object.getOwnPropertyNames(dog); //[ 'breed', 'name' ]
 
 ```javascript
 const dog = {};
-const r = Symbol("Roger");
-const s = Symbol("Syd");
+const r = Symbol('Roger');
+const s = Symbol('Syd');
 dog[r] = {
-  name: "Roger",
-  age: 6
+	name: 'Roger',
+	age: 6,
 };
 dog[s] = {
-  name: "Syd",
-  age: 5
+	name: 'Syd',
+	age: 5,
 };
 
 Object.getOwnPropertySymbols(dog); //[ Symbol(Roger), Symbol(Syd) ]
@@ -281,16 +282,16 @@ Object.getPrototypeOf(Object.prototype); //null
 
 > 判断两个值是否相等
 
-- 两个值都是 undefined
-- 两个值都是 null
-- 两个值都是 true 或者都是 false
-- 两个值是由相同个数的字符按照相同的顺序组成的字符串
-- 两个值指向同一个对象
-- 两个值都是数字并且
-  - 都是正零 +0
-  - 都是负零 -0
-  - 都是 NaN
-  - 都是除零和 NaN 外的其它同一个数字
+-   两个值都是 undefined
+-   两个值都是 null
+-   两个值都是 true 或者都是 false
+-   两个值是由相同个数的字符按照相同的顺序组成的字符串
+-   两个值指向同一个对象
+-   两个值都是数字并且
+    -   都是正零 +0
+    -   都是负零 -0
+    -   都是 NaN
+    -   都是除零和 NaN 外的其它同一个数字
 
 ```javascript
 Object.is(a, b);
@@ -298,8 +299,7 @@ Object.is(a, b);
 
 ### Object.isExtensible()
 
-> 判断一个对象是否是可扩展的，返回布尔值。
-> 任何对象都是可扩展，除非使用了 Object.freeze()、Object.seal()、Object.preventExtensions()
+> 判断一个对象是否是可扩展的，返回布尔值。任何对象都是可扩展，除非使用了 Object.freeze()、Object.seal()、Object.preventExtensions()
 
 ### Object.isFrozen()
 
@@ -307,7 +307,7 @@ Object.is(a, b);
 
 ```javascript
 const dog = {};
-dog.breed = "Siberian Husky";
+dog.breed = 'Siberian Husky';
 const myDog = Object.freeze(dog);
 Object.isFrozen(dog); //true
 Object.isFrozen(myDog); //true
@@ -320,7 +320,7 @@ dog === myDog; //true
 
 ```javascript
 const dog = {};
-dog.breed = "Siberian Husky";
+dog.breed = 'Siberian Husky';
 const myDog = Object.seal(dog);
 Object.isSealed(dog); //true
 Object.isSealed(myDog); //true
@@ -333,9 +333,9 @@ dog === myDog; //true
 
 ```javascript
 const car = {
-  color: "Blue",
-  brand: "Ford",
-  model: "Fiesta"
+	color: 'Blue',
+	brand: 'Ford',
+	model: 'Fiesta',
 };
 
 Object.keys(car); //[ 'color', 'brand', 'model' ]
@@ -347,10 +347,10 @@ Object.keys(car); //[ 'color', 'brand', 'model' ]
 
 ```javascript
 const dog = {};
-dog.breed = "Siberian Husky";
+dog.breed = 'Siberian Husky';
 Object.preventExtensions(dog);
 
-dog.name = "Roger"; //TypeError: Cannot add property name, object is not extensible
+dog.name = 'Roger'; //TypeError: Cannot add property name, object is not extensible
 
 delete dog.name;
 dog; //{ breed: 'Siberian Husky' }
@@ -362,10 +362,10 @@ dog; //{ breed: 'Siberian Husky' }
 
 ```javascript
 const dog = {};
-dog.breed = "Siberian Husky";
+dog.breed = 'Siberian Husky';
 Object.seal(dog);
-dog.breed = "Pug";
-dog.name = "Roger"; //TypeError: Cannot add property name, object is not extensible
+dog.breed = 'Pug';
+dog.name = 'Roger'; //TypeError: Cannot add property name, object is not extensible
 ```
 
 ### Object.values()
@@ -373,10 +373,10 @@ dog.name = "Roger"; //TypeError: Cannot add property name, object is not extensi
 > 对象自身的所有可枚举属性值的数组
 
 ```javascript
-const person = { name: "Fred", age: 87 };
+const person = { name: 'Fred', age: 87 };
 Object.values(person); // ['Fred', 87]
 
-const people = ["Fred", "Tony"];
+const people = ['Fred', 'Tony'];
 Object.values(people); // ['Fred', 'Tony']
 ```
 
@@ -385,9 +385,9 @@ Object.values(people); // ['Fred', 'Tony']
 > 判断对象自身是否有某个值，返回布尔值
 
 ```javascript
-const person = { name: "Fred", age: 87 };
-person.hasOwnProperty("name"); //true
-person.hasOwnProperty("job"); //false
+const person = { name: 'Fred', age: 87 };
+person.hasOwnProperty('name'); //true
+person.hasOwnProperty('job'); //false
 ```
 
 ### Object.isPrototypeOf()
@@ -396,7 +396,7 @@ person.hasOwnProperty("job"); //false
 
 ```javascript
 const Animal = {
-  isAnimal: true
+	isAnimal: true,
 };
 
 const Mammal = Object.create(Animal);
@@ -416,28 +416,28 @@ Mammal.isPrototypeOf(dog); //true
 > 判断对象的属性是否可枚举，返回布尔值
 
 ```javascript
-const person = { name: "Fred" };
+const person = { name: 'Fred' };
 
-Object.defineProperty(person, "age", {
-  value: 87,
-  enumerable: false
+Object.defineProperty(person, 'age', {
+	value: 87,
+	enumerable: false,
 });
 
-person.propertyIsEnumerable("name"); //true
-person.propertyIsEnumerable("age"); //false
+person.propertyIsEnumerable('name'); //true
+person.propertyIsEnumerable('age'); //false
 ```
 
 ### Object.toLocaleString()
 
 ```javascript
-const person = { name: "Fred" };
+const person = { name: 'Fred' };
 person.toLocaleString(); //[object Object]
 ```
 
 ### Object.toString()
 
 ```javascript
-const person = { name: "Fred" };
+const person = { name: 'Fred' };
 person.toString(); //[object Object]
 ```
 
@@ -446,6 +446,6 @@ person.toString(); //[object Object]
 > 返回指定对象的原始值
 
 ```javascript
-const person = { name: "Fred" };
+const person = { name: 'Fred' };
 person.valueOf(); //{ name: 'Fred' }
 ```

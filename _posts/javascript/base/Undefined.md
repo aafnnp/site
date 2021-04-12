@@ -1,10 +1,10 @@
 ---
-date: "2018-05-07"
-title: "Undefined"
-tags: js
+date: '2018-05-07'
+title: 'Undefined'
+tags: javascript
 ---
-Undefined 类型只有一个值-undefined，即声明变量但未赋值
-，这个变量的值就是 undefined。
+
+Undefined 类型只有一个值-undefined，即声明变量但未赋值，这个变量的值就是 undefined。
 
 ```javascript
 var a;

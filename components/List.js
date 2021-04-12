@@ -14,9 +14,10 @@ const List = ({ post }) => {
 			</Link>
 			<img
 				alt={tags}
-				src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${tags}.png`}
+				src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tags}.svg`}
 				className={`tag inline-block w-4 h-4 ${tags}`}
 			/>
+			{/*https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/*/}
 		</li>
 	);
 };

@@ -1,8 +1,9 @@
 ---
-date: "2018-05-11"
-title: "Null"
-tags: js
+date: '2018-05-11'
+title: 'Null'
+tags: javascript
 ---
+
 Null 和 Undefined 一样，只有一个值，就是 null
 
 null 表示空对象指针，使用 typeof null 会返回 object

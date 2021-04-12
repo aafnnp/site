@@ -1,8 +1,9 @@
 ---
-date: "2019-03-11"
-title: "Promise"
-tags: js
+date: '2019-03-11'
+title: 'Promise'
+tags: javascript
 ---
+
 ## Promise
 
 > 用于一个异步操作的最终完成或失败及其结果

@@ -1,7 +1,7 @@
 ---
 date: "2020-01-19"
 title: "使用js获取位置"
-tags: translate
+tags: i18n
 ---
 
 ![quick-tip-detecting-your-location-with-javascript](https://cdn.jsdelivr.net/gh/funnypan/pics@master/images/20190121163457.png)
@@ -25,7 +25,7 @@ IP-仅限于区域，备选方案
 ``` javascript
 if (navigator.geolocation) {
   // 支持geolocation
-} 
+}
 else {
   // 不支持geolocation
 }
@@ -48,11 +48,11 @@ navigator.geolocation.getCurrentPosition(
         position = {
             coords: {
                 latitude - //纬度.
-                longitude - //经度. 
+                longitude - //经度.
                 altitude - //高度.
-                accuracy - //精确度. 
-                altitudeAccuracy - //高度的准确性. 
-                heading - //. 
+                accuracy - //精确度.
+                altitudeAccuracy - //高度的准确性.
+                heading - //.
                 speed - //.
             }
             timestamp - //时间戳.

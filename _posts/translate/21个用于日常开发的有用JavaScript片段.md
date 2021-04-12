@@ -1,7 +1,7 @@
 ---
 date: "2021-01-14"
 title: "21个用于日常开发的有用JavaScript片段"
-tags: translate
+tags: i18n
 ---
 
 1. 输入值数字化
@@ -59,7 +59,7 @@ addDaysToDate('2021-0-10', -10); // '2020-12-31'
 8. 获取时分秒
 ``` javascript
 const timeFromDate = date => date.toTimeString().slice(0, 8);
-console.log(timeFromDate(new Date(2021, 0, 10, 17, 30, 0))); 
+console.log(timeFromDate(new Date(2021, 0, 10, 17, 30, 0)));
 // "17:30:00"
 console.log(timeFromDate(new Date(2021, 0, 10, 5, 56, 44)));
 // "05:56:44"
@@ -141,10 +141,10 @@ elementIsInFocus(anyElement)// returns true if in focus, false if not in focus
 ```
 17. 查找数组间不同元素
 ``` javascript
-const differenceInArrays = (array1, array2) =>  {  
-    const set = new Set(array2);  
+const differenceInArrays = (array1, array2) =>  {
+    const set = new Set(array2);
     return array1.filter(x => !set.has(x));
-}; 
+};
 differenceInArrays(["apple", "orange", "banana"], ["apple", "orange", "mango"]); // ["banana"]
 differenceInArrays([10, 12, 5], [66, 10, 6]); // [12, 5]
 ```
@@ -154,7 +154,7 @@ const removeEventOffElement = (el, evt, fn, opts = false) => el.removeEventListe
 const testFunction = () => console.log('My function has been called');
 document.body.addEventListener('click', testFunction);
 // Call remove method
-removeEventOffElement(document.body, 'click', fn); 
+removeEventOffElement(document.body, 'click', fn);
 ```
 19. 随机生成HEX值
 ``` javascript
@@ -176,7 +176,7 @@ const onClickOutsideElement = (element, callback) => {
 };
 onClickOutside('#some-element', () => console.log('Hey you missed'));
 // Will log "Hey you missed" everytime a click that was not "some-element" was clicked
-``` 
+```
 
 ## 总结
 有时开发人员会发现自己在一次又一次地创建相同的东西，希望上面的一些代码片段可以在在开发中重用。

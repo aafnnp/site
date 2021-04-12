@@ -1,8 +1,9 @@
 ---
-date: "2018-05-09"
-title: "String"
-tags: js
+date: '2018-05-09'
+title: 'String'
+tags: javascript
 ---
+
 ## String
 
 ### 方法
@@ -50,9 +51,9 @@ tags: js
 ```javascript
 string.charAt(index);
 
-"porhub".charAt(0); //'p'
-"porhub".charAt(1); //'o'
-"porhub".charAt(2); //'r'
+'porhub'.charAt(0); //'p'
+'porhub'.charAt(1); //'o'
+'porhub'.charAt(2); //'r'
 ```
 
 ### charCodeAt
@@ -64,9 +65,9 @@ string.charAt(index);
 ```javascript
 string.charCodeAt(index);
 
-"porhub".charCodeAt(0); //112
-"porhub".charCodeAt(1); //111
-"porhub".charCodeAt(2); //114
+'porhub'.charCodeAt(0); //112
+'porhub'.charCodeAt(1); //111
+'porhub'.charCodeAt(2); //114
 ```
 
 ### codePointAt
@@ -77,13 +78,13 @@ string.charCodeAt(index);
 string.codePointAt(index);
 
 //ES2015之前
-"𠮷".charCodeAt(0).toString(16); //d842
-"𠮷".charCodeAt(1).toString(16); //dfb7
-("\ud842\udfb7"); //𠮷
+'𠮷'.charCodeAt(0).toString(16); //d842
+'𠮷'.charCodeAt(1).toString(16); //dfb7
+('\ud842\udfb7'); //𠮷
 
 //ES2015
-"𠮷".codePointAt(0); //20bb7
-("\u{20bb7}"); //𠮷
+'𠮷'.codePointAt(0); //20bb7
+('\u{20bb7}'); //𠮷
 ```
 
 ### concat
@@ -105,10 +106,10 @@ stringObject.concat(stringX,stringX,...,stringX)
 ```javascript
 str.endsWith(searchString, position);
 
-"JavaScript".endsWith("Script"); //true
-"JavaScript".endsWith("script"); //false
-"JavaScript".endsWith("Script", 5); //false
-"JavaScript".endsWith("as", 5); //true
+'JavaScript'.endsWith('Script'); //true
+'JavaScript'.endsWith('script'); //false
+'JavaScript'.endsWith('Script', 5); //false
+'JavaScript'.endsWith('as', 5); //true
 ```
 
 ### includes
@@ -118,10 +119,10 @@ str.endsWith(searchString, position);
 ```javascript
 str.includes(searchString, position);
 
-"JavaScript".includes("Script"); //true
-"JavaScript".includes("script"); //false
-"JavaScript".includes("nice"); //true
-"JavaScript".includes("nice", 3); //false
+'JavaScript'.includes('Script'); //true
+'JavaScript'.includes('script'); //false
+'JavaScript'.includes('nice'); //true
+'JavaScript'.includes('nice', 3); //false
 ```
 
 ### indexOf
@@ -131,8 +132,8 @@ str.includes(searchString, position);
 ```javascript
 str.indexOf(searchString, startPosition);
 
-"JavaScript".indexOf("a"); //1
-"JavaScript".indexOf("a", 2); //3
+'JavaScript'.indexOf('a'); //1
+'JavaScript'.indexOf('a', 2); //3
 ```
 
 ### lastIndexOf
@@ -142,8 +143,8 @@ str.indexOf(searchString, startPosition);
 ```javascript
 str.lastIndexOf(searchString, startPosition);
 
-"JavaScript".lastIndexOf("a"); //3
-"JavaScript".lastIndexOf("a", 1); //1
+'JavaScript'.lastIndexOf('a'); //3
+'JavaScript'.lastIndexOf('a', 1); //1
 ```
 
 ### padEnd
@@ -153,10 +154,10 @@ str.lastIndexOf(searchString, startPosition);
 ```javascript
 str.padEnd(targetLength, string);
 
-"abc".padEnd(10); // "abc       "
-"abc".padEnd(10, "foo"); // "abcfoofoof"
-"abc".padEnd(6, "123456"); // "abc123"
-"abc".padEnd(1); // "abc"
+'abc'.padEnd(10); // "abc       "
+'abc'.padEnd(10, 'foo'); // "abcfoofoof"
+'abc'.padEnd(6, '123456'); // "abc123"
+'abc'.padEnd(1); // "abc"
 ```
 
 ### padStart
@@ -166,11 +167,11 @@ str.padEnd(targetLength, string);
 ```javascript
 str.padStart(targetLength, string);
 
-"abc".padStart(10); // "       abc"
-"abc".padStart(10, "foo"); // "foofoofabc"
-"abc".padStart(6, "123465"); // "123abc"
-"abc".padStart(8, "0"); // "00000abc"
-"abc".padStart(1); // "abc"
+'abc'.padStart(10); // "       abc"
+'abc'.padStart(10, 'foo'); // "foofoofabc"
+'abc'.padStart(6, '123465'); // "123abc"
+'abc'.padStart(8, '0'); // "00000abc"
+'abc'.padStart(1); // "abc"
 ```
 
 ### repeat
@@ -180,12 +181,12 @@ str.padStart(targetLength, string);
 ```javascript
 str.repeat(count);
 
-"abc".repeat(-1); // RangeError: repeat count must be positive and less than inifinity
-"abc".repeat(0); // ""
-"abc".repeat(1); // "abc"
-"abc".repeat(2); // "abcabc"
-"abc".repeat(3.5); // "abcabcabc" 参数count将会被自动转换成整数.
-"abc".repeat(1 / 0); // RangeError: repeat count must be positive and less than inifinity
+'abc'.repeat(-1); // RangeError: repeat count must be positive and less than inifinity
+'abc'.repeat(0); // ""
+'abc'.repeat(1); // "abc"
+'abc'.repeat(2); // "abcabc"
+'abc'.repeat(3.5); // "abcabcabc" 参数count将会被自动转换成整数.
+'abc'.repeat(1 / 0); // RangeError: repeat count must be positive and less than inifinity
 ```
 
 ### slice
@@ -195,8 +196,8 @@ str.repeat(count);
 ```javascript
 str.slice(startPosition, endPosition);
 
-"abc".slice(0, 1); //a
-"abc".slice(0, -1); //ab
+'abc'.slice(0, 1); //a
+'abc'.slice(0, -1); //ab
 ```
 
 ### split
@@ -206,8 +207,8 @@ str.slice(startPosition, endPosition);
 ```javascript
 str.split(separator, limit);
 
-"abc".split(); //"[a,b,c]";
-"a,b,c".split(",", 1); //[a]
+'abc'.split(); //"[a,b,c]";
+'a,b,c'.split(',', 1); //[a]
 ```
 
 ### startWith
@@ -217,8 +218,8 @@ str.split(separator, limit);
 ```javascript
 str.startsWith(searchString, poistion);
 
-"abc".startsWith("a"); //true
-"abc".startsWith("a", 1); //false
+'abc'.startsWith('a'); //true
+'abc'.startsWith('a', 1); //false
 ```
 
 ### substring
@@ -228,8 +229,8 @@ str.startsWith(searchString, poistion);
 ```javascript
 str.substring(startPosition, endPosition);
 
-"abc".substring(0, 1); //a
-"abc".substring(-1); //abc
+'abc'.substring(0, 1); //a
+'abc'.substring(-1); //abc
 ```
 
 1. 如果 startPosition 等于 indexEnd，substring 返回一个空字符串。
@@ -245,8 +246,8 @@ str.substring(startPosition, endPosition);
 ```javascript
 str.toLocaleLowerCase() / str.toLocaleUpperCase() / str.toUpperCase() / str.toLowerCase();
 
-"ABC".toLocaleLowerCase(); //abc
-"abc".toLocaleUpperCase(); //ABC
+'ABC'.toLocaleLowerCase(); //abc
+'abc'.toLocaleUpperCase(); //ABC
 ```
 
 ### toString
@@ -254,7 +255,7 @@ str.toLocaleLowerCase() / str.toLocaleUpperCase() / str.toUpperCase() / str.toLo
 > 将\*转换成字符串
 
 ```javascript
-var x = new String("Hello world");
+var x = new String('Hello world');
 
 alert(x.toString()); // 输出 "Hello world"
 ```
@@ -266,10 +267,10 @@ alert(x.toString()); // 输出 "Hello world"
 ```javascript
 str.trim() / str.trimStart() / str.trimEnd();
 
-"Testing".trim(); //'Testing'
-" Testing".trim(); //'Testing'
-" Testing ".trim(); //'Testing'
-"Testing ".trim(); //'Testing'
+'Testing'.trim(); //'Testing'
+' Testing'.trim(); //'Testing'
+' Testing '.trim(); //'Testing'
+'Testing '.trim(); //'Testing'
 ```
 
 ### valueOf
@@ -279,20 +280,21 @@ str.trim() / str.trimStart() / str.trimEnd();
 ```javascript
 str.valueOf();
 
-x = new String("Hello world");
+x = new String('Hello world');
 alert(x.valueOf()); // Displays "Hello world"
 ```
 
 ### 扩展学习
 
-``` javascript
-1 + "5" //"15"
-[1, 3, 5] + 1 //"1,3,51"
-10 + true // 11
-15 + {} // "15[object Object]"
-8 + null // 8
-"queen" + null // "queennull"
-12 + undefined // NaN
+```javascript
+1 +
+	'5'[(1, 3, 5)] + //"15"
+	1; //"1,3,51"
+10 + true; // 11
+15 + {}; // "15[object Object]"
+8 + null; // 8
+'queen' + null; // "queennull"
+12 + undefined; // NaN
 ```
 
 [See examples in jsbin](http://jsbin.com/fiwemir/2/edit?js,console)

@@ -1,7 +1,7 @@
 ---
 date: "2019-05-21"
 title: "如何提高Vue.js的性能"
-tags: js
+tags: javascript
 ---
 
 ![mFYkyS](https://cdn.jsdelivr.net/gh/funnyPan/pics@master/uPic/mFYkyS.png)

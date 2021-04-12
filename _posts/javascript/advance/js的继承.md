@@ -1,7 +1,7 @@
 ---
 date: "2020-05-19"
 title: "继承"
-tags: js
+tags: javascript
 ---
 
 ## 构造继承

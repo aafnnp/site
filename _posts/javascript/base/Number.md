@@ -1,8 +1,9 @@
 ---
-date: "2018-05-13"
-title: "Number"
-tags: js
+date: '2018-05-13'
+title: 'Number'
+tags: javascript
 ---
+
 ## Number
 
 ```javascript
@@ -41,12 +42,12 @@ Number.POSITIVE_INFINITY; //Infinity
 
 ### 方法
 
-- Number.isNaN(value) //当 value 为非 number 时返回 true
-- Number.isFinite(value) //当 value 是有穷值返回 true
-- Number.isInteger(value) //当 value 是整型值返回 true
-- Number.isSafeInteger(value) //当 value 是安全整型值返回 true
-- Number.parseFloat(value) //将值转换成浮点类型并返回
-- Number.parseInt(value) //将值转换成整形并返回
+-   Number.isNaN(value) //当 value 为非 number 时返回 true
+-   Number.isFinite(value) //当 value 是有穷值返回 true
+-   Number.isInteger(value) //当 value 是整型值返回 true
+-   Number.isSafeInteger(value) //当 value 是安全整型值返回 true
+-   Number.parseFloat(value) //将值转换成浮点类型并返回
+-   Number.parseInt(value) //将值转换成整形并返回
 
 ### 实例方法
 
@@ -57,11 +58,11 @@ const age = new Number(36);
 typeof age; //object
 ```
 
-- .toExponential() //将值转换成指数计数法
-- .toFixed() //返回小数点后 N 位
-- .toLocaleString() //将值转换成字符类型
-- .toPrecision() //返回指定的精度
-- .toString() //将值转换成字符类型
-- .valueOf() //返回原始值
+-   .toExponential() //将值转换成指数计数法
+-   .toFixed() //返回小数点后 N 位
+-   .toLocaleString() //将值转换成字符类型
+-   .toPrecision() //返回指定的精度
+-   .toString() //将值转换成字符类型
+-   .valueOf() //返回原始值
 
 ### 扩展学习
