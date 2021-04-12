@@ -6,7 +6,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "eslint --ext .js,.jsx,.md,.css"
+		"lint": "eslint --ext .js,.jsx,.md,.css",
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@zeit/next-sass": "^1.0.1",
@@ -31,19 +32,17 @@
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.13.14",
+		"@mdx-js/loader": "^1.6.22",
 		"@next/eslint-plugin-next": "^10.1.2",
+		"@next/mdx": "^10.1.3",
 		"@umijs/fabric": "^2.5.7",
 		"eslint": "^7.23.0",
 		"gray-matter": "^4.0.2",
-		"husky": "^4.3.8",
+		"husky": "^6.0.0",
 		"lint-staged": "^10.5.4",
+		"next-compose-plugins": "^2.2.1",
 		"prettier": "^2.2.1",
 		"react-markdown": "^5.0.3",
 		"stylelint-config-recommended": "^4.0.0"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "pretty-quick --staged && npm run lint"
-		}
 	}
 }
