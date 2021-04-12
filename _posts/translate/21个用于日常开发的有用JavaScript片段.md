@@ -1,7 +1,7 @@
 ---
 date: "2021-01-14"
 title: "21个用于日常开发的有用JavaScript片段"
-tags: i18n
+tags: [i18n,javascript]
 ---
 
 1. 输入值数字化

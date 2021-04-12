@@ -6,18 +6,28 @@ const List = ({ post }) => {
 		data: { date, title, tags },
 	} = post;
 
+	const Tags = () => {
+		const Tag = ({ tag }) => (
+			<img
+				alt={tag}
+				src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
+				className={`tag inline-block mr-2 w-4 h-4 ${tag}`}
+			/>
+		);
+		return Array.isArray(tags) ? (
+			tags.map((item) => <Tag tag={item} key={item} />)
+		) : (
+			<Tag tag={tags} />
+		);
+	};
+
 	return (
 		<li className="py-3 px-4">
 			<span>{date}</span>
 			<Link href={`/posts${link}`}>
-				<a className="mr-2">{title}</a>
+				<a>{title}</a>
 			</Link>
-			<img
-				alt={tags}
-				src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tags}.svg`}
-				className={`tag inline-block w-4 h-4 ${tags}`}
-			/>
-			{/*https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/*/}
+			<Tags />
 		</li>
 	);
 };

@@ -1,7 +1,7 @@
 ---
 date: "2020-01-19"
 title: "使用js获取位置"
-tags: i18n
+tags: [i18n,javascript]
 ---
 
 ![quick-tip-detecting-your-location-with-javascript](https://cdn.jsdelivr.net/gh/funnypan/pics@master/images/20190121163457.png)

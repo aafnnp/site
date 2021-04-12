@@ -1,7 +1,7 @@
 ---
 date: "2020-05-20"
 title: "Cypress入门"
-tags: i18n
+tags: [i18n,javascript]
 ---
 
 ![XBcHdy](https://cdn.jsdelivr.net/gh/funnypan/pics@master/uPic/XBcHdy.jpg)
