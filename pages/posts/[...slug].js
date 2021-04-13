@@ -2,6 +2,8 @@ import { useRouter } from 'next/router';
 import { GetAllPosts, GetPostBySlug, GetRandomPost } from '../../getAllPosts';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import {connectToDatabase} from '../../utils/db'
+// import _Post from '../../models/_Post'
 
 const Markdown = dynamic(
 	() => {
@@ -21,18 +23,22 @@ const Comments = dynamic(() => {
 export default function Post({ post }) {
 	const router = useRouter();
 	const { data, content } = post;
-	const { tags } = data;
+	const { tags,count } = data;
 	const randomPost = GetRandomPost(tags);
+
+
+
 	if (!router.isFallback && !post) {
 		return <div>fallback</div>;
 	}
+
 	return (
 		<>
 			<Head>
 				<title>{data.title}</title>
 			</Head>
 			<h1 className="font-bold text-2xl pb-2">{data.title}</h1>
-			<div className="post-info text-sm">
+			<div className="post-info text-sm flex justify-between">
 				<div className="flex items-center">
 					<img
 						src="/github.svg"
@@ -43,6 +49,7 @@ export default function Post({ post }) {
 					/>
 					<span className="mr-2">Manon.icu</span>/ {data.date}（{data.fromNow}）
 				</div>
+				<span>{ count } views</span>
 			</div>
 			<div className="markdown-body text-sm">
 				<Markdown content={content} tag={tags} />
@@ -69,11 +76,23 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const { data, content } = await GetPostBySlug(params.slug);
+
+	const { client, db } = await connectToDatabase();
+	const isConnected = await client.isConnected()
+
+	if (isConnected) {
+		let result;
+		result = await db.collection('Post').findOne({ name: data.title })
+		await db.collection('Post').updateOne({ name: data.title }, { $set: { count: result ? +result.count + 1 : 1 } }, { upsert: true })
+		result = await db.collection('Post').findOne({ name: data.title })
+		data.count = result?result.count:0;
+	}
+
 	return {
 		props: {
 			post: {
 				data,
-				content,
+				content
 			},
 		},
 	};
