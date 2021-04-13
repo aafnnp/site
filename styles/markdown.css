@@ -197,7 +197,7 @@
 }
 
 .markdown-body blockquote {
-	margin: 0;
+	margin-bottom: 2rem;
 }
 
 .markdown-body ol,
