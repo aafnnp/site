@@ -26,7 +26,7 @@ export default function Post({ post }) {
 	const { tags,count } = data;
 	const randomPost = GetRandomPost(tags);
 
-
+	console.log(router)
 
 	if (!router.isFallback && !post) {
 		return <div>fallback</div>;
@@ -79,7 +79,6 @@ export async function getStaticProps({ params }) {
 
 	const { client, db } = await connectToDatabase();
 	const isConnected = await client.isConnected()
-
 	if (isConnected) {
 		let result;
 		result = await db.collection('Post').findOne({ name: data.title })
