@@ -1,8 +1,8 @@
 ---
-date: "2020-12-21"
-title: "Docker入门"
+date: '2020-12-21'
+title: 'Docker入门'
 tags: docker
-description: "Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。"
+description: 'Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。'
 ---
 
 ## 简介
@@ -15,30 +15,30 @@ Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级�
 
 ## 应用场景
 
-- Web 应用的自动化打包和发布。
-- 自动化测试和持续集成、发布。
-- 在服务型环境中部署和调整数据库或其他的后台应用。
-- 从头编译或者扩展现有的 OpenShift 或 Cloud Foundry 平台来搭建自己的 PaaS 环境。
+-   Web 应用的自动化打包和发布。
+-   自动化测试和持续集成、发布。
+-   在服务型环境中部署和调整数据库或其他的后台应用。
+-   从头编译或者扩展现有的 OpenShift 或 Cloud Foundry 平台来搭建自己的 PaaS 环境。
 
 ## 优点
 
-- 快速，一致地交付您的应用程序
-- 响应式部署和扩展
-- 在同一硬件上运行更多工作负载
+-   快速，一致地交付您的应用程序
+-   响应式部署和扩展
+-   在同一硬件上运行更多工作负载
 
 ## 目录
 
-- [x] [Docker镜像](./Docker镜像)
-- [x] [Docker容器](./Docker容器)
-- [x] [Dockerfiles](./Dockerfiles)
-- [x] [Docker更新容器](./Docker更新容器)
-- [x] [Docker更新镜像](./Docker更新镜像)
-- [ ] [How to access files outside a Docker image]()
-- [ ] [Sharing Docker Images on Docker Hub]()
-- [ ] [Working with Docker Images from the command line]()
-- [ ] [Working with Docker Containers from the command line]()
-- [ ] [What to do if a Docker container immediately exits]()
-- [ ] [Create a simple Node.js Hello World Docker Container from scratch]()
-- [ ] [Using Docker Desktop to manage a Container]()
-- [ ] [First steps with Docker after the installation]()
-- [x] [Macos安装Docker](./Macos安装Docker)
+-   [x] [Docker 镜像](./Docker镜像)
+-   [x] [Docker 容器](./Docker容器)
+-   [x] [Dockerfiles](./Dockerfiles)
+-   [x] [Docker 更新容器](./Docker更新容器)
+-   [x] [Docker 更新镜像](./Docker更新镜像)
+-   [ ] [How to access files outside a Docker image]()
+-   [ ] [Sharing Docker Images on Docker Hub]()
+-   [ ] [Working with Docker Images from the command line]()
+-   [ ] [Working with Docker Containers from the command line]()
+-   [ ] [What to do if a Docker container immediately exits]()
+-   [ ] [Create a simple Node.js Hello World Docker Container from scratch]()
+-   [ ] [Using Docker Desktop to manage a Container]()
+-   [ ] [First steps with Docker after the installation]()
+-   [x] [Macos 安装 Docker](./Macos安装Docker)

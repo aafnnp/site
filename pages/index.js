@@ -1,8 +1,8 @@
-import {GetAllPosts} from "../getAllPosts";
-import List from "../components/List";
+import { GetAllPosts } from '../getAllPosts';
+import List from '../components/List';
 
-const IndexPage = props => {
-	const {AllPosts} = props;
+const IndexPage = (props) => {
+	const { AllPosts } = props;
 	return (
 		<ul>
 			{AllPosts.map((item, key) => (
@@ -18,7 +18,7 @@ export const getStaticProps = async () => {
 	const AllPosts = await GetAllPosts();
 	return {
 		props: {
-			AllPosts
-		}
+			AllPosts,
+		},
 	};
 };

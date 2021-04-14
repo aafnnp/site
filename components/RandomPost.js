@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-const RandomPost = ({data}) => {
+const RandomPost = ({ data }) => {
 	return (
 		<>
 			<h2 className="font-medium text-xl mt-8">更多文章</h2>

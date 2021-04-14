@@ -1,6 +1,6 @@
-const withPlugins = require('next-compose-plugins')
+const withPlugins = require('next-compose-plugins');
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx$/
+	extension: /\.mdx$/,
 });
 
 module.exports = withPlugins([withMDX], {
@@ -9,13 +9,13 @@ module.exports = withPlugins([withMDX], {
 	webpack: (config, { isServer }) => {
 		if (!isServer) {
 			config.node = {
-				fs: 'empty'
-			}
+				fs: 'empty',
+			};
 		}
 		config.module.rules.push({
 			test: /\.md$/,
-			use: "raw-loader"
+			use: 'raw-loader',
 		});
 		return config;
-	}
-})
+	},
+});

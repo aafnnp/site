@@ -44,12 +44,16 @@
 		"postcss-flexbugs-fixes": "^5.0.2",
 		"postcss-preset-env": "^6.7.0",
 		"prettier": "^2.2.1",
-		"react-markdown": "^5.0.3",
-		"stylelint-config-recommended": "^4.0.0"
+		"react-markdown": "^5.0.3"
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "pretty-quick --staged && npm run lint"
+			"pre-commit": "lint-staged"
 		}
+	},
+	"lint-staged": {
+		"src/**/*.{js,vue}": [
+			"eslint --cache --fix"
+		]
 	}
 }

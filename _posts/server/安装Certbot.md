@@ -1,6 +1,6 @@
 ---
-date: "2020-12-16"
-title: "安装Certbot"
+date: '2020-12-16'
+title: '安装Certbot'
 tags: server
 ---
 
@@ -8,32 +8,34 @@ tags: server
 
 ## 前置条件
 
-- Centos 8/Ubuntu 18.04/Debain 10
-- 域名 xxx.com
-- 域名解析到对应服务器
+-   Centos 8/Ubuntu 18.04/Debain 10
+-   域名 xxx.com
+-   域名解析到对应服务器
 
-## Centos 8安装Certbot
-### 加入EPEL软件源
+## Centos 8 安装 Certbot
 
-``` shell
+### 加入 EPEL 软件源
+
+```shell
 sudo yum install epel-release
 sudo yum -y update
 ```
-### 下载并安装特定于Certbot和web服务器的包
 
-``` shell
+### 下载并安装特定于 Certbot 和 web 服务器的包
+
+```shell
 sudo curl -O https://dl.eff.org/certbot-auto
 sudo mv certbot-auto /usr/local/bin/certbot-auto
 chmod 0755 /usr/local/bin/certbot-auto
 ```
 
-### 启动Certbot
+### 启动 Certbot
 
-``` shell
+```shell
 sudo /usr/local/bin/certbot-auto --nginx
 ```
 
-### 启动jenkins
+### 启动 jenkins
 
 ```bash
 sudo systemctl start jenkins
@@ -41,8 +43,8 @@ sudo systemctl start jenkins
 
 ### 询问信息如下
 
-``` shell
-  
+```shell
+
 # sudo /usr/local/bin/certbot-auto --nginx
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 Plugins selected: Authenticator nginx, Installer nginx
@@ -67,18 +69,19 @@ Redirecting all traffic on port 80 to ssl in /etc/nginx/nginx.conf
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ```
+
 ### 开启防火墙
 
-``` shell
+```shell
 sudo firewall-cmd --zone=public --permanent --add-service=https
 sudo firewall-cmd --reload
 ```
 
-## Ubuntu 18.04安装Certbot
+## Ubuntu 18.04 安装 Certbot
 
-### 安装Certbot和web服务器
+### 安装 Certbot 和 web 服务器
 
-``` shell
+```shell
 sudo apt-get update
 sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get install python-certbot-nginx
@@ -87,25 +90,25 @@ sudo certbot --nginx
 
 ### 开启防火墙
 
-``` shell
+```shell
 sudo systemctl start ufw && sudo systemctl enable ufw
 sudo ufw allow http
 sudo ufw allow https
 sudo ufw enable
 ```
 
-## Debain 10安装Certbot
+## Debain 10 安装 Certbot
 
-### 安装Certbot和web服务器
+### 安装 Certbot 和 web 服务器
 
-``` shell
+```shell
 sudo apt install certbot python-certbot-nginx
 sudo certbot --nginx
 ```
 
 ### 询问信息
 
-``` shell
+```shell
 # sudo certbot --nginx
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 Plugins selected: Authenticator nginx, Installer nginx
@@ -151,7 +154,7 @@ Redirecting all traffic on port 80 to ssl in /etc/nginx/sites-enabled/default
 
 ### 开启防火墙
 
-``` shell
+```shell
 sudo systemctl start ufw && sudo systemctl enable ufw
 sudo ufw allow http
 sudo ufw allow https

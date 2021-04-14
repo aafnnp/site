@@ -1,11 +1,12 @@
 ---
-date: "2019-10-19"
-title: "安装mongodb"
+date: '2019-10-19'
+title: '安装mongodb'
 tags: server
 ---
-## 安装mongodb
 
-## 添加mongodb源
+## 安装 mongodb
+
+## 添加 mongodb 源
 
 ```bash
 sudo vi /etc/yum.repos.d/mongodb-org.repo
@@ -23,7 +24,7 @@ gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 yum repolist
 ```
 
-## 安装mongodb
+## 安装 mongodb
 
 ```bash
 sudo yum install mongodb-org
@@ -47,5 +48,3 @@ sudo systemctl enable mongod
 systemctl status mongod
 
 ```
-
-

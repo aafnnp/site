@@ -1,12 +1,12 @@
 ---
-date: "2020-12-21"
-title: "Macos Docker安装"
+date: '2020-12-21'
+title: 'Macos Docker安装'
 tags: docker
 ---
 
-## brew安装docker
+## brew 安装 docker
 
-``` shell
+```shell
 #搜索
 ==> Formulae
 docker                          docker-credential-helper        docker-machine-completion       docker-machine-nfs              docker2aci
@@ -18,7 +18,7 @@ docker-compose-completion       docker-machine                  docker-machine-d
 docker
 
 #安装
-brew install docker                                                                                                          
+brew install docker
 ==> Downloading https://mirrors.ustc.edu.cn/homebrew-bottles/bottles/docker-19.03.14.big_sur.bottle.tar.gz
 ######################################################################## 100.0%
 ==> Pouring docker-19.03.14.big_sur.bottle.tar.gz
@@ -35,9 +35,9 @@ zsh completions have been installed to:
 
 ![PVr5uh](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/PVr5uh.jpg)
 
-安装完成后，通过命令检查Docker版本
+安装完成后，通过命令检查 Docker 版本
 
-``` shell
+```shell
 docker --version
 
 Docker version 19.03.14, build 5eb3275

@@ -1,6 +1,6 @@
 ---
-date: "2021-04-05"
-title: "循环"
+date: '2021-04-05'
+title: '循环'
 tags: swift
 description: 取得成功的秘诀就是开始
 ---
@@ -54,8 +54,7 @@ print("Ready or not, here I come!")
 
 ## repeat 循环
 
-> repeat...while 循环不像 for 和 while 循环在循环体开始执行前先判断条件语句，而是在循环执行结束时判断条件是否符合。
-> `repeat...while无论条件是否符合，循环会执行至少一次`
+> repeat...while 循环不像 for 和 while 循环在循环体开始执行前先判断条件语句，而是在循环执行结束时判断条件是否符合。 `repeat...while无论条件是否符合，循环会执行至少一次`
 
 ![bF7YMc](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/bF7YMc.png)
 
@@ -96,8 +95,7 @@ while countDown >= 0 {
 
 ## 退出多重循环
 
-在嵌套循环中，想要同时打破内循环和外循环是很常见的。
-举个例子，我们可以编写一些代码来计算从 1 到 10 的乘法表，如下所示:
+在嵌套循环中，想要同时打破内循环和外循环是很常见的。举个例子，我们可以编写一些代码来计算从 1 到 10 的乘法表，如下所示:
 
 ```swift
 for i in 1...10 {

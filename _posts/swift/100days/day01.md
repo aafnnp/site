@@ -1,6 +1,6 @@
 ---
-date: "2021-04-02"
-title: "变量、基本数据类型、字符串插值"
+date: '2021-04-02'
+title: '变量、基本数据类型、字符串插值'
 tags: swift
 description: swift 提供的数据类型包括：整形 Int、浮点数 Double 和 Float、布尔类型 Bool 以及字符串类型 String、Optional、Array、Dictionary、Struct、Class 等。
 ---

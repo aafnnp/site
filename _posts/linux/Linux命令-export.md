@@ -1,15 +1,15 @@
 ---
-date: "2020-11-02"
-title: "Linux命令export"
+date: '2020-11-02'
+title: 'Linux命令export'
 tags: linux
-description: "export用于设置或显示环境变量。"
+description: 'export用于设置或显示环境变量。'
 ---
 
 **export**用于设置或显示环境变量。
 
 ## 使用方法
 
-``` shell
+```shell
 export TEST="test"
 # TEST代表变量名，test代表变量值
 
@@ -18,6 +18,7 @@ export -n TEST
 ```
 
 ## 参数：
-- -f 　代表[变量名称]中为函数名称。
-- -n 　删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。
-- -p 　列出所有的shell赋予程序的环境变量。
+
+-   -f 　代表[变量名称]中为函数名称。
+-   -n 　删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。
+-   -p 　列出所有的 shell 赋予程序的环境变量。

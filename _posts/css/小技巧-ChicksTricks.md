@@ -1,37 +1,38 @@
 ---
-date: "2017-07-30"
-title: "css的小技巧"
+date: '2017-07-30'
+title: 'css的小技巧'
 tags: css
 ---
-1. 使用CSS复位
 
-不同浏览器有不同的自带初始样式，通常可以使用normalize.css、tinyreset.css进行通配初始化。
+1. 使用 CSS 复位
 
-``` css
+不同浏览器有不同的自带初始样式，通常可以使用 normalize.css、tinyreset.css 进行通配初始化。
+
+```css
 *,
 *:after,
-*:before{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+*:before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 ```
 
 2. 继承 box-sizing
 
-``` css
+```css
 html {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+	box-sizing: inherit;
 }
 ```
 
-3. 使用unset而不是重置所有属性
+3. 使用 unset 而不是重置所有属性
 4. 使用 :not() 选择器来决定表单是否显示边框
 5. 为 body 元素添加行高
 6. 為表單元素設置:focus

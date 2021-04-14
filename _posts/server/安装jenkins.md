@@ -1,12 +1,14 @@
 ---
-date: "2019-09-19"
-title: "安装jenkins"
+date: '2019-09-19'
+title: '安装jenkins'
 tags: server
 ---
-基于centos 7.2
 
-## 安装java环境
-``` bash
+基于 centos 7.2
+
+## 安装 java 环境
+
+```bash
 sudo yum install java-1.8.0-openjdk-devel
 ```
 
@@ -15,7 +17,8 @@ sudo yum install java-1.8.0-openjdk-devel
 ```bash
 curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
 ```
-## 加入软件key
+
+## 加入软件 key
 
 ```bash
 sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
@@ -27,13 +30,13 @@ sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 sudo yum install jenkins
 ```
 
-## 启动jenkins
+## 启动 jenkins
 
 ```bash
 sudo systemctl start jenkins
 ```
 
-## 检查jenkins状态
+## 检查 jenkins 状态
 
 ```bash
 systemctl status jenkins
@@ -47,19 +50,19 @@ sudo systemctl enable jenkins
 
 ## 访问
 
-``` bash
+```bash
 http://your_ip_or_domain:8080
 ```
+
 ![](https://cdn.jsdelivr.net/gh/funnypan/pics@master/img/20190621160854.png)
 
-``` bash
+```bash
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
 ## 安装默认插件
 
 ![](https://cdn.jsdelivr.net/gh/funnypan/pics@master/img/20190621161025.png)
-
 
 ![](https://cdn.jsdelivr.net/gh/funnypan/pics@master/img/20190621161045.png)
 
