@@ -54,3 +54,9 @@ body {
 .post-info {
 	color: #4f4f4f;
 }
+@media (max-width: 600px) {
+	.content,
+	.header {
+		@apply w-full;
+	}
+}
