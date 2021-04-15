@@ -5262,20 +5262,10 @@ markdown-escapes@^1.0.0:
   resolved "https://mirrors.huaweicloud.com/repository/npm/markdown-escapes/-/markdown-escapes-1.0.4.tgz#c95415ef451499d7602b91095f3c8e8975f78535"
   integrity sha512-8z4efJYk43E0upd0NbVXwgSTQs6cT3T06etieCMEg7dRbzCbxUCK/GHlX8mhHRDcp+OLlHkPKsvqQTCvsRl2cg==
 
-markdown-it-anchor@^7.1.0:
-  version "7.1.0"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/markdown-it-anchor/-/markdown-it-anchor-7.1.0.tgz#30fb21497bf59e83ff4d1ddc052d821962e2489e"
-  integrity sha512-loQggrwsIkkP7TOrESvmYkV2ikbQNNKhHcWyqC7/C2CmfHl1tkUizJJU8C5aGgg7J6oXVQJx17gk7i47tNn/lQ==
-
-markdown-it-table-of-contents@^0.5.2:
-  version "0.5.2"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/markdown-it-table-of-contents/-/markdown-it-table-of-contents-0.5.2.tgz#2f941d386c277887910f2c7a8a16f5a17acb829c"
-  integrity sha512-6o+rxSwzXmXCUn1n8QGTSpgbcnHBG6lUU8x7A5Cssuq5vbfzTfitfGPvQ5PZkp+gP1NGS/DR2rkYqJPn0rbZ1A==
-
-markdown-it@^12.0.4:
-  version "12.0.4"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/markdown-it/-/markdown-it-12.0.4.tgz#eec8247d296327eac3ba9746bdeec9cfcc751e33"
-  integrity sha512-34RwOXZT8kyuOJy25oJNJoulO8L0bTHYWXcdZBYZqFnjIy3NgjeoM3FmPXIOFQ26/lSHYMr8oc62B6adxXcb3Q==
+markdown-it@^12.0.5:
+  version "12.0.5"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/markdown-it/-/markdown-it-12.0.5.tgz#982907947dc1f72f9d651c5286678fd95af13f2e"
+  integrity sha512-9KB992Yy2TedaoKETgZPL2n3bmqqZxzUsZ4fxe2ho+/AYuQUz+iDKpfjLgKbg/lHcG6cGOj+L3gDrn9S2CxoRg==
   dependencies:
     argparse "^2.0.1"
     entities "~2.1.0"
@@ -8160,11 +8150,6 @@ stylelint-config-recommended@^3.0.0:
   version "3.0.0"
   resolved "https://mirrors.huaweicloud.com/repository/npm/stylelint-config-recommended/-/stylelint-config-recommended-3.0.0.tgz#e0e547434016c5539fe2650afd58049a2fd1d657"
   integrity sha512-F6yTRuc06xr1h5Qw/ykb2LuFynJ2IxkKfCMf+1xqPffkxh0S09Zc902XCffcsw/XMFq/OzQ1w54fLIDtmRNHnQ==
-
-stylelint-config-recommended@^4.0.0:
-  version "4.0.0"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/stylelint-config-recommended/-/stylelint-config-recommended-4.0.0.tgz#665a0034065e6704d5032ba51bf4efa37d328ef9"
-  integrity sha512-sgna89Ng+25Hr9kmmaIxpGWt2LStVm1xf1807PdcWasiPDaOTkOHRL61sINw0twky7QMzafCGToGDnHT/kTHtQ==
 
 stylelint-config-standard@^20.0.0:
   version "20.0.0"

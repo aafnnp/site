@@ -5,8 +5,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "next start",
-		"lint": "eslint --ext .js,.jsx,.md,.css"
+		"start": "next start"
 	},
 	"dependencies": {
 		"@zeit/next-sass": "^1.0.1",
@@ -17,9 +16,7 @@
 		"github-markdown-css": "^4.0.0",
 		"highlight.js": "^10.7.1",
 		"lodash": "^4.17.21",
-		"markdown-it": "^12.0.4",
-		"markdown-it-anchor": "^7.1.0",
-		"markdown-it-table-of-contents": "^0.5.2",
+		"markdown-it": "^12.0.5",
 		"mongodb": "^3.6.6",
 		"next": "^10.1.3",
 		"postcss": "^8.2.9",
@@ -53,6 +50,7 @@
 	},
 	"lint-staged": {
 		"src/**/*.{js,md,css,}": [
+			"prettier --write",
 			"eslint --cache --fix"
 		]
 	}
