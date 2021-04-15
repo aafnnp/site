@@ -20,6 +20,10 @@ body {
 	text-rendering: optimizeSpeed;
 }
 
+blockquote {
+	margin-bottom: 2rem;
+}
+
 .main {
 	@apply p-3;
 }

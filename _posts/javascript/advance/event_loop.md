@@ -1,7 +1,8 @@
 ---
-date: '2020-05-19'
-title: '事件循环'
+date: "2020-05-19"
+title: "事件循环"
 tags: javascript
+description: 事件循环是每个前端开发必须理解的概念
 ---
 
 ![w2fi5V](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/w2fi5V.jpg)

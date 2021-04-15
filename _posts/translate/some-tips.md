@@ -1,8 +1,10 @@
 ---
-date: '2021-04-13'
-title: '一些有用的Html&&css&&javascript Tips'
+date: "2021-04-13"
+title: "一些有用的Html&&css&&javascript Tips"
 tags: [i18n, javascript, css]
 ---
+
+![dqCXJX](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/dqCXJX.jpg)
 
 ## `loading=lazy`属性
 
@@ -107,11 +109,7 @@ tags: [i18n, javascript, css]
 	This link will be opened in a new tab: &nbsp;
 	<a href="https://freecodetools.org/"> Free Code Tools </a>
 
-	<p>
-		Read more: <br /><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base">
-			MDN Documentation
-		</a>
-	</p>
+	<p>Read more: <br /><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base"> MDN Documentation </a></p>
 </div>
 ```
 
@@ -143,9 +141,8 @@ tags: [i18n, javascript, css]
 		<summary>Click me to see more details</summary>
 
 		<p>
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut eum perferendis eius.
-			Adipisci velit et similique earum quas illo odio rerum optio, quis, expedita assumenda
-			enim dicta aliquam porro maxime minima sed a ullam, aspernatur corporis.
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut eum perferendis eius. Adipisci velit et similique earum quas illo odio rerum optio,
+			quis, expedita assumenda enim dicta aliquam porro maxime minima sed a ullam, aspernatur corporis.
 		</p>
 	</details>
 </div>
@@ -180,6 +177,91 @@ tags: [i18n, javascript, css]
 </picture>
 ```
 
+![XwNY7B](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/XwNY7B.jpg)
+
+## fancy text
+
+![FYjzyB](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/FYjzyB.png)
+
+```html
+<h1>CSS IS AWESOME</h1>
+
+<style>
+	h1 {
+		background: blue url("https://picsum.photos/id/1015/200/300");
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
+		margin-top: 20px;
+		font-size: 120px;
+	}
+</style>
+```
+
+## caret-color
+
+> 改变光标颜色
+
+![xgF4Hf](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/xgF4Hf.jpg)
+
+## CSS only tooltips
+
+![HoUV0U](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/HoUV0U.png)
+
+```html
+<h1>HTML/CSS tooltip</h1>
+
+<p>Hover <span class="tooltip" data-tooltip="Tooltip Content">Here</span> to see the tooltip.</p>
+
+<p>You can also hover <span class="tooltip" data-tooltip="This is another Tooltip Content">here</span> to see another example.</p>
+
+<style>
+	.tooltip {
+		position: relative;
+		border-bottom: 1px dotted black;
+	}
+
+	/* Tooltip box */
+	.tooltip:before {
+		content: attr(data-tooltip);
+		position: absolute;
+		width: 100px;
+		background-color: #062b45;
+		color: #fff;
+		text-align: center;
+		padding: 10px;
+		line-height: 1.2;
+		border-radius: 6px;
+		z-index: 1;
+		opacity: 0;
+		transition: opacity 0.6s;
+		bottom: 125%;
+		left: 50%;
+		margin-left: -60px;
+		font-size: 0.75em;
+	}
+
+	/* Tooltip arrow */
+	.tooltip:after {
+		content: "";
+		position: absolute;
+		bottom: 75%;
+		left: 50%;
+		margin-left: -5px;
+		border-width: 5px;
+		border-style: solid;
+		opacity: 0;
+		transition: opacity 0.6s;
+		border-color: #062b45 transparent transparent transparent;
+	}
+
+	.tooltip:hover:before,
+	.tooltip:hover:after {
+		opacity: 1;
+	}
+</style>
+```
+
 <!-- TODO -->
 
-[x] css [x] javascript
+-   [x] javascript
