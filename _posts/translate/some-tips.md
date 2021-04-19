@@ -6,6 +6,8 @@ tags: [i18n, javascript, css]
 
 ![dqCXJX](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/dqCXJX.jpg)
 
+<CodepenComponent options={name:'pfan'}/>
+
 ## `loading=lazy`属性
 
 > 这是一个性能优化的措施，图片懒加载
