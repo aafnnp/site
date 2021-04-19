@@ -1,5 +1,5 @@
-const hljs = require('highlight.js');
-const md = require('markdown-it')({
+const hljs = require("highlight.js");
+const md = require("markdown-it")({
 	highlight: function (str, lang) {
 		if (lang && hljs.getLanguage(lang)) {
 			try {
@@ -7,18 +7,19 @@ const md = require('markdown-it')({
 					'<pre class="hljs"><code>' +
 					hljs.highlight(str, {
 						language: lang,
-						ignoreIllegals: true,
+						ignoreIllegals: true
 					}).value +
-					'</code></pre>'
+					"</code></pre>"
 				);
 			} catch (__) {}
 		}
 
-		return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
-	},
+		return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + "</code></pre>";
+	}
 });
 
-export default function Markdown({ content }) {
+export default function Markdown({content}) {
+	console.log(content);
 	const result = md.render(content);
-	return <section dangerouslySetInnerHTML={{ __html: result }}></section>;
+	return <section dangerouslySetInnerHTML={{__html: result}}></section>;
 }
