@@ -1,4 +1,5 @@
 const hljs = require("highlight.js");
+
 const md = require("markdown-it")({
 	highlight: function (str, lang) {
 		if (lang && hljs.getLanguage(lang)) {
@@ -19,7 +20,6 @@ const md = require("markdown-it")({
 });
 
 export default function Markdown({content}) {
-	console.log(content);
 	const result = md.render(content);
 	return <section dangerouslySetInnerHTML={{__html: result}}></section>;
 }

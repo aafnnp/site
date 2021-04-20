@@ -9,7 +9,7 @@
 		"lint": "eslint --ext .js,.jsx,.md,.css"
 	},
 	"dependencies": {
-		"codepen-component": "^1.0.0",
+		"codepen-component": "^1.0.1",
 		"dayjs": "^1.10.4",
 		"fs-extra": "^9.1.0",
 		"github-markdown-css": "^4.0.0",
