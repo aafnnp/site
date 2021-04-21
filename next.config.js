@@ -6,24 +6,10 @@ const withMDX = require("@next/mdx")({
 module.exports = withPlugins([withMDX], {
 	pageExtensions: ["js", "jsx", "md", "mdx"],
 	target: "serverless",
-	future: {
-		webpack5: true
-	},
 	webpack: (config, {isServer}) => {
-		resolve: {
-			fallback: {
-				fs: false;
-			}
-		}
 		if (!isServer) {
-			config.resolve = {
-				...config.resolve,
-				...{
-					fallback: {
-						fs: false,
-						path: false
-					}
-				}
+			config.node = {
+				fs: "empty"
 			};
 		}
 		config.module.rules.push({
