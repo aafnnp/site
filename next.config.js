@@ -10,9 +10,19 @@ module.exports = withPlugins([withMDX], {
 		webpack5: true
 	},
 	webpack: (config, {isServer}) => {
+		resolve: {
+			fallback: {
+				fs: false;
+			}
+		}
 		if (!isServer) {
-			config.node = {
-				fs: "empty"
+			config.resolve = {
+				...config.resolve,
+				...{
+					fallback: {
+						fs: false
+					}
+				}
 			};
 		}
 		config.module.rules.push({
