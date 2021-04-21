@@ -20,7 +20,8 @@ module.exports = withPlugins([withMDX], {
 				...config.resolve,
 				...{
 					fallback: {
-						fs: false
+						fs: false,
+						path: false
 					}
 				}
 			};
