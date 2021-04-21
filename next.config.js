@@ -1,21 +1,24 @@
-const withPlugins = require('next-compose-plugins');
-const withMDX = require('@next/mdx')({
-	extension: /\.mdx$/,
+const withPlugins = require("next-compose-plugins");
+const withMDX = require("@next/mdx")({
+	extension: /\.mdx$/
 });
 
 module.exports = withPlugins([withMDX], {
-	pageExtensions: ['js', 'jsx', 'md', 'mdx'],
-	target: 'serverless',
-	webpack: (config, { isServer }) => {
+	pageExtensions: ["js", "jsx", "md", "mdx"],
+	target: "serverless",
+	future: {
+		webpack5: true
+	},
+	webpack: (config, {isServer}) => {
 		if (!isServer) {
 			config.node = {
-				fs: 'empty',
+				fs: "empty"
 			};
 		}
 		config.module.rules.push({
 			test: /\.md$/,
-			use: 'raw-loader',
+			use: "raw-loader"
 		});
 		return config;
-	},
+	}
 });
