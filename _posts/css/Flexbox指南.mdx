@@ -1,0 +1,170 @@
+---
+date: '2018-04-12'
+title: 'Flexbox指南'
+tags: [css]
+description: 'Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。'
+---
+
+![Flexbox](https://cdn.jsdelivr.net/gh/funnypan/pics@master/20181016105026.png)
+
+Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。
+
+-   基本介绍
+-   浏览器兼容性
+-   启用 Flexbox
+-   容器属性
+    -   行||列 对齐 ==row and columns==
+    -   水平||垂直 对齐 ==Vertical and horizontal==
+    -   更改水平对齐 ==change horizontal alignment==
+    -   更改垂直对齐 ==change vertical alignment==
+        -   关于基准线 ==about baseline==
+    -   换行 ==wrap==
+-   flex 元素上的属性
+    -   order
+    -   align-self
+    -   flex-grow
+    -   flex-shrink
+    -   flex-basis
+    -   flex
+
+### 介绍
+
+Flexbox，也称为灵活盒模块，是两个现代布局系统之一，还有 CSS Grid。与 CSS Grid（二维）相比，flexbox 是一维布局模型。它将基于行或列控制布局，但不能同时控制布局。flexbox 的主要目标是允许项目填充其容器提供的整个空间，具体取决于您设置的一些规则。Flexbox 不兼容 IE10 以下，IE10 以下可以使用如下方式：
+
+-   Table layouts
+-   Floats
+-   clearfix hacks
+-   display: table hacks
+
+### 兼容性
+
+![image](https://cdn.jsdelivr.net/gh/funnypan/pics@master/20181020205051.png)
+
+IE10 以下不兼容，一些浏览器需要使用-webkit 或者 display:-webkit-box 兼容处理。
+
+### 使用 flexbox
+
+```css
+display: flexbox;
+```
+
+或者
+
+```css
+display: inline-flexbox;
+```
+
+### 容器属性
+
+-   flex-direction
+-   justify-content
+-   align-items
+-   flex-wrap
+-   flex-flow
+
+### 行对齐或者列对齐
+
+flex-direction 决定容器以行对齐还是列对齐。
+
+-   flex-direction:row，行对齐，从左到右
+-   flex-direction:row-reverse，行对齐，从右到左
+-   flex-direction:column，列对齐，从上到下
+-   flex-direction:column-reverse，列对齐，从下到上
+
+如下图所示：
+
+![image](https://cdn.jsdelivr.net/gh/funnypan/pics@master/20181020205713.png)
+
+### 水平对齐或者垂直对齐
+
+flex-direction 默认是 row，从左向右，当其属性值为 column 时，是从上到下，可以使用 justify-content 和 align-items 改变水平和垂直对齐。
+
+![image](https://cdn.jsdelivr.net/gh/funnypan/pics@master/20181022100130.png)
+
+### 改变水平对齐方式
+
+justify-content 有 5 个属性值：
+
+1. flex-start 左对齐
+2. flex-end 右对齐
+3. center 居中对齐
+4. space-between 首尾对齐容器左右侧，中间间距相等
+5. space-around 每个元素的间距相等
+
+![image](https://cdn.jsdelivr.net/gh/funnypan/pics@master/20181022100921.png)
+
+### 改变垂直对齐方式
+
+align-items 有 5 个属性值：
+
+1. flex-start 顶部对齐
+2. flex-end 底部对齐
+3. center 居中对齐
+4. baseline 基线对齐
+5. stretch 拉伸以适应容器
+
+![image](https://cdn.jsdelivr.net/gh/funnypan/pics@master/images/20181022141409.png)
+
+关于 align-items:baseline，可以看看 codepen：[https://codepen.io/flaviocopes/pen/oExoJR](https://codepen.io/flaviocopes/pen/oExoJR)
+
+### 换行
+
+默认情况下，flexbox 容器中的项目保留在一行中，缩小它们以适合容器。
+
+可以使用 flex-wrap:wrap 或者 flex-wrap:wrap-reverse 对容器中的元素进行换行处理。
+
+一种简写方式：flex-flow:row wrap;即 flex-direction:row && flex-wrap:wrap
+
+### 适用于 flexbox 容器内每个元素的属性
+
+1. order
+2. align-self
+3. flex-grow
+4. flex-shrink
+5. flex-basis
+6. flex
+
+#### order-改变元素的顺序，如下图所示，可以指定某个元素的 order 值，以改变其位置，默认值为 0
+
+![image](https://cdn.jsdelivr.net/gh/funnypan/pics@master/images/20181022142507.png)
+
+#### align-self-元素使用 align-self 覆盖容器的 align-items 对当前元素的对齐方式
+
+![image](https://cdn.jsdelivr.net/gh/funnypan/pics@master/images/20181022142842.png)
+
+#### flex-grow || flex-shrink 如有必要，可以增加或缩小某个元素
+
+flex-grow：默认值为 0，当某个元素 flex-grow 为 1，另一个为 2，则为 flex-grow：2 的元素占用 flex-grow:1 的空间的 2 倍。
+
+flex-shrink：默认值为 1，如果没有显示定义该属性，将会自动按照默认值 1 在所有因子相加之后计算比率来进行空间收缩。
+
+比如：有这么一个容器，div>.box1*3+.box2*2 父容器定义宽度为 500px，子元素定义宽度为 120px，box1 的 flex-shrink 为 1，.box2 的 flex-shrink 为 2，那么子项相加之后即为 600 px，超出父容器 100px。那么超出的 100px 需要被 A、B、C、D、E 消化 通过收缩因子，所以加权综合可得 100*1+100*1+100*1+100*2+100\*2=700px。
+
+```
+于是我们可以计算 A、B、C、D、E 将被移除的溢出量是多少：
+A 被移除溢出量：(100*1/700)*100，即约等于14px
+B 被移除溢出量：(100*1/700)*100，即约等于14px
+C 被移除溢出量：(100*1/700)*100，即约等于14px
+D 被移除溢出量：(100*2/700)*100，即约等于28px
+E 被移除溢出量：(100*2/700)*100，即约等于28px
+
+最后A、B、C、D、E的实际宽度分别为：120-14=106px, 120-14=106px, 120-14=106px, 120-28=92px,120-28=92px
+```
+
+#### flex-basis-用于设置或检索弹性盒伸缩基准值，默认值为 auto，其与 width 的区别可以参考这篇文章：https://www.jianshu.com/p/17b1b445ecd4
+
+#### flex：有三个属性值
+
+1. flex-grow
+2. flex-shrink
+3. flex-basis
+
+```css
+flex: 0 1 auto 分别对应flex-grow、flex-shrink、flex-basis;
+```
+
+## 结尾
+
+友情献上小游戏，通过游戏学习 flexbox
+
+http://flexboxfroggy.com/#zh-cn

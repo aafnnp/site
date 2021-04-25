@@ -5,11 +5,12 @@ const withMDX = require("@next/mdx")({
 
 module.exports = withPlugins([withMDX], {
 	pageExtensions: ["js", "jsx", "md", "mdx"],
-	target: "serverless",
+	// target: "serverless",
 	webpack: (config, {isServer}) => {
 		if (!isServer) {
 			config.node = {
-				fs: "empty"
+				fs: "empty",
+				path: true
 			};
 		}
 		config.module.rules.push({

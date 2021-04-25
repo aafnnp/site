@@ -1,0 +1,68 @@
+---
+date: '2020-05-19'
+title: '类型判断'
+tags: [javascript]
+---
+
+## typeof
+
+> 用于判断操作数的数据类型，适用于除 null、object 的其他 5 种类型的判断。
+
+1. 对于基本类型，除 null 以外，均可以返回正确的结果。
+2. 对于引用类型，除 function 以外，一律返回 object 类型。
+3. 对于 null ，返回 object 类型。
+4. 对于 function 返回 function 类型。
+
+```javascript
+typeof undefined; // "undefined";
+typeof 1; // "number";
+typeof '1'; // "string";
+typeof true; // "boolean";
+typeof Symbol(); // "symbol";
+typeof { a: 1 }; // "object";
+
+typeof null === 'object'; // true
+typeof function () {} === 'function'; // true
+```
+
+## instanceof
+
+> 用于判断是对象的那个子类型
+
+```javascript
+[1, 2] instanceof Array; // true
+(function foo() {} instanceof Function); // true
+new Date(2018) instanceof Date; // true
+new Number(1) instanceof Number; // true
+1 instanceof Number; // false
+```
+
+a instanceof b，instanceof 会去查找 a 的原型链(这里不展开讨论)上是否有 b 的 prototype 属性；如果有，就返回 true，否则返回 false。即判断 a 的原型链上是否有 a.\_proto\_\_ === b.prototype 返回 true
+
+## constructor
+
+> 不仅可以用于对象子类型的判断，还可以用于基本类型的判断，返回创建实例对象的 Object 构造函数的引用，原始数据类型，constructor 只读，基本类型指向对应的内置对象的构造函数
+
+```javascript
+({ a: 1 }.constructor === Object); // true
+[1, 2].constructor === Array; // true
+new Date(2018).constructor === Date; // true
+(function foo() {}.constructor === Function); // true
+'1'.constructor === String; // true
+(1).constructor === Number; // true
+true.constructor === Boolean; // true
+```
+
+## prototype
+
+> Object.prototype.toString.call('...')，通用方法判断对象类型。 Object.prototype 表示 Object 的原型对象，toString 返回表示该对象的字符串，call 用于指定 this
+
+```javascript
+Object.prototype.toString.call('1'); // "[object String]"
+Object.prototype.toString.call(1); // "[object Number]"
+Object.prototype.toString.call(true); // "[object Boolean]"
+Object.prototype.toString.call([1, 2, 3]); // "[object Array]"
+Object.prototype.toString.call(function foo() {}); // "[object Function]"
+Object.prototype.toString.call(null); //"[object Null]"
+Object.prototype.toString.call(undefined); //"[object Undefined]"
+```
