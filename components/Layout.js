@@ -9,7 +9,7 @@ export default function Layout({children, pageTitle, description}) {
 				<meta charSet="utf-8" />
 				<meta name="Description" content={description} />
 				<title>{pageTitle}</title>
-				<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="anonymous" />
+				<link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
 			</Head>
 
 			<main className="p-3">
