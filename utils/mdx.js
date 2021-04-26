@@ -1,6 +1,6 @@
 import renderToString from "next-mdx-remote/render-to-string";
 import hydrate from "next-mdx-remote/hydrate";
-import CodePen from "../components/CodePen";
+import CodePen from "./components/CodePen";
 
 const components = {
 	CodePen
