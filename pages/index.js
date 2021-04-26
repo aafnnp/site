@@ -1,5 +1,7 @@
 import {posts} from "../getAllPosts";
-import List from "../components/List";
+import loadable from "@loadable/component";
+
+const List = loadable(() => import("../components/List.js"));
 
 export default function IndexPage(props) {
 	const {allposts} = props;

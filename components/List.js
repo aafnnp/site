@@ -17,6 +17,8 @@ const List = ({post}) => {
 					alt={tag}
 					key={tag}
 					src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
+					width={16}
+					height={16}
 					className={`tag inline-block mr-2 w-4 h-4 ${tag}`}
 				/>
 			))}
