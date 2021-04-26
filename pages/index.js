@@ -1,24 +1,22 @@
-import { GetAllPosts } from '../getAllPosts';
-import List from '../components/List';
+import {posts} from "../getAllPosts";
+import List from "../components/List";
 
-const IndexPage = (props) => {
-	const { AllPosts } = props;
+export default function IndexPage(props) {
+	const {allposts} = props;
 	return (
 		<ul>
-			{AllPosts.map((item, key) => (
-				<List post={item} key={key} />
-			))}
+			{allposts.map(post => {
+				return <List post={post} key={post.link} />;
+			})}
 		</ul>
 	);
-};
+}
 
-export default IndexPage;
-
-export const getStaticProps = async () => {
-	const AllPosts = await GetAllPosts();
+export async function getStaticProps() {
+	const POSTS = posts();
 	return {
 		props: {
-			AllPosts,
-		},
+			allposts: POSTS
+		}
 	};
-};
+}

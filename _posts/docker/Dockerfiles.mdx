@@ -1,0 +1,66 @@
+---
+date: "2021-01-08"
+title: "Dockerfile"
+description: "Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明"
+tags: [docker]
+---
+
+> Dockerfile 是一个包含用于组合映像的命令的文本文档。可以使用在命令行中调用任何命令。 Docker 通过读取 Dockerfile 中的指令自动生成映像。 docker build 命令用于从 Dockerfile 构建映像。可以在 docker build 命令中使用-f 标志指向文件系统中任何位置的 Dockerfile。
+
+## 文件说明
+
+Docker 从上到下的顺序运行 Dockerfile 的指令，第一条指令必须是 FROM。
+
+1. FROM
+
+用于设置基本映像，FROM 必须作为第一条指令
+
+2. LABEL
+
+用于添加标签，设置映像标签
+
+```dockerfile
+LABEL maintainer="manon.icu"
+```
+
+3. RUN
+
+用于执行当前映像的任何命令
+
+```dockerfile
+RUN /bin/bash -c "source $HOME/.bashrc;echo $HOME"
+```
+
+4. CMD
+
+用于执行映像的应用程序
+
+```dockerfile
+CMD ["executable","param1","param2"]
+```
+
+5. COPY/ADD
+
+用于将源文件复制到目的地
+
+```dockerfile
+COPY dist /www/dist
+```
+
+6. WORKDIR
+
+用于为 RUN/CMD/COPY 指令设置工作目录，如不存在，会默认创建
+
+## 完整的 Dockerfile
+
+```dockerfile
+FROM node:lts-alpine
+
+WORKDIR /app
+ADD . /app
+RUN npm install
+
+CMD ["npm", "start"]
+```
+
+## 更多

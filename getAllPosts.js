@@ -1,75 +1,46 @@
-import matter from 'gray-matter';
-import dayjs from 'dayjs';
-import { join } from 'path';
-import fs from 'fs';
-import { getRandomArrayElements } from './utils';
-
-const relativeTime = require('dayjs/plugin/relativeTime');
+import {getRandomArrayElements} from "./utils";
+const fs = require("fs");
+const POST_DIRECTORY = "./_posts/";
+const matter = require("gray-matter");
+const dayjs = require("dayjs");
+const relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(relativeTime);
 
-//文章目录
-const postDirectory = join(process.cwd(), '_posts');
-
 function importAll(r) {
-	return r.keys().map((fileName) => ({
-		link: fileName.substr(1).replace(/.md$/, ''),
-		module: r(fileName),
-	}));
+	return r.keys().map(item => {
+		const link = `${POST_DIRECTORY}${item.replace(/.\//, "")}`;
+		const filecontents = fs.readFileSync(link, "utf-8");
+		const {data, content} = matter(filecontents);
+		return {
+			link: item.substr(1).replace(/.mdx/, ""),
+			data: {
+				...data,
+				date: dayjs(data.date).format("MMMM D, YYYY"),
+				fromNow: dayjs(data.date).fromNow()
+			},
+			content
+		};
+	});
 }
 
-const ALLFILES = importAll(require.context('./_posts/', true, /\.md$/));
-
-const ALLPOSTS = ALLFILES.map((item) => {
-	const { data, content } = matter(item.module.default);
-	return {
-		link: item.link,
-		data: {
-			...data,
-			date: dayjs(data.date).format('MMMM D, YYYY'),
-		},
-		content,
-	};
-});
-
-//导出所有slug
-// export const GetAllSlug = ALLFILES.map(item => item.link.substr(1).split("/"));
-
-//文章按时间排序
-export const posts = ALLPOSTS.sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date));
-
-//导出所有标签
-export const tags = [...new Set(ALLPOSTS.map((item) => item.data.tags))];
-
-//导出所有文章
-export const GetAllPosts = () => {
-	return new Promise((resolve) => {
-		resolve(posts);
-	});
-};
-
-//根据tag导出随机文章
-export const GetRandomPost = (tag) => {
-	const _posts = posts.filter((item) => item.data.tags === tag);
-	return getRandomArrayElements(_posts, _posts.length < 6 ? _posts.length - 1 : 6);
+export const posts = () => {
+	const allposts = importAll(require.context("./_posts/", true, /\.mdx$/));
+	return allposts.sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date));
 };
 
 //根据slug导出文章
-export const GetPostBySlug = (slug) => {
-	const realslug = slug.join('/');
-	const fullpath = join(join(postDirectory, `${realslug}.md`));
-	const filecontents = fs.readFileSync(fullpath, 'utf-8');
-	const { data, content } = matter(filecontents);
-	return {
-		data: {
-			...data,
-			date: dayjs(data.date).format('MMMM D, YYYY'),
-			fromNow: dayjs(data.date).fromNow(),
-		},
-		content,
-	};
+export const GetPostBySlug = slug => {
+	const realslug = "/" + slug.join("/");
+	const allposts = posts();
+	return allposts.find(post => post.link === realslug);
 };
-//根据tag展示文章
-export const GetPostByTag = (tag) => {
-	console.log(tag);
-	return ALLPOSTS.filter((item) => item.data.tags === tag);
+
+//根据tag导出随机文章
+export const GetRandomPost = tag => {
+	const TAG = Array.isArray(tag) ? tag : [tag];
+
+	const _posts = posts().filter(item => {
+		const ITEMTAG = Array.isArray(item) ? new Set(item) : new Set([item]);
+	});
+	return getRandomArrayElements(_posts, _posts.length < 6 ? _posts.length - 1 : 6);
 };

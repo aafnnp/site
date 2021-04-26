@@ -1,34 +1,23 @@
 import {useRouter} from "next/router";
-import {GetAllPosts, GetPostBySlug, GetRandomPost} from "../../getAllPosts";
+import ErrorPage from "next/error";
+import {GetPostBySlug, posts, GetRandomPost} from "../../getAllPosts";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import {connectToDatabase} from "../../utils/db";
-// import _Post from '../../models/_Post'
-
-const Markdown = dynamic(
-	() => {
-		return import("../../components/Markdown");
-	},
-	{ssr: false}
-);
+// import {connectToDatabase} from "../../utils/db";
+import PostPage from "../../components/PostPage";
+import {mdxToString, stringToMdx} from "../../utils/mdx";
 
 const Random = dynamic(() => {
 	return import("../../components/RandomPost");
 });
 
-const Comments = dynamic(() => {
-	return import("../../components/Comments");
-});
+const Comments = dynamic(() => import("../../components/Comments"));
 
-export default function Post({post}) {
+const Post = ({post, randomPost}) => {
 	const router = useRouter();
-	const {data, content} = post;
-	const {tags, count} = data;
-	const randomPost = GetRandomPost(tags);
+	if (!router.isFallback && !post?.data) return <ErrorPage statusCode={404} />;
 
-	if (!router.isFallback && !post) {
-		return <div>fallback</div>;
-	}
+	const {data, content} = post;
 
 	return (
 		<>
@@ -41,21 +30,21 @@ export default function Post({post}) {
 					<img src="/github.svg" alt="manonicu" width="18" height="18" className="rounded-full mr-2" />
 					<span className="mr-2">Manon.icu</span>/ {data.date}（{data.fromNow}）
 				</div>
-				<span>{count} views</span>
+				{/* <span>{data.count} views</span> */}
 			</div>
 			<div className="markdown-body text-sm">
-				<Markdown content={content} tag={tags} />
+				<PostPage>{stringToMdx(content)}</PostPage>
 				<Random data={randomPost} />
 				<Comments />
 			</div>
 		</>
 	);
-}
+};
 
 export async function getStaticPaths() {
-	const AllPosts = await GetAllPosts();
+	const allposts = posts();
 	return {
-		paths: AllPosts.map(posts => {
+		paths: allposts.map(posts => {
 			return {
 				params: {
 					slug: posts.link.substr(1).split("/")
@@ -67,24 +56,27 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}) {
-	const {data, content} = await GetPostBySlug(params.slug);
-
-	const {client, db} = await connectToDatabase();
-	const isConnected = await client.isConnected();
-	if (isConnected) {
-		let result;
-		result = await db.collection("Post").findOne({name: data.title});
-		await db.collection("Post").updateOne({name: data.title}, {$set: {count: result ? +result.count + 1 : 1}}, {upsert: true});
-		result = await db.collection("Post").findOne({name: data.title});
-		data.count = result ? result.count : 0;
-	}
+	const post = await GetPostBySlug(params.slug);
+	const content = await mdxToString(post.content || "");
+	// const {client, db} = await connectToDatabase();
+	// const isConnected = await client.isConnected();
+	// if (isConnected) {
+	// 	let result;
+	// 	result = await db.collection("Post").findOne({name: data.title});
+	// 	await db.collection("Post").updateOne({name: data.title}, {$set: {count: result ? +result.count + 1 : 1}}, {upsert: true});
+	// 	result = await db.collection("Post").findOne({name: data.title});
+	// 	data.count = result ? result.count : 0;
+	// }
 
 	return {
 		props: {
 			post: {
-				data,
+				...post,
 				content
-			}
+			},
+			randomPost: GetRandomPost(post.data.tags)
 		}
 	};
 }
+
+export default Post;
