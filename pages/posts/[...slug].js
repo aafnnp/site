@@ -1,17 +1,16 @@
 import {useRouter} from "next/router";
 import ErrorPage from "next/error";
-import {GetPostBySlug, posts, GetRandomPost} from "../../getAllPosts";
-import dynamic from "next/dynamic";
 import Head from "next/head";
+import {GetPostBySlug, posts, GetRandomPost} from "../../getAllPosts";
+
 // import {connectToDatabase} from "../../utils/db";
-import PostPage from "../../components/PostPage";
+
+import loadable from "@loadable/component";
 import {mdxToString, stringToMdx} from "../../utils/mdx";
 
-const Random = dynamic(() => {
-	return import("../../components/RandomPost");
-});
-
-const Comments = dynamic(() => import("../../components/Comments"));
+const PostPage = loadable(() => import("../../components/PostPage"));
+const Comments = loadable(() => import("../../components/Comments"));
+const Random = loadable(() => import("../../components/RandomPost"));
 
 const Post = ({post, randomPost}) => {
 	const router = useRouter();
