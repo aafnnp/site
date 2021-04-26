@@ -1,7 +1,7 @@
 import {posts} from "../getAllPosts";
-import loadable from "@loadable/component";
+import dynamic from "next/dynamic";
 
-const List = loadable(() => import("../components/List.js"));
+const List = dynamic(() => import("../components/List.js"));
 
 export default function IndexPage(props) {
 	const {allposts} = props;
