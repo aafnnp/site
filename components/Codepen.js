@@ -31,7 +31,7 @@ export default class CodePen extends Component {
 	}
 
 	render() {
-		const {title, slug, tab, team, user, name, height, theme, preview = null, editable = null, version} = this.state.options;
+		const {title, slug, tab, user, height, theme, preview = null, editable = null, version} = this.state.options;
 		const HEIGHT = {height: `${height}px`};
 		return (
 			<div
