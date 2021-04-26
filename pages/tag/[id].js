@@ -1,11 +1,11 @@
-import { useRouter } from 'next/router';
-import { GetPostByTag } from '../../getAllPosts';
-import List from '../../components/List';
+import {useRouter} from "next/router";
+import {GetPostBySlug} from "../../getAllPosts";
+import List from "../../components/List";
 
 export default function Tag() {
 	const router = useRouter();
-	const { id } = router.query;
-	const AllPosts = GetPostByTag(id);
+	const {id} = router.query;
+	const AllPosts = GetPostBySlug(id);
 	return (
 		<>
 			{AllPosts.map((item, key) => (
