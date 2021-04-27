@@ -34,7 +34,6 @@ export const posts = () => {
 //根据slug导出文章
 export const GetPostBySlug = slug => {
 	const realslug = "/" + slug.join("/");
-	console.log("🚀 ~ file: getAllPosts.js ~ line 34 ~ realslug", realslug);
 	const allposts = posts();
 	return allposts.flat(2).find(post => post.link.includes(realslug));
 };
