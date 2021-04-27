@@ -42,15 +42,16 @@ const Post = ({post, randomPost}) => {
 
 export async function getStaticPaths() {
 	const allposts = posts();
+	const paths = allposts.flat(2).map(post => {
+		return {
+			params: {
+				slug: post.link.substr(1).split("/")
+			}
+		};
+	});
 	return {
-		paths: allposts.map(posts => {
-			return {
-				params: {
-					slug: posts.link.substr(1).split("/")
-				}
-			};
-		}),
-		fallback: false
+		paths,
+		fallback: true
 	};
 }
 
@@ -73,7 +74,7 @@ export async function getStaticProps({params}) {
 				...post,
 				content
 			},
-			randomPost: GetRandomPost(post.data.tags)
+			randomPost: GetRandomPost()
 		}
 	};
 }

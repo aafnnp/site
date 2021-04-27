@@ -1,16 +1,26 @@
+import {useRouter} from "next/router";
 import {posts} from "../getAllPosts";
 import dynamic from "next/dynamic";
 
-const List = dynamic(() => import("../components/List.js"));
+const List = dynamic(() => import("../components/List"));
+const Pagination = dynamic(() => import("../components/Pagination"));
 
 export default function IndexPage(props) {
+	const {
+		query: {page = 1}
+	} = useRouter();
+
 	const {allposts} = props;
+
 	return (
-		<ul>
-			{allposts.map(post => {
-				return <List post={post} key={post.link} />;
-			})}
-		</ul>
+		<>
+			<ul>
+				{allposts[page - 1].map(post => {
+					return <List post={post} key={post.link} />;
+				})}
+			</ul>
+			<Pagination curPage={page} total={allposts.length} />
+		</>
 	);
 }
 

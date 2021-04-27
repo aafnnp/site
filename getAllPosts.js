@@ -1,4 +1,4 @@
-import {getRandomArrayElements} from "./utils";
+import {getRandomArrayElements, chunk} from "./utils";
 const fs = require("fs");
 const POST_DIRECTORY = "./_posts/";
 const matter = require("gray-matter");
@@ -25,22 +25,22 @@ function importAll(r) {
 
 export const posts = () => {
 	const allposts = importAll(require.context("./_posts/", true, /\.mdx$/));
-	return allposts.sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date));
+	return chunk(
+		allposts.sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date)),
+		20
+	);
 };
 
 //根据slug导出文章
 export const GetPostBySlug = slug => {
 	const realslug = "/" + slug.join("/");
+	console.log("🚀 ~ file: getAllPosts.js ~ line 34 ~ realslug", realslug);
 	const allposts = posts();
-	return allposts.find(post => post.link === realslug);
+	return allposts.flat(2).find(post => post.link.includes(realslug));
 };
 
 //根据tag导出随机文章
-export const GetRandomPost = tag => {
-	const TAG = Array.isArray(tag) ? tag : [tag];
-
-	const _posts = posts().filter(item => {
-		const ITEMTAG = Array.isArray(item) ? new Set(item) : new Set([item]);
-	});
+export const GetRandomPost = () => {
+	const _posts = posts().flat(2);
 	return getRandomArrayElements(_posts, _posts.length < 6 ? _posts.length - 1 : 6);
 };
