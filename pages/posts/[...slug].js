@@ -14,8 +14,7 @@ const Random = dynamic(() => import("../../components/RandomPost"));
 
 const Post = ({post, randomPost}) => {
 	const router = useRouter();
-	if (!router.isFallback && !post?.data) return <ErrorPage statusCode={404} />;
-
+	if (!router.isFallback && !post) return <ErrorPage statusCode={404} />;
 	const {data, content} = post;
 
 	return (
@@ -42,14 +41,15 @@ const Post = ({post, randomPost}) => {
 
 export async function getStaticPaths() {
 	const allposts = posts();
+	const paths = allposts.flat(Infinity).map(post => {
+		return {
+			params: {
+				slug: post.link.substr(1).split("/")
+			}
+		};
+	});
 	return {
-		paths: allposts.map(posts => {
-			return {
-				params: {
-					slug: posts.link.substr(1).split("/")
-				}
-			};
-		}),
+		paths,
 		fallback: false
 	};
 }
@@ -57,6 +57,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({params}) {
 	const post = await GetPostBySlug(params.slug);
 	const content = await mdxToString(post.content || "");
+
 	// const {client, db} = await connectToDatabase();
 	// const isConnected = await client.isConnected();
 	// if (isConnected) {
@@ -73,7 +74,7 @@ export async function getStaticProps({params}) {
 				...post,
 				content
 			},
-			randomPost: GetRandomPost(post.data.tags)
+			randomPost: GetRandomPost()
 		}
 	};
 }

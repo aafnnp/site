@@ -54,6 +54,16 @@ body {
 .post-info {
 	color: #4f4f4f;
 }
+
+.pagination {
+	a {
+		@apply rounded mr-2 px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-black hover:text-white transition-all;
+		&.active {
+			@apply bg-black text-white;
+		}
+	}
+}
+
 @media (max-width: 600px) {
 	.content,
 	.header {
