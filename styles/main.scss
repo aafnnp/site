@@ -64,6 +64,13 @@ body {
 	}
 }
 
+.markdown-body .gist table tr,
+.markdown-body .gist table td {
+	border: none;
+}
+.related-post {
+	list-style-type: square;
+}
 @media (max-width: 600px) {
 	.content,
 	.header {

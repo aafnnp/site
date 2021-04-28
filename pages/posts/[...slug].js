@@ -23,7 +23,7 @@ const Post = ({post, randomPost}) => {
 				<title>{data.title}</title>
 			</Head>
 			<h1 className="font-bold text-2xl pb-2">{data.title}</h1>
-			<div className="post-info text-sm flex justify-between">
+			<div className="post-info mb-10 text-sm flex justify-between">
 				<div className="flex items-center">
 					<img src="/github.svg" alt="manonicu" width="18" height="18" className="rounded-full mr-2" />
 					<span className="mr-2">Manon.icu</span>/ {data.date}（{data.fromNow}）

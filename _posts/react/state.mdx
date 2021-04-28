@@ -1,0 +1,63 @@
+---
+date: 2021-04-28
+title: React State
+tags: [react, javascript]
+description: 如何在 React.js 中处理状态
+---
+
+`state`是`React`组件中的内置对象
+
+在`state`对象中，我们存储属于组件的属性值。当状态对象更改时，组件重新渲染。使用`setState()`函数修改`state`对象。`state`和`props`类似，区别在于`props`被传递给组件，而`state`在组件中进行管理。开发人员应该始终尝试使状态最小化。此外，有状态组件的数量应该最小化。
+
+## 使用`create-react-app`创建应用
+
+```shell
+npx create-react-app state-demo
+cd state-demo
+```
+
+```jsx
+//App.js
+import React from "react";
+
+class App extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			title: "React state example"
+		};
+	}
+
+	tooggleTitle = () => {
+		if (this.state.title === "") {
+			this.setState({title: "React state example"});
+		} else {
+			this.setState({title: ""});
+		}
+	};
+
+	render() {
+		return (
+			<div>
+				<div>
+					<input type="checkbox" id="showTitle" onClick={this.tooggleTitle} defaultChecked />
+					<label htmlFor="showTitle">Show title</label>
+				</div>
+
+				<h2>{this.state.title}</h2>
+			</div>
+		);
+	}
+}
+
+export default App;
+```
+
+在这里创建一个简单的`state`，用来存储`title`的属性
+
+`toggleTitle`函数切换`title`的值
+
+<CodeSandbox codeSandboxId="white-worker-4r3bv" />
+
+[在线地址](https://csb-4r3bv.netlify.app/)
