@@ -1,10 +1,11 @@
 import renderToString from "next-mdx-remote/render-to-string";
 import hydrate from "next-mdx-remote/hydrate";
-import {CodePen, Gist} from "mdx-embed";
+import {CodePen, Gist, CodeSandbox} from "mdx-embed";
 
 const components = {
 	CodePen,
-	Gist
+	Gist,
+	CodeSandbox
 };
 
 /**
