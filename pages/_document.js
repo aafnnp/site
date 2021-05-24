@@ -13,6 +13,11 @@ class MyDocument extends Document {
 				<body>
 					<Main />
 					<NextScript />
+					<script
+						defer
+						src="https://static.cloudflareinsights.com/beacon.min.js"
+						data-cf-beacon='{"token": "f47ddfde9a164f9fabe6d0143a7f26be"}'
+					></script>
 				</body>
 			</Html>
 		);
