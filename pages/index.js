@@ -15,10 +15,11 @@ export default function IndexPage(props) {
 	return (
 		<>
 			<ul>
-				{allposts[page - 1].map(post => {
-					return <List post={post} key={post.link} />;
-				})}
+				{allposts[page - 1].map(post => (
+					<List post={post} key={post.link} />
+				))}
 			</ul>
+
 			<Pagination curPage={page} total={allposts.length} />
 		</>
 	);
@@ -26,6 +27,7 @@ export default function IndexPage(props) {
 
 export async function getStaticProps() {
 	const POSTS = posts();
+
 	return {
 		props: {
 			allposts: POSTS

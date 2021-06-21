@@ -1,7 +1,10 @@
 const withPlugins = require("next-compose-plugins");
-// const withBundleAnalyzer = require('@next/bundle-analyzer')({
-//   enabled: process.env.ANALYZE === 'true',
-// })
+
+/*
+ * Const withBundleAnalyzer = require('@next/bundle-analyzer')({
+ *   enabled: process.env.ANALYZE === 'true',
+ * })
+ */
 const withMDX = require("@next/mdx")({
 	extension: /\.mdx$/
 });
@@ -20,6 +23,7 @@ module.exports = withPlugins([withMDX], {
 			test: /\.md$/,
 			use: "raw-loader"
 		});
+
 		return config;
 	}
 });
