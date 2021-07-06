@@ -1,23 +1,23 @@
-import renderToString from "next-mdx-remote/render-to-string";
-import hydrate from "next-mdx-remote/hydrate";
-import {CodePen, Gist, CodeSandbox} from "mdx-embed";
+import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemote } from "next-mdx-remote";
+import { CodePen, CodeSandbox, Gist } from "mdx-embed";
 
 const components = {
-	CodePen,
-	Gist,
-	CodeSandbox
+  CodePen,
+  Gist,
+  CodeSandbox,
 };
 
 /**
- * serialize mdx to string
+ * Serialize mdx to string
  */
 export async function mdxToString(mdx) {
-	return await renderToString(mdx, {components});
+  return await serialize(mdx);
 }
 
 /**
- * render string back to react components
+ * Render string back to react components
  */
-export function stringToMdx(string) {
-	return hydrate(string, {components});
+export function stringToMdx(source) {
+  return <MDXRemote {...source} components={components} />;
 }

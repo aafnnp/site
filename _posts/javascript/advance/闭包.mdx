@@ -1,6 +1,6 @@
 ---
-date: '2020-05-19'
-title: '闭包'
+date: "2020-05-19"
+title: "闭包"
 tags: [javascript]
 ---
 
@@ -14,26 +14,26 @@ tags: [javascript]
 4. 让变量的值始终保存在内存中
 
 ```javascript
-var name = 'The Window';
+var name = "The Window";
 var object = {
-	name: 'My Object',
+	name: "My Object",
 	getNameFunc: function () {
 		return function () {
 			return this.name;
 		};
-	},
+	}
 };
 alert(object.getNameFunc()()); // The window
 
-var name = 'The Window';
+var name = "The Window";
 var object = {
-	name: 'My Object',
+	name: "My Object",
 	getNameFunc: function () {
 		var that = this;
 		return function () {
 			return that.name;
 		};
-	},
+	}
 };
 alert(object.getNameFunc()()); // My Object
 ```

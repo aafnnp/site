@@ -1,6 +1,6 @@
 ---
-date: '2020-05-19'
-title: '类型判断'
+date: "2020-05-19"
+title: "类型判断"
 tags: [javascript]
 ---
 
@@ -16,13 +16,13 @@ tags: [javascript]
 ```javascript
 typeof undefined; // "undefined";
 typeof 1; // "number";
-typeof '1'; // "string";
+typeof "1"; // "string";
 typeof true; // "boolean";
 typeof Symbol(); // "symbol";
-typeof { a: 1 }; // "object";
+typeof {a: 1}; // "object";
 
-typeof null === 'object'; // true
-typeof function () {} === 'function'; // true
+typeof null === "object"; // true
+typeof function () {} === "function"; // true
 ```
 
 ## instanceof
@@ -44,11 +44,11 @@ a instanceof b，instanceof 会去查找 a 的原型链(这里不展开讨论)�
 > 不仅可以用于对象子类型的判断，还可以用于基本类型的判断，返回创建实例对象的 Object 构造函数的引用，原始数据类型，constructor 只读，基本类型指向对应的内置对象的构造函数
 
 ```javascript
-({ a: 1 }.constructor === Object); // true
+({a: 1}.constructor === Object); // true
 [1, 2].constructor === Array; // true
 new Date(2018).constructor === Date; // true
 (function foo() {}.constructor === Function); // true
-'1'.constructor === String; // true
+"1".constructor === String; // true
 (1).constructor === Number; // true
 true.constructor === Boolean; // true
 ```
@@ -58,7 +58,7 @@ true.constructor === Boolean; // true
 > Object.prototype.toString.call('...')，通用方法判断对象类型。 Object.prototype 表示 Object 的原型对象，toString 返回表示该对象的字符串，call 用于指定 this
 
 ```javascript
-Object.prototype.toString.call('1'); // "[object String]"
+Object.prototype.toString.call("1"); // "[object String]"
 Object.prototype.toString.call(1); // "[object Number]"
 Object.prototype.toString.call(true); // "[object Boolean]"
 Object.prototype.toString.call([1, 2, 3]); // "[object Array]"
