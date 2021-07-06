@@ -1,57 +1,20 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
-  /*
-   * Constructor() {
-   * Super();
-   * This.setFavicon=this.setFavicon.bind(this)
-   * This.emojiFavicon=this.emojiFavicon.bind(this)
-   * }
-   */
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
-
     return { ...initialProps };
   }
 
-  /*
-   *
-   * SetFavicon(url){
-   * Const favicon = Document.querySelector('link[rel="icon"]');
-   * If (favicon) {
-   * // Update the new link
-   * Favicon.href = url;
-   * } else {
-   * // Create new `link`
-   * Const link = Document.createElement('link');
-   * Link.rel = 'icon';
-   * Link.href = url;
-   * // Append to the `head` element
-   * Document.head.appendChild(link);
-   * }
-   * }
-   *
-   * EmojiFavicon(emoji){
-   * Const canvas = Document.createElement('canvas');
-   * Canvas.height = 64;
-   * Canvas.width = 64;
-   * // Get the canvas context
-   * Const context = canvas.getContext('2d');
-   * Context.font = '64px serif';
-   * Context.fillText(emoji, 0, 64);
-   * // Get the custom URL
-   * Const url = canvas.toDataURL();
-   * // Update the favicon
-   * This.setFavicon(url);
-   * }
-   */
-
   render() {
-    this.emojiFavicon("🎉");
-
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>"
+          ></link>
+        </Head>
 
         <body>
           <Main />

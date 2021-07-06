@@ -4,23 +4,27 @@ import Image from "next/image";
 import ErrorPage from "next/error";
 import Head from "next/head";
 import { GetPostBySlug, GetRandomPost, posts } from "../../getAllPosts";
-
-// Import {connectToDatabase} from "../../utils/db";
-
-import { mdxToString, stringToMdx } from "../../utils/mdx";
+import matter from "gray-matter";
+import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemote } from "next-mdx-remote";
+import { CodePen, CodeSandbox, Gist } from "mdx-embed";
 
 const PostPage = dynamic(() => import("../../components/PostPage"));
 const Comments = dynamic(() => import("../../components/Comments"));
 const Random = dynamic(() => import("../../components/RandomPost"));
 
-function Post({ post, randomPost }) {
+const components = {
+  CodePen,
+  Gist,
+  CodeSandbox,
+};
+
+function Post({ data, content, randomPost }) {
   const router = useRouter();
 
-  if (!router.isFallback && !post) {
+  if (!router.isFallback && !content) {
     return <ErrorPage statusCode={404} />;
   }
-  const { data, content } = post;
-
   return (
     <>
       <Head>
@@ -40,12 +44,12 @@ function Post({ post, randomPost }) {
           />
           <span className="mr-2">Manon.icu</span>/ {data.date}（{data.fromNow}）
         </div>
-
-        {/* <span>{data.count} views</span> */}
       </div>
 
       <div className="markdown-body text-sm">
-        <PostPage>{stringToMdx(content)}</PostPage>
+        <PostPage>
+          {<MDXRemote {...content} components={components} />}
+        </PostPage>
 
         <Random data={randomPost} />
 
@@ -70,27 +74,20 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const post = await GetPostBySlug(params.slug);
-  const content = await mdxToString(post.content || "");
-
-  /*
-   * Const {client, db} = await connectToDatabase();
-   * Const isConnected = await client.isConnected();
-   * If (isConnected) {
-   * Let result;
-   * Result = await db.collection("Post").findOne({name: data.title});
-   * Await db.collection("Post").updateOne({name: data.title}, {$set: {count: result ? +result.count + 1 : 1}}, {upsert: true});
-   * Result = await db.collection("Post").findOne({name: data.title});
-   * Data.count = result ? result.count : 0;
-   * }
-   */
-
+  const source = await GetPostBySlug(params.slug);
+  const { content, data } = matter(source);
+  const mdxSource = await serialize(content, {
+    // Optionally pass remark/rehype plugins
+    mdxOptions: {
+      remarkPlugins: [],
+      rehypePlugins: [],
+    },
+    scope: data,
+  });
   return {
     props: {
-      post: {
-        ...post,
-        content,
-      },
+      data,
+      content: mdxSource,
       randomPost: GetRandomPost(),
     },
   };
