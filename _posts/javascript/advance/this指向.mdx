@@ -1,6 +1,6 @@
 ---
-date: '2020-05-19'
-title: 'this的指向'
+date: "2020-05-19"
+title: "this的指向"
 tags: [javascript]
 ---
 
@@ -21,21 +21,21 @@ var test = {
 	prop: 42,
 	func: function () {
 		return this.prop;
-	},
+	}
 };
 
 console.log(test.func()); //42，调用者是test
 //42
 
-var fullname = 'David Jones';
+var fullname = "David Jones";
 var obj = {
-	fullname: 'Colin Brown',
+	fullname: "Colin Brown",
 	prop: {
-		fullname: 'Aurelio Deftch',
+		fullname: "Aurelio Deftch",
 		getFullname: function () {
 			return this.fullname;
-		},
-	},
+		}
+	}
 };
 var test = obj.prop.getFullname;
 console.log(test()); // David Jones，调用者是window，window.fullname是David Jones
@@ -61,7 +61,7 @@ obj.prop.getFullname(); // Aurelio Deftch，调用者是obj.prop，obj.prop.full
 function log() {
 	var _args = [...arguments];
 	console.log(_args);
-	args.unshift('(app)');
+	args.unshift("(app)");
 
 	console.log.apply(console, args);
 }
@@ -77,7 +77,7 @@ var bar = function () {
 	console.log(this.x);
 };
 var foo = {
-	x: 3,
+	x: 3
 };
 bar(); // undefined
 var func = bar.bind(foo);

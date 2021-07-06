@@ -1,6 +1,6 @@
 ---
-date: '2020-01-19'
-title: '使用js获取位置'
+date: "2020-01-19"
+title: "使用js获取位置"
 tags: [i18n, javascript]
 ---
 
@@ -70,7 +70,7 @@ navigator.geolocation.getCurrentPosition(
 
 ```javascript
 一个简单的Demo;
-findMeButton.on('click', function () {
+findMeButton.on("click", function () {
 	navigator.geolocation.getCurrentPosition(function (position) {
 		// Get the coordinates of the current position.
 		var lat = position.coords.latitude;
@@ -78,19 +78,19 @@ findMeButton.on('click', function () {
 
 		// Create a new map and place a marker at the device location.
 		var map = new GMaps({
-			el: '#map',
+			el: "#map",
 			lat: lat,
-			lng: lng,
+			lng: lng
 		});
 
 		map.addMarker({
 			lat: lat,
-			lng: lng,
+			lng: lng
 		});
 	});
 });
 ```
 
-[在线 demo](https://jsfiddle.net/dannymarkov/ubrvm4ao/ 'https://jsfiddle.net/dannymarkov/ubrvm4ao/')
+[在线 demo](https://jsfiddle.net/dannymarkov/ubrvm4ao/ "https://jsfiddle.net/dannymarkov/ubrvm4ao/")
 
-翻译自[Detecting Your Location With JavaScript](http://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript/ 'http://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript/')
+翻译自[Detecting Your Location With JavaScript](http://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript/ "http://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript/")
