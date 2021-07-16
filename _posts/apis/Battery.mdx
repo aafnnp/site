@@ -1,8 +1,8 @@
 ---
-date: "2019-05-21"
-title: "Apis-Battery"
+date: '2019-05-21'
+title: 'Apis-Battery'
 tags: [javascript]
-description: "Battery Api提供了有关系统充电级别的信息并提供了通过电池等级或者充电状态的改变提醒用户的事件"
+description: 'Battery Api提供了有关系统充电级别的信息并提供了通过电池等级或者充电状态的改变提醒用户的事件'
 ---
 
 ## Battery Api
@@ -15,33 +15,37 @@ description: "Battery Api提供了有关系统充电级别的信息并提供了�
 
 ## 方法
 
--   chargingchange
--   levelchange
--   chargingtimechange
--   dischargingtimechange
+- chargingchange
+- levelchange
+- chargingtimechange
+- dischargingtimechange
 
 ```javascript
 navigator.getBattery().then(function (battery) {
-	console.log("Battery charging? " + (battery.charging ? "Yes" : "No"));
-	console.log("Battery level: " + battery.level * 100 + "%");
-	console.log("Battery charging time: " + battery.chargingTime + " seconds");
-	console.log("Battery discharging time: " + battery.dischargingTime + " seconds");
+  console.log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'));
+  console.log('Battery level: ' + battery.level * 100 + '%');
+  console.log('Battery charging time: ' + battery.chargingTime + ' seconds');
+  console.log(
+    'Battery discharging time: ' + battery.dischargingTime + ' seconds'
+  );
 
-	battery.addEventListener("chargingchange", function () {
-		console.log("Battery charging? " + (battery.charging ? "Yes" : "No"));
-	});
+  battery.addEventListener('chargingchange', function () {
+    console.log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'));
+  });
 
-	battery.addEventListener("levelchange", function () {
-		console.log("Battery level: " + battery.level * 100 + "%");
-	});
+  battery.addEventListener('levelchange', function () {
+    console.log('Battery level: ' + battery.level * 100 + '%');
+  });
 
-	battery.addEventListener("chargingtimechange", function () {
-		console.log("Battery charging time: " + battery.chargingTime + " seconds");
-	});
+  battery.addEventListener('chargingtimechange', function () {
+    console.log('Battery charging time: ' + battery.chargingTime + ' seconds');
+  });
 
-	battery.addEventListener("dischargingtimechange", function () {
-		console.log("Battery discharging time: " + battery.dischargingTime + " seconds");
-	});
+  battery.addEventListener('dischargingtimechange', function () {
+    console.log(
+      'Battery discharging time: ' + battery.dischargingTime + ' seconds'
+    );
+  });
 });
 ```
 

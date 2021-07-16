@@ -1,6 +1,6 @@
 ---
-date: "2021-04-12"
-title: "什么是React"
+date: '2021-04-12'
+title: '什么是React'
 tags: [react, javascript]
 description: React是一个JavaScript库，致力于使UI开发变得简单
 ---
@@ -29,10 +29,10 @@ React 最初是由 Facebook 开发的，旨在解决他们面临的前端问题�
 
 React 中必须掌握的核心概念：
 
--   组件`component`
--   jsx
--   状态`state`
--   属性`props`
+- 组件`component`
+- jsx
+- 状态`state`
+- 属性`props`
 
 ## 入门
 
@@ -41,31 +41,37 @@ React 中必须掌握的核心概念：
 ```html
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<title>Simple React.js application</title>
-	</head>
-	<body>
-		<h2>Simple React.js application</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple React.js application</title>
+  </head>
+  <body>
+    <h2>Simple React.js application</h2>
 
-		<div id="show_button_container"></div>
+    <div id="show_button_container"></div>
 
-		<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-		<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
 
-		<script>
-			"use strict";
-			const e = React.createElement;
+    <script>
+      'use strict';
+      const e = React.createElement;
 
-			class ShowButton extends React.Component {
-				render() {
-					return e("button", {onClick: () => alert("Hello there!")}, "Show");
-				}
-			}
+      class ShowButton extends React.Component {
+        render() {
+          return e('button', { onClick: () => alert('Hello there!') }, 'Show');
+        }
+      }
 
-			const domContainer = document.querySelector("#show_button_container");
-			ReactDOM.render(e(ShowButton), domContainer);
-		</script>
-	</body>
+      const domContainer = document.querySelector('#show_button_container');
+      ReactDOM.render(e(ShowButton), domContainer);
+    </script>
+  </body>
 </html>
 ```

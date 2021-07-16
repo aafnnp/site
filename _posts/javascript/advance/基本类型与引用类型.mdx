@@ -1,29 +1,29 @@
 ---
-date: "2021-04-01"
-title: "基本类型与引用类型"
+date: '2021-04-01'
+title: '基本类型与引用类型'
 tags: [javascript]
 ---
 
 在 ECMAScript 中，变量可以存在两种类型的值，即原始值和引用值。
 
--   原始值：存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。
--   引用值：存储在堆（heap）中的对象，也就是说，存储在变量处的值是一个指针（point），指向存储对象的内存处。
+- 原始值：存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。
+- 引用值：存储在堆（heap）中的对象，也就是说，存储在变量处的值是一个指针（point），指向存储对象的内存处。
 
 ## 基本类型
 
--   Number：`typeof instance === "number"`
--   Boolean：`typeof instance === "boolean"`
--   String：`typeof instance === "string"`
--   Symbol：`typeof instance === "symbol"`
--   Null：`typeof instance === "object"`
--   Undefined：`typeof instance === "undefined"`
+- Number：`typeof instance === "number"`
+- Boolean：`typeof instance === "boolean"`
+- String：`typeof instance === "string"`
+- Symbol：`typeof instance === "symbol"`
+- Null：`typeof instance === "object"`
+- Undefined：`typeof instance === "undefined"`
 
 ```javascript
 const number = 10;
 
 const bool = false;
 
-const str = "Hello!";
+const str = 'Hello!';
 
 const missingObject = null;
 
@@ -46,20 +46,20 @@ console.log(b); // 3
 
 ## 引用类型
 
--   Object：`typeof instance === "object"`
--   Array：`typeof instance === "array"`
--   Function：`typeof instance === "function"`
+- Object：`typeof instance === "object"`
+- Array：`typeof instance === "array"`
+- Function：`typeof instance === "function"`
 
 ```javascript
 // Objects
 const plainObject = {
-	prop: "Value"
+  prop: 'Value',
 };
 
 const array = [1, 5, 6];
 
 const functionObject = (n1, n2) => {
-	return n1 + n2;
+  return n1 + n2;
 };
 ```
 

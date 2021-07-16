@@ -18,37 +18,42 @@ cd state-demo
 
 ```jsx
 //App.js
-import React from "react";
+import React from 'react';
 
 class App extends React.Component {
-	constructor() {
-		super();
+  constructor() {
+    super();
 
-		this.state = {
-			title: "React state example"
-		};
-	}
+    this.state = {
+      title: 'React state example',
+    };
+  }
 
-	tooggleTitle = () => {
-		if (this.state.title === "") {
-			this.setState({title: "React state example"});
-		} else {
-			this.setState({title: ""});
-		}
-	};
+  tooggleTitle = () => {
+    if (this.state.title === '') {
+      this.setState({ title: 'React state example' });
+    } else {
+      this.setState({ title: '' });
+    }
+  };
 
-	render() {
-		return (
-			<div>
-				<div>
-					<input type="checkbox" id="showTitle" onClick={this.tooggleTitle} defaultChecked />
-					<label htmlFor="showTitle">Show title</label>
-				</div>
+  render() {
+    return (
+      <div>
+        <div>
+          <input
+            type="checkbox"
+            id="showTitle"
+            onClick={this.tooggleTitle}
+            defaultChecked
+          />
+          <label htmlFor="showTitle">Show title</label>
+        </div>
 
-				<h2>{this.state.title}</h2>
-			</div>
-		);
-	}
+        <h2>{this.state.title}</h2>
+      </div>
+    );
+  }
 }
 
 export default App;

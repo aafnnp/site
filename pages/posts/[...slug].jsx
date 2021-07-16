@@ -1,17 +1,17 @@
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import Image from "next/image";
-import ErrorPage from "next/error";
-import Head from "next/head";
-import { GetPostBySlug, GetRandomPost, posts } from "../../getAllPosts";
-import matter from "gray-matter";
-import { serialize } from "next-mdx-remote/serialize";
-import { MDXRemote } from "next-mdx-remote";
-import { CodePen, CodeSandbox, Gist } from "mdx-embed";
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import ErrorPage from 'next/error';
+import Head from 'next/head';
+import matter from 'gray-matter';
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
+import { CodePen, CodeSandbox, Gist } from 'mdx-embed';
+import { GetPostBySlug, GetRandomPost, posts } from '../../getAllPosts';
 
-const PostPage = dynamic(() => import("../../components/PostPage"));
-const Comments = dynamic(() => import("../../components/Comments"));
-const Random = dynamic(() => import("../../components/RandomPost"));
+const PostPage = dynamic(() => import('../../components/PostPage'));
+const Comments = dynamic(() => import('../../components/Comments'));
+const Random = dynamic(() => import('../../components/RandomPost'));
 
 const components = {
   CodePen,
@@ -42,13 +42,13 @@ function Post({ data, content, randomPost }) {
             src="/github.svg"
             width="18"
           />
-          <span className="mr-2">Manon.icu</span>/ {data.date}（{data.fromNow}）
+          <span className="mr-2">Manon.icu</span>/{data.date}（{data.fromNow}）
         </div>
       </div>
 
       <div className="markdown-body text-sm">
         <PostPage>
-          {<MDXRemote {...content} components={components} />}
+          <MDXRemote {...content} components={components} />
         </PostPage>
 
         <Random data={randomPost} />
@@ -63,7 +63,7 @@ export async function getStaticPaths() {
   const allposts = posts();
   const paths = allposts.flat(Infinity).map((post) => ({
     params: {
-      slug: post.link.substr(1).split("/"),
+      slug: post.link.substr(1).split('/'),
     },
   }));
 
@@ -84,6 +84,11 @@ export async function getStaticProps({ params }) {
     },
     scope: data,
   });
+  console.log(
+    '🚀 ~ file: [...slug].js ~ line 87 ~ getStaticProps ~ mdxSource',
+    content
+  );
+
   return {
     props: {
       data,

@@ -1,182 +1,182 @@
 module.exports = {
   title: [
-    "Informational",
-    "Successful",
-    "Redirect",
-    "Client Error",
-    "Server Error",
+    'Informational',
+    'Successful',
+    'Redirect',
+    'Client Error',
+    'Server Error',
   ],
   data: [
     [
       {
         key: 100,
-        value: "Continue",
+        value: 'Continue',
       },
       {
         key: 101,
-        value: "Switching Protocols",
+        value: 'Switching Protocols',
       },
       {
         key: 102,
-        value: "Processing",
+        value: 'Processing',
       },
       {
         key: 103,
-        value: "Early Hints",
+        value: 'Early Hints',
       },
     ],
     [
       {
         key: 200,
-        value: "OK",
+        value: 'OK',
       },
       {
         key: 201,
-        value: "Created",
+        value: 'Created',
       },
       {
         key: 202,
-        value: "Accepted",
+        value: 'Accepted',
       },
       {
         key: 203,
-        value: "Non - Authoritative Information",
+        value: 'Non - Authoritative Information',
       },
       {
         key: 204,
-        value: "No Content",
+        value: 'No Content',
       },
       {
         key: 205,
-        value: "Reset Content",
+        value: 'Reset Content',
       },
       {
         key: 206,
-        value: "Partial Content",
+        value: 'Partial Content',
       },
       {
         key: 207,
-        value: "Multi Status",
+        value: 'Multi Status',
       },
       {
         key: 208,
-        value: "Already Reported",
+        value: 'Already Reported',
       },
       {
         key: 226,
-        value: "IM Used",
+        value: 'IM Used',
       },
     ],
     [
       {
         key: 300,
-        value: "Multiple Choices",
+        value: 'Multiple Choices',
       },
       {
         key: 301,
-        value: "Moved Permanently",
+        value: 'Moved Permanently',
       },
       {
         key: 302,
-        value: "Found(Previously Moved temporarily)",
+        value: 'Found(Previously Moved temporarily)',
       },
       {
         key: 303,
-        value: "See Other",
+        value: 'See Other',
       },
       {
         key: 304,
-        value: "Not Modified",
+        value: 'Not Modified',
       },
       {
         key: 305,
-        value: "Use Proxy",
+        value: 'Use Proxy',
       },
       {
         key: 306,
-        value: "Switch Proxy",
+        value: 'Switch Proxy',
       },
       {
         key: 307,
-        value: "Temporary Redirect",
+        value: 'Temporary Redirect',
       },
       {
         key: 308,
-        value: "Permanent Redirect",
+        value: 'Permanent Redirect',
       },
     ],
     [
       {
         key: 400,
-        value: "Bad Request",
+        value: 'Bad Request',
       },
       {
         key: 401,
-        value: "Unauthorized",
+        value: 'Unauthorized',
       },
       {
         key: 402,
-        value: "Payment Required",
+        value: 'Payment Required',
       },
       {
         key: 403,
-        value: "Forbidden",
+        value: 'Forbidden',
       },
       {
         key: 404,
-        value: "Not Found",
+        value: 'Not Found',
       },
       {
         key: 405,
-        value: "Method Not Allowed",
+        value: 'Method Not Allowed',
       },
       {
         key: 406,
-        value: "Not Acceptable",
+        value: 'Not Acceptable',
       },
       {
         key: 407,
-        value: "Proxy Authentication Required",
+        value: 'Proxy Authentication Required',
       },
       {
         key: 408,
-        value: "Request Timeout",
+        value: 'Request Timeout',
       },
       {
         key: 409,
-        value: "Conflict",
+        value: 'Conflict',
       },
       {
         key: 410,
-        value: "Gone",
+        value: 'Gone',
       },
       {
         key: 411,
-        value: "Length Required",
+        value: 'Length Required',
       },
       {
         key: 412,
-        value: "Precondition Failed",
+        value: 'Precondition Failed',
       },
       {
         key: 413,
-        value: "Payload Too Large",
+        value: 'Payload Too Large',
       },
       {
         key: 414,
-        value: "URI Too Long",
+        value: 'URI Too Long',
       },
       {
         key: 415,
-        value: "Unsupported Media Type",
+        value: 'Unsupported Media Type',
       },
       {
         key: 416,
-        value: "Range Not Satisfiable",
+        value: 'Range Not Satisfiable',
       },
       {
         key: 417,
-        value: "Expectation Failed",
+        value: 'Expectation Failed',
       },
       {
         key: 418,
@@ -184,89 +184,89 @@ module.exports = {
       },
       {
         key: 421,
-        value: "Misdirected Request",
+        value: 'Misdirected Request',
       },
       {
         key: 422,
-        value: "Unprocessable Entity",
+        value: 'Unprocessable Entity',
       },
       {
         key: 423,
-        value: "Locked",
+        value: 'Locked',
       },
       {
         key: 424,
-        value: "Failed Dependency",
+        value: 'Failed Dependency',
       },
       {
         key: 425,
-        value: "Too Early",
+        value: 'Too Early',
       },
       {
         key: 426,
-        value: "Upgrade Required",
+        value: 'Upgrade Required',
       },
       {
         key: 428,
-        value: "Precondition Required",
+        value: 'Precondition Required',
       },
       {
         key: 429,
-        value: "Too Many Requests",
+        value: 'Too Many Requests',
       },
       {
         key: 431,
-        value: "Request Header Fields Too Large",
+        value: 'Request Header Fields Too Large',
       },
       {
         key: 451,
-        value: "Unavailable for Legal Reasons",
+        value: 'Unavailable for Legal Reasons',
       },
     ],
     [
       {
         key: 500,
-        value: "Internal Server Error",
+        value: 'Internal Server Error',
       },
       {
         key: 501,
-        value: "Not Implemented",
+        value: 'Not Implemented',
       },
       {
         key: 502,
-        value: "Bad Gateway",
+        value: 'Bad Gateway',
       },
       {
         key: 503,
-        value: "Service Unavailable",
+        value: 'Service Unavailable',
       },
       {
         key: 504,
-        value: "Gateway Timeout",
+        value: 'Gateway Timeout',
       },
       {
         key: 505,
-        value: "HTTP Version Not Supported",
+        value: 'HTTP Version Not Supported',
       },
       {
         key: 506,
-        value: "Variant Also Negotiates",
+        value: 'Variant Also Negotiates',
       },
       {
         key: 507,
-        value: "Insufficient Storage",
+        value: 'Insufficient Storage',
       },
       {
         key: 508,
-        value: "Loop Detected",
+        value: 'Loop Detected',
       },
       {
         key: 510,
-        value: "Not Extended",
+        value: 'Not Extended',
       },
       {
         key: 511,
-        value: "Network Authentication Required",
+        value: 'Network Authentication Required',
       },
     ],
   ],

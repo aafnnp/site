@@ -1,6 +1,6 @@
 ---
-date: "2020-05-19"
-title: "继承"
+date: '2020-05-19'
+title: '继承'
 tags: [javascript]
 ---
 
@@ -16,10 +16,10 @@ tags: [javascript]
 
 ```javascript
 function Parent() {
-	this.name = "wang";
+  this.name = 'wang';
 }
 function Child() {
-	this.age = 28;
+  this.age = 28;
 }
 Child.prototype = new Parent(); //继承了Parent，通过原型
 var demo = new Child();

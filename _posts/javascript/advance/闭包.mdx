@@ -1,6 +1,6 @@
 ---
-date: "2020-05-19"
-title: "闭包"
+date: '2020-05-19'
+title: '闭包'
 tags: [javascript]
 ---
 
@@ -14,26 +14,26 @@ tags: [javascript]
 4. 让变量的值始终保存在内存中
 
 ```javascript
-var name = "The Window";
+var name = 'The Window';
 var object = {
-	name: "My Object",
-	getNameFunc: function () {
-		return function () {
-			return this.name;
-		};
-	}
+  name: 'My Object',
+  getNameFunc: function () {
+    return function () {
+      return this.name;
+    };
+  },
 };
 alert(object.getNameFunc()()); // The window
 
-var name = "The Window";
+var name = 'The Window';
 var object = {
-	name: "My Object",
-	getNameFunc: function () {
-		var that = this;
-		return function () {
-			return that.name;
-		};
-	}
+  name: 'My Object',
+  getNameFunc: function () {
+    var that = this;
+    return function () {
+      return that.name;
+    };
+  },
 };
 alert(object.getNameFunc()()); // My Object
 ```
@@ -44,8 +44,8 @@ alert(object.getNameFunc()()); // My Object
 
 闭包 的最⼤⽤处有两个，⼀个是可以读取函数内部的变量，另⼀个就是让这些变量始终保持在内存中闭包的另⼀个⽤处，是封装对象的私有属性和私有⽅法
 
--   好处：能够实现封装和缓存等；
--   坏处：就是消耗内存、不正当使⽤会造成内存溢出的问题
+- 好处：能够实现封装和缓存等；
+- 坏处：就是消耗内存、不正当使⽤会造成内存溢出的问题
 
 ## 使⽤闭包的注意点
 
