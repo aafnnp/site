@@ -1,7 +1,9 @@
-const config = require('../../utils/config');
+import React from 'react'
+const config = require('../../utils/config')
 
-function HttpStatus() {
-  return <div>
+function HttpStatus () {
+  return (
+    <div>
       <div className="http-status">
         <h2 className="text-2xl mb-4 font-bold">HTTP状态代码概述</h2>
 
@@ -33,6 +35,7 @@ function HttpStatus() {
         ))}
       </div>
     </div>
+  )
 }
 
-export default HttpStatus;
+export default HttpStatus

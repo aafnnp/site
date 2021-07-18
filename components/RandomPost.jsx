@@ -1,6 +1,7 @@
-import Link from 'next/link';
+import React from 'react'
+import Link from 'next/link'
 
-function RandomPost({ data }) {
+function RandomPost ({ data }) {
   return (
     <>
       <h2 className="font-medium text-xl mt-8">更多文章</h2>
@@ -14,7 +15,7 @@ function RandomPost({ data }) {
         ))}
       </ul>
     </>
-  );
+  )
 }
 
-export default RandomPost;
+export default RandomPost

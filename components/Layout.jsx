@@ -1,7 +1,7 @@
-import React from 'react';
-import Head from 'next/head';
+import React from 'react'
+import Head from 'next/head'
 
-export default function Layout({ children, pageTitle, description }) {
+export default function Layout ({ children, pageTitle, description }) {
   return (
     <>
       <Head>
@@ -24,5 +24,5 @@ export default function Layout({ children, pageTitle, description }) {
         <div className="content mx-auto">{children}</div>
       </main>
     </>
-  );
+  )
 }

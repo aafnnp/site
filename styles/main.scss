@@ -79,7 +79,7 @@ body {
 }
 
 /*home page*/
-.home-page{
+.home-page {
   nav {
     width: 100%;
     background-color: #0b0b0b;
@@ -120,7 +120,7 @@ body {
     color: #efefef;
   }
   nav li.active::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: -2px;
     left: 0;
@@ -224,7 +224,7 @@ body {
     color: #f7ca18;
   }
   section .title span a::after {
-    content: "";
+    content: '';
     height: 2px;
     background-color: #f7ca18;
     position: absolute;
@@ -233,7 +233,6 @@ body {
     width: 0;
     animation: linkAfter 0.5s 1s ease both;
   }
-
 }
 
 @keyframes pop {
@@ -260,4 +259,3 @@ body {
     width: 30px;
   }
 }
-

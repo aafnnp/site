@@ -1,4 +1,6 @@
-function HttpStatus() {
+import React from 'react'
+
+function HttpStatus () {
   return (
     <>
       <style jsx>
@@ -92,7 +94,7 @@ function HttpStatus() {
       <audio data-key="75" src="/sounds/tom.wav" />
       <audio data-key="76" src="/sounds/tink.wav" />
     </>
-  );
+  )
 }
 
-export default HttpStatus;
+export default HttpStatus
