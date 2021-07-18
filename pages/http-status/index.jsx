@@ -1,6 +1,7 @@
-const config = require("../../utils/config");
+import React from 'react'
+const config = require('../../utils/config')
 
-function HttpStatus() {
+function HttpStatus () {
   return (
     <div>
       <div className="http-status">
@@ -9,7 +10,9 @@ function HttpStatus() {
         {config.data.map((item, key) => (
           <div className="p-10 mb-10 shadow-xl rounded-md" key={key}>
             <h3 className="text-xl mb-4 font-bold">
-              {key + 1}xx {config.title[key]}
+              {key + 1}
+              xx
+              {config.title[key]}
             </h3>
 
             {item.map((el) => (
@@ -32,7 +35,7 @@ function HttpStatus() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
-export default HttpStatus;
+export default HttpStatus

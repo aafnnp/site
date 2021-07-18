@@ -1,40 +1,40 @@
 ---
-date: "2018-04-12"
-title: "Flexbox指南"
+date: '2018-04-12'
+title: 'Flexbox指南'
 tags: [css]
-description: "Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。"
+description: 'Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。'
 ---
 
 ![Flexbox](https://cdn.jsdelivr.net/gh/funnypan/pics@master/20181016105026.png)
 
 Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。
 
--   基本介绍
--   浏览器兼容性
--   启用 Flexbox
--   容器属性
-    -   行||列 对齐 ==row and columns==
-    -   水平||垂直 对齐 ==Vertical and horizontal==
-    -   更改水平对齐 ==change horizontal alignment==
-    -   更改垂直对齐 ==change vertical alignment==
-        -   关于基准线 ==about baseline==
-    -   换行 ==wrap==
--   flex 元素上的属性
-    -   order
-    -   align-self
-    -   flex-grow
-    -   flex-shrink
-    -   flex-basis
-    -   flex
+- 基本介绍
+- 浏览器兼容性
+- 启用 Flexbox
+- 容器属性
+  - 行||列 对齐 ==row and columns==
+  - 水平||垂直 对齐 ==Vertical and horizontal==
+  - 更改水平对齐 ==change horizontal alignment==
+  - 更改垂直对齐 ==change vertical alignment==
+    - 关于基准线 ==about baseline==
+  - 换行 ==wrap==
+- flex 元素上的属性
+  - order
+  - align-self
+  - flex-grow
+  - flex-shrink
+  - flex-basis
+  - flex
 
 ### 介绍
 
 Flexbox，也称为灵活盒模块，是两个现代布局系统之一，还有 CSS Grid。与 CSS Grid（二维）相比，flexbox 是一维布局模型。它将基于行或列控制布局，但不能同时控制布局。flexbox 的主要目标是允许项目填充其容器提供的整个空间，具体取决于您设置的一些规则。Flexbox 不兼容 IE10 以下，IE10 以下可以使用如下方式：
 
--   Table layouts
--   Floats
--   clearfix hacks
--   display: table hacks
+- Table layouts
+- Floats
+- clearfix hacks
+- display: table hacks
 
 ### 兼容性
 
@@ -56,20 +56,20 @@ display: inline-flexbox;
 
 ### 容器属性
 
--   flex-direction
--   justify-content
--   align-items
--   flex-wrap
--   flex-flow
+- flex-direction
+- justify-content
+- align-items
+- flex-wrap
+- flex-flow
 
 ### 行对齐或者列对齐
 
 flex-direction 决定容器以行对齐还是列对齐。
 
--   flex-direction:row，行对齐，从左到右
--   flex-direction:row-reverse，行对齐，从右到左
--   flex-direction:column，列对齐，从上到下
--   flex-direction:column-reverse，列对齐，从下到上
+- flex-direction:row，行对齐，从左到右
+- flex-direction:row-reverse，行对齐，从右到左
+- flex-direction:column，列对齐，从上到下
+- flex-direction:column-reverse，列对齐，从下到上
 
 如下图所示：
 

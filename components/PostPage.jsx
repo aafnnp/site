@@ -12,7 +12,7 @@ export default class PostPage extends React.Component {
   }
 
   updateCodeSyntaxHighlighting () {
-    document.querySelectorAll('pre code').forEach(block => {
+    document.querySelectorAll('pre code').forEach((block) => {
       hljs.highlightBlock(block)
     })
   }

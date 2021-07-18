@@ -1,8 +1,8 @@
 ---
-date: "2017-07-12"
-title: "三角形绘制方法"
+date: '2017-07-12'
+title: '三角形绘制方法'
 tags: [css]
-description: "在做UI（页面重构）的时候，免不了和各种小图标打交道，这其中最多的应该是三角形以及箭头"
+description: '在做UI（页面重构）的时候，免不了和各种小图标打交道，这其中最多的应该是三角形以及箭头'
 ---
 
 在做 UI（页面重构）的时候，免不了和各种小图标打交道，这其中最多的应该是三角形以及箭头，一般情况下可以通过伪类使用 unicode 解决大部分问题。
@@ -23,10 +23,10 @@ description: "在做UI（页面重构）的时候，免不了和各种小图标�
 
 ```css
 .triangle:after {
-	display: block;
-	content: "\25B2";
-	color: "#fd5353";
-	font-size: 20px;
+  display: block;
+  content: '\25B2';
+  color: '#fd5353';
+  font-size: 20px;
 }
 ```
 
@@ -38,11 +38,11 @@ description: "在做UI（页面重构）的时候，免不了和各种小图标�
 
 ```css
 .triangle {
-	width: 0;
-	height: 0;
-	border-left: 50px solid transparent;
-	border-right: 50px solid transparent;
-	border-bottom: 100px solid red;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 100px solid red;
 }
 ```
 
@@ -78,26 +78,26 @@ description: "在做UI（页面重构）的时候，免不了和各种小图标�
 
 ```css
 .triangle {
-	width: 30%;
-	padding-bottom: 21.27%; /* = width / 1.41 */
-	position: relative;
+  width: 30%;
+  padding-bottom: 21.27%; /* = width / 1.41 */
+  position: relative;
 
-	//划重点
-	overflow: hidden;
+  //划重点
+  overflow: hidden;
 }
 
 .triangle: before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: #0079c6;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0079c6;
 
-	//划重点
-	transform-origin: 0 100%;
-	transform: rotate(45deg);
+  //划重点
+  transform-origin: 0 100%;
+  transform: rotate(45deg);
 }
 ```
 
@@ -107,10 +107,10 @@ description: "在做UI（页面重构）的时候，免不了和各种小图标�
 
 ```css
 .triangle {
-	width: 200px;
-	height: 200px;
-	background: #fd5353;
-	clip-path: polygon(50% 0, 0 100%, 100% 100%);
+  width: 200px;
+  height: 200px;
+  background: #fd5353;
+  clip-path: polygon(50% 0, 0 100%, 100% 100%);
 }
 ```
 

@@ -1,6 +1,6 @@
 ---
-date: "2020-01-19"
-title: "使用js获取位置"
+date: '2020-01-19'
+title: '使用js获取位置'
 tags: [i18n, javascript]
 ---
 
@@ -18,17 +18,17 @@ GPS-主要在移动设备，精确到 10 米 WIFI-几乎所有的联网设备 IP
 
 ```javascript
 if (navigator.geolocation) {
-	// 支持geolocation
+  // 支持geolocation
 } else {
-	// 不支持geolocation
+  // 不支持geolocation
 }
 ```
 
 navigator.geolocation 有如下几个方法：
 
--   Geolocation.getCurrentPosition() //获取当前位置
--   Geolocation.watchPosition() //监测定位
--   Geolocation.clearWatch() //清除监测
+- Geolocation.getCurrentPosition() //获取当前位置
+- Geolocation.watchPosition() //监测定位
+- Geolocation.clearWatch() //清除监测
 
 getCurrentPosition() and watchPosition() methods 的工作方式是基本相同的。这两方法目的基本相同，都是用来去获取 device 的位置信息吧， 都是以一个异步的工作形式来获取位置信息的， 他们也都依赖于一个 attempt call 的结果
 
@@ -70,27 +70,27 @@ navigator.geolocation.getCurrentPosition(
 
 ```javascript
 一个简单的Demo;
-findMeButton.on("click", function () {
-	navigator.geolocation.getCurrentPosition(function (position) {
-		// Get the coordinates of the current position.
-		var lat = position.coords.latitude;
-		var lng = position.coords.longitude;
+findMeButton.on('click', function () {
+  navigator.geolocation.getCurrentPosition(function (position) {
+    // Get the coordinates of the current position.
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
 
-		// Create a new map and place a marker at the device location.
-		var map = new GMaps({
-			el: "#map",
-			lat: lat,
-			lng: lng
-		});
+    // Create a new map and place a marker at the device location.
+    var map = new GMaps({
+      el: '#map',
+      lat: lat,
+      lng: lng,
+    });
 
-		map.addMarker({
-			lat: lat,
-			lng: lng
-		});
-	});
+    map.addMarker({
+      lat: lat,
+      lng: lng,
+    });
+  });
 });
 ```
 
-[在线 demo](https://jsfiddle.net/dannymarkov/ubrvm4ao/ "https://jsfiddle.net/dannymarkov/ubrvm4ao/")
+[在线 demo](https://jsfiddle.net/dannymarkov/ubrvm4ao/ 'https://jsfiddle.net/dannymarkov/ubrvm4ao/')
 
-翻译自[Detecting Your Location With JavaScript](http://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript/ "http://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript/")
+翻译自[Detecting Your Location With JavaScript](http://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript/ 'http://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript/')

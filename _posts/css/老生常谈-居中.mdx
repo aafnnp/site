@@ -1,8 +1,8 @@
 ---
-date: "2016-05-04"
-title: "老生常谈-居中"
+date: '2016-05-04'
+title: '老生常谈-居中'
 tags: [css]
-description: "几种居中的方法"
+description: '几种居中的方法'
 ---
 
 ## 水平居中
@@ -11,7 +11,7 @@ description: "几种居中的方法"
 
 ```css
 p {
-	text-align: center;
+  text-align: center;
 }
 ```
 
@@ -22,14 +22,14 @@ p {
 ```css
 /*flexbox*/
 #mysection {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 /*margin*/
 #mysection {
-	margin: 0 auto;
-	width: 50%;
+  margin: 0 auto;
+  width: 50%;
 }
 ```
 
@@ -41,8 +41,8 @@ p {
 
 ```css
 #mysection {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 ```
 
@@ -53,14 +53,14 @@ p {
 ```css
 /*flex*/
 #mysection {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /*grid*/
 body {
-	display: grid;
-	place-items: center;
-	height: 100vh;
+  display: grid;
+  place-items: center;
+  height: 100vh;
 }
 ```

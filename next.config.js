@@ -1,43 +1,11 @@
-const withPlugins = require("next-compose-plugins");
-// const mdxEnhanced = require('next-mdx-enhanced')
+const withPlugins = require('next-compose-plugins')
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx$/
+})
 
-// /*
-//  * Const withBundleAnalyzer = require('@next/bundle-analyzer')({
-//  *   enabled: process.env.ANALYZE === 'true',
-//  * })
-//  */
-const withMDX = require("@next/mdx")({
-  extension: /\.mdx$/,
-});
-
-// module.exports = withPlugins(
-// 	[
-// 		withMDX,
-// 		mdxEnhanced({
-// 			layoutPath:'./src/templates'
-// 		})
-// 	], {
-// 		pageExtensions: ["js", "jsx", "md", "mdx"],
-// 		target: "serverless",
-// 		webpack: (config, { isServer }) => {
-// 			if (!isServer) {
-// 				config.resolve.fallback = {
-// 					fs: false,
-// 					path: false
-// 				}
-// 			}
-// 			config.module.rules.push({
-// 				test: /\.mdx$/,
-// 				use: "raw-loader",
-// 			});
-
-// 			return config;
-// 		},
-// 	}
-// );
 module.exports = withPlugins([withMDX], {
   images: {
-    domains: ["cdn.jsdelivr.net"],
+    domains: ['cdn.jsdelivr.net']
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -47,9 +15,9 @@ module.exports = withPlugins([withMDX], {
         crypto: false,
         os: false,
         tty: false,
-        worker_threads: false,
-      };
+        worker_threads: false
+      }
     }
-    return config;
-  },
-});
+    return config
+  }
+})
