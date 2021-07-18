@@ -13,6 +13,7 @@ import { GetPostBySlug, GetRandomPost, posts } from '../../getAllPosts'
 const PostPage = dynamic(() => import('../../components/PostPage'))
 const Comments = dynamic(() => import('../../components/Comments'))
 const Random = dynamic(() => import('../../components/RandomPost'))
+const Header = dynamic(() => import('../../components/Header'))
 
 const components = {
   CodePen,
@@ -31,31 +32,35 @@ function Post ({ data, content, randomPost }) {
       <Head>
         <title>{data.title}</title>
       </Head>
+      <main className="p-4">
+        <div className="content mx-auto">
+          <Header/>
+          <h1 className="font-bold text-2xl pb-2">{data.title}</h1>
 
-      <h1 className="font-bold text-2xl pb-2">{data.title}</h1>
+          <div className="post-info mb-10 text-sm flex justify-between">
+            <div className="flex items-center">
+              <Image
+                  alt="manonicu"
+                  className="rounded-full mr-2"
+                  height="18"
+                  src="/github.svg"
+                  width="18"
+              />
+              <span className="mr-2">Manon.icu</span>/{data.date}（{data.fromNow}）
+            </div>
+          </div>
 
-      <div className="post-info mb-10 text-sm flex justify-between">
-        <div className="flex items-center">
-          <Image
-            alt="manonicu"
-            className="rounded-full mr-2"
-            height="18"
-            src="/github.svg"
-            width="18"
-          />
-          <span className="mr-2">Manon.icu</span>/{data.date}（{data.fromNow}）
+          <div className="markdown-body text-sm">
+            <PostPage>
+              <MDXRemote {...content} components={components} />
+            </PostPage>
+
+            <Random data={randomPost} />
+
+            <Comments />
+          </div>
         </div>
-      </div>
-
-      <div className="markdown-body text-sm">
-        <PostPage>
-          <MDXRemote {...content} components={components} />
-        </PostPage>
-
-        <Random data={randomPost} />
-
-        <Comments />
-      </div>
+      </main>
     </>
   )
 }
@@ -85,10 +90,6 @@ export async function getStaticProps ({ params }) {
     },
     scope: data
   })
-  console.log(
-    '🚀 ~ file: [...slug].js ~ line 87 ~ getStaticProps ~ mdxSource',
-    content
-  )
 
   return {
     props: {
