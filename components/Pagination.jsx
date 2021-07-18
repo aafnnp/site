@@ -9,7 +9,7 @@ export default class Pagination extends Component {
     return (
       <nav className="my-4 flex items-center pagination">
         {Array.from(Array(this.props.total), (_, i) => i + 1).map((item) => (
-          <Link href={`/?page=${item}`} key={item}>
+          <Link href={`/blog?page=${item}`} key={item}>
             <a className={CLASS(item)}>{item}</a>
           </Link>
         ))}
