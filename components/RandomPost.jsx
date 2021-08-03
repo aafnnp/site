@@ -8,7 +8,7 @@ function RandomPost ({ data }) {
       <ul className="related-post">
         {data.map((item, key) => (
           <li key={key}>
-            <Link href={`/posts${item.link}`}>
+            <Link href={`/blog${item.link}`}>
               <a>{item.data.title}</a>
             </Link>
           </li>

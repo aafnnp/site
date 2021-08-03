@@ -12,7 +12,7 @@ function List ({ post }) {
     <li className="py-3 px-4">
       <span>{date}</span>
 
-      <Link href={`/posts${link}`}>
+      <Link href={`/blog${link}`}>
         <a>{title}</a>
       </Link>
 

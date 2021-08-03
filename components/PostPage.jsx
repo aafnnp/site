@@ -1,6 +1,6 @@
 import React from 'react'
 import hljs from 'highlight.js'
-import 'highlight.js/styles/github.css'
+import 'highlight.js/styles/base16/default-dark.css'
 
 export default class PostPage extends React.Component {
   componentDidMount () {
@@ -12,8 +12,8 @@ export default class PostPage extends React.Component {
   }
 
   updateCodeSyntaxHighlighting () {
-    document.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightBlock(block)
+    document.querySelectorAll('pre code').forEach((el) => {
+      hljs.highlightElement(el)
     })
   }
 
