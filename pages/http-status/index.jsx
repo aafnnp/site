@@ -1,6 +1,6 @@
 import React from 'react'
 
-const config = require('./config')
+const config = require('../../utils/config')
 
 function HttpStatus() {
   return (

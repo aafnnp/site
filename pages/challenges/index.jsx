@@ -11,8 +11,8 @@ export default function IndexPage(props) {
       <div className="item ml-4 grid grid-cols-3 gap-4">
         {
           allChallenges.map(item => {
-            return <Link key={item.link} href={item.link}>
-              <div className="flex items-center h-10">
+            return <div className="flex items-center h-10" key={item.link} >
+              <Link href={item.link}>
                 <a className="cursor-pointer mr-2 underline">{item.title[0]}</a>
                 {item.group.map((tag) => (
                   <Image
@@ -23,8 +23,8 @@ export default function IndexPage(props) {
                     src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
                     width={20}
                   />
-                ))}</div>
-            </Link>
+                ))}</Link>
+            </div>
           })
         }
       </div>
