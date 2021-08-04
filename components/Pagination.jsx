@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import Link from 'next/link'
+import React, { Component } from 'react';
+import Link from 'next/link';
 
 export default class Pagination extends Component {
-  render () {
+  render() {
     // eslint-disable-next-line eqeqeq
-    const CLASS = (key) => (this.props.curPage == key ? 'active' : '')
+    const CLASS = (key) => (this.props.curPage == key ? 'active' : '');
 
     return (
       <nav className="my-4 flex items-center pagination">
@@ -14,6 +14,6 @@ export default class Pagination extends Component {
           </Link>
         ))}
       </nav>
-    )
+    );
   }
 }

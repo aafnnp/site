@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const config = require('../../utils/config')
+const config = require('../../utils/config');
 
 function HttpStatus() {
   return (
@@ -36,7 +36,7 @@ function HttpStatus() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default HttpStatus
+export default HttpStatus;

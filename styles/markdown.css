@@ -717,7 +717,6 @@
   content: attr(data-line-number);
 }
 
-
 .markdown-body .pl-token.active,
 .markdown-body .pl-token:hover {
   background: #ffea7f;

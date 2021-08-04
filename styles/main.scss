@@ -80,7 +80,8 @@ body {
 
 /*home page*/
 .home-page {
-  background:url("https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/blog-bg.jpg") no-repeat scroll center top;
+  background: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/blog-bg.jpg')
+    no-repeat scroll center top;
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -88,46 +89,46 @@ body {
   justify-content: center;
   nav {
     @apply flex fixed w-screen bottom-0 overflow-hidden h-20;
-    background: hsla(0, 0%, 100%, .15);
+    background: hsla(0, 0%, 100%, 0.15);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-    a{
+    a {
       @apply flex h-full flex-1 items-center justify-center uppercase text-white opacity-75 transition-all ease-linear hover:opacity-100;
-      &:hover{
+      &:hover {
         background: #f7ca18;
       }
     }
   }
 
-    .title{
-      max-width: 60%;
-      span{
+  .title {
+    max-width: 60%;
+    span {
+      display: inline-block;
+      font-size: 5vw;
+      color: #efefef;
+      width: 100%;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.25vw;
+      &:last-child {
+        font-size: 1rem;
+      }
+      a {
+        position: relative;
         display: inline-block;
-        font-size: 5vw;
-        color: #efefef;
-        width: 100%;
-        text-transform: uppercase;
-        font-weight: 600;
-        letter-spacing: 0.25vw;
-        &:last-child{
-          font-size: 1rem;
-        }
-        a{
-          position: relative;
-          display: inline-block;
-          margin-left: 0.5rem;
-          text-decoration: none;
-          color: #f7ca18;
-          &::after{
-            content: '';
-            height: 2px;
-            background-color: #f7ca18;
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 20%;
-          }
+        margin-left: 0.5rem;
+        text-decoration: none;
+        color: #f7ca18;
+        &::after {
+          content: '';
+          height: 2px;
+          background-color: #f7ca18;
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+          width: 20%;
         }
       }
     }
+  }
 }

@@ -1,10 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function HttpStatus() {
-  return (
-    <>
-    </>
-  )
+  return <></>;
 }
 
-export default HttpStatus
+export default HttpStatus;

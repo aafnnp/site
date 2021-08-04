@@ -1,12 +1,12 @@
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
-function List ({ post }) {
+function List({ post }) {
   const {
     link,
-    data: { date, title, tags }
-  } = post
+    data: { date, title, tags },
+  } = post;
 
   return (
     <li className="py-3 px-4">
@@ -27,7 +27,7 @@ function List ({ post }) {
         />
       ))}
     </li>
-  )
+  );
 }
 
-export default List
+export default List;

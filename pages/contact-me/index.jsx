@@ -1,3 +1,3 @@
-export default function ContactMe(){
-  return 'contact-me'
+export default function ContactMe() {
+  return 'contact-me';
 }
