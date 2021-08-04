@@ -1,9 +1,9 @@
 import React from 'react'
 
-function HttpStatus () {
+function HttpStatus() {
   return (
-        <>
-        </>
+    <>
+    </>
   )
 }
 

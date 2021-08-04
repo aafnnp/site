@@ -1,7 +1,8 @@
 import React from 'react'
-const config = require('../../utils/config')
 
-function HttpStatus () {
+const config = require('./config')
+
+function HttpStatus() {
   return (
     <div>
       <div className="http-status">
