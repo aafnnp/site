@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-function HttpStatus () {
+export default function Index() {
   return (
     <>
       <style jsx>
@@ -84,17 +84,42 @@ function HttpStatus () {
           <span className="sound">tink</span>
         </div>
       </div>
-      <audio data-key="65" src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/sounds/clap.wav" />
-      <audio data-key="83" src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/sounds/hihat.wav" />
-      <audio data-key="68" src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/sounds/kick.wav" />
-      <audio data-key="70" src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/sounds/openhat.wav" />
-      <audio data-key="71" src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/sounds/boom.wav" />
-      <audio data-key="72" src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/sounds/ride.wav" />
-      <audio data-key="74" src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/sounds/snare.wav" />
-      <audio data-key="75" src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/sounds/tom.wav" />
-      <audio data-key="76" src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/sounds/tink.wav" />
+      <audio
+        data-key="65"
+        src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/clap.wav"
+      />
+      <audio
+        data-key="83"
+        src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/hihat.wav"
+      />
+      <audio
+        data-key="68"
+        src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/kick.wav"
+      />
+      <audio
+        data-key="70"
+        src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/openhat.wav"
+      />
+      <audio
+        data-key="71"
+        src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/boom.wav"
+      />
+      <audio
+        data-key="72"
+        src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/ride.wav"
+      />
+      <audio
+        data-key="74"
+        src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/snare.wav"
+      />
+      <audio
+        data-key="75"
+        src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/tom.wav"
+      />
+      <audio
+        data-key="76"
+        src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/tink.wav"
+      />
     </>
-  )
+  );
 }
-
-export default HttpStatus

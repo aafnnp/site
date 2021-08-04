@@ -1,11 +1,11 @@
-const withPlugins = require('next-compose-plugins')
+const withPlugins = require('next-compose-plugins');
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx$/
-})
+  extension: /\.mdx$/,
+});
 
 module.exports = withPlugins([withMDX], {
   images: {
-    domains: ['cdn.jsdelivr.net']
+    domains: ['cdn.jsdelivr.net'],
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -15,9 +15,9 @@ module.exports = withPlugins([withMDX], {
         crypto: false,
         os: false,
         tty: false,
-        worker_threads: false
-      }
+        worker_threads: false,
+      };
     }
-    return config
-  }
-})
+    return config;
+  },
+});
