@@ -1,7 +1,7 @@
 import React from 'react';
 
 function HttpStatus() {
-  return <></>;
+  return <>123</>;
 }
 
 export default HttpStatus;

@@ -17,17 +17,17 @@ export default function IndexPage(props) {
                   <a className="cursor-pointer mr-2 underline">
                     {item.title[0]}
                   </a>
-                  {item.group.map((tag) => (
-                    <Image
-                      alt={tag}
-                      className={`tag inline-block mr-2 w-4 h-4 ${tag}`}
-                      height={20}
-                      key={tag}
-                      src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
-                      width={20}
-                    />
-                  ))}
                 </Link>
+                {item.group.map((tag) => (
+                  <Image
+                    alt={tag}
+                    className={`tag inline-block mr-2 w-4 h-4 ${tag}`}
+                    height={20}
+                    key={tag}
+                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
+                    width={20}
+                  />
+                ))}
               </div>
             );
           })}
@@ -39,10 +39,9 @@ export default function IndexPage(props) {
 
 export async function getStaticProps() {
   const allChallenges = await challenges();
-  console.log(allChallenges);
   return {
     props: {
-      allChallenges: allChallenges,
+      allChallenges,
     },
   };
 }
