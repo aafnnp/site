@@ -5,7 +5,6 @@ import Link from 'next/link';
 
 export default function IndexPage(props) {
   const { allChallenges } = props;
-  console.log(allChallenges, 'cj');
   return (
     <div className="challenges p-4">
       <h1 className="text-5xl text-center my-10">Challenges</h1>
