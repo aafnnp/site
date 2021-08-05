@@ -122,14 +122,41 @@ export default function Index() {
             .footer {
               font-weight: 500;
             }
+          }
 
-            //.page-not-found-content {
-            //  flex-direction: row;
-            //}
-            //
-            //.slogan, .detail {
-            //  flex: none;
-            //}
+          @media only screen and (max-width: 768px) {
+            .page-not-found-content {
+              padding: 20px 24px;
+            }
+
+            .title {
+              top: 20px;
+              left: 24px;
+              font-size: 12px;
+            }
+
+            .slogan,
+            .detail {
+              flex: 1;
+            }
+            .detail h2 {
+              font-size: 36px;
+              line-height: 35px;
+            }
+            .detail p {
+              margin: 15px 0 33px;
+              font-size: 16px;
+              line-height: 32px;
+            }
+            .detail a {
+              display: block;
+              height: 34px;
+              line-height: 34px;
+            }
+
+            .footer {
+              font-weight: 500;
+            }
           }
         `}
       </style>
