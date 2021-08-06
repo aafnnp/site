@@ -2,24 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-	--javascript: rgb(91, 94, 166);
-	--linux: rgb(188, 112, 164);
-	--css: rgb(206, 49, 117);
-	--vue: rgb(14, 101, 201);
-	--go: rgb(26, 199, 230);
-	--server: rgb(221, 65, 50);
-	--translate: rgb(191, 214, 65);
-	--swift: rgb(228, 65, 24);
-	--docker: rgb(9, 52, 168);
-} */
-
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
 body {
   @apply font-sans leading-normal text-base;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
 }
-//https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/site-bg.jpg
+
 .main {
   @apply p-3;
 }
@@ -31,15 +20,18 @@ body {
 
 .content {
   width: 42rem;
+
   li {
     a {
       @apply text-blue-600;
       padding: 10px 15px;
       transition: background-color 150ms ease-in 0s;
+
       &:hover {
         background: rgb(238, 238, 238);
       }
     }
+
     span {
       display: inline-block;
       width: 160px;
@@ -68,9 +60,11 @@ body {
 .markdown-body .gist table td {
   border: none;
 }
+
 .related-post {
   list-style-type: square;
 }
+
 @media (max-width: 600px) {
   .content,
   .header {
@@ -78,56 +72,61 @@ body {
   }
 }
 
-/*home page*/
-.home-page {
-  background: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/blog-bg.jpg')
-    no-repeat scroll center top;
-  background-size: cover;
+/*home*/
+.home {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  nav {
-    @apply flex fixed w-screen bottom-0 overflow-hidden h-20;
-    background: hsla(0, 0%, 100%, 0.15);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
-    a {
-      @apply flex h-full flex-1 items-center justify-center uppercase text-white opacity-75 transition-all ease-linear hover:opacity-100;
-      &:hover {
-        background: #f7ca18;
-      }
+  background: #171820;
+
+  &-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 75vw;
+    color: #edfdee;
+    font-size: 1.25rem;
+    line-height: 1.75;
+    gap: 2rem;
+
+    h1 {
+      font-family: 'Gugi', cursive;
+      font-weight: 700;
+      font-size: 4.5rem;
+      line-height: 1;
+    }
+
+    p {
+      margin: 1rem 0 2rem;
+    }
+
+    .info, .slogan {
+      flex: 1;
     }
   }
 
-  .title {
-    max-width: 60%;
-    span {
-      display: inline-block;
-      font-size: 5vw;
-      color: #efefef;
-      width: 100%;
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    a {
+      display: block;
+      text-align: center;
+      height: 3rem;
+      line-height: 3rem;
       text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.25vw;
-      &:last-child {
-        font-size: 1rem;
-      }
-      a {
-        position: relative;
-        display: inline-block;
-        margin-left: 0.5rem;
-        text-decoration: none;
-        color: #f7ca18;
-        &::after {
-          content: '';
-          height: 2px;
-          background-color: #f7ca18;
-          position: absolute;
-          bottom: -10px;
-          left: 0;
-          width: 20%;
-        }
+      border-radius: .25rem;
+      background: rgba(255, 102, 99, 1);
+      width: 100%;
+
+      &:not(:first-child) {
+        width: 45%;
+        background: transparent;
+        border: 2px solid rgba(255, 102, 99, 1);
+        color: rgba(255, 102, 99, 1);
       }
     }
   }
