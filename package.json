@@ -10,6 +10,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.3",
     "@loadable/component": "^5.15.0",
     "dayjs": "^1.10.6",
     "github-markdown-css": "^4.0.0",
