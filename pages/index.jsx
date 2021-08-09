@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
 export default function Index() {
   return (
@@ -9,7 +9,7 @@ export default function Index() {
         <div className="info">
           <h1>Manon.icu</h1>
           <p>
-            FullStack Developer.
+            <span>FullStack Developer.</span>
             <br />
             Helping people turn their ideas into sites & apps that work.
             <br />
@@ -34,6 +34,7 @@ export default function Index() {
             src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/heroMan.png"
             width={600}
             height={479}
+            alt="FullStack Developer"
           />
         </div>
       </div>

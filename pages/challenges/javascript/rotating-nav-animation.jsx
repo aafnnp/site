@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
 import {
-  MenuIcon,
-  XIcon,
   HomeIcon,
-  UserIcon,
   MailIcon,
+  MenuIcon,
+  UserIcon,
+  XIcon,
 } from '@heroicons/react/solid';
+import React, { Component } from 'react';
 
 export default class ProgressSteps extends Component {
   handleClick(e) {
@@ -150,7 +150,7 @@ export default class ProgressSteps extends Component {
               <p>
                 <img
                   src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"
-                  alt=""
+                  alt="My Dog"
                 />
               </p>
               <p>

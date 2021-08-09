@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+@import url('https://fonts.loli.net/css2?family=Gugi&display=swap');
+@import url('https://fonts.loli.net/css2?family=Roboto&display=swap');
 body {
   @apply font-sans leading-normal text-base;
   scroll-behavior: smooth;
@@ -99,6 +100,10 @@ body {
 
     p {
       margin: 1rem 0 2rem;
+      font-family: 'Roboto';
+      span{
+        border-bottom: 2px solid #FF9636;
+      }
     }
 
     .info, .slogan {
@@ -126,7 +131,7 @@ body {
         width: 45%;
         background: transparent;
         border: 2px solid rgba(255, 102, 99, 1);
-        color: rgba(255, 102, 99, 1);
+        color: rgb(255, 102, 99);
       }
     }
   }

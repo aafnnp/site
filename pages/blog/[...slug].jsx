@@ -1,13 +1,13 @@
-import React from 'react';
+import matter from 'gray-matter';
+import { CodePen, CodeSandbox, Gist } from 'mdx-embed';
+import { MDXRemote } from 'next-mdx-remote';
+import { serialize } from 'next-mdx-remote/serialize';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
 import ErrorPage from 'next/error';
 import Head from 'next/head';
-import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
-import { CodePen, CodeSandbox, Gist } from 'mdx-embed';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React from 'react';
 import { GetPostBySlug, GetRandomPost, posts } from '../../getAllPosts';
 
 const PostPage = dynamic(() => import('../../components/PostPage'));
@@ -30,7 +30,8 @@ function Post({ data, content, randomPost }) {
   return (
     <>
       <Head>
-        <title>{data.title}</title>
+        <meta property="og:title" content={data.title} />
+        <title>Manon.icu | Blog | {data.title}</title>
       </Head>
       <main className="p-4">
         <div className="content mx-auto">
