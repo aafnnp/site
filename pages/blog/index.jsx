@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { posts } from '../../getallPosts';
+import { posts } from '../../getAllPosts';
 
 const List = dynamic(() => import('../../components/List'));
 const Pagination = dynamic(() => import('../../components/Pagination'));

@@ -8,7 +8,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { GetPostBySlug, GetRandomPost, posts } from '../../getallPosts';
+import { GetPostBySlug, GetRandomPost, posts } from '../../getAllPosts';
 
 const PostPage = dynamic(() => import('../../components/PostPage'));
 const Comments = dynamic(() => import('../../components/Comments'));
