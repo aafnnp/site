@@ -8,7 +8,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { GetPostBySlug, GetRandomPost, posts } from '../../getAllPosts';
+import { GetPostBySlug, GetRandomPost, posts } from '../../getallPosts';
 
 const PostPage = dynamic(() => import('../../components/PostPage'));
 const Comments = dynamic(() => import('../../components/Comments'));
@@ -68,8 +68,8 @@ function Post({ data, content, randomPost }) {
 }
 
 export async function getStaticPaths() {
-  const allposts = posts();
-  const paths = allposts.flat(Infinity).map((post) => ({
+  const allPosts = posts();
+  const paths = allPosts.flat(Infinity).map((post) => ({
     params: {
       slug: post.link.substr(1).split('/'),
     },

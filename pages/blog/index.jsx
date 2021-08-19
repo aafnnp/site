@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import React from 'react';
-import { posts } from '../../getAllPosts';
+import { posts } from '../../getallPosts';
 
 const List = dynamic(() => import('../../components/List'));
 const Pagination = dynamic(() => import('../../components/Pagination'));
@@ -12,19 +12,19 @@ export default function IndexPage(props) {
     query: { page = 1 },
   } = useRouter();
 
-  const { allposts } = props;
+  const { allPosts } = props;
 
   return (
     <main className="p-4">
       <div className="content mx-auto">
         <Header />
         <ul>
-          {allposts[page - 1].map((post) => (
+          {allPosts[page - 1].map((post) => (
             <List post={post} key={post.link} />
           ))}
         </ul>
 
-        <Pagination curPage={page} total={allposts.length} />
+        <Pagination curPage={page} total={allPosts.length} />
       </div>
     </main>
   );
@@ -35,7 +35,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      allposts: POSTS,
+      allPosts: POSTS,
     },
   };
 }

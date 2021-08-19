@@ -28,10 +28,10 @@ function importAll(r) {
 }
 
 export const posts = () => {
-  const allposts = importAll(require.context('./_posts/', true, /\.mdx$/));
+  const allPosts = importAll(require.context('./_posts/', true, /\.mdx$/));
 
   return chunk(
-    allposts.sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date)),
+    allPosts.sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date)),
     20
   );
 };
@@ -39,9 +39,9 @@ export const posts = () => {
 // 根据slug导出文章
 export const GetPostBySlug = (slug) => {
   const realslug = `/${slug.join('/')}`;
-  const allposts = posts();
+  const allPosts = posts();
 
-  return allposts.flat(2).find((post) => post.link.includes(realslug));
+  return allPosts.flat(2).find((post) => post.link.includes(realslug));
 };
 
 // 根据tag导出随机文章
