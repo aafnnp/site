@@ -188,7 +188,7 @@ module.exports = {
       },
       {
         key: 422,
-        value: 'Unprocessable Entity',
+        value: 'UnProcessable Entity',
       },
       {
         key: 423,

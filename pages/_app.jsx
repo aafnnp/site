@@ -4,11 +4,6 @@ import '../styles/main.scss';
 import '../styles/markdown.css';
 
 export default function App({ Component, pageProps }) {
-  console.log(
-    '🚀 ~ file: _app.jsx ~ line 7 ~ App ~ pageProps',
-    pageProps,
-    Component
-  );
   return (
     <>
       <Head>
