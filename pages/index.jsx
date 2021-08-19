@@ -31,7 +31,7 @@ export default function Index() {
         </div>
         <div className="slogan">
           <Image
-            src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/heroMan.png"
+            src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/heroMan.webp"
             width={600}
             height={479}
             alt="FullStack Developer"
