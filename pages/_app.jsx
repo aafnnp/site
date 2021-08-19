@@ -4,11 +4,6 @@ import '../styles/main.scss';
 import '../styles/markdown.css';
 
 export default function App({ Component, pageProps }) {
-  console.log(
-    '🚀 ~ file: _app.jsx ~ line 7 ~ App ~ pageProps',
-    pageProps,
-    Component
-  );
   return (
     <>
       <Head>
@@ -17,6 +12,8 @@ export default function App({ Component, pageProps }) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
         />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="Manon.icu,homepage" />
+          <title>Manon.icu | Home</title>
       </Head>
       <Component {...pageProps} />
     </>
