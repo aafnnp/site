@@ -1,5 +1,8 @@
 {
   "include": ["components/*", "pages/**/*", "styles/*", "utils/**/*"],
   "exclude": ["node_modules"],
-  "checkJs": true
+  "checkJs": true,
+  "compilerOptions": {
+    "baseUrl": "."
+  }
 }
