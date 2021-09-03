@@ -1,43 +1,40 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { getAllPosts } from '@api/getAllPosts';
+import dynamic from 'next/dynamic';
 import React from 'react';
 
-export default function Index() {
+const List = dynamic(() => import('components/List'));
+const Pagination = dynamic(() => import('components/Pagination'));
+const Header = dynamic(() => import('components/Header'));
+
+export default function IndexPage(props) {
+  // const {
+  //   query: { page = 1 },
+  // } = useRouter();
+
+  const { posts } = props;
+  const postList = posts.flat(2);
   return (
-    <div className="home">
-      <div className="home-main">
-        <div className="info">
-          <h1>Manon.icu</h1>
-          <p>
-            <span>FullStack Developer.</span>
-            <br />
-            Helping people turn their ideas into sites & apps that work.
-            <br />
-            Professional and Cost-Effective.
-            <br />
-            Always.
-          </p>
-          <nav>
-            <Link href="/challenges">
-              <a>Challenges</a>
-            </Link>
-            <Link href="/blog">
-              <a>Blog</a>
-            </Link>
-            <Link href="/contact-me">
-              <a>Contact me</a>
-            </Link>
-          </nav>
-        </div>
-        <div className="slogan">
-          <Image
-            src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/heroMan.webp"
-            width={600}
-            height={479}
-            alt="FullStack Developer"
-          />
-        </div>
+    <main className="p-4">
+      <div className="content mx-auto">
+        <Header />
+        <ul>
+          {postList.map((post) => (
+            <List post={post} key={post.slug} />
+          ))}
+        </ul>
+
+        {/* <Pagination curPage={page} total={allPosts.length} /> */}
       </div>
-    </div>
+    </main>
   );
+}
+
+export async function getStaticProps() {
+  const posts = await getAllPosts();
+
+  return {
+    props: {
+      posts,
+    },
+  };
 }

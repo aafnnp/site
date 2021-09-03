@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
 export default function Header() {
   return (
@@ -20,8 +20,8 @@ export default function Header() {
         </Link>
 
         <nav className="text-xs">
-          <Link href="https://github.com/Manonicu/site">
-            <a className="py-2 px-3">Source</a>
+          <Link href="/about">
+            <a className="py-2 px-3">About</a>
           </Link>
 
           <Link href="https://github.com/Manonicu">

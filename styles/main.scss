@@ -73,41 +73,23 @@ body {
   }
 }
 
-/*home*/
-.home {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #171820;
+.about {
+  h1,
+  h2 {
+    font-family: 'Gugi', cursive;
+    font-weight: 700;
+    font-size: 3.6rem;
+  }
+  h2 {
+    font-weight: 400;
+    font-size: 1rem;
+  }
 
-  &-main {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 75vw;
-    color: #edfdee;
-    font-size: 1.25rem;
-    line-height: 1.75;
-    gap: 2rem;
-
-    h1 {
-      font-family: 'Gugi', cursive;
-      font-weight: 700;
-      font-size: 4.5rem;
-      line-height: 1;
-    }
-
-    p {
-      margin: 1rem 0 2rem;
-      font-family: 'Roboto';
-      span{
-        border-bottom: 2px solid #FF9636;
-      }
-    }
-
-    .info, .slogan {
-      flex: 1;
+  .description {
+    margin: 1rem 0 2rem;
+    font-family: 'Roboto';
+    span {
+      border-bottom: 2px solid rgb(255, 102, 99, 1);
     }
   }
 
@@ -120,19 +102,13 @@ body {
     a {
       display: block;
       text-align: center;
+      padding: 0 0.5rem;
       height: 3rem;
       line-height: 3rem;
       text-transform: uppercase;
-      border-radius: .25rem;
-      background: rgba(255, 102, 99, 1);
-      width: 100%;
-
-      &:not(:first-child) {
-        width: 45%;
-        background: transparent;
-        border: 2px solid rgba(255, 102, 99, 1);
-        color: rgb(255, 102, 99);
-      }
+      border-radius: 0.25rem;
+      background: rgb(255, 102, 99);
+      color: #fff;
     }
   }
 }

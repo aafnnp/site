@@ -1,3 +1,4 @@
+import { getAllPosts, GetPostBySlug, GetRandomPost } from '@api/getAllPosts';
 import matter from 'gray-matter';
 import { CodePen, CodeSandbox, Gist } from 'mdx-embed';
 import { MDXRemote } from 'next-mdx-remote';
@@ -8,12 +9,10 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { GetPostBySlug, GetRandomPost, posts } from '../../getAllPosts';
-
-const PostPage = dynamic(() => import('../../components/PostPage'));
-const Comments = dynamic(() => import('../../components/Comments'));
-const Random = dynamic(() => import('../../components/RandomPost'));
-const Header = dynamic(() => import('../../components/Header'));
+const PostPage = dynamic(() => import('@components/PostPage'));
+const Comments = dynamic(() => import('@components/Comments'));
+const Random = dynamic(() => import('@components/RandomPost'));
+const Header = dynamic(() => import('@components/Header'));
 
 const components = {
   CodePen,
@@ -68,10 +67,10 @@ function Post({ data, content, randomPost }) {
 }
 
 export async function getStaticPaths() {
-  const allPosts = posts();
-  const paths = allPosts.flat(Infinity).map((post) => ({
+  const allPosts = await getAllPosts();
+  const paths = allPosts.flat(2).map((post) => ({
     params: {
-      slug: post.link.substr(1).split('/'),
+      slug: post.slug.split('/'),
     },
   }));
 
@@ -83,6 +82,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const source = await GetPostBySlug(params.slug);
+  const randomPost = await GetRandomPost();
   const { content, data } = matter(source);
   const mdxSource = await serialize(content, {
     // Optionally pass remark/rehype plugins
@@ -97,7 +97,7 @@ export async function getStaticProps({ params }) {
     props: {
       data,
       content: mdxSource,
-      randomPost: GetRandomPost(),
+      randomPost,
     },
   };
 }
