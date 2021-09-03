@@ -1,45 +1,66 @@
-import React from 'react';
-import { challenges } from '../../getAllChallenges';
+import { getAllChallenges } from '@api/getAllChallenges';
+import { HomeIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
 
 export default function IndexPage(props) {
   const { allChallenges } = props;
   return (
     <div className="challenges p-4">
       <h1 className="text-5xl text-center my-10">Challenges</h1>
-      <div className="list">
-        <div className="item ml-4 grid grid-cols-3 gap-4">
-          {allChallenges.map((item, key) => {
-            return (
-              <div className="flex items-center h-10" key={item.link}>
-                <span className="mr-2">{key + 1}.</span>
-                <Link href={item.link}>
-                  <a className="cursor-pointer mr-2 underline">
-                    {item.title[0]}
-                  </a>
-                </Link>
-                {item.group.map((tag) => (
+      <ul className="grid grid-cols-3 gap-4">
+        {allChallenges.map((challenge) => {
+          return (
+            <li key={challenge.link} className="flex bg-gray-100 rounded-md">
+              <Image
+                className="flex-none rounded-l-md"
+                src={`/screenshots/${challenge.title}.png`}
+                alt={challenge.title}
+                width={192}
+                height={108}
+              />
+              <div className="p-4 space-y-4 flex-1 flex flex-col justify-between">
+                <h3 className="flex item-center justify-between text-sm font-semibold">
+                  {challenge.title}
                   <Image
-                    alt={tag}
-                    className={`tag inline-block mr-2 w-4 h-4 ${tag}`}
+                    alt={challenge.group}
+                    className={`tag inline-block mr-2 w-4 h-4 ${challenge.group}`}
                     height={20}
-                    key={tag}
-                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
+                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${challenge.group}.svg`}
                     width={20}
                   />
-                ))}
+                </h3>
+                <div className="flex gap-4 font-medium text-xs">
+                  <Link href={challenge.link}>
+                    <a className="transition duration-300 ease-linear px-3 py-1.5 rounded-md bg-white hover:bg-black text-black hover:text-white">
+                      Link
+                    </a>
+                  </Link>
+                  <Link
+                    href={`https://github.com/Manonicu/site/tree/master/pages/challenges/${challenge.group}/${challenge.title}.jsx`}
+                  >
+                    <a className="transition duration-300 ease-linear px-3 py-1.5 rounded-md bg-black text-white hover:bg-white hover:text-black">
+                      Source
+                    </a>
+                  </Link>
+                </div>
               </div>
-            );
-          })}
-        </div>
-      </div>
+            </li>
+          );
+        })}
+      </ul>
+      <Link href="/">
+        <a className="block absolute bottom-4 right-4 z-50">
+          <HomeIcon className="w-10 h-10 text-black" />
+        </a>
+      </Link>
     </div>
   );
 }
 
 export async function getStaticProps() {
-  const allChallenges = await challenges();
+  const allChallenges = await getAllChallenges();
   return {
     props: {
       allChallenges,

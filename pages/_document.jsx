@@ -3,10 +3,6 @@ import React from 'react';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    console.log(
-      '🚀 ~ file: _document.jsx ~ line 7 ~ MyDocument ~ getInitialProps ~ ctx',
-      ctx
-    );
     // const initialProps = await Document.getInitialProps(ctx);
     // return { ...initialProps };
     const originalRenderPage = ctx.renderPage;
