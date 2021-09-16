@@ -33,10 +33,6 @@ export const getAllPosts = async () => {
 // 根据slug导出文章
 export const GetPostBySlug = async (slug) => {
   const realslug = `${slug.join('/')}`;
-  console.log(
-    '🚀 ~ file: getAllPosts.js ~ line 36 ~ GetPostBySlug ~ realslug',
-    realslug
-  );
 
   const allPosts = await getAllPosts();
 
@@ -52,28 +48,3 @@ export const GetRandomPost = async () => {
     randomPost.length < 6 ? randomPost.length - 1 : 6
   );
 };
-// const POST_DIR = '../_posts';
-// export function getAllPosts(dir = POST_DIR) {
-//   const DIR = fs.readdirSync(dir);
-//   const allPost = DIR.reduce((prev, next) => {
-//     const subDir = join(dir, next);
-//     if (fs.statSync(subDir).isDirectory()) {
-//       prev.push(...getAllPosts(subDir));
-//     } else {
-//       if (subDir.endsWith('mdx')) {
-//         const filecontents = fs.readFileSync(subDir, 'utf-8');
-//         const { data, content } = matter(filecontents);
-//         prev.push({
-//           ...data,
-//           link: next,
-//           content,
-//           slug: subDir.replace(/\.mdx/, ''),
-//           date: dayjs(data.date).format('MMMM D, YYYY'),
-//           fromNow: dayjs(data.date).fromNow(),
-//         });
-//       }
-//     }
-//     return prev;
-//   }, []).sort((a, b) => dayjs(b.date) - dayjs(a.date));
-//   return allPost;
-// }

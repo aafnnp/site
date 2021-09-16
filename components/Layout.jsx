@@ -1,28 +1,37 @@
-import React from 'react';
-import Head from 'next/head';
+import { motion } from 'framer-motion';
+import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 
-export default function Layout({ children, pageTitle, description }) {
+const variants = {
+  hidden: { opacity: 0, x: -200, y: 0 },
+  enter: { opacity: 1, x: 0, y: 0 },
+  exit: { opacity: 0, x: 0, y: -100 },
+};
+
+const Layout = ({ children, title, description }) => {
+  const { route } = useRouter();
+
   return (
     <>
-      <Head>
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-
-        <meta charSet="utf-8" />
-
-        <meta content={description} name="Description" />
-
-        <title>{pageTitle}</title>
-
-        <link
-          crossOrigin="anonymous"
-          href="https://cdn.jsdelivr.net"
-          rel="preconnect"
-        />
-      </Head>
-
-      <main className="p-3">
-        <div className="content mx-auto">{children}</div>
-      </main>
+      <NextSeo
+        title={title}
+        description={description}
+        openGraph={{ title, description }}
+      />
+      <motion.main
+        initial="hidden"
+        animate="enter"
+        exit="exit"
+        variants={variants}
+        transition={{ type: 'linear' }}
+        className={`flex flex-col items-start p-4 ${
+          route === '/about' && 'items-center h-full about'
+        }`}
+      >
+        {children}
+      </motion.main>
     </>
   );
-}
+};
+
+export default Layout;

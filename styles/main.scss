@@ -5,24 +5,25 @@
 @import url('https://fonts.loli.net/css2?family=Gugi&display=swap');
 @import url('https://fonts.loli.net/css2?family=Roboto&display=swap');
 body {
-  @apply font-sans leading-normal text-base;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
+}
+
+#__next {
+  @apply flex flex-col lg:w-3/5 h-screen md:w-4/5 sm:w-full;
 }
 
 .main {
   @apply p-3;
 }
 
-.header {
-  @apply py-3 mx-auto;
-  width: 42rem;
-}
-
-.content {
-  width: 42rem;
-
-  li {
+.post-item {
+  @apply flex py-3 px-4 w-full items-center;
+  .post-date {
+    @apply hidden w-3/12 text-right pr-4 text-gray-600 opacity-75 sm:block;
+  }
+  .post-link {
+    @apply flex-none;
     a {
       @apply text-blue-600;
       padding: 10px 15px;
@@ -31,15 +32,6 @@ body {
       &:hover {
         background: rgb(238, 238, 238);
       }
-    }
-
-    span {
-      display: inline-block;
-      width: 160px;
-      padding-right: 10px;
-      color: rgba(91, 91, 91, 1);
-      font-size: inherit;
-      text-align: right;
     }
   }
 }
@@ -64,13 +56,6 @@ body {
 
 .related-post {
   list-style-type: square;
-}
-
-@media (max-width: 600px) {
-  .content,
-  .header {
-    @apply w-full;
-  }
 }
 
 .about {

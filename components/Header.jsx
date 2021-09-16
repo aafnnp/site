@@ -1,11 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 
 export default function Header() {
   return (
     <>
-      <header className="header flex justify-between items-center text-base mb-5">
+      <header className="header flex justify-between items-center text-base mb-5 p-4">
         <Link href="/">
           <a className="flex items-center text-lg font-bold">
             <Image
