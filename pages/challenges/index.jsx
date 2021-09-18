@@ -1,8 +1,7 @@
-import { getAllChallenges } from '@api/getAllChallenges';
 import { HomeIcon } from '@heroicons/react/outline';
+import { getAllChallenges } from 'api/getAllChallenges';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 
 export default function IndexPage(props) {
   const { allChallenges } = props;

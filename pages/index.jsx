@@ -1,5 +1,5 @@
-import { getAllPosts } from '@api/getAllPosts';
-import Layout from '@components/Layout';
+import { getAllPosts } from 'api/getAllPosts';
+import Layout from 'components/Layout';
 import dynamic from 'next/dynamic';
 const List = dynamic(() => import('components/List'));
 const Pagination = dynamic(() => import('components/Pagination'));

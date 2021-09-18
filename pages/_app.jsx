@@ -7,7 +7,7 @@ import NProgress from 'nprogress';
 import { useEffect } from 'react';
 import '../styles/main.scss';
 import '../styles/markdown.css';
-const Header = dynamic(() => import('@components/Header'));
+const Header = dynamic(() => import('components/Header'));
 
 NProgress.configure({ showSpinner: false });
 
