@@ -13,21 +13,10 @@ class MyDocument extends Document {
           />
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          />
-          <script
-            async
-            dangerouslySetInnerHTML={{
-              __html: `
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', '${GA_MEASUREMENT_ID}', {
-                            page_path: window.location.pathname,
-                        });
-                        `,
-            }}
-          />
+            defer
+            data-website-id="4c7e9697-dfc2-437a-a412-2f16f2b1b8f7"
+            src="https://umami-gules.vercel.app/umami.js"
+          ></script>
         </Head>
 
         <body className="flex justify-center bg-white dark:bg-gray-800 font-sans leading-normal text-base transition-colors duration-100 ease-linear">
