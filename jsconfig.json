@@ -3,12 +3,6 @@
   "exclude": ["node_modules"],
   "checkJs": true,
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@posts/*": ["_posts/*"],
-      "@utils/*": ["utils/*"],
-      "@api/*": ["api/*"],
-      "@components/*": ["components/*"],
-    },
+    "baseUrl": "."
   }
 }

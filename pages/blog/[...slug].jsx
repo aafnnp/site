@@ -1,5 +1,5 @@
-import { getAllPosts, GetPostBySlug, GetRandomPost } from '@api/getAllPosts';
-import Layout from '@components/Layout';
+import { getAllPosts, GetPostBySlug, GetRandomPost } from 'api/getAllPosts';
+import Layout from 'components/Layout';
 import matter from 'gray-matter';
 import { CodePen, CodeSandbox, Gist } from 'mdx-embed';
 import { MDXRemote } from 'next-mdx-remote';
@@ -8,9 +8,9 @@ import dynamic from 'next/dynamic';
 import ErrorPage from 'next/error';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-const PostPage = dynamic(() => import('@components/PostPage'));
-const Comments = dynamic(() => import('@components/Comments'));
-const Random = dynamic(() => import('@components/RandomPost'));
+const PostPage = dynamic(() => import('components/PostPage'));
+const Comments = dynamic(() => import('components/Comments'));
+const Random = dynamic(() => import('components/RandomPost'));
 
 const components = {
   CodePen,

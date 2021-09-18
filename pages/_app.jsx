@@ -2,16 +2,23 @@ import { AnimatePresence } from 'framer-motion';
 import { DefaultSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import NProgress from 'nprogress';
 import { useEffect } from 'react';
 import '../styles/main.scss';
 import '../styles/markdown.css';
-
 const Header = dynamic(() => import('@components/Header'));
 
-const App = ({ Component, pageProps, router }) => {
+NProgress.configure({ showSpinner: false });
+
+export function reportWebVitals(metric) {
+  console.log(metric);
+}
+
+const App = ({ Component, pageProps }) => {
+  const router = useRouter();
   const url = `https://manon.icu${router.route}`;
   useEffect(() => {
-    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
     if (
       localStorage.theme === 'dark' ||
       (!('theme' in localStorage) &&
@@ -21,7 +28,17 @@ const App = ({ Component, pageProps, router }) => {
     } else {
       document.documentElement.classList.remove('dark');
     }
-  });
+
+    router.events.on('routeChangeStart', () => NProgress.start());
+    router.events.on('routeChangeComplete', () => NProgress.done());
+    router.events.on('routeChangeError', () => NProgress.done());
+
+    return () => {
+      router.events.off('routeChangeStart', () => NProgress.start());
+      router.events.off('routeChangeComplete', () => NProgress.done());
+      router.events.off('routeChangeError', () => NProgress.done());
+    };
+  }, [router]);
   return (
     <>
       <Head>

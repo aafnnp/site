@@ -73,6 +73,17 @@ Go 可以安装在 Mac，Windows 和 Linux 这三个平台上。您可以从http
 
 从https://golang.org/dl/下载Mac OS 安装程序。双击开始安装。按照提示进行操作，这会将 Golang 安装在/usr/local/go 中，并且还将文件夹/usr/local/go/bin 添加到 PATH 环境变量中。
 
+```shell
+# if you don't have git install it like so:
+brew install git
+
+# then install go
+brew install go
+
+# add GOBIN path to your PATH in ~/.bash_profile
+export PATH=${HOME}/go/bin:$PATH
+```
+
 ### Windows
 
 从https://golang.org/dl/下载MSI安装程序。双击开始安装，然后按照提示进行操作。这会将Go安装在位置c:\Go，还将目录c:\Go\ bin 添加到您的路径环境变量中。

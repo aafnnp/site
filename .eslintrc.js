@@ -1,3 +1,6 @@
 module.exports = {
-  extends: ['next'],
+  extends: ['next/core-web-vitals'],
+  rules: {
+    'no-img-element': 'off',
+  },
 };

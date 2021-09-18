@@ -1,0 +1,79 @@
+---
+date: '2021-09-16'
+title: 'Basic Types'
+tags: [go]
+---
+
+## 布尔值
+
+布尔值包括 `true` 和 `false`。
+
+```go
+var b bool = true
+fmt.Printf("b is: '%v'\n", b)
+//b = false
+fmt.Printf("b is: '%v'\n", b)
+var b2 bool
+fmt.Printf("zero value of bool is: '%v'\n", b2)
+//b is: 'true'
+//b is: 'false'
+//zero value of bool is: 'false'
+```
+
+布尔值的大小是 1 字节
+
+```go
+b := true
+fmt.Printf("size of bool is: %d\n", unsafe.Sizeof(b))
+//size of bool is: 1
+```
+
+## 整型
+
+Go 语言支持的整数类型有 `int`、`uint`、`int8`、`uint8`、`int16`、`uint16`、`int32`、`uint32`、`int64`、`uint64`。
+
+## 浮点型
+
+Go 语言支持的浮点数类型有 `float32`、`float64`。
+
+## 字符型
+
+Go 语言支持的字符型 `byte`、`rune`，`byte`是一个字节，`rune`是一个代表一个字符的整数。
+
+## 字符串
+
+Go 中的 String 是一个不变的字节序列(8 位字节值) ，这与 Python、 c # 、 Java 或 Swift 等语言中的 Unicode 字符串不同。字符串类型的零值为空字符串。
+
+```go
+var s string // empty string ""
+	s1 := "string\nliteral\nwith\tescape characters\n"
+	s2 := `raw string literal
+which doesnt't recgonize escape characters like \n
+`
+	fmt.Printf("sum of strings\n'%s'\n", s+s1+s2)
+sum of strings
+'string
+literal
+with	escape characters
+raw string literal
+which doesnt‘t recgonize escape characters like'
+```
+
+## 常量
+
+Go 支持字符、字符串、布尔值和数值的常量。
+
+```go
+const (
+	i  int = 32       // int constant
+	s      = "string" // string constant
+	i2     = 33       // untyped number constant
+)
+
+var (
+	// values that are not read-only (like slices or maps or structs) cannot be
+	// constants
+	// we can declare them as top-level variables
+	b = []byte{3, 4} // this could not be a constant
+)
+```

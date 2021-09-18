@@ -1,9 +1,13 @@
 import Layout from '@components/Layout';
 import { motion } from 'framer-motion';
+import { useAmp } from 'next/amp';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Index() {
+export const config = { amp: true };
+
+export default function About() {
+  const loadAmp = useAmp();
   return (
     <Layout
       title="About"

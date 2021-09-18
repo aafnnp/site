@@ -1,7 +1,7 @@
-import { chunk, getRandomArrayElements } from '@utils/index';
 import fs from 'fs';
 import { globby } from 'globby';
 import matter from 'gray-matter';
+import { chunk, getRandomArrayElements } from 'utils/index';
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');
 

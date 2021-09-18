@@ -1,6 +1,4 @@
-import React from 'react';
-
-const config = require('../../utils/config');
+import { data, title } from 'utils/config';
 
 export default function HttpStatus() {
   return (
@@ -8,12 +6,12 @@ export default function HttpStatus() {
       <div className="http-status">
         <h2 className="text-2xl mb-4 font-bold">HTTP状态代码概述</h2>
 
-        {config.data.map((item, key) => (
+        {data.map((item, key) => (
           <div className="p-10 mb-10 shadow-xl rounded-md" key={key}>
             <h3 className="text-xl mb-4 font-bold">
               {key + 1}
               xx
-              {config.title[key]}
+              {title[key]}
             </h3>
 
             {item.map((el) => (
