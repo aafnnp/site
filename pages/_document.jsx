@@ -17,6 +17,12 @@ class MyDocument extends Document {
             data-website-id="4c7e9697-dfc2-437a-a412-2f16f2b1b8f7"
             src="https://umami-gules.vercel.app/umami.js"
           ></script>
+          <script
+            async
+            defer
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3854566314387093"
+            crossOrigin="anonymous"
+          ></script>
         </Head>
 
         <body className="flex justify-center bg-white dark:bg-gray-800 font-sans leading-normal text-base transition-colors duration-100 ease-linear">

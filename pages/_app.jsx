@@ -1,5 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
-import { DefaultSeo } from 'next-seo';
+import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -50,7 +50,7 @@ const App = ({ Component, pageProps }) => {
         <meta name="description" content="Manon.icu,homepage" />
         <title>Manon.icu | Home</title>
       </Head>
-      <DefaultSeo
+      <NextSeo
         titleTemplate="%s - Manon"
         openGraph={{
           type: 'website',
@@ -60,6 +60,11 @@ const App = ({ Component, pageProps }) => {
           images: [],
         }}
         canonical={url}
+        twitter={{
+          handle: '@handle',
+          site: '@username',
+          cardType: 'summary_large_image',
+        }}
       />
       <Header />
       <AnimatePresence
