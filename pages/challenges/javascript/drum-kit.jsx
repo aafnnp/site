@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-
+import { Component } from 'react';
+import styled from 'styled-components';
 export default class Index extends Component {
   componentDidMount() {
     const keys = document.querySelectorAll('.key');
@@ -22,51 +22,7 @@ export default class Index extends Component {
 
   render() {
     return (
-      <>
-        <style jsx>
-          {`
-            .keys {
-              display: flex;
-              flex: 1;
-              min-height: 100vh;
-              align-items: center;
-              justify-content: center;
-              background: url('https://i.imgur.com/b9r5sEL.jpg') no-repeat;
-            }
-
-            .key {
-              border: 0.4rem solid black;
-              border-radius: 0.5rem;
-              margin: 1rem;
-              font-size: 1.5rem;
-              padding: 1rem 0.5rem;
-              transition: all 0.07s ease;
-              width: 10rem;
-              text-align: center;
-              color: white;
-              background: rgba(0, 0, 0, 0.4);
-              text-shadow: 0 0 0.5rem black;
-            }
-
-            .playing {
-              transform: scale(1.1);
-              border-color: #ffc600;
-              box-shadow: 0 0 1rem #ffc600;
-            }
-
-            kbd {
-              display: block;
-              font-size: 4rem;
-            }
-
-            .sound {
-              font-size: 1.2rem;
-              text-transform: uppercase;
-              letter-spacing: 0.1rem;
-              color: #ffc600;
-            }
-          `}
-        </style>
+      <Wrapper>
         <div className="keys">
           <div data-key="65" className="key">
             <kbd>A</kbd>
@@ -141,7 +97,50 @@ export default class Index extends Component {
           data-key="76"
           src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/tink.wav"
         />
-      </>
+      </Wrapper>
     );
   }
 }
+
+const Wrapper = styled.div`
+  .keys {
+    display: flex;
+    flex: 1;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: url('https://i.imgur.com/b9r5sEL.jpg') no-repeat;
+  }
+
+  .key {
+    border: 0.4rem solid black;
+    border-radius: 0.5rem;
+    margin: 1rem;
+    font-size: 1.5rem;
+    padding: 1rem 0.5rem;
+    transition: all 0.07s ease;
+    width: 10rem;
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    text-shadow: 0 0 0.5rem black;
+  }
+
+  .playing {
+    transform: scale(1.1);
+    border-color: #ffc600;
+    box-shadow: 0 0 1rem #ffc600;
+  }
+
+  kbd {
+    display: block;
+    font-size: 4rem;
+  }
+
+  .sound {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    color: #ffc600;
+  }
+`;

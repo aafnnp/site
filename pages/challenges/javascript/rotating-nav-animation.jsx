@@ -5,8 +5,8 @@ import {
   UserIcon,
   XIcon,
 } from '@heroicons/react/solid';
-import React, { Component } from 'react';
-
+import { Component } from 'react';
+import styled from 'styled-components';
 export default class ProgressSteps extends Component {
   handleClick(e) {
     e.currentTarget.classList.toggle('active');
@@ -16,112 +16,7 @@ export default class ProgressSteps extends Component {
 
   render() {
     return (
-      <>
-        <style jsx>
-          {`
-            .rotating {
-              position: relative;
-              width: 100vw;
-              height: 100vh;
-              background-color: #2d2d2d;
-            }
-
-            .rotating-main {
-              position: relative;
-              padding: 100px;
-              width: 100%;
-              height: 100%;
-              background-color: #fff;
-              font-size: 16px;
-              transition: transform 0.5s ease-in-out;
-              transform-origin: 0 0;
-              z-index: 10;
-            }
-
-            .rotating-main.active {
-              transform-origin: 0 0;
-              transform: rotateZ(-15deg);
-            }
-
-            .rotating-main hgroup {
-              font-size: 24px;
-              font-weight: 500;
-              margin-bottom: 1rem;
-            }
-
-            .rotating-main i {
-              font-size: 16px;
-              color: #999999;
-              font-weight: normal;
-            }
-
-            .rotating-content p {
-              line-height: 1.5;
-              margin: 1rem 0;
-            }
-
-            .rotating-content h2 {
-              margin-bottom: 1rem;
-              font-size: 18px;
-              font-weight: 500;
-            }
-
-            .rotating-btn {
-              position: absolute;
-              width: 200px;
-              height: 200px;
-              background-color: #ff6371;
-              color: #ffffff;
-              top: -100px;
-              left: -100px;
-              border-radius: 100%;
-              transition: transform 0.5s ease-in-out;
-              z-index: 99;
-            }
-
-            .rotating-btn.active {
-              transform: rotateZ(-90deg);
-            }
-
-            .rotating-nav {
-              position: absolute;
-              z-index: 1;
-              left: 2rem;
-              bottom: 2rem;
-              color: #ffffff;
-            }
-
-            .rotating-nav li {
-              position: relative;
-              display: flex;
-              align-items: center;
-              height: 2rem;
-              opacity: 0;
-              transition: all 0.5s ease-in-out 0.25s;
-            }
-
-            .rotating-nav.active li {
-              opacity: 1;
-              transform: translateX(0.5rem);
-            }
-
-            .rotating-nav li:nth-child(2) {
-              transition-delay: 0.5s;
-            }
-
-            .rotating-nav li:nth-child(3) {
-              transition-delay: 0.75s;
-            }
-
-            .rotating-nav.active li:nth-child(2) {
-              transform: translateX(1rem);
-            }
-
-            .rotating-nav.active li:nth-child(3) {
-              transform: translateX(2rem);
-            }
-          `}
-        </style>
+      <Wrapper>
         <div className="rotating">
           <div className="rotating-main">
             <hgroup>
@@ -185,7 +80,111 @@ export default class ProgressSteps extends Component {
             </li>
           </ul>
         </div>
-      </>
+      </Wrapper>
     );
   }
 }
+
+const Wrapper = styled.div`
+  .rotating {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #2d2d2d;
+  }
+
+  .rotating-main {
+    position: relative;
+    padding: 100px;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    font-size: 16px;
+    transition: transform 0.5s ease-in-out;
+    transform-origin: 0 0;
+    z-index: 10;
+  }
+
+  .rotating-main.active {
+    transform-origin: 0 0;
+    transform: rotateZ(-15deg);
+  }
+
+  .rotating-main hgroup {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .rotating-main i {
+    font-size: 16px;
+    color: #999999;
+    font-weight: normal;
+  }
+
+  .rotating-content p {
+    line-height: 1.5;
+    margin: 1rem 0;
+  }
+
+  .rotating-content h2 {
+    margin-bottom: 1rem;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .rotating-btn {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: #ff6371;
+    color: #ffffff;
+    top: -100px;
+    left: -100px;
+    border-radius: 100%;
+    transition: transform 0.5s ease-in-out;
+    z-index: 99;
+  }
+
+  .rotating-btn.active {
+    transform: rotateZ(-90deg);
+  }
+
+  .rotating-nav {
+    position: absolute;
+    z-index: 1;
+    left: 2rem;
+    bottom: 2rem;
+    color: #ffffff;
+  }
+
+  .rotating-nav li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 2rem;
+    opacity: 0;
+    transition: all 0.5s ease-in-out 0.25s;
+  }
+
+  .rotating-nav.active li {
+    opacity: 1;
+    transform: translateX(0.5rem);
+  }
+
+  .rotating-nav li:nth-child(2) {
+    transition-delay: 0.5s;
+  }
+
+  .rotating-nav li:nth-child(3) {
+    transition-delay: 0.75s;
+  }
+
+  .rotating-nav.active li:nth-child(2) {
+    transform: translateX(1rem);
+  }
+
+  .rotating-nav.active li:nth-child(3) {
+    transform: translateX(2rem);
+  }
+`;

@@ -1,4 +1,3 @@
-import { HomeIcon } from '@heroicons/react/outline';
 import { getAllChallenges } from 'api/getAllChallenges';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -49,11 +48,6 @@ export default function IndexPage(props) {
           );
         })}
       </ul>
-      <Link href="/">
-        <a className="block absolute bottom-4 right-4 z-50">
-          <HomeIcon className="w-10 h-10 text-black" />
-        </a>
-      </Link>
     </div>
   );
 }

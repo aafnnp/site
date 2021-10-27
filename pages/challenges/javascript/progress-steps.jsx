@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
+import styled from 'styled-components';
 
 export default class ProgressSteps extends Component {
   state = { step: 0 };
@@ -12,91 +13,8 @@ export default class ProgressSteps extends Component {
 
   render() {
     return (
-      <>
-        <style jsx>
-          {`
-            .progress-steps {
-              display: flex;
-              width: 100vw;
-              height: 100vh;
-              align-items: center;
-              justify-content: center;
-              flex-direction: column;
-            }
-
-            .steps {
-              position: relative;
-              height: 2rem;
-              width: 38.2vw;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-            }
-
-            .steps::after,
-            .steps::before {
-              position: absolute;
-              display: block;
-              content: '';
-              height: 0.25rem;
-              width: 100%;
-              left: 0;
-              top: 50%;
-              margin-top: -0.125rem;
-              background-color: #efefef;
-              z-index: -1;
-            }
-
-            .steps::before {
-              z-index: 1;
-              background-color: burlywood;
-              width: 0;
-            }
-
-            .steps-1::before {
-              width: 33.333333%;
-            }
-
-            .steps-2::before {
-              width: 66.666667%;
-            }
-
-            .steps-3::before {
-              width: 100%;
-            }
-
-            .steps .step {
-              position: relative;
-              width: 2rem;
-              height: 2rem;
-              border-radius: 100%;
-              background-color: burlywood;
-              text-align: center;
-              line-height: 2rem;
-              color: #ffffff;
-              z-index: 99;
-            }
-
-            .btn-group {
-              display: flex;
-              gap: 1rem;
-              margin-top: 2rem;
-            }
-
-            .btn-group button {
-              width: 6rem;
-              height: 2rem;
-              background-color: burlywood;
-              color: #ffffff;
-              border-radius: 0.25rem;
-            }
-
-            .btn-group button.disabled {
-              cursor: not-allowed;
-              background: lightgrey;
-            }
-          `}
-        </style>
+      <Wrapper>
+        <style jsx>{``}</style>
         <div className="progress-steps">
           <div className={`steps steps-${this.state.step}`}>
             <div className="step">1</div>
@@ -119,7 +37,90 @@ export default class ProgressSteps extends Component {
             </button>
           </div>
         </div>
-      </>
+      </Wrapper>
     );
   }
 }
+
+const Wrapper = styled.div`
+  .progress-steps {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .steps {
+    position: relative;
+    height: 2rem;
+    width: 38.2vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .steps::after,
+  .steps::before {
+    position: absolute;
+    display: block;
+    content: '';
+    height: 0.25rem;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    margin-top: -0.125rem;
+    background-color: #efefef;
+    z-index: -1;
+  }
+
+  .steps::before {
+    z-index: 1;
+    background-color: burlywood;
+    width: 0;
+  }
+
+  .steps-1::before {
+    width: 33.333333%;
+  }
+
+  .steps-2::before {
+    width: 66.666667%;
+  }
+
+  .steps-3::before {
+    width: 100%;
+  }
+
+  .steps .step {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    background-color: burlywood;
+    text-align: center;
+    line-height: 2rem;
+    color: #ffffff;
+    z-index: 99;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .btn-group button {
+    width: 6rem;
+    height: 2rem;
+    background-color: burlywood;
+    color: #ffffff;
+    border-radius: 0.25rem;
+  }
+
+  .btn-group button.disabled {
+    cursor: not-allowed;
+    background: lightgrey;
+  }
+`;

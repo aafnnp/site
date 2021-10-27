@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
+import styled from 'styled-components';
 
 export default class Index extends Component {
   state = {
@@ -46,55 +47,8 @@ export default class Index extends Component {
 
   render() {
     return (
-      <>
-        <style jsx>
-          {`
-            .cards {
-              display: flex;
-              justify-content: center;
-              width: 100vw;
-              height: 100vh;
-              align-items: center;
-              padding: 15vh 15vw;
-              gap: 1vw;
-            }
-
-            .cards .card {
-              position: relative;
-              border-radius: 7.5vw;
-              width: 7.5vw;
-              height: 100%;
-              overflow: hidden;
-              transition: width 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19);
-            }
-
-            .cards .card h3 {
-              position: absolute;
-              left: 3rem;
-              bottom: 1rem;
-              color: #fff;
-              font-size: 1.5rem;
-              font-weight: 600;
-              opacity: 0;
-              transition: opacity 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19);
-            }
-
-            .cards .card img {
-              display: block;
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-            }
-
-            .cards .card.active {
-              width: 50vw;
-            }
-
-            .cards .card.active h3 {
-              opacity: 1;
-            }
-          `}
-        </style>
+      <Wrapper>
+        <style jsx>{``}</style>
         <div className="cards bg-white">
           {this.state.list.map((item, key) => {
             const _class = item.active ? 'card active' : 'card';
@@ -110,7 +64,54 @@ export default class Index extends Component {
             );
           })}
         </div>
-      </>
+      </Wrapper>
     );
   }
 }
+
+const Wrapper = styled.div`
+  .cards {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    padding: 15vh 15vw;
+    gap: 1vw;
+  }
+
+  .cards .card {
+    position: relative;
+    border-radius: 7.5vw;
+    width: 7.5vw;
+    height: 100%;
+    overflow: hidden;
+    transition: width 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  .cards .card h3 {
+    position: absolute;
+    left: 3rem;
+    bottom: 1rem;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  .cards .card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cards .card.active {
+    width: 50vw;
+  }
+
+  .cards .card.active h3 {
+    opacity: 1;
+  }
+`;
