@@ -48,7 +48,6 @@ export default class Index extends Component {
   render() {
     return (
       <Wrapper>
-        <style jsx>{``}</style>
         <div className="cards bg-white">
           {this.state.list.map((item, key) => {
             const _class = item.active ? 'card active' : 'card';
@@ -58,7 +57,7 @@ export default class Index extends Component {
                 key={item.title}
                 onClick={this._click.bind(this, key)}
               >
-                <img src={item.imgUrl} alt={item.title} />
+                <img src={item.imgUrl} alt={item.title} loading="lazy" />
                 <h3>{item.title}</h3>
               </div>
             );
@@ -78,6 +77,10 @@ const Wrapper = styled.div`
     align-items: center;
     padding: 15vh 15vw;
     gap: 1vw;
+    position: absolute;
+    left: 0;
+    top: 4rem;
+    width: 100vw;
   }
 
   .cards .card {

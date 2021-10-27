@@ -9,6 +9,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@animxyz/core": "^0.6.4",
     "@heroicons/react": "^1.0.5",
     "@loadable/component": "^5.15.0",
     "dayjs": "^1.10.7",

@@ -9,7 +9,10 @@ export default function Index() {
         <div className="title">404 NOT FOUND</div>
         <div className="page-not-found-content">
           <div className="slogan">
-            <img src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Scarecrow.png" />
+            <img
+              src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Scarecrow.png"
+              alt="404 not found"
+            />
           </div>
           <div className="detail">
             <h2>I have bad news for you</h2>
@@ -31,7 +34,12 @@ export default function Index() {
 const Wrapper = styled.div`
   @import url('https://fonts.loli.net/css2?family=Space+Mono&display=swap');
   @import url('https://fonts.loli.net/css2?family=Montserrat&display=swap');
-
+  .page-not-found {
+    position: absolute;
+    left: 0;
+    top: 4rem;
+    width: 100vw;
+  }
   .page-not-found-content {
     display: flex;
     width: 100vw;
