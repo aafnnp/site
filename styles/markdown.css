@@ -136,19 +136,10 @@
   padding: 0;
 }
 
-.markdown-body * {
-  box-sizing: border-box;
-}
-
-.markdown-body input {
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
-}
-
 .markdown-body a {
   color: #0366d6;
   text-decoration: none;
+  padding: 0 0.5rem;
 }
 
 .markdown-body a:hover {

@@ -1,3 +1,4 @@
+import React from 'react';
 import { data, title } from 'utils/config';
 
 export default function HttpStatus() {

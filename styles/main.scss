@@ -18,12 +18,13 @@ body {
 }
 
 .post-item {
-  @apply flex py-3 px-4 w-full items-center;
+  @apply flex px-4 w-full items-center;
+  will-change: transform, opacity;
   .post-date {
     @apply hidden w-3/12 text-right pr-4 text-gray-600 opacity-75 sm:block;
   }
   .post-link {
-    @apply flex-none;
+    @apply flex-none flex items-center;
     a {
       @apply text-blue-600;
       padding: 10px 15px;
@@ -38,15 +39,6 @@ body {
 
 .post-info {
   color: #4f4f4f;
-}
-
-.pagination {
-  a {
-    @apply rounded mr-2 px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-black hover:text-white transition-all;
-    &.active {
-      @apply bg-black text-white;
-    }
-  }
 }
 
 .markdown-body .gist table tr,
@@ -96,4 +88,8 @@ body {
       color: #fff;
     }
   }
+}
+
+.pagination {
+  margin: 1rem auto;
 }

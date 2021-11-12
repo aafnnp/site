@@ -1,16 +1,7 @@
-import { motion } from 'framer-motion';
 import { NextSeo } from 'next-seo';
-import { useRouter } from 'next/router';
-
-const variants = {
-  hidden: { opacity: 0, x: 0, y: 0 },
-  enter: { opacity: 1, x: 0, y: 0 },
-  exit: { opacity: 0, x: 0, y: 0 },
-};
+import React from 'react';
 
 const Layout = ({ children, title, description }) => {
-  const { route } = useRouter();
-
   return (
     <>
       <NextSeo
@@ -18,18 +9,7 @@ const Layout = ({ children, title, description }) => {
         description={description}
         openGraph={{ title, description }}
       />
-      <motion.main
-        initial="hidden"
-        animate="enter"
-        exit="exit"
-        variants={variants}
-        transition={{ type: 'linear' }}
-        className={`flex flex-col items-start p-4 ${
-          route === '/about' && 'items-center h-full about'
-        }`}
-      >
-        {children}
-      </motion.main>
+      {children}
     </>
   );
 };

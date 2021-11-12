@@ -5,7 +5,7 @@ import {
   UserIcon,
   XIcon,
 } from '@heroicons/react/solid';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 export default class ProgressSteps extends Component {
   handleClick(e) {

@@ -1,9 +1,24 @@
+import { CssBaseline } from '@nextui-org/react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
+import React from 'react';
 
 class MyDocument extends Document {
-  render() {
-    const GA_MEASUREMENT_ID = 'GTM-MFN3B2T';
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    const styles = CssBaseline.flush();
 
+    return {
+      ...initialProps,
+      styles: (
+        <>
+          {initialProps.styles}
+          {styles}
+        </>
+      ),
+    };
+  }
+
+  render() {
     return (
       <Html lang="en">
         <Head>

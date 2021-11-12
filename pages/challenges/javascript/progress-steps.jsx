@@ -1,11 +1,11 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 export default class ProgressSteps extends Component {
   state = { step: 0 };
 
   handleClick(type = 'prev') {
-    let { step } = this.state;
+    const { step } = this.state;
     if (type === 'prev' && step === 0) return false;
     if (type === 'next' && step === 3) return false;
     this.setState({ step: type === 'prev' ? step - 1 : step + 1 });

@@ -1,6 +1,7 @@
 import { getAllChallenges } from 'api/getAllChallenges';
 import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
 import styled from 'styled-components';
 
 export default function IndexPage(props) {
