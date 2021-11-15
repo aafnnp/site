@@ -1,58 +1,59 @@
+import { Box, Button, Grid, Heading, Image, Link } from '@chakra-ui/react';
 import { getAllChallenges } from 'api/getAllChallenges';
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
-import styled from 'styled-components';
+import { FaGithub, FaLink } from 'react-icons/fa';
 
 export default function IndexPage(props) {
   const { allChallenges } = props;
   return (
-    <Wrapper>
-      <div className="challenges p-4">
-        <h1 className="text-5xl text-center my-10">Challenges</h1>
-        <ul className="grid grid-cols-3 gap-4">
-          {allChallenges.map((challenge) => {
-            return (
-              <li key={challenge.link} className="flex bg-gray-100 rounded-md">
-                <Image
-                  className="flex-none rounded-l-md"
-                  src={`/screenshots/${challenge.title}.png`}
-                  alt={challenge.title}
-                  width={192}
-                  height={108}
-                />
-                <div className="p-4 space-y-4 flex-1 flex flex-col justify-between">
-                  <h3 className="flex item-center justify-between text-sm font-semibold">
+    <Box p={4}>
+      <Heading as="h1" mb={4} textAlign="center">
+        Challenges
+      </Heading>
+      <Grid templateColumns="repeat(4,1fr)" gap={6}>
+        {allChallenges.map((challenge) => {
+          return (
+            <Box
+              key={challenge.link}
+              boxShadow="lg"
+              rounded="md"
+              overflow="hidden"
+            >
+              <Image
+                className="flex-none rounded-l-md"
+                src={`/screenshots/${challenge.title}.png`}
+                alt={challenge.title}
+              />
+              <Box p={4}>
+                <Box display="flex" mb={2}>
+                  <Image
+                    boxSize={18}
+                    alt={challenge.group}
+                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${challenge.group}.svg`}
+                  />
+                  <Heading as="h3" fontSize="sm" fontWeight="bold" ml={1.5}>
                     {challenge.title}
-                    <Image
-                      alt={challenge.group}
-                      className={`tag inline-block mr-2 w-4 h-4 ${challenge.group}`}
-                      height={20}
-                      src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${challenge.group}.svg`}
-                      width={20}
-                    />
-                  </h3>
-                  <div className="flex gap-4 font-medium text-xs">
-                    <Link href={challenge.link}>
-                      <a className="transition duration-300 ease-linear px-3 py-1.5 rounded-md bg-white hover:bg-black text-black hover:text-white">
-                        Link
-                      </a>
-                    </Link>
+                  </Heading>
+                </Box>
+                <Grid templateColumns="repeat(2,1fr)" gap={4}>
+                  <Button size="sm" leftIcon={<FaLink />}>
+                    <Link href={challenge.link}>Link</Link>
+                  </Button>
+                  <Button size="sm" leftIcon={<FaGithub />}>
                     <Link
+                      isExternal
                       href={`https://github.com/Manonicu/site/tree/master/pages/challenges/${challenge.group}/${challenge.title}.jsx`}
                     >
-                      <a className="transition duration-300 ease-linear px-3 py-1.5 rounded-md bg-black text-white hover:bg-white hover:text-black">
-                        Source
-                      </a>
+                      Source
                     </Link>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </Wrapper>
+                  </Button>
+                </Grid>
+              </Box>
+            </Box>
+          );
+        })}
+      </Grid>
+    </Box>
   );
 }
 
@@ -64,12 +65,3 @@ export async function getStaticProps() {
     },
   };
 }
-
-const Wrapper = styled.div`
-  .challenges {
-    position: absolute;
-    left: 0;
-    top: 4rem;
-    width: 100vw;
-  }
-`;

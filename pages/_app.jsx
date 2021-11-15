@@ -51,6 +51,14 @@ const App = ({ Component, pageProps }) => {
         >
           <Container maxW="container.md">
             <Header />
+          </Container>
+          <Container
+            maxW={
+              router.route.startsWith('/challenges')
+                ? 'container.full'
+                : 'container.md'
+            }
+          >
             <Component {...pageProps} canonical={url} key={url} />
             {router.route.startsWith('/blog') && <Comments />}
           </Container>
