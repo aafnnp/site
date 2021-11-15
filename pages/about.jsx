@@ -1,40 +1,45 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import {
+  Avatar,
+  Button,
+  Flex,
+  Heading,
+  HStack,
+  Link,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import React from 'react';
 
 export default function Index() {
   return (
-    <div className="about flex items-center justify-center w-screen h-screen">
-      <div className="max-w-2xl flex items-center justify-center flex-col">
-        <Image
+    <Flex justifyContent="center">
+      <VStack>
+        <Avatar
           size="2xl"
+          name="Manon.icu"
           alt="Manon.icu"
-          width={200}
-          height={200}
-          className="rounded-full"
           src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/KDdimu.jpg"
         />
 
-        <hgroup className="my-8 text-4xl leading-relaxed">
-          <h1>Manon.icu</h1>
-          <h2 className="text-sm text-gray-400">FullStack Developer.</h2>
-        </hgroup>
-        <div className="description">
+        <Heading as="h1">Manon.icu</Heading>
+        <Heading as="h2">FullStack Developer.</Heading>
+        <Text atextAign="left">
           Helping people turn their ideas into sites & apps that work.
-          <br />
-          Professional and Cost-Effective. <br />
-          <span>Always.</span>
-        </div>
+        </Text>
+        <Text textAlign="left">Professional and Cost-Effective.</Text>
+        <Text textAlign="left" color="tomato">
+          Always.
+        </Text>
 
-        <nav className="mt-8">
+        <HStack color="white">
           <Link href="/challenges">
-            <a>Challenges</a>
+            <Button colorScheme="twitter">Challenges</Button>
           </Link>
           <Link href="/">
-            <a>Blog</a>
+            <Button colorScheme="twitter">Blog</Button>
           </Link>
-        </nav>
-      </div>
-    </div>
+        </HStack>
+      </VStack>
+    </Flex>
   );
 }

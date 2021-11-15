@@ -1,11 +1,13 @@
+import { ChakraProvider, ColorModeProvider, Container } from '@chakra-ui/react';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
 import '../styles/main.scss';
-import '../styles/markdown.css';
+
 const Header = dynamic(() => import('components/Header'));
+const Comments = dynamic(() => import('components/Comments'));
 
 const App = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -41,8 +43,19 @@ const App = ({ Component, pageProps }) => {
           cardType: 'summary_large_image',
         }}
       />
-      <Header />
-      <Component {...pageProps} canonical={url} key={url} />
+      <ChakraProvider resetCSS>
+        <ColorModeProvider
+          options={{
+            useSystemColorMode: true,
+          }}
+        >
+          <Container maxW="container.md">
+            <Header />
+            <Component {...pageProps} canonical={url} key={url} />
+            {router.route.startsWith('/blog') && <Comments />}
+          </Container>
+        </ColorModeProvider>
+      </ChakraProvider>
     </>
   );
 };

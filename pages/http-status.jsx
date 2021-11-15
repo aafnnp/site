@@ -1,39 +1,48 @@
+import { Box, Heading, HStack, Link, Text } from '@chakra-ui/react';
 import React from 'react';
 import { data, title } from 'utils/config';
 
 export default function HttpStatus() {
   return (
-    <div>
-      <div className="http-status">
-        <h2 className="text-2xl mb-4 font-bold">HTTP状态代码概述</h2>
+    <Box>
+      <Heading as="h1" mb={4}>
+        HTTP状态代码概述
+      </Heading>
 
-        {data.map((item, key) => (
-          <div className="p-10 mb-10 shadow-xl rounded-md" key={key}>
-            <h3 className="text-xl mb-4 font-bold">
-              {key + 1}
-              xx
-              {title[key]}
-            </h3>
+      {data.map((item, key) => (
+        <Box boxShadow="xl" key={key} p={4} mb={4} rounded="md">
+          <Heading as="h2" mb={2}>
+            <HStack>
+              <Text>{key + 1}xx</Text>
+              <Text pl={4}>{title[key]}</Text>
+            </HStack>
+          </Heading>
 
-            {item.map((el) => (
-              <div className="leading-10" key={el.key}>
-                <a
-                  href={`https://www.abstractapi.com/http-status-codes/${el.key}`}
-                  className="text-purple-500"
-                >
-                  <div className="w-embed">
-                    <span className="px-2 py-1 bg-purple-500 rounded-md text-white text-sm">
-                      {el.key}
-                    </span>
-                    <span className="px-2">-</span>
-                    <span className="http-status-list-text">{el.value}</span>
-                  </div>
-                </a>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
+          {item.map((el) => (
+            <Box py={2} key={el.key}>
+              <Link
+                href={`https://www.abstractapi.com/http-status-codes/${el.key}`}
+                color="purple.500"
+              >
+                <HStack>
+                  <Text
+                    px={2}
+                    py={1}
+                    backgroundColor="purple.500"
+                    rounded="md"
+                    color="white"
+                    fontSize="xs"
+                  >
+                    {el.key}
+                  </Text>
+                  <Text>-</Text>
+                  <Text>{el.value}</Text>
+                </HStack>
+              </Link>
+            </Box>
+          ))}
+        </Box>
+      ))}
+    </Box>
   );
 }

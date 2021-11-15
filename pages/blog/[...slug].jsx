@@ -1,25 +1,18 @@
+import { Box, Heading, HStack, Text } from '@chakra-ui/react';
 import { getAllPosts, GetPostBySlug, GetRandomPost } from 'api/getAllPosts';
-import CanIUse from 'components/CanIuse.jsx';
 import Layout from 'components/Layout';
 import matter from 'gray-matter';
-import { CodePen, CodeSandbox, Gist } from 'mdx-embed';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import dynamic from 'next/dynamic';
 import ErrorPage from 'next/error';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
-const PostPage = dynamic(() => import('components/PostPage'));
-const Comments = dynamic(() => import('components/Comments'));
-const Random = dynamic(() => import('components/RandomPost'));
+import components from 'utils/components';
 
-const components = {
-  CodePen,
-  Gist,
-  CodeSandbox,
-  CanIUse,
-};
+const PostPage = dynamic(() => import('components/PostPage'));
+
+const Random = dynamic(() => import('components/RandomPost'));
 
 function Post({ data, content, randomPost }) {
   const router = useRouter();
@@ -29,31 +22,18 @@ function Post({ data, content, randomPost }) {
   }
   return (
     <Layout title={data.title} description={data.description}>
-      <h1 className="font-bold text-2xl pb-2">{data.title}</h1>
+      <Heading as="h1">{data.title}</Heading>
+      <HStack color="gray.500" fontSize="12px">
+        <Text>{data.date}</Text>
+        <Text>Published {data.fromNow}</Text>
+      </HStack>
 
-      <div className="post-info mb-10 text-sm flex justify-between">
-        <div className="flex items-center">
-          <Image
-            alt="manonicu"
-            className="rounded-full mr-2"
-            height="18"
-            src="/github.svg"
-            width="18"
-          />
-          <span className="mx-2">Manon.icu</span>
-          {data.date}（{data.fromNow}）
-        </div>
-      </div>
-
-      <div className="markdown-body text-sm">
+      <Box fontSize="sm">
         <PostPage>
           <MDXRemote {...content} components={components} />
         </PostPage>
-
         <Random data={randomPost} />
-
-        <Comments />
-      </div>
+      </Box>
     </Layout>
   );
 }

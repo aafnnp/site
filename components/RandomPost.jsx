@@ -1,19 +1,22 @@
+import { Heading, Link, ListItem, OrderedList } from '@chakra-ui/react';
 import React from 'react';
-import Link from 'next/link';
 
 function RandomPost({ data }) {
+  console.log(data);
   return (
     <>
-      <h2 className="font-medium text-xl mt-8">更多文章</h2>
-      <ul className="related-post">
+      <Heading as="h2" mt={8} mb={4} size="sm">
+        更多文章
+      </Heading>
+      <OrderedList styleType="circle" color="gray.500">
         {data.map((item, key) => (
-          <li key={key}>
-            <Link href={`/blog${item.link}`}>
-              <a>{item.data.title}</a>
+          <ListItem key={key}>
+            <Link href={`/blog/${item.slug}`} textDecoration="underline">
+              {item.data.title}
             </Link>
-          </li>
+          </ListItem>
         ))}
-      </ul>
+      </OrderedList>
     </>
   );
 }

@@ -1,8 +1,7 @@
+import { Box, Center, Grid, HStack, Image, Link, Text } from '@chakra-ui/react';
 import { Pagination } from '@nextui-org/react';
 import { getAllPosts } from 'api/getAllPosts';
 import Layout from 'components/Layout';
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
 export default function IndexPage(props) {
@@ -14,31 +13,35 @@ export default function IndexPage(props) {
       {postList.map((item) => {
         const { slug, data } = item;
         return (
-          <div className="post-item" key={item.slug}>
-            <div className="post-date">{data.date}</div>
-            <div className="post-link">
-              <Link href={`/blog/${slug}`}>{data.title}</Link>
-              {data.tags?.map((tag) => (
-                <Image
-                  alt={tag}
-                  className={`tag ${tag}`}
-                  height={16}
-                  key={tag}
-                  src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
-                  width={16}
-                />
-              ))}
-            </div>
-          </div>
+          <Grid templateColumns="30% auto" gap={6} key={item.slug} py={2}>
+            <Box width="100%" color="gray" textAlign="right">
+              <Text color="gray.500" isTruncated>
+                {data.date}
+              </Text>
+            </Box>
+            <Box width="100%">
+              <HStack>
+                <Link href={`/blog/${slug}`}>{data.title}</Link>
+                {data.tags?.map((tag) => (
+                  <Image
+                    boxSize="1rem"
+                    alt={tag}
+                    key={tag}
+                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
+                  />
+                ))}
+              </HStack>
+            </Box>
+          </Grid>
         );
       })}
-      <div className="flex justify-center items-center py-10">
+      <Center py={4}>
         <Pagination
           total={props.posts.length}
           initialPage={curPage}
           onChange={(page) => setCurPage(page)}
         />
-      </div>
+      </Center>
     </Layout>
   );
 }

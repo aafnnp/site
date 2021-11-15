@@ -1,23 +1,8 @@
-import { CssBaseline } from '@nextui-org/react';
+import { ColorModeScript } from '@chakra-ui/react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    const styles = CssBaseline.flush();
-
-    return {
-      ...initialProps,
-      styles: (
-        <>
-          {initialProps.styles}
-          {styles}
-        </>
-      ),
-    };
-  }
-
   render() {
     return (
       <Html lang="en">
@@ -40,7 +25,8 @@ class MyDocument extends Document {
           ></script>
         </Head>
 
-        <body className="flex justify-center bg-white dark:bg-gray-800 font-sans leading-normal text-base transition-colors duration-100 ease-linear">
+        <body>
+          <ColorModeScript />
           <Main />
           <NextScript />
         </body>

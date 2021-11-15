@@ -1,93 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import url('https://fonts.loli.net/css2?family=Gugi&display=swap');
 @import url('https://fonts.loli.net/css2?family=Roboto&display=swap');
-body {
-  scroll-behavior: smooth;
-  text-rendering: optimizeSpeed;
-}
 
-#__next {
-  @apply flex flex-col lg:w-3/5 h-screen md:w-4/5 sm:w-full;
-}
-
-.main {
-  @apply p-3;
-}
-
-.post-item {
-  @apply flex px-4 w-full items-center;
-  will-change: transform, opacity;
-  .post-date {
-    @apply hidden w-3/12 text-right pr-4 text-gray-600 opacity-75 sm:block;
+h2.chakra-heading {
+  position: relative;
+  &::before {
+    position: absolute;
+    display: block;
+    content: '#';
+    color: gray;
+    opacity: 0.75;
+    transform: translateX(-120%);
   }
-  .post-link {
-    @apply flex-none flex items-center;
-    a {
-      @apply text-blue-600;
-      padding: 10px 15px;
-      transition: background-color 150ms ease-in 0s;
-
-      &:hover {
-        background: rgb(238, 238, 238);
-      }
-    }
-  }
-}
-
-.post-info {
-  color: #4f4f4f;
-}
-
-.markdown-body .gist table tr,
-.markdown-body .gist table td {
-  border: none;
 }
 
 .related-post {
   list-style-type: square;
-}
-
-.about {
-  h1,
-  h2 {
-    font-family: 'Gugi', cursive;
-    font-weight: 700;
-    font-size: 3.6rem;
-  }
-  h2 {
-    font-weight: 400;
-    font-size: 1rem;
-  }
-
-  .description {
-    margin: 1rem 0 2rem;
-    font-family: 'Roboto';
-    span {
-      border-bottom: 2px solid rgb(255, 102, 99, 1);
-    }
-  }
-
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-    margin-top: 1.5rem;
-    a {
-      display: block;
-      text-align: center;
-      padding: 0 0.5rem;
-      height: 3rem;
-      line-height: 3rem;
-      text-transform: uppercase;
-      border-radius: 0.25rem;
-      background: rgb(255, 102, 99);
-      color: #fff;
-    }
-  }
 }
 
 .pagination {
