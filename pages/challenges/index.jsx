@@ -1,23 +1,45 @@
 import { Box, Button, Grid, Heading, Image, Link } from '@chakra-ui/react';
 import { getAllChallenges } from 'api/getAllChallenges';
+import { motion } from 'framer-motion';
 import React from 'react';
 import { FaGithub, FaLink } from 'react-icons/fa';
+
+const MotionHeading = motion(Heading);
+const MotionGrid = motion(Grid);
+const MotionBox = motion(Box);
 
 export default function IndexPage(props) {
   const { allChallenges } = props;
   return (
     <Box p={4}>
-      <Heading as="h1" mb={4} textAlign="center">
+      <MotionHeading
+        as="h1"
+        mb={4}
+        textAlign="center"
+        animate={{ x: 0, opacity: 1 }}
+        initial={{ x: -100, opacity: 0 }}
+        transition={{ ease: 'easeOut', duration: 0.5 }}
+      >
         Challenges
-      </Heading>
-      <Grid templateColumns="repeat(4,1fr)" gap={6}>
-        {allChallenges.map((challenge) => {
+      </MotionHeading>
+
+      <MotionGrid
+        templateColumns="repeat(4,1fr)"
+        gap={6}
+        initial="hidden"
+        animate="visible"
+      >
+        {allChallenges.map((challenge, i) => {
           return (
-            <Box
+            <MotionBox
               key={challenge.link}
+              custom={i}
               boxShadow="lg"
               rounded="md"
               overflow="hidden"
+              animate={{ y: 0, opacity: 1 }}
+              initial={{ y: 100, opacity: 0 }}
+              transition={{ ease: 'easeOut', duration: 0.5, delay: i * 0.1 }}
             >
               <Image
                 className="flex-none rounded-l-md"
@@ -49,10 +71,10 @@ export default function IndexPage(props) {
                   </Button>
                 </Grid>
               </Box>
-            </Box>
+            </MotionBox>
           );
         })}
-      </Grid>
+      </MotionGrid>
     </Box>
   );
 }
