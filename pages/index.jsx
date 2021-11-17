@@ -27,6 +27,8 @@ export default function IndexPage(props) {
                     boxSize="1rem"
                     alt={tag}
                     key={tag}
+                    htmlWidth="1rem"
+                    htmlHeight="1rem"
                     src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
                   />
                 ))}

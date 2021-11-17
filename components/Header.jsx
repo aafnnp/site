@@ -7,7 +7,13 @@ export default function Header() {
     <Flex align="center" justify="space-between" mb={4}>
       <Box py={4}>
         <HStack spacing={4}>
-          <Image alt="Manon.icu" boxSize="20px" src="/terminal.svg" />
+          <Image
+            alt="Manon.icu"
+            boxSize="20px"
+            src="/terminal.svg"
+            htmlWidth="20px"
+            htmlHeight="20px"
+          />
           <Link href="/">Manon.Icu</Link>
         </HStack>
       </Box>

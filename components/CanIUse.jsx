@@ -72,6 +72,8 @@ export default class CanIUse extends Component {
                 alt="chrome"
                 loading="lazy"
                 boxSize="3rem"
+                htmlWidth="3rem"
+                htmlHeight="3rem"
               />
             </Box>
             <Box display="flex" justifyContent="center">
@@ -80,6 +82,8 @@ export default class CanIUse extends Component {
                 alt="firefox"
                 loading="lazy"
                 boxSize="3rem"
+                htmlWidth="3rem"
+                htmlHeight="3rem"
               />
             </Box>
             <Box display="flex" justifyContent="center">
@@ -88,6 +92,8 @@ export default class CanIUse extends Component {
                 alt="IE"
                 loading="lazy"
                 boxSize="3rem"
+                htmlWidth="3rem"
+                htmlHeight="3rem"
               />
             </Box>
             <Box display="flex" justifyContent="center">
@@ -96,6 +102,8 @@ export default class CanIUse extends Component {
                 alt="Edge"
                 loading="lazy"
                 boxSize="3rem"
+                htmlWidth="3rem"
+                htmlHeight="3rem"
               />
             </Box>
             <Box display="flex" justifyContent="center">
@@ -104,6 +112,8 @@ export default class CanIUse extends Component {
                 alt="Safari"
                 loading="lazy"
                 boxSize="3rem"
+                htmlWidth="3rem"
+                htmlHeight="3rem"
               />
             </Box>
           </Grid>
@@ -139,6 +149,8 @@ export default class CanIUse extends Component {
                 alt="Android Chrome"
                 loading="lazy"
                 boxSize="3rem"
+                htmlWidth="3rem"
+                htmlHeight="3rem"
               />
             </Box>
             <Box display="flex" justifyContent="center">
@@ -147,6 +159,8 @@ export default class CanIUse extends Component {
                 alt="Android Firefox"
                 loading="lazy"
                 boxSize="3rem"
+                htmlWidth="3rem"
+                htmlHeight="3rem"
               />
             </Box>
             <Box display="flex" justifyContent="center">
@@ -155,6 +169,8 @@ export default class CanIUse extends Component {
                 alt="Android"
                 loading="lazy"
                 boxSize="3rem"
+                htmlWidth="3rem"
+                htmlHeight="3rem"
               />
             </Box>
             <Box display="flex" justifyContent="center">
@@ -163,6 +179,8 @@ export default class CanIUse extends Component {
                 alt="Safari"
                 loading="lazy"
                 boxSize="3rem"
+                htmlWidth="3rem"
+                htmlHeight="3rem"
               />
             </Box>
           </Grid>
