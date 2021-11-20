@@ -2,7 +2,6 @@ import { Heading, Link, ListItem, OrderedList } from '@chakra-ui/react';
 import React from 'react';
 
 function RandomPost({ data }) {
-  console.log(data);
   return (
     <>
       <Heading as="h2" mt={8} mb={4} size="sm">

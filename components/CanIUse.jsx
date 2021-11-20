@@ -25,15 +25,10 @@ export default class CanIUse extends Component {
           },
         } = res.data[this.props.tag];
 
-        this.setState(
-          {
-            desktop: this.getSupportData([chrome, firefox, ie, edge, safari]),
-            mobile: this.getSupportData([and_chr, and_ff, android, ios_saf]),
-          },
-          () => {
-            console.log(this.state);
-          }
-        );
+        this.setState({
+          desktop: this.getSupportData([chrome, firefox, ie, edge, safari]),
+          mobile: this.getSupportData([and_chr, and_ff, android, ios_saf]),
+        });
       });
   }
 
