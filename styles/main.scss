@@ -13,6 +13,12 @@ h2.chakra-heading {
   }
 }
 
+h3.chakra-heading {
+  span {
+    text-decoration: underline;
+  }
+}
+
 .related-post {
   list-style-type: square;
 }

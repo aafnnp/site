@@ -24,10 +24,10 @@ export const getAllPosts = async () => {
     };
     postsArray.push(postData);
   }
-  return chunk(
-    postsArray.sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date)),
-    20
-  );
+  const visiblePosts = postsArray
+    .sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date))
+    .filter((post) => post.data.draft !== true);
+  return chunk(visiblePosts, 20);
 };
 
 // 根据slug导出文章
