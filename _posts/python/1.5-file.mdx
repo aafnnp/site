@@ -1,0 +1,75 @@
+---
+date: '2021-12-02 17:13:30'
+title: 'File Management'
+tags: [python]
+description: '大多数程序需要操作文件，比如读写文件，创建文件夹，删除文件等等。'
+---
+
+## 文件读写
+
+打开文件
+
+```python
+f=open('test.txt','rt')
+g=open('test.txt','wt')
+```
+
+读取所有内容
+
+```python
+data=f.read()
+data=f.read([maxbytes])
+```
+
+写入内容
+
+```python
+g.write('hello world')
+```
+
+关闭文件
+
+```python
+f.close()
+g.close()
+```
+
+文件应当在使用完毕后关闭，否则会导致内存泄漏。使用 with 语句可以自动关闭文件。
+
+离开 with 语句后，文件会自动关闭。
+
+```python
+with open(filename, 'rt') as file:
+    # Use the file `file`
+    ...
+    # No need to close explicitly
+...statements
+```
+
+使用`with`语句读取挣个文件
+
+```python
+with open('foo.txt', 'rt') as file:
+    data = file.read()
+```
+
+使用`with`语句按行读取文件
+
+```python
+with open('foo.txt', 'rt') as file:
+    for line in file:
+```
+
+使用`with`语句写入文件
+
+```python
+with open('outfile', 'wt') as out:
+    out.write('Hello World\n')
+```
+
+重定向`print`函数
+
+```python
+with open('foo.txt', 'wt') as file:
+    print('hello world', file=file)
+```
