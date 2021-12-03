@@ -1,5 +1,6 @@
 import { Box, Heading, HStack, Text } from '@chakra-ui/react';
 import { getAllPosts, GetPostBySlug, GetRandomPost } from 'api/getAllPosts';
+import Ad from 'components/ad';
 import Layout from 'components/Layout';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote';
@@ -9,6 +10,7 @@ import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 import React from 'react';
 import components from 'utils/components';
+import { v4 as uuidv4 } from 'uuid';
 
 const PostPage = dynamic(() => import('components/PostPage'));
 
@@ -27,7 +29,18 @@ function Post({ data, content, randomPost }) {
         <Text>{data.date}</Text>
         <Text>Published {data.fromNow}</Text>
       </HStack>
-
+      <Box>
+        <Ad key={uuidv4()}>
+          <ins
+            className="adsbygoogle"
+            style={{ display: 'block' }}
+            data-ad-client="ca-pub-xxx"
+            data-ad-slot="xxx"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+        </Ad>
+      </Box>
       <Box fontSize="sm">
         <PostPage>
           <MDXRemote {...content} components={components} />
