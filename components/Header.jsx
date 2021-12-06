@@ -1,10 +1,19 @@
 import { Box, Button, Flex, HStack, Image, Link } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { FaTwitter } from 'react-icons/fa';
 
 export default function Header() {
+  const router = useRouter();
   return (
-    <Flex align="center" justify="space-between" mb={4}>
+    <Flex
+      position="relative"
+      zIndex="9999"
+      align="center"
+      justify="space-between"
+      mb={4}
+      style={{ color: router.route.startsWith('/about') ? 'white' : '' }}
+    >
       <Box py={4}>
         <HStack spacing={4}>
           <Image

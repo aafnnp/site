@@ -60,11 +60,11 @@ const App = ({ Component, pageProps }) => {
           }}
         >
           <Container maxW="container.md">
-            <Header />
+            <Header style={{ color: '#fff' }} />
           </Container>
           <Container
             maxW={
-              router.route.startsWith('/challenges')
+              /^\/(challenges|about)/.test(router.route)
                 ? 'container.full'
                 : 'container.md'
             }

@@ -1,45 +1,76 @@
-import {
-  Avatar,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Link,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
-import React from 'react';
+import { Box, Button, Heading, Link } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import React, { Fragment } from 'react';
+const MotionHeading = motion(Heading);
+const MotionButton = motion(Button);
 
 export default function Index() {
   return (
-    <Flex justifyContent="center">
-      <VStack>
-        <Avatar
-          size="2xl"
-          name="Manon.icu"
-          alt="Manon.icu"
-          src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/KDdimu.jpg"
-        />
+    <Fragment>
+      <style jsx>{`
+        .about {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          width: 100vw;
+          height: 100vh;
+          top: 0;
+          left: 0;
+          background: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/about-bg.jpg')
+            no-repeat center center fixed;
+          background-size: cover;
+          color: #fff;
+        }
+      `}</style>
+      <div className="about">
+        <Box position="absolute" top="6rem" left="3.708rem">
+          <MotionHeading
+            as="h1"
+            fontSize="xl"
+            animate={{ x: 0, opacity: 1 }}
+            initial={{ x: -100, opacity: 0 }}
+            transition={{ ease: 'easeOut', duration: 1.5 }}
+          >
+            Manon.icu
+          </MotionHeading>
+          <MotionHeading
+            animate={{ x: 0, opacity: 1 }}
+            initial={{ x: -100, opacity: 0 }}
+            transition={{ ease: 'easeOut', duration: 1.5, delay: 0.8 }}
+            as="h3"
+          >
+            FullStack Developer.
+          </MotionHeading>
+        </Box>
 
-        <Heading as="h1">Manon.icu</Heading>
-        <Heading as="h2">FullStack Developer.</Heading>
-        <Text atextAign="left">
-          Helping people turn their ideas into sites & apps that work.
-        </Text>
-        <Text textAlign="left">Professional and Cost-Effective.</Text>
-        <Text textAlign="left" color="tomato">
-          Always.
-        </Text>
-
-        <HStack color="white">
+        <Box position="absolute" bottom="6rem" right="3.708rem">
           <Link href="/challenges">
-            <Button colorScheme="twitter">Challenges</Button>
+            <MotionButton
+              colorScheme="twitter"
+              w="8rem"
+              mr={6}
+              animate={{ y: 0, opacity: 1 }}
+              initial={{ y: 100, opacity: 0 }}
+              transition={{ ease: 'easeOut', duration: 1.5, delay: 0.8 }}
+            >
+              Challenges
+            </MotionButton>
           </Link>
           <Link href="/">
-            <Button colorScheme="twitter">Blog</Button>
+            <MotionButton
+              colorScheme="twitter"
+              w="8rem"
+              animate={{ y: 0, opacity: 1 }}
+              initial={{ y: 100, opacity: 0 }}
+              transition={{ ease: 'easeOut', duration: 1.5, delay: 1.6 }}
+            >
+              Blog
+            </MotionButton>
           </Link>
-        </HStack>
-      </VStack>
-    </Flex>
+        </Box>
+      </div>
+    </Fragment>
   );
 }
