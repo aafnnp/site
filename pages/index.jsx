@@ -1,4 +1,13 @@
-import { Box, Center, Grid, HStack, Image, Link, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Center,
+  Grid,
+  HStack,
+  Image,
+  Link,
+  Text,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 import { Pagination } from '@nextui-org/react';
 import { getAllPosts } from 'api/getAllPosts';
 import Layout from 'components/Layout';
@@ -8,13 +17,55 @@ export default function IndexPage(props) {
   const [curPage, setCurPage] = React.useState(1);
   const postList = props.posts[curPage - 1];
 
+  const breakpoints = useBreakpointValue({
+    base: {
+      columns: '100%',
+      gap: 0,
+      display: 'none',
+    },
+    xs: {
+      columns: '100%',
+      gap: 0,
+      display: 'none',
+    },
+    sm: {
+      columns: '100%',
+      gap: 0,
+      display: 'none',
+    },
+    md: {
+      columns: '100%',
+      gap: 0,
+      display: 'none',
+    },
+    xl: {
+      columns: '30% auto',
+      gap: 6,
+      display: 'block',
+    },
+    lg: {
+      columns: '30% auto',
+      gap: 6,
+      display: 'block',
+    },
+  });
   return (
     <Layout>
       {postList.map((item) => {
         const { slug, data } = item;
         return (
-          <Grid templateColumns="30% auto" gap={6} key={item.slug} py={2}>
-            <Box width="100%" color="gray" textAlign="right">
+          <Grid
+            templateColumns={breakpoints.columns}
+            gap={breakpoints.gap}
+            key={item.slug}
+            py={2}
+          >
+            <Box
+              width="100%"
+              color="gray"
+              textAlign="right"
+              display={breakpoints.display}
+            >
               <Text color="gray.500" isTruncated>
                 {data.date}
               </Text>
