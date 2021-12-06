@@ -1,6 +1,15 @@
 {
-  "include": ["components/*", "pages/**/*", "styles/*", "utils/**/*"],
-  "exclude": ["node_modules"],
+  "include": [
+    "components/*",
+    "pages/**/*",
+    "styles/*",
+    "utils/**/*",
+    "_playground/**/*",
+    "_challenges/css"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
   "checkJs": true,
   "compilerOptions": {
     "baseUrl": "."

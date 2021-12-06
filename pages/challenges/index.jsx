@@ -1,17 +1,32 @@
-import { Box, Button, Grid, Heading, Image, Link } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Grid,
+  Heading,
+  Image,
+  Link,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 import { getAllChallenges } from 'api/getAllChallenges';
 import { motion } from 'framer-motion';
 import React from 'react';
 import { FaGithub, FaLink } from 'react-icons/fa';
-
 const MotionHeading = motion(Heading);
 const MotionGrid = motion(Grid);
 const MotionBox = motion(Box);
 
 export default function IndexPage(props) {
   const { allChallenges } = props;
+  const gridPoints = useBreakpointValue({
+    base: 'repeat(1, 1fr)',
+    xs: 'repeat(2,1fr)',
+    sm: 'repeat(2,1fr)',
+    md: 'repeat(3,1fr)',
+    lg: 'repeat(4,1fr)',
+    xl: 'repeat(4,1fr)',
+  });
   return (
-    <Box p={4}>
+    <Box pb={4}>
       <MotionHeading
         as="h1"
         mb={4}
@@ -22,9 +37,8 @@ export default function IndexPage(props) {
       >
         Challenges
       </MotionHeading>
-
       <MotionGrid
-        templateColumns="repeat(4,1fr)"
+        templateColumns={gridPoints}
         gap={6}
         initial="hidden"
         animate="visible"
@@ -64,7 +78,7 @@ export default function IndexPage(props) {
                   <Button size="sm" leftIcon={<FaGithub />}>
                     <Link
                       isExternal
-                      href={`https://github.com/Manonicu/site/tree/master/pages/challenges/${challenge.group}/${challenge.title}.jsx`}
+                      href={`https://github.com/Manonicu/site/tree/master/_challenges/${challenge.group}/${challenge.title}.jsx`}
                     >
                       Source
                     </Link>
@@ -81,9 +95,21 @@ export default function IndexPage(props) {
 
 export async function getStaticProps() {
   const allChallenges = await getAllChallenges();
+  const challenges = allChallenges.map((item) => {
+    const {
+      params: {
+        slug: [group, title],
+      },
+    } = item;
+    return {
+      title: title,
+      group: group,
+      link: `/challenges/${group}/${title}`,
+    };
+  });
   return {
     props: {
-      allChallenges,
+      allChallenges: challenges,
     },
   };
 }
