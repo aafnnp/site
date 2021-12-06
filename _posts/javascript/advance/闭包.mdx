@@ -4,51 +4,44 @@ title: '闭包'
 tags: [javascript]
 ---
 
-![](https://cdn.jsdelivr.net/gh/funnypan/pics@master/img/20200413141906.png)
+## 什么是闭包
 
-## 闭包
+作用：能够在函数定义的作用域外，使用函数定义作用域内的局部变量，并且不会污染全局。
 
-1. 定义在函数内部的函数
-2. 将函数内部和外部连接起来
-3. 可以读取函数内部的变量
-4. 让变量的值始终保存在内存中
+原理：基于词法作用域链和垃圾回收机制，通过维持函数作用域的引用，让函数作用域可以在当前作用域外被访问到
 
 ```javascript
-var name = 'The Window';
-var object = {
-  name: 'My Object',
-  getNameFunc: function () {
-    return function () {
-      return this.name;
-    };
-  },
-};
-alert(object.getNameFunc()()); // The window
+function foo() {
+  var a = 'hzfe';
+  function bar() {
+    console.log(a);
+  }
+  return bar;
+}
 
-var name = 'The Window';
-var object = {
-  name: 'My Object',
-  getNameFunc: function () {
-    var that = this;
-    return function () {
-      return that.name;
-    };
-  },
-};
-alert(object.getNameFunc()()); // My Object
+var baz = foo();
+baz(); // hzfe
 ```
 
-## 对闭包的理解
+在这个例子中，函数 bar 作为返回值返回后，在自己定义的词法作用域以外的地方执行。一般来说，在函数 foo 执行后，通常会期待函数 foo 的整个内部作用域被引擎回收机制销毁。而闭包可以阻止这件事情的发生。事实上内部作用域依然存在，因为函数 bar 本身在使用，所以并不会被回收。
 
-使⽤闭包主要是为了设计私有的⽅法和变量。闭包的优点是可以避免全局变量的污染，缺点是闭包会常驻内存，会增⼤内存使⽤量，使⽤不当很容易造成内存泄露。在 js 中，函数即闭包，只有函数才会产⽣作⽤域的概念
+在 JavaScript 中，每当创建一个函数，闭包就会在函数创建的同时被创建出来。
 
-闭包 的最⼤⽤处有两个，⼀个是可以读取函数内部的变量，另⼀个就是让这些变量始终保持在内存中闭包的另⼀个⽤处，是封装对象的私有属性和私有⽅法
+## 闭包的应用
 
-- 好处：能够实现封装和缓存等；
-- 坏处：就是消耗内存、不正当使⽤会造成内存溢出的问题
+无论何时何地，如果将函数作为返回值，就会看到闭包在这些函数中的应用。在定时器，事件监听器，ajax 请求，跨窗口通信，web workers 或者任何其他的异步/同步任务中，只要使用了回调函数，实际上就是使用闭包。使用闭包的例子可以参考实现节流防抖函数。
 
-## 使⽤闭包的注意点
+```javascript
+var a = 'hzfe';
+(function IIFE() {
+  console.log(a);
+})();
+```
 
-由于闭包会使得函数中的变量都被保存在内存中，内存消耗很⼤，所以不能滥⽤闭包，否则会造成⽹⻚的性能问题，在 IE 中可能导致内存泄露
+通常认为立即执行函数（IIFE）是典型的观察闭包的典型例子，但严格来说并不是。虽然创建了闭包，但没有体现出闭包的作用。因为函数并不是在它本身的词法作用域以外执行的。 它在定义时所在的作用域中执行，而非外部作用域。
 
-解决⽅法是，在退出函数之前，将不使⽤的局部变量全部删除
+## 扩展
+
+- [闭包 MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)
+- [垃圾回收机制](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Closed_Overlay_Requires_Arguments)
+- [你不知道的 JavaScript](https://www.imooc.com/article/2907)
