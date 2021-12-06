@@ -55,8 +55,8 @@ export default function IndexPage(props) {
         const { slug, data } = item;
         return (
           <Grid
-            templateColumns={breakpoints.columns}
-            gap={breakpoints.gap}
+            templateColumns={breakpoints?.columns || '100%'}
+            gap={breakpoints?.gap || 0}
             key={item.slug}
             py={2}
           >
@@ -64,7 +64,7 @@ export default function IndexPage(props) {
               width="100%"
               color="gray"
               textAlign="right"
-              display={breakpoints.display}
+              display={breakpoints?.display || 'none'}
             >
               <Text color="gray.500" isTruncated>
                 {data.date}
