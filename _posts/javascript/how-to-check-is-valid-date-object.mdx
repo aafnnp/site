@@ -1,0 +1,47 @@
+---
+date: '2021-12-08 14:45:58'
+title: '如何判断是否是日期对象？'
+tags: [javascript]
+description: 一些常见的日期对象判断方法
+---
+
+## typeof
+
+使用`typeof`可以判断一个变量的类型，返回值为`string`，可以使用`instanceof`来判断一个对象是否是某个类的实例。
+
+我们使用运算符 typeof 检查 getMonth 方法是否是一个函数，看看它是否返回`function`
+
+```javascript
+const date = new Date(2021, 1, 1);
+console.log(typeof date.getMonth === 'function');
+```
+
+如果返回`true`，说明 getMonth 是一个函数，`date`可能是`Date`实例，如果返回`false`，说明 getMonth 是一个字符串。
+
+## instanceof
+
+instanceof 可以用来判断一个对象是否是某个类的实例，返回值为`boolean`。
+
+```javascript
+const date = new Date(2021, 1, 1);
+console.log(date instanceof Date);
+```
+
+如果返回`true`，说明 date 是一个`Date`实例，如果返回`false`，说明 date 不是一个`Date`实例。
+
+## Object.prototype.toString
+
+Object.prototype.toString 方法可以返回一个对象的字符串表示，返回值为`string`。
+
+```javascript
+const date = new Date(2021, 1, 1);
+console.log(date instanceof Date);
+```
+
+## isValid Date
+
+判断一个对象是否是一个有效的日期对象，返回值为`boolean`。
+
+```javascript
+Object.prototype.toString;
+```
