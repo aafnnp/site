@@ -9,9 +9,8 @@ export default class Unsplash extends React.Component {
 
   componentDidMount() {
     const imgWidth = document.querySelector('.chakra-container').clientWidth;
-    console.log(process.env.NEXT_PUBLIC_UNSPLASH_KEY);
     fetch(
-      `https://api.unsplash.com/search/photos/?client_id=${process.env.NEXT_PUBLIC_UNSPLASH_KEY}&query=` +
+      `https://api.unsplash.com/search/photos/?client_id=rqPMZ8Ur7rQa6x2P1oPOSziry4m5XXod9KWStukAAy4&query=` +
         this.props.tags[0] || 'coding'
     )
       .then((response) => response.json())
@@ -19,6 +18,12 @@ export default class Unsplash extends React.Component {
         const random = Math.floor(Math.random() * results.length);
         this.setState({
           photos: results[random].urls.regular,
+          imgHeight: imgWidth * 0.382,
+        });
+      })
+      .catch((_) => {
+        this.setState({
+          photos: 'https://source.unsplash.com/random',
           imgHeight: imgWidth * 0.382,
         });
       });
