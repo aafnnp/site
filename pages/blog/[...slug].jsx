@@ -12,6 +12,7 @@ import React from 'react';
 import components from 'utils/components';
 import { v4 as uuidv4 } from 'uuid';
 
+const UnsplashImage = dynamic(() => import('components/Unsplash'));
 const PostPage = dynamic(() => import('components/PostPage'));
 
 const Random = dynamic(() => import('components/RandomPost'));
@@ -40,6 +41,9 @@ function Post({ data, content, randomPost }) {
             data-full-width-responsive="true"
           ></ins>
         </Ad>
+      </Box>
+      <Box>
+        <UnsplashImage {...data} />
       </Box>
       <Box fontSize="sm">
         <PostPage>
