@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, Text } from '@chakra-ui/react';
+import { Alert, Box, Heading, HStack, Link, Text } from '@chakra-ui/react';
 import { getAllPosts, GetPostBySlug, GetRandomPost } from 'api/getAllPosts';
 import Ad from 'components/ad';
 import Layout from 'components/Layout';
@@ -30,25 +30,36 @@ function Post({ data, content, randomPost }) {
         <Text>{data.date}</Text>
         <Text>Published {data.fromNow}</Text>
       </HStack>
-      <Box>
-        <Ad key={uuidv4()}>
-          <ins
-            className="adsbygoogle"
-            style={{ display: 'block' }}
-            data-ad-client="ca-pub-xxx"
-            data-ad-slot="xxx"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          ></ins>
-        </Ad>
-      </Box>
+
       <Box>
         <UnsplashImage {...data} />
       </Box>
       <Box fontSize="sm">
         <PostPage>
           <MDXRemote {...content} components={components} />
+          {data.originUrl && (
+            <Alert
+              status="info"
+              display="grid"
+              gridTemplateColumns="100px auto"
+              alignItems="start"
+            >
+              本文翻译自：<Link href={data.originUrl}>{data.originUrl}</Link>
+            </Alert>
+          )}
         </PostPage>
+        <Box>
+          <Ad key={uuidv4()}>
+            <ins
+              className="adsbygoogle"
+              style={{ display: 'block' }}
+              data-ad-client="ca-pub-3854566314387093"
+              data-ad-slot="9901453595"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+          </Ad>
+        </Box>
         <Random data={randomPost} />
       </Box>
     </Layout>
