@@ -7,7 +7,6 @@ export const getAllChallenges = async () => {
       .replace('.jsx', '')
       .replace(/^_challenges\//, '')
       .split('/');
-    console.log(arr);
     acc.push({
       params: {
         slug: arr,

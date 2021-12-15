@@ -12,7 +12,6 @@ export default function Playground(props) {
 
 export async function getStaticPaths() {
   const paths = await getAllChallenges();
-  console.log(paths);
   return {
     paths,
     fallback: false,
@@ -20,10 +19,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  console.log(
-    '🚀 ~ file: [...slug].jsx ~ line 91 ~ getStaticProps ~ params',
-    params
-  );
   return {
     props: {
       slug: params.slug,
