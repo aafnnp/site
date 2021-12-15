@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[874],{2874:function(e,n,u){u.r(n),u.d(n,{default:function(){return c}});var t=u(5893),r=u(8527);u(7294);function c(){return(0,t.jsx)(r.xu,{className:"battery",children:"1111"})}}}]);
