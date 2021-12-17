@@ -1,4 +1,4 @@
-import { Alert, Box, Heading, HStack, Link, Text } from '@chakra-ui/react';
+import { Alert, Box, Heading, Link, Text } from '@chakra-ui/react';
 import { getAllPosts, GetPostBySlug, GetRandomPost } from 'api/getAllPosts';
 import Ad from 'components/ad';
 import Layout from 'components/Layout';
@@ -25,13 +25,16 @@ function Post({ data, content, randomPost }) {
   }
   return (
     <Layout title={data.title} description={data.description}>
-      <Heading as="h1">{data.title}</Heading>
-      <HStack color="gray.500" fontSize="12px">
-        <Text>{data.date}</Text>
-        <Text>Published {data.fromNow}</Text>
-      </HStack>
+      <Box textAlign="center">
+        <Text color="gray.500" fontSize="12px">
+          Published {data.date}
+        </Text>
+        <Heading as="h1" mt={4} mb={8}>
+          {data.title}
+        </Heading>
+      </Box>
 
-      <Box>
+      <Box mb={8}>
         <UnsplashImage {...data} />
       </Box>
       <Box fontSize="sm">
