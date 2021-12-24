@@ -96,6 +96,10 @@ export default function IndexPage(props) {
           onChange={(page) => setCurPage(page)}
         />
       </Center>
+      <Box position="absolute" w="100vw" left="0" bottom="0" py={4}>
+        「<a href="https://webify.cloudbase.net/">CloudBase Webify </a>
+        提供网站托管服务」
+      </Box>
     </Layout>
   );
 }
