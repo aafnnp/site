@@ -1,35 +1,55 @@
 import { Box, Grid, Heading, Image, Link, Text } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import React, { Component } from 'react';
+import { fetcher } from 'utils';
 
 export default class CanIUse extends Component {
+  static enums = {
+    desktop: {
+      Chrome: 'CDWccX.jpg',
+      Firefox: 'mqRvLw.jpg',
+      IE: 'uKn6gH.jpg',
+      Edge: 'aoF7l0.jpg',
+      Safari: 'mIxpPG.jpg',
+    },
+    mobile: {
+      'Android Chrome': 'CDWccX.jpg',
+      'Android FireFox': 'mqRvLw.jpg',
+      Android: 'VK4LoM.jpg',
+      'Ios Safari': 'mIxpPG.jpg',
+    },
+  };
+
   state = {
     desktop: [],
     mobile: [],
+    updateTime: Date.now(),
   };
 
   componentDidMount() {
-    fetch('https://raw.githubusercontent.com/Fyrd/caniuse/main/data.json')
-      .then((res) => res.json())
-      .then((res) => {
-        const {
-          stats: {
-            chrome,
-            firefox,
-            ie,
-            edge,
-            safari,
-            and_chr,
-            and_ff,
-            android,
-            ios_saf,
-          },
-        } = res.data[this.props.tag];
+    fetcher(
+      'https://raw.githubusercontent.com/Fyrd/caniuse/main/data.json'
+    ).then((res) => {
+      const {
+        stats: {
+          chrome,
+          firefox,
+          ie,
+          edge,
+          safari,
+          and_chr,
+          and_ff,
+          android,
+          ios_saf,
+        },
+      } = res.data[this.props.tag];
 
-        this.setState({
-          desktop: this.getSupportData([chrome, firefox, ie, edge, safari]),
-          mobile: this.getSupportData([and_chr, and_ff, android, ios_saf]),
-        });
+      this.setState({
+        desktop: this.getSupportData([chrome, firefox, ie, edge, safari]),
+        mobile: this.getSupportData([and_chr, and_ff, android, ios_saf]),
+        updateTime: dayjs(res.data.updated).format('YYYY-MM-DD HH:mm:ss'),
       });
+    });
   }
 
   getSupportData = (arr) => {
@@ -43,7 +63,7 @@ export default class CanIUse extends Component {
 
   render() {
     return (
-      <Box mx="auto" my={10} w="80%">
+      <Box mx="auto" my={10}>
         <Text color="gray.500" fontSize="xs" fontFamily="Gugi">
           This browser support data is from
           <Link
@@ -54,82 +74,51 @@ export default class CanIUse extends Component {
             Caniuse
           </Link>
           ,which has more detail. A number indicates that browser supports the
-          feature at that version and up.
+          feature at that version and up. Update Time:
+          <Text color="red" display="inline">
+            {this.state.updateTime}
+          </Text>
         </Text>
         <div className="caniuse-section">
           <Heading as="h5" fontSize="xs" py={4}>
             Desktop
           </Heading>
           <Grid templateColumns="repeat(5, 1fr)" mb={2} gap={6}>
-            <Box display="flex" justifyContent="center">
-              <Image
-                src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/CDWccX.jpg"
-                alt="chrome"
-                loading="lazy"
-                boxSize="3rem"
-                htmlWidth="3rem"
-                htmlHeight="3rem"
-              />
-            </Box>
-            <Box display="flex" justifyContent="center">
-              <Image
-                src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mqRvLw.jpg"
-                alt="firefox"
-                loading="lazy"
-                boxSize="3rem"
-                htmlWidth="3rem"
-                htmlHeight="3rem"
-              />
-            </Box>
-            <Box display="flex" justifyContent="center">
-              <Image
-                src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/uKn6gH.jpg"
-                alt="IE"
-                loading="lazy"
-                boxSize="3rem"
-                htmlWidth="3rem"
-                htmlHeight="3rem"
-              />
-            </Box>
-            <Box display="flex" justifyContent="center">
-              <Image
-                src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/aoF7l0.jpg"
-                alt="Edge"
-                loading="lazy"
-                boxSize="3rem"
-                htmlWidth="3rem"
-                htmlHeight="3rem"
-              />
-            </Box>
-            <Box display="flex" justifyContent="center">
-              <Image
-                src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mIxpPG.jpg"
-                alt="Safari"
-                loading="lazy"
-                boxSize="3rem"
-                htmlWidth="3rem"
-                htmlHeight="3rem"
-              />
-            </Box>
-          </Grid>
-          <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-            {this.state.desktop.map((item, index) => {
-              return (
-                <Text
-                  key={index}
-                  color="white"
-                  rounded="md"
-                  textAlign="center"
-                  p={2}
-                  fontWeight="bold"
-                  bg={
-                    this.state.desktop[index] === 'No' ? '#ff0024' : '#47ca4c'
-                  }
-                >
-                  {item}
-                </Text>
-              );
-            })}
+            {Object.entries(CanIUse.enums.desktop).map(
+              ([key, value], index) => {
+                return (
+                  <Box
+                    key={key}
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    textAlign="center"
+                  >
+                    <Image
+                      src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`}
+                      alt={key}
+                      margin="0 auto 0.5rem"
+                      width="3rem"
+                      height="3rem"
+                    />
+                    <Text
+                      color="white"
+                      rounded="md"
+                      textAlign="center"
+                      p={2}
+                      fontWeight="bold"
+                      bg={
+                        this.state.desktop[index] === 'No'
+                          ? '#ff0024'
+                          : '#47ca4c'
+                      }
+                    >
+                      {this.state.desktop[index]}
+                    </Text>
+                  </Box>
+                );
+              }
+            )}
           </Grid>
         </div>
 
@@ -138,63 +127,35 @@ export default class CanIUse extends Component {
             Mobile / Tablet
           </Heading>
           <Grid templateColumns="repeat(4, 1fr)" mb={2} gap={6}>
-            <Box display="flex" justifyContent="center">
-              <Image
-                src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/CDWccX.jpg"
-                alt="Android Chrome"
-                loading="lazy"
-                boxSize="3rem"
-                htmlWidth="3rem"
-                htmlHeight="3rem"
-              />
-            </Box>
-            <Box display="flex" justifyContent="center">
-              <Image
-                src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mqRvLw.jpg"
-                alt="Android Firefox"
-                loading="lazy"
-                boxSize="3rem"
-                htmlWidth="3rem"
-                htmlHeight="3rem"
-              />
-            </Box>
-            <Box display="flex" justifyContent="center">
-              <Image
-                src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/VK4LoM.jpg"
-                alt="Android"
-                loading="lazy"
-                boxSize="3rem"
-                htmlWidth="3rem"
-                htmlHeight="3rem"
-              />
-            </Box>
-            <Box display="flex" justifyContent="center">
-              <Image
-                src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mIxpPG.jpg"
-                alt="Safari"
-                loading="lazy"
-                boxSize="3rem"
-                htmlWidth="3rem"
-                htmlHeight="3rem"
-              />
-            </Box>
-          </Grid>
-          <Grid templateColumns="repeat(4, 1fr)" gap={6}>
-            {this.state.mobile.map((item, index) => {
+            {Object.entries(CanIUse.enums.mobile).map(([key, value], index) => {
               return (
-                <Text
-                  key={index}
-                  color="white"
-                  rounded="md"
+                <Box
+                  key={key}
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
                   textAlign="center"
-                  p={2}
-                  fontWeight="bold"
-                  bg={
-                    this.state.desktop[index] === 'No' ? '#ff0024' : '#47ca4c'
-                  }
                 >
-                  {item}
-                </Text>
+                  <Image
+                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`}
+                    alt={key}
+                    margin="0 auto 0.5rem"
+                    width="3rem"
+                    height="3rem"
+                  />
+                  <Text
+                    color="white"
+                    rounded="md"
+                    textAlign="center"
+                    p={2}
+                    fontWeight="bold"
+                    bg={
+                      this.state.desktop[index] === 'No' ? '#ff0024' : '#47ca4c'
+                    }
+                  >
+                    {this.state.desktop[index]}
+                  </Text>
+                </Box>
               );
             })}
           </Grid>

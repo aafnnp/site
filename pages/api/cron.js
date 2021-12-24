@@ -1,3 +1,4 @@
+import { fetcher } from 'utils';
 export default async function handler(req, res) {
   // if (req.method === 'POST') {
   //   try {
@@ -15,10 +16,8 @@ export default async function handler(req, res) {
   //   res.setHeader('Allow', 'POST');
   //   res.status(405).end('Method Not Allowed');
   // }
-  fetch('http://finance.sina.com.cn/7x24/')
-    .then((res) => res.text())
-    .then((response) => {
-      console.log(res);
-      res.status(200).json({ success: true, data: response });
-    });
+  fetcher('http://finance.sina.com.cn/7x24/').then((response) => {
+    console.log(res);
+    res.status(200).json({ success: true, data: response });
+  });
 }

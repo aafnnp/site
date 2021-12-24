@@ -1,26 +1,19 @@
 import { Image } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React from 'react';
+import useSWR from 'swr';
+import { fetcher } from 'utils';
 
 export default function Unsplash({ tags, title }) {
-  const [photos, setPhotos] = React.useState(
-    'https://source.unsplash.com/random'
+  const tag = tags[0] || 'coding';
+  const { data, error } = useSWR(
+    `https://api.unsplash.com/search/photos/?client_id=rqPMZ8Ur7rQa6x2P1oPOSziry4m5XXod9KWStukAAy4&query=${tag}`,
+    fetcher
   );
 
-  useEffect(() => {
-    const tag = tags[0] || 'coding';
-    function fetchPhotos() {
-      fetch(
-        `https://api.unsplash.com/search/photos/?client_id=rqPMZ8Ur7rQa6x2P1oPOSziry4m5XXod9KWStukAAy4&query=${tag}`
-      )
-        .then((response) => response.json())
-        .then(({ results }) => {
-          const random = Math.floor(Math.random() * results.length);
-          setPhotos(results[random].urls.regular);
-        });
-    }
-
-    fetchPhotos();
-  }, [tags]);
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
+  const photo =
+    data.results[Math.floor(Math.random() * data.results.length)].urls.regular;
 
   return (
     <Image
@@ -28,7 +21,7 @@ export default function Unsplash({ tags, title }) {
       width="100%"
       height="auto"
       objectFit={['cover', 'contain']}
-      src={photos}
+      src={photo}
       loading="lazy"
       alt={title}
     />

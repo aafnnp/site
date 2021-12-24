@@ -14,6 +14,7 @@ import Layout from 'components/Layout';
 import React from 'react';
 
 export default function IndexPage(props) {
+  console.log('🚀 ~ file: index.jsx ~ line 17 ~ IndexPage ~ props', props);
   const [curPage, setCurPage] = React.useState(1);
   const postList = props.posts[curPage - 1];
 
