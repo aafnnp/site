@@ -22,8 +22,12 @@ const components = {
     </Heading>
   ),
   h4: (props) => <Heading mt={2} mb={1} size="xs" as="h4" {...props} />,
-  p: (props) => <Text mb={4} {...props} />,
-  pre: (props) => <Box as="pre" mb={4} {...props} />,
+  p: (props) => <Text as="p" mb={4} {...props} />,
+  pre: (props) => (
+    <Box as="p">
+      <Box as="pre" mb={4} {...props} />
+    </Box>
+  ),
   ul: (props) => (
     <OrderedList mb={4} styleType="circle" color="gray.500" {...props} />
   ),
