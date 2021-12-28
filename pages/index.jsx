@@ -6,7 +6,7 @@ import {
   Image,
   Link,
   Text,
-  useBreakpointValue,
+  useBreakpointValue
 } from '@chakra-ui/react';
 import { Pagination } from '@nextui-org/react';
 import { getAllPosts } from 'api/getAllPosts';
@@ -14,7 +14,6 @@ import Layout from 'components/Layout';
 import React from 'react';
 
 export default function IndexPage(props) {
-  console.log('🚀 ~ file: index.jsx ~ line 17 ~ IndexPage ~ props', props);
   const [curPage, setCurPage] = React.useState(1);
   const postList = props.posts[curPage - 1];
 
@@ -96,19 +95,6 @@ export default function IndexPage(props) {
           onChange={(page) => setCurPage(page)}
         />
       </Center>
-      <Box
-        position="absolute"
-        w="100vw"
-        left="0"
-        bottom="0"
-        py={4}
-        textAlign="center"
-        fontSize="xs"
-        color="gray.500"
-      >
-        「<a href="https://webify.cloudbase.net/">CloudBase Webify </a>
-        提供网站托管服务」
-      </Box>
     </Layout>
   );
 }
