@@ -3,7 +3,6 @@ date: '2021-12-28 09:39:44'
 title: '作用域'
 tags: [javascript]
 description:
-draft: true
 originalUrl: https://dmitripavlutin.com/javascript-scope/
 ---
 
@@ -89,14 +88,134 @@ console.log(count); // 0
 
 ## 函数作用域 - Function Scope
 
+```javascript
+function run() {
+  // "run" function scope
+  var message = 'Run Forrest, run!';
+  console.log(message); // Run Forrest, run!
+}
+run();
+console.log(message); // ReferenceError: message is not defined
+```
+
+`run()`函数定义了一个块级作用域，它包含了`message`变量，`message`变量可以在`run()`函数内访问，但是不能在`run()`函数之外访问。
+
+同样`let`和`const`也是块级作用域。可以在`run()`函数内访问， 但是不能在`run()`函数之外访问。
+
+```javascript
+function run() {
+  // "run" function scope
+  const two = 2;
+  let count = 0;
+  function run2() {}
+  console.log(two); // 2
+  console.log(count); // 0
+  console.log(run2); // function
+}
+run();
+console.log(two); // throws ReferenceError
+console.log(count); // throws ReferenceError
+console.log(run2); // throws ReferenceError
+```
+
 ## 模块作用域 - Module Scope
 
-## 临近作用域 - Scopes can be nested
+ES2015 同样支持模块作用域。模块作用域是一个特殊的块级作用域，它可以在模块内部访问，但是不能在模块之外访问。
+
+```javascript
+// circle.js
+const PI = 3.14;
+console.log(pi); // 3.14
+```
+
+`circle.js`模块定义了一个块级作用域，它包含了`PI`变量。但是未导出`PI`变量，因此不能在模块之外访问。
+
+```javascript
+import './circle';
+consoel.log(pi); // throws ReferenceError
+```
+
+## 嵌套作用域 - Scopes can be nested
+
+作用域可以嵌套。比如：
+
+```javascript
+function run() {
+  // "run" function scope
+  const message = 'Run, Forrest, Run!';
+  if (true) {
+    // "if" code block scope
+    const friend = 'Bubba';
+    console.log(message); // 'Run, Forrest, Run!'
+  }
+  console.log(friend); // throws ReferenceError
+}
+run();
+```
+
+`if`代码块作用域嵌套在`run()`函数作用域内。`if`代码块作用域内部可以访问`message`变量，但是不能`if`外部访问`friend`变量。
+
+![Scopes can be nested](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/yE2fSE.jpg)
 
 ## 全局作用域 - Global Scope
 
+全局作用域是一个特殊的作用域，它可以在整个程序的所有位置访问。`<script>`标签内的代码块是全局作用域。
+
+```javascript
+<script src="myScript.js"></script>;
+
+// myScript.js
+// 全局作用域
+let counter = 1;
+```
+
+在前面的代码片段中，`counter` 是一个全局变量。这个变量可以从网页的 JavaScript 的任何地方访问。
+
+全局作用域是一种机制，它允许 JavaScript 的主机(浏览器、节点)为应用程序提供特定于主机的函数作为全局变量。
+
+例如，`window` 和 `document` 是浏览器提供的全局变量。在 `Node` 环境中，可以将进程对象作为全局变量访问。
+
 ## 词法作用域 - Lexical Scope
+
+定义两个函数，将函数`innerFunc`嵌套在函数`outerFunc`内部。
+
+```javascript
+function outerFunc() {
+  // the outer scope
+  let outerVar = 'I am from outside!';
+  function innerFunc() {
+    // the inner scope
+    console.log(outerVar); // 'I am from outside!'
+  }
+  return innerFunc;
+}
+const inner = outerFunc();
+inner();
+```
+
+`inner()`函数执行时，`innerFunc()`函数定义了一个块级作用域，它包含了`outerVar`变量。
+
+实际上是执行了`outerFunc`函数内的`innerFunc()`函数。`outerFunc`函数返回函数，形成了一个闭包。
+
+所以`outerFunc`外部可以访问`innerFunc()`内部的`outerVar`变量。
 
 ## 变量隔离 - Variables isolation
 
-## 总结 - Summary
+您可以在不同的作用域中重用公共变量名(`count`、`index`、`current`、`value`、etc) ，而不会发生冲突。
+
+`foo()`和`bar()`函数作用域有它们自己的。
+
+```javascript
+function foo() {
+  // "foo" function scope
+  let count = 0;
+  console.log(count); // 0
+}
+function bar() {
+  // "bar" function scope
+  let count = 1;
+  console.log(count); // 1
+}
+foo();
+bar();
+```
