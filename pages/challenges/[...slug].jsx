@@ -1,4 +1,4 @@
-import { getAllChallenges } from 'api/getAllChallenges';
+import { globFiles } from 'api';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
@@ -11,7 +11,7 @@ export default function Playground(props) {
 }
 
 export async function getStaticPaths() {
-  const paths = await getAllChallenges();
+  const paths = await globFiles('_challenges');
   return {
     paths,
     fallback: false,

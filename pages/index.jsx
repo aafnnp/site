@@ -6,10 +6,10 @@ import {
   Image,
   Link,
   Text,
-  useBreakpointValue
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { Pagination } from '@nextui-org/react';
-import { getAllPosts } from 'api/getAllPosts';
+import { getAllPosts } from 'api';
 import Layout from 'components/Layout';
 import React from 'react';
 

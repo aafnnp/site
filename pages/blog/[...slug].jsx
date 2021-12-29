@@ -1,5 +1,5 @@
 import { Alert, Box, Heading, Link, Text } from '@chakra-ui/react';
-import { getAllPosts, GetPostBySlug, GetRandomPost } from 'api/getAllPosts';
+import { getAllPosts, GetPostBySlug, GetRandomPost } from 'api';
 import Ad from 'components/ad';
 import Layout from 'components/Layout';
 import matter from 'gray-matter';

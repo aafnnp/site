@@ -7,7 +7,7 @@ import {
   Link,
   useBreakpointValue,
 } from '@chakra-ui/react';
-import { getAllChallenges } from 'api/getAllChallenges';
+import { globFiles } from 'api';
 import { motion } from 'framer-motion';
 import React from 'react';
 import { FaGithub, FaLink } from 'react-icons/fa';
@@ -94,7 +94,7 @@ export default function IndexPage(props) {
 }
 
 export async function getStaticProps() {
-  const allChallenges = await getAllChallenges();
+  const allChallenges = await globFiles('_challenges');
   const challenges = allChallenges.map((item) => {
     const {
       params: {

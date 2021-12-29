@@ -37,7 +37,6 @@
   },
   "devDependencies": {
     "@mdx-js/loader": "^1.6.22",
-    "@mdx-js/runtime": "^1.6.22",
     "@next/bundle-analyzer": "^12.0.7",
     "@next/mdx": "^12.0.7",
     "autoprefixer": "^10.4.0",
@@ -53,7 +52,6 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.1.4",
     "next-compose-plugins": "^2.2.1",
-    "next-mdx-enhanced": "^5.0.0",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
     "pretty-quick": "^3.1.3",

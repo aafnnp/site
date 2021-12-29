@@ -1,4 +1,4 @@
-import { getPlaygrounds } from 'api/getPlaygrounds';
+import { globFiles } from 'api';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
@@ -11,7 +11,7 @@ export default function Playground(props) {
 }
 
 export async function getStaticPaths() {
-  const paths = await getPlaygrounds();
+  const paths = await globFiles('_playground');
   return {
     paths,
     fallback: false,
