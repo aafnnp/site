@@ -11,9 +11,81 @@ originalUrl: https://dmitripavlutin.com/javascript-scope/
 
 ## 作用域 - The Scope
 
+在深入理解作用域之前，先通过一个简单的例子看看是如何工作的。
+
+```javascript
+const message = 'hello';
+console.log(message); // hello
+```
+
+你可以轻松访问`message`变量。
+
+如果将`message`变量放在`if`语句内，比如：
+
+```javascript
+if (true) {
+  const message = 'hello';
+}
+console.log(message); // ReferenceError: message is not defined
+```
+
+为什么？
+
+`if` 代码块为消息变量创建一个作用域，而消息变量只能在这个作用域内访问。
+
+![The Scope](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/7EzPUL.jpg)
+
+在更高的级别上，变量的可访问性受到它们被创建的作用域的限制。您可以自由访问在其作用域内定义的变量。但是在它的作用域之外，变量是不可访问的。
+
 ## 块级作用域 - Block Scope
 
+```javascript
+if (true) {
+  // if 块级作用域
+  const message = 'hello';
+  console.log(message); // hello
+}
+console.log(message); // ReferenceError: message is not defined
+```
+
+第一个`console.log`输出`hello`，因为`message`变量在`if`块级作用域内。
+
+第二个`console.log`输出`ReferenceError: message is not defined`，因为`message`变量在`if`块级作用域之外。
+
+`if`、`for`、`while`、`do`、`switch`、`with`、`function` 以及`catch`创建块级作用域。比如：
+
+```javascript
+for (const color of ['green', 'red', 'blue']) {
+  // "for" block scope
+  const message = 'Hi';
+  console.log(color);   // 'green', 'red', 'blue'
+  console.log(message); // 'Hi', 'Hi', 'Hi'
+}
+console.log(color);   // throws ReferenceError
+console.log(message); // throws ReferenceError
+
+while (/* condition */) {
+  // "while" block scope
+  const message = 'Hi';
+  console.log(message); // 'Hi'
+}
+console.log(message); // => throws ReferenceError
+```
+
 ### `var` 不是块级作用域
+
+`var` 关键字不是块级作用域。比如：
+
+```javascript
+if (true) {
+  // "if" block scope
+  var count = 0;
+  console.log(count); // 0
+}
+console.log(count); // 0
+```
+
+使用`var`定义的变量，会产生变量提升，即变量会在它们被访问之前被创建。在除`function`外的所有块级作用域中，`var` 关键字都是不可访问的。
 
 ## 函数作用域 - Function Scope
 
