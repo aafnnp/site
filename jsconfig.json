@@ -5,7 +5,9 @@
     "styles/*",
     "utils/**/*",
     "_playground/**/*",
-    "_challenges/css"
+    "_challenges/css",
+    "components/embed/CanIUse.jsx",
+    "components/embed/ad.jsx"
   ],
   "exclude": [
     "node_modules"

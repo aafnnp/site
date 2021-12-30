@@ -13,6 +13,7 @@
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.7.3",
+    "@codesandbox/sandpack-react": "^0.10.9",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@heroicons/react": "^1.0.5",
@@ -23,7 +24,6 @@
     "globby": "^12.0.2",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.3.1",
-    "mdx-embed": "^0.0.22",
     "next": "12.0.7",
     "next-mdx-remote": "^3.0.8",
     "next-seo": "^4.28.1",

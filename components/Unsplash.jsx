@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import { fetcher } from 'utils';
 
 export default function Unsplash({ tags, title }) {
-  const tag = tags[0] || 'coding';
+  const tag = tags ? tags[0] || 'coding' : 'coding';
   const { data, error } = useSWR(
     `https://api.unsplash.com/search/photos/?client_id=rqPMZ8Ur7rQa6x2P1oPOSziry4m5XXod9KWStukAAy4&query=${tag}`,
     fetcher

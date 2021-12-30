@@ -1,0 +1,157 @@
+---
+date: '2021-12-29 19:45:33'
+title: 'Sequences - 序列'
+tags: [python]
+description: 'Python 有三种序列类型：列表、元组、字符串。'
+---
+
+Python 有三种序列类型：列表、元组、字符串。
+
+- String：`'123'`
+- List：`[1, 2, 3]`
+- Tuple：`(1, 2, 3)`
+
+所有序列都是有序的，可以通过索引来访问元素，索引从 0 开始。
+
+```python
+a = 'Hello'               # String
+b = [1, 4, 5]             # List
+c = ('GOOG', 100, 490.1)  # Tuple
+
+# Indexed order
+a[0]                      # 'H'
+b[-1]                     # 5
+c[1]                      # 100
+
+# Length of sequence
+len(a)                    # 5
+len(b)                    # 3
+len(c)                    # 3
+```
+
+序列可以复制`repeat`
+
+```python
+>>> a = 'Hello'
+>>> a * 3
+'HelloHelloHello'
+>>> b = [1, 2, 3]
+>>> b * 2
+[1, 2, 3, 1, 2, 3]
+>>>
+```
+
+相同类型的序列可以相加
+
+```python
+>>> a = (1, 2, 3)
+>>> b = (4, 5)
+>>> a + b
+(1, 2, 3, 4, 5)
+>>>
+>>> c = [1, 5]
+>>> a + c
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate tuple (not "list") to tuple
+```
+
+## 切割
+
+切割的意思是把序列分成多个部分，`s[start:end]`，比如：
+
+```python
+a = [0,1,2,3,4,5,6,7,8]
+
+a[2:5]    # [2,3,4]
+a[-5:]    # [4,5,6,7,8]
+a[:3]     # [0,1,2]
+```
+
+> `start` 和 `end` 可以是负数，但必须为整数，表示从右往左的索引。
+> 如果 `start` 比 `end` 大，则返回空序列。
+> 如果 `start` 和 `end` 相等，则返回一个元素。
+> 如果 `start` 比 `end` 都为空，则返回整个序列。
+
+## 切割后重新定义
+
+列表的切片可以重新定义，比如：
+
+```python
+a = [0,1,2,3,4,5,6,7,8]
+a[2:4] = [10,11,12] # [0,1,10,11,12,5,6,7,8]
+```
+
+列表的切片也可以被删除，比如：
+
+```python
+a = [0,1,2,3,4,5,6,7,8]
+del a[2:4] # [0,1,5,6,7,8]
+```
+
+## 序列升序执行（reduce）
+
+```python
+s = [1, 2, 3, 4, 5]
+sum(s) # 15
+min(s) # 1
+max(s) # 5
+t = ['hello', 'world']
+max(t) # 'world'
+```
+
+## 序列的迭代
+
+```python
+s = [1, 4, 9, 16]
+for i in s:
+  print(i)
+
+1
+4
+9
+16
+```
+
+### break、continue 语句
+
+```python
+for name in namelist:
+    if name == 'Jake':
+        break
+    ...
+    ...
+statements
+
+for line in lines:
+    if line == '\n':    # Skip blank lines
+        continue
+    # More statements
+    ...
+```
+
+### for and tuples
+
+可以使用多个迭代变量进行迭代。
+
+```python
+points = [
+  (1, 4),(10, 40),(23, 14),(5, 6),(7, 8)
+]
+for x, y in points:
+    # Loops with x = 1, y = 4
+    #            x = 10, y = 40
+    #            x = 23, y = 14
+    #            ...
+```
+
+## zip
+
+`zip` 函数可以将多个序列合并为一个序列，比如：
+
+```python
+columns = ['name', 'shares', 'price']
+values = ['ACME', 100, 490.1]
+pairs = zip(columns, values)
+# pairs = [('name', 'ACME'), ('shares', 100), ('price', 490.1)]
+```
