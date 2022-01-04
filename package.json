@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.3",
-    "@codesandbox/sandpack-react": "^0.10.9",
+    "@codesandbox/sandpack-react": "^0.10.10",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@heroicons/react": "^1.0.5",
