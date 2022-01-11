@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Heading,
   Image,
@@ -37,6 +38,16 @@ const components = {
     <Box mt={8} boxShadow="2xl">
       <Image loading="lazy" alt={props.alt} {...props} />
     </Box>
+  ),
+  blockquote: (props) => (
+    <Alert
+      variant="left-accent"
+      status="info"
+      colorScheme="twitter"
+      mb={4}
+      alignItems="center"
+      {...props}
+    />
   ),
 };
 
