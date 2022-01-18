@@ -16,56 +16,16 @@ import React from 'react';
 export default function IndexPage(props) {
   const [curPage, setCurPage] = React.useState(1);
   const postList = props.posts[curPage - 1];
+  const variant = useBreakpointValue({ xs: 'none', sm: 'none', base: 'block' });
+  console.log('🚀 ~ file: index.jsx ~ line 20 ~ IndexPage ~ variant', variant);
 
-  const breakpoints = useBreakpointValue({
-    base: {
-      columns: '100%',
-      gap: 0,
-      display: 'none',
-    },
-    xs: {
-      columns: '100%',
-      gap: 0,
-      display: 'none',
-    },
-    sm: {
-      columns: '100%',
-      gap: 0,
-      display: 'none',
-    },
-    md: {
-      columns: '100%',
-      gap: 0,
-      display: 'none',
-    },
-    xl: {
-      columns: '30% auto',
-      gap: 6,
-      display: 'block',
-    },
-    lg: {
-      columns: '30% auto',
-      gap: 6,
-      display: 'block',
-    },
-  });
   return (
     <Layout>
       {postList.map((item) => {
         const { slug, data } = item;
         return (
-          <Grid
-            templateColumns={breakpoints?.columns || '100%'}
-            gap={breakpoints?.gap || 0}
-            key={item.slug}
-            py={2}
-          >
-            <Box
-              width="100%"
-              color="gray"
-              textAlign="right"
-              display={breakpoints?.display || 'none'}
-            >
+          <Grid templateColumns="38.2% auto" gap={6} key={item.slug} py={2}>
+            <Box width="100%" color="gray" textAlign="right" display={variant}>
               <Text color="gray.500" isTruncated>
                 {data.date}
               </Text>

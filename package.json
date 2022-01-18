@@ -54,5 +54,8 @@
     "puppeteer": "^13.0.1",
     "raw-loader": "^4.0.2",
     "sass": "^1.47.0"
+  },
+  "peerDependencies": {
+    "postcss": "^8.4.5"
   }
 }

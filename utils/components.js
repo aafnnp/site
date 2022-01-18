@@ -16,7 +16,7 @@ const components = {
   CodeSandbox,
   h2: (props) => <Heading mt={8} mb={4} size="md" as="h2" {...props} />,
   h3: (props) => (
-    <Heading mt={4} mb={2} size="sm" as="h3">
+    <Heading mt={4} mb={4} size="sm" as="h3">
       <span {...props}></span>
     </Heading>
   ),
@@ -35,8 +35,8 @@ const components = {
   ),
   li: (props) => <ListItem {...props} />,
   img: (props) => (
-    <Box mt={8} boxShadow="2xl">
-      <Image loading="lazy" alt={props.alt} {...props} />
+    <Box my={4}>
+      <Image mx="auto" loading="lazy" alt={props.alt} {...props} />
     </Box>
   ),
   blockquote: (props) => (
