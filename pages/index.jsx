@@ -1,13 +1,4 @@
-import {
-  Box,
-  Center,
-  Grid,
-  HStack,
-  Image,
-  Link,
-  Text,
-  useBreakpointValue,
-} from '@chakra-ui/react';
+import { Box, Center, Grid, HStack, Image, Link, Text } from '@chakra-ui/react';
 import { Pagination } from '@nextui-org/react';
 import { getAllPosts } from 'api';
 import Layout from 'components/Layout';
@@ -16,8 +7,6 @@ import React from 'react';
 export default function IndexPage(props) {
   const [curPage, setCurPage] = React.useState(1);
   const postList = props.posts[curPage - 1];
-  const variant = useBreakpointValue({ xs: 'none', sm: 'none', base: 'block' });
-  console.log('🚀 ~ file: index.jsx ~ line 20 ~ IndexPage ~ variant', variant);
 
   return (
     <Layout>
@@ -25,7 +14,7 @@ export default function IndexPage(props) {
         const { slug, data } = item;
         return (
           <Grid templateColumns="38.2% auto" gap={6} key={item.slug} py={2}>
-            <Box width="100%" color="gray" textAlign="right" display={variant}>
+            <Box width="100%" color="gray" textAlign="right">
               <Text color="gray.500" isTruncated>
                 {data.date}
               </Text>
