@@ -11,15 +11,10 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.4.0
 
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v2.0.1
-        width:
-          version: 6
-
       - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: |
-          pnpm install
-          pnpm run build && pnpm run export
+          yarn
+          yarn run build && yarn run export
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.2
