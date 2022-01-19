@@ -1,23 +1,12 @@
-import {
-  ChakraProvider,
-  ColorModeProvider,
-  Container,
-  extendTheme,
-} from '@chakra-ui/react';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
-import '../styles/main.scss';
+import 'styles/main.scss';
 
 const Header = dynamic(() => import('components/Header'));
 const Comments = dynamic(() => import('components/Comments'));
-const theme = extendTheme({
-  fonts: {
-    body: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-  },
-});
 
 const App = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -53,27 +42,20 @@ const App = ({ Component, pageProps }) => {
           cardType: 'summary_large_image',
         }}
       />
-      <ChakraProvider resetCSS theme={theme}>
-        <ColorModeProvider
-          options={{
-            useSystemColorMode: true,
-          }}
-        >
-          <Container maxW="container.md">
-            <Header style={{ color: '#fff' }} />
-          </Container>
-          <Container
-            maxW={
-              /^\/(challenges|about)/.test(router.route)
-                ? 'container.full'
-                : 'container.md'
-            }
-          >
-            <Component {...pageProps} canonical={url} key={url} />
-            {router.route.startsWith('/blog') && <Comments />}
-          </Container>
-        </ColorModeProvider>
-      </ChakraProvider>
+      <div className="max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto">
+        <Header style={{ color: '#fff' }} />
+      </div>
+      <div
+        className="max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto"
+        // maxW={
+        //   /^\/(challenges|about)/.test(router.route)
+        //     ? 'container.full'
+        //     : 'container.md'
+        // }
+      >
+        <Component {...pageProps} canonical={url} key={url} />
+        {router.route.startsWith('/blog') && <Comments />}
+      </div>
     </>
   );
 };

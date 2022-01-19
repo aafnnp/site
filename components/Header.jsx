@@ -1,4 +1,5 @@
-import { Box, Button, Flex, HStack, Image, Link } from '@chakra-ui/react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { FaTwitter } from 'react-icons/fa';
@@ -6,36 +7,33 @@ import { FaTwitter } from 'react-icons/fa';
 export default function Header() {
   const router = useRouter();
   return (
-    <Flex
-      position="relative"
-      zIndex="9999"
-      align="center"
-      justify="space-between"
-      mb={4}
+    <div
+      className="flex relative justify-between items-center mb-4 z-50"
       style={{ color: router.route.startsWith('/about') ? 'white' : '' }}
     >
-      <Box py={4}>
-        <HStack spacing={4}>
-          <Image
-            alt="Manon.icu"
-            boxSize="20px"
-            src="/terminal.svg"
-            htmlWidth="20px"
-            htmlHeight="20px"
-          />
-          <Link href="/">Manon.Icu</Link>
-        </HStack>
-      </Box>
-      <Box py={4}>
-        <HStack spacing={4}>
-          <Link href="/about">About</Link>
-          <Link href="https://twitter.com/Manonicu">
-            <Button size="sm" colorScheme="twitter" leftIcon={<FaTwitter />}>
-              Follow Me
-            </Button>
-          </Link>
-        </HStack>
-      </Box>
-    </Flex>
+      <div className="flex items-center py-4">
+        <Image
+          alt="Manon.icu"
+          src="/terminal.svg"
+          width={20}
+          height={20}
+          layout="fixed"
+        />
+        <Link href="/">
+          <a className="ml-4">Manon.Icu</a>
+        </Link>
+      </div>
+      <div className="flex items-center py-4">
+        <Link href="/about">
+          <a>About</a>
+        </Link>
+        <Link href="https://twitter.com/Manonicu">
+          <a className="flex items-center justify-center rounded p-1.5 text-sm bg-sky-500 text-white ml-4">
+            <FaTwitter className="mr-2" />
+            Follow Me
+          </a>
+        </Link>
+      </div>
+    </div>
   );
 }

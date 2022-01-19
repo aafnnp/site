@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 const Ad = ({ children }) => {
   useEffect(() => {
@@ -9,7 +9,7 @@ const Ad = ({ children }) => {
     }
   }, []);
 
-  return <Fragment>{children}</Fragment>;
+  return <div className="my-8">{children}</div>;
 };
 
 export default Ad;

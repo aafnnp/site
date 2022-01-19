@@ -1,7 +1,8 @@
-import { Box, Center, Grid, HStack, Image, Link, Text } from '@chakra-ui/react';
 import { Pagination } from '@nextui-org/react';
 import { getAllPosts } from 'api';
 import Layout from 'components/Layout';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 export default function IndexPage(props) {
@@ -13,37 +14,34 @@ export default function IndexPage(props) {
       {postList.map((item) => {
         const { slug, data } = item;
         return (
-          <Grid templateColumns="38.2% auto" gap={6} key={item.slug} py={2}>
-            <Box width="100%" color="gray" textAlign="right">
-              <Text color="gray.500" isTruncated>
-                {data.date}
-              </Text>
-            </Box>
-            <Box width="100%">
-              <HStack>
-                <Link href={`/blog/${slug}`}>{data.title}</Link>
-                {data.tags?.map((tag) => (
-                  <Image
-                    boxSize="1rem"
-                    alt={tag}
-                    key={tag}
-                    htmlWidth="1rem"
-                    htmlHeight="1rem"
-                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
-                  />
-                ))}
-              </HStack>
-            </Box>
-          </Grid>
+          <div className="grid grid-cols-[30%_auto] gap-4 py-2" key={item.slug}>
+            <div className="text-gray-500 text-right">{data.date}</div>
+            <div className="flex items-center">
+              <Link href={`/blog/${slug}`}>
+                <a>{data.title}</a>
+              </Link>
+              {data.tags?.map((tag) => (
+                <Image
+                  width={16}
+                  height={16}
+                  alt={tag}
+                  layout="fixed"
+                  key={tag}
+                  className="ml-2"
+                  src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
+                />
+              ))}
+            </div>
+          </div>
         );
       })}
-      <Center py={4}>
+      <div className="flex justify-center py-4">
         <Pagination
           total={props.posts.length}
           initialPage={curPage}
           onChange={(page) => setCurPage(page)}
         />
-      </Center>
+      </div>
     </Layout>
   );
 }

@@ -1,48 +1,42 @@
-import { Box, Heading, HStack, Link, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
 import { data, title } from 'utils/config';
 
 export default function HttpStatus() {
   return (
-    <Box>
-      <Heading as="h1" mb={4}>
-        HTTP状态代码概述
-      </Heading>
+    <>
+      <h1 className="text-3xl font-bold mb-4">HTTP状态代码概述</h1>
 
       {data.map((item, key) => (
-        <Box boxShadow="xl" key={key} p={4} mb={4} rounded="md">
-          <Heading as="h2" mb={2}>
-            <HStack>
-              <Text>{key + 1}xx</Text>
-              <Text pl={4}>{title[key]}</Text>
-            </HStack>
-          </Heading>
+        <div className="mb-8" key={key}>
+          <h2 className="text-xl font-bold mb-2">
+            <span>{key + 1}xx</span>
+            <span className="pl-4">{title[key]}</span>
+          </h2>
 
           {item.map((el) => (
-            <Box py={2} key={el.key}>
-              <Link
-                href={`https://www.abstractapi.com/http-status-codes/${el.key}`}
-                color="purple.500"
-              >
-                <HStack>
-                  <Text
-                    px={2}
-                    py={1}
-                    backgroundColor="purple.500"
-                    rounded="md"
-                    color="white"
-                    fontSize="xs"
-                  >
-                    {el.key}
-                  </Text>
-                  <Text>-</Text>
-                  <Text>{el.value}</Text>
-                </HStack>
-              </Link>
-            </Box>
+            <Link
+              key={el.key}
+              href={`https://www.abstractapi.com/http-status-codes/${el.key}`}
+            >
+              <a className="block py-2">
+                <span
+                  px={2}
+                  py={1}
+                  backgroundColor="purple.500"
+                  rounded="md"
+                  color="white"
+                  fontSize="xs"
+                >
+                  {el.key}
+                </span>
+                <span className="px-2">-</span>
+                <span className="text-purple-600">{el.value}</span>
+              </a>
+            </Link>
           ))}
-        </Box>
+        </div>
       ))}
-    </Box>
+    </>
   );
 }

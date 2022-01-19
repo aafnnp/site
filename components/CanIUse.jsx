@@ -1,5 +1,6 @@
-import { Box, Grid, Heading, Image, Link, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
+import Image from 'next/image';
+import Link from 'next/link';
 import React, { Component } from 'react';
 import { fetcher } from 'utils';
 
@@ -63,104 +64,86 @@ export default class CanIUse extends Component {
 
   render() {
     return (
-      <Box mx="auto" my={10}>
-        <Text color="gray.500" fontSize="xs" fontFamily="Gugi">
+      <div className="mx-auto my-12">
+        <div className="text-gray-500 text-xs">
           This browser support data is from
-          <Link
-            href={`https://caniuse.com/#feat=${this.props.tag}`}
-            color="#ff0024"
-            px={2}
-          >
-            Caniuse
+          <Link href={`https://caniuse.com/#feat=${this.props.tag}`}>
+            <a className="px-1 text-red-500">Caniuse</a>
           </Link>
           ,which has more detail. A number indicates that browser supports the
           feature at that version and up. Update Time:
-          <Text color="red" display="inline">
-            {this.state.updateTime}
-          </Text>
-        </Text>
+          <span className="text-red-500 px-1">{this.state.updateTime}</span>
+        </div>
         <div className="caniuse-section">
-          <Heading as="h5" fontSize="xs" py={4}>
-            Desktop
-          </Heading>
-          <Grid templateColumns="repeat(5, 1fr)" mb={2} gap={6}>
+          <h5 className="text-xs py-4 font-bold">Desktop</h5>
+          <div className="grid grid-cols-5 mb-2 gap-4">
             {Object.entries(CanIUse.enums.desktop).map(
               ([key, value], index) => {
                 return (
-                  <Box
+                  <div
+                    className="flex flex-col justify-center items-center"
                     key={key}
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    textAlign="center"
                   >
                     <Image
                       src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`}
                       alt={key}
-                      margin="0 auto 0.5rem"
-                      width="3rem"
-                      height="3rem"
+                      className="mx-auto"
+                      width={48}
+                      height={48}
+                      layout="fixed"
                     />
-                    <Text
-                      color="white"
-                      rounded="md"
-                      textAlign="center"
-                      p={2}
-                      fontWeight="bold"
-                      bg={
-                        this.state.desktop[index] === 'No'
-                          ? '#ff0024'
-                          : '#47ca4c'
-                      }
+                    <span
+                      className=" mt-2 block w-full text-white rounded-md text-center font-bold p-2"
+                      style={{
+                        backgroundColor:
+                          this.state.desktop[index] === 'No'
+                            ? '#ff0024'
+                            : '#47ca4c',
+                      }}
                     >
                       {this.state.desktop[index]}
-                    </Text>
-                  </Box>
+                    </span>
+                  </div>
                 );
               }
             )}
-          </Grid>
+          </div>
         </div>
 
         <div className="caniuse-section mt-4">
-          <Heading as="h5" fontSize="xs" py={4}>
-            Mobile / Tablet
-          </Heading>
-          <Grid templateColumns="repeat(4, 1fr)" mb={2} gap={6}>
+          <h5 className="text-xs py-4 font-bold">Mobile / Tablet</h5>
+          <div className="grid grid-cols-4 mb-2 gap-4">
             {Object.entries(CanIUse.enums.mobile).map(([key, value], index) => {
               return (
-                <Box
+                <div
+                  className="flex flex-col justify-center items-center"
                   key={key}
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="center"
-                  textAlign="center"
                 >
                   <Image
                     src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`}
                     alt={key}
-                    margin="0 auto 0.5rem"
-                    width="3rem"
-                    height="3rem"
+                    className="mx-auto"
+                    width={48}
+                    height={48}
+                    layout="fixed"
                   />
-                  <Text
-                    color="white"
-                    rounded="md"
-                    textAlign="center"
-                    p={2}
-                    fontWeight="bold"
-                    bg={
-                      this.state.desktop[index] === 'No' ? '#ff0024' : '#47ca4c'
-                    }
+                  <span
+                    className=" mt-2 block w-full text-white rounded-md text-center font-bold p-2"
+                    style={{
+                      backgroundColor:
+                        this.state.desktop[index] === 'No'
+                          ? '#ff0024'
+                          : '#47ca4c',
+                    }}
                   >
                     {this.state.desktop[index]}
-                  </Text>
-                </Box>
+                  </span>
+                </div>
               );
             })}
-          </Grid>
+          </div>
         </div>
-      </Box>
+      </div>
     );
   }
 }

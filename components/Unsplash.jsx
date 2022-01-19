@@ -1,4 +1,4 @@
-import { Image } from '@chakra-ui/react';
+import Image from 'next/image';
 import React from 'react';
 import useSWR from 'swr';
 import { fetcher } from 'utils';
@@ -16,14 +16,8 @@ export default function Unsplash({ tags, title }) {
     data.results[Math.floor(Math.random() * data.results.length)].urls.regular;
 
   return (
-    <Image
-      borderRadius="md"
-      width="100%"
-      height="auto"
-      objectFit={['cover', 'contain']}
-      src={photo}
-      loading="lazy"
-      alt={title}
-    />
+    <div className="rounded-md overflow-hidden">
+      <Image layout="fixed" src={photo} loading="lazy" alt={title} />
+    </div>
   );
 }

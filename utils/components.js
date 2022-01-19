@@ -1,54 +1,9 @@
-import {
-  Alert,
-  Box,
-  Heading,
-  Image,
-  ListItem,
-  OrderedList,
-  Text,
-} from '@chakra-ui/react';
 import CanIUse from 'components/CanIUse.jsx';
 import CodeSandbox from 'components/embed/CodeSandbox';
-import React from 'react';
 
 const components = {
   CanIUse,
   CodeSandbox,
-  h2: (props) => <Heading mt={8} mb={4} size="md" as="h2" {...props} />,
-  h3: (props) => (
-    <Heading mt={4} mb={4} size="sm" as="h3">
-      <span {...props}></span>
-    </Heading>
-  ),
-  h4: (props) => <Heading mt={2} mb={1} size="xs" as="h4" {...props} />,
-  p: (props) => <Text as="p" mb={4} {...props} />,
-  pre: (props) => (
-    <Box as="div">
-      <Box as="pre" mb={4} {...props} />
-    </Box>
-  ),
-  ul: (props) => (
-    <OrderedList mb={4} styleType="circle" color="gray.500" {...props} />
-  ),
-  ol: (props) => (
-    <OrderedList mb={4} styleType="circle" color="gray.500" {...props} />
-  ),
-  li: (props) => <ListItem {...props} />,
-  img: (props) => (
-    <Box my={4}>
-      <Image mx="auto" loading="lazy" alt={props.alt} {...props} />
-    </Box>
-  ),
-  blockquote: (props) => (
-    <Alert
-      variant="left-accent"
-      status="info"
-      colorScheme="twitter"
-      mb={4}
-      alignItems="center"
-      {...props}
-    />
-  ),
 };
 
 export default components;

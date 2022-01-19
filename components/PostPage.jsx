@@ -1,5 +1,5 @@
 import hljs from 'highlight.js';
-import 'highlight.js/styles/base16/default-dark.css';
+import 'highlight.js/styles/agate.css';
 import React from 'react';
 export default class PostPage extends React.Component {
   componentDidMount() {
@@ -17,6 +17,6 @@ export default class PostPage extends React.Component {
   }
 
   render() {
-    return <>{this.props.children}</>;
+    return <div className="post text-sm">{this.props.children}</div>;
   }
 }
