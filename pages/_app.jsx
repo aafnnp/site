@@ -42,17 +42,8 @@ const App = ({ Component, pageProps }) => {
           cardType: 'summary_large_image',
         }}
       />
-      <div className="max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto">
-        <Header style={{ color: '#fff' }} />
-      </div>
-      <div
-        className="max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto"
-        // maxW={
-        //   /^\/(challenges|about)/.test(router.route)
-        //     ? 'container.full'
-        //     : 'container.md'
-        // }
-      >
+      <Header style={{ color: '#fff' }} />
+      <div className="mx-auto sm:w-8/12 xs:w-10/12 md:w-xl lg:w-2xl">
         <Component {...pageProps} canonical={url} key={url} />
         {router.route.startsWith('/blog') && <Comments />}
       </div>

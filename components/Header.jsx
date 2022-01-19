@@ -9,7 +9,7 @@ export default function Header() {
   const router = useRouter();
   return (
     <div
-      className="flex relative justify-between items-center mb-4 z-50"
+      className="mx-auto w-4xl sm:w-8/12 xs:w-10/12 md:w-xl lg:w-2xl flex relative justify-between items-center mb-4 z-50"
       style={{ color: router.route.startsWith('/about') ? 'white' : '' }}
     >
       <div className="flex items-center py-4">

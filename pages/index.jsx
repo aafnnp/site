@@ -15,9 +15,14 @@ export default function IndexPage(props) {
       {postList.map((item) => {
         const { slug, data } = item;
         return (
-          <div className="grid grid-cols-[30%_auto] gap-4 py-2" key={item.slug}>
-            <div className="text-gray-500 text-right">{data.date}</div>
-            <div className="flex items-center">
+          <div
+            className="grid grid-cols-[30%_auto] gap-4 py-2 xs:grid-cols-1 sm:grid-cols-[25%_auto]"
+            key={item.slug}
+          >
+            <div className="text-gray-500 text-right xs:hidden sm:block">
+              {data.date}
+            </div>
+            <div className="flex gap-2 items-center">
               <Link href={`/blog/${slug}`}>
                 <a>{data.title}</a>
               </Link>
@@ -29,7 +34,6 @@ export default function IndexPage(props) {
                   alt={tag}
                   layout="fixed"
                   key={tag}
-                  className="ml-2"
                   src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
                 />
               ))}

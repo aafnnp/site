@@ -20,7 +20,7 @@ export default function IndexPage(props) {
         Challenges
       </motion.h1>
       <motion.div
-        className="grid grid-cols-4 gap-4"
+        className="grid gap-4 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5"
         initial="hidden"
         animate="visible"
       >
