@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { FaGithub, FaLink } from 'react-icons/fa';
+import { ImgLoader } from 'utils/customLoader';
 
 export default function IndexPage(props) {
   const { allChallenges } = props;
@@ -41,6 +42,7 @@ export default function IndexPage(props) {
               <div className="p-4">
                 <div className="flex mb-2">
                   <Image
+                    loader={ImgLoader}
                     width={18}
                     height={18}
                     layout="fixed"

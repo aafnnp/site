@@ -4,6 +4,7 @@ import Layout from 'components/Layout';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { ImgLoader } from 'utils/customLoader';
 
 export default function IndexPage(props) {
   const [curPage, setCurPage] = React.useState(1);
@@ -22,6 +23,7 @@ export default function IndexPage(props) {
               </Link>
               {data.tags?.map((tag) => (
                 <Image
+                  loader={ImgLoader}
                   width={16}
                   height={16}
                   alt={tag}

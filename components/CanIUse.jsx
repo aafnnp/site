@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { Component } from 'react';
 import { fetcher } from 'utils';
+import { ImgLoader } from 'utils/customLoader';
 
 export default class CanIUse extends Component {
   static enums = {
@@ -85,6 +86,7 @@ export default class CanIUse extends Component {
                     key={key}
                   >
                     <Image
+                      loader={ImgLoader}
                       src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`}
                       alt={key}
                       className="mx-auto"
@@ -120,6 +122,7 @@ export default class CanIUse extends Component {
                   key={key}
                 >
                   <Image
+                    loader={ImgLoader}
                     src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`}
                     alt={key}
                     className="mx-auto"

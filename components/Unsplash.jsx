@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import useSWR from 'swr';
 import { fetcher } from 'utils';
+import { ImgLoader } from 'utils/customLoader';
 
 export default function Unsplash({ tags, title }) {
   const tag = tags ? tags[0] || 'coding' : 'coding';
@@ -17,7 +18,13 @@ export default function Unsplash({ tags, title }) {
 
   return (
     <div className="rounded-md overflow-hidden">
-      <Image layout="fixed" src={photo} loading="lazy" alt={title} />
+      <Image
+        loader={ImgLoader}
+        layout="fixed"
+        src={photo}
+        loading="lazy"
+        alt={title}
+      />
     </div>
   );
 }

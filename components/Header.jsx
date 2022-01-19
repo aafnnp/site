@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { FaTwitter } from 'react-icons/fa';
+import { ImgLoader } from 'utils/customLoader';
 
 export default function Header() {
   const router = useRouter();
@@ -13,6 +14,7 @@ export default function Header() {
     >
       <div className="flex items-center py-4">
         <Image
+          loader={ImgLoader}
           alt="Manon.icu"
           src="/terminal.svg"
           width={20}

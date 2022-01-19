@@ -6,6 +6,7 @@ const withMDX = require('@next/mdx')({
 
 module.exports = withPlugins([withMDX], {
   images: {
+    loader: 'custom',
     domains: ['cdn.jsdelivr.net', 'images.unsplash.com'],
   },
 });
