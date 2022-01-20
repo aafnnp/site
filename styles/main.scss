@@ -5,6 +5,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-white dark:bg-slate-900 dark:text-white;
+}
 // single post
 .post {
   h2 {
@@ -37,10 +40,37 @@
     @apply mt-4 mb-12 bg-gray-100 p-4 rounded-lg border-l-4 border-l-slate-200 text-gray-500;
   }
   li {
-    @apply list-inside list-disc text-gray-500;
+    @apply list-inside list-disc text-gray-500 dark:text-gray-200;
     > ul {
       @apply ml-[2em];
     }
+  }
+}
+
+.random-post {
+  h2 {
+    @apply relative font-bold text-base mb-4;
+  }
+  li {
+    @apply list-disc list-inside;
+    a {
+      @apply text-gray-500 underline text-sm dark:text-gray-200;
+    }
+  }
+}
+
+.http-status {
+  h1 {
+    @apply text-3xl font-bold mb-4;
+  }
+  h2 {
+    @apply flex gap-4 text-xl font-bold mb-2;
+  }
+  &-item {
+    @apply mb-8;
+  }
+  a {
+    @apply flex gap-2 py-2;
   }
 }
 

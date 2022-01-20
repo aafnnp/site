@@ -16,7 +16,7 @@ export default function IndexPage(props) {
         const { slug, data } = item;
         return (
           <div
-            className="grid grid-cols-[30%_auto] gap-4 py-2 xs:grid-cols-1 sm:grid-cols-[25%_auto]"
+            className="grid grid-cols-[30%_auto] gap-4 py-2 xs:grid-cols-1 sm:grid-cols-[25%_auto] md:grid-cols-[30%_auto]"
             key={item.slug}
           >
             <div className="text-gray-500 text-right xs:hidden sm:block">
