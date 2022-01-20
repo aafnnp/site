@@ -15,7 +15,6 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@heroicons/react": "^1.0.5",
-    "@nextui-org/react": "^1.0.2-alpha.2",
     "dayjs": "^1.10.7",
     "framer-motion": "^5",
     "globby": "^12.0.2",

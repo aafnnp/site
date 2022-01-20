@@ -7,7 +7,6 @@ specifiers:
   '@heroicons/react': ^1.0.5
   '@mdx-js/loader': ^1.6.22
   '@next/mdx': ^12.0.7
-  '@nextui-org/react': ^1.0.2-alpha.2
   autoprefixer: ^10.4.2
   dayjs: ^1.10.7
   eslint: ^7.32.0
@@ -48,7 +47,6 @@ dependencies:
   '@emotion/react': 11.7.1_react@17.0.2
   '@emotion/styled': 11.6.0_79c1490562c3c65ef55eb132a37e39b4
   '@heroicons/react': 1.0.5_react@17.0.2
-  '@nextui-org/react': 1.0.2-alpha.2_react-dom@17.0.2+react@17.0.2
   dayjs: 1.10.7
   framer-motion: 5.6.0_react-dom@17.0.2+react@17.0.2
   globby: 12.2.0
@@ -946,17 +944,6 @@ packages:
     dev: false
     optional: true
 
-  /@nextui-org/react/1.0.2-alpha.2_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-rQevxh8pzRdJFHh5exsIwswHLwW6HFqxSiyA7/lkzoJcd4oHH8m34QE/RNK5hn6ibblZsuW5VKEBc6ME2aHqzQ==}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-    dependencies:
-      '@stitches/react': 1.2.6_react@17.0.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-    dev: false
-
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -996,14 +983,6 @@ packages:
   /@rushstack/eslint-patch/1.1.0:
     resolution: {integrity: sha512-JLo+Y592QzIE+q7Dl2pMUtt4q8SKYI5jDrZxrozEQxnGVOyYE+GWK9eLkwTaeN9DDctlaRAQ3TBmzZ1qdLE30A==}
     dev: true
-
-  /@stitches/react/1.2.6_react@17.0.2:
-    resolution: {integrity: sha512-gRVITYj8W4jJmoiVxWDv72yCvd12VvtUUAnTzs07EqmtvGCVgKZu3Dx0x5KVCcb0b6tfgvvNH2L84YrzdM4Mag==}
-    peerDependencies:
-      react: '>= 16.3.0'
-    dependencies:
-      react: 17.0.2
-    dev: false
 
   /@types/hast/2.3.4:
     resolution: {integrity: sha512-wLEm0QvaoawEDoTRwzTXp4b4jpwiJDvR5KMnFnVodm3scufTlBOWRD6N1OBf9TZMhjlNsSfcO5V+7AF4+Vy+9g==}

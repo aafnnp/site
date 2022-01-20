@@ -1,4 +1,3 @@
-import { Pagination } from '@nextui-org/react';
 import { getAllPosts } from 'api';
 import Layout from 'components/Layout';
 import Image from 'next/image';
@@ -41,12 +40,18 @@ export default function IndexPage(props) {
           </div>
         );
       })}
-      <div className="flex justify-center py-4">
-        <Pagination
-          total={props.posts.length}
-          initialPage={curPage}
-          onChange={(page) => setCurPage(page)}
-        />
+      <div className="pagination">
+        {Array(props.posts.length)
+          .fill(0)
+          .map((_, index) => (
+            <span
+              className={curPage === index + 1 ? 'active' : ''}
+              key={index}
+              onClick={() => setCurPage(index + 1)}
+            >
+              {index + 1}
+            </span>
+          ))}
       </div>
     </Layout>
   );
