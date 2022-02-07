@@ -16,7 +16,7 @@
     "@emotion/styled": "^11",
     "@heroicons/react": "^1.0.5",
     "dayjs": "^1.10.7",
-    "framer-motion": "^5",
+    "framer-motion": "^6",
     "globby": "^13.1.1",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.4.0",
