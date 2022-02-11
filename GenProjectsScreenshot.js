@@ -6,7 +6,7 @@ const getAllChallenges = async () => {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   for await (const challenge of challenges) {
-    if (!challenge.endsWith('index.jsx')) {
+    if (!challenge.endsWith('index.tsx')) {
       const arr = challenge.replace('.jsx', '').split('/');
       await page.goto(`http://localhost:3001/${arr.slice(2).join('/')}`);
       await page.setViewport({ width: 1920, height: 1080 });

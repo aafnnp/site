@@ -2,25 +2,34 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    node: true
   },
   extends: [
-    'next',
-    'next/core-web-vitals',
+    'eslint:recommended',
     'plugin:react/recommended',
-    'standard',
-    'prettier',
+    'plugin:@next/next/recommended',
+    'standard'
   ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
-    ecmaVersion: 13,
-    sourceType: 'module',
+    ecmaVersion: 12,
+    sourceType: 'module'
   },
-  plugins: ['react'],
+  plugins: [
+    'react',
+    '@typescript-eslint'
+  ],
   rules: {
+    'no-use-before-define': 'off',
     '@next/next/no-img-element': 'off',
-    camelcase: 'off',
-    'react/prop-types': 'off',
+    camelcase: 'off'
   },
-};
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  }
+}

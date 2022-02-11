@@ -1,26 +1,19 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React from 'react';
-import { FaTwitter } from 'react-icons/fa';
-import { ImgLoader } from 'utils/customLoader';
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React from 'react'
+import { FaTwitter } from 'react-icons/fa'
 
-export default function Header() {
-  const router = useRouter();
+export default function Header () {
+  const router = useRouter()
   return (
     <div
-      className="mx-auto w-4xl sm:w-8/12 xs:w-10/12 md:w-xl lg:w-2xl flex relative justify-between items-center mb-4 z-50"
+      className="mx-auto w-4xl sm:w-8/12 xs:w-10/12 md:w-xl lg:w-2xl flex relative justify-between items-center mb-4 z-50 text-white"
       style={{ color: router.route.startsWith('/about') ? 'white' : '' }}
     >
       <div className="flex items-center py-4">
-        <Image
-          loader={ImgLoader}
-          alt="Manon.icu"
-          src="/terminal.svg"
-          width={20}
-          height={20}
-          layout="fixed"
-        />
+        <picture className="w-6 h-6">
+          <img src="/terminal.svg" alt="Manon.icu" loading="lazy"/>
+        </picture>
         <Link href="/">
           <a className="ml-4">Manon.Icu</a>
         </Link>
@@ -37,5 +30,5 @@ export default function Header() {
         </Link>
       </div>
     </div>
-  );
+  )
 }

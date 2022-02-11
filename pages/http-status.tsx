@@ -1,8 +1,13 @@
-import Link from 'next/link';
-import React from 'react';
-import { data, title } from 'utils/config';
+import Link from 'next/link'
+import React from 'react'
+import { data, title } from 'utils/config'
 
-export default function HttpStatus() {
+interface Item {
+  key:number;
+  value:string
+}
+
+const HttpStatus = () => {
   return (
     <div className="http-status">
       <h1>HTTP状态代码概述</h1>
@@ -14,7 +19,7 @@ export default function HttpStatus() {
             <span>{title[key]}</span>
           </h2>
 
-          {item.map((el) => (
+          {item.map((el:Item) => (
             <Link
               key={el.key}
               href={`https://www.abstractapi.com/http-status-codes/${el.key}`}
@@ -31,5 +36,7 @@ export default function HttpStatus() {
         </div>
       ))}
     </div>
-  );
+  )
 }
+
+export default HttpStatus

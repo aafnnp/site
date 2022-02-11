@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import React, { Fragment } from 'react';
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import React from 'react'
 
-export default function Index() {
+export default function Index () {
   return (
-    <Fragment>
+    <>
       <style jsx>{`
         .about {
           background: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/about-bg.jpg')
@@ -20,7 +20,7 @@ export default function Index() {
             animate={{ x: 0, opacity: 1 }}
             initial={{
               x: -100,
-              opacity: 0,
+              opacity: 0
             }}
             transition={{ ease: 'easeOut', duration: 1.5 }}
           >
@@ -31,7 +31,7 @@ export default function Index() {
             animate={{ x: 0, opacity: 1 }}
             initial={{
               x: -100,
-              opacity: 0,
+              opacity: 0
             }}
             transition={{ ease: 'easeOut', duration: 1.5, delay: 0.8 }}
           >
@@ -47,7 +47,7 @@ export default function Index() {
                 animate={{ y: 0, opacity: 1 }}
                 initial={{
                   y: 100,
-                  opacity: 0,
+                  opacity: 0
                 }}
                 transition={{ ease: 'easeOut', duration: 1.5, delay: 0.8 }}
               >
@@ -69,6 +69,6 @@ export default function Index() {
           </Link>
         </div>
       </div>
-    </Fragment>
-  );
+    </>
+  )
 }

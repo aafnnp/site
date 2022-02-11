@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 export default class HiddenSearchWidget extends Component {
-  render() {
-    return <>123</>;
+  render () {
+    return <>123</>
   }
 }
