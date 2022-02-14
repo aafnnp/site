@@ -1,6 +1,6 @@
 import { getAllPosts, GetPostBySlug } from 'api'
 import Ad from 'components/ad'
-import Layout from 'components/Layout'
+import { Layout } from 'components/Layout'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import dynamic from 'next/dynamic'
@@ -12,6 +12,7 @@ import components from 'utils/components'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import { getRandomArrayElements } from '../../utils'
+const codesandbox = require('remark-codesandbox')
 
 const PostPage = dynamic(() => import('components/PostPage'))
 
@@ -86,7 +87,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const mdxSource = await serialize(content, {
     // Optionally pass remark/rehype plugins
     mdxOptions: {
-      remarkPlugins: [],
+      remarkPlugins: [[codesandbox, { mode: 'button' }]],
       rehypePlugins: []
     },
     scope: data

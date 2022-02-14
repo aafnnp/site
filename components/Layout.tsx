@@ -1,12 +1,8 @@
 import { NextSeo } from 'next-seo'
 import React from 'react'
+import { LayoutProps } from 'types'
 
-interface PageProps {
-  title?: string;
-  description?: string;
-}
-
-export const Layout: React.FC<PageProps> = ({
+export const Layout: React.FC<LayoutProps> = ({
   children,
   title,
   description

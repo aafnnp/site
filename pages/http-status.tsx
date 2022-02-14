@@ -2,11 +2,6 @@ import Link from 'next/link'
 import React from 'react'
 import { data, title } from 'utils/config'
 
-interface Item {
-  key:number;
-  value:string
-}
-
 const HttpStatus = () => {
   return (
     <div className="http-status">
@@ -19,7 +14,7 @@ const HttpStatus = () => {
             <span>{title[key]}</span>
           </h2>
 
-          {item.map((el:Item) => (
+          {item.map((el) => (
             <Link
               key={el.key}
               href={`https://www.abstractapi.com/http-status-codes/${el.key}`}

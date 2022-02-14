@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import { fetcher } from 'utils'
 
 interface Props{
-  tags: [] | null | undefined;
+  tags?: string[];
   title:string
 }
 

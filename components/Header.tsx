@@ -7,15 +7,15 @@ export default function Header () {
   const router = useRouter()
   return (
     <div
-      className="mx-auto w-4xl sm:w-8/12 xs:w-10/12 md:w-xl lg:w-2xl flex relative justify-between items-center mb-4 z-50 text-white"
+      className="mx-auto w-4xl sm:w-8/12 xs:w-10/12 md:w-xl lg:w-2xl flex relative justify-between items-center mb-4 z-50 text-black"
       style={{ color: router.route.startsWith('/about') ? 'white' : '' }}
     >
       <div className="flex items-center py-4">
-        <picture className="w-6 h-6">
+        <picture className="w-4 h-4 mr-2">
           <img src="/terminal.svg" alt="Manon.icu" loading="lazy"/>
         </picture>
         <Link href="/">
-          <a className="ml-4">Manon.Icu</a>
+          <a>Manon.Icu</a>
         </Link>
       </div>
       <div className="flex items-center py-4">

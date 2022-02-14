@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-const Ad = () => {
+export default function Ad () {
   const { asPath } = useRouter()
   useEffect(() => {
     try {
@@ -22,5 +22,3 @@ const Ad = () => {
     />
   </div>
 }
-
-export default Ad

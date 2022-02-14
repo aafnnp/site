@@ -1,28 +1,18 @@
 import { getAllPosts } from 'api'
-import Layout from 'components/Layout'
+import { Layout } from 'components/Layout'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { InferGetStaticPropsType } from 'next'
+import { IPostArr, IPost } from '../types'
 
-interface Props{
-  posts: []
-}
-
-interface Item {
-  slug:string;
-  data: {
-    date: string,
-    title: string,
-    tags: []
-  };
-}
-
-const IndexPage = ({ posts }:Props) => {
+export default function IndexPage ({ posts }:InferGetStaticPropsType<typeof getStaticProps>) {
   const [curPage, setCurPage] = useState<number>(1)
   const postList:any = posts[curPage - 1]
 
   return (
     <Layout>
-      {postList.map(({ slug, data }:Item) => {
+      {postList.map(({ slug, data }:IPost) => {
+        console.log(JSON.stringify(data))
         return (
           <div
             className="grid grid-cols-[30%_auto] gap-4 py-2 xs:grid-cols-1 sm:grid-cols-[25%_auto] md:grid-cols-[30%_auto]"
@@ -62,7 +52,7 @@ const IndexPage = ({ posts }:Props) => {
 }
 
 export async function getStaticProps () {
-  const posts = await getAllPosts()
+  const posts:IPostArr[] = await getAllPosts()
 
   return {
     props: {
@@ -70,5 +60,3 @@ export async function getStaticProps () {
     }
   }
 }
-
-export default IndexPage

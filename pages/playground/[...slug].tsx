@@ -5,7 +5,7 @@ import { ParsedUrlQuery } from 'querystring'
 import { GetStaticProps } from 'next'
 
 interface PageProps{
-  slug:Array<string>
+  slug:string[]
 }
 
 interface StaticPathParams extends ParsedUrlQuery {
