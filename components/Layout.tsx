@@ -1,13 +1,16 @@
-import React, { ReactNode } from 'react'
 import { NextSeo } from 'next-seo'
+import React from 'react'
 
-interface Props {
-  children: ReactNode;
+interface PageProps {
   title?: string;
   description?: string;
 }
 
-const Layout = ({ children, title, description }:Props) => {
+export const Layout: React.FC<PageProps> = ({
+  children,
+  title,
+  description
+}) => {
   return (
     <>
       <NextSeo
@@ -19,5 +22,3 @@ const Layout = ({ children, title, description }:Props) => {
     </>
   )
 }
-
-export default Layout
