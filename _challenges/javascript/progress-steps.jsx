@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react'
+import styled from 'styled-components'
 
 export default class ProgressSteps extends Component {
   state = { step: 0 };
 
-  handleClick(type = 'prev') {
-    const { step } = this.state;
-    if (type === 'prev' && step === 0) return false;
-    if (type === 'next' && step === 3) return false;
-    this.setState({ step: type === 'prev' ? step - 1 : step + 1 });
+  handleClick (type = 'prev') {
+    const { step } = this.state
+    if (type === 'prev' && step === 0) return false
+    if (type === 'next' && step === 3) return false
+    this.setState({ step: type === 'prev' ? step - 1 : step + 1 })
   }
 
-  render() {
+  render () {
     return (
       <Wrapper>
-        <style jsx>{``}</style>
+        <style jsx>{''}</style>
         <div className="progress-steps">
           <div className={`steps steps-${this.state.step}`}>
             <div className="step">1</div>
@@ -38,7 +38,7 @@ export default class ProgressSteps extends Component {
           </div>
         </div>
       </Wrapper>
-    );
+    )
   }
 }
 
@@ -123,4 +123,4 @@ const Wrapper = styled.div`
     cursor: not-allowed;
     background: lightgrey;
   }
-`;
+`

@@ -16,7 +16,7 @@ npx create-react-app state-demo
 cd state-demo
 ```
 
-```jsx
+```jsx codesandbox=react
 //App.js
 import React from 'react';
 
@@ -29,7 +29,7 @@ class App extends React.Component {
     };
   }
 
-  tooggleTitle = () => {
+  toggleTitle = () => {
     if (this.state.title === '') {
       this.setState({ title: 'React state example' });
     } else {
@@ -44,7 +44,7 @@ class App extends React.Component {
           <input
             type="checkbox"
             id="showTitle"
-            onClick={this.tooggleTitle}
+            onClick={this.toggleTitle}
             defaultChecked
           />
           <label htmlFor="showTitle">Show title</label>

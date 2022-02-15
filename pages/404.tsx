@@ -1,22 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
-export default function Index() {
+export default function Index () {
   return (
     <Wrapper>
       <div className="wrap-404">
         <div className="label">Error</div>
         <div className="numbers">
           <div className="number">
-            <div className="four"></div>
+            <div className="four"/>
           </div>
           <div className="number">
             <div className="zero">
-              <span></span>
+              <span/>
             </div>
           </div>
           <div className="number">
-            <div className="four last"></div>
+            <div className="four last"/>
           </div>
         </div>
         <div className="text">
@@ -27,20 +27,20 @@ export default function Index() {
         </div>
         <div className="sleep-walker">
           <div className="man">
-            <div className="head"></div>
+            <div className="head"/>
             <div className="torso">
-              <div className="arm-a"></div>
-              <div className="arm-b"></div>
+              <div className="arm-a"/>
+              <div className="arm-b"/>
             </div>
             <div className="legs">
-              <div className="leg-a"></div>
-              <div className="leg-b"></div>
+              <div className="leg-a"/>
+              <div className="leg-b"/>
             </div>
           </div>
         </div>
       </div>
     </Wrapper>
-  );
+  )
 }
 
 const Wrapper = styled.div`
@@ -357,4 +357,4 @@ const Wrapper = styled.div`
       transform: translateX(36%) scale(0.5);
     }
   }
-`;
+`

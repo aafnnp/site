@@ -1,13 +1,21 @@
-import { globFiles } from 'api';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import { FaGithub, FaLink } from 'react-icons/fa';
-import { ImgLoader } from 'utils/customLoader';
+import { globFiles } from 'api'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import React from 'react'
+import { FaGithub, FaLink } from 'react-icons/fa'
 
-export default function IndexPage(props) {
-  const { allChallenges } = props;
+interface PageProps {
+  allChallenges:[]
+}
+
+interface Challenge {
+  link:string;
+  title:string;
+  group:string;
+}
+
+export default function IndexPage (props:PageProps) {
+  const { allChallenges } = props
 
   return (
     <div className="pb-4">
@@ -24,7 +32,7 @@ export default function IndexPage(props) {
         initial="hidden"
         animate="visible"
       >
-        {allChallenges.map((challenge, i) => {
+        {allChallenges.map((challenge:Challenge, i:number) => {
           return (
             <motion.div
               className="shadow-lg rounded-md overflow-hidden"
@@ -41,14 +49,9 @@ export default function IndexPage(props) {
               />
               <div className="p-4">
                 <div className="flex mb-2">
-                  <Image
-                    loader={ImgLoader}
-                    width={18}
-                    height={18}
-                    layout="fixed"
-                    alt={challenge.group}
-                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${challenge.group}.svg`}
-                  />
+                  <picture className="w-4 h-4">
+                    <img src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${challenge.group}.svg`} alt={challenge.group} loading="lazy"/>
+                  </picture>
                   <h3 className="font-bold text-sm ml-2">{challenge.title}</h3>
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
@@ -69,30 +72,30 @@ export default function IndexPage(props) {
                 </div>
               </div>
             </motion.div>
-          );
+          )
         })}
       </motion.div>
     </div>
-  );
+  )
 }
 
-export async function getStaticProps() {
-  const allChallenges = await globFiles('_challenges');
-  const challenges = allChallenges.map((item) => {
+export async function getStaticProps () {
+  const allChallenges = await globFiles('_challenges')
+  const challenges = allChallenges.map((item:{params:{slug:[group:string, title:string]}}) => {
     const {
       params: {
-        slug: [group, title],
-      },
-    } = item;
+        slug: [group, title]
+      }
+    } = item
     return {
       title: title,
       group: group,
-      link: `/challenges/${group}/${title}`,
-    };
-  });
+      link: `/challenges/${group}/${title}`
+    }
+  })
   return {
     props: {
-      allChallenges: challenges,
-    },
-  };
+      allChallenges: challenges
+    }
+  }
 }

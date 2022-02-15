@@ -1,12 +1,12 @@
-const withPlugins = require('next-compose-plugins');
+const withPlugins = require('next-compose-plugins')
 
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx$/,
-});
+  extension: /\.mdx$/
+})
 
 module.exports = withPlugins([withMDX], {
   images: {
     loader: 'custom',
-    domains: ['cdn.jsdelivr.net', 'images.unsplash.com'],
-  },
-});
+    domains: ['cdn.jsdelivr.net', 'images.unsplash.com']
+  }
+})

@@ -1,13 +1,13 @@
-import Document, { Head, Html, Main, NextScript } from 'next/document';
-import React from 'react';
+import Document, { Head, Html, Main, NextScript, DocumentContext } from 'next/document'
+import React from 'react'
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+  static async getInitialProps (ctx:DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx)
+    return { ...initialProps }
   }
 
-  render() {
+  render () {
     return (
       <Html lang="en">
         <Head>
@@ -20,13 +20,13 @@ class MyDocument extends Document {
             defer
             data-website-id="4c7e9697-dfc2-437a-a412-2f16f2b1b8f7"
             src="https://umami-gules.vercel.app/umami.js"
-          ></script>
+          />
           <script
             key="adsense"
             data-ad-client="ca-pub-3854566314387093"
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          ></script>
+          />
         </Head>
 
         <body>
@@ -34,8 +34,8 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default MyDocument;
+export default MyDocument

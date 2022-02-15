@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import React from 'react';
-import styled from 'styled-components';
+import Link from 'next/link'
+import React from 'react'
+import styled from 'styled-components'
 
-export default function Index() {
+export default function Index () {
   return (
     <Wrapper>
       <div className="page-not-found">
@@ -28,7 +28,7 @@ export default function Index() {
         </div>
       </div>
     </Wrapper>
-  );
+  )
 }
 
 const Wrapper = styled.div`
@@ -188,4 +188,4 @@ const Wrapper = styled.div`
       font-weight: 500;
     }
   }
-`;
+`

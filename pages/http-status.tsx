@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import React from 'react';
-import { data, title } from 'utils/config';
+import Link from 'next/link'
+import React from 'react'
+import { data, title } from 'utils/config'
 
-export default function HttpStatus() {
+const HttpStatus = () => {
   return (
     <div className="http-status">
       <h1>HTTP状态代码概述</h1>
@@ -31,5 +31,7 @@ export default function HttpStatus() {
         </div>
       ))}
     </div>
-  );
+  )
 }
+
+export default HttpStatus

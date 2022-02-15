@@ -1,34 +1,36 @@
-import dayjs from 'dayjs';
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { Component } from 'react';
-import { fetcher } from 'utils';
-import { ImgLoader } from 'utils/customLoader';
+import dayjs from 'dayjs'
+import Link from 'next/link'
+import React, { Component } from 'react'
+import { fetcher } from 'utils'
 
-export default class CanIUse extends Component {
+interface PageProps {
+  tag:string
+}
+
+export default class CanIUse extends Component<PageProps> {
   static enums = {
     desktop: {
       Chrome: 'CDWccX.jpg',
       Firefox: 'mqRvLw.jpg',
       IE: 'uKn6gH.jpg',
       Edge: 'aoF7l0.jpg',
-      Safari: 'mIxpPG.jpg',
+      Safari: 'mIxpPG.jpg'
     },
     mobile: {
       'Android Chrome': 'CDWccX.jpg',
       'Android FireFox': 'mqRvLw.jpg',
       Android: 'VK4LoM.jpg',
-      'Ios Safari': 'mIxpPG.jpg',
-    },
+      'Ios Safari': 'mIxpPG.jpg'
+    }
   };
 
   state = {
     desktop: [],
     mobile: [],
-    updateTime: Date.now(),
+    updateTime: Date.now()
   };
 
-  componentDidMount() {
+  componentDidMount () {
     fetcher(
       'https://raw.githubusercontent.com/Fyrd/caniuse/main/data.json'
     ).then((res) => {
@@ -42,28 +44,28 @@ export default class CanIUse extends Component {
           and_chr,
           and_ff,
           android,
-          ios_saf,
-        },
-      } = res.data[this.props.tag];
+          ios_saf
+        }
+      } = res.data[this.props.tag]
 
       this.setState({
         desktop: this.getSupportData([chrome, firefox, ie, edge, safari]),
         mobile: this.getSupportData([and_chr, and_ff, android, ios_saf]),
-        updateTime: dayjs(res.data.updated).format('YYYY-MM-DD HH:mm:ss'),
-      });
-    });
+        updateTime: dayjs(res.data.updated).format('YYYY-MM-DD HH:mm:ss')
+      })
+    })
   }
 
-  getSupportData = (arr) => {
-    return arr.map((item) => {
+  getSupportData = (arr: any) => {
+    return arr.map((item: any) => {
       const firstSupportItems = Object.entries(item).find(
         (el) => el[1] === 'y'
-      );
-      return firstSupportItems ? firstSupportItems[0] : 'No';
-    });
+      )
+      return firstSupportItems ? firstSupportItems[0] : 'No'
+    })
   };
 
-  render() {
+  render () {
     return (
       <div className="mx-auto my-12">
         <div className="text-gray-500 text-xs">
@@ -85,28 +87,22 @@ export default class CanIUse extends Component {
                     className="flex flex-col justify-center items-center"
                     key={key}
                   >
-                    <Image
-                      loader={ImgLoader}
-                      src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`}
-                      alt={key}
-                      className="mx-auto"
-                      width={48}
-                      height={48}
-                      layout="fixed"
-                    />
+                    <picture className="w-12 h-12">
+                      <img src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`} alt={key} loading="lazy"/>
+                    </picture>
                     <span
                       className=" mt-2 block w-full text-white rounded-md text-center font-bold p-2"
                       style={{
                         backgroundColor:
                           this.state.desktop[index] === 'No'
                             ? '#ff0024'
-                            : '#47ca4c',
+                            : '#47ca4c'
                       }}
                     >
                       {this.state.desktop[index]}
                     </span>
                   </div>
-                );
+                )
               }
             )}
           </div>
@@ -121,32 +117,26 @@ export default class CanIUse extends Component {
                   className="flex flex-col justify-center items-center"
                   key={key}
                 >
-                  <Image
-                    loader={ImgLoader}
-                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`}
-                    alt={key}
-                    className="mx-auto"
-                    width={48}
-                    height={48}
-                    layout="fixed"
-                  />
+                  <picture className="w-12 h-12">
+                    <img src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`} alt={key} loading="lazy"/>
+                  </picture>
                   <span
                     className=" mt-2 block w-full text-white rounded-md text-center font-bold p-2"
                     style={{
                       backgroundColor:
                         this.state.desktop[index] === 'No'
                           ? '#ff0024'
-                          : '#47ca4c',
+                          : '#47ca4c'
                     }}
                   >
                     {this.state.desktop[index]}
                   </span>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

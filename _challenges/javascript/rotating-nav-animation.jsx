@@ -3,18 +3,18 @@ import {
   MailIcon,
   MenuIcon,
   UserIcon,
-  XIcon,
-} from '@heroicons/react/solid';
-import React, { Component } from 'react';
-import styled from 'styled-components';
+  XIcon
+} from '@heroicons/react/solid'
+import React, { Component } from 'react'
+import styled from 'styled-components'
 export default class ProgressSteps extends Component {
-  handleClick(e) {
-    e.currentTarget.classList.toggle('active');
-    document.querySelector('.rotating-main').classList.toggle('active');
-    document.querySelector('.rotating-nav').classList.toggle('active');
+  handleClick (e) {
+    e.currentTarget.classList.toggle('active')
+    document.querySelector('.rotating-main').classList.toggle('active')
+    document.querySelector('.rotating-nav').classList.toggle('active')
   }
 
-  render() {
+  render () {
     return (
       <Wrapper>
         <div className="rotating">
@@ -81,7 +81,7 @@ export default class ProgressSteps extends Component {
           </ul>
         </div>
       </Wrapper>
-    );
+    )
   }
 }
 
@@ -187,4 +187,4 @@ const Wrapper = styled.div`
   .rotating-nav.active li:nth-child(3) {
     transform: translateX(2rem);
   }
-`;
+`

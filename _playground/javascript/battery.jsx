@@ -1,45 +1,45 @@
-import CanIUse from 'components/CanIUse';
-import React, { useState } from 'react';
-import { FaCode, FaEye, FaFile } from 'react-icons/fa';
+import CanIUse from 'components/CanIUse'
+import React, { useState } from 'react'
+import { FaCode, FaEye, FaFile } from 'react-icons/fa'
 
-export default function FileSystem() {
-  const [status, setStatus] = useState({});
+export default function FileSystem () {
+  const [status, setStatus] = useState({})
 
   const handleClick = () => {
     navigator.getBattery().then((battery) => {
-      console.log(battery);
-      setStatus(battery);
+      console.log(battery)
+      setStatus(battery)
 
-      console.log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'));
-      console.log('Battery level: ' + battery.level * 100 + '%');
+      console.log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'))
+      console.log('Battery level: ' + battery.level * 100 + '%')
       console.log(
         'Battery charging time: ' + battery.chargingTime + ' seconds'
-      );
+      )
       console.log(
         'Battery discharging time: ' + battery.dischargingTime + ' seconds'
-      );
+      )
 
       battery.addEventListener('chargingchange', function () {
-        console.log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'));
-      });
+        console.log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'))
+      })
 
       battery.addEventListener('levelchange', function () {
-        console.log('Battery level: ' + battery.level * 100 + '%');
-      });
+        console.log('Battery level: ' + battery.level * 100 + '%')
+      })
 
       battery.addEventListener('chargingtimechange', function () {
         console.log(
           'Battery charging time: ' + battery.chargingTime + ' seconds'
-        );
-      });
+        )
+      })
 
       battery.addEventListener('dischargingtimechange', function () {
         console.log(
           'Battery discharging time: ' + battery.dischargingTime + ' seconds'
-        );
-      });
-    });
-  };
+        )
+      })
+    })
+  }
   return (
     <div className="battery">
       <h3 className="text-center mb-4">Battery</h3>
@@ -122,5 +122,5 @@ export default function FileSystem() {
         </table>
       </div>
     </div>
-  );
+  )
 }
