@@ -1,7 +1,123 @@
 ---
-date: '2021-11-20'
-title: 'Numbers'
-tags: [python]
-draft: true
-description: '关于数学运算'
+date: '2022-02-15 10:32:08'
+title: 'Async & Promise'
+tags: [javascript]
+description: 'JavaScript的异步处理'
 ---
+
+![tc1TS8](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/tc1TS8.jpg)
+
+## 异步处理历史
+
+- 异步 callbacks：callbacks 即是将函数作为参数传递，当同步代码运行结束，就调用函数参数继续运行。
+- Promise：
+- Generator：
+- async/await：
+
+优缺点对比：
+
+| 发展史        | 优点                                       | 缺点                                                                                                  |
+| ------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| Callback      | 解决了同步问题                             | 回调地狱、可读性差、无法 try / catch 、无法 return                                                    |
+| Promise       | 一定程度上解决了回调地狱的可读性           | 无法取消、任务多时，同样存在语义不清晰                                                                |
+| Generator     | 可以控制函数的执行，可以配合 co 函数库使用 | 流程管理却不方便（即何时执行第一阶段、何时执行第二阶段                                                |
+| async / await | 语义更清晰、简洁，内置执行器               | 认知不清晰可能会造成大量 await 阻塞（程序并不会等在原地，而是继续事件循环，等到响应后继续往下走）情况 |
+
+## Promise
+
+```javascript
+let promise = new Promise(function (resolve, reject) {
+  // code
+});
+promise.then(()=>{
+  // then
+}).catch((error)=>{
+  // console.log(error)
+}).finally(_=>{
+  // finally
+})
+```
+`code`处是用于执行的代码，当`new Promise`创建时，自动执行。
+
+`then`是定义在`Promise.prototype`上的用来处理状态改变时的回调函数。
+
+参数`resolve`和`reject`是JavaScript自身提供的回调函数。当`code`呗执行后应该调用`resolve`或`reject`
+
+- `resolve` 任务成功返回value
+- `reject` 任务失败返回`error`
+
+当`promise`被`reject`的时候或者运行代码抛出错误异常如：`throw new Error('Whoops!')`，`catch`负责处理错误
+
+`finaylly`是`promise`结束时，无论结果是`fulfilled`还是`rejected`都会执行的回调函数
+
+内部属性：
+
+- `state` 初始值`pending`，`resolve`的时候为`fullfilled`，`reject`的时候为`rejected`
+- `result` 初始值`undefined`，`resolve`的时候为`value`，`reject`的时候为`error`对象
+
+![ZBHm59](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/ZBHm59.png)
+
+### Promise.all
+
+执行多个promise，并等待所有promise准备就绪，任意一个promise被reject，都会立即出发Promise.all的reject并且返回该promise的error
+
+```javascript
+let promise = Promise.all([/*promises*/])
+
+// 例子
+let urls = [
+  'https://api.github.com/users/iliakan',
+  'https://api.github.com/users/remy',
+  'https://api.github.com/users/jeresig'
+];
+
+// 将每个 url 映射（map）到 fetch 的 promise 中
+let requests = urls.map(url => fetch(url));
+
+// Promise.all 等待所有任务都 resolved
+Promise.all(requests)
+  .then(responses => responses.forEach(
+    response => alert(`${response.url}: ${response.status}`)
+  ));
+```
+
+### Promise.allSettled
+
+与Promise.all不同的是，Promise.allSettled会等待所有promise完成，无论成功失败。
+
+- `{status:"fulfilled", value:result}` 对于成功的响应
+- `{status:"rejected", reason:error}` 对于 error。
+
+### Promise.race
+
+只要有一个准备就绪就返回其结果或者错误
+
+```javascript
+Promise.race([
+  new Promise((resolve, reject) => setTimeout(() => resolve(1), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 2000)),
+  new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000))
+]).then(alert); // 1
+```
+
+### Promise.any
+
+与Promise.race类似，Promise.any等待的是第一个`fulfilled`，如果都`rejected`，则返回一个error数组
+
+## async/await
+
+Async/await 是以更舒适的方式使用 promise 的一种特殊语法，同时它也非常易于理解和使用。
+
+async会将其后面的函数的返回值封装成一个`Promise`对象，而await会等待这个`Promise`完成，并将其结果返回。
+
+```javascript
+async function hello() {
+  return greeting = await Promise.resolve("Hello");
+}
+
+hello().then(alert);
+```
+错误处理
+
+1. 使用`try...catch`捕获async/await运行程序中抛出的错误
+2. **[await-to-js](https://www.npmjs.com/package/await-to-js)**，使用类go语言的方式处理（属于1的封装）

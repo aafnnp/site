@@ -12,7 +12,6 @@ export default function IndexPage ({ posts }:InferGetStaticPropsType<typeof getS
   return (
     <Layout>
       {postList.map(({ slug, data }:IPost) => {
-        console.log(JSON.stringify(data))
         return (
           <div
             className="grid grid-cols-[30%_auto] gap-4 py-2 xs:grid-cols-1 sm:grid-cols-[25%_auto] md:grid-cols-[30%_auto]"

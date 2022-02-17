@@ -32,8 +32,13 @@ body {
     @apply my-4;
   }
   p {
+    @apply leading-relaxed;
     img {
       @apply mx-auto object-cover object-center;
+    }
+    code{
+      @apply bg-gray-100 border text-red-600 whitespace-nowrap rounded-b-sm;
+      padding: 1px;
     }
   }
   blockquote {
@@ -43,6 +48,15 @@ body {
     @apply list-inside list-disc text-gray-500 dark:text-gray-200;
     > ul {
       @apply ml-[2em];
+    }
+  }
+  table{
+    @apply mb-4 table-fixed border-collapse border border-gray-400;
+    th,td{
+      @apply border border-gray-300 p-2 text-gray-400;
+    }
+    th{
+      @apply text-gray-600 bg-gray-200;
     }
   }
 }
