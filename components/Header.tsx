@@ -12,7 +12,7 @@ export default function Header () {
     >
       <div className="flex items-center py-4">
         <picture className="w-4 h-4 mr-2">
-          <img src="/terminal.svg" alt="Manon.icu" loading="lazy"/>
+          <img src="/terminal.svg" alt="Manon.icu" loading="lazy" width={16} height={16}/>
         </picture>
         <Link href="/">
           <a>Manon.Icu</a>

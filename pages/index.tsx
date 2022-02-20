@@ -26,7 +26,7 @@ export default function IndexPage ({ posts }:InferGetStaticPropsType<typeof getS
               </Link>
               {data.tags?.map((tag:string) => (
                 <picture className="w-4 h-4" key={tag}>
-                  <img loading="lazy" src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`} alt={tag}/>
+                  <img loading="lazy" src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`} alt={tag} width={16} height={16}/>
                 </picture>
               ))}
             </div>
