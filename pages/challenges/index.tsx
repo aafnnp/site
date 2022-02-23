@@ -44,7 +44,7 @@ export default function IndexPage (props:PageProps) {
             >
               <img
                 className="flex-none rounded-l-md"
-                src={`/screenshots/${challenge.title}.png`}
+                src={`/screenshots/${challenge.title}.webp`}
                 alt={challenge.title}
               />
               <div className="p-4">

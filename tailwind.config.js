@@ -2,6 +2,8 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    './_playground/**/*.{js,ts,jsx,tsx}',
+    './_challenges/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
     extend: {},
@@ -20,9 +22,9 @@ module.exports = {
       xl: '1280px',
       // => @media (min-width: 1280px) { ... }
 
-      '2xl': '1536px',
+      '2xl': '1536px'
       // => @media (min-width: 1536px) { ... }
-    },
+    }
   },
-  plugins: [],
-};
+  plugins: []
+}
