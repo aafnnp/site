@@ -7,8 +7,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:@next/next/recommended',
-    'standard'
+    'plugin:@next/next/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {

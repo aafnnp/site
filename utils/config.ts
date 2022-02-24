@@ -4,8 +4,7 @@ const title = [
   'Redirect',
   'Client Error',
   'Server Error',
-];
-const data = [
+], data = [
   [
     {
       key: 100,
@@ -268,6 +267,5 @@ const data = [
       value: 'Network Authentication Required',
     },
   ],
-];
-
+]
 export { title, data };
