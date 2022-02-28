@@ -4,12 +4,11 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
 import 'styles/main.scss'
-import type { AppProps } from 'next/app'
 
 const Header = dynamic(() => import('components/Header'))
 const Comments = dynamic(() => import('components/Comments'))
 
-const App = ({ Component, pageProps }:AppProps) => {
+const App = ({ Component, pageProps }) => {
   const router = useRouter()
   const url = `https://manon.icu${router.route}`
 
@@ -34,7 +33,7 @@ const App = ({ Component, pageProps }:AppProps) => {
           site_name: 'Manon | manon.icu',
           images: [
             {
-              url: 'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9oh25b.jpg',
+              url: 'https://pics-rust.vercel.app/uPic/9oh25b.jpg',
               width: 900,
               height: 900
             }
@@ -47,7 +46,7 @@ const App = ({ Component, pageProps }:AppProps) => {
         }}
       />
       <Header />
-      <div className="mx-auto sm:w-8/12 xs:w-10/12 md:w-xl lg:w-2xl">
+      <div className="mx-auto sm:w-8/12 xs:w-11/12 md:w-xl lg:w-2xl">
         <Component {...pageProps} canonical={url} key={url} />
         {router.route.startsWith('/blog') && <Comments />}
       </div>

@@ -2,12 +2,9 @@ import dayjs from 'dayjs'
 import Link from 'next/link'
 import React, { Component } from 'react'
 import { fetcher } from 'utils'
+import Image from 'components/Image'
 
-interface PageProps {
-  tag:string
-}
-
-export default class CanIUse extends Component<PageProps> {
+export default class CanIUse extends Component {
   static enums = {
     desktop: {
       Chrome: 'CDWccX.jpg',
@@ -56,8 +53,8 @@ export default class CanIUse extends Component<PageProps> {
     })
   }
 
-  getSupportData = (arr: any) => {
-    return arr.map((item: any) => {
+  getSupportData = (arr) => {
+    return arr.map((item) => {
       const firstSupportItems = Object.entries(item).find(
         (el) => el[1] === 'y'
       )
@@ -87,9 +84,7 @@ export default class CanIUse extends Component<PageProps> {
                     className="flex flex-col justify-center items-center"
                     key={key}
                   >
-                    <picture className="w-12 h-12">
-                      <img src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`} alt={key} loading="lazy"/>
-                    </picture>
+                    <Image className="w-12 h-12" src={`https://pics-rust.vercel.app/uPic/${value}`} alt={key} loading="lazy" width={48} height={48}/>
                     <span
                       className=" mt-2 block w-full text-white rounded-md text-center font-bold p-2"
                       style={{
@@ -117,9 +112,7 @@ export default class CanIUse extends Component<PageProps> {
                   className="flex flex-col justify-center items-center"
                   key={key}
                 >
-                  <picture className="w-12 h-12">
-                    <img src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/${value}`} alt={key} loading="lazy"/>
-                  </picture>
+                  <Image className="w-12 h-12" src={`https://pics-rust.vercel.app/uPic/${value}`} alt={key} loading="lazy" width={48} height={48}/>
                   <span
                     className=" mt-2 block w-full text-white rounded-md text-center font-bold p-2"
                     style={{

@@ -1,6 +1,6 @@
 import { globby } from 'globby'
 
-export const globFiles = async (dir:string) => {
+export const globFiles = async (dir) => {
   const files = await globby([dir])
   return files.reduce((acc, file) => {
     const arr = file
@@ -13,5 +13,5 @@ export const globFiles = async (dir:string) => {
       }
     })
     return acc
-  }, [] as any)
+  }, [])
 }

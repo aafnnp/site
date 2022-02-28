@@ -1,20 +1,11 @@
-import { globFiles } from 'api'
+import { globFiles } from 'api/globFiles'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import React from 'react'
 import { FaGithub, FaLink } from 'react-icons/fa'
+import Image from '../../components/Image'
 
-interface PageProps {
-  allChallenges:[]
-}
-
-interface Challenge {
-  link:string;
-  title:string;
-  group:string;
-}
-
-export default function IndexPage (props:PageProps) {
+export default function IndexPage (props) {
   const { allChallenges } = props
 
   return (
@@ -32,7 +23,7 @@ export default function IndexPage (props:PageProps) {
         initial="hidden"
         animate="visible"
       >
-        {allChallenges.map((challenge:Challenge, i:number) => {
+        {allChallenges.map((challenge, i) => {
           return (
             <motion.div
               className="shadow-lg rounded-md overflow-hidden"
@@ -49,9 +40,7 @@ export default function IndexPage (props:PageProps) {
               />
               <div className="p-4">
                 <div className="flex mb-2">
-                  <picture className="w-4 h-4">
-                    <img src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${challenge.group}.svg`} alt={challenge.group} loading="lazy"/>
-                  </picture>
+                  <Image className="w-4 h-4" src={`https://pics-rust.vercel.app/uPic/icons/${challenge.group}.svg`} alt={challenge.group} loading="lazy" width={16} height={16}/>
                   <h3 className="font-bold text-sm ml-2">{challenge.title}</h3>
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
@@ -81,7 +70,7 @@ export default function IndexPage (props:PageProps) {
 
 export async function getStaticProps () {
   const allChallenges = await globFiles('_challenges')
-  const challenges = allChallenges.map((item:{params:{slug:[group:string, title:string]}}) => {
+  const challenges = allChallenges.map((item) => {
     const {
       params: {
         slug: [group, title]

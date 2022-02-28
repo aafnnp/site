@@ -24,37 +24,24 @@ const getAllPosts = async () => {
     }
     postsArray.push(postData)
   }
-  const visiblePosts:any = postsArray
+  const visiblePosts = postsArray
     .sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date))
-    .filter((post:any) => post.data.draft !== true)
+    .filter((post) => post.data.draft !== true)
   return chunk(visiblePosts, 20)
 }
 
 // 根据slug导出文章
-const GetPostBySlug = async (slug:[]) => {
+const GetPostBySlug = async (slug) => {
   const realSlug = `${slug.join('/')}`
 
   const allPosts = await getAllPosts()
 
-  return allPosts.flat(2).find((post:any) => post.slug.includes(realSlug))
-}
-
-interface RandomPost {
-  [index:number]:{
-    data:{
-      date:string;
-      title:string;
-      tags:string[];
-      fromNow:string;
-    };
-    content:string;
-    slug:string
-  }
+  return allPosts.flat(2).find((post) => post.slug.includes(realSlug))
 }
 
 // 根据tag导出随机文章
-const GetRandomPost = async ():Promise<RandomPost> => {
-  const randomPost: any = (await getAllPosts()).flat(2)
+const GetRandomPost = async () => {
+  const randomPost = (await getAllPosts()).flat(2)
 
   return getRandomArrayElements(
     randomPost,

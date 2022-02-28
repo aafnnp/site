@@ -7,7 +7,7 @@ require('prismjs/components/prism-css')
 require('prismjs/components/prism-bash')
 require('prismjs/themes/prism-okaidia.min.css')
 
-const PostPage:React.FC = ({ children }) => {
+const PostPage =({ children }) => {
   useEffect(() => {
     const highlight = async () => {
       await Prism.highlightAll()

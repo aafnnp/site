@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Image from 'components/Image'
 import React from 'react'
 import { FaTwitter } from 'react-icons/fa'
 
@@ -7,18 +8,16 @@ export default function Header () {
   const router = useRouter()
   return (
     <div
-      className="mx-auto w-4xl sm:w-8/12 xs:w-10/12 md:w-xl lg:w-2xl flex relative justify-between items-center mb-4 z-50 text-black"
+      className="mx-auto w-4xl sm:w-8/12 xs:w-11/12 md:w-xl lg:w-2xl flex relative justify-between items-center mb-4 z-50 text-black"
       style={{ color: router.route.startsWith('/about') ? 'white' : '' }}
     >
-      <div className="flex items-center py-4">
-        <picture className="w-4 h-4 mr-2">
-          <img src="/terminal.svg" alt="Manon.icu" loading="lazy" width={16} height={16}/>
-        </picture>
+      <div className="flex items-center py-4 xs:py-2">
+        <Image className="w-4 h-4 mr-2" src="/terminal.svg" alt="Manon.icu" loading="lazy" width={16} height={16}/>
         <Link href="/">
           <a>Manon.Icu</a>
         </Link>
       </div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 xs:py-2">
         <Link href="/about">
           <a>About</a>
         </Link>

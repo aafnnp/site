@@ -1,4 +1,4 @@
-export const getRandomArrayElements = (arr: [], count: number) => {
+const getRandomArrayElements = (arr, count) => {
   const shuffled = arr.slice(0)
   let i = arr.length
   const min = i - count
@@ -14,11 +14,12 @@ export const getRandomArrayElements = (arr: [], count: number) => {
 
   return shuffled.slice(min)
 }
-// Chunk([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
-export const chunk = (arr:[], size:number) =>
+
+const chunk = (arr, size) =>
   Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
     arr.slice(i * size, i * size + size)
   )
 
-// @ts-ignore
-export const fetcher = (...args) => fetch(...args).then((res) => res.json())
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+
+export {getRandomArrayElements,chunk,fetcher}

@@ -1,7 +1,7 @@
-import { getAllPosts, GetPostBySlug } from 'api'
+import { getAllPosts, GetPostBySlug } from 'api/getAllPosts'
 import Ad from 'components/ad'
 import { Layout } from 'components/Layout'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import dynamic from 'next/dynamic'
 import ErrorPage from 'next/error'
@@ -9,8 +9,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import components from 'utils/components'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { ParsedUrlQuery } from 'querystring'
 import { getRandomArrayElements } from '../../utils'
 const codesandbox = require('remark-codesandbox')
 
@@ -18,22 +16,7 @@ const PostPage = dynamic(() => import('components/PostPage'))
 
 const Random = dynamic(() => import('components/RandomPost'))
 
-interface PageProps{
-  data:{
-    title:string,
-    description:string,
-    date:string,
-    originalUrl:string
-  },
-  mdxSource:MDXRemoteSerializeResult;
-  randomPost:[]
-}
-
-interface StaticPathParams extends ParsedUrlQuery{
-  slug: []
-}
-
-const Post = ({ data, mdxSource, randomPost }:PageProps) => {
+const Post = ({ data, mdxSource, randomPost }) => {
   const router = useRouter()
   if (!router.isFallback && !mdxSource) {
     return <ErrorPage statusCode={404} />
@@ -67,9 +50,9 @@ const Post = ({ data, mdxSource, randomPost }:PageProps) => {
   )
 }
 
-export const getStaticPaths:GetStaticPaths = async () => {
-  const allPosts: Array<any> = await getAllPosts()
-  const paths = allPosts.flat(2).map((post:{slug:string}) => ({
+export const getStaticPaths = async () => {
+  const allPosts = await getAllPosts()
+  const paths = allPosts.flat(2).map((post) => ({
     params: {
       slug: post.slug.split('/')
     }
@@ -81,9 +64,8 @@ export const getStaticPaths:GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const params = context.params as StaticPathParams
-  const { content, data }:any = await GetPostBySlug(params.slug)
+export const getStaticProps = async ({ params }) => {
+  const { content, data } = await GetPostBySlug(params.slug)
   const mdxSource = await serialize(content, {
     // Optionally pass remark/rehype plugins
     mdxOptions: {
@@ -92,7 +74,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     },
     scope: data
   })
-  const AllPost:any = (await getAllPosts()).flat(2)
+  const AllPost = (await getAllPosts()).flat(2)
   const randomPost = getRandomArrayElements(
     AllPost,
     AllPost.length < 6 ? AllPost.length - 1 : 6

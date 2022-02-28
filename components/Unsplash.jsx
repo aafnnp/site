@@ -2,12 +2,7 @@ import React from 'react'
 import useSWR from 'swr'
 import { fetcher } from 'utils'
 
-interface Props{
-  tags?: string[];
-  title:string
-}
-
-const Unsplash = ({ tags, title }:Props) => {
+const Unsplash = ({ tags, title }) => {
   const tag = tags ? 'coding' : 'coding'
   const { data, error } = useSWR(
     `https://api.unsplash.com/search/photos/?client_id=rqPMZ8Ur7rQa6x2P1oPOSziry4m5XXod9KWStukAAy4&query=${tag}`,

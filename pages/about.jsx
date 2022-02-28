@@ -7,7 +7,7 @@ export default function Index () {
     <>
       <style jsx>{`
         .about {
-          background: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/about-bg.jpg')
+          background: url('https://pics-rust.vercel.app/uPic/about-bg.jpg')
             no-repeat center center fixed;
           background-size: cover;
           color: #fff;

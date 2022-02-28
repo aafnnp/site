@@ -5,7 +5,7 @@ export default function Ad () {
   const { asPath } = useRouter()
   useEffect(() => {
     try {
-      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
+      (window.adsbygoogle = window.adsbygoogle || []).push({})
     } catch (error) {
       console.log(error)
     }

@@ -9,7 +9,7 @@ const withAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withPlugins([withMDX, withAnalyzer], {
   images: {
-    loader: 'custom',
-    domains: ['cdn.jsdelivr.net', 'images.unsplash.com']
+    loader:"custom",
+    domains: ['images.unsplash.com']
   }
 })
