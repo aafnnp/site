@@ -1,0 +1,67 @@
+---
+date: '2022-03-02 14:23:49'
+title: 'React Components & Props'
+tags: [react, javascript]
+description: 组件允许将UI拆分为独立可复用的代码片段
+---
+
+![bh2A55](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/bh2A55.jpg)
+
+## 创建 React 组件
+
+创建 React 组件有两种方式
+
+- ES6 的 class
+- function
+
+### 创建 class 组件
+
+```javascript
+import React, { Component } from 'react';
+import './App.css';
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello, World!</h1>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+- `constructor` 是类组件的构造函数，可选，通常用来初始化数据
+- `this.state` 用于维护组件内部的数据，更改`state`内容需要通过`this.setState`
+- `render` 类组件通过`render`函数返回组件显示内容
+
+### 创建 function 组件
+
+```javascript
+import React from 'react';
+import './App.css';
+
+function App(props) {
+  return (
+    <div className="App">
+      <h1>{props.msg}</h1>
+    </div>
+  );
+}
+
+export default App;
+```
+
+- 通过函数定义的组件没有什么周期
+- 没有 this（组件实例）
+- 没有内部状态（state） // hooks
+
+## Props
+
+> react 组件的 props 是不能修改的

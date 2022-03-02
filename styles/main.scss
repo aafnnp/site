@@ -11,7 +11,7 @@ body {
 // single post
 .post {
   h2 {
-    @apply relative text-xl font-bold leading-[1.78];
+    @apply relative text-xl font-bold leading-[1.78] mt-4 mb-2;
     &::before {
       position: absolute;
       display: block;
@@ -22,17 +22,13 @@ body {
     }
   }
   h3 {
-    @apply leading-[1.78] font-bold text-base underline;
+    @apply leading-[1.78] font-bold text-base underline mt-4 mb-2;
   }
   h4 {
-    @apply leading-[1.78] text-xs;
-  }
-  p,
-  .hljs {
-    @apply my-4;
+    @apply leading-[1.78] text-xs mt-4 mb-2;
   }
   p {
-    @apply leading-relaxed;
+    @apply leading-relaxed my-4;
     img {
       @apply mx-auto object-cover object-center;
     }
