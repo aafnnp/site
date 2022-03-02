@@ -12,7 +12,7 @@ export default function Header () {
       style={{ color: router.route.startsWith('/about') ? 'white' : '' }}
     >
       <div className="flex items-center py-4 xs:py-2">
-        <Image className="w-4 h-4 mr-2" src="/terminal.svg" alt="Manon.icu" loading="lazy" width={16} height={16}/>
+        <Image className="w-4 h-4 mr-2" src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/terminal.svg" alt="Manon.icu" loading="lazy" width={16} height={16}/>
         <Link href="/">
           <a>Manon.Icu</a>
         </Link>
