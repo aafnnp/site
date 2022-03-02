@@ -12,6 +12,7 @@ jobs:
         - uses: actions/setup-node@v2
         - run: yarn install
         - run: yarn run build && yarn run export
-        - run: npx sematic-release
-          env:
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        - uses: JamesIves/github-pages-deploy-action@v4.2.5
+          with:
+            branch: gh-pages
+            folder: out
