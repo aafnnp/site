@@ -10,9 +10,8 @@ jobs:
     steps:
         - uses: actions/checkout@v3
         - uses: actions/setup-node@v2
-        - run: |
-          yarn
-          yarn run build && yarn run export
-          npx sematic-release
+        - run: yarn install
+        - run: yarn run build && yarn run export
+        - run: npx sematic-release
           env:
             GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
