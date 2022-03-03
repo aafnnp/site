@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v3
-        - uses: actions/setup-node@v2
+        - uses: actions/setup-node@v3
         - run: yarn install
         - run: yarn run build && yarn run export
         - uses: JamesIves/github-pages-deploy-action@v4.2.5
