@@ -1,6 +1,5 @@
-import { Box } from '@chakra-ui/react';
-import React from 'react';
+import React from 'react'
 
-export default function FileSystem() {
-  return <Box className="battery">1111</Box>;
+export default function FileSystem () {
+  return <div className="battery">1111</div>
 }

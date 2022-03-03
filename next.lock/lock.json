@@ -1,0 +1,6 @@
+{
+  "https://cdn.esm.sh/v66/object-assign@4.1.1/es2015/object-assign.js": { "integrity": "sha512-cVeqvyMpOct97qmvB34R7+zjFM5yO4X63ZoMMWnEBWmwWBVAiBZlrbkVY/bidIvYWqOK76aDqOSJHvFeMtwYOQ==", "contentType": "text/javascript; charset=utf-8" },
+  "https://cdn.esm.sh/v66/react@17.0.2/es2015/react.js": { "integrity": "sha512-BbUJpuBoIeWVtDiACuitOFA4Jze0MrBKeEtMIT56ovSLqtWo7pO8lBhwNJ4QIObBa+jLSa2W0afVAba8ZhCuTw==", "contentType": "text/javascript; charset=utf-8" },
+  "https://esm.sh/react": { "integrity": "sha512-j2BIIrSEUAHH793HN70qkJYCW6dCfpScoY92ffAOiCXh7Jz5LhAad3He5RhxtBNjUUq9pj2bDT4Cynph9Qk5uQ==", "contentType": "application/javascript; charset=utf-8" },
+  "version": 1
+}

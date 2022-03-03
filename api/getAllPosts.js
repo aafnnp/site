@@ -1,50 +1,52 @@
-import fs from 'fs';
-import { globby } from 'globby';
-import matter from 'gray-matter';
-import { chunk, getRandomArrayElements } from 'utils/index';
-const dayjs = require('dayjs');
-const relativeTime = require('dayjs/plugin/relativeTime');
+import fs from 'fs'
+import { globby } from 'globby'
+import matter from 'gray-matter'
+import { chunk, getRandomArrayElements } from 'utils'
+const dayjs = require('dayjs')
+const relativeTime = require('dayjs/plugin/relativeTime')
 
-dayjs.extend(relativeTime);
+dayjs.extend(relativeTime)
 
-export const getAllPosts = async () => {
-  const posts = await globby(['_posts']);
-  const postsArray = [];
+const getAllPosts = async () => {
+  const posts = await globby(['_posts'])
+  const postsArray = []
   for await (const post of posts) {
-    const fileContents = fs.readFileSync(post, 'utf8');
-    const { data, content } = matter(fileContents);
+    const fileContents = fs.readFileSync(post, 'utf8')
+    const { data, content } = matter(fileContents)
     const postData = {
       data: {
         ...data,
         date: dayjs(data.date).format('MMMM D, YYYY'),
-        fromNow: dayjs(data.date).fromNow(),
+        fromNow: dayjs(data.date).fromNow()
       },
       content,
-      slug: post.replace(/^_posts\//, '').replace(/\.mdx$/, ''),
-    };
-    postsArray.push(postData);
+      slug: post.replace(/^_posts\//, '').replace(/\.mdx$/, '')
+    }
+    postsArray.push(postData)
   }
   const visiblePosts = postsArray
     .sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date))
-    .filter((post) => post.data.draft !== true);
-  return chunk(visiblePosts, 20);
-};
+    .filter((post) => post.data.draft !== true)
+  return chunk(visiblePosts, 20)
+}
 
 // 根据slug导出文章
-export const GetPostBySlug = async (slug) => {
-  const realslug = `${slug.join('/')}`;
+const GetPostBySlug = async (slug) => {
+  const realSlug = `${slug.join('/')}`
 
-  const allPosts = await getAllPosts();
+  const allPosts = await getAllPosts()
 
-  return allPosts.flat(2).find((post) => post.slug.includes(realslug));
-};
+  return allPosts.flat(2).find((post) => post.slug.includes(realSlug))
+}
 
 // 根据tag导出随机文章
-export const GetRandomPost = async () => {
-  const randomPost = (await getAllPosts()).flat(2);
+const GetRandomPost = async () => {
+  const randomPost = (await getAllPosts()).flat(2)
 
   return getRandomArrayElements(
     randomPost,
     randomPost.length < 6 ? randomPost.length - 1 : 6
-  );
-};
+  )
+}
+
+export { getAllPosts, GetPostBySlug, GetRandomPost }

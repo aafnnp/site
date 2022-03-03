@@ -1,115 +1,90 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Heading,
-  Image,
-  Link,
-  useBreakpointValue,
-} from '@chakra-ui/react';
-import { getAllChallenges } from 'api/getAllChallenges';
-import { motion } from 'framer-motion';
-import React from 'react';
-import { FaGithub, FaLink } from 'react-icons/fa';
-const MotionHeading = motion(Heading);
-const MotionGrid = motion(Grid);
-const MotionBox = motion(Box);
+import { globFiles } from 'api/globFiles'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import React from 'react'
+import { FaGithub, FaLink } from 'react-icons/fa'
+import Image from '../../components/Image'
 
-export default function IndexPage(props) {
-  const { allChallenges } = props;
-  const gridPoints = useBreakpointValue({
-    base: 'repeat(1, 1fr)',
-    xs: 'repeat(2,1fr)',
-    sm: 'repeat(2,1fr)',
-    md: 'repeat(3,1fr)',
-    lg: 'repeat(4,1fr)',
-    xl: 'repeat(4,1fr)',
-  });
+export default function IndexPage (props) {
+  const { allChallenges } = props
+
   return (
-    <Box pb={4}>
-      <MotionHeading
-        as="h1"
-        mb={4}
-        textAlign="center"
+    <div className="pb-4">
+      <motion.h1
+        className="mb-12 text-center text-4xl font-bold"
         animate={{ x: 0, opacity: 1 }}
         initial={{ x: -100, opacity: 0 }}
         transition={{ ease: 'easeOut', duration: 0.5 }}
       >
         Challenges
-      </MotionHeading>
-      <MotionGrid
-        templateColumns={gridPoints}
-        gap={6}
+      </motion.h1>
+      <motion.div
+        className="grid gap-4 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3"
         initial="hidden"
         animate="visible"
       >
         {allChallenges.map((challenge, i) => {
           return (
-            <MotionBox
+            <motion.div
+              className="shadow-lg rounded-md overflow-hidden"
               key={challenge.link}
               custom={i}
-              boxShadow="lg"
-              rounded="md"
-              overflow="hidden"
               animate={{ y: 0, opacity: 1 }}
               initial={{ y: 100, opacity: 0 }}
               transition={{ ease: 'easeOut', duration: 0.5, delay: i * 0.1 }}
             >
-              <Image
+              <img
                 className="flex-none rounded-l-md"
-                src={`/screenshots/${challenge.title}.png`}
+                src={`/screenshots/${challenge.title}.webp`}
                 alt={challenge.title}
               />
-              <Box p={4}>
-                <Box display="flex" mb={2}>
-                  <Image
-                    boxSize={18}
-                    alt={challenge.group}
-                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${challenge.group}.svg`}
-                  />
-                  <Heading as="h3" fontSize="sm" fontWeight="bold" ml={1.5}>
-                    {challenge.title}
-                  </Heading>
-                </Box>
-                <Grid templateColumns="repeat(2,1fr)" gap={4}>
-                  <Button size="sm" leftIcon={<FaLink />}>
-                    <Link href={challenge.link}>Link</Link>
-                  </Button>
-                  <Button size="sm" leftIcon={<FaGithub />}>
-                    <Link
-                      isExternal
-                      href={`https://github.com/Manonicu/site/tree/master/_challenges/${challenge.group}/${challenge.title}.jsx`}
-                    >
+              <div className="p-4">
+                <div className="flex mb-2">
+                  <Image className="w-4 h-4" src={`https://pics-rust.vercel.app/uPic/icons/${challenge.group}.svg`} alt={challenge.group} loading="lazy" width={16} height={16}/>
+                  <h3 className="font-bold text-sm ml-2">{challenge.title}</h3>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <Link href={challenge.link}>
+                    <a className="py-2 flex items-center justify-center text-gray-900 bg-gray-300 hover:bg-gray-600 hover:text-white rounded-md">
+                      <FaLink className="mr-2" />
+                      Link
+                    </a>
+                  </Link>
+                  <Link
+                    href={`https://github.com/Manonicu/site/tree/master/_challenges/${challenge.group}/${challenge.title}.jsx`}
+                  >
+                    <a className="py-2 flex items-center justify-center text-white bg-sky-300 hover:bg-sky-600 rounded-md">
+                      <FaGithub className="mr-2" />
                       Source
-                    </Link>
-                  </Button>
-                </Grid>
-              </Box>
-            </MotionBox>
-          );
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )
         })}
-      </MotionGrid>
-    </Box>
-  );
+      </motion.div>
+    </div>
+  )
 }
 
-export async function getStaticProps() {
-  const allChallenges = await getAllChallenges();
+export async function getStaticProps () {
+  const allChallenges = await globFiles('_challenges')
   const challenges = allChallenges.map((item) => {
     const {
       params: {
-        slug: [group, title],
-      },
-    } = item;
+        slug: [group, title]
+      }
+    } = item
     return {
       title: title,
       group: group,
-      link: `/challenges/${group}/${title}`,
-    };
-  });
+      link: `/challenges/${group}/${title}`
+    }
+  })
   return {
     props: {
-      allChallenges: challenges,
-    },
-  };
+      allChallenges: challenges
+    }
+  }
 }

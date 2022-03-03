@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import React from 'react';
-import styled from 'styled-components';
+import Link from 'next/link'
+import React from 'react'
+import styled from 'styled-components'
 
-export default function Index() {
+export default function ErrorPage() {
   return (
     <Wrapper>
       <div className="page-not-found">
@@ -10,7 +10,7 @@ export default function Index() {
         <div className="page-not-found-content">
           <div className="slogan">
             <img
-              src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Scarecrow.png"
+              src="https://pics-rust.vercel.app/uPic/Scarecrow.png"
               alt="404 not found"
             />
           </div>
@@ -28,7 +28,7 @@ export default function Index() {
         </div>
       </div>
     </Wrapper>
-  );
+  )
 }
 
 const Wrapper = styled.div`
@@ -188,4 +188,4 @@ const Wrapper = styled.div`
       font-weight: 500;
     }
   }
-`;
+`

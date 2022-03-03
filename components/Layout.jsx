@@ -1,7 +1,11 @@
-import { NextSeo } from 'next-seo';
-import React from 'react';
+import { NextSeo } from 'next-seo'
+import React from 'react'
 
-const Layout = ({ children, title, description }) => {
+export const Layout = ({
+  children,
+  title,
+  description
+}) => {
   return (
     <>
       <NextSeo
@@ -11,7 +15,5 @@ const Layout = ({ children, title, description }) => {
       />
       {children}
     </>
-  );
-};
-
-export default Layout;
+  )
+}

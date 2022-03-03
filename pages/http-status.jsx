@@ -1,48 +1,37 @@
-import { Box, Heading, HStack, Link, Text } from '@chakra-ui/react';
-import React from 'react';
-import { data, title } from 'utils/config';
+import Link from 'next/link'
+import React from 'react'
+import { data, title } from 'utils/config'
 
-export default function HttpStatus() {
+const HttpStatus = () => {
   return (
-    <Box>
-      <Heading as="h1" mb={4}>
-        HTTP状态代码概述
-      </Heading>
+    <div className="http-status">
+      <h1>HTTP状态代码概述</h1>
 
       {data.map((item, key) => (
-        <Box boxShadow="xl" key={key} p={4} mb={4} rounded="md">
-          <Heading as="h2" mb={2}>
-            <HStack>
-              <Text>{key + 1}xx</Text>
-              <Text pl={4}>{title[key]}</Text>
-            </HStack>
-          </Heading>
+        <div className="http-status-item" key={key}>
+          <h2>
+            <span>{key + 1}xx</span>
+            <span>{title[key]}</span>
+          </h2>
 
           {item.map((el) => (
-            <Box py={2} key={el.key}>
-              <Link
-                href={`https://www.abstractapi.com/http-status-codes/${el.key}`}
-                color="purple.500"
-              >
-                <HStack>
-                  <Text
-                    px={2}
-                    py={1}
-                    backgroundColor="purple.500"
-                    rounded="md"
-                    color="white"
-                    fontSize="xs"
-                  >
-                    {el.key}
-                  </Text>
-                  <Text>-</Text>
-                  <Text>{el.value}</Text>
-                </HStack>
-              </Link>
-            </Box>
+            <Link
+              key={el.key}
+              href={`https://www.abstractapi.com/http-status-codes/${el.key}`}
+            >
+              <a>
+                <span className="px-2 py-1 bg-purple-500 rounded-md text-white text-xs">
+                  {el.key}
+                </span>
+                <span>-</span>
+                <span className="text-purple-600">{el.value}</span>
+              </a>
+            </Link>
           ))}
-        </Box>
+        </div>
       ))}
-    </Box>
-  );
+    </div>
+  )
 }
+
+export default HttpStatus

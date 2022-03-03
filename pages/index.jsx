@@ -1,100 +1,57 @@
-import {
-  Box,
-  Center,
-  Grid,
-  HStack,
-  Image,
-  Link,
-  Text,
-  useBreakpointValue,
-} from '@chakra-ui/react';
-import { Pagination } from '@nextui-org/react';
 import { getAllPosts } from 'api/getAllPosts';
-import Layout from 'components/Layout';
-import React from 'react';
+import { Layout } from 'components/Layout';
+import Image from 'components/Image';
+import Link from 'next/link';
+import React, { useState } from 'react';
 
-export default function IndexPage(props) {
-  const [curPage, setCurPage] = React.useState(1);
-  const postList = props.posts[curPage - 1];
+export default function IndexPage({ posts }) {
+  const [curPage, setCurPage] = useState(1);
+  const postList = posts[curPage - 1];
 
-  const breakpoints = useBreakpointValue({
-    base: {
-      columns: '100%',
-      gap: 0,
-      display: 'none',
-    },
-    xs: {
-      columns: '100%',
-      gap: 0,
-      display: 'none',
-    },
-    sm: {
-      columns: '100%',
-      gap: 0,
-      display: 'none',
-    },
-    md: {
-      columns: '100%',
-      gap: 0,
-      display: 'none',
-    },
-    xl: {
-      columns: '30% auto',
-      gap: 6,
-      display: 'block',
-    },
-    lg: {
-      columns: '30% auto',
-      gap: 6,
-      display: 'block',
-    },
-  });
   return (
     <Layout>
-      {postList.map((item) => {
-        const { slug, data } = item;
+      {postList.map(({ slug, data }) => {
         return (
-          <Grid
-            templateColumns={breakpoints?.columns || '100%'}
-            gap={breakpoints?.gap || 0}
-            key={item.slug}
-            py={2}
+          <div
+            className="grid grid-cols-[30%_auto] gap-4 py-2 xs:py-1 xs:grid-cols-1 sm:grid-cols-[25%_auto] md:grid-cols-[30%_auto] xs:text-sm sm:text-sm md:text-base lg:text-base xl:text-base"
+            key={slug}
           >
-            <Box
-              width="100%"
-              color="gray"
-              textAlign="right"
-              display={breakpoints?.display || 'none'}
-            >
-              <Text color="gray.500" isTruncated>
-                {data.date}
-              </Text>
-            </Box>
-            <Box width="100%">
-              <HStack>
-                <Link href={`/blog/${slug}`}>{data.title}</Link>
-                {data.tags?.map((tag) => (
-                  <Image
-                    boxSize="1rem"
-                    alt={tag}
-                    key={tag}
-                    htmlWidth="1rem"
-                    htmlHeight="1rem"
-                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
-                  />
-                ))}
-              </HStack>
-            </Box>
-          </Grid>
+            <div className="text-gray-500 text-right xs:hidden sm:block">
+              {data.date}
+            </div>
+            <div className="flex gap-2 items-center">
+              <Link href={`/blog/${slug}`}>
+                <a className="max-w-[90%] whitespace-nowrap text-ellipsis overflow-hidden">
+                  {data.title}
+                </a>
+              </Link>
+              {data.tags?.map((tag) => (
+                <Image
+                  className="w-4 h-4"
+                  key={tag}
+                  src={`https://pics-rust.vercel.app/uPic/icons/${tag}.svg`}
+                  alt={tag}
+                  width={16}
+                  height={16}
+                />
+              ))}
+            </div>
+          </div>
         );
       })}
-      <Center py={4}>
-        <Pagination
-          total={props.posts.length}
-          initialPage={curPage}
-          onChange={(page) => setCurPage(page)}
-        />
-      </Center>
+      <div className="pagination">
+        {Array(posts.length)
+          .fill(0)
+          .map((_, index) => (
+            <span
+              className={curPage === index + 1 ? 'active' : ''}
+              key={index}
+              onClick={() => setCurPage(index + 1)}
+            >
+              {index + 1}
+            </span>
+          ))}
+      </div>
     </Layout>
   );
 }

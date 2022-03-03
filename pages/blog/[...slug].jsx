@@ -1,105 +1,92 @@
-import { Alert, Box, Heading, HStack, Link, Text } from '@chakra-ui/react';
-import { getAllPosts, GetPostBySlug, GetRandomPost } from 'api/getAllPosts';
-import Ad from 'components/ad';
-import Layout from 'components/Layout';
-import matter from 'gray-matter';
-import { MDXRemote } from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
-import dynamic from 'next/dynamic';
-import ErrorPage from 'next/error';
-import { useRouter } from 'next/router';
-import React from 'react';
-import components from 'utils/components';
-import { v4 as uuidv4 } from 'uuid';
+import { getAllPosts, GetPostBySlug } from 'api/getAllPosts'
+import Ad from 'components/ad'
+import { Layout } from 'components/Layout'
+import { MDXRemote } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
+import dynamic from 'next/dynamic'
+import ErrorPage from 'next/error'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React from 'react'
+import components from 'utils/components'
+import { getRandomArrayElements } from '../../utils'
+const codesandbox = require('remark-codesandbox')
 
-const UnsplashImage = dynamic(() => import('components/Unsplash'));
-const PostPage = dynamic(() => import('components/PostPage'));
+const PostPage = dynamic(() => import('components/PostPage'))
 
-const Random = dynamic(() => import('components/RandomPost'));
+const Random = dynamic(() => import('components/RandomPost'))
 
-function Post({ data, content, randomPost }) {
-  const router = useRouter();
-
-  if (!router.isFallback && !content) {
-    return <ErrorPage statusCode={404} />;
+const Post = ({ data, mdxSource, randomPost }) => {
+  const router = useRouter()
+  if (!router.isFallback && !mdxSource) {
+    return <ErrorPage statusCode={404} />
   }
   return (
     <Layout title={data.title} description={data.description}>
-      <Heading as="h1">{data.title}</Heading>
-      <HStack color="gray.500" fontSize="12px">
-        <Text>{data.date}</Text>
-        <Text>Published {data.fromNow}</Text>
-      </HStack>
+      <hgroup className="text-center">
+        <p className="text-gray-500 text-xs">Published {data.date}</p>
+        <h1 className="mt-4 mb-8 text-4xl font-bold">{data.title}</h1>
+      </hgroup>
 
-      <Box>
-        <UnsplashImage {...data} />
-      </Box>
-      <Box fontSize="sm">
-        <PostPage>
-          <MDXRemote {...content} components={components} />
-          {data.originUrl && (
-            <Alert
-              status="info"
-              display="grid"
-              gridTemplateColumns="100px auto"
-              alignItems="start"
-            >
-              本文翻译自：<Link href={data.originUrl}>{data.originUrl}</Link>
-            </Alert>
-          )}
-        </PostPage>
-        <Box>
-          <Ad key={uuidv4()}>
-            <ins
-              className="adsbygoogle"
-              style={{ display: 'block' }}
-              data-ad-client="ca-pub-3854566314387093"
-              data-ad-slot="9901453595"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            ></ins>
-          </Ad>
-        </Box>
-        <Random data={randomPost} />
-      </Box>
+      {/* 头部广告 */}
+      <Ad/>
+      {/* 头部广告结束 */}
+      <PostPage>
+        <MDXRemote {...mdxSource} components={components}/>
+        {data.originalUrl && (
+          <div className="text-gray-500">
+            本文翻译自：
+            <Link href={data.originalUrl}>
+              <a>{data.originalUrl}</a>
+            </Link>
+          </div>
+        )}
+      </PostPage>
+      {/* 底部广告 */}
+      <Ad/>
+      {/* 底部广告结束 */}
+      <Random randomPost={randomPost}/>
     </Layout>
-  );
+  )
 }
 
-export async function getStaticPaths() {
-  const allPosts = await getAllPosts();
+export const getStaticPaths = async () => {
+  const allPosts = await getAllPosts()
   const paths = allPosts.flat(2).map((post) => ({
     params: {
-      slug: post.slug.split('/'),
-    },
-  }));
+      slug: post.slug.split('/')
+    }
+  }))
 
   return {
     paths,
-    fallback: false,
-  };
+    fallback: false
+  }
 }
 
-export async function getStaticProps({ params }) {
-  const source = await GetPostBySlug(params.slug);
-  const randomPost = await GetRandomPost();
-  const { content, data } = matter(source);
+export const getStaticProps = async ({ params }) => {
+  const { content, data } = await GetPostBySlug(params.slug)
   const mdxSource = await serialize(content, {
     // Optionally pass remark/rehype plugins
     mdxOptions: {
-      remarkPlugins: [],
-      rehypePlugins: [],
+      remarkPlugins: [[codesandbox, { mode: 'button' }]],
+      rehypePlugins: []
     },
-    scope: data,
-  });
+    scope: data
+  })
+  const AllPost = (await getAllPosts()).flat(2)
+  const randomPost = getRandomArrayElements(
+    AllPost,
+    AllPost.length < 6 ? AllPost.length - 1 : 6
+  )
 
   return {
     props: {
       data,
-      content: mdxSource,
-      randomPost,
-    },
-  };
+      mdxSource,
+      randomPost
+    }
+  }
 }
 
-export default Post;
+export default Post

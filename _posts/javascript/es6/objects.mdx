@@ -1,7 +1,103 @@
 ---
-date: '2021-11-20'
-title: 'Numbers'
-tags: [python]
-draft: true
-description: '关于数学运算'
+date: '2022-01-08 10:10:25'
+title: 'Objects'
+tags: [javascript]
 ---
+
+## Objects
+
+- 对象是一组插槽（键值条目）
+- 公共插槽称为属性
+  - 属性`key`只能是`string`或者`symbol`
+- 私有插槽称为私有方法，只能通过`class`创建
+
+![1ayzHnjKYTA2F5s](https://s2.loli.net/2022/01/08/1ayzHnjKYTA2F5s.jpg)
+
+### 单个对象 - Single objects
+
+```javascript
+// 创建object
+const obj = {
+  name: 'John',
+  age: 30,
+  isAdmin: false,
+  sayHi() {
+    console.log('Hi');
+  },
+  [Symbol.toStringTag]: 'Person',
+};
+obj.name; // John
+obj.age; // 30
+obj.isAdmin; // false
+obj.sayHi(); // Hi
+obj.toString(); // [object Object]
+
+// 解构object
+const original = {
+  a: 1,
+  b: {
+    c: 3,
+  },
+};
+const modified = {
+  ...original,
+  d: 4,
+}; // { a: 1, b: { c: 3 }, d: 4 }
+
+// 解构合并
+const DEFAULTS = { alpha: 'a', beta: 'b' };
+const providedData = { alpha: 1 };
+const allData = { ...DEFAULTS, ...providedData }; // {alpha: 1, beta: 'b'}
+
+// `Object.assign`合并对象
+const target = { a: 1 };
+
+const result = Object.assign(target, { b: 2 }, { c: 3, b: true }); // { a: 1, b: true, c: 3 }
+```
+
+### 原型链 - Prototype chain
+
+原型是 `JavaScript` 的基本继承机制。甚至 `class` 也基于此。每个对象都有 `null` 或一个对象作为其原型。
+
+```javascript
+const obj1 = Object.create(null); // 创建一个没有原型的对象
+Object.getPrototypeOf(obj1) === null; // true
+
+const proto = {
+  protoProp: 'protoProp',
+};
+const obj2 = {
+  __proto__: proto, // 将proto设置为obj2的原型
+  objProp: 'objProp',
+};
+Object.getPrototypeOf(obj2) === proto; // true
+```
+
+每个对象都继承原型的所有属性，包括不可枚举的属性。
+
+```javascript
+obj2.protoProp; // protoProp
+Reflect.ownKeys(obj2); // ['objProp', '__proto__']
+```
+
+对象的非继承属性，可以通过 `Object.getOwnPropertyDescriptor()` 获取。
+
+### getters & setters
+
+通过`get`和`set`方法，可以设置和获取对象的属性。
+
+```javascript
+const jane = {
+  first: 'Jane',
+  last: 'Doe',
+  get full() {
+    return `${this.first} ${this.last}`;
+  },
+  set full(fullName) {
+    const parts = fullName.split(' ');
+    this.first = parts[0];
+    this.last = parts[1];
+  },
+};
+jane.full; // Jane Doe
+```

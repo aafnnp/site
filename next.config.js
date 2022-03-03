@@ -1,12 +1,15 @@
-const withPlugins = require('next-compose-plugins');
-const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: false });
+const withPlugins = require('next-compose-plugins')
 
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx$/,
-});
+  extension: /\.mdx$/
+})
+const withAnalyzer = require('@next/bundle-analyzer')({
+  enabled: false
+})
 
-module.exports = withPlugins([withBundleAnalyzer, withMDX], {
+module.exports = withPlugins([withMDX, withAnalyzer], {
   images: {
-    domains: ['cdn.jsdelivr.net'],
-  },
-});
+    loader:"custom",
+    domains: ['images.unsplash.com']
+  }
+})

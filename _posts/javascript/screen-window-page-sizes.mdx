@@ -1,0 +1,76 @@
+---
+date: '2021-12-27 18:03:00'
+title: '如何获取 Screen、Window、Page 等组件的宽高？'
+tags: [javascript]
+originalUrl: https://dmitripavlutin.com/screen-window-page-sizes/
+---
+
+## 屏幕
+
+### 屏幕大小
+
+> 屏幕尺寸是屏幕的宽度和高度: 显示器、手机等设备屏幕。
+
+![Screen Size](https://pics-rust.vercel.app/uPic/OrJAie.jpg)
+
+`window.screen` 属性可以获取屏幕尺寸，其中包含屏幕的宽度和高度，以像素为单位。
+
+```javascript
+const screenWidth = window.screen.width;
+const screenHeight = window.screen.height;
+```
+
+### 可用屏幕大小
+
+> 可用屏幕尺寸是屏幕的宽度和高度，不包含任何系统窗口，以像素为单位。
+
+![Available Screen Size](https://pics-rust.vercel.app/uPic/nYbW0L.jpg)
+
+```javascript
+const availableScreenWidth = window.screen.availWidth;
+const availableScreenHeight = window.screen.availHeight;
+```
+
+## 视窗
+
+### 视窗外部宽高
+
+> 窗口的外部大小由整个浏览器窗口的宽度和高度组成，包括地址栏、标签栏和其他浏览器面板。
+
+![Window Outer Size](https://pics-rust.vercel.app/uPic/8muma1.jpg)
+
+使用`outerWidth`和`outerHeight`可以获取窗口的外部宽高，以像素为单位。
+
+```javascript
+const windowOuterWidth = window.outerWidth;
+const windowOuterHeight = window.outerHeight;
+```
+
+### 视窗内部大小
+
+> 视窗的内部大小由整个浏览器窗口的宽度和高度组成，不包括地址栏、标签栏和其他浏览器面板。
+
+![Window Inner Size](https://pics-rust.vercel.app/uPic/YHT2o8.jpg)
+
+使用`innerWidth`和`innerHeight`可以获取窗口的内部宽高，以像素为单位。
+
+```javascript
+const windowInnerWidth = window.innerWidth;
+const windowInnerHeight = window.innerHeight;
+
+/*不包含滚动条*/
+const windowInnerWidth = document.documentElement.clientWidth;
+const windowInnerHeight = document.documentElement.clientHeight;
+```
+
+## 页面大小
+
+> 页面大小是页面内容的宽度和高度(不包含边框、边距和滚动条)。
+
+![Page Size](https://pics-rust.vercel.app/uPic/Bk8qhy.jpg)
+
+```javascript
+const pageWidth = document.documentElement.scrollWidth;
+const pageHeight = document.documentElement.scrollHeight;
+// 如果 pageHeight 大于 window.innerHeight，则页面会出现横向滚动条
+```

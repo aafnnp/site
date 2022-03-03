@@ -1,22 +1,19 @@
-import hljs from 'highlight.js';
-import 'highlight.js/styles/base16/default-dark.css';
-import React from 'react';
-export default class PostPage extends React.Component {
-  componentDidMount() {
-    this.updateCodeSyntaxHighlighting();
-  }
+import React, { useEffect } from 'react'
+import Prism from 'prismjs'
+require('prismjs/components/prism-go')
+require('prismjs/components/prism-python')
+require('prismjs/components/prism-javascript')
+require('prismjs/components/prism-css')
+require('prismjs/components/prism-bash')
+require('prismjs/themes/prism-okaidia.min.css')
 
-  componentDidUpdate() {
-    this.updateCodeSyntaxHighlighting();
-  }
-
-  updateCodeSyntaxHighlighting() {
-    document.querySelectorAll('pre code').forEach((el) => {
-      hljs.highlightElement(el);
-    });
-  }
-
-  render() {
-    return <>{this.props.children}</>;
-  }
+const PostPage =({ children }) => {
+  useEffect(() => {
+    const highlight = async () => {
+      await Prism.highlightAll()
+    }
+    highlight().then(() => {})
+  }, [children])
+  return (<div className="post text-sm">{children}</div>)
 }
+export default PostPage
