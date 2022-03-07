@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import React from 'react'
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import React from 'react';
 
-export default function Index () {
+export default function Index() {
   return (
     <>
       <style jsx>{`
@@ -20,7 +20,7 @@ export default function Index () {
             animate={{ x: 0, opacity: 1 }}
             initial={{
               x: -100,
-              opacity: 0
+              opacity: 0,
             }}
             transition={{ ease: 'easeOut', duration: 1.5 }}
           >
@@ -31,7 +31,7 @@ export default function Index () {
             animate={{ x: 0, opacity: 1 }}
             initial={{
               x: -100,
-              opacity: 0
+              opacity: 0,
             }}
             transition={{ ease: 'easeOut', duration: 1.5, delay: 0.8 }}
           >
@@ -47,7 +47,7 @@ export default function Index () {
                 animate={{ y: 0, opacity: 1 }}
                 initial={{
                   y: 100,
-                  opacity: 0
+                  opacity: 0,
                 }}
                 transition={{ ease: 'easeOut', duration: 1.5, delay: 0.8 }}
               >
@@ -70,5 +70,5 @@ export default function Index () {
         </div>
       </div>
     </>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
-export default function Index () {
+export default function Index() {
   return (
     <Wrapper>
       <div className="wrap-404">
@@ -40,7 +40,7 @@ export default function Index () {
         </div>
       </div>
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.div`
@@ -357,4 +357,4 @@ const Wrapper = styled.div`
       transform: translateX(36%) scale(0.5);
     }
   }
-`
+`;

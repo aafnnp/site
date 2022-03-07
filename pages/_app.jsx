@@ -1,16 +1,16 @@
-import { NextSeo } from 'next-seo'
-import dynamic from 'next/dynamic'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import React from 'react'
-import 'styles/main.scss'
+import { NextSeo } from 'next-seo';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import React from 'react';
+import 'styles/main.scss';
 
-const Header = dynamic(() => import('components/Header'))
-const Comments = dynamic(() => import('components/Comments'))
+const Header = dynamic(() => import('components/Header'));
+const Comments = dynamic(() => import('components/Comments'));
 
 const App = ({ Component, pageProps }) => {
-  const router = useRouter()
-  const url = `https://manon.icu${router.route}`
+  const router = useRouter();
+  const url = `https://manon.icu${router.route}`;
 
   return (
     <>
@@ -35,14 +35,14 @@ const App = ({ Component, pageProps }) => {
             {
               url: 'https://pics-rust.vercel.app/uPic/9oh25b.jpg',
               width: 900,
-              height: 900
-            }
-          ]
+              height: 900,
+            },
+          ],
         }}
         canonical={url}
         twitter={{
           handle: '@Manonicu',
-          cardType: 'summary_large_image'
+          cardType: 'summary_large_image',
         }}
       />
       <Header />
@@ -51,7 +51,7 @@ const App = ({ Component, pageProps }) => {
         {router.route.startsWith('/blog') && <Comments />}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -10,8 +10,7 @@ export default function IndexPage({ posts }) {
 
   return (
     <Layout>
-      {postList.map(({ slug, data }) => {
-        return (
+      {postList.map(({ slug, data }) => (
           <div
             className="grid grid-cols-[30%_auto] gap-4 py-2 xs:py-1 xs:grid-cols-1 sm:grid-cols-[25%_auto] md:grid-cols-[30%_auto] xs:text-sm sm:text-sm md:text-base lg:text-base xl:text-base"
             key={slug}
@@ -37,8 +36,7 @@ export default function IndexPage({ posts }) {
               ))}
             </div>
           </div>
-        );
-      })}
+      ))}
       <div className="pagination">
         {Array(posts.length)
           .fill(0)

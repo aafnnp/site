@@ -1,12 +1,12 @@
-import { globFiles } from 'api/globFiles'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import React from 'react'
-import { FaGithub, FaLink } from 'react-icons/fa'
-import Image from '../../components/Image'
+import { globFiles } from 'api/globFiles';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import React from 'react';
+import { FaGithub, FaLink } from 'react-icons/fa';
+import Image from '../../components/Image';
 
-export default function IndexPage (props) {
-  const { allChallenges } = props
+export default function IndexPage(props) {
+  const { allChallenges } = props;
 
   return (
     <div className="pb-4">
@@ -23,8 +23,7 @@ export default function IndexPage (props) {
         initial="hidden"
         animate="visible"
       >
-        {allChallenges.map((challenge, i) => {
-          return (
+        {allChallenges.map((challenge, i) => (
             <motion.div
               className="shadow-lg rounded-md overflow-hidden"
               key={challenge.link}
@@ -61,30 +60,29 @@ export default function IndexPage (props) {
                 </div>
               </div>
             </motion.div>
-          )
-        })}
+        ))}
       </motion.div>
     </div>
-  )
+  );
 }
 
-export async function getStaticProps () {
-  const allChallenges = await globFiles('_challenges')
+export async function getStaticProps() {
+  const allChallenges = await globFiles('_challenges');
   const challenges = allChallenges.map((item) => {
     const {
       params: {
-        slug: [group, title]
-      }
-    } = item
+        slug: [group, title],
+      },
+    } = item;
     return {
-      title: title,
-      group: group,
-      link: `/challenges/${group}/${title}`
-    }
-  })
+      title,
+      group,
+      link: `/challenges/${group}/${title}`,
+    };
+  });
   return {
     props: {
-      allChallenges: challenges
-    }
-  }
+      allChallenges: challenges,
+    },
+  };
 }

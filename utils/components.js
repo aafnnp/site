@@ -1,7 +1,7 @@
-import CanIUse from 'components/CanIUse'
+import CanIUse from 'components/CanIUse';
 
 const components = {
-  CanIUse
-}
+  CanIUse,
+};
 
-export default components
+export default components;
