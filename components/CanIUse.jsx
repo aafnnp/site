@@ -1,8 +1,8 @@
-import dayjs from 'dayjs'
 import Link from 'next/link'
+import dynamic from 'next/dynamic';
 import React, { Component } from 'react'
-import { fetcher } from 'utils'
-import Image from 'components/Image'
+
+const Image = dynamic(()=>import('components/Image'))
 
 export default class CanIUse extends Component {
   static enums = {
@@ -28,27 +28,30 @@ export default class CanIUse extends Component {
   };
 
   componentDidMount () {
-    fetcher(
-      'https://raw.githubusercontent.com/Fyrd/caniuse/main/data.json'
-    ).then((res) => {
-      const {
-        stats: {
-          chrome,
-          firefox,
-          ie,
-          edge,
-          safari,
-          and_chr,
-          and_ff,
-          android,
-          ios_saf
-        }
-      } = res.data[this.props.tag]
-
-      this.setState({
-        desktop: this.getSupportData([chrome, firefox, ie, edge, safari]),
-        mobile: this.getSupportData([and_chr, and_ff, android, ios_saf]),
-        updateTime: dayjs(res.data.updated).format('YYYY-MM-DD HH:mm:ss')
+    import('utils').then(({fetcher})=>{
+      fetcher(
+        'https://raw.githubusercontent.com/Fyrd/caniuse/main/data.json'
+      ).then((res) => {
+        const {
+          stats: {
+            chrome,
+            firefox,
+            ie,
+            edge,
+            safari,
+            and_chr,
+            and_ff,
+            android,
+            ios_saf
+          }
+        } = res.data[this.props.tag]
+        import('dayjs').then(dayjs=>{
+          this.setState({
+            desktop: this.getSupportData([chrome, firefox, ie, edge, safari]),
+            mobile: this.getSupportData([and_chr, and_ff, android, ios_saf]),
+            updateTime: dayjs.default(res.data.updated).format('YYYY-MM-DD HH:mm:ss')
+          })
+        })
       })
     })
   }

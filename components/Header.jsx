@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Image from 'components/Image'
 import React from 'react'
 import { FaTwitter } from 'react-icons/fa'
+import dynamic from 'next/dynamic';
+
+const Image = dynamic(()=>import('components/Image'))
 
 export default function Header () {
   const router = useRouter()

@@ -1,10 +1,11 @@
-import { getAllPosts } from 'api/getAllPosts';
-import { Layout } from 'components/Layout';
-import Image from 'components/Image';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 
-export default function IndexPage({ posts }) {
+const Layout = dynamic(()=>import('components/Layout'))
+const Image = dynamic(()=>import('components/Image'))
+
+const IndexPage = ({ posts }) =>{
   const [curPage, setCurPage] = useState(1);
   const postList = posts[curPage - 1];
 
@@ -56,7 +57,10 @@ export default function IndexPage({ posts }) {
   );
 }
 
+export default IndexPage
+
 export async function getStaticProps() {
+  const { getAllPosts } = await import('api/getAllPosts')
   const posts = await getAllPosts();
 
   return {

@@ -1,4 +1,3 @@
-import { globFiles } from 'api/globFiles'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
@@ -10,7 +9,8 @@ export default function Playground (props) {
   return <CustomComponent />
 }
 
-export async function getStaticPaths () {
+export const getStaticPaths = async () => {
+  const {globFiles} = await import('api/globFiles')
   const paths = await globFiles('_challenges')
   return {
     paths,

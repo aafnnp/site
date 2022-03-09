@@ -1,9 +1,10 @@
-import { globFiles } from 'api/globFiles'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import React from 'react'
 import { FaGithub, FaLink } from 'react-icons/fa'
-import Image from '../../components/Image'
+import dynamic from 'next/dynamic';
+
+const Image = dynamic(()=>import('components/Image'))
 
 export default function IndexPage (props) {
   const { allChallenges } = props
@@ -68,7 +69,8 @@ export default function IndexPage (props) {
   )
 }
 
-export async function getStaticProps () {
+export const getStaticProps =async () =>{
+  const {globFiles} =await import('api/globFiles')
   const allChallenges = await globFiles('_challenges')
   const challenges = allChallenges.map((item) => {
     const {
