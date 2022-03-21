@@ -1,0 +1,228 @@
+---
+date: '2022-03-23'
+title: 'Structs - 结构体'
+tags: [swift]
+description: 闭包(Closures)是自包含的功能代码块，可以在代码中使用或者用来作为参数传值。
+---
+
+## 创建结构体
+
+```swift
+struct Person {
+    var name: String
+    var age: Int
+}
+
+# 使用结构体
+var person = Person(name: "John Appleseed", age: 42)
+print(person.name) // Prints "John Appleseed"
+
+# 更改结构体属性
+person.age = 99
+```
+
+## 计算属性
+
+`Swift`可以添加一个属性用来计算属性的值。
+
+```swift
+struct Person {
+    var name: String
+    var age: Int
+
+    var ageInDogYears: Int {
+        return age * 7
+    }
+}
+
+let person = Person(name: "John Appleseed", age: 42)
+person.ageInDogYears // Prints "294"
+```
+
+## 属性观察器
+
+属性观察期允许在更改任何属性前后调用代码。
+
+```swift
+struct Progress {
+    var task: String
+    var amount: Int {
+        didSet {
+            print("\(task) is now \(amount)% complete")
+        }
+    }
+}
+
+Progress(task: "Loading data", amount: 0)
+
+progress.amount = 30
+progress.amount = 80
+progress.amount = 100
+```
+
+如上代码在每次运行时都会打印出一条消息，每次设置新的值时都会打印出一条消息。
+
+## 方法
+
+结构体和类的方法和普通的函数完全一样。
+
+```swift
+struct Person {
+    var name: String
+    var age: Int
+
+    func birthday() {
+        return age + 1
+    }
+}
+
+let person = Person(name: "John Appleseed", age: 42)
+person.birthday() // Prints "43"
+```
+
+## 变异函数
+
+如果结构体具有可变属性，但是结构体的实例是作为常量创建的，那么该属性不能更改。如果需要改变，应该使用`mutating`关键字。
+
+```swift
+struct Person {
+    var name: String
+    var age: Int
+
+    mutating func birthday() {
+        age += 1
+    }
+}
+var person = Person(name: "John Appleseed", age: 42)
+person.birthday() // Prints "43"
+```
+
+## 字符串的方法和属性
+
+```swift
+let str = "Hello, world"
+
+str.count // Prints "12"
+str.hasPrefix("Hello") // Prints "true"
+str.uppercased() // Prints "HELLO, WORLD"
+str.sorted() // Prints "H, E, L, L, O, , , W, , , o, r, l, d"
+str.lowercased() // Prints "hello, world"
+```
+
+## 数组的方法和属性
+
+```swift
+var toys = ["Woody"]
+
+toys.count // Prints "1"
+toys.append("Buzz")
+toys.firstIndex(of: "Buzz") // Prints "2"
+toys.sorted() // Prints "[Buzz, Woody]"
+toys.remove(at: 0)
+```
+
+## initializers
+
+`initializers`是一种特殊的方法，它提供了不同的方法创建结构。默认情况所有结构都有一个`init`方法，它会自动调用所有的属性的`initializers`。
+
+```swift
+struct Person {
+    var name: String
+    var age: Int
+
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+}
+
+var person = Person(name: "John Appleseed", age: 42)
+```
+
+## 关联当前实例
+
+在结构方法里，使用`self`可以获取或给对应的属性赋值。类似于 js 的 this
+
+```swift
+struct Person {
+    var name: String
+    var age: Int
+
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+
+    func birthday() {
+        self.age += 1
+    }
+}
+```
+
+## 惰性属性
+
+类似于 js 的`lazyload`，仅在需要的时候创建或引入。
+
+```swift
+struct FamilyTree{
+  var name:String
+  lazy var familyTree = FamilyTree()
+
+  init(name: String){
+    self.name = name
+  }
+}
+
+var ed = Person(name:"Ed")
+
+ed.familyTree
+```
+
+## 静态属性或方法
+
+static变量的声明用于在结构的所有实例间共享
+
+``` swift
+struct Student {
+    static var classSize = 0
+    var name: String
+
+    init(name: String) {
+        self.name = name
+        Student.classSize += 1
+    }
+}
+
+Student.classSize
+```
+
+## 访问控制
+
+- `private` 私有属性和方法，只有在结构体内才能访问
+- `public` 公共属性和方法，所有代码都可使用公共属性和方法
+
+``` swift
+struct Person {
+    private var id: String
+    public var num: Int
+
+    init(id: String) {
+        self.id = id
+    }
+
+    func identify() -> String {
+        return "My social security number is \(id)"
+    }
+}
+```
+
+## 结构体总结
+
+- 您可以使用结构创建自己的类型，这些结构可以有自己的属性和方法。
+- 您可以使用存储的属性或使用计算的属性来动态计算值。
+- 如果要更改方法内的属性，必须将其标记为`mutating`.
+- 初始化器是创建结构的特殊方法。默认情况下，您会获得一个成员初始化器，但如果您创建自己的初始化器，则必须为所有属性赋值。
+- 使用`self`常量来引用方法内结构的当前实例。
+- `lazy`关键字告诉 `Swift` 仅在第一次使用时创建属性。
+- `static`您可以使用关键字在结构的所有实例之间共享属性和方法。
+- 访问控制允许您限制哪些代码可以使用属性和方法。
