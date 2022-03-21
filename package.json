@@ -11,7 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^0.14.5",
+    "@codesandbox/sandpack-react": "^0.15.2",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
     "@heroicons/react": "^1.0.6",
