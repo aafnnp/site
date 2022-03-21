@@ -1,5 +1,5 @@
 ---
-date: '2021-04-08'
+date: '2022-03-18'
 title: '函数、参数、错误'
 tags: [swift]
 description: 一般来说，一个函数是可以通过外部代码调用的一个“子程序”（或在递归的情况下由内部函数调用）。像程序本身一样，一个函数由称为函数体的一系列语句组成。值可以传递给一个函数，函数将返回一个值。
@@ -134,6 +134,33 @@ func doubleInPlace(number: inout Int) {
 
 var myNum = 10
 doubleInPlace(number: &myNum)
+```
+
+## 处理错误
+
+使用`do/try/catch`方式优雅的处理程序运行错误。
+
+``` swift
+do{
+  try checkPassword("password")
+}catch{
+  print("error")
+}
+```
+
+## 输入参数
+
+通常参数传递的值在函数内部不可更改，在`swift`中可通过`inout`更改。
+
+``` swift
+func doubleInPlace(number: inout Int){
+  number*=2
+}
+
+使用方式:
+
+var myNum = 10
+doubleInPlace(number: &myum)
 ```
 
 ## 函数总结

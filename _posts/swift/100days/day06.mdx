@@ -1,5 +1,5 @@
 ---
-date: '2021-04-11'
+date: '2022-03-21'
 title: '闭包'
 tags: [swift]
 description: 闭包(Closures)是自包含的功能代码块，可以在代码中使用或者用来作为参数传值。
@@ -14,8 +14,8 @@ description: 闭包(Closures)是自包含的功能代码块，可以在代码中
 
 闭包的形式有：
 
-| 全局函数               | 嵌套函数                       | 闭包表达式                                         |
-| ---------------------- | ------------------------------ | -------------------------------------------------- |
+| 全局函数        | 嵌套函数            | 闭包表达式                     |
+|-------------|-----------------|---------------------------|
 | 有名字但不能捕获任何值 | 有名字，也能捕获封闭函数内的值 | 无名闭包，使用轻量级语法，可以根据上下文环境捕获值 |
 
 ## 创建闭包
@@ -68,4 +68,43 @@ func downloadFile(imageUrl, onSuccess: () ->) {
 downloadFile(imageUrl: "Instagram", onSuccess: saveFile)
 ```
 
-上面的代码创建了一个闭包，用于保存从`Internet`下载的文件。这个闭包被传递到`downloadFile`函数中。此`downloadFile`功能从互联网下载文件，如果文件下载成功，则调用保存文件关闭。
+闭包强制返回值，`()->Void`表示不接受参数并且不返回任何内容。可以将`Void`替换为任何类型，如`Int`或者`String`，强制闭包返回值。
+
+``` swift
+func travel(action: (String) -> String) {
+    print("I'm getting ready to go.")
+    let description = action("London")
+    print(description)
+    print("I arrived!")
+}
+
+travel { (place: String) -> String in
+    return "I'm going to \(place) in my car"
+}
+
+# 闭包简写
+travel {
+    return "I'm going to \($0) in my car"
+}
+
+# 多参数传递
+func travel(action: (String, Int) -> String) {
+    print("I'm getting ready to go.")
+    let description = action("London", 60)
+    print(description)
+    print("I arrived!")
+}
+
+travel {
+    return "I'm going to \($0) at \($1) in my car"
+}
+```
+
+## 闭包总结
+
+- 可以将闭包赋值给变量
+- 闭包接收参数和返回值
+- 可以将闭包作为参数传递到函数中，这些闭包可以有自己的参数和返回值。
+- 如果函数的最后一个参数是闭包，则可以使用尾随闭包语法。
+- Swift自动提供速记参数名称，如$0和$1，但并非所有人都使用它们。
+- 如果在闭包中使用外部值，它们将被捕获，以便闭包稍后可以引用它们。
