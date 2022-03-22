@@ -1,20 +1,15 @@
-import {
-  HomeIcon,
-  MailIcon,
-  MenuIcon,
-  UserIcon,
-  XIcon
-} from '@heroicons/react/solid'
-import React, { Component } from 'react'
-import styled from 'styled-components'
+import { FaFile, FaHome, FaMailBulk, FaUser, FaXing } from 'react-icons/fa';
+import React, { Component } from 'react';
+import styled from 'styled-components';
+
 export default class ProgressSteps extends Component {
-  handleClick (e) {
-    e.currentTarget.classList.toggle('active')
-    document.querySelector('.rotating-main').classList.toggle('active')
-    document.querySelector('.rotating-nav').classList.toggle('active')
+  handleClick(e) {
+    e.currentTarget.classList.toggle('active');
+    document.querySelector('.rotating-main').classList.toggle('active');
+    document.querySelector('.rotating-nav').classList.toggle('active');
   }
 
-  render () {
+  render() {
     return (
       <Wrapper>
         <div className="rotating">
@@ -62,26 +57,26 @@ export default class ProgressSteps extends Component {
             </div>
           </div>
           <div className="rotating-btn" onClick={this.handleClick.bind(this)}>
-            <MenuIcon className="w-10 h-10 absolute top-3/4 left-3/4 -ml-5 -mt-5" />
-            <XIcon className="w-10 h-10 absolute top-3/4 left-1/4 -ml-5 -mt-5" />
+            <FaFile className="w-10 h-10 absolute top-3/4 left-3/4 -ml-5 -mt-5" />
+            <FaXing className="w-10 h-10 absolute top-3/4 left-1/4 -ml-5 -mt-5" />
           </div>
           <ul className="rotating-nav">
             <li>
-              <HomeIcon className="w-4 h-4 mr-4" />
+              <FaHome className="w-4 h-4 mr-4" />
               HOME
             </li>
             <li>
-              <UserIcon className="w-4 h-4 mr-4" />
+              <FaUser className="w-4 h-4 mr-4" />
               ABOUT
             </li>
             <li>
-              <MailIcon className="w-4 h-4 mr-4" />
+              <FaMailBulk className="w-4 h-4 mr-4" />
               CONTACT
             </li>
           </ul>
         </div>
       </Wrapper>
-    )
+    );
   }
 }
 
@@ -187,4 +182,4 @@ const Wrapper = styled.div`
   .rotating-nav.active li:nth-child(3) {
     transform: translateX(2rem);
   }
-`
+`;
