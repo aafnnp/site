@@ -54,7 +54,7 @@ export default function IndexPage (props) {
                   <Link
                     href={`https://github.com/Manonicu/site/tree/master/_challenges/${challenge.group}/${challenge.title}.jsx`}
                   >
-                    <a className="py-2 flex items-center justify-center text-white bg-sky-300 hover:bg-sky-600 rounded-md">
+                    <a className="py-2 flex items-center justify-center text-white bg-twitter rounded-md">
                       <FaGithub className="mr-2" />
                       Source
                     </a>

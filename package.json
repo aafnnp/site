@@ -14,7 +14,6 @@
     "@codesandbox/sandpack-react": "^0.15.2",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
-    "@heroicons/react": "^1.0.6",
     "@mdx-js/react": "^2.1.0",
     "dayjs": "^1.11.0",
     "framer-motion": "^6.2.8",

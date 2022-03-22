@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -24,6 +26,10 @@ module.exports = {
 
       '2xl': '1536px'
       // => @media (min-width: 1536px) { ... }
+    },
+    colors:{
+      ...colors,
+      'twitter':'rgb(29, 155, 240)'
     }
   },
   plugins: []

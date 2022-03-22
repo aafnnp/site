@@ -16,7 +16,7 @@ const getAllPosts = async () => {
     const postData = {
       data: {
         ...data,
-        date: dayjs(data.date).format('MMMM D, YYYY'),
+        date: dayjs(data.date).format('MMM DD, YYYY'),
         fromNow: dayjs(data.date).fromNow()
       },
       content,
@@ -27,7 +27,7 @@ const getAllPosts = async () => {
   const visiblePosts = postsArray
     .sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date))
     .filter((post) => post.data.draft !== true)
-  return chunk(visiblePosts, 20)
+  return chunk(visiblePosts, 30)
 }
 
 // 根据slug导出文章

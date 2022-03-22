@@ -50,16 +50,16 @@ export default function FileSystem () {
         provides information about the systems battery charge level
       </div>
       <div className="flex flex-row items-center gap-4 py-12 text-sm">
-        <a className="flex items-center p-2 bg-sky-500 text-white rounded">
+        <a className="flex items-center p-2 bg-twitter text-white rounded">
           <FaCode className="mr-2" />
           Source Code
         </a>
-        <a className="flex items-center p-2 bg-sky-500 text-white rounded">
+        <a className="flex items-center p-2 bg-twitter text-white rounded">
           <FaFile className="mr-2" />
           Documents
         </a>
         <a
-          className="flex items-center p-2 bg-sky-500 text-white rounded"
+          className="flex items-center p-2 bg-twitter text-white rounded"
           onClick={handleClick}
         >
           <FaEye className="mr-2" />
