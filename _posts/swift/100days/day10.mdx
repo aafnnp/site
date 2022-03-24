@@ -1,111 +1,148 @@
 ---
-date: '2022-03-30'
+date: '2022-03-24'
 title: 'Optionals - 可选'
-draft: true
 tags: [swift]
-description: 协议规定了用来实现某一特定功能所必需的方法和属性。
+description: '可选是一个枚举类型，它可以是一个值或者空。类似于js的optional chaining'
 ---
 
-**协议没看懂~**
+> 可选字符串可能包含像“Hello”这样的字符串，或者它们可能是 `nil`——什么都没有。
 
-> 协议规定了用来实现某一特定功能所必需的方法和属性。
-> 任意能够满足协议要求的类型被称为遵循(conform)这个协议。
-> 类，结构体或枚举类型都可以遵循协议，并提供具体实现来完成协议定义的方法和功能。
+## 处理缺失数据 - handling missing data
 
-## 创建协议
+当不知道数据是否存在时，可以使用可选类型来处理。
 
 ```swift
-protocol Identifiable {
-    // 协议定义
-    var id: String { get }
+var age: Int? = nil
+
+age = 38
+```
+
+当需要使用类型的方法又不知道变量是否存在值的时候，可以使用`if let`或者`guard let`来处理。
+
+`unwrapped`可以让你确保变量有值，如果没有值，程序会崩溃。
+
+``` swift
+var name: String? = nil
+
+if let unwrapped = name {
+    print("\(unwrapped.count) letters")
+} else {
+    print("name is nil")
+}
+
+guard let unwrapped = name else {
+    print("name is nil")
+    return
 }
 ```
 
-如果一个类型遵循协议，那么它必须提供协议中定义的所有要求。
+## 强制转换和隐式转换
 
-```swift
-struct User: Identifiable {
-    var id: String
-}
+只有确认变量有值时，才可以使用`!`强制转换。
+
+``` swift
+let str = "5"
+let num = Int(str) // 这是不安全的，因为str可能不是一个整数
+
+let num = Int(str)! // 这是安全的，因为str一定有值
 ```
 
-## 协议继承
-
-协议之间可以继承，这样可以让遵循协议的类型拥有父协议中的属性和方法。
-
-```swift
-protocol Payable {
-    func calculateWages() -> Int
-}
-
-protocol NeedsTraining {
-    func study()
-}
-
-protocol HasVacation {
-    func takeVacation(days: Int)
-}
-
-# 继承
-
-protocol Payable: Payable, NeedsTraining, HasVacation {
-    // 协议继承
-}
+隐式转换
+``` swift
+let age: Int! = nil
 ```
 
-## 扩展
+## 合并可选值
 
-`extension`允许向现有的类型添加方法，属性或者下标。类似于js的`prototype`。
+当程序需要两个可选值时，可以使用`??`运算符来合并可选值。
 
-```swift
-extension Int {
-    func squared() -> Int {
-        return self * self
+``` swift
+func username(for id: Int) -> String? {
+    if id == 1 {
+        return "Taylor Swift"
+    } else {
+        return nil
     }
 }
 
-let number = 8
-number.squared() // 64
+let user = username(for: 15) ?? "Anonymous"
 ```
 
-**不允许在扩展中添加存储属性**
+## 可选链
 
-```swift
-extension Int {
-    var isEven: Bool {
-        return self % 2 == 0
+通过可选链可避免多层嵌套的可选值获取错误。
+
+``` swift
+let names = ["John", "Paul", "George", "Ringo"]
+
+let beatle = names.first?.uppercased()
+```
+
+## 异常处理
+
+当程序抛出异常时，可以使用`try`和`catch`来处理异常。比如下面的代码
+
+``` swift
+enum PasswordError: Error {
+    case obvious
+}
+
+func checkPassword(_ password: String) throws -> Bool {
+    if password == "password" {
+        throw PasswordError.obvious
     }
+
+    return true
+}
+
+do {
+    try checkPassword("password")
+    print("That password is good!")
+} catch {
+    print("You can't use that password.")
 }
 ```
 
-## 协议扩展
+还有一种方式是使用`try?`来尝试调用方法，如果方法抛出异常，则返回`nil`。
 
-```swift
-let pythons = ["Eric", "Graham", "John", "Michael", "Terry", "Terry"]
-let beatles = Set(["John", "Paul", "George", "Ringo"])
+``` swift
+if let result = try? checkPassword("password") {
+    print("Result was \(result)")
+} else {
+    print("Password is incorrect.")
+}
 ```
 
-Swift的数组和集合都属于`Collection`，所以可以写个扩展来满足协议要求。
+另外一种方式是使用`try!`来强制调用方法，如果方法抛出异常，则程序会崩溃。
 
-```swift
-extension Collection {
-    func summarize() {
-        print("There are \(count) of us:")
+``` swift
+try! checkPassword("sekrit")
+print("That password is good!")
+```
 
-        for name in self {
-            print(name)
-        }
+## 类型转换
+
+`Swift`提供了两种类型转换：`as`和`as?`。
+
+``` swift
+class Animal { }
+class Fish: Animal { }
+
+class Dog: Animal {
+    func makeNoise() {
+        print("Woof!")
     }
 }
 
-pythyon.summarize()
-beatles.summarize()
+let pets = [Fish(), Dog(), Fish(), Dog()]
 ```
 
-## 总结
+使用`as?`来检查类型转换是否成功。如果类型转换成功，则返回一个可选值，否则返回`nil`。
 
-- 协议描述了一致类型必须具有的方法和属性，但不提供这些方法的实现。
-- 您可以在其他协议之上构建协议，类似于类。
-- 扩展允许您将方法和计算属性添加到特定类型，例如Int.
-- 协议扩展允许您向协议添加方法和计算属性。
-- 面向协议的编程是将您的应用程序架构设计为一系列协议，然后使用协议扩展来提供默认方法实现的实践
+``` swift
+for pet in pets {
+  if let dog = pet as? Dog{
+    dog.makeNoise()
+  }
+}
+```
