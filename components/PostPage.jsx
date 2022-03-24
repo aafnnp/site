@@ -6,6 +6,7 @@ require('prismjs/components/prism-javascript')
 require('prismjs/components/prism-css')
 require('prismjs/components/prism-bash')
 require('prismjs/components/prism-swift')
+require('prismjs/components/prism-jsx')
 require('prismjs/themes/prism-okaidia.min.css')
 
 const PostPage =({ children }) => {

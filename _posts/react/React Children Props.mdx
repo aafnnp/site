@@ -1,0 +1,22 @@
+---
+date: '2021-04-18'
+title: 'React Children Props'
+tags: [react, javascript]
+description: React是一个JavaScript库，致力于使UI开发变得简单
+---
+
+`props` 接受一个 `children` 参数，这个参数可以是一个字符串，也可以是一个数组，数组中的每一项都是一个字符串
+
+```jsx
+function App() {
+  return (
+    <User>
+      <h1>Hello, John Doe!</h1>
+    </User>
+  );
+}
+
+function User({ children }) {
+  return children; // Hello, John Doe!
+}
+```
