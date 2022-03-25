@@ -8,7 +8,7 @@ const withAnalyzer = require('@next/bundle-analyzer')({
 })
 
 module.exports = withPlugins([withMDX, withAnalyzer], {
-  webpack: (config, { isServer }) => {
+  webpack: (config, {isServer}) => {
     if (!isServer) {
       // don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
       config.resolve.fallback = {
@@ -17,10 +17,13 @@ module.exports = withPlugins([withMDX, withAnalyzer], {
       }
     }
 
-    return config;
+    return config
   },
   images: {
-    loader:"custom",
+    loader: 'custom',
     domains: ['images.unsplash.com']
+  },
+  experimental: {
+    urlImports: ['https://cdn.skypack.dev']
   }
 })
