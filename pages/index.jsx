@@ -1,17 +1,18 @@
-import Link from 'next/link';
-import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
+import Link from 'next/link'
+import React, {useState} from 'react'
+import dynamic from 'next/dynamic'
 
-const Layout = dynamic(()=>import('components/Layout'))
-const Image = dynamic(()=>import('components/Image'))
+const Layout = dynamic(() => import('components/Layout'))
+const Image = dynamic(() => import('components/Image'))
+const Pagination = dynamic(() => import('components/Pagination'))
 
-const IndexPage = ({ posts }) =>{
-  const [curPage, setCurPage] = useState(1);
-  const postList = posts[curPage - 1];
+const IndexPage = ({posts}) => {
+  const [curPage, setCurPage] = useState(1)
+  const postList = posts[curPage - 1]
 
   return (
     <Layout>
-      {postList.map(({ slug, data }) => {
+      {postList.map(({slug, data}) => {
         return (
           <div
             className="grid grid-cols-[30%_auto] gap-4 py-2 xs:py-1 xs:grid-cols-1 sm:grid-cols-[25%_auto] md:grid-cols-[30%_auto] xs:text-sm sm:text-sm md:text-base lg:text-base xl:text-base"
@@ -38,34 +39,22 @@ const IndexPage = ({ posts }) =>{
               ))}
             </div>
           </div>
-        );
+        )
       })}
-      <div className="pagination">
-        {Array(posts.length)
-          .fill(0)
-          .map((_, index) => (
-            <span
-              className={curPage === index + 1 ? 'active' : ''}
-              key={index}
-              onClick={() => setCurPage(index + 1)}
-            >
-              {index + 1}
-            </span>
-          ))}
-      </div>
+      <Pagination len={posts.length} page={curPage} setPage={setCurPage} />
     </Layout>
-  );
+  )
 }
 
 export default IndexPage
 
 export async function getStaticProps() {
-  const { getAllPosts } = await import('api/getAllPosts')
-  const posts = await getAllPosts();
+  const {getAllPosts} = await import('api/getAllPosts')
+  const posts = await getAllPosts()
 
   return {
     props: {
-      posts,
-    },
-  };
+      posts
+    }
+  }
 }
