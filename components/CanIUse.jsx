@@ -91,7 +91,7 @@ export default class CanIUse extends Component {
                   >
                     <Image
                       className="w-12 h-12"
-                      src={`https://pics-rust.vercel.app/logos/${value}.png`}
+                      src={`https://pics-rust.vercel.app/logos/${value}.svg`}
                       alt={key}
                       loading="lazy"
                       width={48}
@@ -126,7 +126,7 @@ export default class CanIUse extends Component {
                 >
                   <Image
                     className="w-12 h-12"
-                    src={`https://pics-rust.vercel.app/logos/${value}.png`}
+                    src={`https://pics-rust.vercel.app/logos/${value}.svg`}
                     alt={key}
                     loading="lazy"
                     width={48}
