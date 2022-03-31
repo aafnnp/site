@@ -1,0 +1,64 @@
+---
+date: '2022-03-31 10:14:23'
+title: 'Node.js - First Program & REPL'
+tags: [nodejs,javascript]
+---
+
+## First Program
+
+创建`hellowrold.js`，打开控制台执行`node helloworld.js`
+
+``` js
+console.log('hello world')
+
+// hello world
+```
+
+## 基于`http`创建一个简单server
+
+一个简单`nodejs server`程序包含三个必备条件
+
+- 引入依赖包
+- 创建server
+- 获取请求和返回
+
+引入依赖包
+
+``` js
+const http = require('http')
+```
+
+创建server
+
+``` js
+const http = require('http')
+
+http.createServer(function(req,res){
+  response.writeHead(200,{'Content-Type':'text/plain'})
+  response.end('Hello World\n')
+}).listen(8888)
+
+console.log('Server running at http://127.0.0.1:8888/')
+```
+
+启动server
+
+``` shell
+node server.js
+#Server running at http://127.0.0.1:8888/
+```
+
+## 进入REPL(交互解释器)模式
+
+REPEL即交互解释器，使用单个表达式作为用户输入，并在执行后将结果返回到控制台
+
+``` shell
+node
+```
+![LV2DBj](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/LV2DBj.png)
+
+使用<kbd>tab</kbd>显示当前输入对象的扩展，比如输入`Number.`后按下<kbd>tab</kbd>
+
+![lOfZTD](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/lOfZTD.png)
+
+
