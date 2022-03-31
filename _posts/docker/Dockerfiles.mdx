@@ -15,23 +15,11 @@ Docker 从上到下的顺序运行 Dockerfile 的指令，第一条指令必须�
 
 用于设置基本映像，FROM 必须作为第一条指令
 
-2. LABEL
+2. MAINTAINER
 
-用于添加标签，设置映像标签
+docker镜像和指令的创建者
 
-```dockerfile
-LABEL maintainer="manon.icu"
-```
-
-3. RUN
-
-用于执行当前映像的任何命令
-
-```dockerfile
-RUN /bin/bash -c "source $HOME/.bashrc;echo $HOME"
-```
-
-4. CMD
+3. CMD
 
 用于执行映像的应用程序
 
@@ -39,7 +27,45 @@ RUN /bin/bash -c "source $HOME/.bashrc;echo $HOME"
 CMD ["executable","param1","param2"]
 ```
 
-5. COPY/ADD
+4. RUN
+
+用于执行当前映像的任何命令
+
+```dockerfile
+RUN /bin/bash -c "source $HOME/.bashrc;echo $HOME"
+```
+
+5. LABEL
+
+用于添加标签，设置映像标签
+
+```dockerfile
+LABEL maintainer="manon.icu"
+```
+
+6. EXPOSE
+
+用于暴露端口到网络
+
+``` shell
+#暴露80端口
+
+expose 80
+
+expose 80/tcp
+```
+
+7. ENV
+
+设置环境变量
+
+``` shell
+FROM node:12
+
+ENV workdirectory /usr/node
+```
+
+8. COPY/ADD
 
 用于将源文件复制到目的地
 
@@ -47,9 +73,104 @@ CMD ["executable","param1","param2"]
 COPY dist /www/dist
 ```
 
-6. WORKDIR
+9. ENTRYPOINT
+
+docker镜像启动后的第一条执行命令
+
+``` shell
+FROM ubuntu:latest
+
+ENTRYPOINT ["ls"]
+```
+
+10. VOLUME
+
+挂载卷
+
+``` shell
+FROM node:12
+RUN mkdir /node
+WORKDIR /node
+RUN echo "Welcome to Node.js" > node
+VOLUME /node
+```
+
+12. USER
+
+设置运行容器的账户
+
+``` shell
+USER admin
+#
+RUN adduser -D admin
+USER admin
+```
+13. WORKDIR
 
 用于为 RUN/CMD/COPY 指令设置工作目录，如不存在，会默认创建
+
+14. ARG
+
+用于在创建时接收的参数
+
+``` shell
+ARG JAVA_PATH=/opt/jdk/jdk1.8.0_251
+
+ENV JAVA_HOME ${JAVA_PATH}
+```
+
+15. ONBUILD
+
+用于指定将 `Dockerfile` 中的镜像用作另一个镜像的基础镜像时运行的命令
+
+``` shell
+FROM node:12
+RUN mkdir -p /usr/node/app
+WORKDIR /usr/node/app
+ONBUILD COPY package.json /usr/node/app/
+ONBUILD RUN npm install
+ONBUILD COPY . /usr/node/app
+CMD [ "npm", "start" ]
+```
+
+16. STOPSIGNAL
+
+``` shell
+STOPSIGNAL SIGQUIT
+```
+
+17. SHELL
+
+设置docker镜像默认的终端
+
+``` shell
+SHELL ["/bin/bash","-c","echo hello"]
+```
+
+18. HEALTHCHECK
+
+检查镜像是否健康运行，需要在镜像内部持续运行一段命令
+
+``` shell
+FROM ubuntu:latest
+HEALTHCHECK --interval=60s --timeout=5s \
+CMD curl -f http://fosstechnix.info/ || exit 1
+EXPOSE 80
+```
+
+19. .dockerignore
+
+用于设置docker镜像构建过程中忽略的文件
+
+``` shell
+sudo vim .dockerignore
+
+*.yaml
+__pycache__/
+.git
+.aws
+.env
+```
 
 ## 完整的 Dockerfile
 
