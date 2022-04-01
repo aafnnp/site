@@ -9,25 +9,24 @@ dayjs.extend(relativeTime)
 
 const getAllPosts = async () => {
   const posts = await globby(['_posts'])
-  const postsArray = []
-  for await (const post of posts) {
-    const fileContents = fs.readFileSync(post, 'utf8')
-    const {data, content} = matter(fileContents)
-    const postData = {
-      data: {
-        ...data,
-        date: dayjs(data.date).format('MMM DD, YYYY'),
-        fromNow: dayjs(data.date).fromNow()
-      },
-      content,
-      slug: post.replace(/^_posts\//, '').replace(/\.mdx$/, '')
-    }
-    postsArray.push(postData)
-  }
-  const visiblePosts = postsArray
+  return posts
+    .reduce((prev, next) => {
+      const fileContents = fs.readFileSync(next, 'utf8')
+      const {data, content} = matter(fileContents)
+      const postData = {
+        data: {
+          ...data,
+          date: dayjs(data.date).format('MMM DD, YYYY'),
+          fromNow: dayjs(data.date).fromNow()
+        },
+        content,
+        slug: next.replace(/^_posts\//, '').replace(/\.mdx$/, '')
+      }
+      prev.push(postData)
+      return prev
+    }, [])
     .sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date))
     .filter((post) => post.data.draft !== true)
-  return chunk(visiblePosts, 30)
 }
 
 // 根据slug导出文章
@@ -36,12 +35,12 @@ const GetPostBySlug = async (slug) => {
 
   const allPosts = await getAllPosts()
 
-  return allPosts.flat(2).find((post) => post.slug.includes(realSlug))
+  return allPosts.find((post) => post.slug.includes(realSlug))
 }
 
 // 根据tag导出随机文章
 const GetRandomPost = async () => {
-  const randomPost = (await getAllPosts()).flat(2)
+  const randomPost = await getAllPosts()
 
   return getRandomArrayElements(
     randomPost,

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React, {useState} from 'react'
 import dynamic from 'next/dynamic'
+import { chunk } from "utils";
 
 const Layout = dynamic(() => import('components/Layout'))
 const Image = dynamic(() => import('components/Image'))
@@ -54,7 +55,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      posts
+      posts:chunk(posts,30)
     }
   }
 }

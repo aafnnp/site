@@ -51,7 +51,7 @@ const Post = ({data, mdxSource, randomPost}) => {
 export const getStaticPaths = async () => {
   const {getAllPosts} = await import('api/getAllPosts')
   const allPosts = await getAllPosts()
-  const paths = allPosts.flat(2).map((post) => ({
+  const paths = allPosts.map((post) => ({
     params: {
       slug: post.slug.split('/')
     }
@@ -74,7 +74,7 @@ export const getStaticProps = async ({params}) => {
     },
     scope: data
   })
-  const AllPost = (await getAllPosts()).flat(2)
+  const AllPost = await getAllPosts()
   const randomPost = getRandomArrayElements(
     AllPost,
     AllPost.length < 6 ? AllPost.length - 1 : 6
