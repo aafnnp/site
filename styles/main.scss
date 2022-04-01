@@ -36,7 +36,7 @@ body {
       @apply text-twitter;
     }
   }
-  code {
+  p code,li code {
     @apply bg-gray-100 border text-red-600 whitespace-nowrap rounded-b-sm;
     padding: 1px;
   }
