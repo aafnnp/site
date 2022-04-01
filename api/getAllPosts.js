@@ -1,7 +1,7 @@
 import fs from 'fs'
-import { globby } from 'globby'
+import {globby} from 'globby'
 import matter from 'gray-matter'
-import { chunk, getRandomArrayElements } from 'utils'
+import {chunk, getRandomArrayElements} from 'utils'
 const dayjs = require('dayjs')
 const relativeTime = require('dayjs/plugin/relativeTime')
 
@@ -12,7 +12,7 @@ const getAllPosts = async () => {
   const postsArray = []
   for await (const post of posts) {
     const fileContents = fs.readFileSync(post, 'utf8')
-    const { data, content } = matter(fileContents)
+    const {data, content} = matter(fileContents)
     const postData = {
       data: {
         ...data,
@@ -49,4 +49,4 @@ const GetRandomPost = async () => {
   )
 }
 
-export { getAllPosts, GetPostBySlug, GetRandomPost }
+export {getAllPosts, GetPostBySlug, GetRandomPost}

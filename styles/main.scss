@@ -32,11 +32,11 @@ body {
     img {
       @apply object-cover object-center;
     }
-    code{
+    code {
       @apply bg-gray-100 border text-red-600 whitespace-nowrap rounded-b-sm;
       padding: 1px;
     }
-    a{
+    a {
       @apply text-twitter;
     }
   }
@@ -49,13 +49,21 @@ body {
       @apply ml-[2em];
     }
   }
-  table{
-    @apply mb-4 table-fixed border-collapse border border-gray-400;
-    th,td{
-      @apply border border-gray-300 p-2 text-gray-400;
+  table {
+    @apply w-full text-sm text-left text-gray-500 dark:text-gray-400;
+    thead {
+      @apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400;
     }
-    th{
-      @apply text-gray-600 bg-gray-200;
+    th {
+      @apply px-6 py-3;
+    }
+    tbody {
+      tr {
+        @apply bg-white border-b dark:bg-gray-800 dark:border-gray-700;
+      }
+      td {
+        @apply px-6 py-4;
+      }
     }
   }
 }
@@ -100,7 +108,7 @@ body {
   font-family: monospace;
 }
 
-kbd{
+kbd {
   border-width: 1px 1px 3px;
   font-size: 0.8em;
   padding-inline: 0.4em;

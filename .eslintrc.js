@@ -1,12 +1,10 @@
 module.exports = {
-  root:true,
-  extends: [
-    'next/core-web-vitals'
-  ],
+  root: true,
+  extends: ['next/core-web-vitals'],
   parserOptions: {
-    sourceType: "module"
+    sourceType: 'module'
   },
   rules: {
-    "@next/next/no-img-element":"off"
+    '@next/next/no-img-element': 'off'
   }
 }

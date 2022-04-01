@@ -1,21 +1,21 @@
-import { motion } from 'framer-motion'
+import {motion} from 'framer-motion'
 import Link from 'next/link'
 import React from 'react'
-import { FaGithub, FaLink } from 'react-icons/fa'
-import dynamic from 'next/dynamic';
+import {FaGithub, FaLink} from 'react-icons/fa'
+import dynamic from 'next/dynamic'
 
-const Image = dynamic(()=>import('components/Image'))
+const Image = dynamic(() => import('components/Image'))
 
-export default function IndexPage (props) {
-  const { allChallenges } = props
+export default function IndexPage(props) {
+  const {allChallenges} = props
 
   return (
     <div className="pb-4">
       <motion.h1
         className="mb-12 text-center text-4xl font-bold"
-        animate={{ x: 0, opacity: 1 }}
-        initial={{ x: -100, opacity: 0 }}
-        transition={{ ease: 'easeOut', duration: 0.5 }}
+        animate={{x: 0, opacity: 1}}
+        initial={{x: -100, opacity: 0}}
+        transition={{ease: 'easeOut', duration: 0.5}}
       >
         Challenges
       </motion.h1>
@@ -30,9 +30,9 @@ export default function IndexPage (props) {
               className="shadow-lg rounded-md overflow-hidden"
               key={challenge.link}
               custom={i}
-              animate={{ y: 0, opacity: 1 }}
-              initial={{ y: 100, opacity: 0 }}
-              transition={{ ease: 'easeOut', duration: 0.5, delay: i * 0.1 }}
+              animate={{y: 0, opacity: 1}}
+              initial={{y: 100, opacity: 0}}
+              transition={{ease: 'easeOut', duration: 0.5, delay: i * 0.1}}
             >
               <img
                 className="flex-none rounded-l-md"
@@ -41,7 +41,14 @@ export default function IndexPage (props) {
               />
               <div className="p-4">
                 <div className="flex mb-2">
-                  <Image className="w-4 h-4" src={`https://pics-rust.vercel.app/uPic/icons/${challenge.group}.svg`} alt={challenge.group} loading="lazy" width={16} height={16}/>
+                  <Image
+                    className="w-4 h-4"
+                    src={`https://pics-rust.vercel.app/uPic/icons/${challenge.group}.svg`}
+                    alt={challenge.group}
+                    loading="lazy"
+                    width={16}
+                    height={16}
+                  />
                   <h3 className="font-bold text-sm ml-2">{challenge.title}</h3>
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
@@ -69,8 +76,8 @@ export default function IndexPage (props) {
   )
 }
 
-export const getStaticProps =async () =>{
-  const {globFiles} =await import('api/globFiles')
+export const getStaticProps = async () => {
+  const {globFiles} = await import('api/globFiles')
   const allChallenges = await globFiles('_challenges')
   const challenges = allChallenges.map((item) => {
     const {

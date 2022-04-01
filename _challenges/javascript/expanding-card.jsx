@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import styled from 'styled-components'
 
 export default class Index extends Component {
@@ -35,17 +35,17 @@ export default class Index extends Component {
         active: false
       }
     ]
-  };
+  }
 
-  _click (key) {
+  _click(key) {
     const _state = this.state.list.map((item, idx) => ({
       ...item,
       active: key === idx
     }))
-    this.setState({ list: _state })
+    this.setState({list: _state})
   }
 
-  render () {
+  render() {
     return (
       <Wrapper>
         <div className="cards bg-white">

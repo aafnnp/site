@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import React, { Component } from 'react';
+import Link from 'next/link'
+import dynamic from 'next/dynamic'
+import React, {Component} from 'react'
 
-const Image = dynamic(() => import('components/Image'));
+const Image = dynamic(() => import('components/Image'))
 
 export default class CanIUse extends Component {
   static enums = {
@@ -11,24 +11,24 @@ export default class CanIUse extends Component {
       Firefox: 'firefox',
       IE: 'ie',
       Edge: 'edge',
-      Safari: 'safari',
+      Safari: 'safari'
     },
     mobile: {
       'Android Chrome': 'chrome',
       'Android FireFox': 'firefox',
       Android: 'android',
-      'Ios Safari': 'safari',
-    },
-  };
+      'Ios Safari': 'safari'
+    }
+  }
 
   state = {
     desktop: [],
     mobile: [],
-    updateTime: Date.now(),
-  };
+    updateTime: Date.now()
+  }
 
   componentDidMount() {
-    import('utils').then(({ fetcher }) => {
+    import('utils').then(({fetcher}) => {
       fetcher(
         'https://raw.githubusercontent.com/Fyrd/caniuse/main/data.json'
       ).then((res) => {
@@ -42,30 +42,28 @@ export default class CanIUse extends Component {
             and_chr,
             and_ff,
             android,
-            ios_saf,
-          },
-        } = res.data[this.props.tag];
+            ios_saf
+          }
+        } = res.data[this.props.tag]
         import('dayjs').then((dayjs) => {
           this.setState({
             desktop: this.getSupportData([chrome, firefox, ie, edge, safari]),
             mobile: this.getSupportData([and_chr, and_ff, android, ios_saf]),
             updateTime: dayjs
               .default(res.data.updated)
-              .format('YYYY-MM-DD HH:mm:ss'),
-          });
-        });
-      });
-    });
+              .format('YYYY-MM-DD HH:mm:ss')
+          })
+        })
+      })
+    })
   }
 
   getSupportData = (arr) => {
     return arr.map((item) => {
-      const firstSupportItems = Object.entries(item).find(
-        (el) => el[1] === 'y'
-      );
-      return firstSupportItems ? firstSupportItems[0] : 'No';
-    });
-  };
+      const firstSupportItems = Object.entries(item).find((el) => el[1] === 'y')
+      return firstSupportItems ? firstSupportItems[0] : 'No'
+    })
+  }
 
   render() {
     return (
@@ -103,13 +101,13 @@ export default class CanIUse extends Component {
                         backgroundColor:
                           this.state.desktop[index] === 'No'
                             ? '#ff0024'
-                            : '#47ca4c',
+                            : '#47ca4c'
                       }}
                     >
                       {this.state.desktop[index]}
                     </span>
                   </div>
-                );
+                )
               }
             )}
           </div>
@@ -138,17 +136,17 @@ export default class CanIUse extends Component {
                       backgroundColor:
                         this.state.desktop[index] === 'No'
                           ? '#ff0024'
-                          : '#47ca4c',
+                          : '#47ca4c'
                     }}
                   >
                     {this.state.desktop[index]}
                   </span>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

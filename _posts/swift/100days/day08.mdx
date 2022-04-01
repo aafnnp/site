@@ -9,7 +9,7 @@ description: Swift 类是构建代码所用的一种通用且灵活的构造体�
 
 `Class`和`Struct`类似，但是类可以继承其他类，并且类可以定义属性和方法。
 
-``` swift
+```swift
 class Dog {
     var name: String
     var breed: String
@@ -32,7 +32,7 @@ let poppy = Dog(name: "Poppy", breed: "Poodle")
 
 和`Struct`不同的是，`Class`可以继承其他类。
 
-``` swift
+```swift
 class Poodle: Dog {
     init(name: String) {
         super.init(name: name, breed: "Poodle")
@@ -46,7 +46,7 @@ super.init(name: name, breed: "Poodle") // 调用父类的构造器
 
 类创建的实例可以重写父类的方法。
 
-``` swift
+```swift
 class Dog {
     func bark() {
         print("Woof!")
@@ -68,7 +68,7 @@ class Poodle: Dog {
 
 `Swift`提供关键词`final`来防止类被继承。
 
-``` swift
+```swift
 fina class Dog {
     func bark() {
         print("Woof!")
@@ -76,11 +76,11 @@ fina class Dog {
 }
 ```
 
-## 复制objects
+## 复制 objects
 
 与`Struct`不同的是，`Class`可以被复制。
 
-``` swift
+```swift
 class Dog {
     var name: String
     var breed: String
@@ -103,7 +103,7 @@ poppyCopy.name = "Poppy Copy"
 
 与`Struct`不同的是，`Class`可以被反初始化。
 
-``` swift
+```swift
 class Person {
     var name: String
 
@@ -119,7 +119,7 @@ class Person {
 
 在循环中创建实例，可以使用`deinit`来定义反初始化方法。
 
-``` swift
+```swift
 for _ in 1...10 {
     let person = Person(name: "John")
     person.sayHello()
@@ -134,7 +134,7 @@ deinit {
 
 类与结构在常量的处理方式上有所不同。如果一个类或结构体的实例被声明为常量，则该实例的所有属性也必须是常量。
 
-``` swift
+```swift
 class Person {
     var name = "Taylor Swift"
 }

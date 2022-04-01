@@ -54,7 +54,7 @@ protocol Payable: Payable, NeedsTraining, HasVacation {
 
 ## 扩展
 
-`extension`允许向现有的类型添加方法，属性或者下标。类似于js的`prototype`。
+`extension`允许向现有的类型添加方法，属性或者下标。类似于 js 的`prototype`。
 
 ```swift
 extension Int {
@@ -84,7 +84,7 @@ let pythons = ["Eric", "Graham", "John", "Michael", "Terry", "Terry"]
 let beatles = Set(["John", "Paul", "George", "Ringo"])
 ```
 
-Swift的数组和集合都属于`Collection`，所以可以写个扩展来满足协议要求。
+Swift 的数组和集合都属于`Collection`，所以可以写个扩展来满足协议要求。
 
 ```swift
 extension Collection {
@@ -105,6 +105,6 @@ beatles.summarize()
 
 - 协议描述了一致类型必须具有的方法和属性，但不提供这些方法的实现。
 - 您可以在其他协议之上构建协议，类似于类。
-- 扩展允许您将方法和计算属性添加到特定类型，例如Int.
+- 扩展允许您将方法和计算属性添加到特定类型，例如 Int.
 - 协议扩展允许您向协议添加方法和计算属性。
 - 面向协议的编程是将您的应用程序架构设计为一系列协议，然后使用协议扩展来提供默认方法实现的实践

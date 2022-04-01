@@ -21,27 +21,27 @@ description: '如input、resize、scroll、intersection observer 等事件可能
   <p>{{ value }}</p>
 </template>
 <script>
-  import debounce from 'lodash.debounce';
+  import debounce from 'lodash.debounce'
   export default {
     data() {
       return {
-        value: '',
-      };
+        value: ''
+      }
     },
     watch: {
       value(...args) {
-        this.debouncedWatch(...args);
-      },
+        this.debouncedWatch(...args)
+      }
     },
     created() {
       this.debouncedWatch = debounce((newValue, oldValue) => {
-        console.log('New value:', newValue);
-      }, 500);
+        console.log('New value:', newValue)
+      }, 500)
     },
     beforeUnmount() {
-      this.debouncedWatch.cancel();
-    },
-  };
+      this.debouncedWatch.cancel()
+    }
+  }
 </script>
 ```
 
@@ -52,17 +52,17 @@ description: '如input、resize、scroll、intersection observer 等事件可能
   <input v-on:input="debouncedHandler" type="text" />
 </template>
 <script>
-  import debounce from 'lodash.debounce';
+  import debounce from 'lodash.debounce'
   export default {
     created() {
       this.debouncedHandler = debounce((event) => {
-        console.log('New value:', event.target.value);
-      }, 500);
+        console.log('New value:', event.target.value)
+      }, 500)
     },
     beforeUnmount() {
-      this.debouncedHandler.cancel();
-    },
-  };
+      this.debouncedHandler.cancel()
+    }
+  }
 </script>
 ```
 
@@ -73,15 +73,15 @@ description: '如input、resize、scroll、intersection observer 等事件可能
   <input v-on:input="debouncedHandler" type="text" />
 </template>
 <script>
-  import debounce from 'lodash.debounce';
+  import debounce from 'lodash.debounce'
   export default {
     methods: {
       // Don't do this!
       debouncedHandler: debounce(function (event) {
-        console.log('New value:', event.target.value);
-      }, 500),
-    },
-  };
+        console.log('New value:', event.target.value)
+      }, 500)
+    }
+  }
 </script>
 ```
 
@@ -100,14 +100,14 @@ description: '如input、resize、scroll、intersection observer 等事件可能
     created() {
       this.debouncedCallback = debounce((...args) => {
         // The debounced
-        callback;
-      }, 500);
+        callback
+      }, 500)
     },
     watch: {
       value(...args) {
-        this.debouncedCallback(...args);
-      },
-    },
-  };
+        this.debouncedCallback(...args)
+      }
+    }
+  }
 </script>
 ```

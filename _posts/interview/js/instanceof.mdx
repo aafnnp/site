@@ -10,14 +10,14 @@ tags: [javascript]
 
 ```javascript
 function _instanceof(left, right) {
-  if (left !== 'object' || left === null) return false;
-  const proto = Object.getPrototypeOf(left);
+  if (left !== 'object' || left === null) return false
+  const proto = Object.getPrototypeOf(left)
   while (true) {
-    if (proto === null) return false;
-    if (proto === right.prototype) return true;
-    proto = Object.getPrototypeOf(proto);
+    if (proto === null) return false
+    if (proto === right.prototype) return true
+    proto = Object.getPrototypeOf(proto)
   }
 }
-_instanceof(111, Number); //true
-_instanceof(new String('11'), String); //true
+_instanceof(111, Number) //true
+_instanceof(new String('11'), String) //true
 ```

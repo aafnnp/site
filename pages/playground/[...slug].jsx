@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 import React from 'react'
 
-export default function Playground (props) {
+export default function Playground(props) {
   const CustomComponent = dynamic(() =>
     import(`_playground/${props.slug.join('/')}`)
   )
@@ -18,7 +18,7 @@ export const getStaticPaths = async () => {
   }
 }
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({params}) => {
   return {
     props: {
       slug: params.slug

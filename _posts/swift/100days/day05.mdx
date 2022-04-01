@@ -140,7 +140,7 @@ doubleInPlace(number: &myNum)
 
 使用`do/try/catch`方式优雅的处理程序运行错误。
 
-``` swift
+```swift
 do{
   try checkPassword("password")
 }catch{
@@ -152,7 +152,7 @@ do{
 
 通常参数传递的值在函数内部不可更改，在`swift`中可通过`inout`更改。
 
-``` swift
+```swift
 func doubleInPlace(number: inout Int){
   number*=2
 }

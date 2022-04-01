@@ -17,7 +17,7 @@ swift 每个变量指定了特定的类型，类型决定变量占用内存的�
 
 变量和常量可以使用 print 函数输出，在字符串中可以使用括号与反斜线插入变量
 
-``` swift
+```swift
 // 变量声明
 var variableName = <initial value>
 
@@ -43,7 +43,7 @@ print("\(name)") //manon
 
 标准 Swift 字符串使用双引号，但不能包含换行符，如果您想要多行字符串，使用三个双引号开始和结束，如下所示：
 
-``` swift
+```swift
 var str1 = """
 This goes
 over multiple
@@ -54,7 +54,7 @@ print(str1) // "This goes\nover multiple\nlines"
 
 如果不希望显示`\`，应该如下写：
 
-``` swift
+```swift
 var str2 = """
 This goes \
 over multiple \
@@ -67,7 +67,7 @@ print(str2) //"This goes nover multiple nlines"
 
 Swift 中的另外两种基本数据类型是双精度和布尔值。
 
-``` swift
+```swift
 var pi = 3.141
 var awesome = true
 ```
@@ -76,7 +76,7 @@ var awesome = true
 
 > 将变量放置在字符串中
 
-``` swift
+```swift
 var score = 85
 var str = "Your score was \(score)"
 
@@ -87,7 +87,7 @@ var results = "The test results are here: \(str)"
 
 > 常量一旦赋值，不能再次赋值，否则会报错。
 
-``` swift
+```swift
 //声明
 let _const = <initial value>
 let _const:Float = 3.1415926
@@ -102,7 +102,7 @@ let _const:Float = 3.1415926
 
 在创建变量或常量的时候可以声明数据类型，如果没有，swift 将推导其数据类型，如下：
 
-``` swift
+```swift
 let str = "Hello, playground" //swift推导str为String
 
 // 主动声明类型
@@ -116,7 +116,7 @@ let taylorRocks: Bool = true
 
 字符串是一系列字符的集合，比如`hello world`，它的数据类型为 String
 
-``` swift
+```swift
 import Cocoa
 //创建字符串
 var str1 = "hello world"
@@ -155,6 +155,6 @@ if str1==str2{
 - `hasSuffix` 检查字符串是否有特定的后缀
 - `Int` 转换字符串数字为整型
 - `count` 计算字符串的长度
-- `utf8、utf16` 遍历String的utf8属性访问utf8、utf16编码
-- `unicodeScalars` 遍历String的unicodeScalars属性访问Unicode标量编码
+- `utf8、utf16` 遍历 String 的 utf8 属性访问 utf8、utf16 编码
+- `unicodeScalars` 遍历 String 的 unicodeScalars 属性访问 Unicode 标量编码
 - `+、+=、==、<、！=` 字符串操作符

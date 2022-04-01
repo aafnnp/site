@@ -1,8 +1,8 @@
 import CanIUse from 'components/CanIUse'
-import React, { useState } from 'react'
-import { FaCode, FaEye, FaFile } from 'react-icons/fa'
+import React, {useState} from 'react'
+import {FaCode, FaEye, FaFile} from 'react-icons/fa'
 
-export default function FileSystem () {
+export default function FileSystem() {
   const [status, setStatus] = useState({})
 
   const handleClick = () => {
@@ -12,9 +12,7 @@ export default function FileSystem () {
 
       console.log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'))
       console.log('Battery level: ' + battery.level * 100 + '%')
-      console.log(
-        'Battery charging time: ' + battery.chargingTime + ' seconds'
-      )
+      console.log('Battery charging time: ' + battery.chargingTime + ' seconds')
       console.log(
         'Battery discharging time: ' + battery.dischargingTime + ' seconds'
       )

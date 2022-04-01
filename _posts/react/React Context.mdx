@@ -13,15 +13,15 @@ Context 提供了一个无需为每层组件手动添加 props，就能在组件
 
 ```jsx
 function App() {
-  return <Body name="John Doe" />;
+  return <Body name="John Doe" />
 }
 
-function Body({ name }) {
-  return <Greeting name={name} />;
+function Body({name}) {
+  return <Greeting name={name} />
 }
 
-function Greeting({ name }) {
-  return <h1>Welcome, {name}</h1>;
+function Greeting({name}) {
+  return <h1>Welcome, {name}</h1>
 }
 ```
 

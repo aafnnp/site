@@ -16,10 +16,10 @@ const getRandomArrayElements = (arr, count) => {
 }
 
 const chunk = (arr, size) =>
-  Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+  Array.from({length: Math.ceil(arr.length / size)}, (v, i) =>
     arr.slice(i * size, i * size + size)
   )
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export {getRandomArrayElements,chunk,fetcher}
+export {getRandomArrayElements, chunk, fetcher}

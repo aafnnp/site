@@ -27,9 +27,9 @@ module.exports = {
       '2xl': '1536px'
       // => @media (min-width: 1536px) { ... }
     },
-    colors:{
+    colors: {
       ...colors,
-      'twitter':'rgb(29, 155, 240)'
+      twitter: 'rgb(29, 155, 240)'
     }
   },
   plugins: []

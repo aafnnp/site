@@ -21,7 +21,7 @@ age = 38
 
 `unwrapped`可以让你确保变量有值，如果没有值，程序会崩溃。
 
-``` swift
+```swift
 var name: String? = nil
 
 if let unwrapped = name {
@@ -40,7 +40,7 @@ guard let unwrapped = name else {
 
 只有确认变量有值时，才可以使用`!`强制转换。
 
-``` swift
+```swift
 let str = "5"
 let num = Int(str) // 这是不安全的，因为str可能不是一个整数
 
@@ -48,7 +48,8 @@ let num = Int(str)! // 这是安全的，因为str一定有值
 ```
 
 隐式转换
-``` swift
+
+```swift
 let age: Int! = nil
 ```
 
@@ -56,7 +57,7 @@ let age: Int! = nil
 
 当程序需要两个可选值时，可以使用`??`运算符来合并可选值。
 
-``` swift
+```swift
 func username(for id: Int) -> String? {
     if id == 1 {
         return "Taylor Swift"
@@ -72,7 +73,7 @@ let user = username(for: 15) ?? "Anonymous"
 
 通过可选链可避免多层嵌套的可选值获取错误。
 
-``` swift
+```swift
 let names = ["John", "Paul", "George", "Ringo"]
 
 let beatle = names.first?.uppercased()
@@ -82,7 +83,7 @@ let beatle = names.first?.uppercased()
 
 当程序抛出异常时，可以使用`try`和`catch`来处理异常。比如下面的代码
 
-``` swift
+```swift
 enum PasswordError: Error {
     case obvious
 }
@@ -105,7 +106,7 @@ do {
 
 还有一种方式是使用`try?`来尝试调用方法，如果方法抛出异常，则返回`nil`。
 
-``` swift
+```swift
 if let result = try? checkPassword("password") {
     print("Result was \(result)")
 } else {
@@ -115,7 +116,7 @@ if let result = try? checkPassword("password") {
 
 另外一种方式是使用`try!`来强制调用方法，如果方法抛出异常，则程序会崩溃。
 
-``` swift
+```swift
 try! checkPassword("sekrit")
 print("That password is good!")
 ```
@@ -124,7 +125,7 @@ print("That password is good!")
 
 `Swift`提供了两种类型转换：`as`和`as?`。
 
-``` swift
+```swift
 class Animal { }
 class Fish: Animal { }
 
@@ -139,7 +140,7 @@ let pets = [Fish(), Dog(), Fish(), Dog()]
 
 使用`as?`来检查类型转换是否成功。如果类型转换成功，则返回一个可选值，否则返回`nil`。
 
-``` swift
+```swift
 for pet in pets {
   if let dog = pet as? Dog{
     dog.makeNoise()

@@ -13,10 +13,10 @@ description: '当浏览器从在线与离线状态中切换时，这两个事件
 //网络状态
 window.addEventListener('load', () => {
   const updateOnlineStatus = () => {
-    this.online = navigator.onLine;
-  };
+    this.online = navigator.onLine
+  }
 
-  window.addEventListener('online', updateOnlineStatus);
-  window.addEventListener('offline', updateOnlineStatus);
-});
+  window.addEventListener('online', updateOnlineStatus)
+  window.addEventListener('offline', updateOnlineStatus)
+})
 ```

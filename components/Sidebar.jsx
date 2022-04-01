@@ -1,12 +1,12 @@
-import Link from 'next/link';
-import React from 'react';
-import { FaGithub, FaSitemap, FaTwitter } from 'react-icons/fa';
-import {DiTerminal} from 'react-icons/di';
-import dynamic from 'next/dynamic';
+import Link from 'next/link'
+import React from 'react'
+import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
+import {DiTerminal} from 'react-icons/di'
+import dynamic from 'next/dynamic'
 
-const Image = dynamic(() => import('components/Image'));
+const Image = dynamic(() => import('components/Image'))
 
-const Buttons = ['challenges', 'playground'];
+const Buttons = ['challenges', 'playground']
 const Skills = [
   'html',
   'javascript',
@@ -17,14 +17,14 @@ const Skills = [
   'nodejs',
   'swift',
   'linux',
-  'docker',
-];
+  'docker'
+]
 
 export default function Sidebar() {
   return (
     <div className="relative flex flex-col flex-none w-[360px] justify-between bg-white px-8 py-4">
       <div className="site-header flex gap-2 items-center">
-        <DiTerminal className='text-2xl'/>
+        <DiTerminal className="text-2xl" />
 
         <h1>
           <Link href="/">
@@ -95,5 +95,5 @@ export default function Sidebar() {
         </Link>
       </div>
     </div>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import styled from 'styled-components'
 export default class Index extends Component {
-  componentDidMount () {
+  componentDidMount() {
     const keys = document.querySelectorAll('.key')
     document.addEventListener('keydown', function (e) {
-      const { keyCode } = e
+      const {keyCode} = e
       const key = document.querySelector(`div[data-key="${keyCode}"]`)
       const audio = document.querySelector(`audio[data-key="${keyCode}"]`)
       if (key) {
@@ -20,7 +20,7 @@ export default class Index extends Component {
     })
   }
 
-  render () {
+  render() {
     return (
       <Wrapper>
         <div className="keys">

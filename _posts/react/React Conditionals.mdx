@@ -9,15 +9,15 @@ description: React是一个JavaScript库，致力于使UI开发变得简单
 
 ```jsx
 function App() {
-  const isAuthUser = useAuth();
+  const isAuthUser = useAuth()
 
   if (isAuthUser) {
     // if our user is authenticated, let them use the app
-    return <AuthApp />;
+    return <AuthApp />
   }
 
   // if user is not authenticated, show a different screen
-  return <UnAuthApp />;
+  return <UnAuthApp />
 }
 ```
 
@@ -25,13 +25,13 @@ function App() {
 
 ```jsx
 function App() {
-  const isAuthUser = useAuth();
+  const isAuthUser = useAuth()
 
   return (
     <>
       <h1>My App</h1>
       {isAuthUser ? <AuthApp /> : <UnAuthApp />}
     </>
-  );
+  )
 }
 ```

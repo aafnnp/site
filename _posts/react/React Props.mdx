@@ -9,11 +9,11 @@ description: React是一个JavaScript库，致力于使UI开发变得简单
 
 ```jsx
 function App() {
-  return <User name="John Doe" />;
+  return <User name="John Doe" />
 }
 
 function User(props) {
-  return <h1>Hello, {props.name}</h1>; // Hello, John Doe!
+  return <h1>Hello, {props.name}</h1> // Hello, John Doe!
 }
 ```
 
@@ -23,10 +23,10 @@ function User(props) {
 
 ```jsx
 function App() {
-  return <User name="John Doe" />;
+  return <User name="John Doe" />
 }
 
-function User({ name }) {
-  return <h1>Hello, {name}!</h1>; // Hello, John Doe!
+function User({name}) {
+  return <h1>Hello, {name}!</h1> // Hello, John Doe!
 }
 ```

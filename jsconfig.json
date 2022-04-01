@@ -8,9 +8,7 @@
     "_playground/**/*",
     "_challenges/**/*"
   ],
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "checkJs": true,
   "compilerOptions": {
     "baseUrl": "."

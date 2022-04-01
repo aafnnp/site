@@ -12,15 +12,15 @@ tags: [javascript]
 
 ```javascript
 function foo() {
-  var a = 'hzfe';
+  var a = 'hzfe'
   function bar() {
-    console.log(a);
+    console.log(a)
   }
-  return bar;
+  return bar
 }
 
-var baz = foo();
-baz(); // hzfe
+var baz = foo()
+baz() // hzfe
 ```
 
 在这个例子中，函数 bar 作为返回值返回后，在自己定义的词法作用域以外的地方执行。一般来说，在函数 foo 执行后，通常会期待函数 foo 的整个内部作用域被引擎回收机制销毁。而闭包可以阻止这件事情的发生。事实上内部作用域依然存在，因为函数 bar 本身在使用，所以并不会被回收。
@@ -32,10 +32,10 @@ baz(); // hzfe
 无论何时何地，如果将函数作为返回值，就会看到闭包在这些函数中的应用。在定时器，事件监听器，ajax 请求，跨窗口通信，web workers 或者任何其他的异步/同步任务中，只要使用了回调函数，实际上就是使用闭包。使用闭包的例子可以参考实现节流防抖函数。
 
 ```javascript
-var a = 'hzfe';
-(function IIFE() {
-  console.log(a);
-})();
+var a = 'hzfe'
+;(function IIFE() {
+  console.log(a)
+})()
 ```
 
 通常认为立即执行函数（IIFE）是典型的观察闭包的典型例子，但严格来说并不是。虽然创建了闭包，但没有体现出闭包的作用。因为函数并不是在它本身的词法作用域以外执行的。 它在定义时所在的作用域中执行，而非外部作用域。

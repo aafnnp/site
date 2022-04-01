@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { data, title } from 'utils/http-status'
+import {data, title} from 'utils/http-status'
 
 const HttpStatus = () => {
   return (

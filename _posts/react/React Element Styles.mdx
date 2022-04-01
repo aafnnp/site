@@ -18,11 +18,11 @@ description: React是一个JavaScript库，致力于使UI开发变得简单
 function App() {
   return (
     <header className="App-header">
-      <p style={{ margin: '1px', padding: '5px' }}>
+      <p style={{margin: '1px', padding: '5px'}}>
         <code>src/App.js</code>
       </p>
       <a
-        style={{ color: 'red', backgroundColor: 'green' }}
+        style={{color: 'red', backgroundColor: 'green'}}
         className="App-link"
         href="https://reactjs.org"
         target="_blank"
@@ -30,24 +30,24 @@ function App() {
         Learn React
       </a>
     </header>
-  );
+  )
 }
 ```
 
 为各个组件创建单独的样式，并且在组件中使用
 
 ```jsx
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
 
 function App() {
   return (
     <header className="App-header">
-      <p style={{ margin: '1px', padding: '5px' }}>
+      <p style={{margin: '1px', padding: '5px'}}>
         <code>src/App.js</code>
       </p>
       <a
-        style={{ color: 'red', backgroundColor: 'green' }}
+        style={{color: 'red', backgroundColor: 'green'}}
         className="App-link"
         href="https://reactjs.org"
         target="_blank"
@@ -55,35 +55,35 @@ function App() {
         Learn React
       </a>
     </header>
-  );
+  )
 }
 
-export default App;
+export default App
 ```
 
 将 `style` 属性附加到 `JavaScript` 样式对象
 
 ```jsx
-import React from 'react';
+import React from 'react'
 
 var stylingObject = {
   div: {
     color: 'red',
-    border: '1px solid red',
+    border: '1px solid red'
   },
   input: {
     margin: '2px',
-    padding: '5px',
-  },
-};
+    padding: '5px'
+  }
+}
 
 function App() {
   return (
     <div style={stylingObject.div}>
       <input style={stylingObject.input} type="text" />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
 ```

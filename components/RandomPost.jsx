@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-export default function RandomPost ({ randomPost }) {
+export default function RandomPost({randomPost}) {
   return (
     <div className="random-post">
       <h2>更多文章</h2>
