@@ -32,13 +32,13 @@ body {
     img {
       @apply object-cover object-center;
     }
-    code {
-      @apply bg-gray-100 border text-red-600 whitespace-nowrap rounded-b-sm;
-      padding: 1px;
-    }
     a {
       @apply text-twitter;
     }
+  }
+  code {
+    @apply bg-gray-100 border text-red-600 whitespace-nowrap rounded-b-sm;
+    padding: 1px;
   }
   blockquote {
     @apply mt-4 mb-12 bg-gray-100 p-4 rounded-lg border-l-4 border-l-slate-200 text-gray-500;

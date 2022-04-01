@@ -22,5 +22,8 @@ module.exports = withPlugins([withMDX, withAnalyzer], {
   images: {
     loader: 'custom',
     domains: ['images.unsplash.com']
+  },
+  experimental: {
+    urlImports: ['https://cdn.skypack.dev']
   }
 })
