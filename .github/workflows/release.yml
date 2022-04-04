@@ -17,7 +17,7 @@ jobs:
           version: 6.32.3
 
       - name: Set node version to v16
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3.1.0
         with:
           node-version: 16.x
           cache: pnpm
