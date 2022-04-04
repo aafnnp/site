@@ -8,65 +8,6 @@
 body {
   @apply bg-white dark:bg-slate-900 dark:text-white;
 }
-// single post
-.post {
-  h2 {
-    @apply relative text-xl font-bold leading-[1.78] mt-4 mb-2;
-    &::before {
-      position: absolute;
-      display: block;
-      content: '#';
-      color: gray;
-      opacity: 0.75;
-      transform: translateX(-120%);
-    }
-  }
-  h3 {
-    @apply leading-[1.78] font-bold text-base underline mt-4 mb-2;
-  }
-  h4 {
-    @apply leading-[1.78] text-xs mt-4 mb-2;
-  }
-  p {
-    @apply leading-relaxed my-4;
-    img {
-      @apply object-cover object-center;
-    }
-    a {
-      @apply text-twitter;
-    }
-  }
-  p code,li code {
-    @apply bg-gray-100 border text-red-600 whitespace-nowrap rounded-b-sm;
-    padding: 1px;
-  }
-  blockquote {
-    @apply mt-4 mb-12 bg-gray-100 p-4 rounded-lg border-l-4 border-l-slate-200 text-gray-500;
-  }
-  li {
-    @apply list-inside list-disc text-gray-500 dark:text-gray-200;
-    > ul {
-      @apply ml-[2em];
-    }
-  }
-  table {
-    @apply w-full text-sm text-left text-gray-500 dark:text-gray-400;
-    thead {
-      @apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400;
-    }
-    th {
-      @apply px-6 py-3;
-    }
-    tbody {
-      tr {
-        @apply bg-white border-b dark:bg-gray-800 dark:border-gray-700;
-      }
-      td {
-        @apply px-6 py-4;
-      }
-    }
-  }
-}
 
 .random-post {
   h2 {

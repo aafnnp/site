@@ -4,6 +4,7 @@ import Head from 'next/head'
 import {useRouter} from 'next/router'
 import React from 'react'
 import 'styles/main.scss'
+import 'styles/markdown.scss'
 
 const Sidebar = dynamic(() => import('components/Sidebar'))
 const Comments = dynamic(() => import('components/Comments'))
