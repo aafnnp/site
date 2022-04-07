@@ -1,0 +1,53 @@
+---
+date: '2022-04-07 08:28:25'
+title: 'Node.js - DNS & Net'
+tags: [nodejs, javascript]
+---
+
+## DNS
+
+DNS 模块包含了域名解析的功能。
+
+- `dns.getServers()` 返回一个数组，包含当前 DNS 服务器的 IP 地址。
+- `dns.setServers(servers)` 设置 DNS 服务器的 IP 地址。
+- `dns.lookup(domain, callback)` 查询域名的 IP 地址。
+- `dns.lookupService(address, port, callback)` 查询 IP 地址和端口的服务名。
+- `dns.resolve(domain, callback)` 查询域名的 IP 地址。
+- `dns.resolve4(domain, callback)` 查询域名的 IPv4 地址。
+- `dns.resolve6(domain, callback)` 查询域名的 IPv6 地址。
+- `dns.resolveMx(domain, callback)` 查询域名的 MX 记录。
+- `dns.resolveTxt(domain, callback)` 查询域名的 TXT 记录。
+- `dns.resolveSrv(domain, callback)` 查询域名的 SRV 记录。
+- `dns.resolveNs(domain, callback)` 查询域名的 NS 记录。
+- `dns.resolveCname(domain, callback)` 查询域名的 CNAME 记录。
+- `dns.reverse(domain, callback)` 查询 IP 地址的域名。
+
+```js
+const dns = require('dns')
+
+dns.lookup('manon.icu', (err, address, family) => {
+  console.log('ip 地址: %j 地址族: IPv%s', address, family)
+})
+```
+
+## Net
+
+模块提供了异步的网络 API，用于创建基于流的 `TCP` 或 `IPC` 服务器 `(net.createServer())` 和客户端
+
+```js
+const net = require('net')
+
+const server = net
+  .createServer((socket) => {
+    socket.write('hello\r\n')
+    socket.pipe(socket)
+  })
+  .on('error', (err) => {
+    throw err
+  })
+
+server.listen(() => {
+  const {port} = server.address()
+  console.log('opened server on %j', port)
+})
+```
