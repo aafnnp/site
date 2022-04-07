@@ -9,10 +9,10 @@ import 'styles/markdown.scss'
 const Sidebar = dynamic(() => import('components/Sidebar'))
 const Comments = dynamic(() => import('components/Comments'))
 
+
 const App = ({Component, pageProps}) => {
   const router = useRouter()
   const url = `https://manon.icu${router.route}`
-
   return (
     <>
       <Head>

@@ -13,6 +13,7 @@ const Ad = dynamic(() => import('components/ad'))
 const PostPage = dynamic(() => import('components/PostPage'))
 const Layout = dynamic(() => import('components/Layout'))
 const Random = dynamic(() => import('components/RandomPost'))
+const Share = dynamic(() => import('components/Share'))
 
 const Post = ({data, mdxSource, randomPost}) => {
   const router = useRouter()
@@ -43,6 +44,8 @@ const Post = ({data, mdxSource, randomPost}) => {
       {/* 底部广告 */}
       <Ad />
       {/* 底部广告结束 */}
+      <Share data={data}/>
+
       <Random randomPost={randomPost} />
     </Layout>
   )
