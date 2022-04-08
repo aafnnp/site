@@ -1,0 +1,67 @@
+---
+date: '2022-04-08 10:47:12'
+title: 'Node.js - Process'
+tags: [nodejs, javascript]
+description: process对象是 Node 的一个全局对象，提供当前 Node 进程的信息。它可以在脚本的任意位置使用，不必通过require命令加载。该对象部署了EventEmitter接口
+---
+
+process对象是 Node 的一个全局对象，提供当前 Node 进程的信息。它可以在脚本的任意位置使用，不必通过require命令加载。该对象部署了EventEmitter接口
+
+## 属性
+
+- `arch`: 操作系统的架构，可能的值有 `x64`, `arm`, `arm64`, `ia32`
+- `argv`: 包含命令行参数的数组
+- `config`: 包含当前进程的配置信息
+- `connected`: 当前进程是否连接到了网络
+- `env`: 包含当前进程的环境变量
+- `execArgv`: 包含当前进程的执行参数
+- `execPath`: 包含当前进程的执行路径
+- `exitCode`: 当前进程的退出代码
+- `args`: 包含当前进程的参数
+- `pid`: 当前进程的pid
+- `platform`: 操作系统平台，可能的值有 `darwin`, `freebsd`, `linux`, `sunos`, `win32`
+- `release`: 操作系统的版本
+- `version`: Node.js 的版本
+- `versions`: 包含当前运行的 Node.js 版本信息
+
+输出基本信息
+
+```js
+console.log(`Process Architecture: ${process.arch}`);
+console.log(`Process PID: ${process.pid}`);
+console.log(`Process Platform: ${process.platform}`);
+console.log(`Process Version: ${process.version}`);
+```
+
+输出命令行参数：
+
+```js
+process.argv.forEach((value, index, array) => {
+  console.log(`${index}: ${value}`);
+});
+```
+
+## 方法
+
+- `cwd()`: 返回当前进程的工作目录
+- `chdir(directory)`: 改变当前进程的工作目录
+- `nextTick(callback)`: 在下一个事件循环中执行回调函数
+- `exit(code)`: 退出当前进程
+- `getgid()`: 返回当前进程的用户组id
+- `getuid()`: 返回当前进程的用户id
+- `nextTick(callback)`: 在下一个事件循环中执行回调函数
+- `on(event, listener)`: 监听进程事件
+- `setgid(id)`: 设置当前进程的用户组id
+- `setuid(id)`: 设置当前进程的用户id
+- `uptime()`: 返回当前进程的运行时间
+
+
+获取当前工作目录和运行时间
+
+```js
+console.log(`Current directory: ${process.cwd()}`);
+console.log(`Uptime: ${process.uptime()}`);
+```
+
+[Node.js文档](http://nodejs.cn/api/process.html)
+[process对象](https://javascript.ruanyifeng.com/nodejs/process.html)
