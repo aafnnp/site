@@ -50,8 +50,8 @@ const IndexPage = ({posts}) => {
 export default IndexPage
 
 export async function getStaticProps() {
-  const {getAllPosts} = await import('api/getAllPosts')
-  const posts = await getAllPosts()
+  const {GetAllPosts} = await import('api/getAllPosts')
+  const posts = await GetAllPosts()
 
   return {
     props: {

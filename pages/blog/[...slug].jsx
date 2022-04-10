@@ -52,8 +52,8 @@ const Post = ({data, mdxSource, randomPost}) => {
 }
 
 export const getStaticPaths = async () => {
-  const {getAllPosts} = await import('api/getAllPosts')
-  const allPosts = await getAllPosts()
+  const {GetAllPosts} = await import('api/getAllPosts')
+  const allPosts = await GetAllPosts()
   const paths = allPosts.map((post) => ({
     params: {
       slug: post.slug.split('/')
@@ -67,7 +67,7 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({params}) => {
-  const {getAllPosts, GetPostBySlug} = await import('api/getAllPosts')
+  const {GetAllPosts, GetPostBySlug} = await import('api/getAllPosts')
   const {content, data} = await GetPostBySlug(params.slug)
   const {getRandomArrayElements} = await import('utils')
   const mdxSource = await serialize(content, {
@@ -77,7 +77,7 @@ export const getStaticProps = async ({params}) => {
     },
     scope: data
   })
-  const AllPost = await getAllPosts()
+  const AllPost = await GetAllPosts()
   const randomPost = getRandomArrayElements(
     AllPost,
     AllPost.length < 6 ? AllPost.length - 1 : 6
