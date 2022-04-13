@@ -1,8 +1,107 @@
 ---
 date: '2022-04-12 09:30:08'
-title: 'Node.js - Buffers'
+title: 'Node.js - Streams'
 tags: [nodejs, javascript]
 draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+description: Streams允许从源读取数据或写入数据到目标对象。
 ---
 
+`Streams` 允许从源读取数据或写入数据到目标对象。在`Node.js`中有四种 stream
+
+- `Writeable`：可写
+- `Readable`：可读
+- `Duplex`：双向，即可用于读写
+- `Transform`：根据输入计算输出
+
+每种类型的`stream`都是`EventEmitter`实例，在不同的实例抛出多个事件。常用的事件：
+
+- `data`：当数据可读抛出
+- `end`：当数据读取结束
+- `error`：当数据读取错误
+- `finish`：在调用 `stream.end()` 方法之后，并且所有数据都已刷新到底层系统
+
+## 读取数据
+
+```js
+var fs = require('fs')
+var data = ''
+
+// Create a readable stream
+var readerStream = fs.createReadStream('input.txt')
+
+// Set the encoding to be utf8.
+readerStream.setEncoding('UTF8')
+
+// Handle stream events --> data, end, and error
+readerStream.on('data', function (chunk) {
+  data += chunk
+})
+
+readerStream.on('end', function () {
+  console.log(data)
+})
+
+readerStream.on('error', function (err) {
+  console.log(err.stack)
+})
+
+console.log('Program Ended') // Program Ended Tutorials Point is giving self learning content to teach the world in simple and easy way!!!!!
+```
+
+## 写入数据
+
+```js
+var fs = require('fs')
+var data = 'Simply Easy Learning'
+
+// Create a writable stream
+var writerStream = fs.createWriteStream('output.txt')
+
+// Write the data to stream with encoding to be utf8
+writerStream.write(data, 'UTF8')
+
+// Mark the end of file
+writerStream.end()
+
+// Handle stream events --> finish, and error
+writerStream.on('finish', function () {
+  console.log('Write completed.')
+})
+
+writerStream.on('error', function (err) {
+  console.log(err.stack)
+})
+
+console.log('Program Ended')
+```
+
+## Pipe-管道流
+
+`pipe`是一种机制，我们将一个`stream`的输出作为另一个`stream`的输入。它通常用于从一个`stream`中获取数据，并将该`stream`的输出传递给另一个`stream`。`pipe`操作没有限制。
+
+```js
+var fs = require('fs')
+
+var readerStream = fs.createReadStream('input.txt')
+var writerStream = fs.createWriteStream('output.txt')
+
+readerStream.pipe(writerStream)
+
+console.log('Program Ended')
+```
+
+## 链式流
+
+`chaining`是一种将一个`stream`的输出连接到另一个`stream`并创建多个`stream`操作链的机制，它通常用于管道操作。
+
+```js
+var fs = require("fs");
+var zlib = require('zlib');
+
+// Compress the file input.txt to input.txt.gz
+fs.createReadStream('input.txt')
+   .pipe(zlib.createGzip())
+   .pipe(fs.createWriteStream('input.txt.gz'));
+
+console.log("File Compressed.");
+```
