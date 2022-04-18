@@ -16,6 +16,7 @@
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mdx-js/react": "^2.1.1",
+    "dayjs": "^1.11.1",
     "dayjs": "^1.11.0",
     "framer-motion": "^6.3.0",
     "globby": "^13.1.1",
