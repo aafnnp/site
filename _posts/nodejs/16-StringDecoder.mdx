@@ -1,8 +1,34 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Node.js - Buffers'
+date: '2022-04-19 18:47:31'
+title: 'Node.js - StringDecoder'
 tags: [nodejs, javascript]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+description: string_decoder用于把Buffer转换为字符串
 ---
 
+`string_decoder`用于把 Buffer 转换为字符串
+
+## 基本用法
+
+```js
+const {StringDecoder} = require('string_decoder')
+const decoder = new StringDecoder('utf8')
+const buffer = Buffer.from('Hello World')
+const str = decoder.write(buffer)
+console.log(str)
+```
+
+## 方法
+
+- stringDecoder.write(buffer[, encoding])
+- stringDecoder.end(buffer[, encoding])
+
+`write`方法把 buffer 转换为字符串，`end`方法把 buffer 转换为字符串并返回。
+
+```js
+const {StringDecoder} = require('string_decoder')
+const decoder = new StringDecoder('utf8')
+
+decoder.write(Buffer.from([0xe2]))
+decoder.write(Buffer.from([0x82]))
+console.log(decoder.end(Buffer.from([0xac])))
+```
