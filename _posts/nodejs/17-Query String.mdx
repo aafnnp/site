@@ -1,8 +1,79 @@
 ---
 date: '2022-04-12 09:30:08'
-title: 'Node.js - Buffers'
+title: 'Node.js - Query String'
 tags: [nodejs, javascript]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+description: query string 用于解析和格式化网址查询字符串
 ---
 
+`Query String` 用于解析和格式化网址查询字符串。
+
+## 使用
+
+```js
+const querystring = require('querystring'); // querystring目前仍在开发中，不推荐使用，推荐使用`URLSearchParams`
+```
+
+## 方法
+
+- `querystring.parse(str, sep, eq, options)`: 解析字符串为对象
+- `querystring.stringify(obj, sep, eq, options)`: 格式化对象为字符串
+- `querystring.escape(str)`: 转义字符串
+- `querystring.unescape(str)`: 反转义字符串
+- `querystring.decode(str)`: 解码字符串
+- `querystring.encode(obj)`: 编码对象为字符串
+
+querystring.parse
+
+```js
+const querystring = require('querystring');
+const str = 'name=zfpx&age=6';
+const obj = querystring.parse(str);
+console.log(obj); // { name: 'zfpx', age: '6' }
+```
+
+querystring.stringify
+
+```js
+const querystring = require('querystring');
+const obj = { name: 'zfpx', age: 6 };
+const str = querystring.stringify(obj);
+console.log(str); // name=zfpx&age=6
+```
+
+querystring.escape
+
+```js
+const querystring = require('querystring');
+const str = 'name=zfpx&age=6';
+const str2 = querystring.escape(str);
+console.log(str2); // name%3Dzfpx%26age%3D6
+```
+
+querystring.unescape
+
+```js
+const querystring = require('querystring');
+const str = 'name%3Dzfpx%26age%3D6';
+const str2 = querystring.unescape(str);
+console.log(str2); // name=zfpx&age=6
+```
+
+querystring.decode
+
+```js
+const querystring = require('querystring');
+const str = 'name=zfpx&age=6';
+const obj = querystring.decode(str);
+console.log(obj); // { name: 'zfpx', age: '6' }
+```
+
+querystring.encode
+
+```js
+const querystring = require('querystring');
+const obj = { name: 'zfpx', age: 6 };
+const str = querystring.encode(obj);
+console.log(str); // name=zfpx&age=6
+```
+
+[Node.js官方文档](https://nodejs.org/api/querystring.html)
