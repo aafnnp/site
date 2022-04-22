@@ -1,8 +1,38 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Node.js - Buffers'
+date: '2022-04-21 11:41:08'
+title: 'Node.js - zlib'
 tags: [nodejs, javascript]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+description: zlib模块提供通过 Gzip 和 Deflate/Inflate 实现的压缩功能
+modified: '2022-04-21 11:41:08'
 ---
 
+`zlib`模块提供通过 `Gzip` 和 `Deflate/Inflate` 实现的压缩功能
+
+## 创建和使用压缩流
+
+```javascript
+const zlib = require('zlib')
+const gzip = zlib.createGzip()
+const fs = require('fs')
+const inp = fs.createReadStream('input.txt')
+const out = fs.createWriteStream('input.txt.gz')
+inp.pipe(gzip).pipe(out)
+// 在桌面创建 input.txt 和 input.txt.gz 文件
+```
+
+## 解压缩和创建文件
+
+```javascript
+const zlib = require('zlib')
+const gunzip = zlib.createGunzip()
+const fs = require('fs')
+const inp = fs.createReadStream('input.txt.gz')
+const out = fs.createWriteStream('input.txt')
+inp.pipe(gunzip).pipe(out)
+
+// 在桌面创建 input.txt 和 input.txt.gz 文件
+```
+
+```
+
+```

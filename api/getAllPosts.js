@@ -17,7 +17,8 @@ const GetAllPosts = async () => {
         data: {
           ...data,
           date: dayjs(data.date).format('MMM DD, YYYY'),
-          fromNow: dayjs(data.date).fromNow()
+          fromNow: dayjs(data.date).fromNow(),
+          modified: dayjs(data.modified).format('MMM DD, YYYY')
         },
         content,
         slug: next.replace(/^_posts\//, '').replace(/\.mdx$/, '')
