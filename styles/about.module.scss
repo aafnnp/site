@@ -1,0 +1,22 @@
+.about {
+  @apply flex flex-col items-center justify-center absolute w-screen h-screen top-0 left-0;
+  background: url('https://pics-rust.vercel.app/uPic/about-bg.jpg') no-repeat
+    center center fixed;
+  background-size: cover;
+  color: #fff;
+  .content {
+    @apply absolute top-24 left-14;
+  }
+  h1 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-4xl;
+  }
+  .btn {
+    @apply absolute bottom-24 right-14;
+    a {
+      @apply w-32 mr-4 bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-full;
+    }
+  }
+}

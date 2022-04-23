@@ -1,0 +1,42 @@
+.sidebar {
+  @apply relative flex flex-col flex-none w-[360px] justify-between bg-white px-8 py-4;
+  .header {
+    @apply flex gap-2 items-center;
+    .icon-terminal {
+      @apply text-2xl;
+    }
+  }
+
+  .description {
+    @apply flex flex-col gap-4;
+    .logo {
+      @apply w-1/2 h-1/2 rounded-full overflow-hidden mx-auto;
+    }
+    .info {
+      @apply text-sm text-gray-400;
+    }
+    h2 {
+      @apply font-bold text-3xl text-black;
+    }
+    p {
+      @apply mb-8;
+    }
+  }
+
+  .btn {
+    @apply flex gap-4 text-white text-sm;
+    a {
+      @apply flex items-center justify-center rounded p-1.5 bg-twitter capitalize;
+    }
+  }
+
+  .skills {
+    @apply flex gap-2;
+    .tag {
+      @apply w-6 h-6 drop-shadow-xl;
+    }
+  }
+  .social {
+    @apply flex gap-4;
+  }
+}

@@ -5,8 +5,9 @@ import ErrorPage from 'next/error'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import React from 'react'
-import components from 'utils/components'
 import remarkGfm from 'remark-gfm'
+import styles from 'styles/blog.module.scss'
+import components from 'utils/components'
 const codesandbox = require('remark-codesandbox')
 
 const Ad = dynamic(() => import('components/ad'))
@@ -22,9 +23,9 @@ const Post = ({data, mdxSource, randomPost}) => {
   }
   return (
     <Layout title={data.title} description={data.description}>
-      <hgroup className="text-center">
-        <p className="text-gray-500 text-xs">Published {data.date}</p>
-        <h1 className="mt-4 mb-8 text-4xl font-bold">{data.title}</h1>
+      <hgroup className={styles.hgroup}>
+        <p className={styles.p}>Published {data.date}</p>
+        <h1 className={styles.h1}>{data.title}</h1>
       </hgroup>
 
       {/* 头部广告 */}
@@ -33,7 +34,7 @@ const Post = ({data, mdxSource, randomPost}) => {
       <PostPage>
         <MDXRemote {...mdxSource} components={components} />
         {data.originalUrl && (
-          <div className="text-gray-500">
+          <div className={styles.originalUrl}>
             本文翻译自：
             <Link href={data.originalUrl}>
               <a>{data.originalUrl}</a>
@@ -44,7 +45,7 @@ const Post = ({data, mdxSource, randomPost}) => {
       {/* 底部广告 */}
       <Ad />
       {/* 底部广告结束 */}
-      <Share data={data}/>
+      <Share data={data} />
 
       <Random randomPost={randomPost} />
     </Layout>

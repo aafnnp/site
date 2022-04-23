@@ -1,17 +1,18 @@
 import {
+  EmailIcon,
+  EmailShareButton,
+  FacebookIcon,
+  FacebookShareButton,
+  RedditIcon,
+  RedditShareButton,
   TwitterIcon,
   TwitterShareButton,
-  WeiboShareButton,
   WeiboIcon,
-  EmailShareButton,
-  EmailIcon,
-  RedditShareButton,
-  RedditIcon,
-  FacebookShareButton,
-  FacebookIcon
+  WeiboShareButton
 } from 'next-share'
 import {useRouter} from 'next/router'
-import {useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
+import styles from 'styles/blog.module.scss'
 
 export default function Share(props) {
   const {asPath} = useRouter()
@@ -22,7 +23,7 @@ export default function Share(props) {
   return (
     <>
       {asPath === '/' ? null : (
-        <div className="share py-4 flex justify-center gap-2">
+        <div className={styles.share}>
           <TwitterShareButton url={url} title={props.data.title}>
             <TwitterIcon size={24} round />
           </TwitterShareButton>

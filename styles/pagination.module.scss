@@ -1,0 +1,9 @@
+.pagination {
+  @apply flex space-x-1 justify-center py-4;
+  span {
+    @apply cursor-pointer w-8 h-8 leading-8 rounded-xl text-center text-gray-700 bg-gray-200 hover:bg-twitter hover:text-white;
+    &.active {
+      @apply bg-twitter text-white;
+    }
+  }
+}

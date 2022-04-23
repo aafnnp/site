@@ -1,13 +1,14 @@
 import React from 'react'
+import styles from 'styles/pagination.module.scss'
 
 export default function Pagination({len, page, setPage}) {
   return (
-    <div className="pagination">
+    <div className={styles.pagination}>
       {Array(len)
         .fill(0)
         .map((_, index) => (
           <span
-            className={page === index + 1 ? 'active' : ''}
+            className={`${styles.span} ${page === index + 1 && styles.active}`}
             key={index}
             onClick={() => setPage(index + 1)}
           >

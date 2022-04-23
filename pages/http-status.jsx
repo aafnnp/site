@@ -1,15 +1,16 @@
 import Link from 'next/link'
 import React from 'react'
+import styles from 'styles/http-status.module.scss'
 import {data, title} from 'utils/http-status'
 
 const HttpStatus = () => {
   return (
-    <div className="http-status">
-      <h1>HTTP状态代码概述</h1>
+    <div className={styles['http-status']}>
+      <h1 className={styles.h1}>HTTP状态代码概述</h1>
 
       {data.map((item, key) => (
-        <div className="http-status-item" key={key}>
-          <h2>
+        <div className={styles['http-status-item']} key={key}>
+          <h2 className={styles.h2}>
             <span>{key + 1}xx</span>
             <span>{title[key]}</span>
           </h2>
@@ -19,12 +20,10 @@ const HttpStatus = () => {
               key={el.key}
               href={`https://www.abstractapi.com/http-status-codes/${el.key}`}
             >
-              <a>
-                <span className="px-2 py-1 bg-purple-500 rounded-md text-white text-xs">
-                  {el.key}
-                </span>
+              <a className={styles.a}>
+                <span className={styles.key}>{el.key}</span>
                 <span>-</span>
-                <span className="text-purple-600">{el.value}</span>
+                <span className={styles.value}>{el.value}</span>
               </a>
             </Link>
           ))}

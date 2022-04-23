@@ -9,42 +9,6 @@ body {
   @apply bg-white dark:bg-slate-900 dark:text-white;
 }
 
-.random-post {
-  h2 {
-    @apply relative font-bold text-base mb-4;
-  }
-  li {
-    @apply list-disc list-inside;
-    a {
-      @apply text-gray-500 underline text-sm dark:text-gray-200;
-    }
-  }
-}
-
-.http-status {
-  h1 {
-    @apply text-3xl font-bold mb-4;
-  }
-  h2 {
-    @apply flex gap-4 text-xl font-bold mb-2;
-  }
-  &-item {
-    @apply mb-8;
-  }
-  a {
-    @apply flex gap-2 py-2;
-  }
-}
-
-.pagination {
-  @apply flex space-x-1 justify-center py-4;
-  span {
-    @apply cursor-pointer w-8 h-8 leading-8 rounded-xl text-center text-gray-700 bg-gray-200 hover:bg-twitter hover:text-white;
-    &.active {
-      @apply bg-twitter text-white;
-    }
-  }
-}
 [class^='language'] {
   font-family: monospace;
 }

@@ -1,71 +1,22 @@
-import {motion} from 'framer-motion'
 import Link from 'next/link'
 import React from 'react'
+import styles from 'styles/about.module.scss'
 
 export default function Index() {
   return (
     <>
-      <style jsx>{`
-        .about {
-          background: url('https://pics-rust.vercel.app/uPic/about-bg.jpg')
-            no-repeat center center fixed;
-          background-size: cover;
-          color: #fff;
-        }
-      `}</style>
-      <div className="flex flex-col items-center justify-center absolute w-screen h-screen top-0 left-0 about">
-        <div className="absolute top-24 left-14">
-          <motion.h1
-            className="text-xl"
-            animate={{x: 0, opacity: 1}}
-            initial={{
-              x: -100,
-              opacity: 0
-            }}
-            transition={{ease: 'easeOut', duration: 1.5}}
-          >
-            Manon.icu
-          </motion.h1>
-          <motion.h3
-            className="text-4xl"
-            animate={{x: 0, opacity: 1}}
-            initial={{
-              x: -100,
-              opacity: 0
-            }}
-            transition={{ease: 'easeOut', duration: 1.5, delay: 0.8}}
-          >
-            FullStack Developer.
-          </motion.h3>
+      <div className={styles.about}>
+        <div className={styles.content}>
+          <h1 className={styles.h1}>Manon.icu</h1>
+          <h3 className={styles.h3}>FullStack Developer.</h3>
         </div>
 
-        <div className="absolute bottom-24 right-14">
+        <div className={styles.btn}>
           <Link href="/challenges">
-            <a>
-              <motion.button
-                className="w-32 mr-4 bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-full"
-                animate={{y: 0, opacity: 1}}
-                initial={{
-                  y: 100,
-                  opacity: 0
-                }}
-                transition={{ease: 'easeOut', duration: 1.5, delay: 0.8}}
-              >
-                Challenges
-              </motion.button>
-            </a>
+            <a className={style.a}>Challenges</a>
           </Link>
           <Link href="/">
-            <a>
-              <motion.button
-                className="w-32 mr-4 bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-full"
-                animate={{y: 0, opacity: 1}}
-                initial={{y: 100, opacity: 0}}
-                transition={{ease: 'easeOut', duration: 1.5, delay: 1.6}}
-              >
-                Blog
-              </motion.button>
-            </a>
+            <a className={style.a}>Blog</a>
           </Link>
         </div>
       </div>

@@ -1,0 +1,29 @@
+.hgroup {
+  @apply text-center;
+  p {
+    @apply text-gray-500 text-xs;
+  }
+  h1 {
+    @apply text-4xl mt-4 mb-8 font-bold;
+  }
+}
+
+.originalUrl {
+  @apply text-gray-500;
+}
+
+.random-post {
+  h2 {
+    @apply relative font-bold text-base mb-4;
+  }
+  li {
+    @apply list-disc list-inside;
+    a {
+      @apply text-gray-500 underline text-sm dark:text-gray-200;
+    }
+  }
+}
+
+.share {
+  @apply py-4 flex justify-center gap-2;
+}
