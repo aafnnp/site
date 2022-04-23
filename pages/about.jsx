@@ -13,10 +13,10 @@ export default function Index() {
 
         <div className={styles.btn}>
           <Link href="/challenges">
-            <a className={style.a}>Challenges</a>
+            <a className={styles.a}>Challenges</a>
           </Link>
           <Link href="/">
-            <a className={style.a}>Blog</a>
+            <a className={styles.a}>Blog</a>
           </Link>
         </div>
       </div>
