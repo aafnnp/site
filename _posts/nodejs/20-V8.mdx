@@ -1,8 +1,88 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Node.js - Buffers'
+date: '2022-04-24 09:45:25'
+title: 'Node.js - V8'
 tags: [nodejs, javascript]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+description: V8是由Chromium项目为Google Chrome网页浏览器开发的开源JavaScript引擎
 ---
 
+V8 是由 Chromium 项目为 Google Chrome 网页浏览器开发的开源 JavaScript 引擎。它是用 C++语言编写的，并且是一个轻量级的引擎，可以在很小的内存中运行。现在，它用于很多项目，比如 Couchbase、MongoDB、Node.js，等等。
+
+## Node.js - V8
+
+Node.js V8 模块表示 V8 引擎的实例，可以通过 V8.createContext()方法创建一个上下文，然后通过 V8.runInContext()方法来执行 JavaScript 代码。
+
+它提供`v8.getHeapStatistics`和`v8.getHeapSpaceStatistics`方法来获取堆空间的统计信息。
+
+```js
+const v8 = require('v8')
+```
+
+## getHeapStatistics
+
+该方法返回关于堆的统计数据，比如堆的大小，堆的使用情况等。
+
+```js
+const v8 = require('v8')
+console.log(v8.getHeapStatistics())
+// {
+//   total_heap_size: 8589934592,
+//   total_heap_size_executable: 0,
+//   total_physical_size: 8589934592,
+//   total_available_size: 8589934592,
+//   used_heap_size: 8589934592,
+//   heap_size_limit: 8589934592,
+//   malloced_memory: 0,
+//   peak_malloced_memory: 0,
+//   does_zap_garbage: 0
+// }
+```
+
+## getHeapSpaceStatistics
+
+该方法返回关于堆空间的统计信息，比如堆空间的大小，堆空间的使用情况等。
+
+```js
+const v8 = require('v8')
+console.log(v8.getHeapSpaceStatistics())
+// [
+//   {
+//     space_name: 'new_space',
+//     space_size: 8589934592,
+//     space_used_size: 0,
+//     space_available_size: 8589934592,
+//     physical_space_size: 8589934592
+//   },
+//   {
+//     space_name: 'old_space',
+//     space_size: 8589934592,
+//     space_used_size: 0,
+//     space_available_size: 8589934592,
+//     physical_space_size: 8589934592
+//   },
+//   {
+//     space_name: 'code_space',
+//     space_size: 8589934592,
+//     space_used_size: 0,
+//     space_available_size: 8589934592,
+//     physical_space_size: 8589934592
+//   },
+//   {
+//     space_name: 'map_space',
+//     space_size: 8589934592,
+//     space_used_size: 0,
+//     space_available_size: 8589934592,
+//     physical_space_size: 8589934592
+//   },
+//   {
+//     space_name: 'large_object_space',
+//     space_size: 8589934592,
+//     space_used_size: 0,
+//     space_available_size: 8589934592,
+//     physical_space_size: 8589934592
+//   },
+//   ]
+```
+
+## V8 内存管理
+
+目前，默认情况下，v8在32位系统上的内存限制为2GB，在64位系统上的内存限制为4GB。
