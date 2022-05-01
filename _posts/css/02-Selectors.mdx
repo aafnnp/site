@@ -1,6 +1,105 @@
 ---
-date: '2022-03-29 22:00:01'
-title: 'CSS - Intro & Install'
-draft: true
+date: '2022-05-01 19:34:14'
+title: 'CSS - Selectors'
 tags: [css]
+description: CSS选择器规定了CSS 规则会被应用到哪些元素上
 ---
+
+CSS 选择器规定了 CSS 规则会被应用到哪些元素上。
+
+## 通用选择器
+
+通用选择器选择命名空间所有的元素，如果未提供命名空间，则选择文档所有元素。
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#app * {
+  box-sizing: border-box;
+}
+```
+
+## ID 选择器
+
+ID 选择器选择具有指定 ID 属性的元素。
+
+```css
+#app {
+  background: #fff;
+}
+```
+
+## 类选择器
+
+类选择器选择具有特定名称的元素，如果未提供类名，则选择所有元素。
+
+```css
+.app {
+  color: red;
+}
+```
+
+## 属性选择器
+
+属性选择器选择具有指定属性的元素。
+
+```css
+input[type='text'] {
+  border: 1px solid #ccc;
+}
+```
+
+## 元素选择器
+
+元素选择器选择具有指定名称的元素。
+
+```css
+p {
+  color: red;
+}
+```
+
+## 子元素选择器
+
+子元素选择器选择具有指定名称的元素的所有子元素。
+
+```css
+#app > a {
+  color: red;
+}
+```
+
+## 伪类选择器
+
+伪类选择器选择具有指定名称的元素，如果未提供伪类名，则选择所有元素。
+
+```css
+.app:hover {
+  color: red;
+}
+.app:after {
+  content: '.';
+}
+```
+
+## 组合选择器
+
+组合选择器选择具有指定名称的元素，如果未提供组合选择器，则选择所有元素。
+
+```css
+/*选择命名空间所有的div、p*/
+div, p {
+  color: red;
+}
+/*选择命名空间所有的 li*/
+ul>li {
+  color: red;
+}
+/*选择临近的p*/
+div + p {
+  color: red;
+}
+```
