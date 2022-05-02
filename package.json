@@ -22,7 +22,7 @@
     "globby": "^13.1.1",
     "gray-matter": "^4.0.3",
     "next": "12.1.5",
-    "next-mdx-remote": "4.0.2",
+    "next-mdx-remote": "4.0.3",
     "next-seo": "^5.4.0",
     "next-share": "^0.13.0",
     "prismjs": "^1.28.0",
