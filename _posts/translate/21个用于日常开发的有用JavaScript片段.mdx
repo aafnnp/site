@@ -8,71 +8,71 @@ tags: [i18n, javascript]
 
 ```javascript
 const checkMyValueType = (event) => {
-  console.log(typeof event.target.value); // string
-  console.log(typeof event.target.valueAsNumber); // number
-};
-<input type="number" onkeyup="checkMyValueType(event)" />;
+  console.log(typeof event.target.value) // string
+  console.log(typeof event.target.valueAsNumber) // number
+}
+;<input type="number" onkeyup="checkMyValueType(event)" />
 ```
 
 ## 复制输入框值到粘贴板
 
 ```javascript
 function copyToClipboard(inputID) {
-  navigator.clipboard.writeText(document.querySelector(inputID).value);
+  navigator.clipboard.writeText(document.querySelector(inputID).value)
 }
 ```
 
 ## 检查窗口是否可见
 
 ```javascript
-const isBrowserTabInView = () => document.hidden;
-isBrowserTabInView(); // returns true or false depending if tab is in view / focus
+const isBrowserTabInView = () => document.hidden
+isBrowserTabInView() // returns true or false depending if tab is in view / focus
 ```
 
 ## 布尔值取反
 
 ```javascript
-let myBool = false;
-myBool = !myBool;
-console.log(myBool); // true
-myBool = !myBool;
-console.log(myBool); // false
+let myBool = false
+myBool = !myBool
+console.log(myBool) // true
+myBool = !myBool
+console.log(myBool) // false
 ```
 
 ## 检查值是否是偶数
 
 ```javascript
-const isEven = (num) => num % 2 === 0;
-console.log(isEven(2)); // true
-console.log(isEven(3)); // false
+const isEven = (num) => num % 2 === 0
+console.log(isEven(2)) // true
+console.log(isEven(3)) // false
 ```
 
 ## 检查日期是否是工作日
 
 ```javascript
-const isWeekday = (d) => d.getDay() % 6 !== 0;
-console.log(isWeekday(new Date(2021, 0, 11))); // true (Monday)
-console.log(isWeekday(new Date(2021, 0, 10))); // false (Sunday)
+const isWeekday = (d) => d.getDay() % 6 !== 0
+console.log(isWeekday(new Date(2021, 0, 11))) // true (Monday)
+console.log(isWeekday(new Date(2021, 0, 10))) // false (Sunday)
 ```
 
 ## 日期加减
 
 ```javascript
 const addDaysToDate = (date, n) => {
-  date.setDate(date.getDate() + n);
-  return date.toISOString().split('T')[0];
-};
-addDaysToDate('2021-0-10', 10); // "2021-01-20"
-addDaysToDate('2021-0-10', -10); // '2020-12-31'
+  date.setDate(date.getDate() + n)
+  return date.toISOString().split('T')[0]
+}
+addDaysToDate('2021-0-10', 10) // "2021-01-20"
+addDaysToDate('2021-0-10', -10) // '2020-12-31'
 ```
 
 ## 获取时分秒
 
 ```javascript
-const timeFromDate = (date) => date.toTimeString().slice(0, 8);
-console.log(timeFromDate(new Date(2021, 0, 10, 17, 30, 0)));
+const timeFromDate = (date) => date.toTimeString().slice(0, 8)
+console.log(timeFromDate(new Date(2021, 0, 10, 17, 30, 0)))
 // "17:30:00"
-console.log(timeFromDate(new Date(2021, 0, 10, 5, 56, 44)));
+console.log(timeFromDate(new Date(2021, 0, 10, 5, 56, 44)))
 // "05:56:44"
 ```
 
@@ -109,90 +109,90 @@ isLocalStorageEnabled(); // true, if localStorage is accessible
 ## 计算函数等花费时间
 
 ```javascript
-startTime = performance.now();
-anyMethodOrCode();
-const endTime = performance.now();
-console.log(endTime - startTime + ' milliseconds.'); // (Time in milliseconds)
+startTime = performance.now()
+anyMethodOrCode()
+const endTime = performance.now()
+console.log(endTime - startTime + ' milliseconds.') // (Time in milliseconds)
 ```
 
 ## 捕获右键点击
 
 ```javascript
 window.oncontextmenu = () => {
-  console.log('right click');
-};
+  console.log('right click')
+}
 ```
 
 ## 只触发一次事件
 
 ```javascript
-const myButton = document.getElementById('myBtn');
+const myButton = document.getElementById('myBtn')
 const myClickFunction = () => {
-  console.log('this click will only get called once');
-};
+  console.log('this click will only get called once')
+}
 myButton.addEventListener('click', myClickHandler, {
-  once: true,
-});
+  once: true
+})
 ```
 
 ## 滚动到顶部
 
 ```javascript
 const scrollToTopOfDocument = () => {
-  const c = document.documentElement.scrollTop || document.body.scrollTop;
+  const c = document.documentElement.scrollTop || document.body.scrollTop
   if (c > 0) {
-    window.requestAnimationFrame(scrollToTop);
-    window.scrollTo(0, c - c / 8);
+    window.requestAnimationFrame(scrollToTop)
+    window.scrollTo(0, c - c / 8)
   }
-};
-scrollToTopOfDocument();
+}
+scrollToTopOfDocument()
 ```
 
 ## 检查字符串是否大写
 
 ```javascript
-const isUpperCase = (str) => str === str.toUpperCase();
-console.log(isUpperCase('string')); // false
-console.log(isUpperCase('STRING')); // true
-console.log(isUpperCase('5TR1NG')); // true
+const isUpperCase = (str) => str === str.toUpperCase()
+console.log(isUpperCase('string')) // false
+console.log(isUpperCase('STRING')) // true
+console.log(isUpperCase('5TR1NG')) // true
 ```
 
 ## 检查元素是否处于 focus 状态
 
 ```javascript
-const elementIsInFocus = (el) => el === document.activeElement;
-elementIsInFocus(anyElement); // returns true if in focus, false if not in focus
+const elementIsInFocus = (el) => el === document.activeElement
+elementIsInFocus(anyElement) // returns true if in focus, false if not in focus
 ```
 
 ## 查找数组间不同元素
 
 ```javascript
 const differenceInArrays = (array1, array2) => {
-  const set = new Set(array2);
-  return array1.filter((x) => !set.has(x));
-};
-differenceInArrays(['apple', 'orange', 'banana'], ['apple', 'orange', 'mango']); // ["banana"]
-differenceInArrays([10, 12, 5], [66, 10, 6]); // [12, 5]
+  const set = new Set(array2)
+  return array1.filter((x) => !set.has(x))
+}
+differenceInArrays(['apple', 'orange', 'banana'], ['apple', 'orange', 'mango']) // ["banana"]
+differenceInArrays([10, 12, 5], [66, 10, 6]) // [12, 5]
 ```
 
 ## 移除事件监听
 
 ```javascript
 const removeEventOffElement = (el, evt, fn, opts = false) =>
-  el.removeEventListener(evt, fn, opts);
-const testFunction = () => console.log('My function has been called');
-document.body.addEventListener('click', testFunction);
+  el.removeEventListener(evt, fn, opts)
+const testFunction = () => console.log('My function has been called')
+document.body.addEventListener('click', testFunction)
 // Call remove method
-removeEventOffElement(document.body, 'click', fn);
+removeEventOffElement(document.body, 'click', fn)
 ```
 
 ## 随机生成 HEX 值
 
 ```javascript
 const generateRandomColour = () =>
-  '#' + Math.floor(Math.random() * 16777215).toString(16);
+  '#' + Math.floor(Math.random() * 16777215).toString(16)
 //EXAMPLE
-document.getElementsByTagName('body')[0].style.color = generateRandomColour();
+document.getElementsByTagName('body')[0].style.color = generateRandomColour()
 ```
 
 ## 查找第一个定义的非空参数
@@ -207,10 +207,10 @@ console.log(getFirstValidValue(null, undefined, 'Hey', null); // 'Hey'
 ```javascript
 const onClickOutsideElement = (element, callback) => {
   document.addEventListener('click', (e) => {
-    if (!element.contains(e.target)) callback();
-  });
-};
-onClickOutside('#some-element', () => console.log('Hey you missed'));
+    if (!element.contains(e.target)) callback()
+  })
+}
+onClickOutside('#some-element', () => console.log('Hey you missed'))
 // Will log "Hey you missed" everytime a click that was not "some-element" was clicked
 ```
 

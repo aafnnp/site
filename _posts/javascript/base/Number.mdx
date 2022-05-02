@@ -7,15 +7,15 @@ tags: [javascript]
 ## Number
 
 ```javascript
-const age = 36;
-typeof age; //number
+const age = 36
+typeof age //number
 
-const age = Number(36);
-typeof age; //number
+const age = Number(36)
+typeof age //number
 
 //使用new声明的Number返回object类型，可使用valueOf获取原始值
-const age = new Number(36);
-typeof age; //object
+const age = new Number(36)
+typeof age //object
 ```
 
 ### 属性
@@ -30,14 +30,14 @@ typeof age; //object
 8. POSITIVE_INFINITY - 负向无穷大
 
 ```javascript
-Number.EPSILON; //2.220446049250313e-16
-Number.MAX_SAFE_INTEGER; //9007199254740991
-Number.MAX_VALUE; //1.7976931348623157e+308
-Number.MIN_SAFE_INTEGER; //-9007199254740991
-Number.MIN_VALUE; //5e-324
-Number.NAN; //NaN
-Number.NEGATIVE_INFINITY; //-Infinity
-Number.POSITIVE_INFINITY; //Infinity
+Number.EPSILON //2.220446049250313e-16
+Number.MAX_SAFE_INTEGER //9007199254740991
+Number.MAX_VALUE //1.7976931348623157e+308
+Number.MIN_SAFE_INTEGER //-9007199254740991
+Number.MIN_VALUE //5e-324
+Number.NAN //NaN
+Number.NEGATIVE_INFINITY //-Infinity
+Number.POSITIVE_INFINITY //Infinity
 ```
 
 ### 方法
@@ -54,8 +54,8 @@ Number.POSITIVE_INFINITY; //Infinity
 当使用 new 关键词声明一个数值，将会返回 object，并且提供如下方法。
 
 ```javascript
-const age = new Number(36);
-typeof age; //object
+const age = new Number(36)
+typeof age //object
 ```
 
 - .toExponential() //将值转换成指数计数法

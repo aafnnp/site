@@ -1,0 +1,110 @@
+---
+date: '2022-03-23'
+title: 'Protocols - 协议'
+tags: [swift]
+description: 协议规定了用来实现某一特定功能所必需的方法和属性。
+---
+
+**协议没看懂~**
+
+> 协议规定了用来实现某一特定功能所必需的方法和属性。
+> 任意能够满足协议要求的类型被称为遵循(conform)这个协议。
+> 类，结构体或枚举类型都可以遵循协议，并提供具体实现来完成协议定义的方法和功能。
+
+## 创建协议
+
+```swift
+protocol Identifiable {
+    // 协议定义
+    var id: String { get }
+}
+```
+
+如果一个类型遵循协议，那么它必须提供协议中定义的所有要求。
+
+```swift
+struct User: Identifiable {
+    var id: String
+}
+```
+
+## 协议继承
+
+协议之间可以继承，这样可以让遵循协议的类型拥有父协议中的属性和方法。
+
+```swift
+protocol Payable {
+    func calculateWages() -> Int
+}
+
+protocol NeedsTraining {
+    func study()
+}
+
+protocol HasVacation {
+    func takeVacation(days: Int)
+}
+
+# 继承
+
+protocol Payable: Payable, NeedsTraining, HasVacation {
+    // 协议继承
+}
+```
+
+## 扩展
+
+`extension`允许向现有的类型添加方法，属性或者下标。类似于 js 的`prototype`。
+
+```swift
+extension Int {
+    func squared() -> Int {
+        return self * self
+    }
+}
+
+let number = 8
+number.squared() // 64
+```
+
+**不允许在扩展中添加存储属性**
+
+```swift
+extension Int {
+    var isEven: Bool {
+        return self % 2 == 0
+    }
+}
+```
+
+## 协议扩展
+
+```swift
+let pythons = ["Eric", "Graham", "John", "Michael", "Terry", "Terry"]
+let beatles = Set(["John", "Paul", "George", "Ringo"])
+```
+
+Swift 的数组和集合都属于`Collection`，所以可以写个扩展来满足协议要求。
+
+```swift
+extension Collection {
+    func summarize() {
+        print("There are \(count) of us:")
+
+        for name in self {
+            print(name)
+        }
+    }
+}
+
+pythyon.summarize()
+beatles.summarize()
+```
+
+## 总结
+
+- 协议描述了一致类型必须具有的方法和属性，但不提供这些方法的实现。
+- 您可以在其他协议之上构建协议，类似于类。
+- 扩展允许您将方法和计算属性添加到特定类型，例如 Int.
+- 协议扩展允许您向协议添加方法和计算属性。
+- 面向协议的编程是将您的应用程序架构设计为一系列协议，然后使用协议扩展来提供默认方法实现的实践

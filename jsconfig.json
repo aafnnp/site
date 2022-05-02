@@ -4,12 +4,11 @@
     "pages/**/*",
     "styles/*",
     "utils/**/*",
+    "files/**/*",
     "_playground/**/*",
-    "_challenges/css"
+    "_challenges/**/*"
   ],
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "checkJs": true,
   "compilerOptions": {
     "baseUrl": "."

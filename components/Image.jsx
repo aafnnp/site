@@ -1,7 +1,7 @@
-import NextImage from 'next/image';
-import React from 'react';
+import NextImage from 'next/image'
+import React from 'react'
 
-const customLoader = ({ src }) => src;
+const customLoader = ({src}) => src
 
 export default function Image(props) {
   return (
@@ -17,5 +17,5 @@ export default function Image(props) {
         unoptimized={true}
       />
     </div>
-  );
+  )
 }

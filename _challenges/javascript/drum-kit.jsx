@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-
+import React, {Component} from 'react'
+import styled from 'styled-components'
 export default class Index extends Component {
   componentDidMount() {
-    const keys = document.querySelectorAll('.key');
-    document.addEventListener('keydown', (e) => {
-      const { keyCode } = e;
-      const key = document.querySelector(`div[data-key="${keyCode}"]`);
-      const audio = document.querySelector(`audio[data-key="${keyCode}"]`);
+    const keys = document.querySelectorAll('.key')
+    document.addEventListener('keydown', function (e) {
+      const {keyCode} = e
+      const key = document.querySelector(`div[data-key="${keyCode}"]`)
+      const audio = document.querySelector(`audio[data-key="${keyCode}"]`)
       if (key) {
-        key.classList.add('playing');
-        audio.play();
+        key.classList.add('playing')
+        audio.play()
       }
       keys.forEach((item) => {
-        item.classList.remove('playing');
-        document.addEventListener('transitionend', () => {
-          item.classList.remove('playing');
-        });
-      });
-    });
+        item.classList.remove('playing')
+        document.addEventListener('transitionend', function () {
+          item.classList.remove('playing')
+        })
+      })
+    })
   }
 
   render() {
@@ -99,7 +98,7 @@ export default class Index extends Component {
           src="https://raw.githubusercontent.com/Manonicu/pics/master/uPic/sounds/tink.wav"
         />
       </Wrapper>
-    );
+    )
   }
 }
 
@@ -144,4 +143,4 @@ const Wrapper = styled.div`
     letter-spacing: 0.1rem;
     color: #ffc600;
   }
-`;
+`

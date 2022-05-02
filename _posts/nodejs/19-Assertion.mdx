@@ -1,0 +1,175 @@
+---
+date: '2022-04-23 15:17:59'
+title: 'Node.js - Assertion'
+tags: [nodejs, javascript]
+description: 使用 Assert 模块验证 Node.js 中的不变量
+---
+
+Js 中的 `assert` 模块用于测试 `Node.js` 应用程序中的功能表达式。如果测试结果返回 `false`,`assert` 将抛出一个错误并停止程序。
+
+可以将 `assert` 模块与 `unit Js`、 `Mocha` 和 `Chai` 等单元测试工具一起使用。
+
+开发人员使用 `assert` 来测试应用程序中的不变量。
+
+## assert
+
+`assert`接收两个参数：
+
+- `condition`: 测试的条件。
+- `message`: 如果条件不成立，则抛出的错误消息。
+
+```js
+var assert = require('assert')
+var a = 5
+var b = 3
+
+assert(a < b)
+// 抛出错误: AssertionError: a < b
+```
+
+## assert.deepStrictEqual
+
+`assert.deepStrictEqual` 方法用于检查两个值是否相等。
+
+deepEqual 方法用来比较两个对象。只要它们的属性一一对应，且值都相等，就认为两个对象相等，否则抛出一个错误。
+
+```js
+const assert = require('assert')
+assert.deepStrictEqual({a: 1}, {a: '1'})
+// 抛出错误: AssertionError: { a: 1 } deepStrictEqual { a: '1' }
+```
+
+## assert.fail
+
+`assert.fail`接收两个参数：
+
+- `message`: 如果条件不成立，则抛出的错误消息。
+- `actual`: 实际值。
+
+该方法共有四个参数，但是不管参数是什么值，它总是抛出一个错误。如果 message 参数对应的布尔值不为 false，抛出的错误信息就是 message，否则错误信息就是“实际值 + 分隔符 + 预期值”。
+
+```js
+const assert = require('assert').strict
+
+/** AssertionError [ERR_ASSERTION]: Failed. This just prints failed as error message. This is not a good practice**/
+assert.fail()
+
+// AssertionError [ERR_ASSERTION]: This is why I failed
+assert.fail('This is why I failed')
+
+// TypeError: This is why I failed
+assert.fail(new TypeError('This is why I failed'))
+```
+
+## assert.deepEqual
+
+`assert.deepEqual`接收两个参数：
+
+- `actual`: 实际值。
+- `expected`: 期望值。
+
+deepEqual 方法用来比较两个对象。只要它们的属性一一对应，且值都相等，就认为两个对象相等，否则抛出一个错误。
+
+```js
+const assert = require('assert')
+
+const val1 = {
+  x: {
+    y: 1
+  }
+}
+const val2 = {
+  x: {
+    y: 2
+  }
+}
+const val3 = {
+  x: {
+    y: 1
+  }
+}
+
+assert.deepEqual(val1, val3)
+// Returns OK since val1 is equal to val3
+
+// Values of b are different (Child properties)
+assert.deepEqual(val1, val2)
+// AssertionError: { a: { b: 1 } } deepEqual { a: { b: 2 } }
+```
+
+## assert.equal
+
+`equal`接收两个参数：
+
+- `actual`: 实际值。
+- `expected`: 期望值。
+
+```js
+const assert = require('assert')
+
+assert.equal(1, 1)
+// This throws no exception since 1 == 1
+
+assert.equal(1, '1')
+/** This throws no exception since with abstract equality comparison 1 == '1' **/
+
+assert.equal(NaN, NaN)
+// This throws no exception
+
+assert.equal(1, 2)
+// This throws an error, AssertionError: 1 == 2
+
+assert.equal({a: {x: 1}}, {a: {x: 1}})
+/**This throws an error AssertionError: { a: { x: 1 } } == { a: { x: 1 } } because it dosen't check child value**/
+```
+
+## assert.notEqual
+
+`notEqual`和`notStrictEqual`效果相同
+
+```js
+const assert = require('assert')
+
+assert.notEqual(1, 1)
+// This throws an exception since 1 == 1
+
+assert.notEqual(1, '1')
+/** This throws an exception since with abstract equality comparison 1 == '1' **/
+
+assert.notEqual(1, 2)
+// This throws no error, since 1 !== 2
+```
+
+## assert.notDeepEqual
+
+`notDeepEqual` 方法与 `deepEqual` 方法正好相反，用来断言两个对象是否不相等。
+
+```js
+const assert = require('assert')
+
+const val1 = {
+  x: {
+    y: 1
+  }
+}
+const val2 = {
+  x: {
+    y: 2
+  }
+}
+const val3 = {
+  x: {
+    y: 1
+  }
+}
+
+assert.notDeepEqual(val1, val3)
+// Returns an error, since val1 is equal to val3
+
+// Values of b are different (Child properties)
+assert.deepEqual(val1, val2)
+// Returns no error since the child properties are not equal
+```
+
+[Assert 参考](https://javascript.ruanyifeng.com/nodejs/assert.html#toc5)
+[Using Assert Module](https://blog.logrocket.com/using-assert-modules-to-verify-invariants-in-nodejs/)

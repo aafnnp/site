@@ -17,7 +17,7 @@ originalUrl: https://dmitripavlutin.com/javascript-classes-complete-guide/
 class User {}
 
 // 也可以将类赋值给变量
-const User = class {};
+const User = class {}
 
 // es0215 模块导出
 export default class User {}
@@ -31,7 +31,7 @@ export class User {}
 当`class`实例化后，它就是一个对象，它的属性和方法都是实例的属性和方法。比如：
 
 ```javascript
-const myUser = new User();
+const myUser = new User()
 // new User 创建`User`的实例
 ```
 
@@ -42,7 +42,7 @@ const myUser = new User();
 ```javascript
 class User {
   constructor(name) {
-    this.name = name;
+    this.name = name
   }
 }
 ```
@@ -50,7 +50,7 @@ class User {
 `User`的实例有一个`name`属性，`name`属性的值是`User`的构造函数传入的参数，并且会被赋值到`this.name`。
 
 ```javascript
-const user = new User('Jon Snow');
+const user = new User('Jon Snow')
 // this.name = 'Jon Snow'
 ```
 
@@ -67,7 +67,7 @@ const user = new User('Jon Snow');
 ### 公有字段 - Public fields
 
 ```javascript
-const user = new User('Jon Snow');
+const user = new User('Jon Snow')
 // user.name = 'Jon Snow'
 ```
 

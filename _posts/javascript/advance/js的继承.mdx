@@ -16,13 +16,13 @@ tags: [javascript]
 
 ```javascript
 function Parent() {
-  this.name = 'wang';
+  this.name = 'wang'
 }
 function Child() {
-  this.age = 28;
+  this.age = 28
 }
-Child.prototype = new Parent(); //继承了Parent，通过原型
-var demo = new Child();
-alert(demo.age);
-alert(demo.name); //得到被继承的属性
+Child.prototype = new Parent() //继承了Parent，通过原型
+var demo = new Child()
+alert(demo.age)
+alert(demo.name) //得到被继承的属性
 ```

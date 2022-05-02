@@ -1,4 +1,4 @@
-import { globby } from 'globby'
+import {globby} from 'globby'
 
 export const globFiles = async (dir) => {
   const files = await globby([dir])

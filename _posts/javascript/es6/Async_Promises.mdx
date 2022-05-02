@@ -28,22 +28,26 @@ description: 'JavaScript的异步处理'
 ```javascript
 let promise = new Promise(function (resolve, reject) {
   // code
-});
-promise.then(()=>{
-  // then
-}).catch((error)=>{
-  // console.log(error)
-}).finally(_=>{
-  // finally
 })
+promise
+  .then(() => {
+    // then
+  })
+  .catch((error) => {
+    // console.log(error)
+  })
+  .finally((_) => {
+    // finally
+  })
 ```
+
 `code`处是用于执行的代码，当`new Promise`创建时，自动执行。
 
 `then`是定义在`Promise.prototype`上的用来处理状态改变时的回调函数。
 
-参数`resolve`和`reject`是JavaScript自身提供的回调函数。当`code`呗执行后应该调用`resolve`或`reject`
+参数`resolve`和`reject`是 JavaScript 自身提供的回调函数。当`code`呗执行后应该调用`resolve`或`reject`
 
-- `resolve` 任务成功返回value
+- `resolve` 任务成功返回 value
 - `reject` 任务失败返回`error`
 
 当`promise`被`reject`的时候或者运行代码抛出错误异常如：`throw new Error('Whoops!')`，`catch`负责处理错误
@@ -59,31 +63,32 @@ promise.then(()=>{
 
 ### Promise.all
 
-执行多个promise，并等待所有promise准备就绪，任意一个promise被reject，都会立即出发Promise.all的reject并且返回该promise的error
+执行多个 promise，并等待所有 promise 准备就绪，任意一个 promise 被 reject，都会立即出发 Promise.all 的 reject 并且返回该 promise 的 error
 
 ```javascript
-let promise = Promise.all([/*promises*/])
+let promise = Promise.all([
+  /*promises*/
+])
 
 // 例子
 let urls = [
   'https://api.github.com/users/iliakan',
   'https://api.github.com/users/remy',
   'https://api.github.com/users/jeresig'
-];
+]
 
 // 将每个 url 映射（map）到 fetch 的 promise 中
-let requests = urls.map(url => fetch(url));
+let requests = urls.map((url) => fetch(url))
 
 // Promise.all 等待所有任务都 resolved
-Promise.all(requests)
-  .then(responses => responses.forEach(
-    response => alert(`${response.url}: ${response.status}`)
-  ));
+Promise.all(requests).then((responses) =>
+  responses.forEach((response) => alert(`${response.url}: ${response.status}`))
+)
 ```
 
 ### Promise.allSettled
 
-与Promise.all不同的是，Promise.allSettled会等待所有promise完成，无论成功失败。
+与 Promise.all 不同的是，Promise.allSettled 会等待所有 promise 完成，无论成功失败。
 
 - `{status:"fulfilled", value:result}` 对于成功的响应
 - `{status:"rejected", reason:error}` 对于 error。
@@ -95,29 +100,32 @@ Promise.all(requests)
 ```javascript
 Promise.race([
   new Promise((resolve, reject) => setTimeout(() => resolve(1), 1000)),
-  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 2000)),
+  new Promise((resolve, reject) =>
+    setTimeout(() => reject(new Error('Whoops!')), 2000)
+  ),
   new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000))
-]).then(alert); // 1
+]).then(alert) // 1
 ```
 
 ### Promise.any
 
-与Promise.race类似，Promise.any等待的是第一个`fulfilled`，如果都`rejected`，则返回一个error数组
+与 Promise.race 类似，Promise.any 等待的是第一个`fulfilled`，如果都`rejected`，则返回一个 error 数组
 
 ## async/await
 
 Async/await 是以更舒适的方式使用 promise 的一种特殊语法，同时它也非常易于理解和使用。
 
-async会将其后面的函数的返回值封装成一个`Promise`对象，而await会等待这个`Promise`完成，并将其结果返回。
+async 会将其后面的函数的返回值封装成一个`Promise`对象，而 await 会等待这个`Promise`完成，并将其结果返回。
 
 ```javascript
 async function hello() {
-  return greeting = await Promise.resolve("Hello");
+  return (greeting = await Promise.resolve('Hello'))
 }
 
-hello().then(alert);
+hello().then(alert)
 ```
+
 错误处理
 
-1. 使用`try...catch`捕获async/await运行程序中抛出的错误
-2. **[await-to-js](https://www.npmjs.com/package/await-to-js)**，使用类go语言的方式处理（属于1的封装）
+1. 使用`try...catch`捕获 async/await 运行程序中抛出的错误
+2. **[await-to-js](https://www.npmjs.com/package/await-to-js)**，使用类 go 语言的方式处理（属于 1 的封装）

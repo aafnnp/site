@@ -11,50 +11,50 @@ description: Sets对象允许存储唯一的值，而Map对象允许存储键值
 
 ```javascript
 // 创建 Set 对象
-const emptySet = new Set();
+const emptySet = new Set()
 // 添加元素到 Set 对象
-emptySet.add('red').add('green').add('blue');
+emptySet.add('red').add('green').add('blue')
 // 移除元素
-emptySet.delete('red');
+emptySet.delete('red')
 // 检查是否包含某个值
-emptySet.has('green'); // true
+emptySet.has('green') // true
 // 清除所有元素
-emptySet.clear();
+emptySet.clear()
 // 迭代 Set 对象
 for (let item of emptySet) {
-  console.log(item); // 'green', 'blue'
+  console.log(item) // 'green', 'blue'
 }
 // 将 Set 对象转换为数组
-[...emptySet]; // ['green', 'blue']
-Array.from(emptySet); // ['green', 'blue']
+;[...emptySet] // ['green', 'blue']
+Array.from(emptySet) // ['green', 'blue']
 ```
 
 去重
 
 ```javascript
-Array.from(new Set(['red', 'green', 'blue', 'red', 'green', 'blue'])); // ['red', 'green', 'blue']
+Array.from(new Set(['red', 'green', 'blue', 'red', 'green', 'blue'])) // ['red', 'green', 'blue']
 ```
 
 创建一组 Unicode 字符
 
 ```javascript
-new Set('abc');
-new Set(['a', 'b', 'c']);
-assert.deepEqual(new Set('abc'), new Set(['a', 'b', 'c'])); // true
+new Set('abc')
+new Set(['a', 'b', 'c'])
+assert.deepEqual(new Set('abc'), new Set(['a', 'b', 'c'])) // true
 ```
 
 与映射键一样，`Set`元素与===进行比较，唯一不同的是`NaN`等于自身，但是`object`不等于自身。
 
 ```javascript
-const set = new Set([NaN, NaN, NaN]); // Set { NaN }
-set.size; // 1
-set.has(NaN); // true
+const set = new Set([NaN, NaN, NaN]) // Set { NaN }
+set.size // 1
+set.has(NaN) // true
 
-const set2 = new Set();
-set2.add({});
-set2.size === 1; // true
-set2.add({});
-set2.size === 2; // true
+const set2 = new Set()
+set2.add({})
+set2.size === 1 // true
+set2.add({})
+set2.size === 2 // true
 ```
 
 合并两个 Set
@@ -62,9 +62,9 @@ set2.size === 2; // true
 > 计算两个集合 a 和 b 的并集意味着创建一个包含 a 和 b 元素的集合。
 
 ```javascript
-const a = new Set([1, 2, 3]); // Set { 1, 2, 3 }
-const b = new Set([4, 3, 2]); // Set { 2, 3, 4 }
-const union = new Set([...a, ...b]); // Set { 1, 2, 3, 4 }
+const a = new Set([1, 2, 3]) // Set { 1, 2, 3 }
+const b = new Set([4, 3, 2]) // Set { 2, 3, 4 }
+const union = new Set([...a, ...b]) // Set { 1, 2, 3, 4 }
 ```
 
 Set 的交集
@@ -72,9 +72,9 @@ Set 的交集
 > 计算两个集合 a 和 b 的交集意味着创建一个集合，其中包含 a 中也在 b 中的元素。
 
 ```javascript
-const a = new Set([1, 2, 3]); // Set { 1, 2, 3 }
-const b = new Set([4, 3, 2]); // Set { 2, 3, 4 }
-const intersection = new Set(Array.from(a).filter((x) => b.has(x))); // Set { 2, 3 }
+const a = new Set([1, 2, 3]) // Set { 1, 2, 3 }
+const b = new Set([4, 3, 2]) // Set { 2, 3, 4 }
+const intersection = new Set(Array.from(a).filter((x) => b.has(x))) // Set { 2, 3 }
 ```
 
 Set 的差集
@@ -82,9 +82,9 @@ Set 的差集
 > 计算两个集合 a 和 b 之间的差意味着创建一个集合，其中包含不在 b 中的 a 元素。此操作有时也称为减号(−).
 
 ```javascript
-const a = new Set([1, 2, 3]); // Set { 1, 2, 3 }
-const b = new Set([4, 3, 2]); // Set { 2, 3, 4 }
-const difference = new Set(Array.from(a).filter((x) => !b.has(x))); // Set { 1 }
+const a = new Set([1, 2, 3]) // Set { 1, 2, 3 }
+const b = new Set([4, 3, 2]) // Set { 2, 3, 4 }
+const difference = new Set(Array.from(a).filter((x) => !b.has(x))) // Set { 1 }
 ```
 
 遍历 Set
@@ -92,8 +92,8 @@ const difference = new Set(Array.from(a).filter((x) => !b.has(x))); // Set { 1 }
 > Set 没有 map 方法
 
 ```javascript
-const set = new Set([1, 2, 3]); // Set { 1, 2, 3 }
-const mappedSet = new Set(Array.from(set).map((x) => x * 2)); // Set { 2, 4, 6 }
+const set = new Set([1, 2, 3]) // Set { 1, 2, 3 }
+const mappedSet = new Set(Array.from(set).map((x) => x * 2)) // Set { 2, 4, 6 }
 ```
 
 过滤 Set
@@ -101,10 +101,10 @@ const mappedSet = new Set(Array.from(set).map((x) => x * 2)); // Set { 2, 4, 6 }
 > Set 没有 filter 方法
 
 ```javascript
-const set = new Set([1, 2, 3, 4, 5]); // Set { 1, 2, 3, 4, 5 }
+const set = new Set([1, 2, 3, 4, 5]) // Set { 1, 2, 3, 4, 5 }
 const filteredSet = new Set(
   Array.from(set).filter((x) => x % 2 === 0) // Set { 2, 4 }
-);
+)
 ```
 
 ## Maps
@@ -116,47 +116,47 @@ const filteredSet = new Set(
 创建 `Map` 对象
 
 ```javascript
-const emptyMap = new Map(); // Map {}
-emptyMap.size === 0; // true
+const emptyMap = new Map() // Map {}
+emptyMap.size === 0 // true
 
 // 添加键值对
-emptyMap.set('foo', 'bar'); // Map { 'foo' => 'bar' }
+emptyMap.set('foo', 'bar') // Map { 'foo' => 'bar' }
 
 // 复制一个 Map 对象
-const copy = new Map(emptyMap); // Map { 'foo' => 'bar' }
+const copy = new Map(emptyMap) // Map { 'foo' => 'bar' }
 
 //获取键值对
-emptyMap.get('foo'); // 'bar'
+emptyMap.get('foo') // 'bar'
 
 //判断是否存在某个键
-emptyMap.has('foo'); // true
+emptyMap.has('foo') // true
 
 // 删除键值对
-emptyMap.delete('foo'); // true
-emptyMap.has('foo'); // false
+emptyMap.delete('foo') // true
+emptyMap.has('foo') // false
 
 // 获取Map对象大小
-emptyMap.size; // 0
+emptyMap.size // 0
 
 // 删除所有键值对
-emptyMap.clear(); // Map {}
+emptyMap.clear() // Map {}
 ```
 
 遍历 `Map`
 
 ```javascript
-const map = new Map().set(false, 'no').set(true, 'yes'); // Map { false => 'no', true => 'yes' }
+const map = new Map().set(false, 'no').set(true, 'yes') // Map { false => 'no', true => 'yes' }
 for (const key of map.keys()) {
-  console.log(key); // false, true
+  console.log(key) // false, true
 }
 ```
 
 `entries()` 方法返回一个新的包含 `[key, value]` 对的 Iterator 对象，返回的迭代器的迭代顺序与 `Map` 对象的插入顺序相同。
 
 ```javascript
-const map = new Map().set(false, 'no').set(true, 'yes'); // Map { false => 'no', true => 'yes' }
+const map = new Map().set(false, 'no').set(true, 'yes') // Map { false => 'no', true => 'yes' }
 for (const entry of map.entries()) {
-  console.log(entry); // [false, 'no'], [true, 'yes']
+  console.log(entry) // [false, 'no'], [true, 'yes']
 }
 ```
 
@@ -165,9 +165,9 @@ for (const entry of map.entries()) {
 ```javascript
 const map = new Map([
   ['a', 1],
-  ['b', 2],
-]);
-map.keys(); // MapIterator { 'a', 'b' }
+  ['b', 2]
+])
+map.keys() // MapIterator { 'a', 'b' }
 ```
 
 `values()` 方法返回一个新的 `Iterator` 对象。它包含按顺序插入 `Map` 对象中每个元素的 `value` 值。
@@ -175,15 +175,15 @@ map.keys(); // MapIterator { 'a', 'b' }
 ```javascript
 const map = new Map([
   ['a', 1],
-  ['b', 2],
-]);
-map.values(); // MapIterator { 1, 2 }
+  ['b', 2]
+])
+map.values() // MapIterator { 1, 2 }
 ```
 
 合并两个 `Map` 对象
 
 ```javascript
-const map1 = new Map().set(1, '1a').set(2, '1b').set(3, '1c'); // Map { 1 => '1a', 2 => '1b', 3 => '1c' }
-const map2 = new Map().set(2, '2b').set(3, '2c').set(4, '2d'); // Map { 2 => '2b', 3 => '2c', 4 => '2d' }
-const map3 = new Map(map1).set(4, '2d'); // Map { 1 => '1a', 2 => '2b', 3 => '2c', 4 => '2d' }
+const map1 = new Map().set(1, '1a').set(2, '1b').set(3, '1c') // Map { 1 => '1a', 2 => '1b', 3 => '1c' }
+const map2 = new Map().set(2, '2b').set(3, '2c').set(4, '2d') // Map { 2 => '2b', 3 => '2c', 4 => '2d' }
+const map3 = new Map(map1).set(4, '2d') // Map { 1 => '1a', 2 => '2b', 3 => '2c', 4 => '2d' }
 ```

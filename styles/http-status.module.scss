@@ -1,0 +1,20 @@
+.http-status {
+  h1 {
+    @apply text-3xl font-bold mb-4;
+  }
+  h2 {
+    @apply flex gap-4 text-xl font-bold mb-2;
+  }
+  &-item {
+    @apply mb-8;
+  }
+  a {
+    @apply flex gap-2 py-2;
+    .key {
+      @apply px-2 py-1 bg-purple-500 rounded-md text-white text-xs;
+    }
+    .value {
+      @apply text-purple-600;
+    }
+  }
+}

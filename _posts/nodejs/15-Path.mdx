@@ -1,0 +1,51 @@
+---
+date: '2022-04-16 13:39:36'
+title: 'Node.js - Path'
+tags: [nodejs, javascript]
+description: path 模块提供了许多非常实用的函数来访问文件系统并与文件系统进行交互
+---
+
+`path` 模块提供了许多非常实用的函数来访问文件系统并与文件系统进行交互
+
+```js
+const path = require('path);
+```
+
+## 方法
+
+- `baseName(p, ext)`: 返回路径中的文件名，不包括扩展名
+- `dirName(p)`: 返回路径中的目录名
+- `extname(p)`: 返回路径中的扩展名
+- `isAbsolute(p)`: 判断路径是否是绝对路径
+- `join(...paths)`: 将多个路径连接成一个路径
+- `normalize(p)`: 将路径规范化
+- `parse(pathString)`: 解析路径字符串
+- `relative(from, to)`: 返回路径 `from` 和路径 `to` 相对于当前工作目录的相对路径
+- `resolve(...pathSegments)`: 解析路径字符串
+
+## 属性
+
+- `sep`: 路径分隔符
+- `posix`: posix 路径
+- `win32`: win32 路径
+- `delimiter`: 路径分隔符
+
+```js
+const path = require('path')
+
+// Normalization
+console.log(
+  'normalization : ' + path.normalize('/test/test1//2slashes/1slash/tab/..')
+) //normalization : /test/test1/2slashes/1slash
+
+// Join
+console.log(
+  'joint path : ' + path.join('/test', 'test1', '2slashes/1slash', 'tab', '..')
+) //joint path : /test/test1/2slashes/1slash
+
+// Resolve
+console.log('resolve : ' + path.resolve('main.js')) // resolve : /web/com/1427176256_27423/main.js
+
+// extName
+console.log('ext name : ' + path.extname('main.js')) //ext name : .js
+```

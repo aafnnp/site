@@ -32,56 +32,56 @@ tags: [javascript]
 - function
 
 ```javascript
-const number = 10;
+const number = 10
 
-const bool = false;
+const bool = false
 
-const str = 'Hello!';
+const str = 'Hello!'
 
-const missingObject = null;
+const missingObject = null
 
-const nothing = undefined;
+const nothing = undefined
 ```
 
 基本类型的值是存储在栈中的，所以在 JavaScript 中，基本类型的值可替换但不可被改变。
 
 ```javascript
-var bar = 'baz';
-console.log(bar); // baz
-bar.toUpperCase();
-console.log(bar); // baz
+var bar = 'baz'
+console.log(bar) // baz
+bar.toUpperCase()
+console.log(bar) // baz
 
 // 使用数组方法可以改变一个数组
-var foo = [];
-console.log(foo); // []
-foo.push('plugh');
-console.log(foo); // ["plugh"]
+var foo = []
+console.log(foo) // []
+foo.push('plugh')
+console.log(foo) // ["plugh"]
 
 // 赋值行为可以给基本类型一个新值，而不是改变它
-bar = bar.toUpperCase(); // BAZ
+bar = bar.toUpperCase() // BAZ
 ```
 
 ```javascript
 // 基本类型
-let foo = 5;
+let foo = 5
 
 // 定义一个貌似可以改变基本类型值的函数
 function addTwo(num) {
-  num += 2;
+  num += 2
 }
 // 和前面的函数一样
 function addTwo_v2(foo) {
-  foo += 2;
+  foo += 2
 }
 
 // 调用第一个函数，并传入基本类型值作为参数
-addTwo(foo);
+addTwo(foo)
 // Getting the current Primitive value
-console.log(foo); // 5
+console.log(foo) // 5
 
 // 尝试调用第二个函数...
-addTwo_v2(foo);
-console.log(foo); // 5
+addTwo_v2(foo)
+console.log(foo) // 5
 ```
 
 **在执行函数体内语句之前，JavaScript 会将传递进来的参数（基本类型的值）复制一份，创建一个本地副本。这个副本只存在于该函数的作用域中，我们能够通过指定在函数中的标识符访问到它（addTwo 中的 num，addTwo_v2 中的 foo）。**

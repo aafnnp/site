@@ -1,0 +1,37 @@
+---
+date: '2022-04-25 11:18:05'
+title: 'Node.js - Callbacks'
+tags: [nodejs, javascript]
+description: A "callback" is any function that is called by another function which takes the first function as a parameter. （在一个函数中调用另外一个函数就是callback）
+---
+
+回调是函数的异步等价物，在每个任务完成时调用它。
+
+在 Node.js 中，回调通常被使用。Node 的所有 api 都是以支持回调的方式编写的。
+
+例如: 当一个函数开始读取文件时，它会立即将控件返回给执行环境，以便执行下一条指令。
+
+在 Node.js 中，一旦文件 i/o 完成，它将调用回调函数。因此没有阻塞或等待文件 i/o。
+
+这使得 Node.js 具有高度的可伸缩性，因为它可以处理大量的请求，而无需等待任何函数返回结果。
+
+## 同步获取文件内容
+
+```js
+var fs = require('fs')
+var data = fs.readFileSync('input.txt')
+console.log(data.toString())
+console.log('Program 已经结束')
+```
+
+## 异步获取文件内容
+
+```js
+var fs = require('fs')
+
+fs.readFile('input.txt', function (err, data) {
+  if (err) return console.error(err)
+  console.log(data.toString())
+})
+console.log('Program 已经结束')
+```

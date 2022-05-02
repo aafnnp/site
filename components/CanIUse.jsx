@@ -1,68 +1,71 @@
-import dayjs from 'dayjs'
 import Link from 'next/link'
-import React, { Component } from 'react'
-import { fetcher } from 'utils'
-import Image from 'components/Image'
+import dynamic from 'next/dynamic'
+import React, {Component} from 'react'
+
+const Image = dynamic(() => import('components/Image'))
 
 export default class CanIUse extends Component {
   static enums = {
     desktop: {
-      Chrome: 'CDWccX.jpg',
-      Firefox: 'mqRvLw.jpg',
-      IE: 'uKn6gH.jpg',
-      Edge: 'aoF7l0.jpg',
-      Safari: 'mIxpPG.jpg'
+      Chrome: 'chrome',
+      Firefox: 'firefox',
+      IE: 'ie',
+      Edge: 'edge',
+      Safari: 'safari'
     },
     mobile: {
-      'Android Chrome': 'CDWccX.jpg',
-      'Android FireFox': 'mqRvLw.jpg',
-      Android: 'VK4LoM.jpg',
-      'Ios Safari': 'mIxpPG.jpg'
+      'Android Chrome': 'chrome',
+      'Android FireFox': 'firefox',
+      Android: 'android',
+      'Ios Safari': 'safari'
     }
-  };
+  }
 
   state = {
     desktop: [],
     mobile: [],
     updateTime: Date.now()
-  };
+  }
 
-  componentDidMount () {
-    fetcher(
-      'https://raw.githubusercontent.com/Fyrd/caniuse/main/data.json'
-    ).then((res) => {
-      const {
-        stats: {
-          chrome,
-          firefox,
-          ie,
-          edge,
-          safari,
-          and_chr,
-          and_ff,
-          android,
-          ios_saf
-        }
-      } = res.data[this.props.tag]
-
-      this.setState({
-        desktop: this.getSupportData([chrome, firefox, ie, edge, safari]),
-        mobile: this.getSupportData([and_chr, and_ff, android, ios_saf]),
-        updateTime: dayjs(res.data.updated).format('YYYY-MM-DD HH:mm:ss')
+  componentDidMount() {
+    import('utils').then(({fetcher}) => {
+      fetcher(
+        'https://raw.githubusercontent.com/Fyrd/caniuse/main/data.json'
+      ).then((res) => {
+        const {
+          stats: {
+            chrome,
+            firefox,
+            ie,
+            edge,
+            safari,
+            and_chr,
+            and_ff,
+            android,
+            ios_saf
+          }
+        } = res.data[this.props.tag]
+        import('dayjs').then((dayjs) => {
+          this.setState({
+            desktop: this.getSupportData([chrome, firefox, ie, edge, safari]),
+            mobile: this.getSupportData([and_chr, and_ff, android, ios_saf]),
+            updateTime: dayjs
+              .default(res.data.updated)
+              .format('YYYY-MM-DD HH:mm:ss')
+          })
+        })
       })
     })
   }
 
   getSupportData = (arr) => {
     return arr.map((item) => {
-      const firstSupportItems = Object.entries(item).find(
-        (el) => el[1] === 'y'
-      )
+      const firstSupportItems = Object.entries(item).find((el) => el[1] === 'y')
       return firstSupportItems ? firstSupportItems[0] : 'No'
     })
-  };
+  }
 
-  render () {
+  render() {
     return (
       <div className="mx-auto my-12">
         <div className="text-gray-500 text-xs">
@@ -84,7 +87,14 @@ export default class CanIUse extends Component {
                     className="flex flex-col justify-center items-center"
                     key={key}
                   >
-                    <Image className="w-12 h-12" src={`https://pics-rust.vercel.app/uPic/${value}`} alt={key} loading="lazy" width={48} height={48}/>
+                    <Image
+                      className="w-12 h-12"
+                      src={`https://pics-rust.vercel.app/logos/${value}.svg`}
+                      alt={key}
+                      loading="lazy"
+                      width={48}
+                      height={48}
+                    />
                     <span
                       className=" mt-2 block w-full text-white rounded-md text-center font-bold p-2"
                       style={{
@@ -112,7 +122,14 @@ export default class CanIUse extends Component {
                   className="flex flex-col justify-center items-center"
                   key={key}
                 >
-                  <Image className="w-12 h-12" src={`https://pics-rust.vercel.app/uPic/${value}`} alt={key} loading="lazy" width={48} height={48}/>
+                  <Image
+                    className="w-12 h-12"
+                    src={`https://pics-rust.vercel.app/logos/${value}.svg`}
+                    alt={key}
+                    loading="lazy"
+                    width={48}
+                    height={48}
+                  />
                   <span
                     className=" mt-2 block w-full text-white rounded-md text-center font-bold p-2"
                     style={{

@@ -1,0 +1,33 @@
+---
+date: '2022-04-30 17:01:05'
+title: 'CSS - 盒模型'
+tags: [css]
+description: CSS 显示的所有对象都是盒模型。因此，了解 CSS 方框模型的工作原理是 CSS 的核心基础。
+---
+
+![RxGEEp](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/RxGEEp.jpg)
+
+盒模型是一种结构化的概念，它描述了一个对象的位置、大小和方向。
+
+分为标准盒模型和 IE 盒模型。
+
+## 标准盒模型
+
+标准盒模型是有`width`、`height`、`margin`、`padding`、`border`计算的。
+
+标准盒模型的内容高度为 content+padding+border。
+
+![WZbkTO](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/WZbkTO.jpg)
+
+## IE 盒模型
+
+与标准盒模型不同的是，IE 盒模型的内容高度为 content+padding。不包含 border。
+
+![9MaHAJ](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9MaHAJ.jpg)
+
+## box-sizing
+
+`box-sizing`是一个属性，它指定了内容高度的计算方式。
+
+- content-box: 内容高度为 content+padding+border。
+- border-box: 内容高度为 content+padding。

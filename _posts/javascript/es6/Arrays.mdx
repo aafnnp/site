@@ -14,33 +14,33 @@ description: 'JavaScript 数组是一种非常灵活的数据结构'
 
 ```javascript
 // 创建数组
-const arr = ['a', 'b', 'c'];
+const arr = ['a', 'b', 'c']
 // 取值
-arr[0]; // 'a'
+arr[0] // 'a'
 // 更改值
-arr[0] = 'x'; // ['x', 'b', 'c']
+arr[0] = 'x' // ['x', 'b', 'c']
 // 数组长度
-arr.length; // 3
+arr.length // 3
 // 改变数组长度
-arr.length = 1; // ['x']
+arr.length = 1 // ['x']
 // 添加元素
-arr[arr.length] = 'y'; // ['x', 'y']
+arr[arr.length] = 'y' // ['x', 'y']
 // 使用push方法
-arr.push('z'); // ['x', 'y', 'z']
+arr.push('z') // ['x', 'y', 'z']
 // 使用push & ...方法
-arr.push(...['w', 'v']); // ['x', 'y', 'z', 'w', 'v']
+arr.push(...['w', 'v']) // ['x', 'y', 'z', 'w', 'v']
 // 清除数组
-arr.length = 0; // []
+arr.length = 0 // []
 // 循环数组
 for (let i = 0; i < arr.length; i++) {
-  console.log(arr[i]);
+  console.log(arr[i])
 }
 for (const ovalue of arr) {
-  console.log(ovalue);
+  console.log(ovalue)
 }
 // 循环键值对
 for (const [index, value] of arr.entries()) {
-  console.log(index, value);
+  console.log(index, value)
 }
 ```
 
@@ -49,32 +49,32 @@ for (const [index, value] of arr.entries()) {
 `slice`,`filter`,`map`,`flatMap`返回新数组
 
 ```javascript
-['■', '●', '▲'].slice(1, 3); // ['●', '▲']
-['■', '●', '■'].filter((x) => x === '■'); // ['■', '■']
-['▲', '●'].map((x) => x + x)[('▲', '●')].flatMap((x) => [x, x]); // ['▲', '▲', '●', '●']
+;['■', '●', '▲'].slice(1, 3) // ['●', '▲']
+;['■', '●', '■'].filter((x) => x === '■') // ['■', '■']
+;['▲', '●'].map((x) => x + x)[('▲', '●')].flatMap((x) => [x, x]) // ['▲', '▲', '●', '●']
 ```
 
 删除给定索引处的数组元素
 
 ```javascript
-const arr1 = ['■', '●', '▲'];
-arr1.filter((x, i) => i !== 1); // ['■', '▲']
-arr1; // ['■','●','▲']; arr1的值没有改变
+const arr1 = ['■', '●', '▲']
+arr1.filter((x, i) => i !== 1) // ['■', '▲']
+arr1 // ['■','●','▲']; arr1的值没有改变
 
-const arr2 = ['■', '●', '▲'];
-arr2.splice(1, 1); // ['■', '▲'] arr2的值改变了
+const arr2 = ['■', '●', '▲']
+arr2.splice(1, 1) // ['■', '▲'] arr2的值改变了
 
-['■', '●', '▲']
+;['■', '●', '▲']
   .some((x) => x === '●') // true
-  [('■', '●', '▲')].every((x) => x === '■'); // false
-['■', '●', '▲'].join('-'); // '■-●-▲'
-['■', '▲'].reduce((result, x) => result + x, '●'); // '●▲●'
-['■', '▲'].reduceRight((result, x) => result + x, '●'); // '●▲■'
+  [('■', '●', '▲')].every((x) => x === '■') // false
+;['■', '●', '▲'].join('-') // '■-●-▲'
+;['■', '▲'].reduce((result, x) => result + x, '●') // '●▲●'
+;['■', '▲'].reduceRight((result, x) => result + x, '●') // '●▲■'
 ```
 
 颠倒、填充数组
 
 ```javascript
-['■', '●', '▲'].reverse(); // ['▲', '●', '■']
-['■', '●', '▲'].fill('○'); // ['○', '○', '○']
+;['■', '●', '▲'].reverse() // ['▲', '●', '■']
+;['■', '●', '▲'].fill('○') // ['○', '○', '○']
 ```

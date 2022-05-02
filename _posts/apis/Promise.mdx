@@ -23,7 +23,7 @@ tags: [javascript]
 ```javascript
 new Promise((resolve, reject) => {
   /*executor*/
-});
+})
 ```
 
 > Promise 执行时立即调用 executor 函数（通常是一些异步操作），resovle 将 Promise 的状态改为 fulfilled，reject 将 Promise 的状态改为 rejected，如果 catch 到了错误，将忽略 executor 内的返回值，Promise 的状态被改成 rejected

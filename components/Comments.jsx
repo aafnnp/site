@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
 export default class Comments extends Component {
-  componentDidMount () {
+  componentDidMount() {
     const script = document.createElement('script')
     const anchor = document.getElementById('inject-comments-for-uterances')
 
@@ -22,7 +22,7 @@ export default class Comments extends Component {
     anchor.appendChild(script)
   }
 
-  render () {
+  render() {
     return <div id="inject-comments-for-uterances" className="py-12" />
   }
 }

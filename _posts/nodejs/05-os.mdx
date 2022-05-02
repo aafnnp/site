@@ -1,0 +1,49 @@
+---
+date: '2022-04-06 13:48:10'
+title: 'Node.js - os'
+tags: [nodejs, javascript]
+---
+
+`Node.js`提供一些基本系统相关的函数：
+
+`os.arch()` 返回当前计算机的 CPU 体系结构，比如：可能的值为`x32`、`x64`、`arm`、`arm64`、`s390`、`s390x`、`mipsel`、`ia32`、`mips`、`ppc`、`ppc64`
+
+`os.cpus()`返回包含有关每个逻辑 CPU 内核的信息的对象数组
+
+`os.endianness()`返回标识为其编译 Node.js 二进制文件的 CPU 的字节序的字符串。 可能的值是大端序的 'BE' 和小端序的 'LE'
+
+`os.freemem()`返回可用系统内存
+
+`os.getPriority()`获取进程优先级
+
+`os.homedir()`返回当前用户主目录
+
+`os.hostname()`返回系统主机名
+
+`os.lodavg()`用于获取平均负载
+
+`os.networkInterfaces()`返回网络接口列表
+
+`os.platform()`返回当前系统平台，比如：`darwin`、`win32`、`freebsd`、`linux`
+
+`os.release()`返回当前系统版本
+
+`os.setPriority()`设置进程优先级
+
+`os.tmpdir()`返回当前系统临时文件默认目录
+
+`os.totalmem()`返回当前系统内存，以字节为单位
+
+`os.type()`返回当前操作系统名称，比如：`linux`、`darwin`、`windows_nt`
+
+`os.userInfo()`返回当前用户信息
+
+`os.uptime()`返回系统正常运行时间
+
+`os.version()`返回当前系统内核、时间、发行版本等信息
+
+`os.constants`包含用于错误码、进程信号等的常用操作系统特定常量
+
+`os.EOL`返回当前操作系统的换行符
+
+`os.devNull`空设备的特定于平台的文件路径。

@@ -71,37 +71,37 @@ tags: [javascript]
 ```javascript
 function push(fromArray, toArray) {
   for (let i = 0, len = fromArray.length; i < len; i++) {
-    toArray.push(fromArray[i]);
+    toArray.push(fromArray[i])
   }
-  return toArray;
+  return toArray
 }
 
-var array1 = [1, 2, 3, 4, 5];
-var array2 = [6, 7, 8, 9, 10];
-var array3 = [];
-push(array1, array3);
-push(array2, array3);
+var array1 = [1, 2, 3, 4, 5]
+var array2 = [6, 7, 8, 9, 10]
+var array3 = []
+push(array1, array3)
+push(array2, array3)
 ```
 
 2. 解构
 
 ```javascript
-var array1 = [1, 2, 3, 4, 5];
-var array2 = [6, 7, 8, 9, 10];
-var array3 = [...array1, ...array2];
-var array3 = Array.of(...array2, ...array1);
-array3; // [1,2,3,4,5,6,7,8,9,10];
+var array1 = [1, 2, 3, 4, 5]
+var array2 = [6, 7, 8, 9, 10]
+var array3 = [...array1, ...array2]
+var array3 = Array.of(...array2, ...array1)
+array3 // [1,2,3,4,5,6,7,8,9,10];
 ```
 
 3. concat
 
 ```javascript
-var array1 = [1, 2, 3, 4, 5];
-var array2 = [6, 7, 8, 9, 10];
+var array1 = [1, 2, 3, 4, 5]
+var array2 = [6, 7, 8, 9, 10]
 
-var array3 = array1.concat(array2);
+var array3 = array1.concat(array2)
 // or
-var array3 = [].concat(array1, array2);
+var array3 = [].concat(array1, array2)
 ```
 
 4. reduce

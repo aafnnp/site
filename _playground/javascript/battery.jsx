@@ -1,8 +1,8 @@
 import CanIUse from 'components/CanIUse'
-import React, { useState } from 'react'
-import { FaCode, FaEye, FaFile } from 'react-icons/fa'
+import React, {useState} from 'react'
+import {FaCode, FaEye, FaFile} from 'react-icons/fa'
 
-export default function FileSystem () {
+export default function FileSystem() {
   const [status, setStatus] = useState({})
 
   const handleClick = () => {
@@ -12,9 +12,7 @@ export default function FileSystem () {
 
       console.log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'))
       console.log('Battery level: ' + battery.level * 100 + '%')
-      console.log(
-        'Battery charging time: ' + battery.chargingTime + ' seconds'
-      )
+      console.log('Battery charging time: ' + battery.chargingTime + ' seconds')
       console.log(
         'Battery discharging time: ' + battery.dischargingTime + ' seconds'
       )
@@ -50,16 +48,16 @@ export default function FileSystem () {
         provides information about the systems battery charge level
       </div>
       <div className="flex flex-row items-center gap-4 py-12 text-sm">
-        <a className="flex items-center p-2 bg-sky-500 text-white rounded">
+        <a className="flex items-center p-2 bg-twitter text-white rounded">
           <FaCode className="mr-2" />
           Source Code
         </a>
-        <a className="flex items-center p-2 bg-sky-500 text-white rounded">
+        <a className="flex items-center p-2 bg-twitter text-white rounded">
           <FaFile className="mr-2" />
           Documents
         </a>
         <a
-          className="flex items-center p-2 bg-sky-500 text-white rounded"
+          className="flex items-center p-2 bg-twitter text-white rounded"
           onClick={handleClick}
         >
           <FaEye className="mr-2" />

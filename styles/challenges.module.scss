@@ -1,0 +1,34 @@
+.challenges {
+  @apply pb-4;
+  h1 {
+    @apply mb-12 text-center text-4xl font-bold;
+  }
+
+  .list {
+    @apply grid gap-4 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3;
+    .item {
+      @apply shadow-lg rounded-md overflow-hidden;
+      .image {
+        @apply flex-none rounded-l-md;
+      }
+    }
+    h3 {
+      @apply flex gap-2 p-2 font-bold text-sm items-center;
+      .icon {
+        @apply w-4 h-4;
+      }
+    }
+    .btn {
+      @apply flex gap-2 p-2 text-sm;
+      a {
+        @apply py-2 flex flex-1 gap-2 items-center justify-center;
+      }
+      .link {
+        @apply text-gray-900 bg-gray-300 hover:bg-gray-600 hover:text-white rounded-md;
+      }
+      .source {
+        @apply text-white bg-twitter rounded-md;
+      }
+    }
+  }
+}
