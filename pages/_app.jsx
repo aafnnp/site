@@ -6,7 +6,7 @@ import React from 'react'
 import 'styles/main.scss'
 import 'styles/markdown.scss'
 
-const Sidebar = dynamic(() => import('components/Sidebar'))
+const Header = dynamic(() => import('components/Header'))
 const Comments = dynamic(() => import('components/Comments'))
 
 
@@ -46,9 +46,9 @@ const App = ({Component, pageProps}) => {
           cardType: 'summary_large_image'
         }}
       />
-      <div className={'relative flex w-screen h-screen overflow-hidden'}>
-        <Sidebar />
-        <div className="flex-auto h-full overflow-y-scroll scroll-smooth bg-gray-100 p-8">
+      <div className='relative w-screen h-screen overflow-hidden pt-8 px-16 pb-12 bg-gray-800'>
+        <Header/>
+        <div className="bg-gray-100 p-8">
           <Component {...pageProps} canonical={url} key={url} />
           {router.route.startsWith('/blog') && <Comments />}
         </div>
