@@ -11,6 +11,7 @@ import components from 'utils/components'
 const codesandbox = require('remark-codesandbox')
 
 const Ad = dynamic(() => import('components/ad'))
+const Pexels = dynamic(() => import('components/Pexels'))
 const PostPage = dynamic(() => import('components/PostPage'))
 const Layout = dynamic(() => import('components/Layout'))
 const Random = dynamic(() => import('components/RandomPost'))
@@ -18,6 +19,7 @@ const Share = dynamic(() => import('components/Share'))
 
 const Post = ({data, mdxSource, randomPost}) => {
   const router = useRouter()
+  const {slug} = router.query
   if (!router.isFallback && !mdxSource) {
     return <ErrorPage statusCode={404} />
   }
@@ -31,6 +33,7 @@ const Post = ({data, mdxSource, randomPost}) => {
       {/* 头部广告 */}
       <Ad />
       {/* 头部广告结束 */}
+      <Pexels tag={slug[0]} />
       <PostPage>
         <MDXRemote {...mdxSource} components={components} />
         {data.originalUrl && (

@@ -1,7 +1,41 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Next.js - Overview'
-tags: [nodejs, javascript]
-draft: true
-description: Streams允许从源读取数据或写入数据到目标对象。
+date: '2022-05-06 09:48:08'
+title: 'Next.js - Static File Serving'
+tags: [nodejs, javascript, Nextjs]
+description: Next.js的静态资源存储，将静态资源放到根目录的public文件夹下即可
 ---
+
+Next.js 的静态资源存储，将静态资源放到根目录的 public 文件夹下即可。
+
+在 Next.js 里，页面即组件，每个页面通过文件系统路由关联起来。
+
+创建 public 文件夹，将图片放到该文件夹，修改 first.js
+
+```js
+import Link from 'next/link'
+
+export default function FirstPost() {
+  return (
+    <>
+      <h1>My First Post</h1>
+      <h2>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+      </h2>
+      <br />
+      <img src="/logo.png" alt="TS" />
+    </>
+  )
+}
+```
+
+启动服务
+
+```shell
+npm run dev
+```
+
+查看效果
+
+![RWsSYV](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/RWsSYV.png)

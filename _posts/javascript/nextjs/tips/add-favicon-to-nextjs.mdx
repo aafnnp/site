@@ -1,0 +1,32 @@
+---
+date: '2022-05-05 13:05:43'
+title: 'Next.js - Overview'
+tags: [nodejs, javascript, Nextjs]
+description: Next.js是基于React的框架，具有服务器端渲染功能。
+---
+
+1. 复制`favicon`文件到`public`目录下
+
+![kbo0B5](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/kbo0B5.jpg)
+
+2. 编辑`pages/_app.js`
+
+```js
+import Head from "next/head";
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      {/* the favicon */}
+      <Head>
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </Head>
+      {/* the favicon */}
+      <Component {...pageProps} />
+    </>
+  );
+}
+
+export default MyApp;
+```
+![eFVnUi](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/eFVnUi.jpg)
