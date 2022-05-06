@@ -11,6 +11,7 @@ export default function Pexels(props) {
   const [photo, setPhoto] = useState(BackImg)
   const [alt, setAlt] = useState(tag)
   useEffect(() => {
+    console.log(process.env.NEXT_PUBLIC_PEXELS_KEY,process.env.PEXELS_KEY,'key')
     const client = createClient(process.env.NEXT_PUBLIC_PEXELS_KEY)
     client.photos.search({query: tag, per_page: 80}).then((res) => {
       if (res.photos.length) {
