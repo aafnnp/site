@@ -10,21 +10,21 @@ tags: [i18n, javascript]
 
 ## Set
 
-```javascript
+```js
 const arr=[1,2,🤩,🤩,🤩,2,1]
 console.log([...new Set(arr)])
 ```
 
 ## filter
 
-```javascript
+```js
 const arr=[1,2,🤩,🤩,🤩,2,1]
 arr.filter((item,index)=>arr.indexOf(item)===index)
 ```
 
 ## reduce
 
-```javascript
+```js
 const arr=[1,2,🤩,🤩,🤩,2,1]
 arr.reduce((unique,item)=>unique.includes(item)?unique:[...unique,item],[])
 ```

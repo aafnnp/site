@@ -8,7 +8,7 @@ tags: [javascript]
 
 > 核心考察点 [getPrototypeOf](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/GetPrototypeOf)
 
-```javascript
+```js
 function _instanceof(left, right) {
   if (left !== 'object' || left === null) return false
   const proto = Object.getPrototypeOf(left)

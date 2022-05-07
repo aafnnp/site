@@ -10,7 +10,7 @@ tags: [javascript]
 
 原理：基于词法作用域链和垃圾回收机制，通过维持函数作用域的引用，让函数作用域可以在当前作用域外被访问到
 
-```javascript
+```js
 function foo() {
   var a = 'hzfe'
   function bar() {
@@ -31,7 +31,7 @@ baz() // hzfe
 
 无论何时何地，如果将函数作为返回值，就会看到闭包在这些函数中的应用。在定时器，事件监听器，ajax 请求，跨窗口通信，web workers 或者任何其他的异步/同步任务中，只要使用了回调函数，实际上就是使用闭包。使用闭包的例子可以参考实现节流防抖函数。
 
-```javascript
+```js
 var a = 'hzfe'
 ;(function IIFE() {
   console.log(a)

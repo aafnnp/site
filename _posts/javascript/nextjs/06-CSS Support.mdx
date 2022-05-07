@@ -1,7 +1,65 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Next.js - Overview'
+date: '2022-05-07 10:07:20'
+title: 'Next.js - CSS Support'
 tags: [nodejs, javascript, Nextjs]
-draft: true
-description: Streams允许从源读取数据或写入数据到目标对象。
+description: Next.js允许使用css-in-js语法，并且支持css-modules。
 ---
+
+Next.js 允许使用 css-in-js 语法，并且支持 css-modules。比如`styled-jsx`、`css-modules`、`styled-components`等。
+
+创建`container.module.css`
+
+```css
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  border: 1px solid #ddd;
+}
+```
+
+在`component`目录下创建`container.jsx`并引入`container.module.css`
+
+```jsx
+import styles from './container.module.css'
+
+function Container({children}) {
+  return <div className={styles.container}>{children}</div>
+}
+
+export default Container
+```
+
+在`first.js`中引入`container.jsx`
+
+```jsx
+import Link from 'next/link'
+import Head from 'next/head'
+import Container from '../../components/container'
+
+export default function FirstPost() {
+  return (
+    <>
+      <Container>
+        <Head>
+          <title>My First Post</title>
+        </Head>
+        <h1>My First Post</h1>
+        <h2>
+          <Link href="/">
+            <a>Home</a>
+          </Link>
+        </h2>
+      </Container>
+    </>
+  )
+}
+```
+
+启动服务
+
+```bash
+npm run dev
+```
+
+![g5xWwA](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/g5xWwA.png)

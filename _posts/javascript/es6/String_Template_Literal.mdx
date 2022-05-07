@@ -9,7 +9,7 @@ description: '传统的JavaScript语言中，输出模板经常使用的是字�
 
 ## 语法
 
-```javascript
+```js
 // Basic literal string creation
 ;`In JavaScript '\n' is a line-feed.` // Multiline strings
 `In JavaScript this is
@@ -34,7 +34,7 @@ POST`http://foo.org/bar?a=${a}&b=${b}
 
 在标签函数的第一个参数中，存在一个特殊的属性 raw ，我们可以通过它来访问模板字符串的原始字符串，而不经过特殊字符的替换。
 
-```javascript
+```js
 function quux(strings, ...values) {
   strings[0] === 'foo\n'
   strings[1] === 'bar'
@@ -49,7 +49,7 @@ String.raw`foo\n${42}bar` === 'foo\\n42bar'
 
 ## 对比
 
-```javascript
+```js
 // es5
 var classes = 'header'
 classes += isLargeScreen()

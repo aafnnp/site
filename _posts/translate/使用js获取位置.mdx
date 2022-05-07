@@ -16,7 +16,7 @@ GPS-主要在移动设备，精确到 10 米 WIFI-几乎所有的联网设备 IP
 
 使用 geolocation api 通过使用 caniuse-cmd，我们知道大部分浏览器支持 geolocation，但我们需要做好判断，请确保可以正常使用 geolocation
 
-```javascript
+```js
 if (navigator.geolocation) {
   // 支持geolocation
 } else {
@@ -32,7 +32,7 @@ navigator.geolocation 有如下几个方法：
 
 getCurrentPosition() and watchPosition() methods 的工作方式是基本相同的。这两方法目的基本相同，都是用来去获取 device 的位置信息吧， 都是以一个异步的工作形式来获取位置信息的， 他们也都依赖于一个 attempt call 的结果
 
-```javascript
+```js
 navigator.geolocation.getCurrentPosition(
 
     // 位置获取成功
@@ -68,7 +68,7 @@ navigator.geolocation.getCurrentPosition(
 
 这里查看更多关于这个问题。
 
-```javascript
+```js
 一个简单的Demo
 findMeButton.on('click', function () {
   navigator.geolocation.getCurrentPosition(function (position) {

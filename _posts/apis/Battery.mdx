@@ -20,7 +20,7 @@ import CanIUse from 'components/CanIUse.tsx'
 - chargingtimechange
 - dischargingtimechange
 
-```javascript
+```js
 navigator.getBattery().then(function (battery) {
   console.log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'))
   console.log('Battery level: ' + battery.level * 100 + '%')

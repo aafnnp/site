@@ -25,7 +25,7 @@ description: 'JavaScript的异步处理'
 
 ## Promise
 
-```javascript
+```js
 let promise = new Promise(function (resolve, reject) {
   // code
 })
@@ -65,7 +65,7 @@ promise
 
 执行多个 promise，并等待所有 promise 准备就绪，任意一个 promise 被 reject，都会立即出发 Promise.all 的 reject 并且返回该 promise 的 error
 
-```javascript
+```js
 let promise = Promise.all([
   /*promises*/
 ])
@@ -97,7 +97,7 @@ Promise.all(requests).then((responses) =>
 
 只要有一个准备就绪就返回其结果或者错误
 
-```javascript
+```js
 Promise.race([
   new Promise((resolve, reject) => setTimeout(() => resolve(1), 1000)),
   new Promise((resolve, reject) =>
@@ -117,7 +117,7 @@ Async/await 是以更舒适的方式使用 promise 的一种特殊语法，同�
 
 async 会将其后面的函数的返回值封装成一个`Promise`对象，而 await 会等待这个`Promise`完成，并将其结果返回。
 
-```javascript
+```js
 async function hello() {
   return (greeting = await Promise.resolve('Hello'))
 }

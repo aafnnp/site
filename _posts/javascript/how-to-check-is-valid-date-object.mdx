@@ -11,7 +11,7 @@ description: 一些常见的日期对象判断方法
 
 我们使用运算符 typeof 检查 getMonth 方法是否是一个函数，看看它是否返回`function`
 
-```javascript
+```js
 const date = new Date(2021, 1, 1)
 console.log(typeof date.getMonth === 'function')
 ```
@@ -22,7 +22,7 @@ console.log(typeof date.getMonth === 'function')
 
 instanceof 可以用来判断一个对象是否是某个类的实例，返回值为`boolean`。
 
-```javascript
+```js
 const date = new Date(2021, 1, 1)
 console.log(date instanceof Date)
 ```
@@ -33,7 +33,7 @@ console.log(date instanceof Date)
 
 Object.prototype.toString 方法可以返回一个对象的字符串表示，返回值为`string`。
 
-```javascript
+```js
 const date = new Date(2021, 1, 1)
 console.log(date instanceof Date)
 ```
@@ -42,6 +42,6 @@ console.log(date instanceof Date)
 
 判断一个对象是否是一个有效的日期对象，返回值为`boolean`。
 
-```javascript
+```js
 Object.prototype.toString
 ```

@@ -15,7 +15,7 @@ originalUrl: https://dmitripavlutin.com/screen-window-page-sizes/
 
 `window.screen` 属性可以获取屏幕尺寸，其中包含屏幕的宽度和高度，以像素为单位。
 
-```javascript
+```js
 const screenWidth = window.screen.width
 const screenHeight = window.screen.height
 ```
@@ -26,7 +26,7 @@ const screenHeight = window.screen.height
 
 ![Available Screen Size](https://pics-rust.vercel.app/uPic/nYbW0L.jpg)
 
-```javascript
+```js
 const availableScreenWidth = window.screen.availWidth
 const availableScreenHeight = window.screen.availHeight
 ```
@@ -41,7 +41,7 @@ const availableScreenHeight = window.screen.availHeight
 
 使用`outerWidth`和`outerHeight`可以获取窗口的外部宽高，以像素为单位。
 
-```javascript
+```js
 const windowOuterWidth = window.outerWidth
 const windowOuterHeight = window.outerHeight
 ```
@@ -54,7 +54,7 @@ const windowOuterHeight = window.outerHeight
 
 使用`innerWidth`和`innerHeight`可以获取窗口的内部宽高，以像素为单位。
 
-```javascript
+```js
 const windowInnerWidth = window.innerWidth
 const windowInnerHeight = window.innerHeight
 
@@ -69,7 +69,7 @@ const windowInnerHeight = document.documentElement.clientHeight
 
 ![Page Size](https://pics-rust.vercel.app/uPic/Bk8qhy.jpg)
 
-```javascript
+```js
 const pageWidth = document.documentElement.scrollWidth
 const pageHeight = document.documentElement.scrollHeight
 // 如果 pageHeight 大于 window.innerHeight，则页面会出现横向滚动条

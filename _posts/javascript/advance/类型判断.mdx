@@ -13,7 +13,7 @@ tags: [javascript]
 3. 对于 null ，返回 object 类型。
 4. 对于 function 返回 function 类型。
 
-```javascript
+```js
 typeof undefined // "undefined";
 typeof 1 // "number";
 typeof '1' // "string";
@@ -29,7 +29,7 @@ typeof function () {} === 'function' // true
 
 > 用于判断是对象的那个子类型
 
-```javascript
+```js
 ;[1, 2] instanceof Array // true
 ;(function foo() {} instanceof Function) // true
 new Date(2018) instanceof Date // true
@@ -43,7 +43,7 @@ a instanceof b，instanceof 会去查找 a 的原型链(这里不展开讨论)�
 
 > 不仅可以用于对象子类型的判断，还可以用于基本类型的判断，返回创建实例对象的 Object 构造函数的引用，原始数据类型，constructor 只读，基本类型指向对应的内置对象的构造函数
 
-```javascript
+```js
 ;({a: 1}.constructor === Object) // true
 ;[1, 2].constructor === Array // true
 new Date(2018).constructor === Date // true
@@ -57,7 +57,7 @@ true.constructor === Boolean // true
 
 > Object.prototype.toString.call('...')，通用方法判断对象类型。 Object.prototype 表示 Object 的原型对象，toString 返回表示该对象的字符串，call 用于指定 this
 
-```javascript
+```js
 Object.prototype.toString.call('1') // "[object String]"
 Object.prototype.toString.call(1) // "[object Number]"
 Object.prototype.toString.call(true) // "[object Boolean]"
