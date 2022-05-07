@@ -5,19 +5,19 @@ tags: [nodejs, javascript, Nextjs]
 description: Next.js支持自定义404页面
 ---
 
-## 关于404
+## 关于 404
 
 [http status](https://manon.icu/http-status)
 [404](https://www.abstractapi.com/http-status-codes/404)
 
 ![reP4tT](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/reP4tT.jpg)
 
-## 自定义404页面
+## 自定义 404 页面
 
-创建`404.js`文件，并在其中定义自定义404页面。
+创建`404.js`文件，并在其中定义自定义 404 页面。
 
 ```js
-import Link from 'next/link';
+import Link from 'next/link'
 
 const MyCustom404Page = (props) => {
   return (
@@ -27,35 +27,35 @@ const MyCustom404Page = (props) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
       }}
     >
       <h1>404</h1>
       <h2>
         <Link href="/">
-          <a style={{ color: 'blue', textDecoration: 'underline' }}>
+          <a style={{color: 'blue', textDecoration: 'underline'}}>
             Go To Home Page
           </a>
         </Link>
       </h2>
       <p>Sorry, the content you are looking for cuould not be found.</p>
     </div>
-  );
-};
+  )
+}
 
-export default MyCustom404Page;
+export default MyCustom404Page
 ```
 
 检查结果
 
 ![vr7Yoj](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/vr7Yoj.jpg)
 
-## 动态渲染404页面
+## 动态渲染 404 页面
 
-next.js允许通过`getStaticProps`或`getServerSideProps`请求数据并自定义404页面。
+next.js 允许通过`getStaticProps`或`getServerSideProps`请求数据并自定义 404 页面。
 
 ```js
-import Link from 'next/link';
+import Link from 'next/link'
 
 const MyCustom404Page = (props) => {
   return (
@@ -65,13 +65,13 @@ const MyCustom404Page = (props) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
       }}
     >
       <h1>404 - Page Not Found</h1>
       <h2>
         <Link href="/">
-          <a style={{ color: 'blue', textDecoration: 'underline' }}>
+          <a style={{color: 'blue', textDecoration: 'underline'}}>
             Go To Home Page
           </a>
         </Link>
@@ -84,24 +84,24 @@ const MyCustom404Page = (props) => {
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
-  const res = await fetch('YOUR_API_URL');
-  const posts = await res.json();
+  const res = await fetch('YOUR_API_URL')
+  const posts = await res.json()
 
   return {
     props: {
-      posts,
+      posts
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every second
-    revalidate: 60,
-  };
+    revalidate: 60
+  }
 }
 
-export default MyCustom404Page;
+export default MyCustom404Page
 ```
