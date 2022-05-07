@@ -15,7 +15,7 @@ tags: [javascript]
 
 ### 单个对象 - Single objects
 
-```javascript
+```js
 // 创建object
 const obj = {
   name: 'John',
@@ -59,7 +59,7 @@ const result = Object.assign(target, {b: 2}, {c: 3, b: true}) // { a: 1, b: true
 
 原型是 `JavaScript` 的基本继承机制。甚至 `class` 也基于此。每个对象都有 `null` 或一个对象作为其原型。
 
-```javascript
+```js
 const obj1 = Object.create(null) // 创建一个没有原型的对象
 Object.getPrototypeOf(obj1) === null // true
 
@@ -75,7 +75,7 @@ Object.getPrototypeOf(obj2) === proto // true
 
 每个对象都继承原型的所有属性，包括不可枚举的属性。
 
-```javascript
+```js
 obj2.protoProp // protoProp
 Reflect.ownKeys(obj2) // ['objProp', '__proto__']
 ```
@@ -86,7 +86,7 @@ Reflect.ownKeys(obj2) // ['objProp', '__proto__']
 
 通过`get`和`set`方法，可以设置和获取对象的属性。
 
-```javascript
+```js
 const jane = {
   first: 'Jane',
   last: 'Doe',

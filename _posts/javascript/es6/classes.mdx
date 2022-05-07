@@ -13,7 +13,7 @@ originalUrl: https://dmitripavlutin.com/javascript-classes-complete-guide/
 
 `class`关键词定义了一个类，类是一个构造函数，它的名字是类名，它的作用是创建类的实例。
 
-```javascript
+```js
 class User {}
 
 // 也可以将类赋值给变量
@@ -30,7 +30,7 @@ export class User {}
 
 当`class`实例化后，它就是一个对象，它的属性和方法都是实例的属性和方法。比如：
 
-```javascript
+```js
 const myUser = new User()
 // new User 创建`User`的实例
 ```
@@ -39,7 +39,7 @@ const myUser = new User()
 
 `constructor(param1,param2,...)`是类的初始化函数，它的作用是初始化类的实例。
 
-```javascript
+```js
 class User {
   constructor(name) {
     this.name = name
@@ -49,7 +49,7 @@ class User {
 
 `User`的实例有一个`name`属性，`name`属性的值是`User`的构造函数传入的参数，并且会被赋值到`this.name`。
 
-```javascript
+```js
 const user = new User('Jon Snow')
 // this.name = 'Jon Snow'
 ```
@@ -66,7 +66,7 @@ const user = new User('Jon Snow')
 
 ### 公有字段 - Public fields
 
-```javascript
+```js
 const user = new User('Jon Snow')
 // user.name = 'Jon Snow'
 ```

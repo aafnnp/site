@@ -16,7 +16,7 @@ this 总是指向函数的直接调⽤者（⽽⾮间接调⽤者）
 
 > 创建⼀个空对象，并且 this 变量引⽤该对象，同时还继承了该函数的原型属性和⽅法被加⼊到 this 引⽤的对象中新创建的对象由 this 所引⽤，并且最后隐式的返回 this
 
-```javascript
+```js
 var test = {
   prop: 42,
   func: function () {
@@ -57,7 +57,7 @@ obj.prop.getFullname() // Aurelio Deftch，调用者是obj.prop，obj.prop.fulln
 - func.apply(this,[args])
 - 用法：当知道参数数量的时候用 call，不确定的时候用 apply
 
-```javascript
+```js
 function log() {
   var _args = [...arguments]
   console.log(_args)
@@ -72,7 +72,7 @@ log(1, 2, 3) //(app) 1 2 3
 
 > MDN 的解释是：bind()方法会创建一个新函数，称为绑定函数，当调用这个绑定函数时，绑定函数会以创建它时传入 bind()方法的第一个参数作为 this，传入 bind() 方法的第二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数。
 
-```javascript
+```js
 var bar = function () {
   console.log(this.x)
 }

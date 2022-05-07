@@ -12,7 +12,7 @@ originalUrl: https://dmitripavlutin.com/javascript-scope/
 
 在深入理解作用域之前，先通过一个简单的例子看看是如何工作的。
 
-```javascript
+```js
 const message = 'hello'
 console.log(message) // hello
 ```
@@ -21,7 +21,7 @@ console.log(message) // hello
 
 如果将`message`变量放在`if`语句内，比如：
 
-```javascript
+```js
 if (true) {
   const message = 'hello'
 }
@@ -38,7 +38,7 @@ console.log(message) // ReferenceError: message is not defined
 
 ## 块级作用域 - Block Scope
 
-```javascript
+```js
 if (true) {
   // if 块级作用域
   const message = 'hello'
@@ -53,7 +53,7 @@ console.log(message) // ReferenceError: message is not defined
 
 `if`、`for`、`while`、`do`、`switch`、`with`、`function` 以及`catch`创建块级作用域。比如：
 
-```javascript
+```js
 for (const color of ['green', 'red', 'blue']) {
   // "for" block scope
   const message = 'Hi';
@@ -75,7 +75,7 @@ console.log(message); // => throws ReferenceError
 
 `var` 关键字不是块级作用域。比如：
 
-```javascript
+```js
 if (true) {
   // "if" block scope
   var count = 0
@@ -88,7 +88,7 @@ console.log(count) // 0
 
 ## 函数作用域 - Function Scope
 
-```javascript
+```js
 function run() {
   // "run" function scope
   var message = 'Run Forrest, run!'
@@ -102,7 +102,7 @@ console.log(message) // ReferenceError: message is not defined
 
 同样`let`和`const`也是块级作用域。可以在`run()`函数内访问， 但是不能在`run()`函数之外访问。
 
-```javascript
+```js
 function run() {
   // "run" function scope
   const two = 2
@@ -122,7 +122,7 @@ console.log(run2) // throws ReferenceError
 
 ES2015 同样支持模块作用域。模块作用域是一个特殊的块级作用域，它可以在模块内部访问，但是不能在模块之外访问。
 
-```javascript
+```js
 // circle.js
 const PI = 3.14
 console.log(pi) // 3.14
@@ -130,7 +130,7 @@ console.log(pi) // 3.14
 
 `circle.js`模块定义了一个块级作用域，它包含了`PI`变量。但是未导出`PI`变量，因此不能在模块之外访问。
 
-```javascript
+```js
 import './circle'
 consoel.log(pi) // throws ReferenceError
 ```
@@ -139,7 +139,7 @@ consoel.log(pi) // throws ReferenceError
 
 作用域可以嵌套。比如：
 
-```javascript
+```js
 function run() {
   // "run" function scope
   const message = 'Run, Forrest, Run!'
@@ -161,7 +161,7 @@ run()
 
 全局作用域是一个特殊的作用域，它可以在整个程序的所有位置访问。`<script>`标签内的代码块是全局作用域。
 
-```javascript
+```js
 ;<script src="myScript.js"></script>
 
 // myScript.js
@@ -179,7 +179,7 @@ let counter = 1
 
 定义两个函数，将函数`innerFunc`嵌套在函数`outerFunc`内部。
 
-```javascript
+```js
 function outerFunc() {
   // the outer scope
   let outerVar = 'I am from outside!'
@@ -205,7 +205,7 @@ inner()
 
 `foo()`和`bar()`函数作用域有它们自己的。
 
-```javascript
+```js
 function foo() {
   // "foo" function scope
   let count = 0

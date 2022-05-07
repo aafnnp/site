@@ -7,7 +7,7 @@ description: File System是一个文件系统模块，用于操作文件系统�
 
 `Node.js`提供了一个`fs`模块，用于操作文件系统。通过`fs`模块，可以读取文件，创建文件，删除文件，移动文件，复制文件等。
 
-```javascript
+```js
 const fs = require('fs')
 ```
 
@@ -19,7 +19,7 @@ const fs = require('fs')
 echo "hello world" > demo.txt
 ```
 
-```javascript
+```js
 const fs = require('fs')
 
 // 异步读取文件
@@ -46,7 +46,7 @@ console.log('Program Ended')
 - `mode`: 打开文件的模式，默认是`0o666`
 - `callback`: 回调函数，参数为 err,fd
 
-```javascript
+```js
 const fs = require('fs')
 fs.open('demo.txt', 'r', function (err, fd) {
   if (err) {
@@ -73,7 +73,7 @@ fs.open('demo.txt', 'r', function (err, fd) {
 - `stats.isFIFO()`: 判断是否是 FIFO，如果是 FIFO，则返回 true，否则返回 false
 - `stats.isSocket()`: 判断是否是 Socket
 
-```javascript
+```js
 const fs = require('fs')
 fs.stat('demo.txt', function (err, stats) {
   if (err) {
@@ -95,7 +95,7 @@ fs.stat('demo.txt', function (err, stats) {
 - `options`: 可选参数，可以是`encoding`，`mode`，`flag`
 - `callback`: 回调函数，参数为 err
 
-```javascript
+```js
 const fs = require('fs')
 fs.writeFile('demo.txt', '我是写入的文件内容', function (err) {
   if (err) {
@@ -124,7 +124,7 @@ fs.writeFile('demo.txt', '我是写入的文件内容', function (err) {
 - `position`：从哪里开始读取
 - `callback`：`err`、`bytesRead`、`buffer`
 
-```javascript
+```js
 var fs = require('fs')
 var buf = new Buffer(1024)
 
@@ -157,7 +157,7 @@ fs.open('input.txt', 'r+', function (err, fd) {
 - `fd`：返回的文件描述符
 - `callback`：回调函数，参数为 err
 
-```javascript
+```js
 const fs = require('fs')
 fs.open('demo.txt', 'r', function (err, fd) {
   if (err) {
@@ -180,7 +180,7 @@ fs.open('demo.txt', 'r', function (err, fd) {
 - `path`：文件路径
 - `callback`：回调函数，参数为 err
 
-```javascript
+```js
 const fs = require('fs')
 fs.unlink('demo.txt', function (err) {
   if (err) {
@@ -198,7 +198,7 @@ fs.unlink('demo.txt', function (err) {
 - `mode`：目录权限
 - `callback`：回调函数，参数为 err
 
-```javascript
+```js
 const fs = require('fs')
 fs.mkdir('/tmp/test', function (err) {
   if (err) {
@@ -215,7 +215,7 @@ fs.mkdir('/tmp/test', function (err) {
 - `path`：目录路径
 - `callback`：回调函数，参数为 err、files
 
-```javascript
+```js
 const fs = require('fs')
 fs.readdir('/tmp', function (err, files) {
   if (err) {
@@ -233,7 +233,7 @@ fs.readdir('/tmp', function (err, files) {
 
 - `path`：目录路径
 
-```javascript
+```js
 const fs = require('fs')
 fs.readdirSync('/tmp')
 ```
@@ -245,7 +245,7 @@ fs.readdirSync('/tmp')
 - `path`：目录路径
 - `callback`：回调函数，参数为 err
 
-```javascript
+```js
 const fs = require('fs')
 fs.rmdir('/tmp/test', function (err) {
   if (err) {

@@ -39,7 +39,7 @@ tags: [javascript]
 
 > JavaScript 中的所有对象都来自 Object；所有对象从 Object.prototype 继承方法和属性，尽管它们可能被覆盖。
 
-```javascript
+```js
 Object.prototype.constructor //特定的函数，用于创建一个对象的原型。
 ```
 
@@ -54,32 +54,32 @@ Object.prototype.constructor //特定的函数，用于创建一个对象的原�
 
 ## 创建对象
 
-```javascript
+```js
 const person = {}
 typeof person //object
 ```
 
 ### 使用 Object 全局函数
 
-```javascript
+```js
 const person = Object()
 typeof person //object
 ```
 
 ### 使用 Object 构造器
 
-```javascript
+```js
 const person = new Object()
 typeof person //object
 ```
 
 ### 使用 Object.create()
 
-```javascript
+```js
 const car = Object.create()
 ```
 
-```javascript
+```js
 const person = {
   age: 36,
   name: 'funny',
@@ -107,13 +107,13 @@ const person = new Object({
 
 ### Object.assign
 
-```javascript
+```js
 const copied = Object.assign({}, target1, target2, ...target)
 ```
 
 > Object.assign-将一个或多个对象的所有可枚举属性复制到另一个对象中。浅拷贝，复制对象引用而非对象本身。
 
-```javascript
+```js
 const original = {
   name: 'Fiesta',
   car: {
@@ -131,7 +131,7 @@ copied.car.color //yellow
 
 ### Object.create
 
-```javascript
+```js
 const newObject = Object.create(prototype)
 
 const newObject = Object.create(prototype, newProperties)
@@ -139,7 +139,7 @@ const newObject = Object.create(prototype, newProperties)
 
 > 使用指定原型创建新的对象，可以指定第二个参数来向对象添加新属性
 
-```javascript
+```js
 const animal = {}
 const dog = Object.create(animal)
 
@@ -156,7 +156,7 @@ console.log(dog.breed) //'Siberian Husky'
 
 > 直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象
 
-```javascript
+```js
 const dog = {}
 Object.defineProperty(dog, 'breed', {
   value: 'Siberian Husky'
@@ -170,7 +170,7 @@ console.log(dog.breed) //'Siberian Husky'
 
 > 直接在一个对象上定义新的属性或修改现有属性，并返回该对象
 
-```javascript
+```js
 const dog = {}
 Object.defineProperties(dog, {
   breed: {
@@ -184,7 +184,7 @@ console.log(dog.breed) //'Siberian Husky'
 
 > ES2017,返回自身可枚举属性的键值对数组
 
-```javascript
+```js
 const person = {name: 'Fred', age: 87}
 Object.entries(person) // [['name', 'Fred'], ['age', 87]]
 
@@ -196,7 +196,7 @@ Object.entries(people) // [['0', 'Fred'], ['1', 'Tony']]
 
 > 冻结对象，冻结后不能再添加或修改
 
-```javascript
+```js
 const dog = {}
 dog.breed = 'Siberian Husky'
 const myDog = Object.freeze(dog)
@@ -212,7 +212,7 @@ dog.name = 'Roger' //TypeError: 无法添加name属性，dog是不可扩展的
 
 > 返回自由属性描述符
 
-```javascript
+```js
 const dog = {}
 Object.defineProperties(dog, {
   breed: {
@@ -234,7 +234,7 @@ Object.getOwnPropertyDescriptor(dog, 'breed')
 
 > 返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括 Symbol 值作为名称的属性）组成的数组
 
-```javascript
+```js
 const dog = {}
 dog.breed = 'Siberian Husky'
 dog.name = 'Roger'
@@ -246,7 +246,7 @@ Object.getOwnPropertyNames(dog) //[ 'breed', 'name' ]
 
 > 返回一个给定对象自身的所有 Symbol 属性的数
 
-```javascript
+```js
 const dog = {}
 const r = Symbol('Roger')
 const s = Symbol('Syd')
@@ -266,7 +266,7 @@ Object.getOwnPropertySymbols(dog) //[ Symbol(Roger), Symbol(Syd) ]
 
 > 返回指定对象的原型（内部[[Prototype]]属性的
 
-```javascript
+```js
 const animal = {}
 const dog = Object.create(animal)
 const prot = Object.getPrototypeOf(dog)
@@ -293,7 +293,7 @@ Object.getPrototypeOf(Object.prototype) //null
   - 都是 NaN
   - 都是除零和 NaN 外的其它同一个数字
 
-```javascript
+```js
 Object.is(a, b)
 ```
 
@@ -305,7 +305,7 @@ Object.is(a, b)
 
 > 判断一个对象是否被冻结，返回布尔值
 
-```javascript
+```js
 const dog = {}
 dog.breed = 'Siberian Husky'
 const myDog = Object.freeze(dog)
@@ -318,7 +318,7 @@ dog === myDog //true
 
 > 判断一个对象是否被密封，返回布尔值
 
-```javascript
+```js
 const dog = {}
 dog.breed = 'Siberian Husky'
 const myDog = Object.seal(dog)
@@ -331,7 +331,7 @@ dog === myDog //true
 
 > 返回对象的自身可枚举属性组成的数组
 
-```javascript
+```js
 const car = {
   color: 'Blue',
   brand: 'Ford',
@@ -345,7 +345,7 @@ Object.keys(car) //[ 'color', 'brand', 'model' ]
 
 > 阻止对象扩展，但可以删除属性
 
-```javascript
+```js
 const dog = {}
 dog.breed = 'Siberian Husky'
 Object.preventExtensions(dog)
@@ -360,7 +360,7 @@ dog //{ breed: 'Siberian Husky' }
 
 > 与 Object.freeze（）类似，但不会使属性不可写。仅阻止添加或删除属性。与 Object.preventExtensions（）类似，但也不允许删除属性：
 
-```javascript
+```js
 const dog = {}
 dog.breed = 'Siberian Husky'
 Object.seal(dog)
@@ -372,7 +372,7 @@ dog.name = 'Roger' //TypeError: Cannot add property name, object is not extensib
 
 > 对象自身的所有可枚举属性值的数组
 
-```javascript
+```js
 const person = {name: 'Fred', age: 87}
 Object.values(person) // ['Fred', 87]
 
@@ -384,7 +384,7 @@ Object.values(people) // ['Fred', 'Tony']
 
 > 判断对象自身是否有某个值，返回布尔值
 
-```javascript
+```js
 const person = {name: 'Fred', age: 87}
 person.hasOwnProperty('name') //true
 person.hasOwnProperty('job') //false
@@ -394,7 +394,7 @@ person.hasOwnProperty('job') //false
 
 > 测试一个对象是否存在于另一个对象的原型链上
 
-```javascript
+```js
 const Animal = {
   isAnimal: true
 }
@@ -415,7 +415,7 @@ Mammal.isPrototypeOf(dog) //true
 
 > 判断对象的属性是否可枚举，返回布尔值
 
-```javascript
+```js
 const person = {name: 'Fred'}
 
 Object.defineProperty(person, 'age', {
@@ -429,14 +429,14 @@ person.propertyIsEnumerable('age') //false
 
 ### Object.toLocaleString()
 
-```javascript
+```js
 const person = {name: 'Fred'}
 person.toLocaleString() //[object Object]
 ```
 
 ### Object.toString()
 
-```javascript
+```js
 const person = {name: 'Fred'}
 person.toString() //[object Object]
 ```
@@ -445,7 +445,7 @@ person.toString() //[object Object]
 
 > 返回指定对象的原始值
 
-```javascript
+```js
 const person = {name: 'Fred'}
 person.valueOf() //{ name: 'Fred' }
 ```

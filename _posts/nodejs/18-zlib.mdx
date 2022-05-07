@@ -10,7 +10,7 @@ modified: '2022-04-21 11:41:08'
 
 ## 创建和使用压缩流
 
-```javascript
+```js
 const zlib = require('zlib')
 const gzip = zlib.createGzip()
 const fs = require('fs')
@@ -22,7 +22,7 @@ inp.pipe(gzip).pipe(out)
 
 ## 解压缩和创建文件
 
-```javascript
+```js
 const zlib = require('zlib')
 const gunzip = zlib.createGunzip()
 const fs = require('fs')
