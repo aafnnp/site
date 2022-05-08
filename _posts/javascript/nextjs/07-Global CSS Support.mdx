@@ -1,7 +1,59 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Next.js - Overview'
+date: '2022-05-08 16:01:12'
+title: 'Next.js - Global CSS Support'
 tags: [nodejs, javascript, Nextjs]
-draft: true
-description: Streams允许从源读取数据或写入数据到目标对象。
+description: 全局样式仅可在_app.js中引入
 ---
+
+在`Next.js`中支持全局样式，并且仅可在`_app.js`中引入。
+
+创建全局样式
+
+```css
+html,
+body {
+   padding: 0;
+   margin: 0;
+   line-height: 1.6;
+   font-size: 18px;
+   background-color: lime;
+}
+
+* {
+   box-sizing: border-box;
+}
+
+a {
+   color: #0070f3;
+   text-decoration: none;
+}
+
+a:hover {
+   text-decoration: underline;
+}
+
+img {
+   max-width: 100%;
+   display: block;
+}
+```
+
+在`_app.js`中引入全局样式
+
+```js
+import '../styles/styles.css'
+
+export default function App({ Component, pageProps }) {
+   return <Component {...pageProps} />
+}
+```
+
+启动服务
+
+```bash
+npm run dev
+```
+
+检查结果
+
+![Nu3ohg](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Nu3ohg.png)
