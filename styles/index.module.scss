@@ -1,15 +1,137 @@
-.index {
-  @apply grid grid-cols-[30%_auto] gap-4 py-2 xs:py-1 xs:grid-cols-1 sm:grid-cols-[25%_auto] md:grid-cols-[30%_auto] xs:text-sm sm:text-sm md:text-base lg:text-base xl:text-base;
-  .date {
-    @apply text-gray-500 text-right xs:hidden sm:block;
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Roboto&display=swap');
+
+.home {
+  @apply relative flex flex-col justify-between w-screen h-screen overflow-hidden bg-slate-900 p-8;
+
+  &-bg{
+    @apply opacity-50;
+    .swiper-slide {
+      @apply absolute w-screen h-screen top-0 left-0 z-0;
+      background-position: center;
+      animation: KenBurnsSlideShow 24s linear infinite 0s;
+      background-repeat: no-repeat;
+      background-size: cover;
+      &-1 {
+        background-image: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/hero-bg-1.jpeg');
+        opacity: 1;
+      }
+      &-2 {
+        background-image: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/hero-bg-2.jpeg');
+        animation-delay: 6s;
+      }
+      &-3 {
+        background-image: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/hero-bg-3.jpeg');
+        animation-delay: 12s;
+      }
+      &-4 {
+        background-image: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/hero-bg-4.jpeg');
+        animation-delay: 18s;
+      }
+    }
   }
-  .link {
-    @apply flex gap-2 items-center;
-    a {
-      @apply max-w-[90%] whitespace-nowrap text-ellipsis overflow-hidden;
+
+  .footer {
+    @apply relative flex justify-between text-white items-end z-10;
+    font-family: 'Oswald', sans-serif;
+    .brand {
+      @apply text-lg font-extralight;
     }
-    .tag {
-      @apply w-4 h-4;
+    .description {
+      @apply text-5xl leading-tight;
     }
+    .social {
+      @apply flex gap-4;
+    }
+  }
+
+  .slogan {
+    @apply absolute top-0 left-0 h-screen w-1/2;
+    background: #000
+      url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/slogan.jpg')
+      no-repeat center;
+    background-size: cover;
+    transition: all 0.5s ease;
+    transform: translateX(-100%);
+  }
+  .menu {
+    @apply flex flex-col absolute top-0 right-0 h-screen w-1/2 items-center justify-center flex-1 h-full uppercase text-white leading-loose bg-slate-900;
+    transition: all 0.5s ease;
+    transform: translateX(100%);
+  }
+  .active {
+    transform: translateX(0);
+  }
+
+  .scroll-indicator {
+    @apply absolute bottom-8 h-16 left-1/2;
+    transform: translate(-50%, 50%);
+    z-index: 1005;
+  }
+  .scroll-indicator-wrapper{
+    position: absolute;
+    width: 1px!important;
+    height: 100%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 1;
+    visibility: visible;
+    transition: all .7s;
+  }
+  .scroll-line{
+    display: block;
+    width: 1px;
+    height: 45px;
+    background: none;
+    &:before{
+      content: "";
+      display: block;
+      width: 1px;
+      height: 50%;
+      top: 0;
+      background-color: #fff;
+      animation: scroll-down 2s ease-in-out infinite;
+    }
+  }
+}
+
+@-webkit-keyframes scroll-down {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 100%;
+  }
+  70% {
+    height: 100%;
+    transform: scaleY(0.5);
+    transform-origin: bottom;
+  }
+  100% {
+    height: 100%;
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+@keyframes KenBurnsSlideShow {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  5% {
+    opacity: 1
+  }
+  25% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
   }
 }

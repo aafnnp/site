@@ -1,55 +1,88 @@
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import React, {useState} from 'react'
+import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
+import {useState, useEffect} from 'react'
 import styles from 'styles/index.module.scss'
-import {chunk} from 'utils'
 
-const Layout = dynamic(() => import('components/Layout'))
-const Image = dynamic(() => import('components/Image'))
-const Pagination = dynamic(() => import('components/Pagination'))
+const Header = dynamic(() => import('components/Header'))
 
-const IndexPage = ({posts}) => {
-  const [curPage, setCurPage] = useState(1)
-  const postList = posts[curPage - 1]
+export default function Index() {
+  const [isOpen, setIsOpen] = useState(false)
+  const toggleDrapes = () => {
+    setIsOpen(!isOpen)
+  }
+  useEffect(() => {}, [])
 
   return (
-    <Layout>
-      {postList.map(({slug, data}) => {
-        return (
-          <div className={styles.index} key={slug}>
-            <div className={styles.date}>{data.date}</div>
-            <div className={styles.link}>
-              <Link href={`/blog/${slug}`}>
-                <a className={styles.a}>{data.title}</a>
-              </Link>
-              {data.tags?.map((tag) => (
-                <Image
-                  className={styles.tag}
-                  key={tag}
-                  src={`https://pics-rust.vercel.app/uPic/icons/${tag}.svg`}
-                  alt={tag}
-                  width={16}
-                  height={16}
-                />
-              ))}
-            </div>
-          </div>
-        )
-      })}
-      <Pagination len={posts.length} page={curPage} setPage={setCurPage} />
-    </Layout>
+    <div className={styles.home}>
+      <Header toggleDrapes={toggleDrapes} isOpen={isOpen} />
+
+      <div className={styles['home-bg']}>
+        {[1, 2, 3, 4].map((i) => {
+          return (
+            <div
+              key={i}
+              className={`${styles['swiper-slide']} ${
+                styles[`swiper-slide-${i}`]
+              }`}
+            />
+          )
+        })}
+      </div>
+
+      <div className={styles.footer}>
+        <div className="intro">
+          <div className={styles.brand}>Freelancer</div>
+          <div className={styles.description}>Fullstack Developer</div>
+          <div className={styles.description}>Particular Frontend</div>
+        </div>
+        <div className={styles.social}>
+          <Link href="https://twitter.com/Manonicu">
+            <a target="_blank">
+              <FaTwitter />
+            </a>
+          </Link>
+          <Link href="https://github.com/Manonicu">
+            <a target="_blank">
+              <FaGithub />
+            </a>
+          </Link>
+          <Link href="/about">
+            <a>
+              <FaSitemap />
+            </a>
+          </Link>
+        </div>
+      </div>
+
+      <div className={`${styles.slogan}  ${isOpen ? styles.active : ''}`}></div>
+      <div className={`${styles.menu}  ${isOpen ? styles.active : ''}`}>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+        <Link href="/about">
+          <a>About</a>
+        </Link>
+        <Link href="/blog">
+          <a>Blog</a>
+        </Link>
+        <Link href="/challenges">
+          <a>Challenges</a>
+        </Link>
+        <Link href="/playground">
+          <a>Playground</a>
+        </Link>
+        <Link href="/http-status">
+          <a>Http Status</a>
+        </Link>
+        {/* <Link href="/contact"><a>Contact</a></Link> */}
+      </div>
+
+      <div className={styles['scroll-indicator']}>
+        <div className={styles['scroll-indicator-wrapper']}>
+          <div className={styles['scroll-line']}></div>
+        </div>
+      </div>
+    </div>
   )
-}
-
-export default IndexPage
-
-export async function getStaticProps() {
-  const {GetAllPosts} = await import('api/getAllPosts')
-  const posts = await GetAllPosts()
-
-  return {
-    props: {
-      posts: chunk(posts, 30)
-    }
-  }
 }

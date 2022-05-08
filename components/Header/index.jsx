@@ -1,27 +1,28 @@
-import Link from 'next/link';
+import Link from 'next/link'
+import {BsFillTerminalFill} from 'react-icons/bs'
+import styles from './index.module.scss'
 
-const Header = () => {
+const Header = (props) => {
+  const {isOpen,toggleDrapes} = props
+
   return (
-    <header className="flex justify-between py-4 text-white">
+    <header className={styles.header}>
       <h1>
         <Link href="/">
-          <a>Manon.icu</a>
+          <a className={styles.logo}>
+            <BsFillTerminalFill />
+            Manon.icu
+          </a>
         </Link>
       </h1>
 
-      <nav>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-        <Link href="/contact">
-          <a>Contact</a>
-        </Link>
-      </nav>
+      <div className={styles.list} onClick={toggleDrapes}>
+        <div className={`${styles.line} ${isOpen ? styles['line-down'] :''}`}></div>
+        <div className={styles.line}></div>
+        <div className={`${styles.line} ${isOpen ? styles['line-up'] :''}`}></div>
+      </div>
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header

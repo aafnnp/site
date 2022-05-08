@@ -9,7 +9,6 @@ import 'styles/markdown.scss'
 const Header = dynamic(() => import('components/Header'))
 const Comments = dynamic(() => import('components/Comments'))
 
-
 const App = ({Component, pageProps}) => {
   const router = useRouter()
   const url = `https://manon.icu${router.route}`
@@ -46,13 +45,8 @@ const App = ({Component, pageProps}) => {
           cardType: 'summary_large_image'
         }}
       />
-      <div className='relative w-screen h-screen overflow-hidden pt-8 px-16 pb-12 bg-gray-800'>
-        <Header/>
-        <div className="bg-gray-100 p-8">
-          <Component {...pageProps} canonical={url} key={url} />
-          {router.route.startsWith('/blog') && <Comments />}
-        </div>
-      </div>
+      <Component {...pageProps} canonical={url} key={url} />
+      {router.route.startsWith('/blog') && <Comments />}
     </>
   )
 }

@@ -27,3 +27,19 @@
 .share {
   @apply py-4 flex justify-center gap-2;
 }
+
+.blog {
+  @apply grid grid-cols-[30%_auto] gap-4 py-2 xs:py-1 xs:grid-cols-1 sm:grid-cols-[25%_auto] md:grid-cols-[30%_auto] xs:text-sm sm:text-sm md:text-base lg:text-base xl:text-base;
+  .date {
+    @apply text-gray-500 text-right xs:hidden sm:block;
+  }
+  .link {
+    @apply flex gap-2 items-center;
+    a {
+      @apply max-w-[90%] whitespace-nowrap text-ellipsis overflow-hidden;
+    }
+    .tag {
+      @apply w-4 h-4;
+    }
+  }
+}
