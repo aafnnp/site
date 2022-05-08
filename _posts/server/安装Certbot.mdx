@@ -16,14 +16,14 @@ tags: [server]
 
 ### 加入 EPEL 软件源
 
-```shell
+```bash
 sudo yum install epel-release
 sudo yum -y update
 ```
 
 ### 下载并安装特定于 Certbot 和 web 服务器的包
 
-```shell
+```bash
 sudo curl -O https://dl.eff.org/certbot-auto
 sudo mv certbot-auto /usr/local/bin/certbot-auto
 chmod 0755 /usr/local/bin/certbot-auto
@@ -31,7 +31,7 @@ chmod 0755 /usr/local/bin/certbot-auto
 
 ### 启动 Certbot
 
-```shell
+```bash
 sudo /usr/local/bin/certbot-auto --nginx
 ```
 
@@ -43,7 +43,7 @@ sudo systemctl start jenkins
 
 ### 询问信息如下
 
-```shell
+```bash
 
 # sudo /usr/local/bin/certbot-auto --nginx
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
@@ -72,7 +72,7 @@ Redirecting all traffic on port 80 to ssl in /etc/nginx/nginx.conf
 
 ### 开启防火墙
 
-```shell
+```bash
 sudo firewall-cmd --zone=public --permanent --add-service=https
 sudo firewall-cmd --reload
 ```
@@ -81,7 +81,7 @@ sudo firewall-cmd --reload
 
 ### 安装 Certbot 和 web 服务器
 
-```shell
+```bash
 sudo apt-get update
 sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get install python-certbot-nginx
@@ -90,7 +90,7 @@ sudo certbot --nginx
 
 ### 开启防火墙
 
-```shell
+```bash
 sudo systemctl start ufw && sudo systemctl enable ufw
 sudo ufw allow http
 sudo ufw allow https
@@ -101,14 +101,14 @@ sudo ufw enable
 
 ### 安装 Certbot 和 web 服务器
 
-```shell
+```bash
 sudo apt install certbot python-certbot-nginx
 sudo certbot --nginx
 ```
 
 ### 询问信息
 
-```shell
+```bash
 # sudo certbot --nginx
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 Plugins selected: Authenticator nginx, Installer nginx
@@ -154,7 +154,7 @@ Redirecting all traffic on port 80 to ssl in /etc/nginx/sites-enabled/default
 
 ### 开启防火墙
 
-```shell
+```bash
 sudo systemctl start ufw && sudo systemctl enable ufw
 sudo ufw allow http
 sudo ufw allow https

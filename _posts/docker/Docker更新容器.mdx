@@ -8,13 +8,13 @@ tags: [docker]
 
 运行容器后，可以使用 docker ps 获取其 ID，然后使用 docker commit 从中为图像创建新标记：
 
-```shell
+```bash
 docker commit <id> <username>/<imagename>:<tagname>
 ```
 
 您还可以添加一条 changelog 消息，列出新版本中更改的内容：
 
-```shell
+```bash
 docker commit --change "description" <id> <username>/<imagename>:<tagname>
 ```
 
