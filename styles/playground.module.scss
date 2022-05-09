@@ -1,0 +1,22 @@
+.challenges {
+  @apply pb-4;
+  font-family: 'Dosis', sans-serif;
+  h1 {
+    @apply mb-12 text-center text-4xl font-bold;
+  }
+  ul{
+    @apply grid grid-cols-2 gap-4;
+    .item {
+      @apply flex col-span-1 h-12 items-center justify-between border-b;
+      .icons,.title{
+        @apply flex gap-2;
+      }
+      .image {
+        @apply flex-none rounded-l-md;
+      }
+      .icon {
+        @apply w-4 h-4;
+      }
+    }
+  }
+}
