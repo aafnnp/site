@@ -6,7 +6,7 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
 body {
-  @apply bg-white dark:bg-slate-900 dark:text-white;
+  @apply bg-slate-900 text-white;
 }
 
 [class^='language'] {

@@ -1,22 +1,11 @@
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
-import {useState, useEffect} from 'react'
 import styles from 'styles/index.module.scss'
 
-const Header = dynamic(() => import('components/Header'))
-
-export default function Index() {
-  const [isOpen, setIsOpen] = useState(false)
-  const toggleDrapes = () => {
-    setIsOpen(!isOpen)
-  }
-  useEffect(() => {}, [])
-
+export default function Index({isOpen}) {
   return (
     <div className={styles.home}>
-      <Header toggleDrapes={toggleDrapes} isOpen={isOpen} />
-
       <div className={styles['home-bg']}>
         {[1, 2, 3, 4].map((i) => {
           return (

@@ -14,7 +14,6 @@ const IndexPage = ({posts}) => {
 
   return (
     <Layout>
-      <h1 className="blog-title">Blog</h1>
       {postList.map(({slug, data}) => {
         return (
           <div className={styles.blog} key={slug}>
