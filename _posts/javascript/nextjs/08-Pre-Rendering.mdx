@@ -1,7 +1,101 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Next.js - Overview'
+date: '2022-05-08 20:10:25'
+title: 'Next.js - Pre-Rendering'
 tags: [nodejs, javascript, Nextjs]
-draft: true
-description: Streams允许从源读取数据或写入数据到目标对象。
+description: Next.js 预渲染支持两种方式
 ---
+
+Next.js 预渲染支持两种方式：
+
+- SSG 预渲染
+- SSR 预渲染
+
+## SSG 预渲染
+
+SSG 预渲染是指在构建时生成 HTML，可以在没有数据的情况下完成，在这种情况下，HTML 页面将准备就绪，而无需预先获取数据，然后开始渲染。
+
+数据可以稍后或应要求提供。
+
+优点：这种方式可以解决白屏问题、SEO 问题
+缺点：所有用户看到的都是同一个页面，无法生成用户相关内容
+
+```js
+import Link from 'next/link'
+import Head from 'next/head'
+import Container from '../../components/container'
+
+export default function FirstPost(props) {
+  return (
+    <>
+      <Container>
+        <Head>
+          <title>My First Post</title>
+        </Head>
+        <h1>My First Post</h1>
+        <h2>
+          <Link href="/">
+            <a>Home</a>
+          </Link>
+          <div>Next stars: {props.stars}</div>
+        </h2>
+      </Container>
+    </>
+  )
+}
+
+export async function getStaticProps() {
+  const res = await fetch('https://api.github.com/repos/vercel/next.js')
+  const json = await res.json()
+  return {
+    props: {stars: json.stargazers_count}
+  }
+}
+```
+
+## SSR 预渲染
+
+后端将页面渲染，返回 HTML String 格式，传递到前端，前端进行 hydrate() ,会保留 HTML 并附上时间监听，也就是说后端渲染 HTML，前端添加监听。
+
+前端也会渲染一次，用以确保前后端渲染结果一致
+
+每个组件都有一个特殊的方法`getStaticProps`，可用于获取数据并作为页面的属性传递数据。
+
+## 使用 getServerSideProps
+
+```js
+import Link from 'next/link'
+import Head from 'next/head'
+
+function HomePage(props) {
+  return (
+    <>
+      <Head>
+        <title>Welcome to Next.js!</title>
+      </Head>
+      <div>Welcome to Next.js!</div>
+      <Link href="/posts/first">
+        <a>First Post</a>
+      </Link>
+      <br />
+      <div>Next stars: {props.stars}</div>
+      <img src="/logo.png" alt="TutorialsPoint Logo" />
+    </>
+  )
+}
+
+export async function getServerSideProps(context) {
+  const res = await fetch('https://api.github.com/repos/vercel/next.js')
+  const json = await res.json()
+  return {
+    props: {stars: json.stargazers_count}
+  }
+}
+
+export default HomePage
+```
+
+启动服务
+
+```bash
+npm run dev
+```

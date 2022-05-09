@@ -17,13 +17,13 @@ Linux ping 命令用于检测主机。
 
 默认情况**ping**会每秒发出请求，直到使用**ctrl+c**中断，也可以使用-c times 指定接收包的次数，如：
 
-```shell
+```bash
 ping -c 2 baidu.com
 ```
 
 当结束**ping**命令时，屏幕上会打印出统计结果，其中包括丢包率以及速率
 
-```shell
+```bash
 ping -i 3 -s 1024 -t 255 baidu.com
 
 # -i 3 发送周期为 3秒 -s 设置发送包的大小 -t 设置TTL值为 255

@@ -47,7 +47,7 @@ LABEL maintainer="manon.icu"
 
 用于暴露端口到网络
 
-```shell
+```bash
 #暴露80端口
 
 expose 80
@@ -59,7 +59,7 @@ expose 80/tcp
 
 设置环境变量
 
-```shell
+```bash
 FROM node:12
 
 ENV workdirectory /usr/node
@@ -77,7 +77,7 @@ COPY dist /www/dist
 
 docker 镜像启动后的第一条执行命令
 
-```shell
+```bash
 FROM ubuntu:latest
 
 ENTRYPOINT ["ls"]
@@ -87,7 +87,7 @@ ENTRYPOINT ["ls"]
 
 挂载卷
 
-```shell
+```bash
 FROM node:12
 RUN mkdir /node
 WORKDIR /node
@@ -99,7 +99,7 @@ VOLUME /node
 
 设置运行容器的账户
 
-```shell
+```bash
 USER admin
 #
 RUN adduser -D admin
@@ -114,7 +114,7 @@ USER admin
 
 用于在创建时接收的参数
 
-```shell
+```bash
 ARG JAVA_PATH=/opt/jdk/jdk1.8.0_251
 
 ENV JAVA_HOME ${JAVA_PATH}
@@ -124,7 +124,7 @@ ENV JAVA_HOME ${JAVA_PATH}
 
 用于指定将 `Dockerfile` 中的镜像用作另一个镜像的基础镜像时运行的命令
 
-```shell
+```bash
 FROM node:12
 RUN mkdir -p /usr/node/app
 WORKDIR /usr/node/app
@@ -136,7 +136,7 @@ CMD [ "npm", "start" ]
 
 16. STOPSIGNAL
 
-```shell
+```bash
 STOPSIGNAL SIGQUIT
 ```
 
@@ -144,7 +144,7 @@ STOPSIGNAL SIGQUIT
 
 设置 docker 镜像默认的终端
 
-```shell
+```bash
 SHELL ["/bin/bash","-c","echo hello"]
 ```
 
@@ -152,7 +152,7 @@ SHELL ["/bin/bash","-c","echo hello"]
 
 检查镜像是否健康运行，需要在镜像内部持续运行一段命令
 
-```shell
+```bash
 FROM ubuntu:latest
 HEALTHCHECK --interval=60s --timeout=5s \
 CMD curl -f http://fosstechnix.info/ || exit 1
@@ -163,7 +163,7 @@ EXPOSE 80
 
 用于设置 docker 镜像构建过程中忽略的文件
 
-```shell
+```bash
 sudo vim .dockerignore
 
 *.yaml

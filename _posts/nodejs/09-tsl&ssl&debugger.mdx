@@ -15,19 +15,19 @@ TSL 使用公钥加密数据，使用私钥解密数据。
 
 私钥创建：
 
-```shell
+```bash
 openssl genrsa -out private.pem 2048
 ```
 
 证书创建：
 
-```shell
+```bash
 openssl req -new -key private.pem -out csr.pem
 ```
 
 使用 CSR 证书创建证书：
 
-```shell
+```bash
 openssl x509 -req -in csr.pem -signkey private.pem -out certificate.pem
 ```
 
@@ -74,7 +74,7 @@ dummy.socket.addListener('close', function () {
 
 语法：`node --inspect [script] [arguments]`或`node debug [script] [arguments]`
 
-```shell
+```bash
 node demo.js
 ```
 

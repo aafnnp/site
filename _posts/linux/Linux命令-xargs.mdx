@@ -9,7 +9,7 @@ xargs（英文全拼： eXtended ARGuments）是给命令传递参数的一个�
 
 ## 使用方法
 
-```shell
+```bash
 command1 | xargs command2
 ```
 
@@ -19,7 +19,7 @@ command1 | xargs command2
 
 让我们举一个简单的例子。您要从目录中删除某些特定文件。这些文件列在文本文件中。我们有 3 个文件：file1，file2，file3。在**todelete.txt**我们有一个要删除的文件列表，在本例中为 file1 和 file3：
 
-```shell
+```bash
 cat todelete.txt
 
 file1
@@ -30,7 +30,7 @@ file2
 
 通过 cat 命令将 todelete 内容输出并执行 rm 命令
 
-```shell
+```bash
 cat todelete.txt | xargs rm
 ```
 
