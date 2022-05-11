@@ -1,77 +1,53 @@
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
 import styles from 'styles/index.module.scss'
+import {AnimatePresence, motion} from 'framer-motion'
+import {useEffect, useState} from 'react'
 
-export default function Index({isOpen}) {
+export default function Index() {
+  const items = [
+    `welcome<br/>to my site`,
+    `Fullstack developer`,
+    `check out <br/> all my work`
+  ]
+  const [key, setKey] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (key === items.length - 1) {
+        setKey(0)
+      } else {
+        setKey((key) => key + 1)
+      }
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [items.length, key])
+
   return (
     <div className={styles.home}>
-      <div className={styles['home-bg']}>
-        {[1, 2, 3, 4].map((i) => {
-          return (
-            <div
-              key={i}
-              className={`${styles['swiper-slide']} ${
-                styles[`swiper-slide-${i}`]
-              }`}
-            />
-          )
-        })}
-      </div>
-
-      <div className={styles.footer}>
-        <div className="intro">
-          <div className={styles.brand}>Freelancer</div>
-          <div className={styles.description}>Fullstack Developer</div>
-          <div className={styles.description}>Particular Frontend</div>
-        </div>
-        <div className={styles.social}>
-          <Link href="https://twitter.com/Manonicu">
-            <a target="_blank">
-              <FaTwitter />
-            </a>
-          </Link>
-          <Link href="https://github.com/Manonicu">
-            <a target="_blank">
-              <FaGithub />
-            </a>
-          </Link>
-          <Link href="/about">
-            <a>
-              <FaSitemap />
-            </a>
-          </Link>
-        </div>
-      </div>
-
-      <div className={`${styles.slogan}  ${isOpen ? styles.active : ''}`}></div>
-      <div className={`${styles.menu}  ${isOpen ? styles.active : ''}`}>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-        <Link href="/blog">
-          <a>Blog</a>
-        </Link>
-        <Link href="/challenges">
-          <a>Challenges</a>
-        </Link>
-        <Link href="/playground">
-          <a>Playground</a>
-        </Link>
-        <Link href="/http-status">
-          <a>Http Status</a>
-        </Link>
-        {/* <Link href="/contact"><a>Contact</a></Link> */}
-      </div>
-
-      <div className={styles['scroll-indicator']}>
-        <div className={styles['scroll-indicator-wrapper']}>
-          <div className={styles['scroll-line']}></div>
-        </div>
-      </div>
+      <hgroup className={styles.hgroup}>
+        <h1>
+          Welcome
+          <br />
+          To My Site
+        </h1>
+        <p>Fullstack Developer</p>
+        <p>
+          Check out
+          <br />
+          all my work
+        </p>
+      </hgroup>
+      <AnimatePresence exitBeforeEnter>
+        <motion.div
+          initial={{opacity: 0}}
+          animate={{opacity: 1, transition: {duration: 0.5}}}
+          exit={{opacity: 0}}
+          className={styles.slogan}
+          key={key}
+          dangerouslySetInnerHTML={{__html: items[key]}}
+        >
+          {/* {items[key]} */}
+        </motion.div>
+      </AnimatePresence>
     </div>
   )
 }

@@ -1,18 +1,17 @@
 .header{
-  @apply relative flex justify-between py-4 text-white items-center z-10;
-  .logo{
-    @apply flex items-center gap-2;
+  @apply fixed top-0 left-1/2 -translate-x-1/2 h-24 flex justify-between items-center w-2/3 max-w-screen-md mx-auto text-white items-center z-10;
+  font-family: 'Oswald', -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  .circle{
+    @apply flex justify-center items-center border-2 border-white border-solid rounded-full h-12 w-12 cursor-pointer font-extrabold;
   }
-  .list{
-    @apply flex flex-col gap-2 cursor-pointer z-[9999];
-    .line{
-      @apply w-8 h-0.5 bg-white transition-all duration-300 ease-in-out;
+  .link{
+    @apply relative cursor-pointer text-sm;
+    &::after {
+      content: '';
+      @apply border-b border-white border-solid rounded-full w-full absolute bottom-0 right-0 transition-all origin-center duration-300 ease-in-out scale-0;
     }
-    .line-up{
-      transform: translateY(-0.625rem);
-    }
-    .line-down {
-      transform: translateY(0.625rem);
+    &:hover::after {
+      @apply scale-100;
     }
   }
 }

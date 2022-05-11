@@ -1,26 +1,29 @@
 import Link from 'next/link'
-import {BsFillTerminalFill} from 'react-icons/bs'
 import styles from './index.module.scss'
 
 const Header = (props) => {
-  const {isOpen,toggleDrapes} = props
+  const {isOpen, toggleDrapes} = props
 
   return (
     <header className={styles.header}>
-      <h1>
-        <Link href="/">
-          <a className={styles.logo}>
-            <BsFillTerminalFill />
-            Manon.icu
-          </a>
-        </Link>
-      </h1>
+      <Link href="/">
+        <a className={styles.link}>ABOUT ME</a>
+      </Link>
+      <Link href="/">
+        <a className={styles.link}>BLOG</a>
+      </Link>
 
-      <div className={styles.list} onClick={toggleDrapes}>
-        <div className={`${styles.line} ${isOpen ? styles['line-down'] :''}`}></div>
-        <div className={styles.line}></div>
-        <div className={`${styles.line} ${isOpen ? styles['line-up'] :''}`}></div>
-      </div>
+      <Link href="/">
+        <h1 className={styles.circle}>
+          <a>M</a>
+        </h1>
+      </Link>
+      <Link href="/">
+        <a className={styles.link}>CHALLENGES</a>
+      </Link>
+      <Link href="/">
+        <a className={styles.link}>PLAYGROUND</a>
+      </Link>
     </header>
   )
 }
