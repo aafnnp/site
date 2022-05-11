@@ -1,10 +1,12 @@
-.header{
-  @apply fixed top-0 left-1/2 -translate-x-1/2 h-24 flex justify-between items-center w-2/5 max-w-screen-md mx-auto text-white items-center z-10;
-  font-family: 'Oswald', -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-  .circle{
+.header {
+  @apply fixed top-0 left-1/2 -translate-x-1/2 h-24 flex justify-between items-center w-2/5 max-w-screen-md mx-auto text-white items-center z-50;
+  font-family: 'Oswald', -apple-system, system-ui, BlinkMacSystemFont,
+    Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial,
+    sans-serif;
+  .circle {
     @apply flex justify-center items-center border-2 border-white border-solid rounded-full h-12 w-12 cursor-pointer font-extrabold;
   }
-  .link{
+  .link {
     @apply relative cursor-pointer text-sm;
     &::after {
       content: '';

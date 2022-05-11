@@ -6,10 +6,10 @@ const Header = (props) => {
 
   return (
     <header className={styles.header}>
-      <Link href="/">
+      <Link href="/about">
         <a className={styles.link}>ABOUT ME</a>
       </Link>
-      <Link href="/">
+      <Link href="/blog">
         <a className={styles.link}>BLOG</a>
       </Link>
 
@@ -18,10 +18,10 @@ const Header = (props) => {
           <a>M</a>
         </h1>
       </Link>
-      <Link href="/">
+      <Link href="/challenges">
         <a className={styles.link}>CHALLENGES</a>
       </Link>
-      <Link href="/">
+      <Link href="/playground">
         <a className={styles.link}>PLAYGROUND</a>
       </Link>
     </header>
