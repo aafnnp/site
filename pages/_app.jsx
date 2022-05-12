@@ -1,19 +1,32 @@
+import SEO from 'components/SEO'
+import {AnimatePresence, domAnimation, LazyMotion, m} from 'framer-motion'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import {useRouter} from 'next/router'
 import React, {useState} from 'react'
 import 'styles/main.scss'
 import 'styles/markdown.scss'
-import SEO from 'components/SEO'
 const Header = dynamic(() => import('components/Header'))
 const Comments = dynamic(() => import('components/Comments'))
 
-const App = ({Component, pageProps}) => {
-  const {route} = useRouter()
-  const url = `https://manon.icu${route}`
+const App = ({Component, pageProps, router}) => {
+  const url = `https://manon.icu${router.route}`
   const [isOpen, setIsOpen] = useState(false)
   const toggleDrapes = () => {
     setIsOpen(!isOpen)
+  }
+  const variants = {
+    initial: {
+      opacity: 0,
+      scale: 0.75
+    },
+    animate: {
+      opacity: 1,
+      scale: 1
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.75
+    }
   }
 
   return (
@@ -30,8 +43,27 @@ const App = ({Component, pageProps}) => {
       <SEO url={url} />
       <Header toggleDrapes={toggleDrapes} isOpen={isOpen} />
 
-      <Component {...pageProps} canonical={url} key={url} isOpen={isOpen} />
-      {route.startsWith('/blog') && <Comments />}
+      <LazyMotion features={domAnimation}>
+        <AnimatePresence exitBeforeEnter={false}>
+          <m.div
+            key={router.route}
+            className="absolute w-screen h-screen"
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={variants}
+            transition={{duration: 0.7}}
+          >
+            <Component
+              {...pageProps}
+              canonical={url}
+              key={url}
+              isOpen={isOpen}
+            />
+            {router.route.startsWith('/blog') && <Comments />}
+          </m.div>
+        </AnimatePresence>
+      </LazyMotion>
     </>
   )
 }
