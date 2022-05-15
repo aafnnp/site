@@ -10,7 +10,7 @@ export default function RandomPost({randomPost}) {
         {randomPost.map((item, key) => (
           <li key={key} className={styles.li}>
             <Link href={`/blog/${item.slug}`}>
-              <a className={styles.a}>{item.data.title}</a>
+              <a className={styles.a}>{item.title}</a>
             </Link>
           </li>
         ))}

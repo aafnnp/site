@@ -1,11 +1,27 @@
 import Link from 'next/link'
+import {useEffect,useState} from 'react'
 import styles from './index.module.scss'
 
 const Header = (props) => {
-  const {isOpen, toggleDrapes} = props
+  const {isHome} = props
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isHome ? '':styles.extra} ${isScrolled ? styles['fix-header'] : ''}`}>
       <Link href="/about">
         <a className={styles.link}>ABOUT ME</a>
       </Link>

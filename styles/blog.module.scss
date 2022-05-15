@@ -1,3 +1,4 @@
+
 .hgroup {
   @apply text-center;
   p {
@@ -29,14 +30,21 @@
 }
 
 .blog {
-  @apply grid grid-cols-[30%_auto] gap-4 py-2 xs:py-1 xs:grid-cols-1 sm:grid-cols-[25%_auto] md:grid-cols-[30%_auto] xs:text-sm sm:text-sm md:text-base lg:text-base xl:text-base;
-  .date {
-    @apply text-gray-500 text-right xs:hidden sm:block;
+  @apply max-w-screen-lg mx-auto;
+  .date-key {
+    @apply text-2xl font-medium mb-4;
+  }
+  .posts{
+    @apply pl-[2em] leading-relaxed mb-8;
+    .date{
+      @apply text-sm text-gray-500 italic;
+      font-family: 'Oswald', -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+    }
   }
   .link {
-    @apply flex gap-2 items-center;
+    @apply flex gap-2 items-center list-disc;
     a {
-      @apply max-w-[90%] whitespace-nowrap text-ellipsis overflow-hidden;
+      @apply text-sky-500 whitespace-nowrap text-ellipsis overflow-hidden;
     }
     .tag {
       @apply w-4 h-4;

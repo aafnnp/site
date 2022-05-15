@@ -16,41 +16,52 @@ const PostPage = dynamic(() => import('components/PostPage'))
 const Layout = dynamic(() => import('components/Layout'))
 const Random = dynamic(() => import('components/RandomPost'))
 const Share = dynamic(() => import('components/Share'))
+const Comments = dynamic(() => import('components/Comments'))
 
-const Post = ({data, mdxSource, randomPost}) => {
+const Post = ({
+  title,
+  description,
+  date,
+  tags,
+  originalUrl,
+  mdxSource,
+  randomPost
+}) => {
   const router = useRouter()
   const {slug} = router.query
   if (!router.isFallback && !mdxSource) {
     return <ErrorPage statusCode={404} />
   }
   return (
-    <Layout title={data.title} description={data.description}>
+    <Layout title={title} description={description}>
       <hgroup className={styles.hgroup}>
-        <p className={styles.p}>Published {data.date}</p>
-        <h1 className={styles.h1}>{data.title}</h1>
+        <p className={styles.p}>Published {date}</p>
+        <h1 className={styles.h1}>{title}</h1>
       </hgroup>
 
       {/* 头部广告 */}
       <Ad />
       {/* 头部广告结束 */}
-      <Pexels tag={slug[0]} />
+      <Pexels tag={tags[0]} />
       <PostPage>
         <MDXRemote {...mdxSource} components={components} />
-        {data.originalUrl && (
+        {originalUrl && (
           <div className={styles.originalUrl}>
             本文翻译自：
-            <Link href={data.originalUrl}>
-              <a>{data.originalUrl}</a>
+            <Link href={originalUrl}>
+              <a>{originalUrl}</a>
             </Link>
           </div>
         )}
-      </PostPage>
-      {/* 底部广告 */}
-      <Ad />
-      {/* 底部广告结束 */}
-      <Share data={data} />
+        {/* 底部广告 */}
+        <Ad />
+        {/* 底部广告结束 */}
+        <Share title={title} tag={tags} />
 
-      <Random randomPost={randomPost} />
+        <Random randomPost={randomPost} />
+
+        <Comments />
+      </PostPage>
     </Layout>
   )
 }
@@ -72,7 +83,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({params}) => {
   const {GetAllPosts, GetPostBySlug} = await import('api/getAllPosts')
-  const {content, data} = await GetPostBySlug(params.slug)
+  const {content, ...data} = await GetPostBySlug(params.slug)
   const {getRandomArrayElements} = await import('utils')
   const mdxSource = await serialize(content, {
     mdxOptions: {
@@ -89,7 +100,7 @@ export const getStaticProps = async ({params}) => {
 
   return {
     props: {
-      data,
+      ...data,
       mdxSource,
       randomPost
     }

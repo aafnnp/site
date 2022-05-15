@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
-import styles from 'styles/index.module.scss'
+import styles from 'styles/about.module.scss'
 
 export default function Index({isOpen}) {
   return (
-    <div className={styles.home}>
-      <div className={styles['home-bg']}>
+    <div className={styles.about}>
+      <div className={styles['about-bg']}>
         {[1, 2, 3, 4].map((i) => {
           return (
             <div

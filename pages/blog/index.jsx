@@ -1,43 +1,43 @@
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import React, {useState} from 'react'
 import styles from 'styles/blog.module.scss'
-import {chunk} from 'utils'
+import dayjs from 'dayjs'
 
-const Layout = dynamic(() => import('components/Layout'))
 const Image = dynamic(() => import('components/Image'))
-const Pagination = dynamic(() => import('components/Pagination'))
-
 const IndexPage = ({posts}) => {
-  const [curPage, setCurPage] = useState(1)
-  const postList = posts[curPage - 1]
 
   return (
-    <Layout>
-      {postList.map(({slug, data}) => {
+    <div className={styles.blog}>
+      {Object.entries(posts).map(([key,value]) => {
         return (
-          <div className={styles.blog} key={slug}>
-            <div className={styles.date}>{data.date}</div>
-            <div className={styles.link}>
-              <Link href={`/blog/${slug}`}>
-                <a className={styles.a}>{data.title}</a>
-              </Link>
-              {data.tags?.map((tag) => (
-                <Image
-                  className={styles.tag}
-                  key={tag}
-                  src={`https://pics-rust.vercel.app/uPic/icons/${tag}.svg`}
-                  alt={tag}
-                  width={16}
-                  height={16}
-                />
-              ))}
-            </div>
+          <div className={styles.blog} key={key}>
+            <div className={styles["date-key"]}>{key}</div>
+            <ul className={styles.posts}>
+              {value.map((post) => {
+                return (
+                  <li className={styles.link} key={post.slug}>
+                      <Link href={`/blog/${post.slug}`}>
+                        <a className={styles.a}>{post.title}</a>
+                      </Link>
+                      {post.tags?.map((tag) => (
+                        <Image
+                          className={styles.tag}
+                          key={tag}
+                          src={`https://pics-rust.vercel.app/uPic/icons/${tag}.svg`}
+                          alt={tag}
+                          width={16}
+                          height={16}
+                        />
+                      ))}
+                  </li>
+                )
+              })}
+            </ul>
+
           </div>
         )
       })}
-      <Pagination len={posts.length} page={curPage} setPage={setCurPage} />
-    </Layout>
+    </div>
   )
 }
 
@@ -46,10 +46,19 @@ export default IndexPage
 export async function getStaticProps() {
   const {GetAllPosts} = await import('api/getAllPosts')
   const posts = await GetAllPosts()
-
+  const groupPostsByYearAndMonth = posts.reduce((acc, post) => {
+    const year = dayjs(post.date).year()
+    const month = dayjs(post.date).month()
+    const key = `${year}-${month}`
+    if (!acc[key]) {
+      acc[key] = []
+    }
+    acc[key].push(post)
+    return acc
+  }, {})
   return {
     props: {
-      posts: chunk(posts, 30)
+      posts: groupPostsByYearAndMonth,
     }
   }
 }

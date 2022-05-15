@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald&family=Roboto&display=swap');
 
-.home {
-  @apply relative flex flex-col justify-between w-screen h-screen overflow-hidden bg-slate-900 p-8;
+.about {
+  @apply absolute flex flex-col justify-between w-screen h-screen overflow-hidden bg-slate-900 top-0 left-0 pt-[100px] px-8 pb-8;
 
   &-bg{
     @apply opacity-50;

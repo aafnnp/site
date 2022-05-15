@@ -14,7 +14,6 @@ export default function Image(props) {
         alt={props.alt}
         loading="lazy"
         layout="responsive"
-        unoptimized={true}
       />
     </div>
   )

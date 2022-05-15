@@ -1,5 +1,5 @@
 .home {
-  @apply w-screen h-screen flex items-center justify-center opacity-100;
+  @apply relative w-screen h-screen flex items-center justify-center opacity-100;
   background: linear-gradient(135deg, #fe7259, #ffc456);
   .hgroup {
     @apply hidden;

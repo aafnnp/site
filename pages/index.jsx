@@ -2,7 +2,7 @@ import styles from 'styles/index.module.scss'
 import {AnimatePresence, motion} from 'framer-motion'
 import {useEffect, useState} from 'react'
 
-export default function Index() {
+export default function Index(props) {
   const items = [
     `welcome<br/>to my site`,
     `Fullstack developer`,
@@ -44,9 +44,7 @@ export default function Index() {
           className={styles.slogan}
           key={key}
           dangerouslySetInnerHTML={{__html: items[key]}}
-        >
-          {/* {items[key]} */}
-        </motion.div>
+        />
       </AnimatePresence>
     </div>
   )
