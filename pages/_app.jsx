@@ -17,7 +17,7 @@ const App = ({Component, pageProps, router}) => {
   const variants = {
     initial: {
       opacity: 0,
-      scale: 0.75
+      scale: 0.6
     },
     animate: {
       opacity: 1,
@@ -25,7 +25,7 @@ const App = ({Component, pageProps, router}) => {
     },
     exit: {
       opacity: 0,
-      scale: 0.75
+      scale: 0.6
     }
   }
 
@@ -57,7 +57,7 @@ const App = ({Component, pageProps, router}) => {
             animate="animate"
             exit="exit"
             variants={variants}
-            transition={{duration: 0.4}}
+            transition={{duration: 0.3}}
           >
             <Component
               {...pageProps}

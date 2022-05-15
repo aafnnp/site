@@ -15,7 +15,6 @@ import {useEffect, useState} from 'react'
 import styles from 'styles/blog.module.scss'
 
 export default function Share({title, tag}) {
-  console.log(tag,"tasg")
   const {asPath} = useRouter()
   const [url, setUrl] = useState(asPath)
   useEffect(() => {
