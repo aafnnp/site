@@ -9,9 +9,9 @@ export default function Pexels(props) {
     fetch(`https://api.unsplash.com/search/photos?client_id=rqPMZ8Ur7rQa6x2P1oPOSziry4m5XXod9KWStukAAy4&query=${tag}`).then(res=>{
       return res.json()
     }).then(data=>{
-      console.log(data)
-      setPhoto(data?.results[0]?.urls?.full)
-      setAlt(data?.results[0]?.description)
+      const random = Math.floor(Math.random() * data.results.length)
+      setPhoto(data?.results[random]?.urls?.full)
+      setAlt(data?.results[random]?.description)
     })
   }, [tag])
 
