@@ -1,26 +1,19 @@
-import {createClient} from 'pexels'
+import { createApi } from 'unsplash-js';
 import {useEffect, useState} from 'react'
-import dynamic from 'next/dynamic'
-
-const Image = dynamic(() => import('components/Image'))
-const BackImg =
-  'https://images.pexels.com/photos/2004161/pexels-photo-2004161.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
 
 export default function Pexels(props) {
   const {tag} = props
-  const [photo, setPhoto] = useState(BackImg)
+  const [photo, setPhoto] = useState('')
   const [alt, setAlt] = useState(tag)
   useEffect(() => {
-    console.log(process.env,'key')
-    const client = createClient(process.env.NEXT_PUBLIC_PEXELS_KEY)
-    client.photos.search({query: tag, per_page: 80}).then((res) => {
-      if (res.photos.length) {
-        const random = Math.floor(Math.random() * res.photos.length)
-        setPhoto(res.photos[random].src.large2x)
-        setAlt(res.photos[random].alt)
-      }
+    fetch(`https://api.unsplash.com/search/photos?client_id=rqPMZ8Ur7rQa6x2P1oPOSziry4m5XXod9KWStukAAy4&query=${tag}`).then(res=>{
+      return res.json()
+    }).then(data=>{
+      const random = Math.floor(Math.random() * data.results.length)
+      setPhoto(data?.results[random]?.urls?.full)
+      setAlt(data?.results[random]?.description)
     })
   }, [tag])
 
-  return <Image src={photo} alt={alt} width={900} height={350} />
+  return <img src={photo} alt={alt} className="w-screen h-auto mb-4" loading="lazy"/>
 }

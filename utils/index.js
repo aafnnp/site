@@ -23,3 +23,4 @@ const chunk = (arr, size) =>
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export {getRandomArrayElements, chunk, fetcher}
+export { dayjs } from 'dayjs'

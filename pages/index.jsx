@@ -1,55 +1,51 @@
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import React, {useState} from 'react'
 import styles from 'styles/index.module.scss'
-import {chunk} from 'utils'
+import {AnimatePresence, motion} from 'framer-motion'
+import {useEffect, useState} from 'react'
 
-const Layout = dynamic(() => import('components/Layout'))
-const Image = dynamic(() => import('components/Image'))
-const Pagination = dynamic(() => import('components/Pagination'))
+export default function Index(props) {
+  const items = [
+    `welcome<br/>to my site`,
+    `Fullstack developer`,
+    `check out <br/> all my work`
+  ]
+  const [key, setKey] = useState(0)
 
-const IndexPage = ({posts}) => {
-  const [curPage, setCurPage] = useState(1)
-  const postList = posts[curPage - 1]
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (key === items.length - 1) {
+        setKey(0)
+      } else {
+        setKey((key) => key + 1)
+      }
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [items.length, key])
 
   return (
-    <Layout>
-      {postList.map(({slug, data}) => {
-        return (
-          <div className={styles.index} key={slug}>
-            <div className={styles.date}>{data.date}</div>
-            <div className={styles.link}>
-              <Link href={`/blog/${slug}`}>
-                <a className={styles.a}>{data.title}</a>
-              </Link>
-              {data.tags?.map((tag) => (
-                <Image
-                  className={styles.tag}
-                  key={tag}
-                  src={`https://pics-rust.vercel.app/uPic/icons/${tag}.svg`}
-                  alt={tag}
-                  width={16}
-                  height={16}
-                />
-              ))}
-            </div>
-          </div>
-        )
-      })}
-      <Pagination len={posts.length} page={curPage} setPage={setCurPage} />
-    </Layout>
+    <div className={styles.home}>
+      <hgroup className={styles.hgroup}>
+        <h1>
+          Welcome
+          <br />
+          To My Site
+        </h1>
+        <p>Fullstack Developer</p>
+        <p>
+          Check out
+          <br />
+          all my work
+        </p>
+      </hgroup>
+      <AnimatePresence exitBeforeEnter>
+        <motion.div
+          initial={{opacity: 0}}
+          animate={{opacity: 1, transition: {duration: 0.5}}}
+          exit={{opacity: 0}}
+          className={styles.slogan}
+          key={key}
+          dangerouslySetInnerHTML={{__html: items[key]}}
+        />
+      </AnimatePresence>
+    </div>
   )
-}
-
-export default IndexPage
-
-export async function getStaticProps() {
-  const {GetAllPosts} = await import('api/getAllPosts')
-  const posts = await GetAllPosts()
-
-  return {
-    props: {
-      posts: chunk(posts, 30)
-    }
-  }
 }

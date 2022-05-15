@@ -1,25 +1,76 @@
 import Link from 'next/link'
-import React from 'react'
+import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
 import styles from 'styles/about.module.scss'
 
-export default function Index() {
+export default function Index({isOpen}) {
   return (
-    <>
-      <div className={styles.about}>
-        <div className={styles.content}>
-          <h1 className={styles.h1}>Manon.icu</h1>
-          <h3 className={styles.h3}>FullStack Developer.</h3>
-        </div>
+    <div className={styles.about}>
+      <div className={styles['about-bg']}>
+        {[1, 2, 3, 4].map((i) => {
+          return (
+            <div
+              key={i}
+              className={`${styles['swiper-slide']} ${
+                styles[`swiper-slide-${i}`]
+              }`}
+            />
+          )
+        })}
+      </div>
 
-        <div className={styles.btn}>
-          <Link href="/challenges">
-            <a className={styles.a}>Challenges</a>
+      <div className={styles.footer}>
+        <div className="intro">
+          <div className={styles.brand}>Freelancer</div>
+          <div className={styles.description}>Fullstack Developer</div>
+          <div className={styles.description}>Particular Frontend</div>
+        </div>
+        <div className={styles.social}>
+          <Link href="https://twitter.com/Manonicu">
+            <a target="_blank">
+              <FaTwitter />
+            </a>
           </Link>
-          <Link href="/">
-            <a className={styles.a}>Blog</a>
+          <Link href="https://github.com/Manonicu">
+            <a target="_blank">
+              <FaGithub />
+            </a>
+          </Link>
+          <Link href="/about">
+            <a>
+              <FaSitemap />
+            </a>
           </Link>
         </div>
       </div>
-    </>
+
+      <div className={`${styles.slogan}  ${isOpen ? styles.active : ''}`}></div>
+      <div className={`${styles.menu}  ${isOpen ? styles.active : ''}`}>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+        <Link href="/about">
+          <a>About</a>
+        </Link>
+        <Link href="/blog">
+          <a>Blog</a>
+        </Link>
+        <Link href="/challenges">
+          <a>Challenges</a>
+        </Link>
+        <Link href="/playground">
+          <a>Playground</a>
+        </Link>
+        <Link href="/http-status">
+          <a>Http Status</a>
+        </Link>
+        {/* <Link href="/contact"><a>Contact</a></Link> */}
+      </div>
+
+      <div className={styles['scroll-indicator']}>
+        <div className={styles['scroll-indicator-wrapper']}>
+          <div className={styles['scroll-line']}></div>
+        </div>
+      </div>
+    </div>
   )
 }

@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import React from 'react'
-import styled from 'styled-components'
+import Link from 'next/link';
+import React from 'react';
+import styled from 'styled-components';
 
 export default function ErrorPage() {
   return (
@@ -28,7 +28,7 @@ export default function ErrorPage() {
         </div>
       </div>
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.div`
@@ -188,4 +188,4 @@ const Wrapper = styled.div`
       font-weight: 500;
     }
   }
-`
+`;

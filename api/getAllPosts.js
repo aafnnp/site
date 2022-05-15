@@ -14,19 +14,17 @@ const GetAllPosts = async () => {
       const fileContents = fs.readFileSync(next, 'utf8')
       const {data, content} = matter(fileContents)
       const postData = {
-        data: {
-          ...data,
-          date: dayjs(data.date).format('MMM DD, YYYY'),
-          fromNow: dayjs(data.date).fromNow(),
-          modified: dayjs(data.modified).format('MMM DD, YYYY')
-        },
+        ...data,
+        date: dayjs(data.date).format('MMM DD, YYYY'),
+        fromNow: dayjs(data.date).fromNow(),
+        modified: dayjs(data.modified).format('MMM DD, YYYY'),
         content,
         slug: next.replace(/^_posts\//, '').replace(/\.mdx$/, '')
       }
       !data.draft && prev.push(postData)
       return prev
     }, [])
-    .sort((a, b) => dayjs(b.data.date) - dayjs(a.data.date))
+    .sort((a, b) => dayjs(b.date) - dayjs(a.date))
 }
 
 // 根据slug导出文章

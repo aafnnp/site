@@ -1,6 +1,7 @@
 .http-status {
+  @apply p-4 max-w-prose mx-auto;
   h1 {
-    @apply text-3xl font-bold mb-4;
+    @apply text-3xl font-bold mb-8;
   }
   h2 {
     @apply flex gap-4 text-xl font-bold mb-2;

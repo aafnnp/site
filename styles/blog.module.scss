@@ -1,3 +1,4 @@
+
 .hgroup {
   @apply text-center;
   p {
@@ -26,4 +27,27 @@
 
 .share {
   @apply py-4 flex justify-center gap-2;
+}
+
+.blog {
+  @apply max-w-screen-lg mx-auto;
+  .date-key {
+    @apply text-2xl font-medium mb-4;
+  }
+  .posts{
+    @apply pl-[2em] leading-relaxed mb-8;
+    .date{
+      @apply text-sm text-gray-500 italic;
+      font-family: 'Oswald', -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+    }
+  }
+  .link {
+    @apply flex gap-2 items-center list-disc;
+    a {
+      @apply text-sky-500 whitespace-nowrap text-ellipsis overflow-hidden;
+    }
+    .tag {
+      @apply w-4 h-4;
+    }
+  }
 }

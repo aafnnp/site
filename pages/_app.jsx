@@ -1,18 +1,38 @@
-import {NextSeo} from 'next-seo'
+import SEO from 'components/SEO'
+import {AnimatePresence, domAnimation, LazyMotion, m} from 'framer-motion'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import {useRouter} from 'next/router'
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import 'styles/main.scss'
 import 'styles/markdown.scss'
+const Header = dynamic(() => import('components/Header'))
 
-const Sidebar = dynamic(() => import('components/Sidebar'))
-const Comments = dynamic(() => import('components/Comments'))
-
-
-const App = ({Component, pageProps}) => {
-  const router = useRouter()
+const App = ({Component, pageProps, router}) => {
   const url = `https://manon.icu${router.route}`
+  const [isOpen, setIsOpen] = useState(false)
+  const [isHome, setIsHome] = useState(true)
+  const toggleDrapes = () => {
+    setIsOpen(!isOpen)
+  }
+  const variants = {
+    initial: {
+      opacity: 0,
+      scale: 0.75
+    },
+    animate: {
+      opacity: 1,
+      scale: 1
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.75
+    }
+  }
+
+  useEffect(()=>{
+    setIsHome(router.route === '/' || router.route.startsWith('/about'))
+  },[router.route])
+
   return (
     <>
       <Head>
@@ -24,35 +44,30 @@ const App = ({Component, pageProps}) => {
         <meta name="description" content="Manon.icu,homepage" />
         <title>Manon.icu | Home</title>
       </Head>
-      <NextSeo
-        titleTemplate="%s - Manon.icu"
-        openGraph={{
-          type: 'website',
-          url,
-          description:
-            'The personal website for Manon, Frontend Web Developer.',
-          site_name: 'Manon | manon.icu',
-          images: [
-            {
-              url: 'https://pics-rust.vercel.app/uPic/9oh25b.jpg',
-              width: 900,
-              height: 900
-            }
-          ]
-        }}
-        canonical={url}
-        twitter={{
-          handle: '@Manonicu',
-          cardType: 'summary_large_image'
-        }}
-      />
-      <div className={'relative flex w-screen h-screen overflow-hidden'}>
-        <Sidebar />
-        <div className="flex-auto h-full overflow-y-scroll scroll-smooth bg-gray-100 p-8">
-          <Component {...pageProps} canonical={url} key={url} />
-          {router.route.startsWith('/blog') && <Comments />}
-        </div>
-      </div>
+      <SEO url={url} />
+      <Header toggleDrapes={toggleDrapes} isOpen={isOpen} isHome={isHome} />
+
+      <LazyMotion features={domAnimation}>
+        <AnimatePresence exitBeforeEnter={false}>
+          <m.div
+            key={router.route}
+            className={`absolute w-screen h-screen ${!isHome &&
+              'pt-[100px]'}`}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={variants}
+            transition={{duration: 0.4}}
+          >
+            <Component
+              {...pageProps}
+              canonical={url}
+              key={url}
+              isOpen={isOpen}
+            />
+          </m.div>
+        </AnimatePresence>
+      </LazyMotion>
     </>
   )
 }

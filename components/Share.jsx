@@ -14,7 +14,8 @@ import {useRouter} from 'next/router'
 import {useEffect, useState} from 'react'
 import styles from 'styles/blog.module.scss'
 
-export default function Share(props) {
+export default function Share({title, tag}) {
+  console.log(tag,"tasg")
   const {asPath} = useRouter()
   const [url, setUrl] = useState(asPath)
   useEffect(() => {
@@ -24,23 +25,19 @@ export default function Share(props) {
     <>
       {asPath === '/' ? null : (
         <div className={styles.share}>
-          <TwitterShareButton url={url} title={props.data.title}>
+          <TwitterShareButton url={url} title={title}>
             <TwitterIcon size={24} round />
           </TwitterShareButton>
-          <WeiboShareButton url={url} title={props.data.title}>
+          <WeiboShareButton url={url} title={title}>
             <WeiboIcon size={24} round />
           </WeiboShareButton>
-          <EmailShareButton url={url} subject={props.data.title} body="body">
+          <EmailShareButton url={url} subject={title} body="body">
             <EmailIcon size={24} round />
           </EmailShareButton>
-          <RedditShareButton url={url} title={props.data.title}>
+          <RedditShareButton url={url} title={title}>
             <RedditIcon size={24} round />
           </RedditShareButton>
-          <FacebookShareButton
-            url={asPath}
-            quote={props.data.title}
-            hashtag={props.data.tags[0]}
-          >
+          <FacebookShareButton url={asPath} quote={title} hashtag={tag[0]}>
             <FacebookIcon size={24} round />
           </FacebookShareButton>
         </div>
