@@ -3,7 +3,7 @@
 .about {
   @apply absolute flex flex-col justify-between w-screen h-screen overflow-hidden bg-slate-900 top-0 left-0 pt-[100px] px-8 pb-8;
 
-  &-bg{
+  &-bg {
     @apply opacity-50;
     .swiper-slide {
       @apply absolute w-screen h-screen top-0 left-0 z-0;
@@ -13,7 +13,6 @@
       background-size: cover;
       &-1 {
         background-image: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/hero-bg-1.jpeg');
-        opacity: 1;
       }
       &-2 {
         background-image: url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/hero-bg-2.jpeg');
@@ -47,14 +46,14 @@
   .slogan {
     @apply absolute top-0 left-0 h-screen w-1/2;
     background: #000
-    url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/slogan.jpg')
-    no-repeat center;
+      url('https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/slogan.jpg')
+      no-repeat center;
     background-size: cover;
     transition: all 0.5s ease;
     transform: translateX(-100%);
   }
   .menu {
-    @apply flex flex-col absolute top-0 right-0 h-screen w-1/2 items-center justify-center flex-1 h-full uppercase text-white leading-loose bg-slate-900;
+    @apply flex flex-col absolute top-0 right-0 w-1/2 items-center justify-center flex-1 h-full uppercase text-white leading-loose bg-slate-900;
     transition: all 0.5s ease;
     transform: translateX(100%);
   }
@@ -67,9 +66,9 @@
     transform: translate(-50%, 50%);
     z-index: 1005;
   }
-  .scroll-indicator-wrapper{
+  .scroll-indicator-wrapper {
     position: absolute;
-    width: 1px!important;
+    width: 1px !important;
     height: 100%;
     left: 0;
     right: 0;
@@ -77,15 +76,15 @@
     margin-right: auto;
     opacity: 1;
     visibility: visible;
-    transition: all .7s;
+    transition: all 0.7s;
   }
-  .scroll-line{
+  .scroll-line {
     display: block;
     width: 1px;
     height: 45px;
     background: none;
-    &:before{
-      content: "";
+    &:before {
+      content: '';
       display: block;
       width: 1px;
       height: 50%;
@@ -96,7 +95,7 @@
   }
 }
 
-@-webkit-keyframes scroll-down {
+@keyframes scroll-down {
   0% {
     height: 0;
   }
@@ -121,7 +120,7 @@
     transform: scale(1);
   }
   5% {
-    opacity: 1
+    opacity: 1;
   }
   25% {
     opacity: 1;

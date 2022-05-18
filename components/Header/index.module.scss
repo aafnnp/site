@@ -1,5 +1,5 @@
 .header {
-  @apply fixed top-0 left-1/2 -translate-x-1/2 h-24 flex justify-between items-center w-2/5 mx-auto text-white items-center z-50 transition-all duration-300 ease-in-out;
+  @apply fixed top-0 left-1/2 -translate-x-1/2 h-24 flex justify-between w-2/5 mx-auto text-white items-center z-50 transition-all duration-300 ease-in-out;
   font-family: 'Oswald', -apple-system, system-ui, BlinkMacSystemFont,
     Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial,
     sans-serif;
@@ -16,10 +16,10 @@
       @apply scale-100;
     }
   }
-  &.extra{
+  &.extra {
     @apply text-black;
   }
-  &.fix-header{
+  &.fix-header {
     @apply w-screen bg-white px-8;
   }
 }
