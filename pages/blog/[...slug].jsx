@@ -28,7 +28,6 @@ const Post = ({
   randomPost
 }) => {
   const router = useRouter()
-  const {slug} = router.query
   if (!router.isFallback && !mdxSource) {
     return <ErrorPage statusCode={404} />
   }

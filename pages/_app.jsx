@@ -2,7 +2,7 @@ import SEO from 'components/SEO'
 import {AnimatePresence, domAnimation, LazyMotion, m} from 'framer-motion'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import React, {useState,useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import 'styles/main.scss'
 import 'styles/markdown.scss'
 const Header = dynamic(() => import('components/Header'))
@@ -17,7 +17,7 @@ const App = ({Component, pageProps, router}) => {
   const variants = {
     initial: {
       opacity: 0,
-      scale: 0.6
+      scale: 1.2
     },
     animate: {
       opacity: 1,
@@ -25,13 +25,13 @@ const App = ({Component, pageProps, router}) => {
     },
     exit: {
       opacity: 0,
-      scale: 0.6
+      scale: 1.2
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setIsHome(router.route === '/' || router.route.startsWith('/about'))
-  },[router.route])
+  }, [router.route])
 
   return (
     <>
@@ -51,8 +51,7 @@ const App = ({Component, pageProps, router}) => {
         <AnimatePresence exitBeforeEnter={false}>
           <m.div
             key={router.route}
-            className={`absolute w-screen h-screen ${!isHome &&
-              'pt-[100px]'}`}
+            className={`absolute w-screen h-screen ${!isHome && 'pt-[100px]'}`}
             initial="initial"
             animate="animate"
             exit="exit"
