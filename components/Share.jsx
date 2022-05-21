@@ -24,7 +24,7 @@ export default function Share({title, tag}) {
     <>
       {asPath === '/' ? null : (
         <div className={styles.share}>
-          <TwitterShareButton url={url} title={title}>
+          <TwitterShareButton url={url} title={title} via={"manon"} hashtags={tag}>
             <TwitterIcon size={24} round />
           </TwitterShareButton>
           <WeiboShareButton url={url} title={title}>
