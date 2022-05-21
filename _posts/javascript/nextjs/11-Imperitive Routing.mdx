@@ -1,7 +1,50 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Next.js - Overview'
+date: '2022-05-19 13:20:53'
+title: 'Next.js - Imperative Routing'
 tags: [nodejs, javascript, Nextjs]
-draft: true
-description: Streams允许从源读取数据或写入数据到目标对象。
+description: 命令式路由
 ---
+
+到目前为止，使用 `Link` 组件从一个页面导航到另一个页面。使用 `Router` 组件也可以实现相同的功能。
+
+更新`index.js`
+
+```jsx
+import Router from 'next/router'
+import Head from 'next/head'
+
+function HomePage(props) {
+   return (
+      <>
+         <Head>
+            <title>Welcome to Next.js!</title>
+         </Head>
+         <div>Welcome to Next.js!</div>
+         <span onClick={() => Router.push('/posts/one')}>First Post</span>
+         <br/>
+         <div>Next stars: {props.stars}</div>
+         <img src="/logo.png" alt="Logo" />
+      </>
+   )
+}
+
+export async function getServerSideProps(context) {
+   const res = await fetch('https://api.github.com/repos/vercel/next.js')
+   const json = await res.json()
+   return {
+      props: { stars: json.stargazers_count }
+   }
+}
+
+export default HomePage
+```
+
+启动服务
+
+```bash
+npm run dev
+```
+
+验证结果
+
+![iZhXRv](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/iZhXRv.png)
