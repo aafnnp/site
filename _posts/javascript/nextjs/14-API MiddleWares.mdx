@@ -1,7 +1,59 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Next.js - Overview'
+date: '2022-05-22 21:10:41'
+title: 'Next.js - API MiddleWares'
 tags: [nodejs, javascript, Nextjs]
-draft: true
 description: Streams允许从源读取数据或写入数据到目标对象。
 ---
+
+## API中间件
+
+`Next.js`提供了内置的路由中间件用于解析入参等。
+
+- `req.cookies`：获取客户端的cookie
+- `req.query`：获取客户端的query
+- `req.body`：获取客户端的body
+
+```jsx
+export default (req, res) => {
+   res.statusCode = 200
+   res.setHeader('Content-Type', 'application/json')
+   res.end(JSON.stringify({ query: req.query }))
+}
+```
+
+## 配置跨域
+
+你还可以使用 Connect 兼容的中间件，比如使用 `cors`：
+
+```jsx
+import Cors from 'cors'
+
+// Initializing the cors middleware
+const cors = Cors({
+  methods: ['GET', 'HEAD'],
+})
+
+// Helper method to wait for a middleware to execute before continuing
+// And to throw an error when an error happens in a middleware
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+
+      return resolve(result)
+    })
+  })
+}
+
+async function handler(req, res) {
+  // Run the middleware
+  await runMiddleware(req, res, cors)
+
+  // Rest of the API logic
+  res.json({ message: 'Hello Everyone!' })
+}
+
+export default handler
+```
