@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors:{
         twitter: 'rgb(29, 155, 240)'
-      }
+      },
     },
     screens: {
       xs: '320px',

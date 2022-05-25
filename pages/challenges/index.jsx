@@ -3,19 +3,31 @@ import Link from 'next/link'
 import React from 'react'
 import {FaGithub, FaLink} from 'react-icons/fa'
 import styles from 'styles/challenges.module.scss'
-
+import { motion } from "framer-motion";
 const Image = dynamic(() => import('components/Image'))
 
 export default function IndexPage(props) {
   const {allChallenges} = props
+  const list = {
+    visible: {
+      opacity: 1,
+      transition: { when: "beforeChildren", staggerChildren: 0.3 }
+    },
+    hidden: { opacity: 0 }
+  };
+
+  const item = {
+    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 100 }
+  };
 
   return (
     <div className={styles.challenges}>
       <h1 className={styles.h1}>Challenges</h1>
-      <div className={styles.list}>
+      <motion.div initial="hidden" animate="visible" variants={list} className={styles.list}>
         {allChallenges.map((challenge, i) => {
           return (
-            <div className={styles.item} key={challenge.link}>
+            <motion.div variants={item} className={styles.item} key={challenge.link}>
               <img
                 className={styles.image}
                 src={`/screenshots/${challenge.title}.webp`}
@@ -49,10 +61,10 @@ export default function IndexPage(props) {
                   </a>
                 </Link>
               </div>
-            </div>
+            </motion.div>
           )
         })}
-      </div>
+      </motion.div>
     </div>
   )
 }
