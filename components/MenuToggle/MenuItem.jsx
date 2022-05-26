@@ -1,5 +1,7 @@
 import React from 'react'
 import {motion} from 'framer-motion'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
 
 const variants = {
   open: {
@@ -27,8 +29,13 @@ const colors = [
   '#7402ff'
 ]
 
-const MenuItem = ({i, idx}) => {
+const MenuItem = ({i, idx, toggle}) => {
   const style = {borderColor: colors[idx]}
+  const router = useRouter()
+  const handleClick = (path) => {
+    toggle()
+    router.push(path)
+  }
   return (
     <motion.li
       variants={variants}
@@ -40,6 +47,7 @@ const MenuItem = ({i, idx}) => {
       <div
         className="rounded flex items-center px-4 flex-1 capitalize border-2"
         style={style}
+        onClick={() => handleClick(i.href)}
       >
         {i.name}
       </div>

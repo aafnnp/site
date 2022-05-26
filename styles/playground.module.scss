@@ -1,10 +1,10 @@
 .challenges {
-  @apply max-w-screen-lg mx-auto;
+  @apply w-full mx-auto px-4 lg:w-[768px] xl:w-[1000px] 2xl:w-[1000px] pt-20;
   h1 {
     @apply mb-12 text-center text-4xl font-bold;
   }
   ul{
-    @apply grid grid-cols-2 gap-4;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4;
     .item {
       @apply flex col-span-1 h-12 items-center justify-between border-b;
       .icons,.title{

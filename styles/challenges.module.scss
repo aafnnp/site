@@ -1,11 +1,11 @@
 .challenges {
-  @apply max-w-screen-lg mx-auto;
+  @apply w-full mx-auto px-4 lg:w-[768px] xl:w-[1000px] 2xl:w-[1000px] pt-20;
   h1 {
     @apply mb-12 text-center text-4xl font-bold;
   }
 
   .list {
-    @apply grid gap-4 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3;
+    @apply grid gap-4 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3;
     .item {
       @apply shadow-lg rounded-md overflow-hidden;
       .image {

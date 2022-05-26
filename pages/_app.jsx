@@ -7,7 +7,8 @@ import 'styles/markdown.scss'
 const Menu = dynamic(() => import('components/MenuToggle'))
 
 const App = ({Component, pageProps, router}) => {
-  const url = `https://manon.icu${router.route}`
+  const {route} = router
+  const url = `https://manon.icu${route}`
 
   return (
     <>
@@ -21,7 +22,7 @@ const App = ({Component, pageProps, router}) => {
         <title>Manon.icu | Home</title>
       </Head>
       <SEO url={url} />
-      <Menu />
+      {route !== '/' && <Menu />}
       <Component {...pageProps} canonical={url} key={url} />
     </>
   )

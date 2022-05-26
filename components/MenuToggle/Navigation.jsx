@@ -16,13 +16,13 @@ const variants = {
   }
 }
 
-const Navigation = () => (
+const Navigation = ({toggle}) => (
   <motion.ul
     variants={variants}
     className="p-[25px] absolute top-[100px] w-[230px]"
   >
     {LinkItems.map((i, key) => (
-      <MenuItem i={i} idx={key} key={i.name} />
+      <MenuItem i={i} idx={key} key={i.name} toggle={toggle}/>
     ))}
   </motion.ul>
 )

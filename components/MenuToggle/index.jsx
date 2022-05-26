@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useEffect} from 'react'
 import {motion, useCycle} from 'framer-motion'
 import {useDimensions} from 'hooks/useDimensions'
 import MenuToggle from './MenuToggle'
@@ -37,8 +37,11 @@ export default function Menu() {
       custom={height}
       ref={containerRef}
     >
-      <motion.div className="absolute top-0 left-0 bottom-0 w-[300px] bg-white" variants={sidebar} />
-      <Navigation />
+      <motion.div
+        className="absolute top-0 left-0 bottom-0 w-[300px] bg-white"
+        variants={sidebar}
+      />
+      <Navigation toggle={() => toggleOpen()} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
   )
