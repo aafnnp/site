@@ -1,6 +1,6 @@
 
 .hgroup {
-  @apply text-center;
+  @apply text-center pt-20;
   p {
     @apply text-gray-500 text-xs;
   }
@@ -30,15 +30,20 @@
 }
 
 .blog {
-  @apply max-w-screen-lg mx-auto;
+  @apply w-full mx-auto lg:w-[768px] xl:w-[1000px] 2xl:w-[1000px] px-4 pt-20;
+  h1 {
+    @apply mb-12 text-center text-4xl font-bold;
+  }
+  .list{
+    @apply pl-8;
+  }
   .date-key {
     @apply text-2xl font-medium mb-4;
   }
   .posts{
-    @apply pl-[2em] leading-relaxed mb-8;
+    @apply leading-relaxed mb-8;
     .date{
       @apply text-sm text-gray-500 italic;
-      font-family: 'Oswald', -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
     }
   }
   .link {

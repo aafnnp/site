@@ -8,9 +8,10 @@ const IndexPage = ({posts}) => {
 
   return (
     <div className={styles.blog}>
+      <h1 className={styles.h1}>Blog</h1>
       {Object.entries(posts).map(([key,value]) => {
         return (
-          <div className={styles.blog} key={key}>
+          <div className={styles.list} key={key}>
             <div className={styles["date-key"]}>{key}</div>
             <ul className={styles.posts}>
               {value.map((post) => {

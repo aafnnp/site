@@ -1,6 +1,5 @@
 .sidebar {
   @apply relative flex flex-col flex-none w-[360px] justify-between bg-white px-8 py-4;
-  font-family: 'Dosis', sans-serif;
   .header {
     @apply flex gap-2 items-center;
     .icon-terminal {

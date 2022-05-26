@@ -1,37 +1,14 @@
 import SEO from 'components/SEO'
-import {AnimatePresence, domAnimation, LazyMotion, m} from 'framer-motion'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import 'styles/main.scss'
 import 'styles/markdown.scss'
-const Header = dynamic(() => import('components/Header'))
+const Menu = dynamic(() => import('components/MenuToggle'))
 
 const App = ({Component, pageProps, router}) => {
-  const url = `https://manon.icu${router.route}`
-  const [isOpen, setIsOpen] = useState(false)
-  const [isHome, setIsHome] = useState(true)
-  const toggleDrapes = () => {
-    setIsOpen(!isOpen)
-  }
-  const variants = {
-    initial: {
-      opacity: 0,
-      scale: 1.2
-    },
-    animate: {
-      opacity: 1,
-      scale: 1
-    },
-    exit: {
-      opacity: 0,
-      scale: 1.2
-    }
-  }
-
-  useEffect(() => {
-    setIsHome(router.route === '/' || router.route.startsWith('/about'))
-  }, [router.route])
+  const {route} = router
+  const url = `https://manon.icu${route}`
 
   return (
     <>
@@ -45,28 +22,8 @@ const App = ({Component, pageProps, router}) => {
         <title>Manon.icu | Home</title>
       </Head>
       <SEO url={url} />
-      <Header toggleDrapes={toggleDrapes} isOpen={isOpen} isHome={isHome} />
-
-      <LazyMotion features={domAnimation}>
-        <AnimatePresence exitBeforeEnter={false}>
-          <m.div
-            key={router.route}
-            className={`absolute w-screen h-screen ${!isHome && 'pt-[100px]'}`}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={variants}
-            transition={{duration: 0.3}}
-          >
-            <Component
-              {...pageProps}
-              canonical={url}
-              key={url}
-              isOpen={isOpen}
-            />
-          </m.div>
-        </AnimatePresence>
-      </LazyMotion>
+      {route !== '/' && <Menu />}
+      <Component {...pageProps} canonical={url} key={url} />
     </>
   )
 }

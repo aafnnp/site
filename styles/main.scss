@@ -4,6 +4,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind screens;
+
 @import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
 
 [class^='language'] {
@@ -16,4 +18,7 @@ kbd {
   padding-inline: 0.4em;
   white-space: nowrap;
   @apply font-mono bg-gray-100 rounded-md font-bold leading-normal;
+}
+body{
+  font-family: "Dosis",-apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }

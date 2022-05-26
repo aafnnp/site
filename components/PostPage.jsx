@@ -1,5 +1,5 @@
-import Prism from 'prismjs'
 import React, {useEffect} from 'react'
+import Prism from 'prismjs'
 require('prismjs/components/prism-go')
 require('prismjs/components/prism-python')
 require('prismjs/components/prism-javascript')
@@ -16,6 +16,6 @@ const PostPage = ({children}) => {
     }
     highlight().then(() => {})
   }, [children])
-  return <div className="post text-sm w-[61.8%] mx-auto">{children}</div>
+  return <div className="post text-sm mx-auto w-[720px]">{children}</div>
 }
 export default PostPage
