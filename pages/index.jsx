@@ -84,7 +84,7 @@ const Item = ({items, delay, underline}) => {
 
   return (
     <motion.div
-      className={`flex gap-4 mt-8 text-sm text-gray-200 uppercase ${
+      className={`flex gap-4 mt-8 text-sm text-gray-200 uppercase cursor-pointer ${
         underline ? 'underline' : ''
       }`}
       variants={container}
