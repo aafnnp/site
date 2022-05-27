@@ -1,7 +1,61 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Next.js - Overview'
+date: '2022-05-25 10:06:38'
+title: 'Next.js - Environment Variables'
 tags: [nodejs, javascript, Nextjs]
-draft: true
-description: Streams允许从源读取数据或写入数据到目标对象。
+description: Next.js 内置了对环境变量的支持
 ---
+
+`Next.js` 内置了对环境变量的支持，让你可以执行以下操作：
+
+- 使用 `.env.local` 加载环境变量
+- 通过给环境变量添加 `NEXT_PUBLIC_` `前缀将环境变量暴露给浏览器
+
+## 创建环境变量
+
+```bash
+DB_HOST=localhost
+DB_USR=root
+DB_PWD=123456
+```
+
+## 创建env.js
+
+```jsx
+import Head from 'next/head'
+import Container from '../../components/container'
+
+export default function FirstPost(props) {
+   return (
+      <>
+         <Container>
+            <Head>
+               <title>Environment Variables</title>
+            </Head>
+            <h1>Database Credentials</h1>
+               <p>Host: {props.host}</p>
+               <p>Username: {props.username}</p>
+               <p>Password: {props.password}</p>
+         </Container>
+      </>
+   )
+}
+
+export async function getStaticProps() {
+   // Connect to Database using DB properties
+   return {
+      props: {
+         host: process.env.DB_HOST,
+         username: process.env.DB_USER,
+         password: process.env.DB_PASS
+      }
+   }
+}
+```
+
+`Next.js`会在`.env*`中自动扩展变量，即可以定义变量
+
+```bash
+HOSTNAME=localhost
+PORT=3000
+HOST=http://$HOSTNAME:$PORT
+```
