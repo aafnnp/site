@@ -1,7 +1,32 @@
 ---
-date: '2022-04-12 09:30:08'
+date: '2022-05-23 09:50:22'
 title: 'Next.js - Overview'
 tags: [nodejs, javascript, Nextjs]
-draft: true
-description: Streams允许从源读取数据或写入数据到目标对象。
+description: Next.js的响应有着类似于express.js的方法，方便开发
 ---
+
+`Next.js` 的响应有着类似于 `express.js` 的方法，方便开发
+
+- res.status(code)：设置响应状态码
+- res.json(data)：设置响应数据，并设置响应类型为 `json`
+- res.send(body)：设置响应数据，响应类型可以是`string`、`object`、`buffer`
+
+创建`/api/user`接口
+
+```jsx
+export default (req, res) => {
+  res.status(200).json({
+    message: 'Hello World'
+  })
+}
+```
+
+访问`/api/user`接口
+
+```bash
+npm run dev
+
+curl http://localhost:3000/api/user
+
+#{message:'Hello World'}
+```
