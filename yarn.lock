@@ -5412,10 +5412,10 @@ next-seo@^5.4.0:
   resolved "https://registry.npmmirror.com/next-seo/-/next-seo-5.4.0.tgz#37a7784b30b3f70cec3fa0d77f9dde5990822d24"
   integrity sha512-R9DhajPwJnR/lsF2hZ8cN8uqr5CVITsRrCG1AF5+ufcaybKYOvnH8sH9MaH4/hpkps3PQ9H71S7J7SPYixAYzQ==
 
-next-share@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.npmmirror.com/next-share/-/next-share-0.13.0.tgz#7b117d9237fac33064a06f34bfde04a454440d1b"
-  integrity sha512-CR9YsZp6MTdoEgKqMqn2DFUWN8Komzhm1eRUNqWAjAzf1KJxJefwjPFpKXFedskWX17WNgWOgdcDYLU/HdWq5A==
+next-share@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/next-share/-/next-share-0.14.0.tgz#5d2c1b324b11b457463490e9e42bc9b963b5516e"
+  integrity sha512-G2QZ09nKjgxHyfOfu+fgulPU8StDFH5alozzFfmEOJ6SELHDNZIywLYMbBw0KfuYH17f1Dt+N49AJ5b9PL7Sow==
 
 next-tick@^1.1.0:
   version "1.1.0"
