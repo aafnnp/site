@@ -17,7 +17,7 @@
     "@emotion/styled": "^11.8.1",
     "@mdx-js/react": "^2.1.1",
     "dayjs": "^1.11.2",
-    "framer-motion": "^6.3.4",
+    "framer-motion": "^6.3.10",
     "globby": "^13.1.1",
     "gray-matter": "^4.0.3",
     "next": "12.1.6",
