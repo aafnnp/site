@@ -14,7 +14,7 @@
   "dependencies": {
     "@codesandbox/sandpack-react": "^1.1.1",
     "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
+    "@emotion/styled": "^11.9.3",
     "@mdx-js/react": "^2.1.1",
     "dayjs": "^1.11.2",
     "framer-motion": "^6.3.10",
