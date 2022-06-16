@@ -1,0 +1,122 @@
+---
+date: '2022-06-08 11:20:59'
+title: 'Monorepos in JavaScript & TypeScript'
+tags: [javascript]
+---
+
+这是一个关于 JavaScript/TypeScript 中 Monorepos 的入门教程——它在前端apps中使用最先进的工具来处理这类架构。您将从本教程中了解以下主题：
+
+- 什么是 Monorepo？
+- 如何组织Monorepo结构？
+- 如何创建一个Monorepo？
+- 使用哪些工具来管理Monorepo？
+- 如何在 Monorepo 中执行版本控制？
+- 如何在 Monorepo 中执行CI构建？
+- 如何在 Monorepo 中运行不同的程序？
+
+> 这些天，我自己对 Monorepos 非常感兴趣，因为它们帮助我完成了作为自由开发者的工作和我的开源项目。当我开始在 JavaScript/TypeScript 中使用 monorepos 时，我必须说以这种方式组合apps和包感觉很自然。
+
+> 向[Lee Robinson](https://twitter.com/leeerob)致敬，他极大地启发并帮助了我在这个领域起步。另一个是[Shawn "Swyx" Wang](https://twitter.com/swyx)让我知道[Turborepo](https://www.swyx.io/turborepo-why)和[Wes Bos](https://twitter.com/wesbos)和[Scott Tolinski](https://twitter.com/stolinski)，他们在 SyntaxFM 上有一集关于 Monorepos。
+
+> 当本教程变得更加实用时，我们将使用 React.js 作为在这个 monorepo 中创建apps和packages（UI 组件）的首选框架。但是，您可以随意使用您自己选择的框架（例如 Angular 或 Vue）。
+
+## 什么是 Monorepo？
+
+Monorepo是一种架构，它允许您将一个或多个项目放在一个目录中，并且您可以将这些项目分组，以便您可以在一个单一的工作目录中运行它们。
+
+单词"monorepo"的意思是"单个项目仓库"。源自于`mono(单个) repo(仓库)`。如下图：
+
+![BPOK6b](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/BPOK6b.jpg)
+
+Monorepos在Google等大公司中很受欢迎。
+
+- "谷歌代码库包括大约 10 亿个文件，并且在谷歌存在的 18 年中拥有大约 3500 万次提交的历史。"
+- "谷歌的代码库由来自世界各地数十个办事处的 25,000 多名谷歌软件开发人员共享。在一个典型的工作日，他们对代码库进行 16,000 次更改，另外 24,000 次更改由自动化系统提交。"
+
+而Monorepos对于任何具有多个apps的项目和一组共享(内部)包的代码库都是非常有用的。
+
+## 为什么要使用 Monorepo？
+
+将 monorepo 用于大规模代码库有两个主要优点。
+
+首先，packages可以在本地机器上的多个apps中使用，而无需在线发布（例如 npm）。开发人员的体验在这里得到了极大的改善，因为一切都在同一个代码库中，无需通过第三方更新依赖项。当packages被更新时，它会立即反映在所有依赖它的apps中。
+
+其次，它改进了跨代码库的协作。从事不同项目的团队可以改进其他团队的代码库，而无需处理多个存储库。它还提高了可访问性，而无需担心不同的设置，并在团队之间引入了更灵活的源代码所有权。另一个好处是在许多项目中重构代码。
+
+
+## Monorepo的结构
+
+一个Monorepo可以包含多个apps，每个apps都可以包含一个或多个packages。Monorepo的结构是这样的：
+
+```shell
+- apps/
+--- app-one
+--- app-two
+- packages/
+--- package-one
+--- package-two
+--- package-three
+```
+
+packages可以是任何文件夹，比如UI组件，或者其他类型的文件（eslint、typescript）
+
+```shell
+- apps/
+--- app-one
+--- app-two
+- packages/
+--- ui
+--- utilities
+--- eslint-config
+--- ts-config
+```
+
+package可以是任何其他包的依赖，比如，`ui`可以在使用`utilities`、`eslint-config`、`ts-config`。
+
+各个app间通常互不依赖，如果package互相依赖，Monorepo Tools可以强制执行"当且仅当utilities、eslint-config、ts-config构建结束后再构建ui。
+
+![EAPCdq](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/EAPCdq.jpg)
+
+这里我们讨论的是JavaScript/TypeScript Monorepo，因此，apps可以是JavaScript或者TypeScript，ts-config包只有在TypeScript中使用
+
+在apps中，packages并非必须的，如果需要引用packages作为依赖，可以package.json中添加一个dependencies项，比如：
+
+```json
+{
+  "dependencies": {
+    "ui": "*",
+    "utilities": "*",
+    "eslint-config": "*"
+  }
+}
+```
+
+## 如何创建一个Monorepo
+
+在了解了关于Monorepo的知识后，将通过一个monorepo的示例来实践。
+
+1. 克隆仓库
+
+```bash
+git clone git@github.com:bigstair-monorepo/monorepo.git
+
+cd monorepo
+yarn install
+```
+
+目录结构如下：
+
+```bash
+- apps/
+--- docs
+- packages/
+--- bigstair-core
+--- bigstair-map
+--- eslint-config-bigstair
+--- ts-config-bigstair
+```
+
+
+## 其他资料
+
+[Turborepo design system monorepo](https://leerob.io/blog/turborepo-design-system-monorepo)
