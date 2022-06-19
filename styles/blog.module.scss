@@ -18,9 +18,9 @@
     @apply relative font-bold text-base mb-4;
   }
   li {
-    @apply list-disc list-inside;
+    @apply list-disc;
     a {
-      @apply text-gray-500 underline text-sm dark:text-gray-200;
+      @apply text-gray-500 underline text-sm;
     }
   }
 }
@@ -31,28 +31,26 @@
 
 .blog {
   @apply w-full mx-auto lg:w-[768px] xl:w-[1000px] 2xl:w-[1000px] px-4 pt-20;
-  h1 {
+  .title {
     @apply mb-12 text-center text-4xl font-bold;
   }
-  .list{
-    @apply pl-8;
-  }
-  .date-key {
-    @apply text-2xl font-medium mb-4;
-  }
-  .posts{
-    @apply leading-relaxed mb-8;
-    .date{
-      @apply text-sm text-gray-500 italic;
-    }
-  }
-  .link {
-    @apply flex gap-2 items-center list-disc;
-    a {
-      @apply text-sky-500 whitespace-nowrap text-ellipsis overflow-hidden;
-    }
-    .tag {
-      @apply w-4 h-4;
+  .post-list{
+    @apply grid grid-cols-3 gap-6;
+    .post-item {
+      @apply flex flex-col gap-2;
+      &-meta{
+        @apply flex justify-between items-center text-gray-400 text-xs;
+        &-tags{
+          @apply flex gap-2;
+          .tag{
+            width: 1rem;
+            height: 1rem;
+          }
+        }
+      }
+      .post-item-title {
+        @apply text-center text-xl font-bold;
+      }
     }
   }
 }

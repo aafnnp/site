@@ -16,6 +16,6 @@ const PostPage = ({children}) => {
     }
     highlight().then(() => {})
   }, [children])
-  return <div className="post text-sm mx-auto w-[720px]">{children}</div>
+  return <div className="relative w-2/3 post text-sm mx-auto">{children}</div>
 }
 export default PostPage

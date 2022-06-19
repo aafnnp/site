@@ -8,9 +8,9 @@ export default function Pagination({len, page, setPage}) {
         .fill(0)
         .map((_, index) => (
           <span
-            className={`${styles.span} ${page === index + 1 && styles.active}`}
+            className={`${styles.span} ${page === index && styles.active}`}
             key={index}
-            onClick={() => setPage(index + 1)}
+            onClick={() => setPage(index)}
           >
             {index + 1}
           </span>

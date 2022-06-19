@@ -1,6 +1,6 @@
 import React from 'react'
+import Link from 'next/link'
 import {motion} from 'framer-motion'
-import MenuItem from './MenuItem'
 import {AiFillHome} from 'react-icons/ai'
 import {FaBlogger, FaSolarPanel} from 'react-icons/fa'
 import {SiAboutdotme} from 'react-icons/si'
@@ -16,15 +16,17 @@ const variants = {
   }
 }
 
-const Navigation = ({toggle}) => (
-  <motion.ul
+const Navigation = () => (
+  <motion.div
     variants={variants}
-    className="p-[25px] absolute top-[100px] w-[230px]"
+    className="flex fixed top-0 left-0 w-screen h-[64px] justify-center gap-4 items-center capitalize shadow bg-white z-[999]"
   >
     {LinkItems.map((i, key) => (
-      <MenuItem i={i} idx={key} key={i.name} toggle={toggle}/>
+      <div className='menu-item' key={key}>
+        <Link href={i.href}>{i.name}</Link>
+      </div>
     ))}
-  </motion.ul>
+  </motion.div>
 )
 
 const LinkItems = [
