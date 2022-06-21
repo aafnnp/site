@@ -1,8 +1,154 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Postgresql - Buffers'
+date: '2022-06-1 15:28:08'
+title: 'Postgresql - Order by'
 tags: [postgresql, sql]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+description: 使用order by排序查询结果
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/1a4UUm.jpg
 ---
 
+查询结果是无序的或者按照 id 排序的，如果需要按照某个字段排序，可以使用 order by 语句。
+
+## 语法
+
+```sql
+SELECT
+	select_list
+FROM
+	table_name
+ORDER BY
+	sort_expression1 [ASC | DESC],
+        ...
+	sort_expressionN [ASC | DESC];
+```
+
+- 首先需要在`ORDER BY`后面指定排序的字段和排序表达式，每个字段之间用逗号分隔。
+- 如果没有指定排序的字段，则默认按照 id 排序。
+- `ASC`表示升序，`DESC`表示降序。
+
+![yG7vz7](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/yG7vz7.jpg)
+
+## 示例
+
+![xASUui](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/xASUui.jpg)
+
+1. 查询所有的用户，并按照 first_name 升序排序。
+
+```sql
+SELECT
+	first_name,
+	last_name
+FROM
+	customer
+ORDER BY
+	first_name ASC;
+```
+
+`ASC`是默认排序选项，可以省略。
+
+![7o64EZ](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/7o64EZ.jpg)
+
+2. 查询所有的用户，并按照 last_name 降序排序。
+
+```sql
+SELECT
+       first_name,
+       last_name
+FROM
+       customer
+ORDER BY
+       last_name DESC;
+```
+
+![3LKS1G](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/3LKS1G.jpg)
+
+3. 对多列排序
+
+```sql
+SELECT
+	first_name,
+	last_name
+FROM
+	customer
+ORDER BY
+	first_name ASC,
+	last_name DESC;
+```
+
+![dIhgSP](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/dIhgSP.jpg)
+
+4. 表达式排序
+
+```sql
+SELECT
+	first_name,
+	LENGTH(first_name) len
+FROM
+	customer
+ORDER BY
+	len DESC;
+```
+
+选择名字，并按照名字的长度进行降序排序。
+
+![tBVsSu](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/tBVsSu.jpg)
+
+## NULL
+
+`NULL`是一个标记，表示丢失的数据或记录时数据未知。
+
+对包含`NULL`行进行排序时，可以使用指定的排序表达式进行排序，比如：
+
+```sql
+ORDER BY sort_expresssion [ASC | DESC] [NULLS FIRST | NULLS LAST]
+```
+
+`NULL FIRST`表示 NULL 值优先，`NULL LAST`表示 NULL 值后来优先。
+
+首先创建个表
+
+```sql
+-- create a new table
+CREATE TABLE sort_demo(
+	num INT
+);
+
+-- insert some data
+INSERT INTO sort_demo(num)
+VALUES(1),(2),(3),(null);
+```
+
+查询并返回数据
+
+```sql
+SELECT num
+FROM sort_demo
+ORDER BY num;
+```
+
+![bPfLc9](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/bPfLc9.jpg)
+
+可以看到默认返回排序将 null 值放到最后，如果想改变这种默认的排序，可以使用`NULLS FIRST`或`NULLS LAST`。
+
+```sql
+SELECT num
+FROM sort_demo
+ORDER BY num NULLS FIRST;
+```
+
+![EpgCHF](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/EpgCHF.jpg)
+
+翻转顺序
+
+```sql
+SELECT num
+FROM sort_demo
+ORDER BY num DESC NULLS LAST;
+```
+
+![tkksL2](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/tkksL2.jpg)
+
+## 总结
+
+- 排序的字段可以是一个表的列，也可以是一个表达式。
+- 使用`ASC`或`DESC`指定排序顺序。
+- 使用`NULLS FIRST`或`NULLS LAST`指定排序的 NULL 值优先级。
