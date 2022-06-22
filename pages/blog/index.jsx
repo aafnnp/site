@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import styles from 'styles/blog.module.scss'
 import {motion} from 'framer-motion'
-import {useState,useEffect} from 'react'
+import {useState} from 'react'
 import {chunk} from 'utils'
 
 const Image = dynamic(() => import('components/Image'))
