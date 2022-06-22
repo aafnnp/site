@@ -1,8 +1,125 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Postgresql - Buffers'
+date: '2022-06-02 10:23:59'
+title: 'Postgresql - Select Distinct'
 tags: [postgresql, sql]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+description: DISTINCT用于去重返回数据
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/QIGxFa.jpg
 ---
 
+`DISTINCT`用于返回数据删除重复行
+
+## 语法
+
+```sql
+#单列
+SELECT
+   DISTINCT column1
+FROM
+   table_name;
+
+#多列
+SELECT
+   DISTINCT column1, column2
+FROM
+   table_name;
+```
+
+`DISTINCT ON (expression)`，保留每组重复性的第一行。
+
+```sql
+SELECT
+   DISTINCT ON (column1) column_alias,
+   column2
+FROM
+   table_name
+ORDER BY
+   column1,
+   column2;
+```
+
+> `DISTINCT ON (expression)`必需是`ORDER BY`最左边的表达式
+
+## 示例
+
+创建名为`distinct_demo`的新表，导入数据：
+
+```sql
+#创建新表
+CREATE TABLE distinct_demo (
+	id serial NOT NULL PRIMARY KEY,
+	bcolor VARCHAR,
+	fcolor VARCHAR
+);
+
+#插入数据
+INSERT INTO distinct_demo (bcolor, fcolor)
+VALUES
+	('red', 'red'),
+	('red', 'red'),
+	('red', NULL),
+	(NULL, 'red'),
+	('red', 'green'),
+	('red', 'blue'),
+	('green', 'red'),
+	('green', 'blue'),
+	('green', 'green'),
+	('blue', 'red'),
+	('blue', 'green'),
+	('blue', 'blue');
+
+#查询数据
+SELECT
+	id,
+	bcolor,
+	fcolor
+FROM
+	distinct_demo ;
+```
+
+![M08Pm2](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/M08Pm2.jpg)
+
+单列示例
+
+```sql
+SELECT
+	DISTINCT bcolor
+FROM
+	distinct_demo
+ORDER BY
+	bcolor;
+```
+
+![1RIClu](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/1RIClu.jpg)
+
+多列示例
+
+```sql
+SELECT
+	DISTINCT bcolor,
+	fcolor
+FROM
+	distinct_demo
+ORDER BY
+	bcolor,
+	fcolor;
+```
+![kxyiii](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/kxyiii.jpg)
+
+多列示例中，同时指定了`bgcolor`和`fcolor`，Postgresql结合列的值计算并返回每行的唯一性。
+
+`DISTINCT ON (expression)`示例
+
+```sql
+SELECT
+	DISTINCT ON (bcolor) bcolor,
+	fcolor
+FROM
+	distinct_demo
+ORDER BY
+	bcolor,
+	fcolor;
+```
+
+以上语句按照`bgcolor`和`fcolor`进行排序，对于每组重复项，保留并返回第一行。
+
+![XwiCGF](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/XwiCGF.jpg)
