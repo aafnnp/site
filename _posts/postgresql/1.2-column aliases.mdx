@@ -26,7 +26,7 @@ SELECT [column_name] [alias_name] FROM [table_name];
 
 ![GLa9wQ](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/GLa9wQ.jpg)
 
-1. 分配别名
+#### 分配别名
 
 ```sql
 SELECT first_name,last_name FROM customer;
@@ -48,7 +48,7 @@ SELECT first_name,last_name AS surname FROM customer;
 SELECT first_name,last_name surname FROM customer;
 ```
 
-2. 表达式分配别名
+#### 表达式分配别名
 
 ```sql
 SELECT first_name || '' || last_name FROM customer;
@@ -63,7 +63,7 @@ SELECT first_name || '' || last_name AS full_name FROM customer;
 ```
 ![cALRwO](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/cALRwO.jpg)
 
-3. 包含空格的别名
+#### 包含空格的别名
 
 如果列别名包含一个或多个空格，就需要用双引号引起来
 
