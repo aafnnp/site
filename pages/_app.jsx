@@ -4,7 +4,7 @@ import Head from 'next/head'
 import React from 'react'
 import 'styles/main.scss'
 import 'styles/markdown.scss'
-const Menu = dynamic(() => import('components/MenuToggle'))
+const Menu = dynamic(() => import('components/Menu'))
 
 const App = ({Component, pageProps, router}) => {
   const {route} = router

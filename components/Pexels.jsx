@@ -1,19 +1,32 @@
-import { createApi } from 'unsplash-js';
 import {useEffect, useState} from 'react'
+import dynamic from 'next/dynamic'
+
+const Image = dynamic(() => import('components/Image'))
 
 export default function Pexels(props) {
-  const {tag} = props
+  const {tag, cover} = props
   const [photo, setPhoto] = useState('')
-  const [alt, setAlt] = useState(tag)
+
   useEffect(() => {
-    fetch(`https://api.unsplash.com/search/photos?client_id=rqPMZ8Ur7rQa6x2P1oPOSziry4m5XXod9KWStukAAy4&query=${tag}`).then(res=>{
-      return res.json()
-    }).then(data=>{
+    const fetchPhoto = async () => {
+      if (cover) {
+        setPhoto(cover)
+        return false
+      }
+      const res = await fetch(
+        `https://api.unsplash.com/search/photos?client_id=rqPMZ8Ur7rQa6x2P1oPOSziry4m5XXod9KWStukAAy4&query=${tag}`
+      )
+      const data = await res.json()
       const random = Math.floor(Math.random() * data.results.length)
       setPhoto(data?.results[random]?.urls?.full)
-      setAlt(data?.results[random]?.description)
-    })
-  }, [tag])
+    }
+    fetchPhoto().then(() => {})
+  }, [cover, tag])
 
-  return <img src={photo} alt={alt} className="w-screen h-auto mb-4" loading="lazy"/>
+  return (
+    <div
+      className="w-full h-[200px] bg-cover bg-center bg-no-repeat rounded"
+      style={{backgroundImage: `url(${photo})`}}
+    />
+  )
 }

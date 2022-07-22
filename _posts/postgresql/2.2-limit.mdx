@@ -1,8 +1,88 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Postgresql - Buffers'
-tags: [postgresql]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+date: '2022-06-03 13:28:06'
+title: 'Postgresql - LIMIT'
+tags: [postgresql, sql]
+description: LIMIT用于限制SELECT返回数据
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/R8ieK2.jpg
 ---
 
+`LIMIT`限制`SELECT`返回数据行数。
+
+## 语法
+
+```sql
+SELECT select_list
+FROM table_name
+ORDER BY sort_expression
+LIMIT row_count
+```
+
+`row_count`为返回行数，当为 0 时，返回空。
+
+如果需要忽略或偏移某些行数，使用`OFFSET`。
+
+```sql
+SELECT select_list
+FROM table_name
+LIMIT row_count OFFSET row_to_skip;
+```
+
+## 示例
+
+使用示例数据库中`film`表进行`LIMIT`示例查询
+
+![zklLSn](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/zklLSn.jpg)
+
+#### 显示返回特定行数
+
+```sql
+SELECT
+	film_id,
+	title,
+	release_year
+FROM
+	film
+ORDER BY
+	film_id
+LIMIT 5;
+```
+
+限定返回 5 行，结果如下：
+
+![aaqrAl](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/aaqrAl.jpg)
+
+#### 偏移行数
+
+查询并返回 4 行，从第四行开始
+
+```sql
+SELECT
+	film_id,
+	title,
+	release_year
+FROM
+	film
+ORDER BY
+	film_id
+LIMIT 4 OFFSET 3;
+```
+
+![hedTfP](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/hedTfP.jpg)
+
+#### 使用`LIMIT`、`OFFSET`获取顶部、底部特定行
+
+比如，获取前 10 部最昂贵的电影，按照租金率降序排序
+
+```sql
+SELECT
+	film_id,
+	title,
+	rental_rate
+FROM
+	film
+ORDER BY
+	rental_rate DESC
+LIMIT 10;
+```
+
+![R8ieK2](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/R8ieK2.jpg)

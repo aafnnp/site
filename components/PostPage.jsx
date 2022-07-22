@@ -7,6 +7,8 @@ require('prismjs/components/prism-css')
 require('prismjs/components/prism-bash')
 require('prismjs/components/prism-swift')
 require('prismjs/components/prism-jsx')
+require('prismjs/components/prism-typescript')
+require('prismjs/components/prism-sql')
 require('prismjs/themes/prism-okaidia.min.css')
 
 const PostPage = ({children}) => {
@@ -16,6 +18,6 @@ const PostPage = ({children}) => {
     }
     highlight().then(() => {})
   }, [children])
-  return <div className="post text-sm mx-auto w-[720px]">{children}</div>
+  return <div className="relative w-2/3 post text-sm mx-auto">{children}</div>
 }
 export default PostPage

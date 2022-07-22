@@ -1,8 +1,61 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Postgresql - Buffers'
-tags: [postgresql]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+date: '2022-06-04 15:35:08'
+title: 'Postgresql - FETCH'
+tags: [postgresql, sql]
+description: 如何使用 PostgreSQL FETCH 检索查询返回的部分行
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/N0JPqQ.jpg
 ---
 
+LIMIT 语句经常在许多关系型数据库中使用，比如 MySQL，H2，HSQLDB。
+
+但是 LIMIT 语句不属于 SQL 标准。
+
+Postgresql 提供了 SQL 标准的语句来替代 LIMIT，它就是 FETCH 语句，它是在 SQL：2008 标准被提出来的。
+
+## 语法
+
+```sql
+OFFSET start { ROW | ROWS }
+FETCH { FIRST | NEXT } [ row_count ] { ROW | ROWS } ONLY
+```
+
+FIRST 和 NEXT 是同义词，ROW 和 ROWS 是同义词，同义词可以相互替换
+
+start 必须为 0 或正整数，如果没有 OFFSET 字句，则 start 默认为 0，如果 start 比结果集中的行数大，则查询语句不返回结果。
+
+row_count 是大于等于 1 的整数，如果你不指定它，它默认为 1
+
+因为表中存储的行顺序是未指定的，所以应该始终使用 FETCH 子句和 order BY 子句，以使返回结果集中的行顺序一致。
+
+## FETCH vs LIMIT
+
+使用 FETCH 查询并选择第一条记录
+
+```sql
+SELECT
+    film_id,
+    title
+FROM
+    film
+ORDER BY
+    title
+FETCH FIRST ROW ONLY;
+```
+
+![bQ3nfm](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/bQ3nfm.jpg)
+等同于以下代码：
+
+```sql
+SELECT
+    film_id,
+    title
+FROM
+    film
+ORDER BY
+    title
+FETCH FIRST 1 ROW ONLY;
+```
+
+## 总结
+
+尽量使用 FETCH 语句，而不是 LIMIT 语句。
