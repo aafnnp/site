@@ -1,8 +1,98 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Postgresql - Buffers'
+date: '2022-06-05 10:59:41'
+title: 'Postgresql - IN'
 tags: [postgresql, sql]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+description: 使用 Postgresql IN 检索查询是否与列表中的任何值相匹配。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/qytftf.jpg
 ---
 
+使用 `Postgresql IN` 检索查询是否与列表中的任何值相匹配。
+
+## 语法
+
+```sql
+value IN (value1, value2, ...)
+```
+
+如果匹配，则返回 `TRUE`，否则返回 `FALSE`。
+
+```sql
+value IN (SELECT column_name FROM table_name)
+```
+
+## 示例
+
+```sql
+SELECT customer_id,
+	rental_id,
+	return_date
+FROM
+	rental
+WHERE
+	customer_id IN (1, 2)
+ORDER BY
+	return_date DESC;
+```
+
+![a576Gv](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/a576Gv.jpg)
+
+以上代码用`=`和`OR`可以这样写
+
+```sql
+SELECT customer_id,
+  rental_id,
+  return_date
+FROM
+  rental
+WHERE
+  customer_id = 1 OR customer_id = 2
+ORDER BY
+  return_date DESC;
+```
+
+使用`IN`运算符的查询比使用`=`和`OR`运算符的查询更快，更具可读性。
+
+## NOT IN
+
+查询返回的结果不包含列表中的任何值。
+
+```sql
+SELECT customer_id,
+  rental_id,
+  return_date
+FROM
+  rental
+WHERE
+  customer_id NOT IN (1, 2)
+```
+
+![NIqasO](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NIqasO.jpg)
+
+同样以上代码可以使用`<>`和`AND`运算符
+
+```sql
+SELECT customer_id
+FROM rental
+WHERE CAST (return_date AS DATE) = '2005-05-27'
+ORDER BY customer_id;
+```
+
+![AlztSt](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/AlztSt.jpg)
+
+```sql
+SELECT
+	customer_id,
+	first_name,
+	last_name
+FROM
+	customer
+WHERE
+	customer_id IN (
+		SELECT customer_id
+		FROM rental
+		WHERE CAST (return_date AS DATE) = '2005-05-27'
+	)
+ORDER BY customer_id;
+```
+
+![eCakGj](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/eCakGj.jpg)
