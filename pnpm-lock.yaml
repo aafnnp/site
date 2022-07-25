@@ -28,7 +28,7 @@ specifiers:
   next-compose-plugins: ^2.2.1
   next-mdx-remote: 4.1.0
   next-seo: ^5.5.0
-  next-share: ^0.16.0
+  next-share: ^0.17.0
   pexels: ^1.3.0
   postcss: ^8.4.14
   prettier: ^2.7.1
@@ -41,7 +41,7 @@ specifiers:
   react-player: ^2.10.1
   remark-codesandbox: ^0.10.1
   remark-gfm: ^3.0.1
-  sass: ^1.53.0
+  sass: ^1.54.0
   standard-version: ^9.5.0
   styled-components: ^5.3.5
   swr: ^1.3.0
@@ -60,10 +60,10 @@ dependencies:
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
   globby: 13.1.2
   gray-matter: 4.0.3
-  next: 12.2.3_yb7wisesljnl3zpl3umrw7y7ci
+  next: 12.2.3_ckhwt5v7fywslkplh6p4u2aony
   next-mdx-remote: 4.1.0_biqbaboplfbrettd7655fr4n2y
   next-seo: 5.5.0_53oqlnqnxhbetdy4ljlkkvmoby
-  next-share: 0.16.0_lbqamd2wfmenkveygahn4wdfcq
+  next-share: 0.17.0_lbqamd2wfmenkveygahn4wdfcq
   pexels: 1.3.0
   prismjs: 1.28.0
   react: 18.2.0
@@ -100,7 +100,7 @@ devDependencies:
   pretty-quick: 3.1.3_prettier@2.7.1
   remark-codesandbox: 0.10.1
   remark-gfm: 3.0.1
-  sass: 1.53.0
+  sass: 1.54.0
   standard-version: 9.5.0
   tailwindcss: 3.1.6
   typescript: 4.7.4
@@ -9424,13 +9424,13 @@ packages:
       react: '>=16.0.0'
       react-dom: '>=16.0.0'
     dependencies:
-      next: 12.2.3_yb7wisesljnl3zpl3umrw7y7ci
+      next: 12.2.3_ckhwt5v7fywslkplh6p4u2aony
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /next-share/0.16.0_lbqamd2wfmenkveygahn4wdfcq:
-    resolution: {integrity: sha512-j/2JaUvqv1raLohwhzQE4QKPK8sZq2O8kQXP+kmZ73cfxPlPzgMd8F/d9ETJ/TymRdvdyPxML03Q9xYQOYBkCQ==}
+  /next-share/0.17.0_lbqamd2wfmenkveygahn4wdfcq:
+    resolution: {integrity: sha512-CYtlCCePT0UyHeYd+Cz26uIe2y6gSp0vwZ29X3+ZKSZt3Sgdk7WcrTCQTW6svelkp2m4xbHAJsSYeBicDt8kxQ==}
     engines: {node: '>=8', npm: '>=5'}
     peerDependencies:
       react: '>=17.0.0'
@@ -9440,12 +9440,12 @@ packages:
       jsonp: 0.2.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-scripts: 5.0.1_vu2atnx4dbjezbluzf4fvm7i7a
+      react-scripts: 5.0.1_tsgmakyrkgjt6wnr7p3hwdihhi
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /next/12.2.3_yb7wisesljnl3zpl3umrw7y7ci:
+  /next/12.2.3_ckhwt5v7fywslkplh6p4u2aony:
     resolution: {integrity: sha512-TA0tmSA6Dk6S6kfvCNbF7CWYW8468gZUxr/3/30z4KvAQbXnl2ASYZElVe7q/hBW/1F1ee0tSBlHa4/sn+ZIBw==}
     engines: {node: '>=12.22.0'}
     hasBin: true
@@ -9469,7 +9469,7 @@ packages:
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      sass: 1.53.0
+      sass: 1.54.0
       styled-jsx: 5.0.2_lxeixztqul6ae7cp3cpkyxlhzm
       use-sync-external-store: 1.2.0_react@18.2.0
     optionalDependencies:
@@ -11189,7 +11189,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /react-scripts/5.0.1_vu2atnx4dbjezbluzf4fvm7i7a:
+  /react-scripts/5.0.1_tsgmakyrkgjt6wnr7p3hwdihhi:
     resolution: {integrity: sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
@@ -11238,7 +11238,7 @@ packages:
       react-refresh: 0.11.0
       resolve: 1.22.1
       resolve-url-loader: 4.0.0
-      sass-loader: 12.6.0_sass@1.53.0+webpack@5.73.0
+      sass-loader: 12.6.0_sass@1.54.0+webpack@5.73.0
       semver: 7.3.7
       source-map-loader: 3.0.1_webpack@5.73.0
       style-loader: 3.3.1_webpack@5.73.0
@@ -11715,7 +11715,7 @@ packages:
     resolution: {integrity: sha512-ZRwKbh/eQ6w9vmTjkuG0Ioi3HBwPFce0O+v//ve+aOq1oeCy7jMV2qzzAlpsNuqpqCBjjriM1lbtZbF/Q8jVyA==}
     dev: false
 
-  /sass-loader/12.6.0_sass@1.53.0+webpack@5.73.0:
+  /sass-loader/12.6.0_sass@1.54.0+webpack@5.73.0:
     resolution: {integrity: sha512-oLTaH0YCtX4cfnJZxKSLAyglED0naiYfNG1iXfU5w1LNZ+ukoA5DtyDIN5zmKVZwYNJP4KRc5Y3hkWga+7tYfA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -11736,12 +11736,12 @@ packages:
     dependencies:
       klona: 2.0.5
       neo-async: 2.6.2
-      sass: 1.53.0
+      sass: 1.54.0
       webpack: 5.73.0
     dev: false
 
-  /sass/1.53.0:
-    resolution: {integrity: sha512-zb/oMirbKhUgRQ0/GFz8TSAwRq2IlR29vOUJZOx0l8sV+CkHUfHa4u5nqrG+1VceZp7Jfj59SVW9ogdhTvJDcQ==}
+  /sass/1.54.0:
+    resolution: {integrity: sha512-C4zp79GCXZfK0yoHZg+GxF818/aclhp9F48XBu/+bm9vXEVAYov9iU3FBVRMq3Hx3OA4jfKL+p2K9180mEh0xQ==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
