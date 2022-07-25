@@ -1,0 +1,42 @@
+---
+date: '2022-07-25 13:55:36'
+title: 'Next.js - Integrate Bundle Analyzer'
+tags: [nodejs, javascript, Nextjs]
+description: Next.js 集成打包分析工具
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/riYetE.jpg
+originalurl: https://daily-dev-tips.com/posts/exploring-the-nextjs-bundle-analyzer/
+---
+
+```shell
+npm install @next/bundle-analyzer -D
+```
+
+修改`next.config.js`
+
+```js
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+module.exports = withBundleAnalyzer({
+  //...other config
+})
+```
+
+```shell
+ANALYZE=true npm run build
+```
+
+![nNFdXu](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/nNFdXu.jpg)
+
+修改`package.json`
+
+```json
+{
+  "scripts": {
+	  "analyze": "ANALYZE=true next build"
+  }
+}
+```
+
+```npm run analyze```
