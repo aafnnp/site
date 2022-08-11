@@ -10,6 +10,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-    '@next/next/no-img-element': 'off'
+    '@next/next/no-img-element': 'off',
+    'no-extra-semi': 'off'
   }
 }
