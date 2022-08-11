@@ -1,7 +1,4 @@
 import {useEffect, useState} from 'react'
-import dynamic from 'next/dynamic'
-
-const Image = dynamic(() => import('components/Image'))
 
 export default function Pexels(props) {
   const {tag, cover} = props
