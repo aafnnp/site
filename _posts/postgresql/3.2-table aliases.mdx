@@ -1,8 +1,26 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Postgresql - Buffers'
+date: '2022-06-10 13:57:17'
+title: 'Postgresql - TABLE ALIAS'
 tags: [postgresql, sql]
+description: Postgresql alias是一种把表名作为别名的方法，它可以让你更好的理解表的含义。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/p2u0Z8.jpg
 draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
 ---
 
+## 语法
+
+```sql
+table_name AS alias_name
+```
+
+## 作用
+
+假如在查询中，你想要查询一个表的所有数据，但是又不想要表的名字，可以使用别名。
+
+```sql
+a_very_long_table_name.column_name
+
+a_very_long_table_name AS alias_name
+
+alias.column_name
+```
