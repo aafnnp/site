@@ -4,7 +4,6 @@ title: 'Postgresql - TABLE ALIAS'
 tags: [postgresql, sql]
 description: Postgresql alias是一种把表名作为别名的方法，它可以让你更好的理解表的含义。
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/p2u0Z8.jpg
-draft: true
 ---
 
 ## 语法
@@ -23,4 +22,33 @@ a_very_long_table_name.column_name
 a_very_long_table_name AS alias_name
 
 alias.column_name
+```
+
+在`JOIN`语句中使用别名，可以避免重复的表名。
+
+```sql
+SELECT
+	c.customer_id,
+	first_name,
+	amount,
+	payment_date
+FROM
+	customer c
+INNER JOIN payment p
+    ON p.customer_id = c.customer_id
+ORDER BY
+   payment_date DESC;
+```
+
+在`self-join`中使用别名，可以避免重复的表名。
+
+```sql
+SELECT
+    e.first_name employee,
+    m .first_name manager
+FROM
+    employee e
+INNER JOIN employee m
+    ON m.employee_id = e.manager_id
+ORDER BY manager;
 ```
