@@ -5,8 +5,8 @@ const components = {
   CanIUse,
   a: (props) => {
     return (
-      <a className="flex items-center" href={props.href}>
-        <GoLink className="mr-2"/>
+      <a className="inline-flex items-center" href={props.href}>
+        <GoLink className="mr-2" />
         {props.children}
       </a>
     )
