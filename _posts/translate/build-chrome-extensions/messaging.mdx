@@ -3,6 +3,7 @@ date: '2022-09-03 17:11:02'
 title: 'Chrome插件开发 - Popup page modifications'
 tags: [chrome]
 description: 基于react、tailwindcss开发自己的chrome插件
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/zPmZyAzG9.gif
 ---
 
 本文将了解消息发送的工作原理，比如希望和后台进行交互。如下：
@@ -12,27 +13,27 @@ description: 基于react、tailwindcss开发自己的chrome插件
 修改`src/App.jsx`
 
 ```jsx
-import React,{useState} from 'react'
+import React, {useState} from 'react'
 
-export default function Messaging(){
-  const [message, setMessage] = useState(null);
+export default function Messaging() {
+  const [message, setMessage] = useState(null)
   const backgroundRequest = () => {
-    chrome.runtime.sendMessage({ color }, (response) => {
-      setMessage(response.msg);
-    });
-  };
+    chrome.runtime.sendMessage({color}, (response) => {
+      setMessage(response.msg)
+    })
+  }
 
-  return <>
-    <button onClick={backgroundRequest}>Background request</button>
-    {
-      message && (
+  return (
+    <>
+      <button onClick={backgroundRequest}>Background request</button>
+      {message && (
         <>
-          <p className='text-white'>{message}</p>
+          <p className="text-white">{message}</p>
           <br />
         </>
-      );
-    }
-  </>
+      )}
+    </>
+  )
 }
 ```
 
