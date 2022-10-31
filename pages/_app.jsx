@@ -2,6 +2,7 @@ import SEO from 'components/SEO'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import React from 'react'
+import {Analytics} from '@vercel/analytics/react'
 import 'styles/main.scss'
 import 'styles/markdown.scss'
 const Menu = dynamic(() => import('components/Menu'))
@@ -24,6 +25,7 @@ const App = ({Component, pageProps, router}) => {
       <SEO url={url} />
       {route !== '/' && <Menu />}
       <Component {...pageProps} canonical={url} key={url} />
+      <Analytics />
     </>
   )
 }

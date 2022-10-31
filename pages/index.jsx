@@ -28,7 +28,7 @@ const SocialItems = [
 
 export default function Index() {
   return (
-    <div className="relative w-screen h-screen bg-black flex flex-col items-center justify-center opacity-100">
+    <div className="relative w-screen h-screen flex flex-col items-center justify-center opacity-100 dark:bg-gray-800">
       <motion.div
         initial={{scale: 0}}
         animate={{scale: 1}}
@@ -44,7 +44,7 @@ export default function Index() {
         />
       </motion.div>
       <motion.h1
-        className="text-4xl mt-8 font-bold text-center text-white"
+        className="text-4xl mt-8 font-bold text-center dark:text-white"
         initial={{x: -20, opacity: 0}}
         animate={{x: 0, opacity: 1}}
         transition={{ease: 'easeInOut', duration: 0.5, delay: 1}}
@@ -52,12 +52,12 @@ export default function Index() {
         Manon.icu - Frontend Developer
       </motion.h1>
       <Item items={SocialItems} delay={2} />
-      <Item items={LinkItems} delay={5} underline />
+      <Item items={LinkItems} delay={5} />
     </div>
   )
 }
 
-const Item = ({items, delay, underline}) => {
+const Item = ({items, delay}) => {
   const container = {
     hidden: {opacity: 1, scale: 0},
     visible: {
@@ -84,16 +84,16 @@ const Item = ({items, delay, underline}) => {
 
   return (
     <motion.div
-      className={`flex gap-4 mt-8 text-sm text-gray-200 uppercase cursor-pointer ${
-        underline ? 'underline' : ''
-      }`}
+      className={`flex gap-4 mt-8 text-sm text-gray-600 dark:text-white uppercase cursor-pointer`}
       variants={container}
       initial="hidden"
       animate="visible"
     >
       {items.map((item) => (
         <Link href={item.href} key={item.href}>
-          <motion.a variants={variants}>{item.icon}</motion.a>
+          <motion.a className="underline" variants={variants}>
+            {item.icon}
+          </motion.a>
         </Link>
       ))}
     </motion.div>
