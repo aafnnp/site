@@ -18,12 +18,16 @@ const IndexPage = ({posts}) => {
       <div className={styles['post-list']}>
         {posts[page].map((post) => {
           return (
-            <motion.div whileHover={{ y: -10 }} className={styles['post-item']} key={post.title}>
-              <div className={styles["post-item-image"]}>
-                <Pexels tag={post.tags} cover={post.cover}/>
+            <motion.div
+              whileHover={{y: -10}}
+              className={styles['post-item']}
+              key={post.title}
+            >
+              <div className={styles['post-item-image']}>
+                <Pexels tag={post.tags} cover={post.cover} />
               </div>
-              <div className={styles["post-item-meta"]}>
-                <div className={styles["post-item-meta-tags"]}>
+              <div className={styles['post-item-meta']}>
+                <div className={styles['post-item-meta-tags']}>
                   {post.tags?.map((tag) => (
                     <Image
                       className={styles.tag}
@@ -44,7 +48,7 @@ const IndexPage = ({posts}) => {
           )
         })}
       </div>
-      <Pagination len={posts.length} page={page} setPage={setPage}/>
+      <Pagination len={posts.length} page={page} setPage={setPage} />
     </div>
   )
 }

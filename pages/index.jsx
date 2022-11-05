@@ -4,6 +4,7 @@ import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
 import dynamic from 'next/dynamic'
 
 const Image = dynamic(() => import('components/Image'), {ssr: false})
+const MotionLink = motion(Link)
 const LinkItems = [
   {icon: 'blog', href: '/blog'},
   {icon: 'challenges', href: '/challenges'},
@@ -90,11 +91,14 @@ const Item = ({items, delay}) => {
       animate="visible"
     >
       {items.map((item) => (
-        <Link href={item.href} key={item.href}>
-          <motion.a className="underline" variants={variants}>
-            {item.icon}
-          </motion.a>
-        </Link>
+        <MotionLink
+          href={item.href}
+          key={item.href}
+          className="underline"
+          variants={variants}
+        >
+          {item.icon}
+        </MotionLink>
       ))}
     </motion.div>
   )

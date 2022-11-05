@@ -58,19 +58,16 @@ const Challenge = ({link, title, group}) => {
         {title}
       </h3>
       <div className={styles.btn}>
-        <Link href={link}>
-          <a className={styles.link}>
-            <FaLink />
-            Link
-          </a>
+        <Link href={link} className={styles.link}>
+          <FaLink />
+          Link
         </Link>
         <Link
           href={`https://github.com/Manonicu/site/tree/master/_challenges/${group}/${title}.jsx`}
+          className={styles.source}
         >
-          <a className={styles.source}>
-            <FaGithub />
-            Source
-          </a>
+          <FaGithub />
+          Source
         </Link>
       </div>
     </motion.div>

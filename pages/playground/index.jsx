@@ -29,17 +29,14 @@ export default function IndexPage(props) {
                     width={16}
                     height={16}
                   />
-                  <Link href={challenge.link}>
-                    <a className={styles.link}>
-                      <FaLink />
-                    </a>
+                  <Link href={challenge.link} className={styles.link}>
+                    <FaLink />
                   </Link>
                   <Link
+                    className={styles.source}
                     href={`https://github.com/Manonicu/site/tree/master/_playground/${challenge.group}/${challenge.title}.jsx`}
                   >
-                    <a className={styles.source}>
-                      <FaGithub />
-                    </a>
+                    <FaGithub />
                   </Link>
                 </div>
               </li>

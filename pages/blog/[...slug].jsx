@@ -45,9 +45,7 @@ const Post = ({
         {originalUrl && (
           <div className={styles.originalUrl}>
             本文翻译自：
-            <Link href={originalUrl}>
-              <a>{originalUrl}</a>
-            </Link>
+            <Link href={originalUrl}>{originalUrl}</Link>
           </div>
         )}
         {/* 底部广告 */}
