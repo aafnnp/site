@@ -4,6 +4,7 @@ import React from 'react'
 import {FaGithub, FaLink} from 'react-icons/fa'
 import styles from 'styles/challenges.module.scss'
 import {motion} from 'framer-motion'
+
 const Image = dynamic(() => import('components/Image'))
 
 export default function IndexPage(props) {

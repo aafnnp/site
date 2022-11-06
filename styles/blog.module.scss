@@ -36,7 +36,7 @@
   .post-list {
     @apply grid grid-cols-4 gap-6;
     .post-item {
-      @apply flex flex-col gap-2;
+      @apply grid gap-2 grid-rows-[max(200px),1fr,1fr];
       &-meta {
         @apply flex justify-between items-center text-gray-400 text-xs;
         &-tags {

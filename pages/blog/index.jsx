@@ -24,7 +24,8 @@ const IndexPage = ({posts}) => {
               key={post.title}
             >
               <div className={styles['post-item-image']}>
-                <Pexels tag={post.tags} cover={post.cover} />
+                {/* <img src={`/api/og?title=${post.title}&cover=${post.cover}`} alt="" /> */}
+                <Pexels tag={post.tags} cover={post.cover} title={post.title} />
               </div>
               <div className={styles['post-item-meta']}>
                 <div className={styles['post-item-meta-tags']}>
