@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import React from 'react';
-import styled from 'styled-components';
+import Link from 'next/link'
+import React from 'react'
+import styled from 'styled-components'
 
 export default function ErrorPage() {
   return (
@@ -20,15 +20,13 @@ export default function ErrorPage() {
               The page you are looking for might be removed or is temporarily
               unavailable
             </p>
-            <Link href="/">
-              <a>Back to homepage</a>
-            </Link>
+            <Link href="/">Back to homepage</Link>
           </div>
           <div className="footer">created by username - devChallenges.io</div>
         </div>
       </div>
     </Wrapper>
-  );
+  )
 }
 
 const Wrapper = styled.div`
@@ -188,4 +186,4 @@ const Wrapper = styled.div`
       font-weight: 500;
     }
   }
-`;
+`

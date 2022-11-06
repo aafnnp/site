@@ -20,11 +20,9 @@ const HttpStatus = () => {
               key={el.key}
               href={`https://www.abstractapi.com/http-status-codes/${el.key}`}
             >
-              <a className={styles.a}>
-                <span className={styles.key}>{el.key}</span>
-                <span>-</span>
-                <span className={styles.value}>{el.value}</span>
-              </a>
+              <span className={styles.key}>{el.key}</span>
+              <span>-</span>
+              <span className={styles.value}>{el.value}</span>
             </Link>
           ))}
         </div>

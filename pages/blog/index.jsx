@@ -58,7 +58,7 @@ export default IndexPage
 export async function getStaticProps() {
   const {GetAllPosts} = await import('api/getAllPosts')
   const posts = await GetAllPosts()
-  const chunkedPosts = chunk(posts, 12)
+  const chunkedPosts = chunk(posts, 24)
   return {
     props: {
       posts: chunkedPosts

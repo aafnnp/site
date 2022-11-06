@@ -29,6 +29,7 @@ const GetAllPosts = async () => {
 
 // 根据slug导出文章
 const GetPostBySlug = (slug) => {
+  // eslint-disable-next-line no-undef
   return new Promise((resolve, reject) => {
     GetAllPosts()
       .then((posts) => {
@@ -45,6 +46,7 @@ const GetPostBySlug = (slug) => {
 
 // 根据tag导出随机文章
 const GetRandomPost = () => {
+  // eslint-disable-next-line no-undef
   return new Promise((resolve, reject) => {
     GetAllPosts()
       .then((posts) => {
