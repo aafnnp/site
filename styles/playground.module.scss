@@ -9,7 +9,7 @@
       @apply flex col-span-1 h-12 items-center justify-between border-b;
       .icons,
       .title {
-        @apply flex gap-2;
+        @apply flex gap-2 items-center;
       }
       .image {
         @apply flex-none rounded-l-md;
