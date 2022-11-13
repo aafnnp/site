@@ -36,8 +36,8 @@ export default function IndexPage(props) {
 
 const Challenge = ({link, title, group}) => {
   const item = {
-    visible: {opacity: 1, y: 0},
-    hidden: {opacity: 0, y: 100}
+    visible: {opacity: 1, scale: 1},
+    hidden: {opacity: 0, scale: 0}
   }
   return (
     <motion.div variants={item} className={styles.item} key={link}>

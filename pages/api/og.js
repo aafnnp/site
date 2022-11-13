@@ -30,6 +30,7 @@ export default async function handler(req) {
               width="32"
               height="32"
               src="https://avatars.githubusercontent.com/u/12791216?v=4"
+              alt="avatar"
               style={{
                 borderRadius: 32
               }}

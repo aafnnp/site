@@ -2,11 +2,16 @@ import Link from 'next/link'
 import React from 'react'
 import styles from 'styles/http-status.module.scss'
 import {data, title} from 'utils/http-status'
+import {Dosis} from '@next/font/google'
+
+const dosis = Dosis({
+  variable: '--dosis'
+})
 
 const HttpStatus = () => {
   return (
-    <div className={styles['http-status']}>
-      <h1 className={styles.h1}>HTTP状态代码概述</h1>
+    <div className={`${styles['http-status']} ${dosis.variable}`}>
+      <h1>HTTP状态代码概述</h1>
 
       {data.map((item, key) => (
         <div className={styles['http-status-item']} key={key}>

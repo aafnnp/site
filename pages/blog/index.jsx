@@ -37,6 +37,8 @@ const IndexPage = ({posts}) => {
                       alt={tag}
                       width={16}
                       height={16}
+                      unoptimized={true}
+                      placeholder={''}
                     />
                   ))}
                 </div>

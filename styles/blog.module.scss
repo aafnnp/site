@@ -29,14 +29,17 @@
 }
 
 .blog {
-  @apply w-full mx-auto lg:w-[768px] xl:w-[1400px] 2xl:w-[1400px] px-4 pt-20;
+  @apply w-full mx-auto lg:w-[768px] xl:w-[1200px] 2xl:w-[1200px] px-4 pt-20;
   .title {
     @apply mb-12 text-center text-4xl font-bold;
   }
   .post-list {
     @apply grid grid-cols-4 gap-6;
     .post-item {
-      @apply grid gap-2 grid-rows-[max(200px),1fr,1fr];
+      @apply grid gap-2 grid-rows-[max(200px),24px,1fr];
+      &-image {
+        @apply w-full;
+      }
       &-meta {
         @apply flex justify-between items-center text-gray-400 text-xs;
         &-tags {

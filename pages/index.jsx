@@ -2,15 +2,16 @@ import {motion} from 'framer-motion'
 import Link from 'next/link'
 import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
 import dynamic from 'next/dynamic'
+import styles from 'styles/index.module.scss'
 
 const Image = dynamic(() => import('components/Image'), {ssr: false})
 const MotionLink = motion(Link)
 const LinkItems = [
-  {icon: 'blog', href: '/blog'},
-  {icon: 'challenges', href: '/challenges'},
-  {icon: 'playground', href: 'playground'},
-  {icon: 'about', href: '/about'},
-  {icon: 'contact', href: '/contact'}
+  {icon: 'blog', href: '/blog', bordered: true},
+  {icon: 'challenges', href: '/challenges', bordered: true},
+  {icon: 'playground', href: 'playground', bordered: true},
+  {icon: 'about', href: '/about', bordered: true},
+  {icon: 'contact', href: '/contact', bordered: true}
 ]
 const SocialItems = [
   {
@@ -29,7 +30,7 @@ const SocialItems = [
 
 export default function Index() {
   return (
-    <div className="relative w-screen h-screen flex flex-col items-center justify-center opacity-100 dark:bg-gray-800">
+    <div className={styles.wrapper}>
       <motion.div
         initial={{scale: 0}}
         animate={{scale: 1}}
@@ -37,11 +38,11 @@ export default function Index() {
       >
         <Image
           src="/avatar.png"
-          className="w-[176px] h-[186.5px]"
           width={176}
           height={186.5}
           loading="lazy"
           alt="avatar"
+          unoptimized={true}
         />
       </motion.div>
       <motion.h1
@@ -85,7 +86,7 @@ const Item = ({items, delay}) => {
 
   return (
     <motion.div
-      className={`flex gap-4 mt-8 text-sm text-gray-600 dark:text-white uppercase cursor-pointer`}
+      className={styles['item-container']}
       variants={container}
       initial="hidden"
       animate="visible"
@@ -94,7 +95,7 @@ const Item = ({items, delay}) => {
         <MotionLink
           href={item.href}
           key={item.href}
-          className="underline"
+          className={item.bordered && styles.item}
           variants={variants}
         >
           {item.icon}

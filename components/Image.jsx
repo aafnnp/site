@@ -23,7 +23,7 @@ export default function Image(props) {
       loader={customLoader}
       {...props}
       loading="lazy"
-      placeholder="blur"
+      placeholder={props.placeholder ?? 'blur'}
       blurDataURL={rgbDataURL(237, 181, 6)}
     />
   )
