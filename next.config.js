@@ -8,19 +8,23 @@ const withAnalyzer = require('@next/bundle-analyzer')({
 })
 
 module.exports = withPlugins([withMDX, withAnalyzer], {
-  webpack: (config, {isServer}) => {
-    if (!isServer) {
-      // don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
-      config.resolve.fallback = {
-        fs: false,
-        process: false
-      }
-    }
-
-    return config
-  },
+  reactStrictMode: true,
+  // i18n:{},
+  // webpack: (config, {isServer}) => {
+  //   if (!isServer) {
+  //     // don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
+  //     config.resolve.fallback = {
+  //       fs: false,
+  //       // tls: false,
+  //       // net: false,
+  //       process: false
+  //     }
+  //   }
+  //
+  //   return config
+  // },
   images: {
     loader: 'custom',
-    domains: ['images.unsplash.com']
+    domains: ['images.unsplash.com', 'pics-rust.vercel.app', 'cdn.jsdelivr.ne']
   }
 })

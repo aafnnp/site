@@ -40,7 +40,7 @@ export default function FileSystem() {
   }
   return (
     <div className="battery">
-      <h3 className="text-center mb-4">Battery</h3>
+      <h1 className="text-center mb-4">Battery API</h1>
 
       <CanIUse tag="battery-status" />
       <div className="text-gray-500">

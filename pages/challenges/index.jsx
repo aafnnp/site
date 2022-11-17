@@ -4,6 +4,7 @@ import React from 'react'
 import {FaGithub, FaLink} from 'react-icons/fa'
 import styles from 'styles/challenges.module.scss'
 import {motion} from 'framer-motion'
+
 const Image = dynamic(() => import('components/Image'))
 
 export default function IndexPage(props) {
@@ -35,8 +36,8 @@ export default function IndexPage(props) {
 
 const Challenge = ({link, title, group}) => {
   const item = {
-    visible: {opacity: 1, y: 0},
-    hidden: {opacity: 0, y: 100}
+    visible: {opacity: 1, scale: 1},
+    hidden: {opacity: 0, scale: 0}
   }
   return (
     <motion.div variants={item} className={styles.item} key={link}>
@@ -58,19 +59,16 @@ const Challenge = ({link, title, group}) => {
         {title}
       </h3>
       <div className={styles.btn}>
-        <Link href={link}>
-          <a className={styles.link}>
-            <FaLink />
-            Link
-          </a>
+        <Link href={link} className={styles.link}>
+          <FaLink />
+          Link
         </Link>
         <Link
           href={`https://github.com/Manonicu/site/tree/master/_challenges/${group}/${title}.jsx`}
+          className={styles.source}
         >
-          <a className={styles.source}>
-            <FaGithub />
-            Source
-          </a>
+          <FaGithub />
+          Source
         </Link>
       </div>
     </motion.div>

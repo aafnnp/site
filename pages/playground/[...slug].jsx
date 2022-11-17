@@ -6,7 +6,11 @@ export default function Playground(props) {
     import(`_playground/${props.slug.join('/')}`)
   )
 
-  return <CustomComponent />
+  return (
+    <div className="mx-auto w-2/3 py-32">
+      <CustomComponent />
+    </div>
+  )
 }
 
 export const getStaticPaths = async () => {

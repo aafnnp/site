@@ -70,8 +70,11 @@ export default class CanIUse extends Component {
       <div className="mx-auto my-12">
         <div className="text-gray-500 text-xs">
           This browser support data is from
-          <Link href={`https://caniuse.com/#feat=${this.props.tag}`}>
-            <a className="px-1 text-red-500">Caniuse</a>
+          <Link
+            className="px-1 text-red-500"
+            href={`https://caniuse.com/#feat=${this.props.tag}`}
+          >
+            Caniuse
           </Link>
           ,which has more detail. A number indicates that browser supports the
           feature at that version and up. Update Time:

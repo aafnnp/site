@@ -2,14 +2,16 @@ import {motion} from 'framer-motion'
 import Link from 'next/link'
 import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
 import dynamic from 'next/dynamic'
+import styles from 'styles/index.module.scss'
 
 const Image = dynamic(() => import('components/Image'), {ssr: false})
+const MotionLink = motion(Link)
 const LinkItems = [
-  {icon: 'blog', href: '/blog'},
-  {icon: 'challenges', href: '/challenges'},
-  {icon: 'playground', href: 'playground'},
-  {icon: 'about', href: '/about'},
-  {icon: 'contact', href: '/contact'}
+  {icon: 'blog', href: '/blog', bordered: true},
+  {icon: 'challenges', href: '/challenges', bordered: true},
+  {icon: 'playground', href: 'playground', bordered: true},
+  {icon: 'about', href: '/about', bordered: true},
+  {icon: 'contact', href: '/contact', bordered: true}
 ]
 const SocialItems = [
   {
@@ -28,7 +30,7 @@ const SocialItems = [
 
 export default function Index() {
   return (
-    <div className="relative w-screen h-screen bg-black flex flex-col items-center justify-center opacity-100">
+    <div className={styles.wrapper}>
       <motion.div
         initial={{scale: 0}}
         animate={{scale: 1}}
@@ -36,15 +38,15 @@ export default function Index() {
       >
         <Image
           src="/avatar.png"
-          className="w-[176px] h-[186.5px]"
           width={176}
           height={186.5}
           loading="lazy"
           alt="avatar"
+          unoptimized={true}
         />
       </motion.div>
       <motion.h1
-        className="text-4xl mt-8 font-bold text-center text-white"
+        className="text-4xl mt-8 font-bold text-center dark:text-white"
         initial={{x: -20, opacity: 0}}
         animate={{x: 0, opacity: 1}}
         transition={{ease: 'easeInOut', duration: 0.5, delay: 1}}
@@ -52,12 +54,12 @@ export default function Index() {
         Manon.icu - Frontend Developer
       </motion.h1>
       <Item items={SocialItems} delay={2} />
-      <Item items={LinkItems} delay={5} underline />
+      <Item items={LinkItems} delay={5} />
     </div>
   )
 }
 
-const Item = ({items, delay, underline}) => {
+const Item = ({items, delay}) => {
   const container = {
     hidden: {opacity: 1, scale: 0},
     visible: {
@@ -84,17 +86,20 @@ const Item = ({items, delay, underline}) => {
 
   return (
     <motion.div
-      className={`flex gap-4 mt-8 text-sm text-gray-200 uppercase cursor-pointer ${
-        underline ? 'underline' : ''
-      }`}
+      className={styles['item-container']}
       variants={container}
       initial="hidden"
       animate="visible"
     >
       {items.map((item) => (
-        <Link href={item.href} key={item.href}>
-          <motion.a variants={variants}>{item.icon}</motion.a>
-        </Link>
+        <MotionLink
+          href={item.href}
+          key={item.href}
+          className={item.bordered && styles.item}
+          variants={variants}
+        >
+          {item.icon}
+        </MotionLink>
       ))}
     </motion.div>
   )

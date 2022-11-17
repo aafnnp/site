@@ -1,0 +1,43 @@
+---
+date: '2022-09-04 17:11:02'
+title: 'Chrome插件开发 - Modify images on the page'
+tags: [chrome]
+description: 基于react、tailwindcss开发自己的chrome插件
+---
+
+这篇文章将解释如何修改活动页面上的图片
+
+<video
+  autoPlay
+  src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/spoof-images_xjwqgo.webm"
+></video>
+
+修改`src/App.jsx`
+
+```jsx
+import React from 'react'
+
+export default function ChangeImages() {
+  // 获取活动页面所有图片
+  const spoofImages = () => {
+    const images = document.getElementsByTagName('img')
+    for (const image of images) {
+      image.removeAttribute('srcset')//去掉srcset，使srcset高质量图片失效
+      image.src = 'http://placekitten.com/300'
+    }
+  }
+  // 通过chrome钩子替换活动页面所有图片
+  const imageSpoof = async () => {
+    const [tab] = await chrome.tabs.query({active: true, currentWindow: true})
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
+      function: spoofImages
+    })
+  }
+  return <button onClick={imageSpoof}>Change images</button>
+}
+```
+
+## Source Code
+
+[【Source Code】](https://github.com/rebelchris/popup-extension/tree/image-spoof)

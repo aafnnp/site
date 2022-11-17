@@ -8,6 +8,7 @@ import React from 'react'
 import remarkGfm from 'remark-gfm'
 import styles from 'styles/blog.module.scss'
 import components from 'utils/components'
+
 const codesandbox = require('remark-codesandbox')
 
 const Ad = dynamic(() => import('components/ad'))
@@ -45,9 +46,7 @@ const Post = ({
         {originalUrl && (
           <div className={styles.originalUrl}>
             本文翻译自：
-            <Link href={originalUrl}>
-              <a>{originalUrl}</a>
-            </Link>
+            <Link href={originalUrl}>{originalUrl}</Link>
           </div>
         )}
         {/* 底部广告 */}

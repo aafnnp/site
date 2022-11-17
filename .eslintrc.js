@@ -1,10 +1,17 @@
 module.exports = {
   root: true,
-  extends: ['next/core-web-vitals'],
+  env: {
+    node: true,
+    browser: true
+  },
+  extends: ['eslint:recommended', 'next/core-web-vitals'],
   parserOptions: {
+    ecmaVersion: 'latest',
     sourceType: 'module'
   },
   rules: {
-    '@next/next/no-img-element': 'off'
+    '@next/next/no-img-element': 'off',
+    'no-extra-semi': 'off',
+    'react/no-unknown-property': 'off'
   }
 }

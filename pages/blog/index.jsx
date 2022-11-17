@@ -18,12 +18,17 @@ const IndexPage = ({posts}) => {
       <div className={styles['post-list']}>
         {posts[page].map((post) => {
           return (
-            <motion.div whileHover={{ y: -10 }} className={styles['post-item']} key={post.title}>
-              <div className={styles["post-item-image"]}>
-                <Pexels tag={post.tags} cover={post.cover}/>
+            <motion.div
+              whileHover={{y: -10}}
+              className={styles['post-item']}
+              key={post.title}
+            >
+              <div className={styles['post-item-image']}>
+                {/* <img src={`/api/og?title=${post.title}&cover=${post.cover}`} alt="" /> */}
+                <Pexels tag={post.tags} cover={post.cover} title={post.title} />
               </div>
-              <div className={styles["post-item-meta"]}>
-                <div className={styles["post-item-meta-tags"]}>
+              <div className={styles['post-item-meta']}>
+                <div className={styles['post-item-meta-tags']}>
                   {post.tags?.map((tag) => (
                     <Image
                       className={styles.tag}
@@ -32,6 +37,8 @@ const IndexPage = ({posts}) => {
                       alt={tag}
                       width={16}
                       height={16}
+                      unoptimized={true}
+                      placeholder={''}
                     />
                   ))}
                 </div>
@@ -44,7 +51,7 @@ const IndexPage = ({posts}) => {
           )
         })}
       </div>
-      <Pagination len={posts.length} page={page} setPage={setPage}/>
+      <Pagination len={posts.length} page={page} setPage={setPage} />
     </div>
   )
 }
@@ -54,7 +61,7 @@ export default IndexPage
 export async function getStaticProps() {
   const {GetAllPosts} = await import('api/getAllPosts')
   const posts = await GetAllPosts()
-  const chunkedPosts = chunk(posts, 12)
+  const chunkedPosts = chunk(posts, 24)
   return {
     props: {
       posts: chunkedPosts

@@ -1,0 +1,69 @@
+---
+date: '2022-08-22 17:20:15'
+title: 'Chrome插件开发 - Switch to vite'
+tags: [chrome]
+description: 基于react、tailwindcss开发自己的chrome插件
+
+---
+
+在上一篇文章[【Spicing with react】](/blog/translate/build-chrome-extensions/spicing-with-react)学习了使用 react 创建新标签插件。
+
+这篇文章替换掉 parcel，切换到 vite
+
+删除`.parcel`
+
+删除`package.json`内的`"parcel": "^2.7.0","parcel-reporter-static-files-copy": "^1.3.4",`
+
+添加`vite`
+
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vite": "^3.0.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^2.0.0"
+  }
+}
+```
+
+重命名文件
+
+- `App.js`=>`App.jsx`
+- `Counter.js`=>`Counter.jsx`
+- `index.js`=>`index.jsx`
+
+将`index.jsx`移动到`src`
+
+重命名`static`为`public`
+
+由于没有使用`index.html`，所以要在`vite.config.js`特殊声明一下
+
+```js
+import {defineConfig} from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    rollupOptions: {
+      input: {
+        app: './new-tab.html'
+      }
+    }
+  }
+})
+```
+
+跑起来
+
+```bash
+npm run build
+```
+
+[【Source Code】](https://github.com/rebelchris/new-tab-extension/tree/vite)

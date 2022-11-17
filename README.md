@@ -1,3 +1,13 @@
+![Logo](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/tobias-rademacher-CUHhXklINMY-unsplash.jpg)
+
+# Site
+
+Personal Site Build With Next.js、MDX、framer-motion and etc.
+
+## Badges
+
+Add badges from somewhere like: [shields.io](https://shields.io/)
+
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Build and Deploy](https://github.com/Manonicu/site/actions/workflows/release.yml/badge.svg)](https://github.com/Manonicu/site/actions/workflows/release.yml)
 ![Next JS](https://img.shields.io/badge/Next-black.svg)
@@ -10,7 +20,13 @@
 
 <a href ="https://www.hackerrank.com/certificates/d88cd5622a28"><img src="https://s2.loli.net/2022/01/14/WOubtrP2GiyBhDe.jpg" width="100"/></a>
 
-## Site links
+## Acknowledgements
+
+- [Next.js](https://nextjs.org)
+- [MDX](https://mdxjs.com)
+- [Framer Motion](https://www.framer.com)
+
+## Demo
 
 - https://manon.icu/
 - https://site-lk00kjo3z-manonicu.vercel.app/

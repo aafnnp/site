@@ -78,33 +78,37 @@ console.log(timeFromDate(new Date(2021, 0, 10, 5, 56, 44)))
 
 ## 计算两个日期之间的工作日数
 
-````js
+```js
 const countWeekDaysBetween = (startDate, endDate) =>
-  Array
-    .from({ length: (endDate - startDate) / (1000 * 3600 * 24) })
-    .reduce(count => {
+  Array.from({length: (endDate - startDate) / (1000 * 3600 * 24)}).reduce(
+    (count) => {
       if (startDate.getDay() % 6 !== 0) {
-        count++;
+        count++
       }
-     startDate = new Date(startDate.setDate(startDate.getDate() + 1));
-      return count;
-    }, 0);
-countWeekDaysBetween(new Date(2021, 0, 10), new Date(2021, 0, 20)); // 7
-countWeekDaysBetween(new Date(2021, 1, 10), new Date(2021, 2, 18)); // 26
-`## 检查localstorage是否可用
-``` javascript
+      startDate = new Date(startDate.setDate(startDate.getDate() + 1))
+      return count
+    },
+    0
+  )
+countWeekDaysBetween(new Date(2021, 0, 10), new Date(2021, 0, 20)) // 7
+countWeekDaysBetween(new Date(2021, 1, 10), new Date(2021, 2, 18)) // 26
+```
+
+## 检查 localstorage 是否可用
+
+```javascript
 const isLocalStorageEnabled = () => {
   try {
-    const key = `__storage__test`;
-    window.localStorage.setItem(key, null);
-    window.localStorage.removeItem(key);
-    return true;
+    const key = `__storage__test`
+    window.localStorage.setItem(key, null)
+    window.localStorage.removeItem(key)
+    return true
   } catch (e) {
-    return false;
+    return false
   }
-};
-isLocalStorageEnabled(); // true, if localStorage is accessible
-````
+}
+isLocalStorageEnabled() // true, if localStorage is accessible
+```
 
 ## 计算函数等花费时间
 

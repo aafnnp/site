@@ -26,43 +26,25 @@ export default function Index({isOpen}) {
         </div>
         <div className={styles.social}>
           <Link href="https://twitter.com/Manonicu">
-            <a target="_blank">
-              <FaTwitter />
-            </a>
+            <FaTwitter />
           </Link>
           <Link href="https://github.com/Manonicu">
-            <a target="_blank">
-              <FaGithub />
-            </a>
+            <FaGithub />
           </Link>
           <Link href="/about">
-            <a>
-              <FaSitemap />
-            </a>
+            <FaSitemap />
           </Link>
         </div>
       </div>
 
       <div className={`${styles.slogan}  ${isOpen ? styles.active : ''}`}></div>
       <div className={`${styles.menu}  ${isOpen ? styles.active : ''}`}>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-        <Link href="/blog">
-          <a>Blog</a>
-        </Link>
-        <Link href="/challenges">
-          <a>Challenges</a>
-        </Link>
-        <Link href="/playground">
-          <a>Playground</a>
-        </Link>
-        <Link href="/http-status">
-          <a>Http Status</a>
-        </Link>
+        <Link href="/">Home</Link>
+        <Link href="/about">About</Link>
+        <Link href="/blog">Blog</Link>
+        <Link href="/challenges">Challenges</Link>
+        <Link href="/playground">Playground</Link>
+        <Link href="/http-status">Http Status</Link>
         {/* <Link href="/contact"><a>Contact</a></Link> */}
       </div>
 

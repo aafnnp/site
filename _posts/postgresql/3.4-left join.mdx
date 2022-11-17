@@ -1,8 +1,26 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Postgresql - Buffers'
+date: '2022-06-12 10:11:51'
+title: 'Postgresql - LEFT JOIN'
 tags: [postgresql, sql]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+description: Postgresql INNER JOIN从多个表中选择数据。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/R2zQqf.jpg
 ---
 
+假设有两个表`A`和`B`
+
+![R2zQqf](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/R2zQqf.jpg)
+
+在`A`表中可能有0或多个行，在`B`表中可能有0或1个行。
+
+要从表中选择表`A`可能有或没有相应航的数据，可以使用`LEFT JOIN`
+
+```sql
+SELECT
+	pka,
+	c1,
+	pkb,
+	c2
+FROM
+	A
+LEFT JOIN B ON pka = fka;
+```

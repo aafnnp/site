@@ -9,9 +9,7 @@ export default function RandomPost({randomPost}) {
       <ul>
         {randomPost.map((item, key) => (
           <li key={key} className={styles.li}>
-            <Link href={`/blog/${item.slug}`}>
-              <a className={styles.a}>{item.title}</a>
-            </Link>
+            <Link href={`/blog/${item.slug}`}>{item.title}</Link>
           </li>
         ))}
       </ul>

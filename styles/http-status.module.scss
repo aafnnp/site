@@ -1,4 +1,5 @@
 .http-status {
+  font-family: var(--inter-font);
   @apply p-4 max-w-prose mx-auto;
   h1 {
     @apply text-3xl font-bold mb-8;
