@@ -1,15 +1,14 @@
-const withPlugins = require('next-compose-plugins')
+// const withPlugins = require('next-compose-plugins')
+//
+// const withMDX = require('@next/mdx')({
+//   extension: /\.mdx$/
+// })
+// const withAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: false
+// })
 
-const withMDX = require('@next/mdx')({
-  extension: /\.mdx$/
-})
-const withAnalyzer = require('@next/bundle-analyzer')({
-  enabled: false
-})
-
-module.exports = withPlugins([withMDX, withAnalyzer], {
+module.exports = {
   reactStrictMode: true,
-  // i18n:{},
   // webpack: (config, {isServer}) => {
   //   if (!isServer) {
   //     // don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
@@ -26,5 +25,8 @@ module.exports = withPlugins([withMDX, withAnalyzer], {
   images: {
     loader: 'custom',
     domains: ['images.unsplash.com', 'pics-rust.vercel.app', 'cdn.jsdelivr.ne']
+  },
+  experimental: {
+    fontLoaders: [{loader: '@next/font/google', options: {subsets: ['latin']}}]
   }
-})
+}
