@@ -60,7 +60,6 @@ const Section = ({browser, data}) => {
 }
 
 export default function CanIUse({tag}) {
-  console.log(lite.feature(lite.features[tag]), lite)
   const {
     stats: {
       chrome,
