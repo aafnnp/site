@@ -15,6 +15,7 @@ const GetAllPosts = async () => {
       const {data, content} = matter(fileContents)
       const postData = {
         ...data,
+        group: dayjs(data.date).format('MMM/YYYY'),
         date: dayjs(data.date).format('MMM DD, YYYY'),
         fromNow: dayjs(data.date).fromNow(),
         modified: dayjs(data.modified).format('MMM DD, YYYY'),

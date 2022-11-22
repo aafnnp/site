@@ -12,19 +12,26 @@ import {
 } from 'next-share'
 import {useRouter} from 'next/router'
 import {useEffect, useState} from 'react'
-import styles from 'assets/styles/blog.module.scss'
+import {Flex} from '@chakra-ui/react'
 
 export default function Share({title, tag}) {
   const {asPath} = useRouter()
   const [url, setUrl] = useState(asPath)
+
   useEffect(() => {
     setUrl(location.href)
   }, [asPath])
+
   return (
     <>
       {asPath === '/' ? null : (
-        <div className={styles.share}>
-          <TwitterShareButton url={url} title={title} via={"manon"} hashtags={tag}>
+        <Flex gap={2} py={4} justifyContent="center">
+          <TwitterShareButton
+            url={url}
+            title={title}
+            via={'manon'}
+            hashtags={tag}
+          >
             <TwitterIcon size={24} round />
           </TwitterShareButton>
           <WeiboShareButton url={url} title={title}>
@@ -39,7 +46,7 @@ export default function Share({title, tag}) {
           <FacebookShareButton url={asPath} quote={title} hashtag={tag[0]}>
             <FacebookIcon size={24} round />
           </FacebookShareButton>
-        </div>
+        </Flex>
       )}
     </>
   )

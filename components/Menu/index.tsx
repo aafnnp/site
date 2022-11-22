@@ -1,24 +1,20 @@
 import React from 'react'
-import Link from 'next/link'
 import {useRouter} from 'next/router'
+import NextLink from 'next/link'
+import {Flex, Link} from '@chakra-ui/react'
 
 const Navigation = () => {
   const {asPath} = useRouter()
-  const cls = `flex fixed top-0 left-0 w-screen h-[64px] justify-center gap-4 items-center shadow bg-white z-[999] ${
-    asPath === '/about' && 'bg-transparent text-white shadow-none'
-  }`
   return (
-    <div className={cls}>
-      {LinkItems.map((i, key) => (
-        <Link
-          href={i.href}
-          className={`menu-item ${i.href === asPath && 'text-twitter'} `}
-          key={key}
-        >
-          {i.name}
-        </Link>
+    <Flex gap={4} alignItems="center" justifyContent="center" py={4}>
+      {LinkItems.map((i) => (
+        <NextLink legacyBehavior passHref key={i.name} href={i.href}>
+          <Link className={`menu-item ${i.href === asPath && 'text-twitter'} `}>
+            {i.name}
+          </Link>
+        </NextLink>
       ))}
-    </div>
+    </Flex>
   )
 }
 

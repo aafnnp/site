@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Box} from '@chakra-ui/react'
 
 export default class Comments extends Component {
   componentDidMount() {
@@ -23,6 +24,6 @@ export default class Comments extends Component {
   }
 
   render() {
-    return <div id="inject-comments-for-uterances" className="py-12" />
+    return <Box py={12} id="inject-comments-for-uterances" />
   }
 }

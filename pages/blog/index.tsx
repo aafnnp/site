@@ -1,59 +1,56 @@
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import styles from 'assets/styles/blog.module.scss'
-import {useState} from 'react'
-import {chunk} from 'utils'
+import NextLink from 'next/link'
+import {Fragment} from 'react'
+import {
+  List,
+  LinkOverlay,
+  ListItem,
+  Container,
+  Heading,
+  Image
+} from '@chakra-ui/react'
 
-const Image = dynamic(() => import('components/Image'))
-const Pagination = dynamic(() => import('components/Pagination'))
-
-const IndexPage = ({posts}) => {
-  const [page, setPage] = useState(0)
-
+const IndexPage = ({groupByMonthPosts}) => {
+  console.log(groupByMonthPosts)
   return (
-    <div className={styles.blog}>
-      <h1 className={styles.title}>Blog</h1>
-      <div className={styles['post-list']}>
-        {posts[page].map((post) => {
-          return (
-            <div className={styles['post-item']} key={post.title}>
-              <div className={styles['post-item-image']}>
-                {/* 自动生成的cover */}
-                <img
-                  alt=""
-                  src={
-                    post.cover ??
-                    `/api/og?title=${post.title}&tags=${post.tags}&cover=${post.cover}`
-                  }
-                />
-              </div>
-
-              <div className={styles['post-item-meta']}>
-                <div className={styles['post-item-meta-tags']}>
-                  {post.tags?.map((tag) => (
-                    <Image
-                      className={styles.tag}
-                      key={tag}
-                      src={`https://pics-rust.vercel.app/uPic/icons/${tag}.svg`}
-                      alt={tag}
-                      width={16}
-                      height={16}
-                      unoptimized={true}
-                      placeholder={''}
-                    />
-                  ))}
-                </div>
-                <div className="post-item-meta-date">{post.date}</div>
-              </div>
-              <div className="post-item-title hover:text-blue-500">
-                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-      <Pagination len={posts.length} page={page} setPage={setPage} />
-    </div>
+    <Container>
+      {Object.keys(groupByMonthPosts).map((group) => {
+        return (
+          <Fragment key={group}>
+            <Heading as="h3" mt={12} mb={4}>
+              {group}
+            </Heading>
+            <List spacing={3} key={group}>
+              {groupByMonthPosts[group].map((post) => {
+                return (
+                  <ListItem
+                    position="relative"
+                    display="flex"
+                    gap={2}
+                    alignItems="center"
+                    key={post.title}
+                  >
+                    <NextLink legacyBehavior href={`/blog/${post.slug}`} passHref>
+                      <LinkOverlay>{post.title}</LinkOverlay>
+                    </NextLink>
+                    {post.tags.map((tag) => {
+                      return (
+                        <Image
+                          key={tag}
+                          boxSize={4}
+                          objectFit="cover"
+                          alt={tag}
+                          src={`https://pics-rust.vercel.app/uPic/icons/${tag}.svg`}
+                        />
+                      )
+                    })}
+                  </ListItem>
+                )
+              })}
+            </List>
+          </Fragment>
+        )
+      })}
+    </Container>
   )
 }
 
@@ -62,10 +59,18 @@ export default IndexPage
 export async function getStaticProps() {
   const {GetAllPosts} = await import('utils/getAllPosts')
   const posts = await GetAllPosts()
-  const chunkedPosts = chunk(posts, 24)
+  const groupByMonthPosts = posts.reduce((prev, next) => {
+    if (Array.isArray(prev[next.group])) {
+      prev[next.group].push(next)
+    } else {
+      prev[next.group] = []
+      prev[next.group].push(next)
+    }
+    return prev
+  }, {})
   return {
     props: {
-      posts: chunkedPosts
+      groupByMonthPosts
     }
   }
 }

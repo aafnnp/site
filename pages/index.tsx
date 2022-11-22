@@ -1,6 +1,6 @@
 import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
 import styles from 'assets/styles/index.module.scss'
-import {Flex, GridItem, Grid, Avatar, Link, Center} from '@chakra-ui/react'
+import {Flex, GridItem, Grid, Avatar, Link, Center,Heading} from '@chakra-ui/react'
 
 const LinkItems = [
   {icon: 'blog', href: '/blog', bordered: true},
@@ -35,10 +35,9 @@ export default function Index() {
         </GridItem>
         <GridItem
           w="100%"
-          as="h1"
           className="xs:text-xl text-4xl mt-8 font-bold text-center dark:text-white"
         >
-          <Center>Manon.icu - Frontend Developer</Center>
+          <Heading as="h1">Manon.icu - Frontend Developer</Heading>
         </GridItem>
         <GridItem w="100%">
           <Center>
@@ -57,7 +56,7 @@ export default function Index() {
 
 const Item = ({items}) => {
   return (
-    <Grid gap={4} color="gray-600" mt={8} templateColumns={`repeat(${items.length}, 1fr)`}>
+    <Flex gap={4} color="gray-600" mt={8}>
       {items.map((item) => (
         <GridItem key={item.href}>
           <Link href={item.href} className={item.bordered && styles.item}>
@@ -65,6 +64,6 @@ const Item = ({items}) => {
           </Link>
         </GridItem>
       ))}
-    </Grid>
+    </Flex>
   )
 }

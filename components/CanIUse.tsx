@@ -1,65 +1,104 @@
-import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import {BrowserEnums} from 'utils'
-import {useCanIUse} from 'hooks/useCanIUse'
-
-const Image = dynamic(() => import('components/Image'))
+import * as lite from 'caniuse-lite'
+import {
+  Container,
+  Box,
+  Heading,
+  Grid,
+  Link,
+  Flex,
+  Image,
+  Center
+} from '@chakra-ui/react'
 
 const Section = ({browser, data}) => {
   return (
-    <div className="caniuse-section mt-4">
-      <h5 className="text-xs py-4 font-bold capitalize">{browser}</h5>
-      <div className="grid grid-cols-4 mb-2 gap-4">
+    <Box mt={4}>
+      <Heading
+        as="h3"
+        py={4}
+        fontSize="sm"
+        fontWeight={600}
+        textTransform="capitalize"
+      >
+        {browser}
+      </Heading>
+      <Grid templateColumns="repeat(4,1fr)" gap={4} mb={2}>
         {Object.entries(BrowserEnums[browser]).map(([key, value], index) => {
           return (
-            <div
-              className="flex flex-col justify-center items-center"
+            <Flex
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
               key={key}
             >
               <Image
-                className="w-12 h-12"
+                boxSize={12}
                 src={`https://pics-rust.vercel.app/logos/${value}.svg`}
                 alt={key}
                 loading="lazy"
-                width={48}
-                height={48}
               />
-              <span
-                className=" mt-2 block w-full text-white rounded-md text-center font-bold p-2"
+              <Box
+                mt={2}
+                rounded="md"
+                fontWeight="bold"
+                p={2}
+                w="100%"
                 style={{
                   backgroundColor:
                     data.desktop[index] === 'No' ? '#ff0024' : '#47ca4c'
                 }}
               >
-                {data.desktop[index]}
-              </span>
-            </div>
+                <Center>{data.desktop[index]}</Center>
+              </Box>
+            </Flex>
           )
         })}
-      </div>
-    </div>
+      </Grid>
+    </Box>
   )
 }
 
 export default function CanIUse({tag}) {
-  const data = useCanIUse(tag)
+  console.log(lite.feature(lite.features[tag]), lite)
+  const {
+    stats: {
+      chrome,
+      firefox,
+      ie,
+      edge,
+      safari,
+      and_chr,
+      and_ff,
+      android,
+      ios_saf
+    }
+  } = lite.feature(lite.features[tag])
+  const getSupportData = (arr) => {
+    return arr.map((item) => {
+      const firstSupportItems = Object.entries(item).find((el) => el[1] === 'y')
+      return firstSupportItems ? firstSupportItems[0] : 'No'
+    })
+  }
+
+  const data = {
+    desktop: getSupportData([chrome, firefox, ie, edge, safari]),
+    mobile: getSupportData([and_chr, and_ff, android, ios_saf])
+    // updateTime: dayjs(data.updated).format('YYYY-MM-DD HH:mm:ss')
+  }
 
   return (
-    <div className="mx-auto my-12">
-      <div className="text-gray-500 text-xs">
+    <Container my={12} maxW={['768px', '1200px', '1200px', '1400px']}>
+      <Box color="gray.500">
         This browser support data is from
-        <Link
-          className="px-1 text-red-500"
-          href={`https://caniuse.com/#feat=${tag}`}
-        >
+        <Link px={1} color="red.500" href={`https://caniuse.com/#feat=${tag}`}>
           Caniuse
         </Link>
         ,which has more detail. A number indicates that browser supports the
-        feature at that version and up. Update Time:
-        <span className="text-red-500 px-1">{data.updateTime}</span>
-      </div>
+        feature at that version and up.
+      </Box>
       <Section browser="desktop" data={data} />
       <Section browser="mobile" data={data} />
-    </div>
+    </Container>
   )
 }

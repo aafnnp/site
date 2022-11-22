@@ -22,6 +22,7 @@ specifiers:
   '@vercel/og': ^0.0.20
   animejs: ^3.2.1
   autoprefixer: ^10.4.13
+  caniuse-lite: ^1.0.30001431
   classnames: ^2.3.2
   cssnano: ^5.1.14
   cz-conventional-changelog: 3.3.0
@@ -80,6 +81,7 @@ dependencies:
   '@vercel/analytics': 0.1.5_react@18.2.0
   '@vercel/og': 0.0.20
   animejs: 3.2.1
+  caniuse-lite: 1.0.30001431
   classnames: 2.3.2
   dayjs: 1.11.6
   framer-motion: 7.6.7_biqbaboplfbrettd7655fr4n2y

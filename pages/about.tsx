@@ -1,6 +1,7 @@
+// TODO
 import Link from 'next/link'
 import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
-import styles from 'styles/about.module.scss'
+import styles from 'assets/styles/about.module.scss'
 
 export default function Index({isOpen}) {
   return (

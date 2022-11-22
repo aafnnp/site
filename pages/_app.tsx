@@ -4,8 +4,6 @@ import Head from 'next/head'
 import React from 'react'
 import {Analytics} from '@vercel/analytics/react'
 import 'assets/styles/main.scss'
-import 'assets/styles/markdown.scss'
-import '@fontsource/dosis'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from 'utils/theme'
 

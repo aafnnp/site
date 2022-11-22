@@ -2,18 +2,17 @@ import {MDXRemote} from 'next-mdx-remote'
 import {serialize} from 'next-mdx-remote/serialize'
 import dynamic from 'next/dynamic'
 import ErrorPage from 'next/error'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import {useRouter} from 'next/router'
 import React from 'react'
 import remarkGfm from 'remark-gfm'
-import styles from 'styles/blog.module.scss'
 import components from 'utils/components'
-
+import {Container, Box, Heading, Text, Link} from '@chakra-ui/react'
+import {NextSeo} from 'next-seo'
 const codesandbox = require('remark-codesandbox')
 
 const Ad = dynamic(() => import('components/ad'))
 const PostPage = dynamic(() => import('components/PostPage'))
-const Layout = dynamic(() => import('components/Layout'))
 const Random = dynamic(() => import('components/RandomPost'))
 const Share = dynamic(() => import('components/Share'))
 const Comments = dynamic(() => import('components/Comments'))
@@ -32,11 +31,28 @@ const Post = ({
     return <ErrorPage statusCode={404} />
   }
   return (
-    <Layout title={title} description={description}>
-      <hgroup className={styles.hgroup}>
-        <p className={styles.p}>Published {date}</p>
-        <h1 className={styles.h1}>{title}</h1>
-      </hgroup>
+    <Container
+      mt={20}
+      maxW={{
+        sm: 'container.sm',
+        md: 'container.md',
+        lg: 'container.2xl',
+        xl: 'container.xl'
+      }}
+    >
+      <NextSeo
+        title={title}
+        description={description}
+        openGraph={{title, description}}
+      />
+      <Box as="hgroup">
+        <Text textAlign="center" color="gray.500" fontSize="xs" as="p">
+          Published {date}
+        </Text>
+        <Heading textAlign="center" as="h1" mt={4} mb={8}>
+          {title}
+        </Heading>
+      </Box>
 
       {/* 头部广告 */}
       <Ad />
@@ -44,10 +60,12 @@ const Post = ({
       <PostPage>
         <MDXRemote {...mdxSource} components={components} />
         {originalUrl && (
-          <div className={styles.originalUrl}>
+          <Box color="gray.500">
             本文翻译自：
-            <Link href={originalUrl}>{originalUrl}</Link>
-          </div>
+            <NextLink legacyBehavior href={originalUrl} passHref>
+              <Link>{originalUrl}</Link>
+            </NextLink>
+          </Box>
         )}
         {/* 底部广告 */}
         <Ad />
@@ -58,7 +76,7 @@ const Post = ({
 
         <Comments />
       </PostPage>
-    </Layout>
+    </Container>
   )
 }
 

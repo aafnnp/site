@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {useRouter} from 'next/router'
+import {Box} from '@chakra-ui/react'
 
 export default function Ad() {
   const {asPath} = useRouter()
@@ -12,7 +13,7 @@ export default function Ad() {
   }, [asPath])
 
   return (
-    <div className="my-8" key={asPath}>
+    <Box my={8} key={asPath}>
       <ins
         className="adsbygoogle"
         style={{display: 'block'}}
@@ -21,6 +22,6 @@ export default function Ad() {
         data-ad-format="auto"
         data-full-width-responsive="true"
       />
-    </div>
+    </Box>
   )
 }

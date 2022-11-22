@@ -1,50 +1,60 @@
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import React from 'react'
 import {FaGithub, FaLink} from 'react-icons/fa'
-import styles from 'styles/playground.module.scss'
-
-const Image = dynamic(() => import('components/Image'))
+import {
+  Grid,
+  Container,
+  Heading,
+  OrderedList,
+  ListItem,
+  Flex,
+  Image,
+  Link,
+  Center
+} from '@chakra-ui/react'
 
 export default function IndexPage(props) {
   const {allChallenges} = props
 
   return (
-    <div className={styles.challenges}>
-      <h1 className={styles.h1}>Web API Playground</h1>
-      <div className={styles.list}>
-        <ul>
-          {allChallenges.map((challenge, i) => {
+    <Container
+      pt={20}
+      maxW={['768px', '1200px', '1200px', '1400px']}
+    >
+      <Heading as="h1" mb={4}><Center>Web API Playground</Center></Heading>
+      <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+        <OrderedList>
+          {allChallenges.map((challenge) => {
             return (
-              <li className={styles.item} key={challenge.link}>
-                <div className={styles.title}>
-                  <i>{i + 1}.</i> {challenge.title}
-                </div>
-                <div className={styles.icons}>
+              <ListItem key={challenge.link}>
+                <Flex gap={2} alignItems="center">
+                  {challenge.title}
                   <Image
-                    className={styles.icon}
+                    boxSize={4}
                     src={`https://pics-rust.vercel.app/uPic/icons/${challenge.group}.svg`}
                     alt={challenge.group}
-                    loading="lazy"
-                    width={16}
-                    height={16}
                   />
-                  <Link href={challenge.link} className={styles.link}>
-                    <FaLink />
-                  </Link>
-                  <Link
-                    className={styles.source}
+                  <NextLink passHref legacyBehavior href={challenge.link}>
+                    <Link>
+                      <FaLink />
+                    </Link>
+                  </NextLink>
+                  <NextLink
+                    passHref
+                    legacyBehavior
                     href={`https://github.com/Manonicu/site/tree/master/_playground/${challenge.group}/${challenge.title}.jsx`}
                   >
-                    <FaGithub />
-                  </Link>
-                </div>
-              </li>
+                    <Link>
+                      <FaGithub />
+                    </Link>
+                  </NextLink>
+                </Flex>
+              </ListItem>
             )
           })}
-        </ul>
-      </div>
-    </div>
+        </OrderedList>
+      </Grid>
+    </Container>
   )
 }
 

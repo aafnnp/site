@@ -1,60 +1,88 @@
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import React from 'react'
 import {FaGithub, FaLink} from 'react-icons/fa'
-import styles from 'styles/challenges.module.scss'
-
-const Image = dynamic(() => import('components/Image'))
+import {
+  Grid,
+  Container,
+  Heading,
+  Center,
+  Flex,
+  Image,
+  Link
+} from '@chakra-ui/react'
 
 export default function IndexPage(props) {
   const {allChallenges} = props
 
   return (
-    <div className={styles.challenges}>
-      <h1 className={styles.h1}>Challenges</h1>
-      <div className={styles.list}>
+    <Container pt={20} maxW={['768px', '1200px', '1200px', '1400px']}>
+      <Heading as="h1" mb={12}>
+        <Center>Challenges</Center>
+      </Heading>
+      <Grid templateColumns="repeat(5, 1fr)" gap={4}>
         {allChallenges.map((challenge, i) => {
           return <Challenge {...challenge} key={i} />
         })}
-      </div>
-    </div>
+      </Grid>
+    </Container>
   )
 }
 
 const Challenge = ({link, title, group}) => {
   return (
-    <div className={styles.item} key={link}>
-      <img
-        className={styles.image}
-        src={`/screenshots/${title}.webp`}
-        alt={title}
-      />
+    <Flex gap={2} direction="column" key={link}>
+      <img src={`/screenshots/${title}.webp`} alt={title} />
 
-      <h3 className={styles.h3}>
+      <Flex gap={2} alignItems="center">
         <Image
-          className={styles.icon}
           src={`https://pics-rust.vercel.app/uPic/icons/${group}.svg`}
-          alt={group}
-          loading="lazy"
-          width={16}
-          height={16}
+          boxSize={4}
+          alt={title}
         />
         {title}
-      </h3>
-      <div className={styles.btn}>
-        <Link href={link} className={styles.link}>
-          <FaLink />
-          Link
-        </Link>
-        <Link
+      </Flex>
+      <Flex gap={2} alignItems="center" justifyContent="space-between">
+        <NextLink passHref href={link} legacyBehavior>
+          <Link
+            display="flex"
+            w="50%"
+            alignItems="center"
+            justifyContent="center"
+            gap={2}
+            bg="white"
+            color="blue.500"
+            py={1}
+            rounded="md"
+            shadow="md"
+            fontSize="sm"
+          >
+            <FaLink />
+            Link
+          </Link>
+        </NextLink>
+        <NextLink
+          passHref
           href={`https://github.com/Manonicu/site/tree/master/_challenges/${group}/${title}.jsx`}
-          className={styles.source}
+          legacyBehavior
         >
-          <FaGithub />
-          Source
-        </Link>
-      </div>
-    </div>
+          <Link
+            display="flex"
+            w="50%"
+            alignItems="center"
+            justifyContent="center"
+            gap={2}
+            bg="blue.500"
+            py={1}
+            rounded="md"
+            color="white"
+            fontSize="sm"
+          >
+            <FaGithub />
+            Source
+          </Link>
+        </NextLink>
+      </Flex>
+    </Flex>
   )
 }
 
