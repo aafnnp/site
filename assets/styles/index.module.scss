@@ -1,0 +1,37 @@
+.item {
+  --c: #373b44;
+  --b: 1px;
+  --s: 4px;
+
+  padding: calc(0.05em + var(--s)) calc(0.3em + var(--s));
+  color: var(--c);
+  --_p: var(--s);
+  background: conic-gradient(
+      from 90deg at var(--b) var(--b),
+      #0000 90deg,
+      var(--c) 0
+    )
+    var(--_p) var(--_p) / calc(100% - var(--b) - 2 * var(--_p))
+    calc(100% - var(--b) - 2 * var(--_p));
+  transition: 0.3s linear, color 0s, background-color 0s;
+  outline: var(--b) solid #0000;
+  outline-offset: 0.2em;
+
+  &:hover,
+  &:focus-visible {
+    --_p: 0px;
+    outline-color: var(--c);
+    outline-offset: 0.05em;
+  }
+  &:active {
+    background: var(--c);
+    color: #fff;
+  }
+
+
+}
+@media (prefers-color-scheme: dark) {
+  .item {
+    --c: #fff;
+  }
+}
