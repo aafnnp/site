@@ -1,5 +1,5 @@
 import CanIUse from 'components/CanIUse'
-import {Heading, Link, Box, OrderedList, ListItem} from '@chakra-ui/react'
+import {Heading, Link, Box} from '@chakra-ui/react'
 import {FiExternalLink} from 'react-icons/fi'
 
 const components = {
@@ -43,9 +43,9 @@ const components = {
         <FiExternalLink />
       </Link>
     )
-  },
-  ul: (props) => <OrderedList mb={4}>{props.children}</OrderedList>,
-  li: (props) => <ListItem>{props.children}</ListItem>
+  }
+  // ul: (props) => <OrderedList mb={4}>{props.children}</OrderedList>,
+  // li: (props) => <ListItem>{props.children}</ListItem>
   // code: props=><Code>{props.children}</Code>
 }
 

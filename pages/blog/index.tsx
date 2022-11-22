@@ -18,7 +18,7 @@ const IndexPage = ({groupByMonthPosts}) => {
             <Heading as="h3" mt={12} mb={4}>
               {group}
             </Heading>
-            <List spacing={3} key={group}>
+            <List spacing={3}>
               {groupByMonthPosts[group].map((post) => {
                 return (
                   <ListItem
