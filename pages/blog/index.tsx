@@ -10,7 +10,6 @@ import {
 } from '@chakra-ui/react'
 
 const IndexPage = ({groupByMonthPosts}) => {
-  console.log(groupByMonthPosts)
   return (
     <Container>
       {Object.keys(groupByMonthPosts).map((group) => {
