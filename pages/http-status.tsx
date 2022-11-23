@@ -4,6 +4,13 @@ import {data, title} from 'utils/http-status'
 import {Container, Heading, Box, Text, Link} from '@chakra-ui/react'
 
 const HttpStatus = () => {
+  React.useEffect(()=>{
+    // fetch("/api/publish").then(res=>{
+    //   console.log(res,"res")
+    // })
+
+
+  },[])
   return (
     <Container p={4}>
       <Heading as="h1">HTTP状态代码概述</Heading>
