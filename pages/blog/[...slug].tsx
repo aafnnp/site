@@ -7,7 +7,7 @@ import {useRouter} from 'next/router'
 import React from 'react'
 import remarkGfm from 'remark-gfm'
 import components from 'utils/components'
-import {Container, Box, Heading, Text, Link,Image,Center} from '@chakra-ui/react'
+import {Container, Box, Heading, Text, Link,Image} from '@chakra-ui/react'
 import {NextSeo} from 'next-seo'
 const codesandbox = require('remark-codesandbox')
 
