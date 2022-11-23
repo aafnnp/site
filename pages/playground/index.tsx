@@ -17,18 +17,19 @@ export default function IndexPage(props) {
   const {allChallenges} = props
 
   return (
-    <Container
-      pt={20}
-      maxW={['768px', '1200px', '1200px', '1400px']}
-    >
-      <Heading as="h1" mb={4}><Center>Web API Playground</Center></Heading>
+    <Container pt={20} maxW={['768px', '1200px', '1200px', '1400px']}>
+      <Heading as="h1" mb={4}>
+        <Center>Web API Playground</Center>
+      </Heading>
       <Grid templateColumns="repeat(3, 1fr)" gap={4}>
         <OrderedList>
           {allChallenges.map((challenge) => {
             return (
               <ListItem key={challenge.link}>
                 <Flex gap={2} alignItems="center">
-                  {challenge.title}
+                  <NextLink passHref legacyBehavior href={challenge.link}>
+                    <Link>{challenge.title.replaceAll('-', ' ')}</Link>
+                  </NextLink>
                   <Image
                     boxSize={4}
                     src={`https://pics-rust.vercel.app/uPic/icons/${challenge.group}.svg`}
