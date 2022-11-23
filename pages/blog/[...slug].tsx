@@ -7,7 +7,7 @@ import {useRouter} from 'next/router'
 import React from 'react'
 import remarkGfm from 'remark-gfm'
 import components from 'utils/components'
-import {Container, Box, Heading, Text, Link} from '@chakra-ui/react'
+import {Container, Box, Heading, Text, Link,Image,Center} from '@chakra-ui/react'
 import {NextSeo} from 'next-seo'
 const codesandbox = require('remark-codesandbox')
 
@@ -24,7 +24,8 @@ const Post = ({
   tags,
   originalUrl,
   mdxSource,
-  randomPost
+  randomPost,
+  cover
 }) => {
   const router = useRouter()
   if (!router.isFallback && !mdxSource) {
@@ -39,6 +40,7 @@ const Post = ({
         lg: 'container.2xl',
         xl: 'container.xl'
       }}
+      className="post"
     >
       <NextSeo
         title={title}
@@ -53,6 +55,7 @@ const Post = ({
           {title}
         </Heading>
       </Box>
+<Image boxSize="100%" src={cover??'https://images.unsplash.com/photo-1669123309443-c9c40c596133?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=4032&q=80'}/>
 
       {/* 头部广告 */}
       <Ad />
