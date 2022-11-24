@@ -1,6 +1,15 @@
+import NextLink from 'next/link'
 import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
 import styles from 'assets/styles/index.module.scss'
-import {Flex, GridItem, Grid, Avatar, Link, Center,Heading} from '@chakra-ui/react'
+import {
+  Flex,
+  GridItem,
+  Grid,
+  Avatar,
+  Link,
+  Center,
+  Heading
+} from '@chakra-ui/react'
 
 const LinkItems = [
   {icon: 'blog', href: '/blog', bordered: true},
@@ -59,9 +68,9 @@ const Item = ({items}) => {
     <Flex gap={4} color="gray-600" mt={8}>
       {items.map((item) => (
         <GridItem key={item.href}>
-          <Link href={item.href} className={item.bordered && styles.item}>
+          <NextLink href={item.href} className={item.bordered && styles.item}>
             {item.icon}
-          </Link>
+          </NextLink>
         </GridItem>
       ))}
     </Flex>
