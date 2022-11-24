@@ -28,7 +28,11 @@ const IndexPage = ({groupByMonthPosts}) => {
                     alignItems="center"
                     key={post.title}
                   >
-                    <NextLink legacyBehavior href={`/blog/${post.slug}`} passHref>
+                    <NextLink
+                      legacyBehavior
+                      href={`/blog/${post.slug}`}
+                      passHref
+                    >
                       <LinkOverlay>{post.title}</LinkOverlay>
                     </NextLink>
                     {post.tags.map((tag) => {

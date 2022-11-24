@@ -4,10 +4,11 @@ import Head from 'next/head'
 import React from 'react'
 import {Analytics} from '@vercel/analytics/react'
 import 'assets/styles/main.scss'
-import { ChakraProvider } from '@chakra-ui/react'
+import {ChakraProvider} from '@chakra-ui/react'
 import theme from 'utils/theme'
 
 const Menu = dynamic(() => import('components/Menu'))
+const DarkModeSwitch = dynamic(() => import('components/DarkModeSwitch'))
 
 const App = ({Component, pageProps, router}) => {
   const {route} = router
@@ -27,6 +28,7 @@ const App = ({Component, pageProps, router}) => {
       <SEO url={url} />
       <ChakraProvider theme={theme}>
         {route !== '/' && <Menu />}
+        <DarkModeSwitch/>
         <Component {...pageProps} canonical={url} key={url} />
       </ChakraProvider>
       <Analytics />
