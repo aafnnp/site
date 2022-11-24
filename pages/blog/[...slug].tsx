@@ -7,10 +7,18 @@ import {useRouter} from 'next/router'
 import React from 'react'
 import remarkGfm from 'remark-gfm'
 import components from 'utils/components'
-import {Container, Box, Heading, Text, Link, Image,Center} from '@chakra-ui/react'
-import {NextSeo} from 'next-seo'
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  Link,
+  Image,
+  Center
+} from '@chakra-ui/react'
 const codesandbox = require('remark-codesandbox')
 
+const SEO = dynamic(() => import('components/SEO'))
 const Ad = dynamic(() => import('components/ad'))
 const PostPage = dynamic(() => import('components/PostPage'))
 const Random = dynamic(() => import('components/RandomPost'))
@@ -42,9 +50,10 @@ const Post = ({
       }}
       className="post"
     >
-      <NextSeo
+      <SEO
         title={title}
         description={description}
+        cover={cover}
         openGraph={{title, description}}
       />
       <Box as="hgroup">
