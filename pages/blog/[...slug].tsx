@@ -7,7 +7,7 @@ import {useRouter} from 'next/router'
 import React from 'react'
 import remarkGfm from 'remark-gfm'
 import components from 'utils/components'
-import {Container, Box, Heading, Text, Link,Image} from '@chakra-ui/react'
+import {Container, Box, Heading, Text, Link, Image,Center} from '@chakra-ui/react'
 import {NextSeo} from 'next-seo'
 const codesandbox = require('remark-codesandbox')
 
@@ -51,25 +51,33 @@ const Post = ({
         <Text textAlign="center" color="gray.500" fontSize="xs" as="p">
           Published {date}
         </Text>
-        <Heading textAlign="center" as="h1" mt={4} mb={8}>
+        <Heading textAlign="center" as="h1" mt={4} mb={2}>
           {title}
         </Heading>
+        {originalUrl && (
+          <Center color="gray.500" fontSize="sm" mb={8}>
+            本文翻译自：
+            <NextLink legacyBehavior href={originalUrl} passHref>
+              <Link>{originalUrl}</Link>
+            </NextLink>
+          </Center>
+        )}
       </Box>
-<Image boxSize="100%" src={cover??'https://images.unsplash.com/photo-1669123309443-c9c40c596133?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=4032&q=80'}/>
+      <Image
+        boxSize="100%"
+        src={
+          cover ??
+          'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg'
+        }
+        alt={title}
+      />
 
       {/* 头部广告 */}
       <Ad />
       {/* 头部广告结束 */}
       <PostPage>
         <MDXRemote {...mdxSource} components={components} />
-        {originalUrl && (
-          <Box color="gray.500">
-            本文翻译自：
-            <NextLink legacyBehavior href={originalUrl} passHref>
-              <Link>{originalUrl}</Link>
-            </NextLink>
-          </Box>
-        )}
+
         {/* 底部广告 */}
         <Ad />
         {/* 底部广告结束 */}
