@@ -156,7 +156,7 @@ const PostPage = ({children}) => {
 export default PostPage
 ```
 
-2. 创建`pages/blog/index.tsx`
+2. 创建`pages/index.tsx`
 
 ```tsx
 import NextLink from 'next/link'
@@ -191,7 +191,7 @@ const IndexPage = ({groupByMonthPosts}) => {
                   >
                     <NextLink
                       legacyBehavior
-                      href={`/blog/${post.slug}`}
+                      href={`/${post.slug}`}
                       passHref
                     >
                       <LinkOverlay>{post.title}</LinkOverlay>
@@ -240,7 +240,7 @@ export async function getStaticProps() {
 }
 ```
 
-3. 创建`pages/blog/[...slug].tsx`
+3. 创建`pages/[...slug].tsx`
 
 ```tsx
 import {MDXRemote} from 'next-mdx-remote'
