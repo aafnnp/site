@@ -1,7 +1,7 @@
 import fs from 'fs'
 import {globby} from 'globby'
 import matter from 'gray-matter'
-import {getRandomArrayElements} from 'utils/index'
+import {getRandomArrayElements} from './index'
 const dayjs = require('dayjs')
 const relativeTime = require('dayjs/plugin/relativeTime')
 
