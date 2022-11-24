@@ -64,7 +64,7 @@ export default function Index() {
 
 const Item = ({items}) => {
   return (
-    <Flex gap={4} color="gray-600" mt={8}>
+    <Flex gap={4} mt={8}>
       {items.map((item) => (
         <GridItem key={item.href}>
           <NextLink href={item.href} className={item.bordered && styles.item}>

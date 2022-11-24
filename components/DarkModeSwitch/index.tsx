@@ -10,6 +10,7 @@ const DarkModeSwitch = () => {
       top={4}
       right={4}
       zIndex={9999}
+      cursor="pointer"
       onClick={toggleColorMode}
     >
       {colorMode === 'light' ? (
