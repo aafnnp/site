@@ -1,14 +1,7 @@
 import NextLink from 'next/link'
 import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
 import styles from 'assets/styles/index.module.scss'
-import {
-  Flex,
-  GridItem,
-  Grid,
-  Avatar,
-  Center,
-  Heading
-} from '@chakra-ui/react'
+import {Flex, GridItem, Grid, Avatar, Center, Heading} from '@chakra-ui/react'
 
 const LinkItems = [
   {icon: 'blog', href: '/blog', bordered: true},
@@ -41,10 +34,7 @@ export default function Index() {
             <Avatar src="/avatar.webp" size="2xl" name="Manon.icu" />
           </Center>
         </GridItem>
-        <GridItem
-          w="100%"
-          className="xs:text-xl text-4xl mt-8 font-bold text-center dark:text-white"
-        >
+        <GridItem w="100%">
           <Heading as="h1">Manon.icu - Frontend Developer</Heading>
         </GridItem>
         <GridItem w="100%">
