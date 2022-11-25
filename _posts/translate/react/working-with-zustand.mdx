@@ -5,6 +5,7 @@ tags: [react, javascript]
 description: 全局(客户端)状态管理并不总是像今天这样。我清楚地记得有一段时间，在高阶组件中的状态管理最佳选择是使用Redux， connect 连接 mapStateToProps 和 mapDispatchToProps。
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/M8ioJK.jpg
 originalUrl: https://tkdodo.eu/blog/working-with-zustand
+modified: 2022-11-24 21:58:13
 ---
 
 全局(客户端)状态管理并不总是像今天这样。我清楚地记得有一段时间，在高阶组件中的状态管理最佳选择是使用`Redux`， `connect` 连接 `mapStateToProps` 和 `mapDispatchToProps`。
@@ -17,7 +18,7 @@ originalUrl: https://tkdodo.eu/blog/working-with-zustand
 
 其中增长迅速的像`Zustand`，它非常小而精悍，提供了简易`api`创建全局状态以及通过`selectors`过来状态。它类似`Redux`，又比`Redux`简易。
 
-就像`React`，`Zustand`提供丰富的扩展，可以结合`[immer](https://github.com/pmndrs/zustand/tree/2b29d736841dc7b3fd7dec8cbfea50fee7295974#sick-of-reducers-and-changing-nested-state-use-immer)`，也可以使用其他[middlewares](https://github.com/pmndrs/zustand/tree/2b29d736841dc7b3fd7dec8cbfea50fee7295974#middleware)
+就像`React`，`Zustand`提供丰富的扩展，可以结合[immer](https://github.com/pmndrs/zustand/tree/2b29d736841dc7b3fd7dec8cbfea50fee7295974#sick-of-reducers-and-changing-nested-state-use-immer)，也可以使用其他[middlewares](https://github.com/pmndrs/zustand/tree/2b29d736841dc7b3fd7dec8cbfea50fee7295974#middleware)
 
 `Zustand` 将 `createStore` 函数的返回值作为一个自定义 hook 来实现，其中为了让 `React` 组件能感知到状态更新，是利用 `useEffect` 来完成订阅操作，而状态更新发布后，则通过 `forceUpdate()` 来强制组件进行 `rerender` 以获取最新的状态。
 
