@@ -28,7 +28,7 @@ const SocialItems = [
 export default function Index() {
   return (
     <Flex justify="center" alignItems="center" w="100vw" h="100vh">
-      <Grid>
+      <Grid gap={4}>
         <GridItem w="100%">
           <Center>
             <Avatar src="/avatar.webp" size="2xl" name="Manon.icu" />
