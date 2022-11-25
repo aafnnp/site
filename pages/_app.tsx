@@ -7,8 +7,8 @@ import 'assets/styles/main.scss'
 import {ChakraProvider} from '@chakra-ui/react'
 import theme from 'utils/theme'
 
-const Menu = dynamic(() => import('components/Menu'))
-const DarkModeSwitch = dynamic(() => import('components/DarkModeSwitch'))
+const Menu = dynamic(() => import('components/Menu'),{ssr:false})
+const DarkModeSwitch = dynamic(() => import('components/DarkModeSwitch'),{ssr:false})
 
 const App = ({Component, pageProps, router}) => {
   const {route} = router

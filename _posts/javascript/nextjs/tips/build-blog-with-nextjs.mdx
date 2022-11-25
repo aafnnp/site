@@ -263,7 +263,7 @@ import {
   Center
 } from '@chakra-ui/react'
 
-const PostPage = dynamic(() => import('components/PostPage'))
+const PostPage = dynamic(() => import('components/PostPage'),{ssr:false})
 
 const Post = ({title, description, date, originalUrl, mdxSource, cover}) => {
   const router = useRouter()

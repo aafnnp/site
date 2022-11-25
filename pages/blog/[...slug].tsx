@@ -18,12 +18,12 @@ import {
 } from '@chakra-ui/react'
 const codesandbox = require('remark-codesandbox')
 
-const SEO = dynamic(() => import('components/SEO'))
-const Ad = dynamic(() => import('components/ad'))
-const PostPage = dynamic(() => import('components/PostPage'))
-const Random = dynamic(() => import('components/RandomPost'))
-const Share = dynamic(() => import('components/Share'))
-const Comments = dynamic(() => import('components/Comments'))
+const SEO = dynamic(() => import('components/SEO'),{ssr:false})
+const Ad = dynamic(() => import('components/ad'),{ssr:false})
+const PostPage = dynamic(() => import('components/PostPage'),{ssr:false})
+const Random = dynamic(() => import('components/RandomPost'),{ssr:false})
+const Share = dynamic(() => import('components/Share'),{ssr:false})
+const Comments = dynamic(() => import('components/Comments'),{ssr:false})
 
 const Post = ({
   title,

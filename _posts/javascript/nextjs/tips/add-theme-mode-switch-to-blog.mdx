@@ -107,7 +107,7 @@ import {ChakraProvider} from '@chakra-ui/react'
 import theme from 'utils/theme'
 
 // 新增
-const DarkModeSwitch = dynamic(() => import('components/DarkModeSwitch'))
+const DarkModeSwitch = dynamic(() => import('components/DarkModeSwitch'),{ssr:false})
 
 const App = ({Component, pageProps, router}) => {
   const {route} = router

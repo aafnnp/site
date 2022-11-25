@@ -3,7 +3,8 @@ import React from 'react'
 
 export default function Playground(props) {
   const CustomComponent = dynamic(() =>
-    import(`_playground/${props.slug.join('/')}`)
+    import(`_playground/${props.slug.join('/')}`),
+    {ssr:false}
   )
 
   return (
