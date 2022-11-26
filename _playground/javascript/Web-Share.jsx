@@ -2,7 +2,7 @@ import CanIUse from 'components/CanIUse'
 import React from 'react'
 import {FaCode, FaEye, FaFile} from 'react-icons/fa'
 
-export default function FileSystem() {
+export default function WebShare() {
   const handleClick = () => {
     if (navigator.share) {
       navigator.share({
@@ -30,7 +30,10 @@ export default function FileSystem() {
           <FaCode className="mr-2" />
           Source Code
         </a>
-        <a className="flex items-center p-2 bg-twitter text-white rounded">
+        <a
+          className="flex items-center p-2 bg-twitter text-white rounded"
+          href="https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator/share"
+        >
           <FaFile className="mr-2" />
           Documents
         </a>

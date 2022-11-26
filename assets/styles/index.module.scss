@@ -14,7 +14,7 @@
   transition: 0.3s linear, color 0s, background-color 0s;
   outline: var(--b) solid #0000;
   outline-offset: 0.2em;
-
+  text-transform: capitalize;
   &:hover,
   &:focus-visible {
     --_p: 0px;

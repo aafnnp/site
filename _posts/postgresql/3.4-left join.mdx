@@ -12,7 +12,7 @@ cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/R2zQqf.jpg
 
 在`A`表中可能有0或多个行，在`B`表中可能有0或1个行。
 
-要从表中选择表`A`可能有或没有相应航的数据，可以使用`LEFT JOIN`
+要从表中选择表`A`可能有或没有相应的数据，可以使用`LEFT JOIN`
 
 ```sql
 SELECT
@@ -24,3 +24,8 @@ FROM
 	A
 LEFT JOIN B ON pka = fka;
 ```
+
+要使用左连接将表`A`和表`B`连接，执行如下步骤：
+- `SELECT`，在子句中指定要选择数据的两个表中的列
+- 在`FROM`指定左表
+- 在关键词`ON`后指定右表

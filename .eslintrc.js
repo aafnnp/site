@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     '@next/next/no-img-element': 'off',
     'no-extra-semi': 'off',
-    'react/no-unknown-property': 'off'
+    'react/no-unknown-property': 'off',
+    'react/no-unescaped-entities': 'off'
   }
 }
