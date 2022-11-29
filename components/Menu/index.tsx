@@ -9,7 +9,12 @@ const Navigation = () => {
     <Flex gap={4} alignItems="center" justifyContent="center" py={4}>
       {LinkItems.map((i) => (
         <NextLink legacyBehavior passHref key={i.name} href={i.href}>
-          <Link className={`menu-item ${i.href === asPath && 'text-twitter'} `}>
+          <Link
+            {...(asPath === i.href && {
+              bgGradient: 'linear(to-l, #7928CA, #FF0080)',
+              bgClip: 'text'
+            })}
+          >
             {i.name}
           </Link>
         </NextLink>
