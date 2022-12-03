@@ -1,18 +1,96 @@
 ---
-date: '2018-05-09'
-title: 'String'
+date: '2022-12-01 21:19:54'
+title: 'Javascript - 基本引用类型'
 tags: [javascript]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/基本引用类型.png
 ---
 
-## String
+![基本引用类型](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/基本引用类型.png)
 
-### 方法
+> 引用类型是把数据和功能组织在一起的结构
+
+## 原始包装类型
+
+### Boolean
+
+Boolean 有两个值 true/false。
+
+| 数据类型  | 转换为 true 的值 | 转换为 false 的值 |
+| --------- | ---------------- | ----------------- |
+| Boolean   | true             | false             |
+| String    | 任意飞空字符串   | 空字符串          |
+| Number    | 任何非零值       | 0 和 NaN          |
+| Object    | 任何对象         | null              |
+| Undefined |                  | undefined         |
+
+### Number
+
+```js
+const age = 36
+typeof age //number
+
+const age = Number(36)
+typeof age //number
+
+//使用new声明的Number返回object类型，可使用valueOf获取原始值
+const age = new Number(36)
+typeof age //object
+```
+
+#### 属性
+
+1. EPSILON - 两个数字之间的最小间隔
+2. MAX_SAFE_INTEGER - 可表示的最大整数值
+3. MAX_VALUE - 可表示的最大正值
+4. MIN_SAFE_INTEGER - 可表示的最小整数值
+5. MIN_VALUE - 可表示的最小正值
+6. NAN - not a number
+7. NEGATIVE_INFINITY - 正向无穷大
+8. POSITIVE_INFINITY - 负向无穷大
+
+```js
+Number.EPSILON //2.220446049250313e-16
+Number.MAX_SAFE_INTEGER //9007199254740991
+Number.MAX_VALUE //1.7976931348623157e+308
+Number.MIN_SAFE_INTEGER //-9007199254740991
+Number.MIN_VALUE //5e-324
+Number.NAN //NaN
+Number.NEGATIVE_INFINITY //-Infinity
+Number.POSITIVE_INFINITY //Infinity
+```
+
+#### 方法
+
+- Number.isNaN(value) //当 value 为非 number 时返回 true
+- Number.isFinite(value) //当 value 是有穷值返回 true
+- Number.isInteger(value) //当 value 是整型值返回 true
+- Number.isSafeInteger(value) //当 value 是安全整型值返回 true
+- Number.parseFloat(value) //将值转换成浮点类型并返回
+- Number.parseInt(value) //将值转换成整形并返回
+
+#### 实例方法
+
+当使用 new 关键词声明一个数值，将会返回 object，并且提供如下方法。
+
+```js
+const age = new Number(36)
+typeof age //object
+```
+
+- .toExponential() //将值转换成指数计数法
+- .toFixed() //返回小数点后 N 位
+- .toLocaleString() //将值转换成字符类型
+- .toPrecision() //返回指定的精度
+- .toString() //将值转换成字符类型
+- .valueOf() //返回原始值
+
+### String
 
 - String.fromCharCode() //通过一串 Unicode 创建字符串。
 - String.fromCodePoint() //通过一串 码点 创建字符串。
 - String.raw() //通过模板字符串创建字符串。
 
-### 实例方法
+#### 实例方法
 
 - charAt(i)
 - charCodeAt(i)
@@ -44,7 +122,7 @@ tags: [javascript]
 - trimStart()
 - valueOf()
 
-### charAt
+#### charAt
 
 > 返回指定位置的字符,且返回的字符长度为 1，**_js 没有一种有别于字符串类型的字符数据类型_**
 
@@ -56,7 +134,7 @@ string.charAt(index)
 'porhub'.charAt(2) //'r'
 ```
 
-### charCodeAt
+#### charCodeAt
 
 > 返回在指定的位置的字符的 Unicode 编码
 
@@ -70,7 +148,7 @@ string.charCodeAt(index)
 'porhub'.charCodeAt(2) //114
 ```
 
-### codePointAt
+#### codePointAt
 
 > ES2015 引入的，用于处理 2 UTF-16 字符的，比如中文，在 ES2015 之前 charCodeAt 只能处理单个字符，处理双字符必须一个个处理然后拼接。
 
@@ -87,7 +165,7 @@ string.codePointAt(index)
 ;('\u{20bb7}') //𠮷
 ```
 
-### concat
+#### concat
 
 > 类似 Array 的 concat
 
@@ -99,7 +177,7 @@ stringObject.concat(stringX,stringX,...,stringX)
 
 通常使用 + 拼接来得更方便，或者使用 ES2015 的``字符扩展。
 
-### endWith
+#### endWith
 
 > 用来判断当前字符串是否是以另外一个给定的子字符串“结尾”的，根据判断结果返回 true 或 false。
 
@@ -112,7 +190,7 @@ str.endsWith(searchString, position)
 'JavaScript'.endsWith('as', 5) //true
 ```
 
-### includes
+#### includes
 
 > 用于判断一个字符串是否包含在另一个字符串中，根据情况返回 true 或 false
 
@@ -125,7 +203,7 @@ str.includes(searchString, position)
 'JavaScript'.includes('nice', 3) //false
 ```
 
-### indexOf
+#### indexOf
 
 > 用于返回字符串中出现某个字符的初始位置，如果没有找到，返回-1.
 
@@ -136,7 +214,7 @@ str.indexOf(searchString, startPosition)
 'JavaScript'.indexOf('a', 2) //3
 ```
 
-### lastIndexOf
+#### lastIndexOf
 
 > 用于返回某个字符最后出现的位置，如果没有，返回-1
 
@@ -147,7 +225,7 @@ str.lastIndexOf(searchString, startPosition)
 'JavaScript'.lastIndexOf('a', 1) //1
 ```
 
-### padEnd
+#### padEnd
 
 > 用一个字符串填充当前字符串（如果需要的话则重复填充），返回填充后达到指定长度的字符串。从当前字符串的末尾（右侧）开始填充。
 
@@ -160,7 +238,7 @@ str.padEnd(targetLength, string)
 'abc'.padEnd(1) // "abc"
 ```
 
-### padStart
+#### padStart
 
 > 用另一个字符串填充当前字符串(重复，如果需要的话)，以便产生的字符串达到给定的长度。填充从当前字符串的开始(左侧)应用的
 
@@ -174,7 +252,7 @@ str.padStart(targetLength, string)
 'abc'.padStart(1) // "abc"
 ```
 
-### repeat
+#### repeat
 
 > 构造并返回一个包含被连接在一起的指定数量的新字符串。
 
@@ -189,7 +267,7 @@ str.repeat(count)
 'abc'.repeat(1 / 0) // RangeError: repeat count must be positive and less than inifinity
 ```
 
-### slice
+#### slice
 
 > 截取字符串的一部分，并返回一个新的字符串
 
@@ -200,7 +278,7 @@ str.slice(startPosition, endPosition)
 'abc'.slice(0, -1) //ab
 ```
 
-### split
+#### split
 
 > 将字符串切割成数组
 
@@ -211,7 +289,7 @@ str.split(separator, limit)
 'a,b,c'.split(',', 1) //[a]
 ```
 
-### startWith
+#### startWith
 
 > 判断字符串是否以给定的字符串开始，返回 true/false
 
@@ -222,7 +300,7 @@ str.startsWith(searchString, poistion)
 'abc'.startsWith('a', 1) //false
 ```
 
-### substring
+#### substring
 
 > 根据开始索引到结束索引截取字符串
 
@@ -253,7 +331,7 @@ str.toLocaleLowerCase() /
 'abc'.toLocaleUpperCase() //ABC
 ```
 
-### toString
+#### toString
 
 > 将\*转换成字符串
 
@@ -263,7 +341,7 @@ var x = new String('Hello world')
 alert(x.toString()) // 输出 "Hello world"
 ```
 
-### trim/trimStart/trimEnd
+#### trim/trimStart/trimEnd
 
 > 移除空白字符/起始位置空白字符/结尾位置空白字符
 
@@ -276,7 +354,7 @@ str.trim() / str.trimStart() / str.trimEnd()
 'Testing '.trim() //'Testing'
 ```
 
-### valueOf
+#### valueOf
 
 > 返回 str 的原始值，等同于 String.prototype.toString
 
@@ -287,7 +365,7 @@ x = new String('Hello world')
 alert(x.valueOf()) // Displays "Hello world"
 ```
 
-### 扩展学习
+#### 扩展学习
 
 ```js
 1 +
@@ -301,3 +379,59 @@ alert(x.valueOf()) // Displays "Hello world"
 ```
 
 [See examples in jsbin](http://jsbin.com/fiwemir/2/edit?js,console)
+
+## 单例内置对象
+
+### global
+
+在全局作用域中定义的变量和函数都会成为`global`对象的属性。
+
+常见的global对象属性和方法：
+
+- 基本类型和引用类型等
+- isNaN
+- Infinity
+- isFinate
+- parseInt
+- parseFloat
+- encodeURI
+- encodeURIComponent
+- decodeURI
+- decodeURIComponent
+- eval
+
+也可以通过`console.log(window)`来查看
+
+### Math
+
+除global之外，`Math`也是单例内置对象，`Math`用于保存数学中的一些特殊值，有大量关于数学计算的方法，比如：
+
+- min、max
+- ceil、floor、round
+- random
+- etc
+
+## Date
+
+Date对象用于处理日期和时间，提供了获取、设置日期时间的相关属性和方法。
+
+> Date对象处理时间都是相对于`1970-1-1 00:00:00 UTC`
+
+创建Date对象：
+
+``` js
+const date = new Date()
+// 如果没有输入任何参数，则 Date 的构造器会依据系统设置的当前时间来创建一个 Date 对象
+```
+
+方法：
+
+- `Date.now()`返回当前时间的毫秒数
+- `Date.parse()`解析日期字符串，并返回该时间的毫秒数
+- `Date.UTC()`接受和构造函数最长形式的参数相同的参数（从 2 到 7），并返回该时间毫秒数。
+
+![6hlbYR](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/6hlbYR.png)
+
+## Regexp
+
+

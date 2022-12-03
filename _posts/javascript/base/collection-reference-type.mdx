@@ -1,19 +1,22 @@
 ---
-date: '2018-05-12'
-title: 'Object'
+date: '2022-12-01 21:19:54'
+title: 'Javascript - 集合引用类型'
 tags: [javascript]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/集合引用类型.png
 ---
+
+![集合引用类型](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/集合引用类型.png)
 
 ## Object
 
 > 任何非原始类型的值（字符串，数字，布尔值，符号，null 或未定义）都是对象，数组和函数也不例外。
 
-## 内置属性
+内置属性
 
 1. Object.length=1
 2. Object.prototype
 
-## 静态方法
+静态方法
 
 1. Object.assign() **_ES2015_** //通过复制一个或多个对象来创建一个新的对象。
 2. Object.create() //使用指定的原型对象和属性创建一个新对象。
@@ -35,7 +38,7 @@ tags: [javascript]
 18. Object.setPrototypeOf() **_ES2015_** //设置对象的原型（即内部 [[Prototype]] 属性）。
 19. Object.values() //返回给定对象自身可枚举值的数组。
 
-## Object 实例和 Object 原型对象
+Object 实例和 Object 原型对象
 
 > JavaScript 中的所有对象都来自 Object；所有对象从 Object.prototype 继承方法和属性，尽管它们可能被覆盖。
 
@@ -43,7 +46,7 @@ tags: [javascript]
 Object.prototype.constructor //特定的函数，用于创建一个对象的原型。
 ```
 
-## 实例方法
+实例方法
 
 1. Object.prototype.hasOwnProperty() //返回一个布尔值 ，表示某个对象是否含有指定的属性，而且此属性非原型链继承的。
 2. Object.prototype.isPrototypeOf() //返回一个布尔值，表示指定的对象是否在本对象的原型链中。
@@ -52,7 +55,7 @@ Object.prototype.constructor //特定的函数，用于创建一个对象的原�
 5. Object.prototype.toString() //返回对象的字符串表示。
 6. Object.prototype.valueOf() //返回指定对象的原始值。
 
-## 创建对象
+创建对象
 
 ```js
 const person = {}
@@ -449,3 +452,120 @@ person.toString() //[object Object]
 const person = {name: 'Fred'}
 person.valueOf() //{ name: 'Fred' }
 ```
+
+## Array
+
+属性
+
+1. Array.length - 静态属性，值为 1
+2. Array.prototype - 数组的原型对象
+
+方法
+
+1. Array.from - 从类数组对象或者可迭代对象中创建一个新的数组实例
+2. Array.of - 根据一组参数来创建新的数组实例，支持任意的参数数量和类型
+3. Array.isArray - 判断是否为数组
+
+### 实例属性
+
+1. Array.prototype.length - 空数组，值为 0
+2. Array.prototype.constructor - 所有的数组实例都继承了这个属性，值为 Array
+
+### 实例方法
+
+#### 修改器方法 - 改变调用它们的对象自身的值
+
+- Array.prototype.copyWithin //将数组 copy 到另一个数组，并覆盖原值
+- Array.prototype.fill //填充数组
+- Array.prototype.pop //删除数组最后一个值，并返回该值
+- Array.prototype.push //向数组最后添加一个新的元素或多个元素，并返回数组的长度
+- Array.prototype.reverse //颠倒数组
+- Array.prototype.shift //删除数组第一个元素并返回该元素
+- Array.prototype.sort //排序
+- Array.prototype.splice //在数组任意位置添加或删除元素
+- Array.prototype.unshift //在数组开头添加一个或多个元素并返回数组长度
+
+#### 访问方法 - 不会改变调用它们的对象自身的值，只会返回新数组或期望值
+
+- Array.prototype.concat //返回当前数组和其他数组的组合
+- Array.prototype.includes //数组是否包含某个值，返回 true/false
+- Array.prototype.join //返回数组所有元素组成的字符串
+- Array.prototype.slice //截取数组的某一段
+- Array.prototype.toString //转换成字符串
+- Array.prototype.toLocalString //转换成本地字符串
+- Array.prototype.indexOf //返回数组中第一个与指定值相等的索引
+- Array.prototype.lastIndexOf //返回数组中最后一个与指定值相等的索引
+
+#### 迭代方法
+
+- Array.prototype.forEach //为数组中每个元素执行一次回调函数
+- Array.prototype.entries //返回数组元素的键值对
+- Array.prototype.every //如果每个元素都满足回调函数就返回 true，否则返回 false
+- Array.prototype.some //如果数组中元素至少有一个满足回调函数就返回 true，否则返回 false
+- Array.prototype.filter //过滤数组中满足回调函数的元素
+- Array.prototype.find //查找数组中满足回调函数的元素，如果没有则返回 undefined
+- Array.prototype.findIndex //返回数组中满足回调函数的索引，没有则返回-1
+- Array.prototype.keys //返回数组中的键
+- Array.prototype.map //返回一个由回调函数组成的新数组
+- Array.prototype.reduce //从右向左为每个元素执行一次回调函数，并将上次回调函数的返回值暂存，然后传递给下一个回调函数
+- Array.prototype.reduceRight //与 reduce 相反方向
+- Array.prototype.values //返回数组中的值
+
+### 四种合并数组的方法
+
+1. 循环
+
+```js
+function push(fromArray, toArray) {
+  for (let i = 0, len = fromArray.length; i < len; i++) {
+    toArray.push(fromArray[i])
+  }
+  return toArray
+}
+
+var array1 = [1, 2, 3, 4, 5]
+var array2 = [6, 7, 8, 9, 10]
+var array3 = []
+push(array1, array3)
+push(array2, array3)
+```
+
+2. 解构
+
+```js
+var array1 = [1, 2, 3, 4, 5]
+var array2 = [6, 7, 8, 9, 10]
+var array3 = [...array1, ...array2]
+var array3 = Array.of(...array2, ...array1)
+array3 // [1,2,3,4,5,6,7,8,9,10];
+```
+
+3. concat
+
+```js
+var array1 = [1, 2, 3, 4, 5]
+var array2 = [6, 7, 8, 9, 10]
+
+var array3 = array1.concat(array2)
+// or
+var array3 = [].concat(array1, array2)
+```
+
+4. reduce
+
+```js
+var array1 = [1,2,3,4,5];
+var array2 = [6,7,8,9,10];
+var array3 = array2.reduce((newArray, item) => {
+          newArray.push(item);
+          return newArray;
+ ), array1);
+```
+
+## 定型数组
+
+## Map、WeakMap
+
+## Set、WeakSet
+
+## 迭代、扩展操作
