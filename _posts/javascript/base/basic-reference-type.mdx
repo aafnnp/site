@@ -5,8 +5,6 @@ tags: [javascript]
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/基本引用类型.png
 ---
 
-![基本引用类型](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/基本引用类型.png)
-
 > 引用类型是把数据和功能组织在一起的结构
 
 ## 原始包装类型
@@ -386,7 +384,7 @@ alert(x.valueOf()) // Displays "Hello world"
 
 在全局作用域中定义的变量和函数都会成为`global`对象的属性。
 
-常见的global对象属性和方法：
+常见的 global 对象属性和方法：
 
 - 基本类型和引用类型等
 - isNaN
@@ -404,34 +402,113 @@ alert(x.valueOf()) // Displays "Hello world"
 
 ### Math
 
-除global之外，`Math`也是单例内置对象，`Math`用于保存数学中的一些特殊值，有大量关于数学计算的方法，比如：
+除 global 之外，`Math`也是单例内置对象，提供了一组用于执行常见数学运算的方法。例如，可以使用 Math.max()方法来计算一组数值中的最大值，使用 Math.round()方法来对数值进行四舍五入等。
 
-- min、max
-- ceil、floor、round
-- random
-- etc
+- Math.max(val1, val2, ...)：计算一组数值的最大值。
+- Math.min(val1, val2, ...)：计算一组数值的最小值。
+- Math.round(val)：对数值进行四舍五入。
+- Math.ceil(val)：向上取整。
+- Math.floor(val)：向下取整。
+- Math.random()：生成一个 0 到 1 之间的随机数。
+
+例如，下面的代码计算了一组数值的最大值、最小值、平均值：
+
+```js
+var values = [3, 5, 8, 10, 12]
+
+// 计算最大值
+var max = Math.max.apply(null, values)
+console.log(max) // 12
+
+// 计算最小值
+var min = Math.min.apply(null, values)
+console.log(min) // 3
+
+// 计算平均值
+var sum = 0
+for (var i = 0; i < values.length; i++) {
+  sum += values[i]
+}
+var avg = sum / values.length
+console.log(avg) // 7.4
+```
+
+上面的代码中，首先使用 Math.max.apply(null, values)计算了一组数值的最大值，其中 apply 方法用于指定 Math.max 方法的作用对象为 null，并将 values 数组作为参数传入该方法。接着，使用类似的方法计算了一组数值的最小值。最后，通过遍历数组计算所有数值的和，然后除以数值的个数，得平均值。
 
 ## Date
 
-Date对象用于处理日期和时间，提供了获取、设置日期时间的相关属性和方法。
+JavaScript 的 Date 对象用于处理日期和时间。它可以获取当前日期和时间，也可以处理其他日期和时间。
 
-> Date对象处理时间都是相对于`1970-1-1 00:00:00 UTC`
+要在 JavaScript 中使用 Date 对象，需要使用 Date 构造函数创建一个日期对象。语法如下：
 
-创建Date对象：
-
-``` js
-const date = new Date()
-// 如果没有输入任何参数，则 Date 的构造器会依据系统设置的当前时间来创建一个 Date 对象
+```js
+var date = new Date(
+  [year],
+  [month],
+  [day],
+  [hours],
+  [minutes],
+  [seconds],
+  [milliseconds]
+)
 ```
 
-方法：
+其中，参数 year、month、day、hours、minutes、seconds、milliseconds 表示年份、月份、日、小时、分钟、秒、毫秒，可以省略。如果省略，则表示使用当前日期和时间。
 
-- `Date.now()`返回当前时间的毫秒数
-- `Date.parse()`解析日期字符串，并返回该时间的毫秒数
-- `Date.UTC()`接受和构造函数最长形式的参数相同的参数（从 2 到 7），并返回该时间毫秒数。
+例如，下面的代码创建了一个日期对象，表示当前日期和时间：
+
+```js
+var date = new Date()
+```
+
+JavaScript 的 Date 对象提供了很多方法，用于处理日期和时间。例如，可以使用 getFullYear 方法来获取年份，使用 getMonth 方法来获取月份，使用 getDate 方法来获取日期等。
+
+例如，下面的代码获取了当前日期对象的年份、月份、日期：
+
+```js
+var date = new Date()
+var year = date.getFullYear()
+var month = date.getMonth()
+var day = date.getDate()
+```
+
+此外，JavaScript 的 Date 对象还提供了一些静态方法，可以用于创建特定日期和时间的日期对象。例如，可以使用 Date.parse 方法来解析日期字符串
+
+Date 对象提供了许多方法来处理日期和时间信息，下面列出一些常用的方法：
+
+- getFullYear()：获取当前日期所在年份。
+- getMonth()：获取当前日期所在月份（0-11）。
+- getDate()：获取当前日期所在月份的日期（1-31）。
+- getDay()：获取当前日期所在周的星期（0-6，0 表示星期天，1 表示星期一，以此类推）。
+- getHours()：获取当前时间的小时数（0-23）。
+- getMinutes()：获取当前时间
 
 ![6hlbYR](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/6hlbYR.png)
 
 ## Regexp
 
+正则表达式（Regular Expression，简称 regexp 或 regex）是用来描述、匹配文本模式的一种工具。在 JavaScript 中，可以使用正则表达式来搜索、替换、提取字符串中的指定文本，从而实现对文本的高级操作。
 
+要在 JavaScript 中使用正则表达式，需要使用 RegExp 构造函数来创建一个正则表达式对象。语法如下：
+
+```js
+var regexp = new RegExp(pattern[, flags]);
+```
+
+其中，pattern 是正则表达式的模式字符串，flags 是可选的标志字符串，用来指定正则表达式的匹配方式。
+
+例如，下面的代码创建了一个正则表达式对象，该对象可以匹配字符串"hello"：
+
+```js
+var regexp = new RegExp('hello')
+```
+
+JavaScript 的正则表达式有两种匹配方式：全局匹配和非全局匹配。
+
+在全局匹配模式下，正则表达式会尝试匹配整个字符串，并返回所有匹配结果。要在正则表达式中使用全局匹配，需要在模式字符串中加入一个"g"标志，如下所示：
+
+```js
+var regexp = new RegExp('hello', 'g')
+```
+
+在非全局匹配模式下，正则表达式会尝试匹配字符串的一部分
