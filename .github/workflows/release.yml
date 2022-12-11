@@ -2,7 +2,7 @@ name: Package release and publish
 on:
   push:
     branches:
-      - dev
+      - "v*"
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
