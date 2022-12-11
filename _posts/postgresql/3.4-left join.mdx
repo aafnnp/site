@@ -6,6 +6,21 @@ description: Postgresql INNER JOIN从多个表中选择数据。
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/R2zQqf.jpg
 ---
 
+LEFT JOIN是PostgreSQL支持的一种查询语句，用于从两个表中检索数据。
+
+LEFT JOIN允许您从两个表中检索数据，并且您可以通过指定条件来控制哪些行被包含在结果集中。在LEFT JOIN中，如果指定的条件无法在右表中匹配相应的行，则会返回空值。
+
+例如，假设您有两个表，分别为“employees”和“departments”。employees表包含员工的详细信息，departments表包含部门的详细信息。下面是一个使用LEFT JOIN检索员工和部门信息的示例查询：
+
+```sql
+SELECT employees.name, departments.name
+FROM employees
+LEFT JOIN departments
+ON employees.department_id = departments.id;
+```
+
+上面的查询会返回包含员工名称和部门名称的结果集。如果指定的条件无法在departments表中匹配相应的行，则会返回空值。
+
 假设有两个表`A`和`B`
 
 ![R2zQqf](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/R2zQqf.jpg)
