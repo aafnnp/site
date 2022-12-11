@@ -1,8 +1,108 @@
 ---
-date: '2022-04-12 09:30:08'
-title: 'Postgresql - Buffers'
+date: '2022-06-14 15:19:11'
+title: 'Postgresql - FULL OUTER JOIN'
 tags: [postgresql, sql]
-draft: true
-description: buffer是Node.js提供用来存放二进制数据的缓存区
+description: 在 Postgresql 中，FULL OUTER JOIN 是一种结合左外连接和右外连接结果的连接类型
 ---
 
+在 Postgresql 中，FULL OUTER JOIN 是一种结合左外连接和右外连接结果的连接类型。它返回左表中的所有行和右表中的所有行，包括在 ON 子句中不匹配的行。FULL OUTER JOIN 在想要在最终结果集中包含两个表中不匹配的行时非常有用。
+
+以下查询使用`INNER JOIN`表连接到自身的查询
+
+```sql
+SELECT select_list
+FROM table_name t1
+INNER JOIN table_name t2 ON join_predicate;
+```
+
+此外还可以使用`LEFT JOIN`或`RIGHT JOIN`将表连接到自身：
+
+```sql
+SELECT select_list
+FROM table_name t1
+LEFT JOIN table_name t2 ON join_predicate;
+```
+
+## 示例
+
+### 查询分层数据
+
+假设有以下组织结构
+
+![x9yBXT](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/x9yBXT.jpg)
+
+创建`employee`表并将一些数据插入表中
+
+```sql
+CREATE TABLE employee (
+	employee_id INT PRIMARY KEY,
+	first_name VARCHAR (255) NOT NULL,
+	last_name VARCHAR (255) NOT NULL,
+	manager_id INT,
+	FOREIGN KEY (manager_id)
+	REFERENCES employee (employee_id)
+	ON DELETE CASCADE
+);
+INSERT INTO employee (
+	employee_id,
+	first_name,
+	last_name,
+	manager_id
+)
+VALUES
+	(1, 'Windy', 'Hays', NULL),
+	(2, 'Ava', 'Christensen', 1),
+	(3, 'Hassan', 'Conner', 1),
+	(4, 'Anna', 'Reeves', 2),
+	(5, 'Sau', 'Norman', 2),
+	(6, 'Kelsie', 'Hays', 3),
+	(7, 'Tory', 'Goff', 3),
+	(8, 'Salley', 'Lester', 3);
+```
+
+使用自连接查询谁向谁报告
+
+```sql
+SELECT
+    e.first_name || ' ' || e.last_name employee,
+    m .first_name || ' ' || m .last_name manager
+FROM
+    employee e
+INNER JOIN employee m ON m .employee_id = e.manager_id
+ORDER BY manager;
+```
+![1zBzNp](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/1zBzNp.jpg)
+
+以上查询两次引用`employee`表，一次作为雇员，另一次作为经理，通过匹配`employee_id`和`manager_id`查找雇员/经理对
+
+使用`LEFT JOIN`instead of`INNER JOIN`查询结果集中包含最高管理者
+
+```sql
+SELECT
+    e.first_name || ' ' || e.last_name employee,
+    m .first_name || ' ' || m .last_name manager
+FROM
+    employee e
+LEFT JOIN employee m ON m .employee_id = e.manager_id
+ORDER BY manager;
+```
+![7eG9pZ](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/7eG9pZ.jpg)
+
+### 比较同表的行
+
+![GRiyfG](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/GRiyfG.jpg)
+
+查询所有长度相同的电影
+
+```sql
+SELECT
+    f1.title,
+    f2.title,
+    f1.length
+FROM
+    film f1
+INNER JOIN film f2
+    ON f1.film_id <> f2.film_id AND
+       f1.length = f2.length;
+```
+![AFkjme](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/AFkjme.jpg)
