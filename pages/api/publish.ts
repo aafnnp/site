@@ -1,4 +1,4 @@
-import type {NextApiRequest, NextApiResponse} from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
 // // [
 // //   {
 // //     _id: '56744723958ef13879b9549b',
@@ -121,10 +121,7 @@ import type {NextApiRequest, NextApiResponse} from 'next'
 //   // const publishingData = await publishing.json()
 //   // console.log(publishingData)
 // }
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   // fetch('https://dev.to/api/articles', {
   //   method: 'POST',
   //   headers: {
@@ -145,7 +142,7 @@ export default function handler(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'api-key': process.env.NEXT_PUBLIC_DEVTO_TOKEN,
+      'api-key': process.env.NEXT_PUBLIC_DEVTO_TOKEN
     },
     body: JSON.stringify({
       article: {
@@ -153,11 +150,11 @@ export default function handler(
         published: true,
         content: '# You can put Markdown here.\n***\n',
         tags: ['discuss', 'help'],
-        series: 'Hello series',
-      },
-    }),
+        series: 'Hello series'
+      }
+    })
   })
-    .then(res => res.json())
-    .then(res => console.log(JSON.stringify(res)))
+    .then((res) => res.json())
+    .then((res) => console.log(JSON.stringify(res)))
   res.status(200).json({})
 }

@@ -94,13 +94,13 @@ console.log('Program Ended')
 `chaining`是一种将一个`stream`的输出连接到另一个`stream`并创建多个`stream`操作链的机制，它通常用于管道操作。
 
 ```js
-var fs = require("fs");
-var zlib = require('zlib');
+var fs = require('fs')
+var zlib = require('zlib')
 
 // Compress the file input.txt to input.txt.gz
 fs.createReadStream('input.txt')
-   .pipe(zlib.createGzip())
-   .pipe(fs.createWriteStream('input.txt.gz'));
+  .pipe(zlib.createGzip())
+  .pipe(fs.createWriteStream('input.txt.gz'))
 
-console.log("File Compressed.");
+console.log('File Compressed.')
 ```

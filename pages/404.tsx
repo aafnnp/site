@@ -1,6 +1,6 @@
-import {useRouter} from 'next/router'
-import React, {useEffect} from 'react'
-import anime from 'animejs'
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import anime from "animejs";
 
 export default function Index() {
   const router = useRouter()

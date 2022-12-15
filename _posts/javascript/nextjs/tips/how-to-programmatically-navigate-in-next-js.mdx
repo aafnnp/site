@@ -5,62 +5,72 @@ tags: [nodejs, javascript, Nextjs]
 description: Next.js的路由动态跳转
 ---
 
-## useRouter钩子
+## useRouter 钩子
 
 使用方式：
 
 ```jsx
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router'
 
 export default function Home() {
-  const router = useRouter();
-  console.log(router);
-  return <></>;
+  const router = useRouter()
+  console.log(router)
+  return <></>
 }
 ```
 
 `useRouter`钩子返回一个对象，包含了路由相关的信息，包括：
 
-  * `router.query`：路由参数
-  * `router.pathname`：路由路径
-  * `router.asPath`：当前页面的完整路径
-  * `router.route`：当前路由的路径
-  * `router.events`：事件监听器
+- `router.query`：路由参数
+- `router.pathname`：路由路径
+- `router.asPath`：当前页面的完整路径
+- `router.route`：当前路由的路径
+- `router.events`：事件监听器
 
 ### router.push
 
 - `url`: 路径
-- `as`:dom中标签
+- `as`:dom 中标签
 - `options`:路由配置
- - `shallow`:是否深度渲染，默认为false，更新路由时，会重新调用`getStaticProps`, `getServerSideProps`, `getInitialProps`并渲染新的页面。
+- `shallow`:是否深度渲染，默认为 false，更新路由时，会重新调用`getStaticProps`, `getServerSideProps`, `getInitialProps`并渲染新的页面。
 
 ### router.replace
 
 `router.replace`方法类似于`router.push`，但是会替换当前的路由，而不是增加一个新的路由。
 
-<video src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js-navigate-programmatically.mp4" controls width={640} height={320} autoPlay></video>
+<video
+  src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js-navigate-programmatically.mp4"
+  controls
+  width={640}
+  height={320}
+  autoPlay
+></video>
 
 ## 代码
 
 feedback.js
+
 ```jsx
-const FeedBack = props => {
-  return <div style={{padding: 50}}>
-    <h1>Feedback Page</h1>
-  </div>
+const FeedBack = (props) => {
+  return (
+    <div style={{padding: 50}}>
+      <h1>Feedback Page</h1>
+    </div>
+  )
 }
 
-export default FeedBack;
+export default FeedBack
 ```
 
 index.js
+
 ```jsx
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router'
 
 export default function Home() {
-  const router = useRouter();
+  const router = useRouter()
   return (
-    <div style={{ padding: 50 }}>
+    <div style={{padding: 50}}>
       <h1>Home Page</h1>
       <h2>push()</h2>
       <p>
@@ -69,10 +79,8 @@ export default function Home() {
         </button>
       </p>
       <p>
-        <input
-          type="checkbox"
-          onChange={() => router.push('/feedback')}
-        ></input> Check me to go to the feedback page
+        <input type="checkbox" onChange={() => router.push('/feedback')}></input>{' '}
+        Check me to go to the feedback page
       </p>
       <br />
 
@@ -83,6 +91,6 @@ export default function Home() {
         </button>
       </div>
     </div>
-  );
+  )
 }
 ```

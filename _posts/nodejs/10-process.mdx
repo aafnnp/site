@@ -5,7 +5,7 @@ tags: [nodejs, javascript]
 description: process对象是 Node 的一个全局对象，提供当前 Node 进程的信息。它可以在脚本的任意位置使用，不必通过require命令加载。该对象部署了EventEmitter接口
 ---
 
-process对象是 Node 的一个全局对象，提供当前 Node 进程的信息。它可以在脚本的任意位置使用，不必通过require命令加载。该对象部署了EventEmitter接口
+process 对象是 Node 的一个全局对象，提供当前 Node 进程的信息。它可以在脚本的任意位置使用，不必通过 require 命令加载。该对象部署了 EventEmitter 接口
 
 ## 属性
 
@@ -18,7 +18,7 @@ process对象是 Node 的一个全局对象，提供当前 Node 进程的信息�
 - `execPath`: 包含当前进程的执行路径
 - `exitCode`: 当前进程的退出代码
 - `args`: 包含当前进程的参数
-- `pid`: 当前进程的pid
+- `pid`: 当前进程的 pid
 - `platform`: 操作系统平台，可能的值有 `darwin`, `freebsd`, `linux`, `sunos`, `win32`
 - `release`: 操作系统的版本
 - `version`: Node.js 的版本
@@ -27,18 +27,18 @@ process对象是 Node 的一个全局对象，提供当前 Node 进程的信息�
 输出基本信息
 
 ```js
-console.log(`Process Architecture: ${process.arch}`);
-console.log(`Process PID: ${process.pid}`);
-console.log(`Process Platform: ${process.platform}`);
-console.log(`Process Version: ${process.version}`);
+console.log(`Process Architecture: ${process.arch}`)
+console.log(`Process PID: ${process.pid}`)
+console.log(`Process Platform: ${process.platform}`)
+console.log(`Process Version: ${process.version}`)
 ```
 
 输出命令行参数：
 
 ```js
 process.argv.forEach((value, index, array) => {
-  console.log(`${index}: ${value}`);
-});
+  console.log(`${index}: ${value}`)
+})
 ```
 
 ## 方法
@@ -47,21 +47,20 @@ process.argv.forEach((value, index, array) => {
 - `chdir(directory)`: 改变当前进程的工作目录
 - `nextTick(callback)`: 在下一个事件循环中执行回调函数
 - `exit(code)`: 退出当前进程
-- `getgid()`: 返回当前进程的用户组id
-- `getuid()`: 返回当前进程的用户id
+- `getgid()`: 返回当前进程的用户组 id
+- `getuid()`: 返回当前进程的用户 id
 - `nextTick(callback)`: 在下一个事件循环中执行回调函数
 - `on(event, listener)`: 监听进程事件
-- `setgid(id)`: 设置当前进程的用户组id
-- `setuid(id)`: 设置当前进程的用户id
+- `setgid(id)`: 设置当前进程的用户组 id
+- `setuid(id)`: 设置当前进程的用户 id
 - `uptime()`: 返回当前进程的运行时间
-
 
 获取当前工作目录和运行时间
 
 ```js
-console.log(`Current directory: ${process.cwd()}`);
-console.log(`Uptime: ${process.uptime()}`);
+console.log(`Current directory: ${process.cwd()}`)
+console.log(`Uptime: ${process.uptime()}`)
 ```
 
-[Node.js文档](http://nodejs.cn/api/process.html)
-[process对象](https://javascript.ruanyifeng.com/nodejs/process.html)
+[Node.js 文档](http://nodejs.cn/api/process.html)
+[process 对象](https://javascript.ruanyifeng.com/nodejs/process.html)

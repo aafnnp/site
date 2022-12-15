@@ -12,9 +12,9 @@ description: Next.js是基于React的框架，具有服务器端渲染功能。
 2. 编辑`pages/_app.js`
 
 ```js
-import Head from "next/head";
+import Head from 'next/head'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({Component, pageProps}) {
   return (
     <>
       {/* the favicon */}
@@ -24,9 +24,10 @@ function MyApp({ Component, pageProps }) {
       {/* the favicon */}
       <Component {...pageProps} />
     </>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp
 ```
+
 ![eFVnUi](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/eFVnUi.jpg)

@@ -8,14 +8,15 @@ cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js_bg.svg
 
 `pages/api` 目录下的任何文件都将作为 `API` 端点映射到 `/api/*`，而不是 `page`。这些文件只会增加服务端文件包的体积，而不会增加客户端文件包的大小。
 
-`Next.js`中创建rest api的方式如下：
+`Next.js`中创建 rest api 的方式如下：
 
 ```jsx
 export default (req, res) => {
-  console.log(req,res)
-   return {}
+  console.log(req, res)
+  return {}
 }
 ```
+
 - req: 请求对象，http.IncomingMessage 实例
 - res: 响应对象，http.ServerResponse 实例
 
@@ -30,28 +31,29 @@ export default (req, res) => {
 
 ```jsx
 export default function handler(req, res) {
-  res.status(200).json({ message: 'Hello from Next.js!' })
+  res.status(200).json({message: 'Hello from Next.js!'})
 }
 ```
 
 ## 创建路由
-创建一个简单的rest api
+
+创建一个简单的 rest api
 
 ```jsx
 export default (req, res) => {
-   res.statusCode = 200
-   res.setHeader('Content-Type', 'application/json')
-   res.json({
-     message: 'Hello World'
-   })
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'application/json')
+  res.json({
+    message: 'Hello World'
+  })
 }
 ```
 
-创建动态API路由：`pages/api/post/[pid].js`
+创建动态 API 路由：`pages/api/post/[pid].js`
 
 ```jsx
 export default function handler(req, res) {
-  const { pid } = req.query
+  const {pid} = req.query
   res.end(`Post: ${pid}`)
 }
 ```
@@ -60,7 +62,7 @@ export default function handler(req, res) {
 
 ```jsx
 export default function handler(req, res) {
-  const { slug } = req.query
+  const {slug} = req.query
   res.end(`Post: ${slug.join(', ')}`)
 }
 ```

@@ -1,11 +1,10 @@
-import {useColorMode, Box} from '@chakra-ui/react'
-import {BsMoonFill, BsFillSunFill} from 'react-icons/bs'
+import { Box, useColorMode } from "@chakra-ui/react";
+import { BsFillSunFill, BsMoonFill } from "react-icons/bs";
 
 const DarkModeSwitch = () => {
   const {colorMode, toggleColorMode} = useColorMode()
   return (
     <Box
-      as="div"
       position="absolute"
       top={4}
       right={4}

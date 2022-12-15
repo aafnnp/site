@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import {FaGithub, FaSitemap, FaTwitter, FaHome} from 'react-icons/fa'
-import styles from 'assets/styles/about.module.scss'
-import {Flex, Image, Heading, Text} from '@chakra-ui/react'
-import {motion} from 'framer-motion'
+import Link from "next/link";
+import { FaGithub, FaHome, FaSitemap, FaTwitter } from "react-icons/fa";
+import styles from "assets/styles/about.module.scss";
+import { Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
 const MotionImage = motion(Image)
 

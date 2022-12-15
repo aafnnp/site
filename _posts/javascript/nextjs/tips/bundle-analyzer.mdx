@@ -15,7 +15,7 @@ npm install @next/bundle-analyzer -D
 
 ```js
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
+  enabled: process.env.ANALYZE === 'true'
 })
 
 module.exports = withBundleAnalyzer({
@@ -34,9 +34,9 @@ ANALYZE=true npm run build
 ```json
 {
   "scripts": {
-	  "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build"
   }
 }
 ```
 
-```npm run analyze```
+`npm run analyze`

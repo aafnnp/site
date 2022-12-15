@@ -1,29 +1,22 @@
-import {MDXRemote} from 'next-mdx-remote'
-import {serialize} from 'next-mdx-remote/serialize'
-import dynamic from 'next/dynamic'
-import ErrorPage from 'next/error'
-import NextLink from 'next/link'
-import {useRouter} from 'next/router'
-import React from 'react'
-import remarkGfm from 'remark-gfm'
-import components from 'utils/components'
-import {
-  Container,
-  Box,
-  Heading,
-  Text,
-  Link,
-  Image,
-  Center
-} from '@chakra-ui/react'
+import { MDXRemote } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
+import dynamic from "next/dynamic";
+import ErrorPage from "next/error";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import remarkGfm from "remark-gfm";
+import components from "utils/components";
+import { Box, Center, Heading, Image, Link, Text } from "@chakra-ui/react";
+
 const codesandbox = require('remark-codesandbox')
 
-const SEO = dynamic(() => import('components/SEO'),{ssr:false})
-const Ad = dynamic(() => import('components/ad'),{ssr:false})
-const PostPage = dynamic(() => import('components/PostPage'),{ssr:false})
-const Random = dynamic(() => import('components/RandomPost'),{ssr:false})
-const Share = dynamic(() => import('components/Share'),{ssr:false})
-const Comments = dynamic(() => import('components/Comments'),{ssr:false})
+const SEO = dynamic(() => import('components/SEO'), {ssr: false})
+const Ad = dynamic(() => import('components/ad'), {ssr: false})
+const PostPage = dynamic(() => import('components/PostPage'), {ssr: false})
+const Random = dynamic(() => import('components/RandomPost'), {ssr: false})
+const Share = dynamic(() => import('components/Share'), {ssr: false})
+const Comments = dynamic(() => import('components/Comments'), {ssr: false})
 
 const Post = ({
   title,
@@ -40,15 +33,12 @@ const Post = ({
     return <ErrorPage statusCode={404} />
   }
   return (
-    <Container
-      mt={20}
-      maxW={{
-        sm: 'container.sm',
-        md: 'container.md',
-        lg: 'container.2xl',
-        xl: 'container.xl'
-      }}
-      className="post"
+    <Box
+      px={6}
+      pt={20}
+      h={'100vh'}
+      overflowY={'scroll'}
+      scrollBehavior={'smooth'}
     >
       <SEO
         title={title}
@@ -96,7 +86,7 @@ const Post = ({
 
         <Comments />
       </PostPage>
-    </Container>
+    </Box>
   )
 }
 

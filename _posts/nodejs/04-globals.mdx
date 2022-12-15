@@ -68,43 +68,43 @@ console.log(__filename)
 
 ## buffer
 
-js只有字符串数据类型，没有二进制数据类型，不过，在处理`tcp`流和文件流时，就必需使用到二进制数据。
+js 只有字符串数据类型，没有二进制数据类型，不过，在处理`tcp`流和文件流时，就必需使用到二进制数据。
 
 `buffer`用于创建存放二进制数据的缓存区
 
-``` js
+```js
 const buf = Buffer.from('Hey!')
 ```
 
-获取buffer的长度
+获取 buffer 的长度
 
-``` js
+```js
 buf.length
 ```
 
-遍历buffer的内容
+遍历 buffer 的内容
 
-``` js
-for(const item of buf){
+```js
+for (const item of buf) {
   console.log(item)
 }
 ```
 
-写入buffer内容
+写入 buffer 内容
 
-``` js
-buf.write("world")
+```js
+buf.write('world')
 ```
 
-复制buffer
+复制 buffer
 
-``` js
+```js
 buf.copy(Buffer.alloc(4))
 ```
 
-切割buffer
+切割 buffer
 
-``` js
+```js
 buf.slice(0).toString()
 ```
 

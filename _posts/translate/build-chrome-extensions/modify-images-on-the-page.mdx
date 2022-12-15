@@ -22,7 +22,7 @@ export default function ChangeImages() {
   const spoofImages = () => {
     const images = document.getElementsByTagName('img')
     for (const image of images) {
-      image.removeAttribute('srcset')//去掉srcset，使srcset高质量图片失效
+      image.removeAttribute('srcset') //去掉srcset，使srcset高质量图片失效
       image.src = 'http://placekitten.com/300'
     }
   }

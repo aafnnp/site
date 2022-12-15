@@ -21,8 +21,8 @@ description: 基于react、tailwindcss开发自己的chrome插件
 修改`public/background.js`
 
 ```js
-chrome.action.onClicked.addListener(()=>{
-  chrome.tabs.create({url:'./new-tab.html',active:true})
+chrome.action.onClicked.addListener(() => {
+  chrome.tabs.create({url: './new-tab.html', active: true})
 })
 ```
 

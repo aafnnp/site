@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Box} from '@chakra-ui/react'
+import React, { Component } from "react";
+import { Box } from "@chakra-ui/react";
 
 export default class Comments extends Component {
   componentDidMount() {

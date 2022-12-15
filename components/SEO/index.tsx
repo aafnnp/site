@@ -1,4 +1,4 @@
-import {NextSeo} from 'next-seo'
+import { NextSeo } from "next-seo";
 
 export default function SEO(props) {
   const {url, cover, description, title} = props

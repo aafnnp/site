@@ -22,18 +22,17 @@ try {
 
 以上代码输出`ReferenceError:b is not defined`
 
-
 ```js
-const fs = require('fs');
+const fs = require('fs')
 function nodeStyleCallback(err, data) {
- if (err) {
-   console.error('There was an error', err);
-   return;
- }
- console.log(data);
+  if (err) {
+    console.error('There was an error', err)
+    return
+  }
+  console.log(data)
 }
-fs.readFile('/some/file/that/does-not-exist', nodeStyleCallback);
-fs.readFile('/some/file/that/does-exist', nodeStyleCallback);
+fs.readFile('/some/file/that/does-not-exist', nodeStyleCallback)
+fs.readFile('/some/file/that/does-exist', nodeStyleCallback)
 ```
 
 ![TP1ULh](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/TP1ULh.png)

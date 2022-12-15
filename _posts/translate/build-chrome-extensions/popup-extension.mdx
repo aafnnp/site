@@ -134,7 +134,7 @@ export default defineConfig({
 </html>
 ```
 
-假如现在构建并加载插件，当前Popup 插件将会展示如下：
+假如现在构建并加载插件，当前 Popup 插件将会展示如下：
 
 ![tnq7AB](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/tnq7AB.jpg)
 
@@ -150,48 +150,49 @@ export default defineConfig({
 创建`src`，并在`src`下添加`index.jsx`
 
 ```jsx
-import ReactDOM from 'react-dom';
-import { App } from './App';
+import ReactDOM from 'react-dom'
+import {App} from './App'
 
-const app = document.getElementById('app');
-ReactDOM.render(<App />, app);
+const app = document.getElementById('app')
+ReactDOM.render(<App />, app)
 ```
 
 创建`App.jsx`
 
 ```jsx
-import Counter from './Counter';
+import Counter from './Counter'
 
 export function App() {
   return (
-    <div className='flex flex-col items-center justify-center w-screen h-screen bg-indigo-400 text-6xl font-bold text-white'>
+    <div className="flex flex-col items-center justify-center w-screen h-screen bg-indigo-400 text-6xl font-bold text-white">
       <p>Welcome 👋</p>
       <br />
       <Counter />
     </div>
-  );
+  )
 }
 ```
 
 创建`Counter.jsx`
 
 ```jsx
-import { useState } from 'react';
+import {useState} from 'react'
 
 export default function Counter() {
-  const [counter, setCounter] = useState(0);
-  const increase = () => setCounter((count) => count + 1);
-  const decrease = () => setCounter((count) => count - 1);
+  const [counter, setCounter] = useState(0)
+  const increase = () => setCounter((count) => count + 1)
+  const decrease = () => setCounter((count) => count - 1)
   return (
     <div>
       <button onClick={decrease}>-</button>
-      <span className='px-4'>{counter}</span>
+      <span className="px-4">{counter}</span>
       <button onClick={increase}>+</button>
     </div>
-  );
+  )
 }
 ```
-构建后，现在的Popup插件展示如下：
+
+构建后，现在的 Popup 插件展示如下：
 
 ![Qk0rJH](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Qk0rJH.jpg)
 

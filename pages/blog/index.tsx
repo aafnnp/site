@@ -1,24 +1,21 @@
-import NextLink from 'next/link'
-import {Fragment} from 'react'
-import {
-  List,
-  LinkOverlay,
-  ListItem,
-  Container,
-  Heading,
-  Image
-} from '@chakra-ui/react'
+import NextLink from "next/link";
+import { Fragment } from "react";
+import { Box, Heading, Image, LinkOverlay, List, ListItem } from "@chakra-ui/react";
 
 const IndexPage = ({groupByMonthPosts}) => {
   return (
-    <Container>
+    <Box
+      px={6}
+      pt={12}
+      h={'100vh'}
+      overflowY={'scroll'}
+      scrollBehavior={'smooth'}
+    >
       {Object.keys(groupByMonthPosts).map((group) => {
         return (
           <Fragment key={group}>
-            <Heading as="h3" mt={12} mb={4}>
-              {group}
-            </Heading>
-            <List spacing={3}>
+            <Heading mb={4}>{group}</Heading>
+            <List spacing={3} mb={12}>
               {groupByMonthPosts[group].map((post) => {
                 return (
                   <ListItem
@@ -53,7 +50,7 @@ const IndexPage = ({groupByMonthPosts}) => {
           </Fragment>
         )
       })}
-    </Container>
+    </Box>
   )
 }
 

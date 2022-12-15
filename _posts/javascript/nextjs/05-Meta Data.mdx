@@ -6,7 +6,7 @@ description: 在 Next.js 中，我们可以通过Head组件修改每个react页�
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js_bg.svg
 ---
 
-在 `Next.js` 中，我们可以通过Head组件修改每个`react`页面的头信息。
+在 `Next.js` 中，我们可以通过 Head 组件修改每个`react`页面的头信息。
 
 修改`index.js`
 
@@ -15,17 +15,19 @@ import Link from 'next/link'
 import Head from 'next/head'
 
 function HomePage() {
-   return (
-      <>
-         <Head>
-            <title>Welcome to Next.js!</title>
-         </Head>
-         <div>Welcome to Next.js!</div>
-         <Link href="/posts/first"><a>First Post</a></Link>
-         <br/>
-         <img src="/logo.png" alt="TutorialsPoint Logo" />
-      </>
-   )
+  return (
+    <>
+      <Head>
+        <title>Welcome to Next.js!</title>
+      </Head>
+      <div>Welcome to Next.js!</div>
+      <Link href="/posts/first">
+        <a>First Post</a>
+      </Link>
+      <br />
+      <img src="/logo.png" alt="TutorialsPoint Logo" />
+    </>
+  )
 }
 
 export default HomePage
@@ -38,19 +40,19 @@ import Link from 'next/link'
 import Head from 'next/head'
 
 export default function FirstPost() {
-   return (
-      <>
+  return (
+    <>
       <Head>
-         <title>My First Post</title>
+        <title>My First Post</title>
       </Head>
       <h1>My First Post</h1>
       <h2>
-         <Link href="/">
-            <a>Home</a>
-         </Link>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
       </h2>
-      </>
-   )
+    </>
+  )
 }
 ```
 

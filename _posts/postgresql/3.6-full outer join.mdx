@@ -71,6 +71,7 @@ FROM
 INNER JOIN employee m ON m .employee_id = e.manager_id
 ORDER BY manager;
 ```
+
 ![1zBzNp](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/1zBzNp.jpg)
 
 以上查询两次引用`employee`表，一次作为雇员，另一次作为经理，通过匹配`employee_id`和`manager_id`查找雇员/经理对
@@ -86,6 +87,7 @@ FROM
 LEFT JOIN employee m ON m .employee_id = e.manager_id
 ORDER BY manager;
 ```
+
 ![7eG9pZ](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/7eG9pZ.jpg)
 
 ### 比较同表的行
@@ -105,4 +107,5 @@ INNER JOIN film f2
     ON f1.film_id <> f2.film_id AND
        f1.length = f2.length;
 ```
+
 ![AFkjme](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/AFkjme.jpg)

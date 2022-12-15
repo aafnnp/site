@@ -1,23 +1,13 @@
-import NextLink from 'next/link'
-import React from 'react'
-import {FaGithub, FaLink} from 'react-icons/fa'
-import {
-  Grid,
-  Container,
-  Heading,
-  OrderedList,
-  ListItem,
-  Flex,
-  Image,
-  Link,
-  Center
-} from '@chakra-ui/react'
+import NextLink from "next/link";
+import React from "react";
+import { FaGithub, FaLink } from "react-icons/fa";
+import { Center, Container, Flex, Grid, Heading, Image, Link, ListItem, OrderedList } from "@chakra-ui/react";
 
 export default function IndexPage(props) {
   const {allChallenges} = props
 
   return (
-    <Container pt={20} maxW={['768px', '1200px', '1200px', '1400px']}>
+    <Container pt={12} maxW={['768px', '1200px', '1200px', '1400px']}>
       <Heading as="h1" mb={4}>
         <Center>Web API Playground</Center>
       </Heading>

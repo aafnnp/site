@@ -1,15 +1,7 @@
-import NextLink from 'next/link'
-import React from 'react'
-import {FaGithub, FaLink} from 'react-icons/fa'
-import {
-  Grid,
-  Container,
-  Heading,
-  Center,
-  Flex,
-  Image,
-  Link
-} from '@chakra-ui/react'
+import NextLink from "next/link";
+import React from "react";
+import { FaGithub, FaLink } from "react-icons/fa";
+import { Center, Container, Flex, Grid, Heading, Image, Link } from "@chakra-ui/react";
 
 export default function IndexPage(props) {
   const {allChallenges} = props
@@ -19,7 +11,7 @@ export default function IndexPage(props) {
       <Heading as="h1" mb={12}>
         <Center>Challenges</Center>
       </Heading>
-      <Grid templateColumns="repeat(5, 1fr)" gap={4}>
+      <Grid templateColumns={'repeat(auto-fit, minmax(30ch, 1fr))'} gap={4}>
         {allChallenges.map((challenge, i) => {
           return <Challenge {...challenge} key={i} />
         })}
@@ -30,7 +22,7 @@ export default function IndexPage(props) {
 
 const Challenge = ({link, title, group}) => {
   return (
-    <Flex gap={2} direction="column" key={link}>
+    <Flex gap={2} direction="column" key={link} flex={'1 1 20ch'}>
       <img src={`/screenshots/${title}.webp`} alt={title} />
 
       <Flex gap={2} alignItems="center">

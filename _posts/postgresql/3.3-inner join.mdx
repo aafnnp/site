@@ -76,8 +76,8 @@ ORDER BY payment_date;
 
 下图说明了三个表之间的关系：`staff`、`payment`和`customer`
 
-- 每个员工处理0或多个付款，每个付款只能被一个员工处理
-- 每个客户进行0或多次付款，每次付款只能被一个客户支付
+- 每个员工处理 0 或多个付款，每个付款只能被一个员工处理
+- 每个客户进行 0 或多次付款，每次付款只能被一个客户支付
 
 ![NqdK05](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NqdK05.jpg)
 
@@ -98,4 +98,5 @@ INNER JOIN staff s
     ON p.staff_id = s.staff_id
 ORDER BY payment_date;
 ```
+
 ![mxHQfg](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mxHQfg.jpg)

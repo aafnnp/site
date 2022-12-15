@@ -1,16 +1,14 @@
-import NextLink from 'next/link'
-import React from 'react'
-import {data, title} from 'utils/http-status'
-import {Container, Heading, Box, Text, Link} from '@chakra-ui/react'
+import NextLink from "next/link";
+import React from "react";
+import { data, title } from "utils/http-status";
+import { Box, Container, Heading, Link, Text } from "@chakra-ui/react";
 
 const HttpStatus = () => {
-  React.useEffect(()=>{
+  React.useEffect(() => {
     // fetch("/api/publish").then(res=>{
     //   console.log(res,"res")
     // })
-
-
-  },[])
+  }, [])
   return (
     <Container p={4}>
       <Heading as="h1">HTTP状态代码概述</Heading>
@@ -36,7 +34,9 @@ const HttpStatus = () => {
               key={el.key}
             >
               <Link display="flex" gap={2} py={2} isExternal>
-                <Text bg="purple.500" px={2} py={1} rounded="md" fontSize="xs">{el.key}</Text>
+                <Text bg="purple.500" px={2} py={1} rounded="md" fontSize="xs">
+                  {el.key}
+                </Text>
                 <Text>-</Text>
                 <Text color="purple.500">{el.value}</Text>
               </Link>

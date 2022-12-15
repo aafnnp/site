@@ -190,11 +190,7 @@ const IndexPage = ({groupByMonthPosts}) => {
                     alignItems="center"
                     key={post.title}
                   >
-                    <NextLink
-                      legacyBehavior
-                      href={`/${post.slug}`}
-                      passHref
-                    >
+                    <NextLink legacyBehavior href={`/${post.slug}`} passHref>
                       <LinkOverlay>{post.title}</LinkOverlay>
                     </NextLink>
                     {post.tags.map((tag) => {
@@ -263,7 +259,7 @@ import {
   Center
 } from '@chakra-ui/react'
 
-const PostPage = dynamic(() => import('components/PostPage'),{ssr:false})
+const PostPage = dynamic(() => import('components/PostPage'), {ssr: false})
 
 const Post = ({title, description, date, originalUrl, mdxSource, cover}) => {
   const router = useRouter()
@@ -465,11 +461,11 @@ const components = {
 export default components
 ```
 
-好了，到这里基本完成了基于Next.js的博客搭建。
+好了，到这里基本完成了基于 Next.js 的博客搭建。
 
-## 部署到Vercel
+## 部署到 Vercel
 
-Next.js部署到Vercel无需更改和配置，无缝衔接。
+Next.js 部署到 Vercel 无需更改和配置，无缝衔接。
 
 ![LKxyVc](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/LKxyVc.png)
 

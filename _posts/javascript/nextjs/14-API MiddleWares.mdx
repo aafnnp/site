@@ -6,19 +6,19 @@ description:
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js_bg.svg
 ---
 
-## API中间件
+## API 中间件
 
 `Next.js`提供了内置的路由中间件用于解析入参等。
 
-- `req.cookies`：获取客户端的cookie
-- `req.query`：获取客户端的query
-- `req.body`：获取客户端的body
+- `req.cookies`：获取客户端的 cookie
+- `req.query`：获取客户端的 query
+- `req.body`：获取客户端的 body
 
 ```jsx
 export default (req, res) => {
-   res.statusCode = 200
-   res.setHeader('Content-Type', 'application/json')
-   res.end(JSON.stringify({ query: req.query }))
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify({query: req.query}))
 }
 ```
 
@@ -31,7 +31,7 @@ import Cors from 'cors'
 
 // Initializing the cors middleware
 const cors = Cors({
-  methods: ['GET', 'HEAD'],
+  methods: ['GET', 'HEAD']
 })
 
 // Helper method to wait for a middleware to execute before continuing
@@ -53,7 +53,7 @@ async function handler(req, res) {
   await runMiddleware(req, res, cors)
 
   // Rest of the API logic
-  res.json({ message: 'Hello Everyone!' })
+  res.json({message: 'Hello Everyone!'})
 }
 
 export default handler

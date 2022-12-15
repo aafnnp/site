@@ -1,15 +1,6 @@
-import {BrowserEnums} from 'utils'
-import * as lite from 'caniuse-lite'
-import {
-  Container,
-  Box,
-  Heading,
-  Grid,
-  Link,
-  Flex,
-  Image,
-  Center
-} from '@chakra-ui/react'
+import { BrowserEnums } from "utils";
+import * as lite from "caniuse-lite";
+import { Box, Center, Container, Flex, Grid, Heading, Image, Link } from "@chakra-ui/react";
 
 const Section = ({browser, data}) => {
   return (
