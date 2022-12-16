@@ -3,3 +3,50 @@ date: '2018-05-08'
 title: 'Symbol'
 tags: [javascript]
 ---
+
+在 JavaScript 中，Symbol 是一种原始数据类型，表示唯一、不可变的值。Symbols 用于创建唯一的对象键，并提供创建私有对象成员的方法。
+
+你可以使用 Symbol() 函数创建一个 symbol：
+
+```js
+let sym = Symbol()
+```
+
+在创建 symbol 时，你还可以为它提供一个描述，这对调试很有帮助：
+
+```js
+let sym = Symbol('debug symbol')
+```
+
+Symbols 是唯一的，不能使用 == 或 === 运算符进行比较。你可以使用 Object.is() 方法来比较 symbols：
+
+```js
+let sym1 = Symbol('debug symbol')
+let sym2 = Symbol('debug symbol')
+console.log(sym1 === sym2) // false
+console.log(Object.is(sym1, sym2)) // false
+```
+
+要将 symbol 用作对象键，需要将它放在方括号中：
+
+```js
+let sym = Symbol('debug symbol')
+let obj = {
+  [sym]: 'value'
+}
+console.log(obj[sym]) // "value"
+```
+
+Symbols 不可枚举，这意味着它们不包含在 Object.keys() 或 Object.getOwnPropertyNames() 返回的对象键列表中。你可以使用 Object.getOwnPropertySymbols() 方法获取对象中的 symbol 列表：
+
+```js
+let sym = Symbol('debug symbol')
+let obj = {
+  [sym]: 'value'
+}
+console.log(Object.keys(obj)) // []
+console.log(Object.getOwnPropertyNames(obj)) // []
+console.log(Object.getOwnPropertySymbols(obj)) // [Symbol(debug symbol)]
+```
+
+Symbols 可用于创建私有对象成员。由于 symbols 是唯一的且不可枚举的，所以可以将它们用作对象属性的键
