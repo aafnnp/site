@@ -9,12 +9,12 @@ import {
   TwitterShareButton,
   WeiboIcon,
   WeiboShareButton
-} from "next-share";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { Flex } from "@chakra-ui/react";
+} from 'next-share'
+import {useRouter} from 'next/router'
+import {useEffect, useState} from 'react'
+import {Flex} from '@chakra-ui/react'
 
-export default function Share({title, tag}) {
+export default function Share({title, tag, handle}) {
   const {asPath} = useRouter()
   const [url, setUrl] = useState(asPath)
 
@@ -25,11 +25,11 @@ export default function Share({title, tag}) {
   return (
     <>
       {asPath === '/' ? null : (
-        <Flex gap={2} py={4} justifyContent="center">
+        <Flex gap={2} py={4} mb={8} justifyContent="center">
           <TwitterShareButton
             url={url}
             title={title}
-            via={'manon'}
+            via={handle ?? 'manon'}
             hashtags={tag}
           >
             <TwitterIcon size={24} round />

@@ -1,16 +1,15 @@
-import { MDXRemote } from "next-mdx-remote";
-import { serialize } from "next-mdx-remote/serialize";
-import dynamic from "next/dynamic";
-import ErrorPage from "next/error";
-import NextLink from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import remarkGfm from "remark-gfm";
-import components from "utils/components";
-import { Box, Center, Heading, Image, Link, Text } from "@chakra-ui/react";
+import {MDXRemote} from 'next-mdx-remote'
+import {serialize} from 'next-mdx-remote/serialize'
+import dynamic from 'next/dynamic'
+import ErrorPage from 'next/error'
+import NextLink from 'next/link'
+import {useRouter} from 'next/router'
+import React from 'react'
+import remarkGfm from 'remark-gfm'
+import components from 'utils/components'
+import {Box, Center, Heading, Image, Link, Text} from '@chakra-ui/react'
 
 const codesandbox = require('remark-codesandbox')
-
 const SEO = dynamic(() => import('components/SEO'), {ssr: false})
 const Ad = dynamic(() => import('components/ad'), {ssr: false})
 const PostPage = dynamic(() => import('components/PostPage'), {ssr: false})
@@ -26,7 +25,8 @@ const Post = ({
   originalUrl,
   mdxSource,
   randomPost,
-  cover
+  cover,
+  handle
 }) => {
   const router = useRouter()
   if (!router.isFallback && !mdxSource) {
@@ -54,16 +54,19 @@ const Post = ({
           {title}
         </Heading>
         {originalUrl && (
-          <Center color="gray.500" fontSize="sm" mb={8}>
+          <Center color="gray.500" fontSize="sm">
             本文翻译自：
             <NextLink legacyBehavior href={originalUrl} passHref>
               <Link>{originalUrl}</Link>
             </NextLink>
           </Center>
         )}
+        <Share title={title} tag={tags} handle={handle} />
+
       </Box>
       <Image
-        boxSize="100%"
+        fit={'cover'}
+        loading={'lazy'}
         src={
           cover ??
           'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg'
@@ -80,7 +83,6 @@ const Post = ({
         {/* 底部广告 */}
         <Ad />
         {/* 底部广告结束 */}
-        <Share title={title} tag={tags} />
 
         <Random randomPost={randomPost} />
 

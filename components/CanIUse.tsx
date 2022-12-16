@@ -74,7 +74,6 @@ export default function CanIUse({tag}) {
   const data = {
     desktop: getSupportData([chrome, firefox, ie, edge, safari]),
     mobile: getSupportData([and_chr, and_ff, android, ios_saf])
-    // updateTime: dayjs(data.updated).format('YYYY-MM-DD HH:mm:ss')
   }
 
   return (

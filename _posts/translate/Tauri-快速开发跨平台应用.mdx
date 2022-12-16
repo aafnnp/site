@@ -1,0 +1,551 @@
+---
+date: 2022-12-16 11:10:49
+title: 'Tauri-快速开发跨平台应用'
+tags: [javascript]
+originalUrl: https://www.sitepoint.com/tauri-introduction/
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/4IcJAi.png
+handle: codeknack
+---
+
+> 在本教程中，我们将探索 Tauri，一个用于构建桌面应用程序的现代跨平台框架。
+
+多年来，==Electron== 实际上是构建桌面应用程序的跨平台框架。Visual Studio Code、 MongoDB Compass 和 Postman 都是使用这个框架构建应用程序的很好的例子。==Electron==无疑是伟大的，但它也有一些显著的缺点，这些缺点是其他一些现代框架所克服的ーー==Tauri==是其中最好的一个。
+
+## 什么是 Tauri？
+
+Tauri 是一个现代的框架，允许你在前端使用熟悉的网络技术(如 HTML、 CSS 和 JavaScript)设计、开发和构建跨平台应用，同时利用后端强大的 Rust 编程语言。
+
+Tauri 是框架不可知论者。这意味着您可以将它与您选择的任何前端库一起使用ーー比如 Vue、 React、 Svelte 等等。此外，在基于 Tauri 的项目中使用 Rust 是完全可选的。你可以使用 Tauri 提供的 JavaScriptAPI 来构建你的整个应用。这样不仅可以很容易地构建一个新的应用程序，而且可以将已经构建的 Web 应用程序的代码库转换为本地桌面应用程序，而几乎不需要修改原始代码。
+
+让我们看看为什么我们应该用 Tauri 而不是 Electron。
+
+## Tauri vs Electron
+
+开发应用有三大要素：小、快、安全，Tauri 在这三方面都优于 Electron。
+
+1. 更小
+
+参考[Tauri 发布的基准测试结果](https://tauri.app/v1/references/benchmarks)，即使是最小的`hello world`，Electron 的应用大小也超过了 120MB，而使用 Tauri 开发的应用仅仅 2MB
+
+2. 更快
+
+参考[Tauri 发布的基准测试结果](https://tauri.app/v1/references/benchmarks)，你还可以看到 Tauri 应用程序的内存使用量可能是同等 Electron 应用程序的近一半。
+
+3. 更安全
+
+在 Tauri 的网站上，你可以阅读到 Tauri 默认提供的所有内置安全特性。开发人员可以显式地启用或禁用某些 API。这不仅使你的应用程序更安全，而且还减少了二进制文件的大小。
+
+## 开发笔记应用
+
+这里，我们开发一个简单的笔记应用，包括以下特性：
+
+- 增加、删除笔记
+- 重命名笔记标题
+- 支持 markdown 编辑
+- 支持预览
+- 支持本地存储
+- 支持导入导出
+
+源码:[Source Code](https://github.com/sitepoint-editors/my-notes)
+
+## 开始
+
+首先，需要[安装 Rust 开发环境](https://tauri.app/v1/guides/getting-started/prerequisites)。
+
+使用脚手架创建 Tauri 应用
+
+```bash
+pnpm create tauri-app notes
+.../Library/pnpm/store/v3/tmp/dlx-98609  |   +2 +
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /Users/xxx/Library/pnpm/store/v3
+  Virtual store is at:             ../../Library/pnpm/store/v3/tmp/dlx-98609/node_modules/.pnpm
+.../Library/pnpm/store/v3/tmp/dlx-98609  | Progress: resolved 10, reused 0, downloaded 2, added 2, done
+
+✔ Choose your package manager · pnpm
+✔ Choose your UI template · react-ts
+
+Please follow https://tauri.app/v1/guides/getting-started/prerequisites to install the needed prerequisites, if you haven't already.
+
+Done, Now run:
+  cd notes
+  pnpm install
+  pnpm tauri dev
+```
+
+安装依赖
+
+```bash
+pnpm add @chakra-ui/react @emotion/react @emotion/styled framer-motion marked-react react-icons rooks
+```
+
+项目目录结构
+
+```bash
+├── README.md
+├── index.html
+├── package.json
+├── pnpm-lock.yaml
+├── public
+│ ├── tauri.svg
+│ └── vite.svg
+├── src
+│ ├── App.css
+│ ├── App.tsx
+│ ├── assets
+│ ├── main.tsx
+│ ├── style.css
+│ └── vite-env.d.ts
+├── src-tauri
+│ ├── Cargo.lock
+│ ├── Cargo.toml
+│ ├── build.rs
+│ ├── icons
+│ ├── src
+│ ├── target
+│ └── tauri.conf.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
+
+`src`存放 React 相关，`src-tauri`存放 rust 相关，配置修改相关的是`tauri.conf.json`，通常情况使用默认的即可
+
+比如修改`allowlist`：
+
+```json
+{
+  "allowlist": {
+    "dialog": {
+      "save": true,
+      "open": true,
+      "ask": true
+    },
+    "fs": {
+      "writeFile": true,
+      "readFile": true,
+      "scope": ["$DOCUMENT/*", "$DESKTOP/*"]
+    },
+    "path": {
+      "all": true
+    },
+    "notification": {
+      "all": true
+    }
+  }
+}
+```
+
+在`fs`里面特别声明了`scope`，`Documents`和`Desktop`，允许用户将笔记导出到这两个文件夹。
+
+还需要修改`bundle`值，更改`identifier`为`com.mynotes.dev`，保证标识符唯一。
+
+`windows`设置
+
+```json
+{
+  "windows": [
+    {
+      "fullscreen": false,
+      "height": 600,
+      "resizable": true,
+      "title": "My Notes",
+      "width": 800
+    }
+  ]
+}
+```
+
+然后启动服务`pnpm run tauri dev`，您需要等待一段时间，直到 Tauri 设置完成，所有文件都是第一次编译。
+
+别担心。在随后的构建中，这个过程会快得多。当 Tauri 准备好了，它会自动打开应用程序窗口。下面的图片显示了您应该看到的内容。
+
+![Rtp2Rx](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Rtp2Rx.jpg)
+
+> 在应用程序以开发模式运行或构建完成后，将在 `src-tauri` 中创建一个新的目标目录，其中包含所有已编译的文件。在 `dev` 模式下，它们被放置在 `debug` 子目录中，在构建模式下，它们被放置在 `release` 子目录中。
+
+删除`index.css`、`App.css`，修改`main.tsx`，内容如下：
+
+```tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import {ChakraProvider} from '@chakra-ui/react'
+import App from './App'
+
+const rootElement = document.getElementById('root')
+ReactDOM.createRoot(rootElement).render(
+  <React.StrictMode>
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
+  </React.StrictMode>
+)
+```
+
+修改`App.tsx`，内容如下：
+
+```tsx
+import {useState} from 'react'
+import {Button} from '@chakra-ui/react'
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <div>
+      <Button onClick={() => setCount((count) => count + 1)}>
+        count is {count}
+      </Button>
+    </div>
+  )
+}
+
+export default App
+```
+
+现在应用展示如下：
+
+![f9NMfK](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/f9NMfK.png)
+
+如果有什么问题，可以右键`inspect`进行调试。
+
+修改`App.tsx`，替换内容如下：
+
+```tsx
+import {useState} from 'react'
+import Markdown from 'marked-react'
+
+import {
+  ThemeIcon,
+  Button,
+  CloseButton,
+  Switch,
+  NavLink,
+  Flex,
+  Grid,
+  Divider,
+  Paper,
+  Text,
+  TextInput,
+  Textarea
+} from '@chakra-ui/react'
+import {useLocalstorageState} from 'rooks'
+import {
+  IconNotebook,
+  IconFilePlus,
+  IconFileArrowLeft,
+  IconFileArrowRight
+} from '@tabler/icons'
+
+import {save, open, ask} from '@tauri-apps/api/dialog'
+import {writeTextFile, readTextFile} from '@tauri-apps/api/fs'
+import {sendNotification} from '@tauri-apps/api/notification'
+
+function App() {
+  const [notes, setNotes] = useLocalstorageState({
+    key: 'my-notes',
+    defaultValue: [
+      {
+        title: 'New note',
+        content: ''
+      }
+    ]
+  })
+
+  const [active, setActive] = useState(0)
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [checked, setChecked] = useState(false)
+
+  const handleSelection = (title: string, content: string, index: number) => {
+    setTitle(title)
+    setContent(content)
+    setActive(index)
+  }
+
+  const addNote = () => {
+    notes.splice(0, 0, {title: 'New note', content: ''})
+    handleSelection('New note', '', 0)
+    setNotes([...notes])
+  }
+
+  const deleteNote = async (index: number) => {
+    let deleteNote = await ask('Are you sure you want to delete this note?', {
+      title: 'My Notes',
+      type: 'warning'
+    })
+    if (deleteNote) {
+      notes.splice(index, 1)
+      if (active >= index) {
+        setActive(active >= 1 ? active - 1 : 0)
+      }
+      if (notes.length >= 1) {
+        setContent(notes[index - 1].content)
+      } else {
+        setTitle('')
+        setContent('')
+      }
+      setNotes([...notes])
+    }
+  }
+
+  return (
+    <div>
+      <Grid grow m={10}>
+        <Grid.Col span="auto">
+          <Flex gap="xl" justify="flex-start" align="center" wrap="wrap">
+            <Flex>
+              <ThemeIcon
+                size="lg"
+                variant="gradient"
+                gradient={{from: 'teal', to: 'lime', deg: 90}}
+              >
+                <IconNotebook size={32} />
+              </ThemeIcon>
+              <Text color="green" fz="xl" fw={500} ml={5}>
+                My Notes
+              </Text>
+            </Flex>
+            <Button onClick={addNote} leftIcon={<IconFilePlus />}>
+              Add note
+            </Button>
+            <Button.Group>
+              <Button variant="light" leftIcon={<IconFileArrowLeft />}>
+                Import
+              </Button>
+              <Button variant="light" leftIcon={<IconFileArrowRight />}>
+                Export
+              </Button>
+            </Button.Group>
+          </Flex>
+
+          <Divider my="sm" />
+
+          {notes.map((note, index) => (
+            <Flex key={index}>
+              <NavLink
+                onClick={() => handleSelection(note.title, note.content, index)}
+                active={index === active}
+                label={note.title}
+              />
+              <CloseButton
+                onClick={() => deleteNote(index)}
+                title="Delete note"
+                size="xl"
+                iconSize={20}
+              />
+            </Flex>
+          ))}
+        </Grid.Col>
+        <Grid.Col span={2}>
+          <Switch
+            label="Toggle Editor / Markdown Preview"
+            checked={checked}
+            onChange={(event) => setChecked(event.currentTarget.checked)}
+          />
+
+          <Divider my="sm" />
+
+          {checked === false && (
+            <div>
+              <TextInput mb={5} />
+              <Textarea minRows={10} />
+            </div>
+          )}
+          {checked && (
+            <Paper shadow="lg" p={10}>
+              <Text fz="xl" fw={500} tt="capitalize">
+                {title}
+              </Text>
+
+              <Divider my="sm" />
+
+              <Markdown>{content}</Markdown>
+            </Paper>
+          )}
+        </Grid.Col>
+      </Grid>
+    </div>
+  )
+}
+
+export default App
+```
+
+以上代码解释：
+
+1. 导入必要的包
+
+- markdown 解析
+- Mantine 组件
+- hooks
+- 图标
+- Tauri apis
+
+```ts
+import {useState} from 'react'
+import Markdown from 'marked-react'
+
+import {
+  ThemeIcon,
+  Button,
+  CloseButton,
+  Switch,
+  NavLink,
+  Flex,
+  Grid,
+  Divider,
+  Paper,
+  Text,
+  TextInput,
+  Textarea
+} from '@chakra-ui/react'
+import {useLocalStorage} from '@mantine/hooks'
+import {
+  IconNotebook,
+  IconFilePlus,
+  IconFileArrowLeft,
+  IconFileArrowRight
+} from '@tabler/icons'
+
+import {save, open, ask} from '@tauri-apps/api/dialog'
+import {writeTextFile, readTextFile} from '@tauri-apps/api/fs'
+import {sendNotification} from '@tauri-apps/api/notification'
+```
+
+2. 使用`localStorage`存储笔记
+
+使用上一步导入的 hooks 的`useLocalStorage`处理存储
+
+```ts
+const [notes, setNotes] = useLocalStorage({
+  key: 'my-notes',
+  defaultValue: [
+    {
+      title: 'New note',
+      content: ''
+    }
+  ]
+})
+
+const [active, setActive] = useState(0)
+const [title, setTitle] = useState('')
+const [content, setContent] = useState('')
+const [checked, setChecked] = useState(false)
+
+const handleSelection = (title: string, content: string, index: number) => {
+  setTitle(title)
+  setContent(content)
+  setActive(index)
+}
+```
+
+3. 增删函数
+
+`addNote`、`handleSelection`进行存储操作，`deleteNote`函数使用`ask`弹窗询问是否删除
+
+```ts
+const addNote = () => {
+  notes.splice(0, 0, {title: 'New note', content: ''})
+  handleSelection('New note', '', 0)
+  setNotes([...notes])
+}
+
+const deleteNote = async (index: number) => {
+  let deleteNote = await ask('Are you sure you want to delete this note?', {
+    title: 'My Notes',
+    type: 'warning'
+  })
+  if (deleteNote) {
+    notes.splice(index, 1)
+    if (active >= index) {
+      setActive(active >= 1 ? active - 1 : 0)
+    }
+    if (notes.length >= 1) {
+      setContent(notes[index - 1].content)
+    } else {
+      setTitle('')
+      setContent('')
+    }
+    setNotes([...notes])
+  }
+}
+```
+
+![ex0VW6](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/ex0VW6.png)
+
+## 编辑&更新笔记函数
+
+在`deleteNote`函数后添加一下函数
+
+```ts
+const updateNoteTitle = ({target: {value}}: {target: {value: string}}) => {
+  notes.splice(active, 1, {title: value, content: content})
+  setTitle(value)
+  setNotes([...notes])
+}
+
+const updateNoteContent = ({target: {value}}: {target: {value: string}}) => {
+  notes.splice(active, 1, {title: title, content: value})
+  setContent(value)
+  setNotes([...notes])
+}
+```
+
+点击删除将会出现以下弹窗
+
+![ddhywr](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/ddhywr.png)
+
+## 增加导入导出功能
+
+在`updateNoteContent`函数后添加以下函数
+
+```ts
+const exportNotes = async () => {
+  const exportedNotes = JSON.stringify(notes)
+  const filePath = await save({
+    filters: [
+      {
+        name: 'JSON',
+        extensions: ['json']
+      }
+    ]
+  })
+  await writeTextFile(`${filePath}`, exportedNotes)
+  sendNotification(
+    `Your notes have been successfully saved in ${filePath} file.`
+  )
+}
+
+const importNotes = async () => {
+  const selectedFile = await open({
+    filters: [
+      {
+        name: 'JSON',
+        extensions: ['json']
+      }
+    ]
+  })
+  const fileContent = await readTextFile(`${selectedFile}`)
+  const importedNotes = JSON.parse(fileContent)
+  setNotes(importedNotes)
+}
+```
+
+`exportNotes`将笔记转换为 json，并通过 tauri save 弹窗，使用`writeTextFile`保存，保存成功后通过`sendNotification`函数通知用户。
+
+`importNotes`调用 tauri open 弹窗，选择 json 文件，使用`readTextFile`转换为对象并更新到新的笔记。
+
+![DKtOpl](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/DKtOpl.png)
+
+导出通知信息如下：
+
+![IiyZpC](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/IiyZpC.png)
+
+## 构建 App
+
+```bash
+pnpm run tauri build
+```
+
+![kHTm95](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/kHTm95.png)

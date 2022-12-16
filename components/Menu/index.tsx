@@ -10,9 +10,7 @@ const DarkModeSwitch = dynamic(() => import('components/DarkModeSwitch'), {
 
 const Navigation = () => {
   const {asPath} = useRouter()
-  console.log(asPath)
   const pathArr = asPath.split('/')
-  console.log(pathArr)
   return (
     <Flex gap={4} flexDirection={'column'} alignItems="center" px={6} pt={12}>
       <Flex
