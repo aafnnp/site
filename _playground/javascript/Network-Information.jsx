@@ -1,6 +1,6 @@
 import CanIUse from 'components/CanIUse'
 import React from 'react'
-import {FaCode, FaEye, FaFile} from 'react-icons/fa'
+import {FaEye, FaFile} from 'react-icons/fa'
 
 export default function NetworkInformation() {
   const [netinfo, setNetinfo] = React.useState({})
@@ -36,10 +36,10 @@ export default function NetworkInformation() {
         </p>
       </div>
       <div className="flex flex-row items-center gap-4 py-12 text-sm">
-        <a className="flex items-center p-2 bg-twitter text-white rounded">
-          <FaCode className="mr-2" />
-          Source Code
-        </a>
+        {/* <a className="flex items-center p-2 bg-twitter text-white rounded"> */}
+        {/*   <FaCode className="mr-2" /> */}
+        {/*   Source Code */}
+        {/* </a> */}
         <a
           className="flex items-center p-2 bg-twitter text-white rounded"
           href="https://developer.mozilla.org/zh-CN/docs/Web/API/Network_Information_API"

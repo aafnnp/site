@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Prism from "prismjs";
 import { Box } from "@chakra-ui/react";
+import { Prose } from '@nikolovlazar/chakra-ui-prose'
 
 require('prismjs/components/prism-go')
 require('prismjs/components/prism-python')
@@ -16,14 +17,15 @@ require('prismjs/themes/prism-okaidia.min.css')
 
 const PostPage = ({children}) => {
   useEffect(() => {
-    const highlight = async () => {
+    ;(async () => {
       await Prism.highlightAll()
-    }
-    highlight().then(() => {})
+    })()
   }, [children])
   return (
     <Box position="relative" w="2/3" fontSize="text.sm">
-      {children}
+      <Prose>
+        {children}
+      </Prose>
     </Box>
   )
 }
