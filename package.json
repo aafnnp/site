@@ -19,7 +19,7 @@
     "@giscus/react": "^2.2.6",
     "@mdx-js/react": "^2.2.1",
     "@next/font": "^13.1.1",
-    "@nextui-org/react": "1.0.0-beta.11",
+    "@nextui-org/react": "1.0.0-beta.12",
     "@nikolovlazar/chakra-ui-prose": "^1.2.1",
     "@resvg/resvg-js": "^2.2.0",
     "@resvg/resvg-wasm": "^2.2.0",
