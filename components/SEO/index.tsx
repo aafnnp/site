@@ -1,8 +1,7 @@
 import { NextSeo } from "next-seo";
 
 export default function SEO(props) {
-  const {url, cover, description, title,handle} = props
-  console.log(handle)
+  const {url, cover, description, title} = props
   return (
     <NextSeo
       titleTemplate="%s - Manon.icu"

@@ -15,7 +15,6 @@ export default async function (req: NextRequest) {
   const tag = searchParams.get('tag')
   const title = searchParams.get('title')
   const cover = searchParams.get('cover')
-  console.log(cover, 'cover')
   const fontData = await font
 
   if (cover) {
