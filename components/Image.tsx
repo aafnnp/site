@@ -1,30 +1,35 @@
-import NextImage from "next/image";
-import React from "react";
+import React, {useEffect, useState} from 'react'
+import {Image} from '@chakra-ui/react'
 
-const customLoader = ({src}) => src
+const {Configuration, OpenAIApi} = require('openai')
+const configuration = new Configuration({
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY
+})
+const openai = new OpenAIApi(configuration)
 
-const keyStr =
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+export default function CoverImage({ title,tag }) {
+  const [img, setImg] = useState(null)
+  useEffect(() => {
+    ;(async () => {
+      if (tag) {
+        const {data} = await openai.createImage({
+          prompt: tag,
+          n: 1,
+          size: '1024x1024'
+        })
+        setImg(data.data[0].url)
+      }
+    })()
+  }, [tag])
 
-const triplet = (e1, e2, e3) =>
-  keyStr.charAt(e1 >> 2) +
-  keyStr.charAt(((e1 & 3) << 4) | (e2 >> 4)) +
-  keyStr.charAt(((e2 & 15) << 2) | (e3 >> 6)) +
-  keyStr.charAt(e3 & 63)
-
-const rgbDataURL = (r, g, b) =>
-  `data:image/gif;base64,R0lGODlhAQABAPAA${
-    triplet(0, r, g) + triplet(b, 255, 255)
-  }/yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==`
-
-export default function Image(props) {
-  return (
-    <NextImage
-      loader={customLoader}
-      {...props}
+  return img ? (
+    <Image
+      src={img}
+      htmlWidth={900}
+      htmlHeight={300}
       loading="lazy"
-      placeholder={props.placeholder ?? 'blur'}
-      blurDataURL={rgbDataURL(237, 181, 6)}
+      alt={title}
+      objectFit={'cover'}
     />
-  )
+  ) : null
 }
