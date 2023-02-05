@@ -38,3 +38,39 @@ docker run alpine uname -a
 正如您在输出中看到的，容器确实使用了来自我的主机操作系统的内核。这证明了容器虚拟化主机操作系统而不是拥有自己的操作系统的观点。
 
 如果你在一台 Windows 机器上，你会发现所有的容器都使用 WSL2内核。之所以会发生这种情况，是因为 WSL2充当 Windows 上 Docker 的后端。在 macOS 上，默认的后端是运行在 HyperKit hypervisor 上的 VM。
+
+## 容器操作
+
+当你部署你的应用程序，然后你想修复一个 bug，或者只是发布一个更新，会发生什么？
+
+运行容器后，可以使用 docker ps 获取其 ID，然后使用 docker commit 从中为图像创建新标记：
+
+```bash
+docker commit <id> <username>/<imagename>:<tagname>
+```
+
+您还可以添加一条 changelog 消息，列出新版本中更改的内容：
+
+```bash
+docker commit --change "description" <id> <username>/<imagename>:<tagname>
+```
+
+```bash
+# 列出本机正在运行的容器
+$ docker container ls
+```
+
+```bash
+# 列出本机所有容器，包括终止运行的容器
+$ docker container ls --all
+```
+
+上面命令的输出结果之中，包括容器的 ID。很多地方都需要提供这个 ID，比如上一节终止容器运行的 docker container kill 命令。
+
+终止运行的容器文件，依然会占据硬盘空间，可以使用 docker container rm 命令删除。
+
+```bash
+$ docker container rm [containerID]
+```
+
+运行上面的命令之后，再使用 docker container ls --all 命令，就会发现被删除的容器文件已经消失了。
