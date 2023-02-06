@@ -27,7 +27,7 @@ const Challenge = ({link, title, group}) => {
 
       <Flex gap={2} alignItems="center">
         <Image
-          src={`https://pics-rust.vercel.app/uPic/icons/${group}.svg`}
+          src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${group}.svg`}
           boxSize={4}
           alt={title}
         />

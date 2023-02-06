@@ -10,7 +10,7 @@ export default function ErrorPage() {
         <div className="page-not-found-content">
           <div className="slogan">
             <img
-              src="https://pics-rust.vercel.app/uPic/Scarecrow.png"
+              src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Scarecrow.png"
               alt="404 not found"
             />
           </div>

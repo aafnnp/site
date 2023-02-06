@@ -8,11 +8,48 @@ Docker 的安装根据所使用的操作系统有很大的不同。但是普遍�
 
 ## 在 Mac 上安装 Docker
 
-在 Mac 上安装 docker 很简单，只需要在 docker 官网下载安装包，然后双击安装包，按照提示一步步安装即可。
+1. brew 安装 docker
 
-![kElJcE](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/kElJcE.jpg)
+```bash
+#搜索
+==> Formulae
+docker                          docker-credential-helper        docker-machine-completion       docker-machine-nfs              docker2aci
+docker-clean                    docker-credential-helper-ecr    docker-machine-driver-hyperkit  docker-machine-parallels        dockerize
+docker-completion               docker-gen                      docker-machine-driver-vmware    docker-slim                     lazydocker
+docker-compose                  docker-ls                       docker-machine-driver-vultr     docker-squash
+docker-compose-completion       docker-machine                  docker-machine-driver-xhyve     docker-swarm
+==> Casks
+docker
 
-![6d48f0](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/6d48f0.jpg)
+#安装
+brew install docker
+==> Downloading https://mirrors.ustc.edu.cn/homebrew-bottles/bottles/docker-19.03.14.big_sur.bottle.tar.gz
+######################################################################## 100.0%
+==> Pouring docker-19.03.14.big_sur.bottle.tar.gz
+==> Caveats
+zsh completions have been installed to:
+  /usr/local/share/zsh/site-functions
+==> Summary
+🍺  /usr/local/Cellar/docker/19.03.14: 14 files, 71.6MB
+```
+
+2. 手动安装
+
+下载[Stable](https://download.docker.com/mac/stable/Docker.dmg)，双击安装
+
+![PVr5uh](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/PVr5uh.jpg)
+
+安装完成后，通过命令检查 Docker 版本
+
+```bash
+docker --version
+
+Docker version 19.03.14, build 5eb3275
+```
+
+3. 镜像加速
+
+![NAWFnd](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NAWFnd.png)
 
 安装完成后，在 Terminal 执行`docker version` 命令，如果出现如下结果，说明安装成功。
 

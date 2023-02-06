@@ -25,7 +25,7 @@ const Section = ({browser, data}) => {
             >
               <Image
                 boxSize={12}
-                src={`https://pics-rust.vercel.app/logos/${value}.svg`}
+                src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/logos/${value}.svg`}
                 alt={key}
                 loading="lazy"
               />

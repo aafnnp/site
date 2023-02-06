@@ -22,7 +22,7 @@ export default function IndexPage(props) {
                   </NextLink>
                   <Image
                     boxSize={4}
-                    src={`https://pics-rust.vercel.app/uPic/icons/${challenge.group}.svg`}
+                    src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${challenge.group}.svg`}
                     alt={challenge.group}
                   />
                   <NextLink passHref legacyBehavior href={challenge.link}>

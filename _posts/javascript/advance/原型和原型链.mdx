@@ -4,7 +4,7 @@ title: '原型和原型链'
 tags: [javascript]
 ---
 
-![Dyv0vb](https://pics-rust.vercel.app/uPic/Dyv0vb.jpg)
+![Dyv0vb](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Dyv0vb.jpg)
 
 每个对象都会在其内部初始化⼀个属性，就是`prototype`(原型)，当我们访问⼀个对象的属性时，如果这个对象内部不存在这个属性，那么他就会去`prototype` ⾥找这个属性，这个`prototype`⼜会有⾃⼰的`prototype`，于是就这样⼀直找下去，也就是我们平时所说的原型链的概念关系：`instance.constructor.prototype = instance.__proto__` 特点： JavaScript 对象是通过引⽤来传递的，我们创建的每个新对象实体中并没有⼀份属于⾃⼰的原型副本。当我们修改原型时，与之相关的对象也会继承这⼀改变当我们需要⼀个属性的时， Javascript 引擎会先看当前对象中是否有这个属性， 如果没有的就会查找他的`Prototype`对象是否有这个属性，如此递推下去，⼀直检索到`Object`内建对象
 

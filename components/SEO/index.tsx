@@ -14,7 +14,7 @@ export default function SEO(props) {
         site_name: title ?? 'Manon | manon.icu',
         images: [
           {
-            url: cover ?? 'https://pics-rust.vercel.app/uPic/9oh25b.jpg',
+            url: cover ?? 'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9oh25b.jpg',
             width: 900,
             height: 900
           }
