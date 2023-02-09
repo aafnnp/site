@@ -3,14 +3,14 @@ import { FaGithub, FaSitemap, FaTwitter } from "react-icons/fa";
 import styles from "assets/styles/index.module.scss";
 import { Avatar, Center, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
 
-const LinkItems = [
+const LINK_ITEMS = [
   {icon: 'blog', href: '/blog', bordered: true},
   {icon: 'challenges', href: '/challenges', bordered: true},
   {icon: 'playground', href: 'playground', bordered: true},
   {icon: 'about', href: '/about', bordered: true},
   {icon: 'contact', href: '/contact', bordered: true}
 ]
-const SocialItems = [
+const SOCIAL_ITEMS = [
   {
     icon: <FaGithub />,
     href: 'https://github.com/Manonicu'
@@ -39,12 +39,12 @@ export default function Index() {
         </GridItem>
         <GridItem w="100%">
           <Center>
-            <Item items={SocialItems} />
+            <Item items={SOCIAL_ITEMS} />
           </Center>
         </GridItem>
         <GridItem w="100%">
           <Center>
-            <Item items={LinkItems} />
+            <Item items={LINK_ITEMS} />
           </Center>
         </GridItem>
       </Grid>

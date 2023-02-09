@@ -205,3 +205,11 @@ docker run hello-dock /bin/bash
 ```bash
 docker run hello-dock /bin/bash -c "echo hello world"
 ```
+
+## 如何忽略不必要的文件
+
+在 Dockerfile 中，可以使用 .dockerignore 文件来忽略不必要的文件。例如，如果 Dockerfile 位于项目根目录中，可以使用以下命令忽略所有 .git 文件：
+
+```bash
+echo ".git" >> .dockerignore
+```
