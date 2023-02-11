@@ -64,15 +64,17 @@ const Post = ({
         <Share title={title} tag={tags} handle={handle} />
 
       </Box>
-      <Image
-        fit={'cover'}
-        loading={'lazy'}
-        src={
-          cover ??
-          'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg'
-        }
-        alt={title}
-      />
+      <Center>
+        <Image
+          fit={'cover'}
+          loading={'lazy'}
+          src={
+            cover ??
+            'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg'
+          }
+          alt={title}
+        />
+      </Center>
 
       {/* 头部广告 */}
       <Ad />
