@@ -7,7 +7,7 @@ import {useRouter} from 'next/router'
 import React from 'react'
 import remarkGfm from 'remark-gfm'
 import components from 'utils/components'
-import {Box, Center, Heading, Image, Link, Text} from '@chakra-ui/react'
+import {Box, Center, Heading, Link, Text} from '@chakra-ui/react'
 
 const codesandbox = require('remark-codesandbox')
 const SEO = dynamic(() => import('components/SEO'), {ssr: false})
@@ -64,17 +64,17 @@ const Post = ({
         <Share title={title} tag={tags} handle={handle} />
 
       </Box>
-      <Center>
-        <Image
-          fit={'cover'}
-          loading={'lazy'}
-          src={
-            cover ??
-            'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg'
-          }
-          alt={title}
-        />
-      </Center>
+      {/* <Center> */}
+      {/*   <Image */}
+      {/*     fit={'cover'} */}
+      {/*     loading={'lazy'} */}
+      {/*     src={ */}
+      {/*       cover ?? */}
+      {/*       'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg' */}
+      {/*     } */}
+      {/*     alt={title} */}
+      {/*   /> */}
+      {/* </Center> */}
 
       {/* 头部广告 */}
       <Ad />

@@ -7,6 +7,16 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
+type ModelProps =
+  | 'text-davinci-003'
+  | 'text-davinci-002'
+  | 'text-curie-001'
+  | 'text-babbage-001'
+  | 'text-ada-001'
+  | 'code-davinci-002'
+  | 'code-cushman-001'
+  | 'content-filter-alpha'
+
 const createImage = async ({
   prompt = 'JavaScript - The Battery Status API',
   size = 'medium'
@@ -25,6 +35,9 @@ const createImage = async ({
 const createText = async ({
   prompt = 'JavaScript - The Battery Status API',
   model = 'text-davinci-003'
+}: {
+  prompt: string
+  model: ModelProps
 }) => {
   const response = await openai.createCompletion({
     model,
@@ -49,7 +62,7 @@ export default async function handler(
       slug
     } = req.query
     let data
-    if (slug==='text') {
+    if (slug === 'text') {
       data = await createText({prompt, model})
     } else {
       data = await createImage({prompt, size})
