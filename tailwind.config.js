@@ -8,7 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        twitter: 'rgb(29, 155, 240)'
+        twitter: 'rgb(29, 155, 240)',
+        brand: '#FF506E',
+        dark: '#1E293B',
+        mid: '#475569',
+        light: '#F1F5F9'
       }
     }
   },

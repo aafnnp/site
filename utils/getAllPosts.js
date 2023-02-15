@@ -1,7 +1,8 @@
-import fs from 'fs'
 import {globby} from 'globby'
 import matter from 'gray-matter'
 import {getRandomArrayElements} from './index'
+
+const fs = require('fs')
 const dayjs = require('dayjs')
 const relativeTime = require('dayjs/plugin/relativeTime')
 
@@ -11,19 +12,26 @@ const GetAllPosts = async () => {
   const posts = await globby(['_posts'])
   return posts
     .reduce((prev, next) => {
-      const fileContents = fs.readFileSync(next, 'utf8')
-      const {data, content} = matter(fileContents)
-      const postData = {
-        ...data,
-        group: dayjs(data.date).format('MMM/YYYY'),
-        date: dayjs(data.date).format('MMM DD, YYYY'),
-        fromNow: dayjs(data.date).fromNow(),
-        modified: dayjs(data.modified).format('MMM DD, YYYY'),
-        content,
-        slug: next.replace(/^_posts\//, '').replace(/\.mdx$/, '')
-      }
-      !data.draft && prev.push(postData)
-      return prev
+      fs.readFile(next, 'utf8', (err, fileContents) => {
+        if (err) {
+          // Handle error here
+        } else {
+          const {data, content} = matter(fileContents)
+          const postData = {
+            ...data,
+            group: dayjs(data.date).format('MMM/YYYY'),
+            date: dayjs(data.date).format('MMM DD, YYYY'),
+            fromNow: dayjs(data.date).fromNow(),
+            modified: dayjs(data.modified).format('MMM DD, YYYY'),
+            content,
+            slug: next.replace(/^_posts\//, '').replace(/\.mdx$/, '')
+          }
+
+          !data.draft && prev.push(postData)
+
+          return prev
+        }
+      })
     }, [])
     .sort((a, b) => dayjs(b.date) - dayjs(a.date))
 }
