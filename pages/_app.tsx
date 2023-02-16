@@ -26,11 +26,11 @@ const App = ({Component, pageProps, router}) => {
       </Head>
       <SEO url={url} />
       <ChakraProvider theme={theme}>
-        <Grid templateColumns={'repeat(6,1fr)'} gap={4}>
+        <Grid templateColumns={'repeat(6,1fr)'}>
           <GridItem colSpan={1}>
           {route !== '/' && <Menu />}
           </GridItem>
-          <GridItem colSpan={5}>
+          <GridItem>
             <Component {...pageProps} canonical={url} key={url} />
           </GridItem>
         </Grid>
