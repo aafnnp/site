@@ -4,7 +4,7 @@ import Head from "next/head";
 import React from "react";
 import { Analytics } from "@vercel/analytics/react";
 import "assets/styles/main.scss";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider,Grid,GridItem } from "@chakra-ui/react";
 import theme from "utils/theme";
 
 const Menu = dynamic(() => import('components/Menu'), {ssr: false})
@@ -26,10 +26,14 @@ const App = ({Component, pageProps, router}) => {
       </Head>
       <SEO url={url} />
       <ChakraProvider theme={theme}>
-        <div className="wrapper">
+        <Grid templateColumns={'repeat(6,1fr)'} gap={4}>
+          <GridItem colSpan={1}>
           {route !== '/' && <Menu />}
-          <Component {...pageProps} canonical={url} key={url} />
-        </div>
+          </GridItem>
+          <GridItem colSpan={5}>
+            <Component {...pageProps} canonical={url} key={url} />
+          </GridItem>
+        </Grid>
       </ChakraProvider>
       <Analytics />
     </>

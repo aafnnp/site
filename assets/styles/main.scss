@@ -26,8 +26,3 @@ li {
     @apply mx-1 px-1 bg-slate-600 text-slate-200 dark:bg-slate-200 dark:text-slate-600 rounded;
   }
 }
-
-.wrapper {
-  display: grid;
-  grid-template-columns: 30ch minmax(min(50vw, 30ch), 1fr);
-}
