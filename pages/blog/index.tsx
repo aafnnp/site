@@ -1,56 +1,52 @@
-import NextLink from "next/link";
-import { Fragment } from "react";
-import { Box, Heading, Image, LinkOverlay, List, ListItem } from "@chakra-ui/react";
+import NextLink from 'next/link'
+import {
+  Image,
+} from '@chakra-ui/react'
 
-const IndexPage = ({groupByMonthPosts}) => {
+const IndexPage = ({groupByMonthPosts, posts}) => {
+  console.log(groupByMonthPosts)
   return (
-    <Box
-      px={6}
-      pt={12}
-      h={'100vh'}
-      overflowY={'scroll'}
-      scrollBehavior={'smooth'}
+    <div
+      className={
+        'grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5 gap-8 px-6 pt-12 h-screen overflow-y-scroll'
+      }
     >
-      {Object.keys(groupByMonthPosts).map((group) => {
+      {posts.map((post) => {
         return (
-          <Fragment key={group}>
-            <Heading mb={4}>{group}</Heading>
-            <List spacing={3} mb={12}>
-              {groupByMonthPosts[group].map((post) => {
-                return (
-                  <ListItem
-                    position="relative"
-                    display="flex"
-                    gap={2}
-                    alignItems="center"
-                    key={post.title}
-                  >
-                    <NextLink
-                      legacyBehavior
-                      href={`/blog/${post.slug}`}
-                      passHref
-                    >
-                      <LinkOverlay>{post.title}</LinkOverlay>
-                    </NextLink>
-                    {post.tags.map((tag) => {
-                      return (
-                        <Image
-                          key={tag}
-                          boxSize={4}
-                          objectFit="cover"
-                          alt={tag}
-                          src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
-                        />
-                      )
-                    })}
-                  </ListItem>
-                )
-              })}
-            </List>
-          </Fragment>
+          <div key={post.title}>
+            <div className={'mb-4'}>
+              <Image
+                src={
+                  post.cover ??
+                  'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg'
+                }
+                className={'rounded aspect-video'}
+                objectFit={'cover'}
+                alt={post.title}
+              />
+            </div>
+            <div className={'mt-4'}>
+              <div className="flex gap-2 tags">
+                {post.tags.map((tag) => {
+                  return (
+                    <Image
+                      key={tag}
+                      objectFit="cover"
+                      alt={tag}
+                      boxSize={4}
+                      src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
+                    />
+                  )
+                })}
+              </div>
+              <div className={'font-bold text-slate-700 leading-snug'}>
+                <NextLink href={`/blog/${post.slug}`}>{post.title}</NextLink>
+              </div>
+            </div>
+          </div>
         )
       })}
-    </Box>
+    </div>
   )
 }
 
@@ -70,6 +66,7 @@ export async function getStaticProps() {
   }, {})
   return {
     props: {
+      posts,
       groupByMonthPosts
     }
   }

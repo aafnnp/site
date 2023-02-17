@@ -30,7 +30,7 @@ const App = ({Component, pageProps, router}) => {
           <GridItem colSpan={1}>
           {route !== '/' && <Menu />}
           </GridItem>
-          <GridItem>
+          <GridItem colSpan={5}>
             <Component {...pageProps} canonical={url} key={url} />
           </GridItem>
         </Grid>
