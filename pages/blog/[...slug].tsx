@@ -2,12 +2,11 @@ import {MDXRemote} from 'next-mdx-remote'
 import {serialize} from 'next-mdx-remote/serialize'
 import dynamic from 'next/dynamic'
 import ErrorPage from 'next/error'
-import NextLink from 'next/link'
+import Link from 'next/link'
 import {useRouter} from 'next/router'
 import React from 'react'
 import remarkGfm from 'remark-gfm'
 import components from 'utils/components'
-import {Box, Center, Heading, Link, Text} from '@chakra-ui/react'
 
 const codesandbox = require('remark-codesandbox')
 const SEO = dynamic(() => import('components/SEO'), {ssr: false})
@@ -33,12 +32,8 @@ const Post = ({
     return <ErrorPage statusCode={404} />
   }
   return (
-    <Box
-      px={6}
-      pt={20}
-      h={'100vh'}
-      overflowY={'scroll'}
-      scrollBehavior={'smooth'}
+    <div
+      className={'prose max-w-full px-6 pt-20 h-screen overflow-y-scroll scroll-behavior-smooth'}
     >
       <SEO
         title={title}
@@ -46,35 +41,24 @@ const Post = ({
         cover={cover}
         openGraph={{title, description}}
       />
-      <Box as="hgroup">
-        <Text textAlign="center" color="gray.500" fontSize="xs" as="p">
+      <hgroup>
+        <div className={'text-center text-slate-500 text-xs'}>
           Published {date}
-        </Text>
-        <Heading textAlign="center" as="h1" mt={4} mb={2}>
+        </div>
+        <h1 className={'text-center mt-4 mb-2'}>
           {title}
-        </Heading>
+        </h1>
         {originalUrl && (
-          <Center color="gray.500" fontSize="sm">
+          <div className={'text-center text-slate-500 text-sm'}>
             本文翻译自：
-            <NextLink legacyBehavior href={originalUrl} passHref>
-              <Link>{originalUrl}</Link>
-            </NextLink>
-          </Center>
+            <Link href={originalUrl}>
+              {originalUrl}
+            </Link>
+          </div>
         )}
         <Share title={title} tag={tags} handle={handle} />
 
-      </Box>
-      {/* <Center> */}
-      {/*   <Image */}
-      {/*     fit={'cover'} */}
-      {/*     loading={'lazy'} */}
-      {/*     src={ */}
-      {/*       cover ?? */}
-      {/*       'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg' */}
-      {/*     } */}
-      {/*     alt={title} */}
-      {/*   /> */}
-      {/* </Center> */}
+      </hgroup>
 
       {/* 头部广告 */}
       <Ad />
@@ -90,7 +74,7 @@ const Post = ({
 
         <Comments />
       </PostPage>
-    </Box>
+    </div>
   )
 }
 

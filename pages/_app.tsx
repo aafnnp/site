@@ -1,11 +1,9 @@
-import SEO from "components/SEO";
-import dynamic from "next/dynamic";
-import Head from "next/head";
-import React from "react";
-import { Analytics } from "@vercel/analytics/react";
-import "assets/styles/main.scss";
-import { ChakraProvider,Grid,GridItem } from "@chakra-ui/react";
-import theme from "utils/theme";
+import SEO from 'components/SEO'
+import dynamic from 'next/dynamic'
+import Head from 'next/head'
+import React from 'react'
+import {Analytics} from '@vercel/analytics/react'
+import 'assets/styles/main.scss'
 
 const Menu = dynamic(() => import('components/Menu'), {ssr: false})
 
@@ -25,16 +23,12 @@ const App = ({Component, pageProps, router}) => {
         <title>Manon.icu | Home</title>
       </Head>
       <SEO url={url} />
-      <ChakraProvider theme={theme}>
-        <Grid templateColumns={'repeat(6,1fr)'}>
-          <GridItem colSpan={1}>
-          {route !== '/' && <Menu />}
-          </GridItem>
-          <GridItem colSpan={5}>
-            <Component {...pageProps} canonical={url} key={url} />
-          </GridItem>
-        </Grid>
-      </ChakraProvider>
+      <div className={'grid grid-cols-1 sm:grid-cols-[300px_1fr]'}>
+        {route !== '/' && (
+            <Menu />
+        )}
+        <Component {...pageProps} canonical={url} key={url} />
+      </div>
       <Analytics />
     </>
   )

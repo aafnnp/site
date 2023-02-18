@@ -1,93 +1,62 @@
-import NextLink from 'next/link'
+import Link from 'next/link'
+import Image from 'next/image'
 import React from 'react'
 import {FaGithub, FaLink} from 'react-icons/fa'
-import {
-  Center,
-  Container,
-  Flex,
-  Grid,
-  Heading,
-  Image,
-  Link
-} from '@chakra-ui/react'
 
 export default function IndexPage(props) {
   const {allChallenges} = props
 
   return (
-    <Container pt={20} maxW={['768px', '1200px', '1200px', '1400px']}>
-      <Heading as="h1" mb={12}>
-        <Center>Challenges</Center>
-      </Heading>
-      <Grid templateColumns={'repeat(auto-fit, minmax(30ch, 1fr))'} gap={4}>
+    <div className={'relative prose max-w-full pt-20'}>
+      <h1 className={'mb-12 text-center'}>
+        Challenges
+      </h1>
+      <div className={'grid grid-cols-4 gap-4'}>
         {allChallenges.map((challenge, i) => {
           return <Challenge {...challenge} key={i} />
         })}
-      </Grid>
-    </Container>
+      </div>
+    </div>
   )
 }
 
 const Challenge = ({link, title, group}) => {
   return (
-    <Flex gap={2} direction="column" key={link} flex={'1 1 20ch'}>
-      <Image
-        objectFit={'cover'}
-        src={`/screenshots/${title}.webp`}
-        alt={title}
-        fallbackSrc="https://via.placeholder.com/1920x1080/00000FF/808080?Text=Manon.icu"
-      />
+    <div className={'flex gap-4 flex-col flex-[1_1_20ch]'}>
+      <div className={'relative w-full h-44'}>
+        <Image fill src={`/screenshots/${title}.webp`} alt={title} />
+      </div>
 
-      <Flex gap={2} alignItems="center">
+      <div className={'flex gap-4 relative items-center'}>
         <Image
+          width={16}
+          height={16}
           src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${group}.svg`}
-          boxSize={4}
           alt={title}
         />
         {title}
-      </Flex>
-      <Flex gap={2} alignItems="center" justifyContent="space-between">
-        <NextLink passHref href={link} legacyBehavior>
-          <Link
-            display="flex"
-            w="50%"
-            alignItems="center"
-            justifyContent="center"
-            gap={2}
-            bg="white"
-            color="blue.500"
-            py={1}
-            rounded="md"
-            shadow="md"
-            fontSize="sm"
-          >
-            <FaLink />
-            Link
-          </Link>
-        </NextLink>
-        <NextLink
-          passHref
-          href={`https://github.com/Manonicu/site/tree/master/_challenges/${group}/${title}.jsx`}
-          legacyBehavior
+      </div>
+      <div className={'flex gap-4 items-center justify-between'}>
+        <Link
+          href={link}
+          className={
+            'flex w-1/2 items-center justify-center gap-2 bg-white text-twitter py-1 rounded-md shadow-md text-sm'
+          }
         >
-          <Link
-            display="flex"
-            w="50%"
-            alignItems="center"
-            justifyContent="center"
-            gap={2}
-            bg="blue.500"
-            py={1}
-            rounded="md"
-            color="white"
-            fontSize="sm"
-          >
-            <FaGithub />
-            Source
-          </Link>
-        </NextLink>
-      </Flex>
-    </Flex>
+          <FaLink />
+          Link
+        </Link>
+        <Link
+          href={`https://github.com/Manonicu/site/tree/master/_challenges/${group}/${title}.jsx`}
+          className={
+            'flex w-1/2 items-center justify-center gap-2 bg-twitter text-white py-2 rounded-md shadow-md text-sm'
+          }
+        >
+          <FaGithub />
+          Source
+        </Link>
+      </div>
+    </div>
   )
 }
 

@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
 import React from "react";
 import { useRouter } from "next/router";
-import NextLink from "next/link";
-import { Avatar, Flex, Link } from "@chakra-ui/react";
+import Link from "next/link";
+import Image from "next/image";
 
 const DarkModeSwitch = dynamic(() => import('components/DarkModeSwitch'), {
   ssr: false
@@ -12,32 +12,31 @@ const Navigation = () => {
   const {asPath} = useRouter()
   const pathArr = asPath.split('/')
   return (
-    <Flex gap={4} flexDirection={'column'} alignItems="center" px={6} pt={12}>
-      <Flex
-        className="manon"
-        gap={4}
-        alignItems={'center'}
-        mb={8}
-        fontWeight={'bold'}
+    <div className={'relative flex gap-4 flex-col items-center px-6 pt-12 h-screen'}>
+      <div
+        className="flex gap-4 items-center mb-8 font-bold manon"
       >
-        <Avatar src={'/avatar.webp'} boxSize={10} />
+        <div className={'relative w-10 h-10 rounded-full overflow-hidden'}>
+          <Image
+            fill
+            alt={'Manon.icu'}
+            src={`/avatar.webp`}
+          />
+        </div>
         <Link href={'/'}>Manon.icu</Link>
-      </Flex>
+      </div>
       {LinkItems.map((i) => (
-        <NextLink legacyBehavior passHref key={i.name} href={i.href}>
-          <Link
-            {...(pathArr[1] === i.name && {
-              bgGradient: 'linear(to-l, #7928CA, #FF0080)',
-              bgClip: 'text'
-            })}
-            textTransform={'capitalize'}
-          >
+        <Link key={i.name} href={i.href} className={'capitalize'} style={{
+          ...(pathArr[1] === i.name && {
+            backgroundGradient: "linear(to-l, #7928CA, #FF0080)",
+            backgroundClip: "text"
+          })
+        }}>
             {i.name}
-          </Link>
-        </NextLink>
+        </Link>
       ))}
       <DarkModeSwitch />
-    </Flex>
+    </div>
   )
 }
 

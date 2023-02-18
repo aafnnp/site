@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { FaGithub, FaSitemap, FaTwitter } from "react-icons/fa";
-import styles from "assets/styles/index.module.scss";
-import { Avatar, Center, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
+import Link from 'next/link'
+import Image from 'next/image'
+import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
+import styles from 'assets/styles/index.module.scss'
 
 const LINK_ITEMS = [
   {icon: 'blog', href: '/blog', bordered: true},
@@ -27,41 +27,37 @@ const SOCIAL_ITEMS = [
 
 export default function Index() {
   return (
-    <Flex justify="center" alignItems="center" w="100vw" h="100vh">
-      <Grid gap={4}>
-        <GridItem w="100%">
-          <Center>
-            <Avatar src="/avatar.webp" size="2xl" name="Manon.icu" />
-          </Center>
-        </GridItem>
-        <GridItem w="100%">
-          <Heading as="h1">Manon.icu - Frontend Developer</Heading>
-        </GridItem>
-        <GridItem w="100%">
-          <Center>
-            <Item items={SOCIAL_ITEMS} />
-          </Center>
-        </GridItem>
-        <GridItem w="100%">
-          <Center>
-            <Item items={LINK_ITEMS} />
-          </Center>
-        </GridItem>
-      </Grid>
-    </Flex>
+    <div
+      className={
+        'flex flex-col gap-8 justify-center items-center w-screen h-screen'
+      }
+    >
+      <div className={'relative w-52 h-52 rounded-full overflow-hidden'}>
+        <Image src={'/avatar.webp'} alt={'Manon.icu'} fill />
+      </div>
+      <h1 className={'text-3xl font-bold'}>Manon.icu - Frontend Developer</h1>
+      <div className={'flex justify-center'}>
+        <Item items={SOCIAL_ITEMS} />
+      </div>
+      <div className={'flex justify-center'}>
+        <Item items={LINK_ITEMS} />
+      </div>
+    </div>
   )
 }
 
 const Item = ({items}) => {
   return (
-    <Flex gap={4} mt={8}>
+    <div className={'flex items-center gap-4'}>
       {items.map((item) => (
-        <GridItem key={item.href}>
-          <Link href={item.href} className={item.bordered && styles.item}>
-            {item.icon}
-          </Link>
-        </GridItem>
+        <Link
+          key={item.href}
+          href={item.href}
+          className={item.bordered && styles.item}
+        >
+          {item.icon}
+        </Link>
       ))}
-    </Flex>
+    </div>
   )
 }

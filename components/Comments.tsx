@@ -11,9 +11,9 @@ export default function Comments(){
     term="Welcome to @giscus/react component!"
     reactionsEnabled="1"
     emitMetadata="1"
-    inputPosition="top"
+    inputPosition="bottom"
     theme="light"
-    lang="en"
+    lang="zh-CN"
     loading="lazy"
   />
 }

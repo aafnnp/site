@@ -1,10 +1,7 @@
 import Link from "next/link";
 import { FaGithub, FaHome, FaSitemap, FaTwitter } from "react-icons/fa";
 import styles from "assets/styles/about.module.scss";
-import { Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-
-const MotionImage = motion(Image)
 
 export default function Index() {
   const animate = {
@@ -24,39 +21,27 @@ export default function Index() {
     <div className="absolute flex flex-col justify-between w-screen h-screen overflow-hidden bg-slate-900 top-0 left-0 pt-[100px] px-8 pb-8">
       {[...Array(4)].map((_, key) => {
         return (
-          <MotionImage
+          <motion.img
+            className={'absolute w-screen h-screen top-0 left-0 '}
             animate={animate}
             transition={transition(key)}
             key={key}
-            position="absolute"
-            w="100vw"
-            h="100vh"
-            top={0}
-            left={0}
             alt="Manon.icu"
             src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/hero-bg-${
               key + 1
             }.jpeg`}
-            objectFit="cover"
           />
         )
       })}
 
-      <Flex
-        position="absolute"
-        w="100vw"
-        bottom={0}
-        left={0}
-        p={4}
-        justifyContent="space-between"
-        alignItems="end"
-        color="white"
+      <div
+        className={'absolute w-screen bottom-0 left-0 p-4 flex justify-between items-end text-white'}
       >
-        <Heading as="h1">
-          <Text fontSize="2xl">Freelancer</Text>
-          <Text fontSize="5xl">Fullstack Developer</Text>
-          <Text fontSize="5xl">Particular Frontend</Text>
-        </Heading>
+        <h1>
+          <p className={'text-2xl'}>Freelancer</p>
+          <p className={'text-5xl'}>Fullstack Developer</p>
+          <p className={'text-5xl'}>Particular Frontend</p>
+        </h1>
 
         <div className={styles['scroll-indicator']}>
           <div className={styles['scroll-indicator-wrapper']}>
@@ -64,7 +49,7 @@ export default function Index() {
           </div>
         </div>
 
-        <Flex gap={4}>
+        <div className={'flex gap-4'}>
           <Link href="/">
             <FaHome />
           </Link>
@@ -77,8 +62,8 @@ export default function Index() {
           <Link href="/pages/about">
             <FaSitemap />
           </Link>
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import colors from "utils/colors";
 
 export const config = {
-  runtime: 'experimental-edge'
+  runtime: 'edge'
 }
 
 const font = fetch(
