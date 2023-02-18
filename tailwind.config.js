@@ -18,4 +18,3 @@ module.exports = {
   },
   plugins: []
 }
-//#1d9bf0 #6F8EFF #F55F9C
