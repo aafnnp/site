@@ -1,7 +1,17 @@
-import NextLink from "next/link";
-import React from "react";
-import { FaGithub, FaLink } from "react-icons/fa";
-import { Center, Container, Flex, Grid, Heading, Image, Link, ListItem, OrderedList } from "@chakra-ui/react";
+import NextLink from 'next/link'
+import React from 'react'
+import {FaGithub, FaLink} from 'react-icons/fa'
+import {
+  Center,
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  Image,
+  Link,
+  ListItem,
+  OrderedList
+} from '@chakra-ui/react'
 
 export default function IndexPage(props) {
   const {allChallenges} = props

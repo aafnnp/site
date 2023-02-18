@@ -1,6 +1,6 @@
-import { ImageResponse } from "@vercel/og";
-import { NextRequest } from "next/server";
-import colors from "utils/colors";
+import {ImageResponse} from '@vercel/og'
+import {NextRequest} from 'next/server'
+import colors from 'utils/colors'
 
 export const config = {
   runtime: 'experimental-edge'

@@ -62,7 +62,6 @@ const Post = ({
           </Center>
         )}
         <Share title={title} tag={tags} handle={handle} />
-
       </Box>
       {/* <Center> */}
       {/*   <Image */}

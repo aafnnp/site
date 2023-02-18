@@ -1,6 +1,13 @@
-import NextLink from "next/link";
-import { Fragment } from "react";
-import { Box, Heading, Image, LinkOverlay, List, ListItem } from "@chakra-ui/react";
+import NextLink from 'next/link'
+import {Fragment} from 'react'
+import {
+  Box,
+  Heading,
+  Image,
+  LinkOverlay,
+  List,
+  ListItem
+} from '@chakra-ui/react'
 
 const IndexPage = ({groupByMonthPosts}) => {
   return (

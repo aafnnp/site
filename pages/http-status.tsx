@@ -1,7 +1,7 @@
-import NextLink from "next/link";
-import React from "react";
-import { data, title } from "utils/http-status";
-import { Box, Container, Heading, Link, Text } from "@chakra-ui/react";
+import NextLink from 'next/link'
+import React from 'react'
+import {data, title} from 'utils/http-status'
+import {Box, Container, Heading, Link, Text} from '@chakra-ui/react'
 
 const HttpStatus = () => {
   // React.useEffect(() => {

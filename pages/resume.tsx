@@ -15,11 +15,18 @@ const Resume = () => {
           </div>
           <div className={'flex gap-2 items-center'}>
             <MdEmail />
-            <Link href={'mailto:gemini0525@foxmail.com'} className={'underline'}>gemini0525@foxmail.com</Link>
+            <Link
+              href={'mailto:gemini0525@foxmail.com'}
+              className={'underline'}
+            >
+              gemini0525@foxmail.com
+            </Link>
           </div>
           <div className={'flex gap-2 items-center'}>
             <BsGithub />
-            <Link href={'https://github.com/Manonicu'} className={'underline'}>https://github.com/Manonicu</Link>
+            <Link href={'https://github.com/Manonicu'} className={'underline'}>
+              https://github.com/Manonicu
+            </Link>
           </div>
         </div>
       </div>

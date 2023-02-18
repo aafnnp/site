@@ -1,4 +1,4 @@
-import { Box, Heading, Link, Text } from "@chakra-ui/react";
+import {Box, Heading, Link, Text} from '@chakra-ui/react'
 
 export default function IndexPage() {
   return (

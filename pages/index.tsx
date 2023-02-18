@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { FaGithub, FaSitemap, FaTwitter } from "react-icons/fa";
-import styles from "assets/styles/index.module.scss";
-import { Avatar, Center, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
+import Link from 'next/link'
+import {FaGithub, FaSitemap, FaTwitter} from 'react-icons/fa'
+import styles from 'assets/styles/index.module.scss'
+import {Avatar, Center, Flex, Grid, GridItem, Heading} from '@chakra-ui/react'
 
 const LINK_ITEMS = [
   {icon: 'blog', href: '/blog', bordered: true},
