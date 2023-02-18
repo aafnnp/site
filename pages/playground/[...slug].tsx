@@ -1,6 +1,5 @@
-import dynamic from 'next/dynamic'
-import React from 'react'
-import {Container} from '@chakra-ui/react'
+import dynamic from "next/dynamic";
+import React from "react";
 
 export default function Playground(props) {
   const CustomComponent = dynamic(
@@ -9,9 +8,9 @@ export default function Playground(props) {
   )
 
   return (
-    <Container maxW={['768px', '1200px', '1200px', '1400px']} py={32}>
+    <div className={'py-32'}>
       <CustomComponent />
-    </Container>
+    </div>
   )
 }
 

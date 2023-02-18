@@ -1,52 +1,42 @@
-import { BrowserEnums } from "utils";
-import * as lite from "caniuse-lite";
-import { Box, Center, Container, Flex, Grid, Heading, Image, Link } from "@chakra-ui/react";
+import Link from 'next/link'
+import Image from 'next/image'
+import {BrowserEnums} from 'utils'
+import * as lite from 'caniuse-lite'
 
 const Section = ({browser, data}) => {
   return (
-    <Box mt={4}>
-      <Heading
-        as="h3"
-        py={4}
-        fontSize="sm"
-        fontWeight={600}
-        textTransform="capitalize"
-      >
-        {browser}
-      </Heading>
-      <Grid templateColumns="repeat(4,1fr)" gap={4} mb={2}>
+    <div className={'mt-4'}>
+      <h3 className={'py-4 text-sm font-bold capitalize'}>{browser}</h3>
+      <div className={'grid grid-cols-4 gap-4 mb-2'}>
         {Object.entries(BrowserEnums[browser]).map(([key, value], index) => {
           return (
-            <Flex
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
+            <div
+              className={'flex flex-col justify-center items-center'}
               key={key}
             >
-              <Image
-                boxSize={12}
-                src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/logos/${value}.svg`}
-                alt={key}
-                loading="lazy"
-              />
-              <Box
-                mt={2}
-                rounded="md"
-                fontWeight="bold"
-                p={2}
-                w="100%"
+              <div className={'relative w-12 h-12'}>
+                <Image
+                  fill
+                  src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/logos/${value}.svg`}
+                  alt={key}
+                  loading="lazy"
+                />
+              </div>
+
+              <div
+                className={'mt-2 rounded-md font-bold p-2 w-full text-center'}
                 style={{
                   backgroundColor:
                     data.desktop[index] === 'No' ? '#ff0024' : '#47ca4c'
                 }}
               >
-                <Center>{data.desktop[index]}</Center>
-              </Box>
-            </Flex>
+                {data.desktop[index]}
+              </div>
+            </div>
           )
         })}
-      </Grid>
-    </Box>
+      </div>
+    </div>
   )
 }
 
@@ -77,17 +67,20 @@ export default function CanIUse({tag}) {
   }
 
   return (
-    <Container my={12} maxW={['768px', '1200px', '1200px', '1400px']}>
-      <Box color="gray.500">
+    <div className={'my-12'}>
+      <div className={'text-gray-500'}>
         This browser support data is from
-        <Link px={1} color="red.500" href={`https://caniuse.com/#feat=${tag}`}>
+        <Link
+          className={'px-1 text-red-500'}
+          href={`https://caniuse.com/#feat=${tag}`}
+        >
           Caniuse
         </Link>
         ,which has more detail. A number indicates that browser supports the
         feature at that version and up.
-      </Box>
+      </div>
       <Section browser="desktop" data={data} />
       <Section browser="mobile" data={data} />
-    </Container>
+    </div>
   )
 }

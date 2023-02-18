@@ -1,61 +1,46 @@
-import NextLink from 'next/link'
+import Link from 'next/link'
+import Image from 'next/image'
 import React from 'react'
 import {FaGithub, FaLink} from 'react-icons/fa'
-import {
-  Center,
-  Container,
-  Flex,
-  Grid,
-  Heading,
-  Image,
-  Link,
-  ListItem,
-  OrderedList
-} from '@chakra-ui/react'
 
 export default function IndexPage(props) {
   const {allChallenges} = props
 
   return (
-    <Container pt={12} maxW={['768px', '1200px', '1200px', '1400px']}>
-      <Heading as="h1" mb={4}>
-        <Center>Web API Playground</Center>
-      </Heading>
-      <Grid templateColumns="repeat(3, 1fr)" gap={4}>
-        <OrderedList>
+    <div className={'prose max-w-full pt-12'}>
+      <h1 className={'mb-4 text-center'}>Web API Playground</h1>
+      <div className={'grid grid-cols-3 gap-4'}>
+        <ul>
           {allChallenges.map((challenge) => {
             return (
-              <ListItem key={challenge.link}>
-                <Flex gap={2} alignItems="center">
-                  <NextLink passHref legacyBehavior href={challenge.link}>
-                    <Link>{challenge.title.replaceAll('-', ' ')}</Link>
-                  </NextLink>
+              <li key={challenge.link}>
+                <div className={'flex gap-2 items-center'}>
+                  <Link href={challenge.link}>
+                    {challenge.title.replaceAll('-', ' ')}
+                  </Link>
                   <Image
-                    boxSize={4}
+                    className={'m-0'}
+                    width={16}
+                    height={16}
                     src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${challenge.group}.svg`}
                     alt={challenge.group}
                   />
-                  <NextLink passHref legacyBehavior href={challenge.link}>
-                    <Link>
-                      <FaLink />
-                    </Link>
-                  </NextLink>
-                  <NextLink
-                    passHref
-                    legacyBehavior
+
+                  <Link href={challenge.link}>
+                    <FaLink />
+                  </Link>
+                  <Link
                     href={`https://github.com/Manonicu/site/tree/master/_playground/${challenge.group}/${challenge.title}.jsx`}
                   >
-                    <Link>
-                      <FaGithub />
-                    </Link>
-                  </NextLink>
-                </Flex>
-              </ListItem>
+                    <FaGithub />
+                  </Link>
+                </div>
+              </li>
             )
           })}
-        </OrderedList>
-      </Grid>
-    </Container>
+        </ul>
+      </div>
+    </div>
   )
 }
 

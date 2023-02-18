@@ -1,63 +1,49 @@
-import NextLink from 'next/link'
-import {Fragment} from 'react'
-import {
-  Box,
-  Heading,
-  Image,
-  LinkOverlay,
-  List,
-  ListItem
-} from '@chakra-ui/react'
+import Link from 'next/link'
+import Image from 'next/image'
 
-const IndexPage = ({groupByMonthPosts}) => {
+const IndexPage = ({posts}) => {
   return (
-    <Box
-      px={6}
-      pt={12}
-      h={'100vh'}
-      overflowY={'scroll'}
-      scrollBehavior={'smooth'}
+    <div
+      className={
+        'grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5 gap-8 px-6 pt-12 h-screen overflow-y-scroll'
+      }
     >
-      {Object.keys(groupByMonthPosts).map((group) => {
+      {posts.map((post) => {
         return (
-          <Fragment key={group}>
-            <Heading mb={4}>{group}</Heading>
-            <List spacing={3} mb={12}>
-              {groupByMonthPosts[group].map((post) => {
-                return (
-                  <ListItem
-                    position="relative"
-                    display="flex"
-                    gap={2}
-                    alignItems="center"
-                    key={post.title}
-                  >
-                    <NextLink
-                      legacyBehavior
-                      href={`/blog/${post.slug}`}
-                      passHref
-                    >
-                      <LinkOverlay>{post.title}</LinkOverlay>
-                    </NextLink>
-                    {post.tags.map((tag) => {
-                      return (
-                        <Image
-                          key={tag}
-                          boxSize={4}
-                          objectFit="cover"
-                          alt={tag}
-                          src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
-                        />
-                      )
-                    })}
-                  </ListItem>
-                )
-              })}
-            </List>
-          </Fragment>
+          <div key={post.title}>
+            <div className={'relative mb-4 w-full h-48 overflow-hidden'}>
+              <img
+                src={
+                  post.cover ??
+                  'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg'
+                }
+                className={'block w-full object-cover rounded aspect-video'}
+                alt={post.title}
+              />
+            </div>
+            <div className={'mt-4'}>
+              <div className="flex gap-2 tags">
+                {post.tags.map((tag) => {
+                  return (
+                    <div className={'relative w-4 h-4'} key={tag}>
+                      <Image
+                        fill
+                        alt={tag}
+                        src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
+                      />
+                    </div>
+                  )
+                })}
+                <div className={'text-slate-400 text-sm'}>{post.date}</div>
+              </div>
+              <div className={'font-bold text-slate-700 leading-snug'}>
+                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+              </div>
+            </div>
+          </div>
         )
       })}
-    </Box>
+    </div>
   )
 }
 
@@ -66,18 +52,9 @@ export default IndexPage
 export async function getStaticProps() {
   const {GetAllPosts} = await import('utils/getAllPosts')
   const posts = await GetAllPosts()
-  const groupByMonthPosts = posts.reduce((prev, next) => {
-    if (Array.isArray(prev[next.group])) {
-      prev[next.group].push(next)
-    } else {
-      prev[next.group] = []
-      prev[next.group].push(next)
-    }
-    return prev
-  }, {})
   return {
     props: {
-      groupByMonthPosts
+      posts
     }
   }
 }

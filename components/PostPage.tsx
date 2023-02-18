@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
-import Prism from "prismjs";
-import { Box } from "@chakra-ui/react";
-import { Prose } from '@nikolovlazar/chakra-ui-prose'
+import React, {useEffect} from 'react'
+import Prism from 'prismjs'
 
 require('prismjs/components/prism-go')
 require('prismjs/components/prism-python')
@@ -21,12 +19,6 @@ const PostPage = ({children}) => {
       await Prism.highlightAll()
     })()
   }, [children])
-  return (
-    <Box position="relative" w="2/3" fontSize="text.sm">
-      <Prose>
-        {children}
-      </Prose>
-    </Box>
-  )
+  return <>{children}</>
 }
 export default PostPage

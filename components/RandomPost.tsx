@@ -1,26 +1,21 @@
-import NextLink from "next/link";
+import Link from "next/link";
 import React from "react";
-import { Box, Heading, Link, ListItem, OrderedList } from "@chakra-ui/react";
-import { FiExternalLink } from "react-icons/fi";
 
 export default function RandomPost({randomPost}) {
   return (
-    <Box>
-      <Heading as="h2" fontSize="text.base" mb={4}>
+    <div className={'random-post'}>
+      <h2 className={'text-base mb-4'}>
         更多文章
-      </Heading>
-      <OrderedList>
+      </h2>
+      <ul>
         {randomPost.map((item) => (
-          <ListItem key={item.title}>
-            <NextLink legacyBehavior href={`/blog/${item.slug}`} passHref>
-              <Link display="flex" alignItems="center" gap={2} isExternal>
+          <li key={item.title}>
+            <Link href={`/blog/${item.slug}`}  className={'flex items-center gap-2'}>
                 {item.title}
-                <FiExternalLink />
-              </Link>
-            </NextLink>
-          </ListItem>
+            </Link>
+          </li>
         ))}
-      </OrderedList>
-    </Box>
+      </ul>
+    </div>
   )
 }

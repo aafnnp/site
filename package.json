@@ -59,6 +59,7 @@
     "@mdx-js/loader": "^2.2.1",
     "@next/bundle-analyzer": "^13.1.6",
     "@next/mdx": "^13.1.6",
+    "@tailwindcss/typography": "^0.5.9",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "autoprefixer": "^10.4.13",

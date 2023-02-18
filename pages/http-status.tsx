@@ -1,50 +1,37 @@
-import NextLink from 'next/link'
-import React from 'react'
-import {data, title} from 'utils/http-status'
-import {Box, Container, Heading, Link, Text} from '@chakra-ui/react'
+import Link from "next/link";
+import React from "react";
+import { data, title } from "utils/http-status";
 
 const HttpStatus = () => {
-  // React.useEffect(() => {
-  //   // fetch("/api/publish").then(res=>{
-  //   //   console.log(res,"res")
-  //   // })
-  // }, [])
   return (
-    <Container p={4}>
-      <Heading as="h1">HTTP状态代码概述</Heading>
+    <div className={'p-4'}>
+      <h1 className={'text-4xl'}>HTTP状态代码概述</h1>
 
       {data.map((item, key) => (
-        <Box mt={8} key={key}>
-          <Heading
-            as="h2"
-            mb={2}
-            display="flex"
-            gap={4}
-            justifyContent="between"
+        <div className={'mt-8'} key={key}>
+          <h2
+            className={'mb-2 flex gap-4 text-xl'}
           >
-            <Text>{key + 1}xx</Text>
-            <Text>{title[key]}</Text>
-          </Heading>
+            <p>{key + 1}xx</p>
+            <p>{title[key]}</p>
+          </h2>
 
           {item.map((el) => (
-            <NextLink
-              legacyBehavior
+            <Link
+              className={'flex gap-2 py-2'}
               href={`https://www.abstractapi.com/http-status-codes/${el.key}`}
-              passHref
               key={el.key}
             >
-              <Link display="flex" gap={2} py={2} isExternal>
-                <Text bg="purple.500" px={2} py={1} rounded="md" fontSize="xs">
+                <p className={'bg-purple-500 px-2 py-1 rounded-md text-xs text-white'}>
                   {el.key}
-                </Text>
-                <Text>-</Text>
-                <Text color="purple.500">{el.value}</Text>
-              </Link>
-            </NextLink>
+                </p>
+                <p>-</p>
+                <p className={'text-purple-500'}>{el.value}</p>
+            </Link>
           ))}
-        </Box>
+        </div>
       ))}
-    </Container>
+    </div>
   )
 }
 
