@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type {NextApiRequest, NextApiResponse} from 'next'
 // // [
 // //   {
 // //     _id: '56744723958ef13879b9549b',
