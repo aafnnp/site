@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import {BsFillTelephoneInboundFill, BsGithub} from 'react-icons/bs'
 import {MdEmail} from 'react-icons/md'
 
@@ -14,11 +15,11 @@ const Resume = () => {
           </div>
           <div className={'flex gap-2 items-center'}>
             <MdEmail />
-            gemini0525@foxmail.com
+            <Link href={'mailto:gemini0525@foxmail.com'} className={'underline'}>gemini0525@foxmail.com</Link>
           </div>
           <div className={'flex gap-2 items-center'}>
             <BsGithub />
-            https://github.com/Manonicu
+            <Link href={'https://github.com/Manonicu'} className={'underline'}>https://github.com/Manonicu</Link>
           </div>
         </div>
       </div>

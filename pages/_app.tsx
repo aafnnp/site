@@ -12,7 +12,7 @@ const Menu = dynamic(() => import('components/Menu'), {ssr: false})
 const App = ({Component, pageProps, router}) => {
   const {route} = router
   const url = `https://manon.icu${route}`
-
+  const isHome = route === '/'
   return (
     <>
       <Head>
@@ -26,11 +26,13 @@ const App = ({Component, pageProps, router}) => {
       </Head>
       <SEO url={url} />
       <ChakraProvider theme={theme}>
-        <Grid templateColumns={'repeat(6,1fr)'}>
-          <GridItem colSpan={1}>
-          {route !== '/' && <Menu />}
-          </GridItem>
-          <GridItem colSpan={5}>
+        <Grid templateColumns={isHome ? '1fr':'repeat(6,1fr)'}>
+          {
+            !isHome && <GridItem colSpan={1}>
+              <Menu />
+            </GridItem>
+          }
+          <GridItem colSpan={isHome ? 1:5}>
             <Component {...pageProps} canonical={url} key={url} />
           </GridItem>
         </Grid>
