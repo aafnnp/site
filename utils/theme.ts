@@ -4,7 +4,7 @@ import {withProse} from '@nikolovlazar/chakra-ui-prose'
 const theme = extendTheme(
   {
     config: {
-      initialColorMode: 'dark',
+      initialColorMode: 'light',
       useSystemColorMode: true
     } as ThemeConfig,
     fonts: {
