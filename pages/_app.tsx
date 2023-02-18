@@ -13,6 +13,7 @@ const App = ({Component, pageProps, router}) => {
   const {route} = router
   const url = `https://manon.icu${route}`
   const isHome = route === '/'
+
   return (
     <>
       <Head>
