@@ -4,6 +4,10 @@ import Head from 'next/head'
 import React from 'react'
 import {Analytics} from '@vercel/analytics/react'
 import 'assets/styles/main.scss'
+import localFont from '@next/font/local'
+
+
+const LXGWFont = localFont({src:'./LXGWWenKaiScreen.ttf'})
 
 const Menu = dynamic(() => import('components/Menu'), {ssr: false})
 
@@ -23,7 +27,7 @@ const App = ({Component, pageProps, router}) => {
         <title>Manon.icu | Home</title>
       </Head>
       <SEO url={url} />
-      <div className={'grid grid-cols-1 sm:grid-cols-[300px_1fr]'}>
+      <div className={`grid grid-cols-1 sm:grid-cols-[300px_1fr] ${LXGWFont.className}`}>
         {route !== '/' && (
             <Menu />
         )}
