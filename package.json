@@ -34,7 +34,7 @@
     "caniuse-lite": "^1.0.30001450",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.7",
-    "framer-motion": "^9.0.1",
+    "framer-motion": "^10.0.0",
     "globby": "^13.1.3",
     "gray-matter": "^4.0.3",
     "next": "13.1.6",
