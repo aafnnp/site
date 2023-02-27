@@ -1,0 +1,53 @@
+---
+date: '2022-03-07'
+title: Swift - 闭包
+tags: [swift]
+description: 闭包是一种自包含的函数，可以在代码中被传递和使用
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/ejftR3.png
+---
+
+闭包是一种自包含的函数，可以在代码中被传递和使用。闭包可以捕获和存储其所在上下文中的任何常量和变量的引用，因此被称为闭包，因为它们会封闭这些变量。Swift 中的闭包与 C 和 Objective-C 中的块（blocks）以及其他一些编程语言中的匿名函数类似。
+
+以下是一个简单的示例，用于排序一个字符串数组：
+
+```swift
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+
+func backward(_ s1: String, _ s2: String) -> Bool {
+  return s1 > s2
+}
+
+var reversedNames = names.sorted(by: backward)
+```
+
+在上面的示例中，backward 函数接受两个字符串参数，比较它们的大小，并返回一个布尔值，表示第一个字符串是否在第二个字符串之后。sorted 函数接受一个闭包作为参数，并使用该闭包对数组进行排序。由于 backward 函数符合 sorted 函数要求的类型，因此可以将 backward 函数作为 sorted 函数的参数传递。
+
+在 Swift 中，可以使用闭包表达式来定义闭包。闭包表达式使用一对花括号（{}）来定义，并且在花括号中可以指定参数列表、返回类型和函数体。
+
+以下是使用闭包表达式进行排序的示例：
+
+```swift
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+
+var reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
+  return s1 > s2
+})
+```
+
+在上面的示例中，sorted 函数的参数是一个闭包表达式。闭包表达式包含了与 backward 函数相同的代码，但是这些代码被写成了更简单的形式。闭包表达式使用一对花括号来定义闭包，并指定参数列表和返回类型。在闭包体中，可以使用 return 关键字来返回值。
+
+Swift 中的闭包还有以下特点：
+
+- 闭包表达式可以从上下文中推断出参数类型和返回类型，因此可以省略它们。
+- 闭包表达式可以使用简写参数名，用 $0、$1、$2 等来代替参数名。
+- 如果闭包表达式只包含一行代码，可以省略 return 关键字。
+- 可以将闭包表达式作为函数的最后一个参数传递，并将其放在圆括号外面，以提高可读性。
+  以下是使用闭包表达式进行排序的更简单的示例：
+
+```swift
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+
+var reversedNames = names.sorted(by: { $0 > $1 })
+```
+
+Swift 中的闭包是非常有用的工具，可以使代码更加简洁、可读和易于维护。
