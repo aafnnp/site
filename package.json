@@ -29,7 +29,7 @@
     "@resvg/resvg-js": "^2.3.1",
     "@resvg/resvg-wasm": "^2.3.1",
     "@vercel/analytics": "^0.1.8",
-    "@vercel/og": "^0.1.0",
+    "@vercel/og": "^0.2.0",
     "animejs": "^3.2.1",
     "caniuse-lite": "^1.0.30001450",
     "classnames": "^2.3.2",
