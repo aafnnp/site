@@ -16,8 +16,5 @@ module.exports = {
         pathname: '/gh/manonicu/pics@master/**'
       }
     ]
-  },
-  experimental: {
-    fontLoaders: [{loader: '@next/font/google', options: {subsets: ['latin']}}]
   }
 }
