@@ -1,0 +1,88 @@
+---
+date: '2022-03-14'
+title: Swift - 初始化
+tags: [swift]
+description: 在 Swift 中，初始化(Initialization)是为类、结构体或枚举类型中的属性设置初始值的过程。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/TkgrxG.png
+---
+
+在 Swift 中，初始化(Initialization)是为类、结构体或枚举类型中的属性设置初始值的过程。初始化程序通常在创建一个新实例时调用，以确保该实例的所有属性都具有合适的初始值。
+
+在 Swift 中，每个类、结构体或枚举类型都必须有至少一个初始化程序。如果没有显式地定义初始化程序，则 Swift 会提供一个默认的初始化程序。默认初始化程序假定所有属性都具有默认值，因此它不执行任何其他操作。
+
+可以使用 init() 关键字定义初始化程序。例如：
+
+```swift
+class Person {
+var name: String
+var age: Int
+
+    init() {
+        name = "Unknown"
+        age = 0
+    }
+}
+
+let person = Person()
+print(person.name) // 输出 "Unknown"
+print(person.age) // 输出 0
+```
+
+在上面的示例中，我们定义了一个 Person 类，并在其中定义了一个 init() 初始化程序。该初始化程序将 name 和 age 属性设置为默认值。然后，我们创建一个新的 Person 实例，并输出其属性值。
+
+在 Swift 中，初始化程序可以有参数，以便在创建实例时提供属性的初始值。例如：
+
+```swift
+class Person {
+var name: String
+var age: Int
+
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+}
+
+let person = Person(name: "John", age: 30)
+print(person.name) // 输出 "John"
+print(person.age) // 输出 30
+```
+
+在上面的示例中，我们在 Person 类中定义了一个带有参数的初始化程序。该初始化程序使用提供的参数设置 name 和 age 属性。然后，我们创建一个新的 Person 实例，并输出其属性值。
+
+在 Swift 中，初始化程序还可以调用其他初始化程序，以确保所有属性都被正确初始化。这种调用称为初始化程序委托(Initialization Delegation)。例如：
+
+```swift
+class Person {
+var name: String
+var age: Int
+
+    init() {
+        self.name = "Unknown"
+        self.age = 0
+    }
+
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+}
+
+class Employee: Person {
+var salary: Double
+
+    init(name: String, age: Int, salary: Double) {
+        self.salary = salary
+        super.init(name: name, age: age)
+    }
+}
+
+let employee = Employee(name: "John", age: 30, salary: 50000)
+print(employee.name) // 输出 "John"
+print(employee.age) // 输出 30
+print(employee.salary) // 输出 50000.0
+```
+
+在上面的示例中，我们定义了一个 Employee 类，它是 Person 类的子类。Employee 类具有一个额外的 salary 属性。在 Employee 的 init() 初始化程序中，我们通过调用 super.init(name: age:) 委托给 Person 类的初始化程序来设置 name 和 age 属性。然后，我们设置 salary 属性并创建一个新的 Employee 实例。
+
+初始化是 Swift 语言中非常重要的概念之一。通过初始化程序，我们可以确保实例的所有属性都具有
