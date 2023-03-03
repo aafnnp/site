@@ -1,0 +1,129 @@
+---
+date: '2022-03-17'
+title: Swift - 错误处理
+tags: [swift]
+description: 错误处理是一种处理程序运行过程中可能出现错误的机制。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/5bdezx.png
+---
+
+Swift 中的错误处理是一种机制，用于在程序执行期间检测和处理错误。错误是指在程序执行期间发生的意外事件，例如网络连接中断、文件未找到等等。Swift 使用 try，catch 和 throw 语句来支持错误处理。
+
+当一个函数可能会抛出错误时，需要在函数的定义中使用 throws 关键字来表示这一点。这告诉调用者，调用该函数可能会导致一个错误，并且必须用 try 语句调用该函数。
+
+## 抛出错误
+
+在 Swift 中，抛出错误使用 throw 关键字。如果一个函数、方法或初始化器可能出现错误，需要在声明中使用 throws 关键字来标识。例如：
+
+```swift
+enum MyError: Error {
+  case invalidValue
+}
+
+func divide(_ x: Int, by y: Int) throws -> Int {
+  if y == 0 {
+    throw MyError.invalidValue
+  }
+  return x / y
+}
+```
+
+在上述示例中，divide(\_:by:) 函数可能会抛出一个 MyError.invalidValue 类型的错误。
+
+## 处理错误
+
+当一个函数、方法或初始化器可能抛出错误时，调用者必须使用 try 关键字来调用该函数，否则会编译错误。例如：
+
+```swift
+do {
+let result = try divide(10, by: 2)
+  print(result)
+} catch {
+  print(error)
+}
+```
+
+在上述示例中，使用 try 关键字调用了 divide(\_:by:) 函数，并使用 do-catch 语句捕获可能抛出的错误。如果函数调用成功，result 的值将被打印，否则将打印错误信息。
+
+当调用一个可能抛出错误的函数时，可以使用多种方式来处理错误。例如，可以使用 do-catch 语句捕获错误、使用 try? 关键字将错误转换为可选值，或使用 try! 关键字表示该函数不会抛出错误。例如：
+
+```swift
+// 使用 try? 关键字将错误转换为可选值
+let result1 = try? divide(10, by: 0)
+print(result1)
+
+// 使用 try! 关键字表示该函数不会抛出错误
+let result2 = try! divide(10, by: 2)
+print(result2)
+```
+
+在上述示例中，try? 关键字将错误转换为可选值，如果函数调用成功，则返回结果，否则返回 nil。try! 关键字表示该函数不会抛出错误，如果函数调用失败，程序将崩溃。
+
+自定义错误类型
+在 Swift 中，可以自定义错误类型来表示具体的错误信息。自定义的错误类型需要实现 Error 协议。例如：
+
+```swift
+enum MyError: Error {
+  case invalidValue
+  case networkError(String)
+  case fileError(String, Int)
+}
+```
+
+在上述示例中，定义了一个 MyError 类型，包含了三种错误情况：invalidValue 表示无效的数值，networkError 表示网络错误，fileError 表示文件错误，并且每种错误情况都包含了不同的错误信息。
+
+例如，以下是一个可能会抛出错误的函数：
+
+```swift
+Copy code
+func divide(_ dividend: Int, by divisor: Int) throws -> Int {
+guard divisor != 0 else {
+throw NSError(domain: "com.example", code: 0, userInfo: [
+NSLocalizedDescriptionKey: "Cannot divide by zero"
+])
+}
+
+    return dividend / divisor
+}
+```
+
+在这个函数中，如果除数为零，就会抛出一个错误。我们可以使用 do 和 catch 语句来捕获和处理错误：
+
+```swift
+do {
+  let result = try divide(10, by: 2)
+  print(result) // Output: 5
+} catch {
+  print("Error: \(error)") // Output: Error: Cannot divide by zero
+}
+```
+
+在上面的代码中，我们将 divide 函数的返回值存储在 result 变量中。如果 divide 函数抛出一个错误，那么程序将跳转到 catch 块，并打印错误信息。
+
+除了使用 do 和 catch 语句来处理错误之外，还可以使用 try?和 try!语句来简化错误处理过程。try?语句将函数的返回值转换为一个可选类型，如果函数抛出错误，则返回 nil。try!语句则在函数抛出错误时直接崩溃程序。建议使用 try?和 try!语句的场景非常有限，因为它们会让程序在运行时变得不可预测。例如，以下是一个可能会抛出错误的函数：
+
+```swift
+func divide(_ dividend: Int, by divisor: Int) throws -> Int {
+  guard divisor != 0 else {
+    throw NSError(domain: "com.example", code: 0, userInfo: [
+    NSLocalizedDescriptionKey: "Cannot divide by zero"
+  ])
+}
+
+    return dividend / divisor
+}
+```
+
+在这个函数中，如果除数为零，就会抛出一个错误。我们可以使用 do 和 catch 语句来捕获和处理错误：
+
+```swift
+do {
+  let result = try divide(10, by: 2)
+  print(result) // Output: 5
+} catch {
+  print("Error: \(error)") // Output: Error: Cannot divide by zero
+}
+```
+
+在上面的代码中，我们将 divide 函数的返回值存储在 result 变量中。如果 divide 函数抛出一个错误，那么程序将跳转到 catch 块，并打印错误信息。
+
+除了使用 do 和 catch 语句来处理错误之外，还可以使用 try?和 try!语句来简化错误处理过程。try?语句将函数的返回值转换为一个可选类型，如果函数抛出错误，则返回 nil。try!语句则在函数抛出错误时直接崩溃程序。建议使用 try?和 try!语句的场景非常有限，因为它们会让程序在运行时变得不可预测。
