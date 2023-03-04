@@ -1,0 +1,87 @@
+---
+date: '2022-03-18'
+title: Swift - 并发性
+tags: [swift]
+description: 并发性是指系统中同时执行多个独立任务的能力。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/5bdezx.png
+---
+
+在计算机科学中，并发性是指系统中同时执行多个独立任务的能力。在 Swift 中，我们可以使用 Grand Central Dispatch (GCD) 和 Operation Queues 来实现并发性。
+
+## Grand Central Dispatch (GCD)
+
+GCD 是苹果提供的一种轻量级的并发性机制，它使用队列（queue）来管理任务。队列分为两种类型：串行队列（serial queue）和并发队列（concurrent queue）。
+
+串行队列是指按照队列中任务的顺序，依次执行每个任务，只有当一个任务执行完成之后，才会执行下一个任务。而并发队列是指同时执行多个任务，任务执行的顺序不确定。
+
+在 GCD 中，使用 dispatch_queue_t 类型来表示队列。我们可以使用 dispatch_queue_create 函数来创建队列：
+
+```swift
+let serialQueue = DispatchQueue(label: "com.example.serialQueue")
+let concurrentQueue = DispatchQueue(label: "com.example.concurrentQueue", attributes: .concurrent)
+```
+
+在上面的代码中，我们创建了一个串行队列和一个并发队列。
+
+为了将任务提交到队列中，我们可以使用 async 或 sync 函数。async 函数会将任务提交到队列中，并立即返回，不会等待任务执行完成。而 sync 函数会将任务提交到队列中，并等待任务执行完成之后再返回。如果我们在当前队列中调用 sync 函数，则会导致死锁。
+
+```swift
+serialQueue.async {
+    print("Task 1")
+}
+concurrentQueue.async {
+    print("Task 2")
+}
+concurrentQueue.sync {
+    print("Task 3")
+}
+print("Task 4")
+```
+
+在上面的代码中，我们将 Task 1 和 Task 2 提交到了并发队列中，它们会同时执行，而 Task 3 会在当前队列中同步执行，因此会等待 Task 2 执行完成之后才会执行。Task 4 则在主线程中执行。
+
+## Operation Queues
+
+除了 GCD，Swift 还提供了一种更高级别的并发性机制，称为 Operation Queues。它使用 Operation 和 Operation Queue 来管理任务。
+
+Operation 是一个抽象类，表示一个要执行的任务。我们可以继承 Operation 类来创建自己的任务。例如，下面是一个简单的 Operation 子类：
+
+```swift
+class MyOperation: Operation {
+  override func main() {
+    print("Task 1")
+  }
+}
+```
+
+在上面的代码中，我们创建了一个 MyOperation 类，它会打印一条消息。
+
+我们可以将 Operation 提交到 Operation Queue 中，就像提交任务到 GCD 队列中一样：
+
+```swift
+let operationQueue = OperationQueue()
+
+let op1 = MyOperation()
+let op2 = BlockOperation {
+    print("Task 2")
+}
+let op3 = BlockOperation {
+    print("Task 3")
+}
+let op4 = BlockOperation {
+    print("Task 4")
+}
+
+op2.addDependency(op1)
+op3.addDependency(op2)
+op4.addDependency(op3
+```
+
+Swift 提供了几种处理并发性的方式，包括：
+
+- Grand Central Dispatch (GCD)：是一个轻量级的库，用于并发性编程。它提供了一个简单的 API 来调度任务并发执行，包括串行、并行、同步和异步等方式。
+- Operation Queues：提供了一个面向对象的 API，允许你创建一个队列，并将任务添加到队列中。每个任务都可以封装为一个 Operation 对象，并且可以设置依赖关系和优先级等属性。
+- Futures 和 Promises：它们是一种在异步编程中管理异步计算的方法。Futures 表示一个异步操作的结果，Promises 则是一个异步操作的产生者。
+- Actors：是一种并发性编程模型，它将内存安全性和高性能相结合。Actor 是一个可扩展的、高效的并发性构造，它可以避免常见的竞态条件和死锁问题。
+
+这些并发性的方式都可以帮助开发者在 Swift 中实现并发性编程，提高程序的性能和响应能力。
