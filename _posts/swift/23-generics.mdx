@@ -20,15 +20,15 @@ cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/85PvnF.png
 
 ```swift
 func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
-let temp = a
-a = b
-b = temp
+  let temp = a
+  a = b
+  b = temp
 }
 ```
 
 在这个例子中，我们定义了一个函数 swapTwoValues，它接受两个参数 a 和 b，它们都是泛型类型 T。函数体内使用了一个临时变量 temp，来交换 a 和 b 的值。
 
-这个函数中的 <T> 声明了一个类型参数 T，用来指定函数参数的类型。调用函数时，可以将具体的数据类型作为参数传入：
+这个函数中的 \<T> 声明了一个类型参数 T，用来指定函数参数的类型。调用函数时，可以将具体的数据类型作为参数传入：
 
 ```swift
 var a = 10
@@ -66,15 +66,15 @@ var items = [Element]()
 
 Swift 中的泛型允许我们定义通用类型和函数，可以适用于各种数据类型。这使我们可以写出更加通用和重用的代码。
 
-在 Swift 中，我们可以通过在类型、函数或方法名称后面使用尖括号（<>）和一个或多个占位符来声明泛型。这些占位符可以用于指定类型参数，这些参数在调用函数或实例化类型时将被替换为实际类型。
+在 Swift 中，我们可以通过在类型、函数或方法名称后面使用尖括号（\<>）和一个或多个占位符来声明泛型。这些占位符可以用于指定类型参数，这些参数在调用函数或实例化类型时将被替换为实际类型。
 
 以下是一个使用泛型的示例：
 
 ```swift
 func swapValues<T>(_ a: inout T, _ b: inout T) {
-let temp = a
-a = b
-b = temp
+  let temp = a
+  a = b
+  b = temp
 }
 
 var x = 10
