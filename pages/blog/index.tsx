@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-const IndexPage = ({posts}) => {
+const IndexPage = ({posts,tags}) => {
+  console.log(tags)
   return (
     <div
       className={
@@ -52,9 +53,11 @@ export default IndexPage
 export async function getStaticProps() {
   const {GetAllPosts} = await import('utils/getAllPosts')
   const posts = await GetAllPosts()
+  const tags = [...new Set(posts.map(item=>item.tags).flat(Infinity))]
   return {
     props: {
-      posts
+      posts,
+      tags
     }
   }
 }
