@@ -1,0 +1,52 @@
+---
+date: '2022-03-24'
+title: Swift - 模糊类型
+tags: [swift]
+description: Opaque types（不透明类型）是一种声明方式，它可以隐藏类型的实现细节，同时提供一个公共接口供外部使用，这样可以使代码更加模块化和安全。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/85PvnF.png
+---
+
+在 Swift 中，Opaque types（不透明类型）是一种声明方式，它可以隐藏类型的实现细节，同时提供一个公共接口供外部使用，这样可以使代码更加模块化和安全。
+在 Swift 中，我们可以使用 protocol 关键字来声明一个协议，然后使用 associatedtype 关键字来声明一个不透明类型。例如：
+
+```swift
+protocol Container {
+  associatedtype Item
+  var count: Int { get }
+  subscript(i: Int) -> Item { get }
+}
+```
+
+在上面的代码中，我们定义了一个 Container 协议，它包含一个不透明类型 Item，以及一个 count 属性和一个下标操作符。这个协议的具体实现可以是任何符合该协议的类型，只要它们实现了 count 和下标操作符即可。
+在使用该协议时，我们可以使用一种特殊的语法来创建一个不透明类型。例如：
+
+```swift
+struct Stack<Element>: Container {
+// original Stack<Element> implementation
+...
+
+    // Opaque type
+    typealias Item = Element
+}
+```
+
+在上面的代码中，我们定义了一个 Stack 结构体，它实现了 Container 协议，并声明了一个不透明类型 Item，它的实际类型是 Element。这样，外部代码可以使用 Item 类型来访问 Stack 结构体的元素，但是无法直接访问 Element 类型。
+例如，我们可以使用下面的代码来创建一个 Stack 实例，并向其中添加一些元素：
+
+```swift
+var stack = Stack<Int>()
+stack.push(1)
+stack.push(2)
+stack.push(3)
+```
+
+然后，我们可以使用下面的代码来遍历 Stack 实例中的元素：
+
+```swift
+for i in 0..<stack.count {
+  print(stack[i])
+}
+```
+
+在上面的代码中，我们使用 count 属性和下标操作符来遍历 Stack 实例中的元素，而不需要直接访问 Element 类型。
+通过使用不透明类型，我们可以隐藏底层类型的实现细节，同时提供一个公共接口供外部使用，这样可以使代码更加模块化和安全。同时，不透明类型还可以提高代码的灵活性和可维护性，因为它可以让我们在不影响外部代码的情况下修改底层类型的实现细节。
