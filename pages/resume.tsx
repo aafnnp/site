@@ -130,7 +130,7 @@ const Resume = () => {
                 'Typescript',
                 'Vite/Webpack'
               ].map((item) => (
-                <span className={'p-1 rounded bg-dark text-white'} key={item}>
+                <span className={'p-1 rounded bg-slate-400 text-white'} key={item}>
                   {item}
                 </span>
               ))}
@@ -155,7 +155,7 @@ const Resume = () => {
             <div className={'font-bold my-4'}>技术栈</div>
             <div className={'flex gap-2'}>
               {['JavaScript', 'Vue2', 'Vite/Webpack', 'Css'].map((item) => (
-                <span className={'p-1 rounded bg-dark text-white'} key={item}>
+                <span className={'p-1 rounded bg-slate-400 text-white'} key={item}>
                   {item}
                 </span>
               ))}
@@ -194,7 +194,7 @@ const Resume = () => {
                 'Node.js',
                 'Docker'
               ].map((item) => (
-                <span className={'p-1 rounded bg-dark text-white'} key={item}>
+                <span className={'p-1 rounded bg-slate-400 text-white'} key={item}>
                   {item}
                 </span>
               ))}
@@ -218,7 +218,7 @@ const Resume = () => {
             <div className={'flex gap-2'}>
               {['jQuery', 'Swiper', 'Html', 'JavaScript', 'Css3'].map(
                 (item) => (
-                  <span className={'p-1 rounded bg-dark text-white'} key={item}>
+                  <span className={'p-1 rounded bg-slate-400 text-white'} key={item}>
                     {item}
                   </span>
                 )
@@ -259,7 +259,7 @@ const Resume = () => {
             <div className={'font-bold my-4'}>技术栈</div>
             <div className={'flex gap-2'}>
               {['Html', 'Css/Css3', 'jQuery'].map((item) => (
-                <span className={'p-1 rounded bg-dark text-white'} key={item}>
+                <span className={'p-1 rounded bg-slate-400 text-white'} key={item}>
                   {item}
                 </span>
               ))}
@@ -286,7 +286,7 @@ const Resume = () => {
             <div className={'font-bold my-4'}>技术栈</div>
             <div className={'flex gap-2'}>
               {['jQuery', 'Css'].map((item) => (
-                <span className={'p-1 rounded bg-dark text-white'} key={item}>
+                <span className={'p-1 rounded bg-slate-400 text-white'} key={item}>
                   {item}
                 </span>
               ))}
