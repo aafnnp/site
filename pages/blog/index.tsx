@@ -6,13 +6,13 @@ const IndexPage = ({posts,tags}) => {
   return (
     <div
       className={
-        'grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5 gap-8 px-6 pt-12 h-screen overflow-y-scroll'
+        'grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5 gap-8 px-6 pt-12 h-screen overflow-y-scroll'
       }
     >
       {posts.map((post) => {
         return (
           <div key={post.title}>
-            <div className={'relative mb-4 w-full h-48 overflow-hidden'}>
+            <div className={'relative mb-4 w-full sm:h-28 lg:h-48 overflow-hidden'}>
               <img
                 src={
                   post.cover ??

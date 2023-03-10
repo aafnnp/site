@@ -11,7 +11,7 @@ export default function IndexPage(props) {
       <h1 className={'mb-12 text-center'}>
         Challenges
       </h1>
-      <div className={'grid grid-cols-4 gap-4'}>
+      <div className={'grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-4'}>
         {allChallenges.map((challenge, i) => {
           return <Challenge {...challenge} key={i} />
         })}
@@ -27,7 +27,7 @@ const Challenge = ({link, title, group}) => {
         <Image fill src={`/screenshots/${title}.webp`} alt={title} />
       </div>
 
-      <div className={'flex gap-4 relative items-center'}>
+      <div className={'flex gap-2 relative items-center px-4'}>
         <Image
           width={16}
           height={16}
@@ -36,7 +36,7 @@ const Challenge = ({link, title, group}) => {
         />
         {title}
       </div>
-      <div className={'flex gap-4 items-center justify-between'}>
+      <div className={'flex gap-4 px-4 items-center justify-between'}>
         <Link
           href={link}
           className={
