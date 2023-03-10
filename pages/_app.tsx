@@ -24,9 +24,7 @@ const App = ({Component, pageProps, router}) => {
       </Head>
       <SEO url={url} />
       <div className={`grid grid-cols-1 sm:grid-cols-[300px_1fr]`}>
-        {route !== '/' && (
-            <Menu />
-        )}
+        {!['/', '/resume'].includes(route) && <Menu />}
         <Component {...pageProps} canonical={url} key={url} />
       </div>
       <Analytics />
