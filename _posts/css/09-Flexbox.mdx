@@ -1,6 +1,97 @@
 ---
-date: '2022-03-29 22:00:01'
-title: 'css - Intro & Install'
-draft: true
+date: '2022-05-08'
+title: 'css - flexbox'
 tags: [css]
 ---
+
+Flexbox 是一种 CSS 布局模式，用于在容器中快速、灵活地排列和对齐子元素，可以有效地实现自适应布局和响应式设计。Flexbox 的全称是 Flexible Box Layout，即“弹性盒子布局”。
+
+Flexbox 的核心是容器和子元素之间的关系，容器称为 flex container（弹性容器），子元素称为 flex item（弹性子元素）。通过在容器上设置 display: flex 或 display: inline-flex 属性，可以将容器变为一个 flexbox，然后可以使用一系列的 CSS 属性来控制子元素的排列和对齐方式。
+
+以下是 Flexbox 常用的属性和其作用：
+
+- flex-direction：定义 flex container 的主轴方向，取值包括 row、row-reverse、column 和 column-reverse 四种方向。
+- justify-content：定义 flex container 中子元素沿主轴方向的对齐方式，包括 flex-start、flex-end、center、space-between、space-around、space-evenly 六种取值。
+- align-items：定义 flex container 中子元素沿交叉轴方向的对齐方式，包括 flex-start、flex-end、center、baseline、stretch 五种取值。
+- flex-wrap：定义 flex container 中子元素在一行放不下时如何换行，取值包括 nowrap、wrap 和 wrap-reverse 三种。
+- align-content：定义多行子元素在交叉轴方向的对齐方式，仅当 flex-wrap 属性为 wrap 或 wrap-reverse 时生效，包括 flex-start、flex-end、center、space-between、space-around、stretch 六种取值。
+- flex-grow：定义子元素的放大比例，如果容器有多余的空间，子元素会按照各自的放大比例分配这些空间。
+- flex-shrink：定义子元素的缩小比例，如果容器空间不足，子元素会按照各自的缩小比例缩小。
+- flex-basis：定义子元素的基准尺寸，用于计算子元素的放大和缩小比例。
+- order：定义子元素的排列顺序，数值越小的子元素越靠前。
+
+Flexbox 的优点是可以简化布局代码，减少使用 float 和 position 的情况，同时可以实现自适应和响应式设计，提高页面的可维护性和可扩展性。但是需要注意的是，Flexbox 不适用于所有场景，例如多行文本的垂直居中需要结合其他技术实现。
+
+以下是一个使用 Flexbox 实现的简单的响应式布局案例，包含一个 header、一个 sidebar 和一个 content 区域，可以根据屏幕尺寸自适应布局：
+
+HTML 代码：
+
+```html
+<div class="container">
+  <header>Header</header>
+  <div class="content">
+    <div class="sidebar">Sidebar</div>
+    <div class="main">Main content</div>
+  </div>
+</div>
+```
+
+CSS 代码：
+
+```css
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+header {
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.sidebar {
+  flex-basis: 200px;
+  background-color: #eee;
+  padding: 20px;
+}
+
+.main {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    flex-basis: 100%;
+  }
+}
+```
+
+解释：
+
+首先将容器设置为 flex 布局，使用 flex-wrap 属性允许子元素在需要时换行。
+
+- header 元素使用宽度为 100%，背景颜色为深灰色，颜色为白色，使用 padding 属性来增加内边距，使其看起来更美观。
+
+- content 元素作为 flex container，使用 flex-grow 属性让其占据剩余的空间，使用 justify-content 和 align-items 属性分别对子元素进行水平和垂直对齐。
+
+- sidebar 元素使用 flex-basis 属性指定其基准尺寸为 200px，背景颜色为浅灰色，使用 padding 属性增加内边距。
+
+- main 元素使用 flex-grow 属性让其占据剩余的空间，使用 padding 属性增加内边距。
+
+- 在屏幕宽度小于 768px 时，将 sidebar 元素的基准尺寸设置为 100%，让其占据整行宽度。
+
+这个案例展示了 Flexbox 的基本用法，通过简单的 CSS 属性设置，可以实现自适应和响应式布局。
+
+更多请参考：[Flexbox 指南](/blog/css/tips/Flexbox指南)
