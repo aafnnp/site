@@ -1,6 +1,31 @@
 ---
-date: '2022-03-29 22:00:01'
-title: 'css - Intro & Install'
-draft: true
+date: '2022-05-10'
+title: 'css - Spacing'
 tags: [css]
 ---
+
+Logical Properties 是 CSS3 中引入的一个新特性，它是一个基于逻辑方向的属性系统，主要是为了支持从右向左（RTL）语言的页面设计而引入的。在传统的 CSS 盒模型中，宽度和高度、内边距和边框等属性都是基于物理方向来计算的（如左、右、上、下等），而在 RTL 语言中，这些属性需要根据从右向左的方向来计算。Logical Properties 则提供了一种基于逻辑方向的属性系统，这些属性会自动根据文本的方向进行翻转，从而能够更方便地支持多种语言和布局方式。
+
+Logical Properties 包括以下几种属性：
+
+- inline-size 和 block-size：代表元素的宽度和高度，根据文本的方向而自动调整。
+- margin-inline 和 margin-block：代表元素的内边距，也可以用于设置外边距。
+- padding-inline 和 padding-block：代表元素的内边距。
+- border-inline 和 border-block：代表元素的边框。
+
+其中，inline-size 和 block-size 可以理解为宽度和高度的逻辑属性，可以根据文本方向自动切换。而 margin-inline 和 padding-inline 则代表文本方向上的外边距和内边距，而 margin-block 和 padding-block 则代表块方向上的外边距和内边距。
+
+例如，如果要在一个从右向左的页面中，将一个 div 元素水平居中，可以使用以下代码：
+
+```css
+div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+```
+
+在上述代码中，margin-left 和 margin-right 控制了 div 元素的左右外边距，而 margin-inline-start 和 margin-inline-end 控制了 div 元素在文本方向上的外边距，从而实现了水平居中的效果。
+
+需要注意的是，Logical Properties 只在支持 CSS3 的浏览器中才能使用。如果需要在旧版浏览器中使用 Logical Properties，可以考虑使用 Polyfill 或者手动转换为传统的物理属性来实现。
