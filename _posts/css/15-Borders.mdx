@@ -1,6 +1,56 @@
 ---
-date: '2022-03-29 22:00:01'
-title: 'css - Intro & Install'
-draft: true
+date: '2022-05-14'
+title: 'css - borders'
 tags: [css]
 ---
+
+边框（border）是 CSS 中一种用于围绕 HTML 元素的线条，用于美化和分隔元素的外观和布局。边框由三个部分组成：边框线、边框样式和边框颜色。
+
+边框线（border-width）指定边框的宽度，可以使用像素、百分比、em、rem 等单位。边框线可以分别设置上下左右四个方向的宽度，也可以使用 border-width 属性同时设置四个方向的宽度。
+
+边框样式（border-style）指定边框的样式，常见的样式包括实线（solid）、虚线（dashed）、点状线（dotted）、双线（double）等。边框样式也可以分别设置上下左右四个方向的样式，也可以使用 border-style 属性同时设置四个方向的样式。
+
+边框颜色（border-color）指定边框的颜色，可以使用颜色名、RGB 值、十六进制值等方式指定。边框颜色也可以分别设置上下左右四个方向的颜色，也可以使用 border-color 属性同时设置四个方向的颜色。
+
+CSS 还提供了 border-top、border-right、border-bottom 和 border-left 等属性来单独设置每个方向的边框样式、宽度和颜色。
+
+除了这些基本属性，CSS 还提供了一些边框相关的高级属性，例如：
+
+- border-radius：指定边框的圆角半径，可以将矩形边框变成圆形、椭圆形或者带有圆角的矩形。
+- border-image：指定边框使用图片作为样式。
+- border-collapse：指定表格边框的合并方式，有分隔（separate）和合并（collapse）两种方式。
+
+边框是网页设计中重要的元素，通过合理地使用边框属性，可以实现各种复杂的界面布局和设计效果。
+
+## 案例：
+
+HTML 代码：
+
+```html
+<div class="container">
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+</div>
+```
+
+CSS 代码：
+
+```css
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #000;
+  margin: 10px;
+}
+```
+
+上面的代码实现了一个由四个边框组成的正方形布局。通过设置容器元素为 flex 布局，让四个正方形元素水平和垂直居中。然后给每个正方形元素添加 2px 的实线边框和 10px 的外边距，形成一个整齐的正方形布局。
