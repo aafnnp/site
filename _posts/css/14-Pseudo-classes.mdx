@@ -1,6 +1,67 @@
 ---
-date: '2022-03-29 22:00:01'
-title: 'css - Intro & Install'
-draft: true
+date: '2022-05-13'
+title: 'css - Pseudo-classes'
 tags: [css]
 ---
+
+伪类是 CSS 中一种常用的选择器，它允许我们选择不同状态或行为的元素，这些状态或行为可能不是通过标准 HTML 属性来表示的。
+
+伪类以“:”符号开头，紧跟着选择器名称，例如: hover、:focus、:active 等。以下是一些常见的伪类和它们的作用：
+
+:hover 伪类：当鼠标悬停在元素上时，应用样式。
+
+```css
+a:hover {
+  color: red;
+}
+```
+
+:active 伪类：当元素被激活（例如被鼠标点击）时，应用样式。
+
+```css
+button:active {
+  background-color: green;
+}
+```
+
+:focus 伪类：当元素获取焦点（例如通过 tab 键）时，应用样式。
+
+```css
+input:focus {
+  border: 1px solid blue;
+}
+```
+
+:nth-child(n) 伪类：选择元素在其父元素中特定位置的子元素。其中 n 可以是数字、关键字（例如 even、odd）、表达式（例如 2n+1）等。
+
+```css
+ul li:nth-child(odd) {
+  background-color: lightgray;
+}
+```
+
+:nth-of-type(n) 伪类：选择同一类型的元素中特定位置的元素。例如，选择第二个 p 元素，而不是第二个任意类型的元素。
+
+```css
+p:nth-of-type(2) {
+  font-size: 20px;
+}
+```
+
+:first-child 伪类：选择作为其父元素中第一个子元素的元素。
+
+```css
+li:first-child {
+  font-weight: bold;
+}
+```
+
+:last-child 伪类：选择作为其父元素中最后一个子元素的元素。
+
+```css
+li:last-child {
+  text-decoration: underline;
+}
+```
+
+伪类是 CSS 中强大的工具，能够帮助我们针对不同的状态和行为选择元素并应用样式。熟练掌握常用的伪类，能够使我们编写更加灵活和高效的 CSS 代码。
