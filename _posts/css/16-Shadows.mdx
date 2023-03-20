@@ -1,6 +1,79 @@
 ---
-date: '2022-03-29 22:00:01'
-title: 'css - Intro & Install'
-draft: true
+date: '2022-05-15'
+title: 'css - shadows'
 tags: [css]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/cl6sOW.png
 ---
+
+CSS 的 box-shadow 属性可以为元素添加一个或多个阴影效果。这个属性的值包括：
+
+- 阴影的水平偏移量（必须指定）。
+- 阴影的垂直偏移量（必须指定）。
+- 阴影的模糊半径（可选）。
+- 阴影的扩散半径（可选）。
+- 阴影的颜色（可选）。
+
+## 示例代码：
+
+```css
+box-shadow: 2px 2px 4px #888888;
+```
+
+这个属性指定了一个偏移量为 2px 的水平阴影，一个偏移量为 2px 的垂直阴影，一个模糊半径为 4px 的阴影，阴影的颜色为 #888888。
+
+如果要为元素添加多个阴影，可以使用逗号分隔它们。示例代码：
+
+```css
+box-shadow: 2px 2px 4px #888888, -2px -2px 4px #333333;
+```
+
+这个属性指定了两个阴影，一个是偏移量为 2px 的水平阴影和偏移量为 2px 的垂直阴影，模糊半径为 4px，颜色为 #888888，另一个阴影是偏移量为 -2px 的水平阴影和偏移量为 -2px 的垂直阴影，模糊半径为 4px，颜色为 #333333。
+
+还可以使用 inset 关键字指定内阴影，示例代码：
+
+```css
+box-shadow: inset 2px 2px 4px #888888;
+```
+
+这个属性指定了一个偏移量为 2px 的水平内阴影和偏移量为 2px 的垂直内阴影，模糊半径为 4px，颜色为 #888888。
+
+除了 box-shadow，CSS 还有 text-shadow 属性，它可以为文本添加阴影效果。text-shadow 的用法和 box-shadow 很相似，只是它只能为文本添加阴影，而不能为元素添加阴影。
+
+使用 box-shadow 属性的简单案例，实现了一个卡片效果：
+
+![cl6sOW](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/cl6sOW.png)
+
+HTML 代码：
+
+```html
+<div class="card">
+  <h2>Card Title</h2>
+  <p>Card Content</p>
+</div>
+```
+
+CSS 代码：
+
+```css
+.card {
+  width: 300px;
+  height: 200px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.card p {
+  margin-top: 40px;
+  text-align: center;
+}
+```
+
+解释：
+
+这个案例中，我们首先创建了一个 div 元素，并给它添加了一个类名为 "card"。然后，我们为这个 div 元素设置了宽度和高度，背景色和圆角属性。接着，我们使用 box-shadow 属性为这个 div 元素添加了一个阴影效果，它的偏移量为 0px 的水平阴影和偏移量为 4px 的垂直阴影，模糊半径为 10px，颜色为 rgba(0, 0, 0, 0.1)。
