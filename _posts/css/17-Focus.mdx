@@ -1,6 +1,31 @@
 ---
-date: '2022-03-29 22:00:01'
-title: 'css - Intro & Install'
-draft: true
+date: '2022-05-16'
+title: 'css - focus'
 tags: [css]
 ---
+
+在 Web 开发中，focus 是一个非常重要的概念，它指的是当前文档中获取焦点的元素。当一个元素被激活时，它就成为当前文档中获取焦点的元素，此时可以通过键盘或鼠标输入数据等方式与该元素进行交互。
+
+在 HTML 中，可以通过 tabindex 属性为元素指定一个可以聚焦的顺序，该属性的值为整数，表示元素的聚焦顺序。如果 tabindex 的值为 -1，则该元素可以通过 JavaScript 代码来聚焦，但是在键盘聚焦顺序中不参与计算。如果 tabindex 的值为 0，则该元素可以通过浏览器默认的聚焦顺序进行聚焦。
+
+在 CSS 中，可以使用:focus 伪类选择器来为当前获取焦点的元素设置样式，例如：
+
+```css
+button:focus {
+  outline: 2px solid blue;
+}
+```
+
+上面的代码表示，在按钮元素被聚焦时，为其添加一个 2px 宽度、蓝色边框的外观效果。
+
+除了样式之外，JavaScript 代码也可以使用 focus 事件来为获取焦点的元素添加交互行为，例如：
+
+```javascript
+const input = document.getElementById('my-input')
+
+input.addEventListener('focus', function () {
+  console.log('input element is now focused')
+})
+```
+
+上面的代码表示，在输入框元素被聚焦时，将输出一条日志信息。
