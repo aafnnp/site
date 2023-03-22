@@ -4,9 +4,6 @@ import {getRandomArrayElements} from './index'
 
 const fs = require('fs')
 const dayjs = require('dayjs')
-const relativeTime = require('dayjs/plugin/relativeTime')
-
-dayjs.extend(relativeTime)
 
 const GetAllPosts = async () => {
   const posts = await globby(['_posts'])
@@ -17,8 +14,8 @@ const GetAllPosts = async () => {
       const postData = {
         ...data,
         group: dayjs(data.date).format('MMM/YYYY'),
-        date: dayjs(data.date).format('MMM DD, YYYY'),
-        fromNow: dayjs(data.date).fromNow(),
+        date: new Intl.DateTimeFormat('en-US').format(data.date),
+        fromNow: fromNow(data.date),
         modified: dayjs(data.modified).format('MMM DD, YYYY'),
         content,
         slug: next.replace(/^_posts\//, '').replace(/\.mdx$/, '')
@@ -62,6 +59,13 @@ const GetRandomPost = () => {
         reject([])
       })
   })
+}
+
+const fromNow = (date) => {
+  return new Intl.RelativeTimeFormat('en', {numeric: 'auto'}).format(
+    Math.round((new Date(date) - new Date()) / 86400000),
+    'day'
+  )
 }
 
 export {GetAllPosts, GetPostBySlug, GetRandomPost}
