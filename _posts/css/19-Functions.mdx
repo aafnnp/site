@@ -1,6 +1,213 @@
 ---
-date: '2022-03-29 22:00:01'
-title: 'css - Intro & Install'
-draft: true
+date: '2022-05-18'
+title: 'css - Functions'
 tags: [css]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9Po8DU.jpg
 ---
+
+CSS 函数是一种可以接受参数并返回值的特殊类型的 CSS 值。CSS 函数可以用来计算、操作和转换属性值，使得开发者能够更方便地控制页面的样式和布局。以下是一些常见的 CSS 函数及其用途：
+
+- calc()：用于在 CSS 中进行数学计算。例如，可以使用 calc() 函数将两个长度值相加，以便在布局时动态计算宽度或高度。
+- var()：用于设置自定义属性值。可以在一个地方设置变量的值，然后在文档中的其他地方使用 var() 函数引用它们。
+- rgb() 和 rgba()：用于设置颜色值。rgb() 函数使用红、绿、蓝三个参数来定义颜色，而 rgba() 函数则在此基础上增加了一个透明度参数，用于设置颜色的不透明度。
+- hsl() 和 hsla()：类似于 rgb() 和 rgba()，但是使用的是色调、饱和度和亮度来定义颜色。
+- url()：用于在 CSS 中引用外部资源，例如图像、字体或音频文件。可以将 url() 函数用作属性值，以指定需要加载的文件的路径和名称。
+- attr()：用于在 CSS 中访问 HTML 元素的属性值。可以将 attr() 函数用作属性值，以从 HTML 元素中提取属性值并将其应用于样式。
+- min() 和 max()：用于确定给定值的最小值和最大值。这些函数可以用于计算长度、宽度和其他尺寸相关的值。
+
+
+## 函数选择器
+
+CSS 函数选择器是一种特殊的选择器，它可以根据元素的属性值来匹配元素。函数选择器的语法如下：
+
+```css
+.post :is(h1, h2, h3) {
+	line-height: 1.2;
+}
+```
+
+其中，selector 是一个 CSS 选择器，function 是一个 CSS 函数。函数选择器的作用是，当元素的属性值与函数的返回值相匹配时，就会应用选择器中的样式。
+
+## 自定义变量
+
+CSS 自定义属性（Custom Properties）是一种特殊的属性，它可以用来定义变量。自定义属性的语法如下：
+
+```css
+:root {
+  --main-color: #f00;
+}
+
+.my-element {
+	background: var(--main-color);
+}
+```
+
+其中，--main-color 是自定义属性的名称，#f00 是自定义属性的值。自定义属性的名称必须以两个连字符开头，然后是一个或多个字母、数字或连字符。自定义属性的值可以是任何有效的 CSS 值，包括颜色、长度、百分比、URL、函数等。
+
+## attr() 函数
+
+attr() 函数用于在 CSS 中访问 HTML 元素的属性值。可以将 attr() 函数用作属性值，以从 HTML 元素中提取属性值并将其应用于样式。
+
+```html
+<a href="https://www.w3school.com.cn" class="my-link">W3School</a>
+```
+
+```css
+.my-link {
+  color: attr(href);
+}
+```
+
+上面的代码中，attr() 函数用于获取 a 元素的 href 属性值，并将其作为颜色值。由于 a 元素的 href 属性值为 https://www.w3school.com.cn，因此 a 元素的颜色为蓝色。
+
+## color() 函数
+
+color() 函数用于在 CSS 中定义颜色。color() 函数的语法如下：
+
+```css
+color(<color-value> [ / <alpha-value> ]? )
+```
+
+其中，color-value 是颜色值，alpha-value 是透明度值。color-value 可以是以下任意一种：
+
+- 十六进制颜色值，例如 #f00、#ff0000 或 #ff0000ff。
+- RGB 颜色值，例如 rgb(255, 0, 0) 或 rgba(255, 0, 0, 1)。
+- HSL 颜色值，例如 hsl(0, 100%, 50%) 或 hsla(0, 100%, 50%, 1)。
+- 颜色关键字，例如 red、green 或 blue。
+
+alpha-value 是一个介于 0 和 1 之间的数值，用于设置颜色的不透明度。如果省略 alpha-value，则默认值为 1。
+
+## calc() 函数
+
+calc() 函数用于在 CSS 中进行数学计算。例如，可以使用 calc() 函数将两个长度值相加，以便在布局时动态计算宽度或高度。
+
+```css
+.my-element {
+  width: calc(100% - 20px);
+}
+```
+
+上面的代码中，calc() 函数用于计算 100% 减去 20px 的值，然后将结果作为宽度值。由于 100% 减去 20px 的值为 80%，因此 .my-element 元素的宽度为 80%。
+
+## min() 和 max() 函数
+
+min() 和 max() 函数用于确定给定值的最小值和最大值。这些函数可以用于计算长度、宽度和其他尺寸相关的值。
+
+```css
+.my-element {
+  width: min(100%, 200px);
+}
+```
+
+上面的代码中，min() 函数用于计算 100% 和 200px 两个值的最小值，然后将结果作为宽度值。由于 100% 和 200px 两个值的最小值为 100%，因此 .my-element 元素的宽度为 100%。
+
+## clamp() 函数
+
+clamp() 函数用于限制给定值的范围。clamp() 函数的语法如下：
+
+```css
+clamp(<min>, <value>, <max>)
+```
+
+其中，min 是最小值，value 是给定值，max 是最大值。clamp() 函数的作用是，如果给定值小于最小值，则返回最小值；如果给定值大于最大值，则返回最大值；否则，返回给定值。
+
+```css
+.my-element {
+  width: clamp(100px, 50%, 200px);
+}
+```
+
+上面的代码中，clamp() 函数用于限制 50% 的值的范围，使其不小于 100px，也不大于 200px。由于 50% 的值为 50px，因此 .my-element 元素的宽度为 100px。
+
+## 图形函数
+
+CSS 图形函数用于在 CSS 中定义图形。CSS 图形函数的语法如下：
+
+```css
+<shape>(<shape-box> [, <shape-box>]*)
+```
+
+其中，shape 是图形函数的名称，shape-box 是图形函数的参数。shape-box 可以是以下任意一种：
+
+- 关键字值：inset、circle、ellipse、polygon、path。
+- 坐标值：top、right、bottom、left、center、x-start、x-end、y-start、y-end、<length>、<percentage>。
+- 关键字值：content-box、padding-box、border-box、margin-box。
+
+## 变形函数
+
+CSS 变形函数用于在 CSS 中定义变形。CSS 变形函数的语法如下：
+
+```css
+<transform-function>(<transform-argument> [, <transform-argument>]*)
+```
+
+其中，transform-function 是变形函数的名称，transform-argument 是变形函数的参数。transform-argument 可以是以下任意一种：
+
+- 关键字值：none、matrix、matrix3d、translate、translate3d、translateX、translateY、translateZ、scale、scale3d、scaleX、scaleY、scaleZ、rotate、rotate3d、rotateX、rotateY、rotateZ、skew、skewX、skewY、perspective。
+- 数值：<number>、<length>、<percentage>、<angle>。
+
+## 过渡函数
+
+CSS 过渡函数用于在 CSS 中定义过渡。CSS 过渡函数的语法如下：
+
+```css
+<transition-timing-function>(<transition-timing-function-argument> [, <transition-timing-function-argument>]*)
+```
+
+其中，transition-timing-function 是过渡函数的名称，transition-timing-function-argument 是过渡函数的参数。transition-timing-function-argument 可以是以下任意一种：
+
+- 关键字值：linear、ease、ease-in、ease-out、ease-in-out、step-start、step-end、steps、cubic-bezier。
+- 数值：<number>、<length>、<percentage>、<angle>。
+
+## 过滤函数
+
+CSS 过滤函数用于在 CSS 中定义过滤。CSS 过滤函数的语法如下：
+
+```css
+<filter-function>(<filter-argument> [, <filter-argument>]*)
+```
+
+其中，filter-function 是过滤函数的名称，filter-argument 是过滤函数的参数。filter-argument 可以是以下任意一种：
+
+- 关键字值：blur、brightness、contrast、drop-shadow、grayscale、hue-rotate、invert、opacity、saturate、sepia。
+- 数值：<number>、<length>、<percentage>、<angle>。
+
+## 混合模式函数
+
+CSS 混合模式函数用于在 CSS 中定义混合模式。CSS 混合模式函数的语法如下：
+
+```css
+<blend-mode>(<blend-mode-argument> [, <blend-mode-argument>]*)
+```
+
+其中，blend-mode 是混合模式函数的名称，blend-mode-argument 是混合模式函数的参数。blend-mode-argument 可以是以下任意一种：
+
+- 关键字值：normal、multiply、screen、overlay、darken、lighten、color-dodge、color-burn、hard-light、soft-light、difference、exclusion、hue、saturation、color、luminosity。
+- 数值：<number>、<length>、<percentage>、<angle>。
+
+## 生成内容函数
+
+CSS 生成内容函数用于在 CSS 中定义生成内容。CSS 生成内容函数的语法如下：
+
+```css
+<content-function>(<content-argument> [, <content-argument>]*)
+```
+
+其中，content-function 是生成内容函数的名称，content-argument 是生成内容函数的参数。content-argument 可以是以下任意一种：
+
+- 关键字值：attr、counter、counters、open-quote、close-quote、no-open-quote、no-close-quote。
+- 数值：<number>、<length>、<percentage>、<angle>。
+
+## 计数器函数
+
+CSS 计数器函数用于在 CSS 中定义计数器。CSS 计数器函数的语法如下：
+
+```css
+<counter-function>(<counter-argument> [, <counter-argument>]*)
+```
+
+其中，counter-function 是计数器函数的名称，counter-argument 是计数器函数的参数。counter-argument 可以是以下任意一种：
+
+- 关键字值：counter、counters。
+- 数值：<number>、<length>、<percentage>、<angle>。
+
