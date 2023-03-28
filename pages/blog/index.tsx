@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-const IndexPage = ({posts,tags}) => {
-  console.log(tags)
+const IndexPage = ({posts}) => {
   return (
     <div
       className={
