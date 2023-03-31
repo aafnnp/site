@@ -1,0 +1,70 @@
+---
+date: 2020-05-24
+title: Go - 控制流
+tags: [go]
+---
+
+控制流是指程序中的执行顺序。在计算机程序中，控制流可以由条件语句、循环语句和跳转语句等控制语句来实现。这些语句可以改变程序的执行流程，使得程序可以按照不同的路径执行不同的代码块。
+
+条件语句是控制流的基础，它根据指定的条件来执行或跳过特定的代码块。在 Go 语言中，条件语句包括 if 语句和 switch 语句。if 语句根据指定的条件来选择性地执行一段代码，例如：
+
+```go
+func main() {
+    x := 10
+    if x > 5 {
+        fmt.Println("x is greater than 5")
+    } else {
+        fmt.Println("x is less than or equal to 5")
+    }
+}
+```
+
+switch 语句根据不同的条件选择性地执行不同的代码块。例如：
+
+```go
+func main() {
+    x := 2
+    switch x {
+    case 1:
+        fmt.Println("x is 1")
+    case 2:
+        fmt.Println("x is 2")
+    default:
+        fmt.Println("x is not 1 or 2")
+    }
+}
+```
+
+循环语句是另一种控制流的基础，它可以重复执行一段代码块直到满足指定的条件为止。在 Go 语言中，循环语句包括 for 语句和 range 语句。for 语句可以用于循环执行一段代码块，例如：
+
+```go
+func main() {
+    for i := 0; i < 5; i++ {
+        fmt.Println(i)
+    }
+}
+```
+
+range 语句可以用于遍历数组、切片、映射和通道等集合类型。例如：
+
+```go
+func main() {
+    nums := []int{1, 2, 3, 4, 5}
+    for i, num := range nums {
+        fmt.Printf("Index: %d, Value: %d\n", i, num)
+    }
+}
+```
+
+跳转语句可以用于改变程序的执行流程。在 Go 语言中，跳转语句包括 break、continue 和 goto 语句。break 语句可以用于从循环中跳出，continue 语句可以用于跳过循环中的某个迭代，而 goto 语句可以用于跳转到程序的指定位置。例如：
+
+```go
+func main() {
+    for i := 0; i < 5; i++ {
+        if i == 3 {
+            break
+        }
+        fmt.Println(i)
+    }
+}
+```
