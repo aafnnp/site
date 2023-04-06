@@ -9,12 +9,11 @@ module.exports = {
     extend: {
       colors: {
         twitter: 'rgb(29, 155, 240)',
-        primary: '#FFFFFF',
-        text: '#333333',
-        emphasis: '#F44336F44336',
-        assist: '#EFEFEF',
-        shadow: '#ffffff',
-        highlight: '#000000'
+        primary: '#232946',
+        text: '#b8c1ec',
+        emphasis: '#F44336',
+        assist: '#fffffe',
+        highlight: '#d4939d'
       }
     }
   },
