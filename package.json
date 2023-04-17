@@ -22,7 +22,7 @@
     "@giscus/react": "^2.2.8",
     "@mdx-js/react": "^2.3.0",
     "@vercel/analytics": "^0.1.11",
-    "@vercel/og": "^0.4.1",
+    "@vercel/og": "^0.5.3",
     "animejs": "^3.2.1",
     "caniuse-lite": "^1.0.30001470",
     "classnames": "^2.3.2",
