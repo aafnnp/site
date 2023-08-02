@@ -20,16 +20,3 @@ ul {
   }
 }
 
-kbd {
-  border-width: 1px 1px 3px;
-  font-size: 0.8em;
-  padding-inline: 0.4em;
-  white-space: nowrap;
-  @apply font-mono bg-gray-100 rounded-md font-bold leading-normal;
-}
-
-.post {
-  code {
-    @apply mx-1 px-1 bg-slate-600 text-slate-200 dark:bg-slate-200 dark:text-slate-600 rounded;
-  }
-}

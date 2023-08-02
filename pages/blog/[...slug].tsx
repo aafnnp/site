@@ -33,7 +33,7 @@ const Post = ({
   }
   return (
     <div
-      className={'prose max-w-full px-6 pt-20 h-screen overflow-y-scroll scroll-behavior-smooth'}
+      className={'prose mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8'}
     >
       <SEO
         title={title}
