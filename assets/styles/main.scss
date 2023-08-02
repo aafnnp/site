@@ -9,6 +9,16 @@
 [class^='language'] {
   font-family: monospace;
 }
+ol,
+ul {
+  list-style-type: none;
+}
+@layer {
+  .bg-light {
+    backdrop-filter: blur(1.5rem) saturate(200%) contrast(50%) brightness(130%);
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
 
 kbd {
   border-width: 1px 1px 3px;
@@ -16,9 +26,6 @@ kbd {
   padding-inline: 0.4em;
   white-space: nowrap;
   @apply font-mono bg-gray-100 rounded-md font-bold leading-normal;
-}
-li {
-  list-style-type: circle;
 }
 
 .post {

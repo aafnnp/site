@@ -7,7 +7,7 @@ export default function IndexPage(props) {
   const {allChallenges} = props
 
   return (
-    <div className={'prose max-w-full pt-12'}>
+    <div className={'mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8'}>
       <h1 className={'mb-4 text-center'}>Web API Playground</h1>
       <div className={'grid grid-cols-3 gap-4'}>
         <ul>

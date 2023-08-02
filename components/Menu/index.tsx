@@ -1,8 +1,15 @@
-import dynamic from "next/dynamic";
-import React from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import Image from "next/image";
+import dynamic from 'next/dynamic'
+import React from 'react'
+import {useRouter} from 'next/router'
+import Link from 'next/link'
+import {
+  FaBookOpen,
+  FaHouseChimney,
+  FaDev,
+  FaMailchimp,
+  FaGithub,
+  FaTwitter
+} from 'react-icons/fa6'
 
 const DarkModeSwitch = dynamic(() => import('components/DarkModeSwitch'), {
   ssr: false
@@ -12,41 +19,73 @@ const Navigation = () => {
   const {asPath} = useRouter()
   const pathArr = asPath.split('/')
   return (
-    <div className={'relative flex gap-4 flex-col items-center px-6 pt-12 h-screen'}>
-      <div
-        className="flex gap-4 items-center mb-8 font-bold manon"
-      >
-        <div className={'relative w-10 h-10 rounded-full overflow-hidden'}>
-          <Image
-            fill
-            alt={'Manon.icu'}
-            src={`/avatar.webp`}
-          />
-        </div>
-        <Link href={'/'}>Manon.icu</Link>
+    <>
+      <div className="bg-light">
+        <section className="mx-auto flex max-w-4xl flex-wrap gap-8 px-4 py-8 sm:px-8">
+          <div
+            className="flex-grow text-center font-medium"
+            style={{flexBasis: '25rem'}}
+          >
+            <p aria-hidden className="text-4xl">
+              Hi, I'm
+            </p>
+            <h1 className="mb-8 text-5xl ">
+              <Link href={'/'}>Manon.icu</Link>
+            </h1>
+            <h2 className="mx-auto max-w-[35ch] text-xl ">
+              I'm here to make you a better developer by teaching you everything
+              I know about building for the web.
+            </h2>
+          </div>
+        </section>
       </div>
-      {LinkItems.map((i) => (
-        <Link key={i.name} href={i.href} className={'capitalize'} style={{
-          ...(pathArr[1] === i.name && {
-            backgroundGradient: "linear(to-l, #7928CA, #FF0080)",
-            backgroundClip: "text"
-          })
-        }}>
-            {i.name}
-        </Link>
-      ))}
-      <DarkModeSwitch />
-    </div>
+      <div className="bg-light sticky top-0 z-30 mb-8 border-b border-gray-100 py-1">
+        <ul className="flex flex-row flex-wrap justify-center print:flex-col print:gap-2">
+          {LinkItems.map((i) => (
+            <li key={i.name} className="hover:bg-gray-100 rounded">
+              <Link
+                href={i.href}
+                className={
+                  'translate-0 group relative flex flex-row items-center rounded-lg px-4 py-2'
+                }
+              >
+                {i.icon}
+                <span className="mx-2 font-medium leading-6 print:md:inline">
+                  {i.name}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   )
 }
 
 const LinkItems = [
-  {name: 'home', href: '/'},
-  {name: 'blog', href: '/blog'},
-  {name: 'challenges', href: '/challenges'},
-  {name: 'playground', href: '/playground'},
-  {name: 'about', href: '/about'},
-  {name: 'contact', href: '/contact'}
+  {name: 'Home', href: '/', icon: <FaHouseChimney className="w-6 h-6" />},
+  {name: 'Blog', href: '/blog', icon: <FaBookOpen className="w-6 h-6" />},
+  // {name: 'Challenges', href: '/challenges', icon: <FaDev />},
+  {
+    name: 'Playground',
+    href: '/playground',
+    icon: <FaDev className="w-6 h-6" />
+  },
+  {
+    name: 'Contact',
+    href: '/contact',
+    icon: <FaMailchimp className="w-6 h-6" />
+  },
+  {
+    name: 'Github',
+    href: 'https://github.com/Manonicu',
+    icon: <FaGithub className="w-6 h-6" />
+  },
+  {
+    name: 'Twitter',
+    href: 'https://twitter.com/Manonicu',
+    icon: <FaTwitter className="w-6 h-6" />
+  }
 ]
 
 export default Navigation

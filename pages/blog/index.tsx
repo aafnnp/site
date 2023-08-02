@@ -1,48 +1,52 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import {useMemo, useState} from 'react'
+import dayjs from 'dayjs'
 
 const IndexPage = ({posts}) => {
+  const [year, setYear] = useState('2023')
+  const post = useMemo(() => {
+    return posts[year]
+  }, [posts, year])
   return (
-    <div
-      className={
-        'grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5 gap-8 px-6 pt-12 h-screen overflow-y-scroll'
-      }
-    >
-      {posts.map((post) => {
-        return (
-          <div key={post.title}>
-            <div className={'relative mb-4 w-full sm:h-28 lg:h-48 overflow-hidden'}>
-              <img
-                src={
-                  post.cover ??
-                  'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg'
-                }
-                className={'block w-full object-cover rounded aspect-video'}
-                alt={post.title}
-              />
-            </div>
-            <div className={'mt-4'}>
-              <div className="flex gap-2 tags">
-                {post.tags.map((tag) => {
-                  return (
-                    <div className={'relative w-4 h-4'} key={tag}>
-                      <Image
-                        fill
-                        alt={tag}
-                        src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
-                      />
-                    </div>
-                  )
-                })}
-                <div className={'text-slate-400 text-sm'}>{post.date}</div>
-              </div>
-              <div className={'font-bold text-slate-700 leading-snug'}>
-                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-              </div>
-            </div>
-          </div>
-        )
-      })}
+    <div className={'mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8'}>
+      <h1 className="mb-12 text-2xl">Articles, guides, and cheatsheets</h1>
+      <ul className="mb-12 columns-2 gap-x-2 text-sm text-gray-700 sm:columns-4">
+        {Object.keys(posts).map((year) => {
+          return (
+            <li
+              key={year}
+              onClick={() => setYear(year)}
+              className="mb-3 pr-4 font-bold cursor-pointer hover:text-gray-900"
+            >
+              {year}
+            </li>
+          )
+        })}
+      </ul>
+      <ol className="grid gap-x-8">
+        {post.map((post) => {
+          return (
+            <article key={post.title}>
+              <Link
+                href={`/blog/${post.slug}`}
+                className="group -ml-4 flex overflow-hidden rounded-lg hover:bg-gray-100"
+              >
+                <div className="flex flex-col gap-2 px-4 py-4">
+                  <time className="text-xs font-bold uppercase tracking-wide text-gray-500">
+                    {post.date}
+                  </time>
+                  <h2
+                    className="text-xl font-bold text-gray-800"
+                    style={{wordBreak: 'break-word'}}
+                  >
+                    {post.title}
+                  </h2>
+                </div>
+              </Link>
+            </article>
+          )
+        })}
+      </ol>
     </div>
   )
 }
@@ -52,10 +56,19 @@ export default IndexPage
 export async function getStaticProps() {
   const {GetAllPosts} = await import('utils/getAllPosts')
   const posts = await GetAllPosts()
-  const tags = [...new Set(posts.map(item=>item.tags).flat(Infinity))]
+  // grouped by year
+  const postsByYear = posts.reduce((acc, post) => {
+    const year = dayjs(post.date).get('year')
+    if (!acc[year]) {
+      acc[year] = []
+    }
+    acc[year].push(post)
+    return acc
+  }, {})
+  const tags = [...new Set(posts.map((item) => item.tags).flat(Infinity))]
   return {
     props: {
-      posts,
+      posts: postsByYear,
       tags
     }
   }

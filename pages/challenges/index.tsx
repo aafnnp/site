@@ -8,10 +8,12 @@ export default function IndexPage(props) {
 
   return (
     <div className={'relative prose max-w-full pt-20'}>
-      <h1 className={'mb-12 text-center'}>
-        Challenges
-      </h1>
-      <div className={'grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-4'}>
+      <h1 className={'mb-12 text-center'}>Challenges</h1>
+      <div
+        className={
+          'grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-4'
+        }
+      >
         {allChallenges.map((challenge, i) => {
           return <Challenge {...challenge} key={i} />
         })}
@@ -22,7 +24,7 @@ export default function IndexPage(props) {
 
 const Challenge = ({link, title, group}) => {
   return (
-    <div className={'flex gap-4 flex-col flex-[1_1_20ch]'}>
+    <div className={'mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8'}>
       <div className={'relative w-full h-44'}>
         <Image fill src={`/screenshots/${title}.webp`} alt={title} />
       </div>

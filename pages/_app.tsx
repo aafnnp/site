@@ -23,12 +23,8 @@ const App = ({Component, pageProps, router}) => {
         <title>Manon.icu | Home</title>
       </Head>
       <SEO url={url} />
-      <div className={`grid grid-cols-1 sm:grid-cols-[300px_1fr]`}>
-        {route !== '/' && (
-          <Menu />
-        )}
-        <Component {...pageProps} canonical={url} key={url} />
-      </div>
+      <Menu />
+      <Component {...pageProps} canonical={url} key={url} />
       <Analytics />
     </>
   )
