@@ -1,6 +1,4 @@
-import dynamic from 'next/dynamic'
 import React from 'react'
-import {useRouter} from 'next/router'
 import Link from 'next/link'
 import {
   FaBookOpen,
@@ -11,13 +9,7 @@ import {
   FaTwitter
 } from 'react-icons/fa6'
 
-const DarkModeSwitch = dynamic(() => import('components/DarkModeSwitch'), {
-  ssr: false
-})
-
 const Navigation = () => {
-  const {asPath} = useRouter()
-  const pathArr = asPath.split('/')
   return (
     <>
       <div className="bg-light">
