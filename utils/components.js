@@ -6,7 +6,7 @@ const components = {
   CanIUse,
   a: (props) => {
     return (
-      <Link display="inline-flex" alignItems="center" href={props.href} gap={2}>
+      <Link className="inline-flex items-center gap-2" href={props.href}>
         {props.children}
         <FiExternalLink />
       </Link>
