@@ -25,7 +25,7 @@ const App = ({Component, pageProps, router}) => {
       <SEO url={url} />
       <Menu />
       <Component {...pageProps} canonical={url} key={url} />
-      <Analytics />
+      {process.env.NEXT_PUBLIC_HIDE_ANALYTICS ? null : <Analytics />}
     </>
   )
 }

@@ -2,7 +2,6 @@ import {globby} from 'globby'
 import matter from 'gray-matter'
 import {getRandomArrayElements} from './index'
 
-const fs = require('fs')
 const dayjs = require('dayjs')
 const relativeTime = require('dayjs/plugin/relativeTime')
 
@@ -12,8 +11,7 @@ const GetAllPosts = async () => {
   const posts = await globby(['_posts'])
   return posts
     .reduce((prev, next) => {
-      const fileContents = fs.readFileSync(next, 'utf8')
-      const {data, content} = matter(fileContents)
+      const {data, content} = matter.read(next)
       const postData = {
         ...data,
         group: dayjs(data.date).format('MMM/YYYY'),

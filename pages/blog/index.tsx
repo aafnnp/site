@@ -56,6 +56,7 @@ export default IndexPage
 export async function getStaticProps() {
   const {GetAllPosts} = await import('utils/getAllPosts')
   const posts = await GetAllPosts()
+  // console.log('🚀 ~ file: index.tsx:59 ~ getStaticProps ~ posts:', posts)
   // grouped by year
   const postsByYear = posts.reduce((acc, post) => {
     const year = dayjs(post.date).get('year')

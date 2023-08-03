@@ -2,7 +2,6 @@ module.exports = {
   reactStrictMode: true,
   images: {
     unoptimized: true,
-    // loader: 'custom',
     domains: [
       'images.unsplash.com',
       'pics-rust.vercel.app',

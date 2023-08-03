@@ -8,13 +8,11 @@ import React from 'react'
 import remarkGfm from 'remark-gfm'
 import components from 'utils/components'
 
-const codesandbox = require('remark-codesandbox')
 const SEO = dynamic(() => import('components/SEO'), {ssr: false})
 const Ad = dynamic(() => import('components/ad'), {ssr: false})
 const PostPage = dynamic(() => import('components/PostPage'), {ssr: false})
 const Random = dynamic(() => import('components/RandomPost'), {ssr: false})
 const Share = dynamic(() => import('components/Share'), {ssr: false})
-const Comments = dynamic(() => import('components/Comments'), {ssr: false})
 
 const Post = ({
   title,
@@ -32,9 +30,7 @@ const Post = ({
     return <ErrorPage statusCode={404} />
   }
   return (
-    <div
-      className={'prose mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8'}
-    >
+    <div className={'prose mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8'}>
       <SEO
         title={title}
         description={description}
@@ -45,19 +41,14 @@ const Post = ({
         <div className={'text-center text-slate-500 text-xs'}>
           Published {date}
         </div>
-        <h1 className={'text-center mt-4 mb-2'}>
-          {title}
-        </h1>
+        <h1 className={'text-center mt-4 mb-2'}>{title}</h1>
         {originalUrl && (
           <div className={'text-center text-slate-500 text-sm'}>
             本文翻译自：
-            <Link href={originalUrl}>
-              {originalUrl}
-            </Link>
+            <Link href={originalUrl}>{originalUrl}</Link>
           </div>
         )}
         <Share title={title} tag={tags} handle={handle} />
-
       </hgroup>
 
       {/* 头部广告 */}
@@ -71,8 +62,6 @@ const Post = ({
         {/* 底部广告结束 */}
 
         <Random randomPost={randomPost} />
-
-        <Comments />
       </PostPage>
     </div>
   )
@@ -99,7 +88,7 @@ export const getStaticProps = async ({params}) => {
   const {getRandomArrayElements} = await import('utils')
   const mdxSource = await serialize(content, {
     mdxOptions: {
-      remarkPlugins: [[codesandbox, {mode: 'button'}], [remarkGfm]],
+      remarkPlugins: [[remarkGfm]],
       rehypePlugins: []
     },
     scope: data
