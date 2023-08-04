@@ -16,9 +16,12 @@ export default async function generateRssFeed() {
   allPosts.map((post) => {
     feed.item({
       title: post.title,
+      published: true,
       description: post.description,
       url: `${site_url}/${post.slug}`,
-      date: post.date
+      date: post.date,
+      author: 'pfan',
+      categories: post.tags
     })
   })
 
