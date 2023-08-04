@@ -37,6 +37,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-is": "^18.2.0",
+    "rss": "^1.2.2",
     "styled-components": "^6.0.4"
   },
   "devDependencies": {

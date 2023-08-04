@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import {useMemo, useState} from 'react'
 import dayjs from 'dayjs'
+import generateRssFeed from 'utils/rss'
 
 const IndexPage = ({posts}) => {
   const [year, setYear] = useState('2023')
@@ -56,6 +57,7 @@ export default IndexPage
 export async function getStaticProps() {
   const {GetAllPosts} = await import('utils/getAllPosts')
   const posts = await GetAllPosts()
+  await generateRssFeed()
   // console.log('🚀 ~ file: index.tsx:59 ~ getStaticProps ~ posts:', posts)
   // grouped by year
   const postsByYear = posts.reduce((acc, post) => {

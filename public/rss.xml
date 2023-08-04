@@ -1,0 +1,1714 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Untitled RSS Feed]]></title>
+        <description><![CDATA[Untitled RSS Feed]]></description>
+        <link>http://github.com/dylang/node-rss</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Fri, 04 Aug 2023 03:35:30 GMT</lastBuildDate>
+        <item>
+            <title><![CDATA[使用 Nodejs、 Express、 Postgres 和 Docker 在 JavaScript 中构建 CRUD Rest API]]></title>
+            <link>https://manon.icu/blog/translate/build-a-crud-rest-api-in-javascript-using-nodejs-express-postgres-docker-jkb</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-a-crud-rest-api-in-javascript-using-nodejs-express-postgres-docker-jkb</guid>
+            <pubDate>Sun, 12 Feb 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Docker - Network Basics]]></title>
+            <link>https://manon.icu/blog/docker/network-basics</link>
+            <guid isPermaLink="true">https://manon.icu/blog/docker/network-basics</guid>
+            <pubDate>Wed, 08 Feb 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Docker - 基本的网络操作]]></title>
+            <link>https://manon.icu/blog/docker/basic-network-manipulation</link>
+            <guid isPermaLink="true">https://manon.icu/blog/docker/basic-network-manipulation</guid>
+            <pubDate>Tue, 07 Feb 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[如何创建一个JavaScript docker镜像]]></title>
+            <link>https://manon.icu/blog/docker/how-to-containerize-a-javascript-application</link>
+            <guid isPermaLink="true">https://manon.icu/blog/docker/how-to-containerize-a-javascript-application</guid>
+            <pubDate>Tue, 07 Feb 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Docker 容器基本操作]]></title>
+            <link>https://manon.icu/blog/docker/docker-container-basic-manipulation</link>
+            <guid isPermaLink="true">https://manon.icu/blog/docker/docker-container-basic-manipulation</guid>
+            <pubDate>Sun, 05 Feb 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[什么是docker images 和 docker registry]]></title>
+            <link>https://manon.icu/blog/docker/what-is-a-image</link>
+            <guid isPermaLink="true">https://manon.icu/blog/docker/what-is-a-image</guid>
+            <pubDate>Sun, 05 Feb 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[什么是容器]]></title>
+            <link>https://manon.icu/blog/docker/what-is-a-container</link>
+            <guid isPermaLink="true">https://manon.icu/blog/docker/what-is-a-container</guid>
+            <pubDate>Sat, 04 Feb 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Hello world in docker]]></title>
+            <link>https://manon.icu/blog/docker/hello-world</link>
+            <guid isPermaLink="true">https://manon.icu/blog/docker/hello-world</guid>
+            <pubDate>Fri, 03 Feb 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[如何安装Docker？]]></title>
+            <link>https://manon.icu/blog/docker/how-to-install</link>
+            <guid isPermaLink="true">https://manon.icu/blog/docker/how-to-install</guid>
+            <pubDate>Wed, 01 Feb 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Tauri-快速开发跨平台应用]]></title>
+            <link>https://manon.icu/blog/translate/Tauri-快速开发跨平台应用</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/Tauri-快速开发跨平台应用</guid>
+            <pubDate>Thu, 15 Dec 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[useImmutableRefValue - 帮助你更好的使用Typescript开发React应用]]></title>
+            <description><![CDATA[useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue），返回的 ref 对象在组件的整个生命周期内保持不变。]]></description>
+            <link>https://manon.icu/blog/translate/react/useImmutableRefValue</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/react/useImmutableRefValue</guid>
+            <pubDate>Sun, 04 Dec 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Javascript - 基本引用类型]]></title>
+            <link>https://manon.icu/blog/javascript/base/basic-reference-type</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/base/basic-reference-type</guid>
+            <pubDate>Wed, 30 Nov 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Javascript - 集合引用类型]]></title>
+            <link>https://manon.icu/blog/javascript/base/collection-reference-type</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/base/collection-reference-type</guid>
+            <pubDate>Wed, 30 Nov 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Add Next-seo]]></title>
+            <description><![CDATA[从性能、打包大小、SEO来看，Next.js可能是最适合写blog的React框架。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/tips/add-seo-to-blog</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/tips/add-seo-to-blog</guid>
+            <pubDate>Wed, 23 Nov 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Switch Theme Mode]]></title>
+            <description><![CDATA[从性能、打包大小、SEO来看，Next.js可能是最适合写blog的React框架。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/tips/add-theme-mode-switch-to-blog</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/tips/add-theme-mode-switch-to-blog</guid>
+            <pubDate>Wed, 23 Nov 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Building a blog]]></title>
+            <description><![CDATA[从性能、打包大小、SEO来看，Next.js可能是最适合写blog的React框架。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/tips/build-blog-with-nextjs</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/tips/build-blog-with-nextjs</guid>
+            <pubDate>Wed, 23 Nov 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Zustand-入门]]></title>
+            <description><![CDATA[全局(客户端)状态管理并不总是像今天这样。我清楚地记得有一段时间，在高阶组件中的状态管理最佳选择是使用Redux， connect 连接 mapStateToProps 和 mapDispatchToProps。]]></description>
+            <link>https://manon.icu/blog/translate/react/working-with-zustand</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/react/working-with-zustand</guid>
+            <pubDate>Tue, 22 Nov 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Series]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/index</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/index</guid>
+            <pubDate>Tue, 06 Sep 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Publishing a Chrome browser extension]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/publishing-a-chrome-browser-extension</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/publishing-a-chrome-browser-extension</guid>
+            <pubDate>Mon, 05 Sep 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Creating the TurboReader browser extension]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/creating-the-turboreader-extension</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/creating-the-turboreader-extension</guid>
+            <pubDate>Sun, 04 Sep 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Modify images on the page]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/modify-images-on-the-page</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/modify-images-on-the-page</guid>
+            <pubDate>Sat, 03 Sep 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Messaging]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/messaging</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/messaging</guid>
+            <pubDate>Fri, 02 Sep 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Popup page modifications]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/Popup-page-modifications</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/Popup-page-modifications</guid>
+            <pubDate>Thu, 01 Sep 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Icon action]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/icon-action</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/icon-action</guid>
+            <pubDate>Wed, 31 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Custom options page]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/custom-options-page</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/custom-options-page</guid>
+            <pubDate>Tue, 30 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Hooking into installs]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/hooking-into-installs</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/hooking-into-installs</guid>
+            <pubDate>Mon, 29 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Using storage]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/using-storage</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/using-storage</guid>
+            <pubDate>Sun, 28 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Repeating notifications]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/repeating-notifications</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/repeating-notifications</guid>
+            <pubDate>Sat, 27 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Adding browser notifications]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/adding-browser-notification</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/adding-browser-notification</guid>
+            <pubDate>Fri, 26 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Popup weather extension]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/popup-weather-extension</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/popup-weather-extension</guid>
+            <pubDate>Thu, 25 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - External requests]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/external-requests-new-tab</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/external-requests-new-tab</guid>
+            <pubDate>Tue, 23 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - 集成tailwind]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/add-tailwind</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/add-tailwind</guid>
+            <pubDate>Mon, 22 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Popup extension]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/popup-extension</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/popup-extension</guid>
+            <pubDate>Mon, 22 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - Switch to vite]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/parcel-to-vite</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/parcel-to-vite</guid>
+            <pubDate>Sun, 21 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - 使用React开发扩展]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/spicing-with-react</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/spicing-with-react</guid>
+            <pubDate>Sat, 20 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - 新标签]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/new-tab</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/new-tab</guid>
+            <pubDate>Fri, 19 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - 第一个主题]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/first-theme</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/first-theme</guid>
+            <pubDate>Thu, 18 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - 第一个插件]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/first-extension</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/first-extension</guid>
+            <pubDate>Wed, 17 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Chrome插件开发 - 插件介绍]]></title>
+            <description><![CDATA[基于react、tailwindcss开发自己的chrome插件]]></description>
+            <link>https://manon.icu/blog/translate/build-chrome-extensions/intro</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/build-chrome-extensions/intro</guid>
+            <pubDate>Tue, 16 Aug 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Integrate Bundle Analyzer]]></title>
+            <description><![CDATA[Next.js 集成打包分析工具]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/tips/bundle-analyzer</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/tips/bundle-analyzer</guid>
+            <pubDate>Sun, 24 Jul 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - FULL OUTER JOIN]]></title>
+            <description><![CDATA[在 Postgresql 中，FULL OUTER JOIN 是一种结合左外连接和右外连接结果的连接类型]]></description>
+            <link>https://manon.icu/blog/postgresql/3.6-full outer join</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/3.6-full outer join</guid>
+            <pubDate>Mon, 13 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - SELF JOIN]]></title>
+            <description><![CDATA[PostgreSQL 中的自连接是一种连接方式，可以让您将表连接到自身]]></description>
+            <link>https://manon.icu/blog/postgresql/3.5-self join</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/3.5-self join</guid>
+            <pubDate>Sun, 12 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - LEFT JOIN]]></title>
+            <description><![CDATA[Postgresql INNER JOIN从多个表中选择数据。]]></description>
+            <link>https://manon.icu/blog/postgresql/3.4-left join</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/3.4-left join</guid>
+            <pubDate>Sat, 11 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - INNER JOIN]]></title>
+            <description><![CDATA[Postgresql INNER JOIN从多个表中选择数据。]]></description>
+            <link>https://manon.icu/blog/postgresql/3.3-inner join</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/3.3-inner join</guid>
+            <pubDate>Fri, 10 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - TABLE ALIAS]]></title>
+            <description><![CDATA[Postgresql alias是一种把表名作为别名的方法，它可以让你更好的理解表的含义。]]></description>
+            <link>https://manon.icu/blog/postgresql/3.2-table aliases</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/3.2-table aliases</guid>
+            <pubDate>Thu, 09 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - JOIN]]></title>
+            <description><![CDATA[Postgresql join包括inner join、left join、right join、full outer join。]]></description>
+            <link>https://manon.icu/blog/postgresql/3.1-joins</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/3.1-joins</guid>
+            <pubDate>Wed, 08 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - IS NULL]]></title>
+            <description><![CDATA[使用 Postgresql LIKE 检索查询是否为NULL。]]></description>
+            <link>https://manon.icu/blog/postgresql/2.7-is null</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/2.7-is null</guid>
+            <pubDate>Tue, 07 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - LIKE]]></title>
+            <description><![CDATA[使用 Postgresql LIKE 检索查询是否类似于某个字符串。]]></description>
+            <link>https://manon.icu/blog/postgresql/2.6-like</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/2.6-like</guid>
+            <pubDate>Mon, 06 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - BETWEEN]]></title>
+            <description><![CDATA[使用 Postgresql BETWEEN 检索查询是否处于列表区间。]]></description>
+            <link>https://manon.icu/blog/postgresql/2.5-between</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/2.5-between</guid>
+            <pubDate>Sun, 05 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - IN]]></title>
+            <description><![CDATA[使用 Postgresql IN 检索查询是否与列表中的任何值相匹配。]]></description>
+            <link>https://manon.icu/blog/postgresql/2.4-in</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/2.4-in</guid>
+            <pubDate>Sat, 04 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - FETCH]]></title>
+            <description><![CDATA[如何使用 PostgreSQL FETCH 检索查询返回的部分行]]></description>
+            <link>https://manon.icu/blog/postgresql/2.3-fetch</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/2.3-fetch</guid>
+            <pubDate>Fri, 03 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - Where]]></title>
+            <description><![CDATA[使用WHERE过滤SELECT返回行]]></description>
+            <link>https://manon.icu/blog/postgresql/2.1-where</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/2.1-where</guid>
+            <pubDate>Thu, 02 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - LIMIT]]></title>
+            <description><![CDATA[LIMIT用于限制SELECT返回数据]]></description>
+            <link>https://manon.icu/blog/postgresql/2.2-limit</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/2.2-limit</guid>
+            <pubDate>Thu, 02 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - Select Distinct]]></title>
+            <description><![CDATA[DISTINCT用于去重返回数据]]></description>
+            <link>https://manon.icu/blog/postgresql/1.4-select distinct</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/1.4-select distinct</guid>
+            <pubDate>Wed, 01 Jun 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - Order by]]></title>
+            <description><![CDATA[使用order by排序查询结果]]></description>
+            <link>https://manon.icu/blog/postgresql/1.3-order by</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/1.3-order by</guid>
+            <pubDate>Tue, 31 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - Column Aliases]]></title>
+            <description><![CDATA[使用别名来查询数据库中的列]]></description>
+            <link>https://manon.icu/blog/postgresql/1.2-column aliases</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/1.2-column aliases</guid>
+            <pubDate>Mon, 30 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Postgresql - Select]]></title>
+            <description><![CDATA[如何从数据库查询数据]]></description>
+            <link>https://manon.icu/blog/postgresql/1.1-select</link>
+            <guid isPermaLink="true">https://manon.icu/blog/postgresql/1.1-select</guid>
+            <pubDate>Sun, 29 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - CLI & Deployment]]></title>
+            <description><![CDATA[Next.js命令行工具和部署方式]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/18-CLI &amp; Deployment</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/18-CLI &amp; Deployment</guid>
+            <pubDate>Thu, 26 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Overflow]]></title>
+            <link>https://manon.icu/blog/css/26-Overflow</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/26-Overflow</guid>
+            <pubDate>Tue, 24 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Environment Variables]]></title>
+            <description><![CDATA[Next.js 内置了对环境变量的支持]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/17-Environment Variables</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/17-Environment Variables</guid>
+            <pubDate>Tue, 24 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Transitions]]></title>
+            <link>https://manon.icu/blog/css/25-Transitions</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/25-Transitions</guid>
+            <pubDate>Mon, 23 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Typescript Support]]></title>
+            <description><![CDATA[Next.js 内置了 Typescript 支持。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/16-Typescript</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/16-Typescript</guid>
+            <pubDate>Mon, 23 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Lists]]></title>
+            <link>https://manon.icu/blog/css/24-Lists</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/24-Lists</guid>
+            <pubDate>Sun, 22 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Response Helpers]]></title>
+            <description><![CDATA[Next.js的响应有着类似于express.js的方法，方便开发]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/15-Response Helpers</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/15-Response Helpers</guid>
+            <pubDate>Sun, 22 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Blending Modes]]></title>
+            <link>https://manon.icu/blog/css/23-BlendModes</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/23-BlendModes</guid>
+            <pubDate>Sat, 21 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - API Routes]]></title>
+            <description><![CDATA[在Next.js中使用API路由]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/13-API Routes</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/13-API Routes</guid>
+            <pubDate>Sat, 21 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - API MiddleWares]]></title>
+            <link>https://manon.icu/blog/javascript/nextjs/14-API MiddleWares</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/14-API MiddleWares</guid>
+            <pubDate>Sat, 21 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Filters]]></title>
+            <link>https://manon.icu/blog/css/22-Filters</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/22-Filters</guid>
+            <pubDate>Fri, 20 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Shallow Routing]]></title>
+            <description><![CDATA[浅路由是在同一个路由中跳转，不会调用数据获取函数。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/12-Shallow Routing</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/12-Shallow Routing</guid>
+            <pubDate>Fri, 20 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - how-to-programmatically-navigate-in-next-js]]></title>
+            <description><![CDATA[Next.js的路由动态跳转]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/tips/how-to-programmatically-navigate-in-next-js</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/tips/how-to-programmatically-navigate-in-next-js</guid>
+            <pubDate>Fri, 20 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Animations]]></title>
+            <link>https://manon.icu/blog/css/21-Animations</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/21-Animations</guid>
+            <pubDate>Thu, 19 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Gradient]]></title>
+            <description><![CDATA[css 渐变是一种从一个颜色过渡到另一个颜色的效果。渐变可以是水平的、垂直的或者是对角的。渐变可以是线性的，也可以是径向的。]]></description>
+            <link>https://manon.icu/blog/css/20-Gradient</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/20-Gradient</guid>
+            <pubDate>Wed, 18 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Imperative Routing]]></title>
+            <description><![CDATA[命令式路由]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/11-Imperitive Routing</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/11-Imperitive Routing</guid>
+            <pubDate>Wed, 18 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Functions]]></title>
+            <link>https://manon.icu/blog/css/19-Functions</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/19-Functions</guid>
+            <pubDate>Tue, 17 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Dynamic API Routes]]></title>
+            <description><![CDATA[在 Next.js 中，可以创建动态路由]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/10-Dynamic API Routes</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/10-Dynamic API Routes</guid>
+            <pubDate>Tue, 17 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Z-index & Stacking Context]]></title>
+            <link>https://manon.icu/blog/css/18-Z-index and stacking contexts</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/18-Z-index and stacking contexts</guid>
+            <pubDate>Mon, 16 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - focus]]></title>
+            <link>https://manon.icu/blog/css/17-Focus</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/17-Focus</guid>
+            <pubDate>Sun, 15 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - shadows]]></title>
+            <link>https://manon.icu/blog/css/16-Shadows</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/16-Shadows</guid>
+            <pubDate>Sat, 14 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - borders]]></title>
+            <link>https://manon.icu/blog/css/15-Borders</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/15-Borders</guid>
+            <pubDate>Fri, 13 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Pseudo-classes]]></title>
+            <link>https://manon.icu/blog/css/14-Pseudo-classes</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/14-Pseudo-classes</guid>
+            <pubDate>Thu, 12 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Pseudo-elements]]></title>
+            <link>https://manon.icu/blog/css/13-Pseudo-elements</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/13-Pseudo-elements</guid>
+            <pubDate>Wed, 11 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Spacing]]></title>
+            <link>https://manon.icu/blog/css/12-Spacing</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/12-Spacing</guid>
+            <pubDate>Tue, 10 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Spacing]]></title>
+            <link>https://manon.icu/blog/css/11-Logical Properties</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/11-Logical Properties</guid>
+            <pubDate>Mon, 09 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Grid]]></title>
+            <link>https://manon.icu/blog/css/10-Grid</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/10-Grid</guid>
+            <pubDate>Sun, 08 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Routing]]></title>
+            <description><![CDATA[Next.js的路由基于文件系统]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/09-Routing</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/09-Routing</guid>
+            <pubDate>Sun, 08 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - flexbox]]></title>
+            <link>https://manon.icu/blog/css/09-Flexbox</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/09-Flexbox</guid>
+            <pubDate>Sat, 07 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Global CSS Support]]></title>
+            <description><![CDATA[全局样式仅可在_app.js中引入]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/07-Global CSS Support</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/07-Global CSS Support</guid>
+            <pubDate>Sat, 07 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Pre-Rendering]]></title>
+            <description><![CDATA[Next.js 预渲染支持两种方式]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/08-Pre-Rendering</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/08-Pre-Rendering</guid>
+            <pubDate>Sat, 07 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - layout]]></title>
+            <link>https://manon.icu/blog/css/08-Layout</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/08-Layout</guid>
+            <pubDate>Fri, 06 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - CSS Support]]></title>
+            <description><![CDATA[Next.js允许使用css-in-js语法，并且支持css-modules。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/06-CSS Support</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/06-CSS Support</guid>
+            <pubDate>Fri, 06 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - 尺寸单位]]></title>
+            <link>https://manon.icu/blog/css/07-Sizing Units</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/07-Sizing Units</guid>
+            <pubDate>Thu, 05 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Static File Serving]]></title>
+            <description><![CDATA[Next.js的静态资源存储，将静态资源放到根目录的public文件夹下即可]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/04-Static File Serving</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/04-Static File Serving</guid>
+            <pubDate>Thu, 05 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Meta Data]]></title>
+            <description><![CDATA[在 Next.js 中，我们可以通过Head组件修改每个react页面的头信息。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/05-Meta Data</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/05-Meta Data</guid>
+            <pubDate>Thu, 05 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Custom 404]]></title>
+            <description><![CDATA[Next.js支持自定义404页面]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/tips/custom-404</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/tips/custom-404</guid>
+            <pubDate>Thu, 05 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Color]]></title>
+            <link>https://manon.icu/blog/css/06-Color</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/06-Color</guid>
+            <pubDate>Wed, 04 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Environment Setup]]></title>
+            <description><![CDATA[Next.js是基于React的框架，它提供了一个简单的构建工具，可以让你快速构建一个网站。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/02-Environment Setup</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/02-Environment Setup</guid>
+            <pubDate>Wed, 04 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Pages]]></title>
+            <description><![CDATA[在Next.js中，使用文件路由系统（pages）来管理页面。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/03-Pages</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/03-Pages</guid>
+            <pubDate>Wed, 04 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Add Favicon]]></title>
+            <description><![CDATA[Next.js是基于React的框架，具有服务器端渲染功能。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/tips/add-favicon-to-nextjs</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/tips/add-favicon-to-nextjs</guid>
+            <pubDate>Wed, 04 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Use Font Awesome with Next.js]]></title>
+            <description><![CDATA[Next.js是基于React的框架，具有服务器端渲染功能。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/tips/use-font-awesome-with-nextjs</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/tips/use-font-awesome-with-nextjs</guid>
+            <pubDate>Wed, 04 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Inheritance]]></title>
+            <link>https://manon.icu/blog/css/05-Inheritance</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/05-Inheritance</guid>
+            <pubDate>Tue, 03 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - 权重]]></title>
+            <link>https://manon.icu/blog/css/04-Specificity</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/04-Specificity</guid>
+            <pubDate>Mon, 02 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css -  样式表]]></title>
+            <description><![CDATA[css样式表是一种用于网页样式设计的语言。通过CSS样式表，可以控制网页中元素的颜色、大小、位置、字体、背景等外观样式，使得网页在视觉效果上更加美观和易于阅读。]]></description>
+            <link>https://manon.icu/blog/css/03-The cascade</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/03-The cascade</guid>
+            <pubDate>Sun, 01 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Next.js - Overview]]></title>
+            <description><![CDATA[Next.js是基于React的框架，具有服务器端渲染功能。]]></description>
+            <link>https://manon.icu/blog/javascript/nextjs/01-overview</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/nextjs/01-overview</guid>
+            <pubDate>Sun, 01 May 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Selectors]]></title>
+            <description><![CDATA[css选择器规定了css 规则会被应用到哪些元素上]]></description>
+            <link>https://manon.icu/blog/css/02-Selectors</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/02-Selectors</guid>
+            <pubDate>Sat, 30 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - 盒模型]]></title>
+            <description><![CDATA[css 显示的所有对象都是盒模型。因此，了解 css 方框模型的工作原理是 css 的核心基础。]]></description>
+            <link>https://manon.icu/blog/css/01-Box Model</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/01-Box Model</guid>
+            <pubDate>Fri, 29 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Learning Node.js]]></title>
+            <link>https://manon.icu/blog/nodejs/roadmap</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/roadmap</guid>
+            <pubDate>Fri, 29 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Events]]></title>
+            <description><![CDATA[buffer是Node.js提供用来存放二进制数据的缓存区]]></description>
+            <link>https://manon.icu/blog/nodejs/22-Events</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/22-Events</guid>
+            <pubDate>Tue, 26 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Callbacks]]></title>
+            <description><![CDATA[A "callback" is any function that is called by another function which takes the first function as a parameter. （在一个函数中调用另外一个函数就是callback）]]></description>
+            <link>https://manon.icu/blog/nodejs/21-Callbacks</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/21-Callbacks</guid>
+            <pubDate>Sun, 24 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - V8]]></title>
+            <description><![CDATA[V8是由Chromium项目为Google Chrome网页浏览器开发的开源JavaScript引擎]]></description>
+            <link>https://manon.icu/blog/nodejs/20-V8</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/20-V8</guid>
+            <pubDate>Sat, 23 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Assertion]]></title>
+            <description><![CDATA[使用 Assert 模块验证 Node.js 中的不变量]]></description>
+            <link>https://manon.icu/blog/nodejs/19-Assertion</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/19-Assertion</guid>
+            <pubDate>Fri, 22 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - zlib]]></title>
+            <description><![CDATA[zlib模块提供通过 Gzip 和 Deflate/Inflate 实现的压缩功能]]></description>
+            <link>https://manon.icu/blog/nodejs/18-zlib</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/18-zlib</guid>
+            <pubDate>Wed, 20 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Query String]]></title>
+            <description><![CDATA[query string 用于解析和格式化网址查询字符串]]></description>
+            <link>https://manon.icu/blog/nodejs/17-Query String</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/17-Query String</guid>
+            <pubDate>Tue, 19 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - StringDecoder]]></title>
+            <description><![CDATA[string_decoder用于把Buffer转换为字符串]]></description>
+            <link>https://manon.icu/blog/nodejs/16-StringDecoder</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/16-StringDecoder</guid>
+            <pubDate>Mon, 18 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Path]]></title>
+            <description><![CDATA[path 模块提供了许多非常实用的函数来访问文件系统并与文件系统进行交互]]></description>
+            <link>https://manon.icu/blog/nodejs/15-Path</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/15-Path</guid>
+            <pubDate>Fri, 15 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - File System]]></title>
+            <description><![CDATA[File System是一个文件系统模块，用于操作文件系统。]]></description>
+            <link>https://manon.icu/blog/nodejs/14-File System</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/14-File System</guid>
+            <pubDate>Wed, 13 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Streams]]></title>
+            <description><![CDATA[Streams允许从源读取数据或写入数据到目标对象。]]></description>
+            <link>https://manon.icu/blog/nodejs/13-Streams</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/13-Streams</guid>
+            <pubDate>Tue, 12 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Buffers]]></title>
+            <description><![CDATA[buffer是Node.js提供用来存放二进制数据的缓存区]]></description>
+            <link>https://manon.icu/blog/nodejs/12-buffers</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/12-buffers</guid>
+            <pubDate>Mon, 11 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Child Process]]></title>
+            <description><![CDATA[child_process 模块使我们在一个运行良好的子进程内运行一些能够进入操作系统的命令]]></description>
+            <link>https://manon.icu/blog/nodejs/11-child_process</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/11-child_process</guid>
+            <pubDate>Fri, 08 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Process]]></title>
+            <description><![CDATA[process对象是 Node 的一个全局对象，提供当前 Node 进程的信息。它可以在脚本的任意位置使用，不必通过require命令加载。该对象部署了EventEmitter接口]]></description>
+            <link>https://manon.icu/blog/nodejs/10-process</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/10-process</guid>
+            <pubDate>Thu, 07 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - DNS & Net]]></title>
+            <link>https://manon.icu/blog/nodejs/07-dns&amp;net</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/07-dns&amp;net</guid>
+            <pubDate>Wed, 06 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Crypto]]></title>
+            <link>https://manon.icu/blog/nodejs/08-crypto</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/08-crypto</guid>
+            <pubDate>Wed, 06 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - TLS & SSL & Debugger]]></title>
+            <description><![CDATA[TLS负责安全传输，SSL负责安全签名，Debugger负责调试。]]></description>
+            <link>https://manon.icu/blog/nodejs/09-tsl&amp;ssl&amp;debugger</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/09-tsl&amp;ssl&amp;debugger</guid>
+            <pubDate>Wed, 06 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - os]]></title>
+            <link>https://manon.icu/blog/nodejs/05-os</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/05-os</guid>
+            <pubDate>Tue, 05 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - error]]></title>
+            <link>https://manon.icu/blog/nodejs/06-error</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/06-error</guid>
+            <pubDate>Tue, 05 Apr 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - npm & cli options]]></title>
+            <link>https://manon.icu/blog/nodejs/03-npm&amp;cli</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/03-npm&amp;cli</guid>
+            <pubDate>Thu, 31 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - 全局对象(globals)]]></title>
+            <link>https://manon.icu/blog/nodejs/04-globals</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/04-globals</guid>
+            <pubDate>Thu, 31 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - First Program & REPL]]></title>
+            <link>https://manon.icu/blog/nodejs/02-first-program</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/02-first-program</guid>
+            <pubDate>Wed, 30 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[自定义指令]]></title>
+            <description><![CDATA[Vue有很多内置指令，比如v-for、v-if]]></description>
+            <link>https://manon.icu/blog/vue/custom-directives</link>
+            <guid isPermaLink="true">https://manon.icu/blog/vue/custom-directives</guid>
+            <pubDate>Wed, 30 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Node.js - Intro & Install]]></title>
+            <link>https://manon.icu/blog/nodejs/01-install</link>
+            <guid isPermaLink="true">https://manon.icu/blog/nodejs/01-install</guid>
+            <pubDate>Mon, 28 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Learning React.js]]></title>
+            <link>https://manon.icu/blog/react/index</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/index</guid>
+            <pubDate>Mon, 28 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 高级操作符]]></title>
+            <description><![CDATA[在 Swift 中，高级运算符是那些执行特定任务或操作的运算符。Swift 支持大部分标准 C 语言中的运算符，并增加了一些新的运算符。高级运算符可以用于自定义类型和类库中，也可以用于 Swift 标准库中定义的类型]]></description>
+            <link>https://manon.icu/blog/swift/28-advanced-operators</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/28-advanced-operators</guid>
+            <pubDate>Sun, 27 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Text and Typography]]></title>
+            <link>https://manon.icu/blog/css/28-Text and typography</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/28-Text and typography</guid>
+            <pubDate>Sat, 26 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 访问控制]]></title>
+            <description><![CDATA[在 Swift 中，访问控制是一种功能，它允许开发人员限制代码的某些部分从代码的其他部分或外部代码访问。]]></description>
+            <link>https://manon.icu/blog/swift/27-access-control</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/27-access-control</guid>
+            <pubDate>Sat, 26 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css - Backgrounds]]></title>
+            <link>https://manon.icu/blog/css/27-Backgrounds</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/27-Backgrounds</guid>
+            <pubDate>Fri, 25 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 内存安全]]></title>
+            <description><![CDATA[内存安全是编程语言中的一个重要概念，它指的是在程序执行过程中，确保所有内存访问都是合法的、有效的，不会导致内存泄漏、访问未初始化的内存或非法访问其他应用程序的内存等问题。Swift 是一种内存安全的语言，它通过一系列的机制来确保内存访问的安全性。]]></description>
+            <link>https://manon.icu/blog/swift/26-memory-safty</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/26-memory-safty</guid>
+            <pubDate>Fri, 25 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - ARC(内存管理机制)]]></title>
+            <description><![CDATA[ARC 的作用是在程序运行时自动管理对象的内存，从而避免了手动管理内存的繁琐和容易出错的问题。]]></description>
+            <link>https://manon.icu/blog/swift/25-arc</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/25-arc</guid>
+            <pubDate>Thu, 24 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 模糊类型]]></title>
+            <description><![CDATA[Opaque types（不透明类型）是一种声明方式，它可以隐藏类型的实现细节，同时提供一个公共接口供外部使用，这样可以使代码更加模块化和安全。]]></description>
+            <link>https://manon.icu/blog/swift/24-opaque-types</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/24-opaque-types</guid>
+            <pubDate>Wed, 23 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Optionals - 可选]]></title>
+            <description><![CDATA[可选是一个枚举类型，它可以是一个值或者空。类似于js的optional chaining]]></description>
+            <link>https://manon.icu/blog/swift/100days/day10</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/100days/day10</guid>
+            <pubDate>Wed, 23 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 泛型]]></title>
+            <description><![CDATA[使用泛型，您可以定义一组通用的操作，而不必在每种数据类型上编写单独的函数或方法。这使得代码更加灵活、可读性更高、易于维护，并提高了代码的重用性。]]></description>
+            <link>https://manon.icu/blog/swift/23-generics</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/23-generics</guid>
+            <pubDate>Tue, 22 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Protocols - 协议]]></title>
+            <description><![CDATA[协议规定了用来实现某一特定功能所必需的方法和属性。]]></description>
+            <link>https://manon.icu/blog/swift/100days/day09</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/100days/day09</guid>
+            <pubDate>Tue, 22 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 协议]]></title>
+            <description><![CDATA[协议可以被任意类型实现，包括类、结构体、枚举和其他协议，从而让这些类型可以拥有相同的行为和接口。]]></description>
+            <link>https://manon.icu/blog/swift/22-protocols</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/22-protocols</guid>
+            <pubDate>Mon, 21 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 扩展]]></title>
+            <description><![CDATA[扩展（Extensions）是 Swift 中一种强大的特性，它允许我们向现有类型添加新的功能，包括方法、计算属性和下标等，而不需要修改原始类型的声明。]]></description>
+            <link>https://manon.icu/blog/swift/21-extensions</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/21-extensions</guid>
+            <pubDate>Sun, 20 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Classes - 类]]></title>
+            <description><![CDATA[Swift 类是构建代码所用的一种通用且灵活的构造体。]]></description>
+            <link>https://manon.icu/blog/swift/100days/day08</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/100days/day08</guid>
+            <pubDate>Sun, 20 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 嵌套类型]]></title>
+            <description><![CDATA[嵌套类型（nested types）指的是在一个类，结构体或枚举中定义的另一个类，结构体或枚举。嵌套类型可以在外部类型中使用，但也可以在内部类型的范围内使用。]]></description>
+            <link>https://manon.icu/blog/swift/20-nested-types</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/20-nested-types</guid>
+            <pubDate>Sat, 19 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Structs - 结构体]]></title>
+            <description><![CDATA[Swift 结构体是构建代码所用的一种通用且灵活的构造体。]]></description>
+            <link>https://manon.icu/blog/swift/100days/day07</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/100days/day07</guid>
+            <pubDate>Sat, 19 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 类型转换]]></title>
+            <description><![CDATA[在Swift中，类型转换(Type Casting)指的是检查一个实例的类型，或将该实例视为其超类或子类之一的过程。。]]></description>
+            <link>https://manon.icu/blog/swift/19-type-casting</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/19-type-casting</guid>
+            <pubDate>Fri, 18 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Closures - 闭包]]></title>
+            <description><![CDATA[闭包(Closures)是自包含的功能代码块，可以在代码中使用或者用来作为参数传值。]]></description>
+            <link>https://manon.icu/blog/swift/100days/day06</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/100days/day06</guid>
+            <pubDate>Fri, 18 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 并发性]]></title>
+            <description><![CDATA[并发性是指系统中同时执行多个独立任务的能力。]]></description>
+            <link>https://manon.icu/blog/swift/18-concurrency</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/18-concurrency</guid>
+            <pubDate>Thu, 17 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Functions - 函数、参数、错误]]></title>
+            <description><![CDATA[一般来说，一个函数是可以通过外部代码调用的一个“子程序”（或在递归的情况下由内部函数调用）。像程序本身一样，一个函数由称为函数体的一系列语句组成。值可以传递给一个函数，函数将返回一个值。]]></description>
+            <link>https://manon.icu/blog/swift/100days/day05</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/100days/day05</guid>
+            <pubDate>Thu, 17 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 错误处理]]></title>
+            <description><![CDATA[错误处理是一种处理程序运行过程中可能出现错误的机制。]]></description>
+            <link>https://manon.icu/blog/swift/17-error-handling</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/17-error-handling</guid>
+            <pubDate>Wed, 16 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 可选链]]></title>
+            <description><![CDATA[可选链（Optional Chaining）是 Swift 中一种用于在调用属性、方法或下标脚本时处理值可能为空的机制。]]></description>
+            <link>https://manon.icu/blog/swift/16-optional-chaining</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/16-optional-chaining</guid>
+            <pubDate>Tue, 15 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Looping - 循环]]></title>
+            <description><![CDATA[取得成功的秘诀就是开始]]></description>
+            <link>https://manon.icu/blog/swift/100days/day04</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/100days/day04</guid>
+            <pubDate>Tue, 15 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 取消初始化]]></title>
+            <description><![CDATA[在 Swift 中，取消初始化通常指的是在初始化器中出现了错误或某些情况下无法完成初始化时，通过返回 nil 或抛出异常来表示初始化的失败或取消。]]></description>
+            <link>https://manon.icu/blog/swift/15-deinitialization</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/15-deinitialization</guid>
+            <pubDate>Mon, 14 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Operators and conditions - 操作符、条件判断]]></title>
+            <description><![CDATA[取得成功的秘诀就是开始]]></description>
+            <link>https://manon.icu/blog/swift/100days/day03</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/100days/day03</guid>
+            <pubDate>Mon, 14 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 初始化]]></title>
+            <description><![CDATA[在 Swift 中，初始化(Initialization)是为类、结构体或枚举类型中的属性设置初始值的过程。]]></description>
+            <link>https://manon.icu/blog/swift/14-initialization</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/14-initialization</guid>
+            <pubDate>Sun, 13 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Complex Types - 数组、字典、集合、枚举]]></title>
+            <description><![CDATA[取得成功的秘诀就是开始]]></description>
+            <link>https://manon.icu/blog/swift/100days/day02</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/100days/day02</guid>
+            <pubDate>Sun, 13 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 继承]]></title>
+            <description><![CDATA[在 Swift 中，继承(Inheritance)是一种定义新类的方法，使其从现有类继承属性和方法。新类称为子类(Subclass)，被继承的类称为父类(Superclass)。]]></description>
+            <link>https://manon.icu/blog/swift/13-inheritance</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/13-inheritance</guid>
+            <pubDate>Sat, 12 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 下标]]></title>
+            <description><![CDATA[在 Swift 中，下标(subscript)是访问集合、列表或序列等值的快捷方式]]></description>
+            <link>https://manon.icu/blog/swift/12-subscripts</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/12-subscripts</guid>
+            <pubDate>Fri, 11 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Simple Types - 变量、基本数据类型、字符串插值]]></title>
+            <description><![CDATA[swift 提供的数据类型包括：整形 Int、浮点数 Double 和 Float、布尔类型 Bool 以及字符串类型 String、Optional、Array、Dictionary、Struct、Class 等。]]></description>
+            <link>https://manon.icu/blog/swift/100days/day01</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/100days/day01</guid>
+            <pubDate>Fri, 11 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 方法]]></title>
+            <description><![CDATA[在 Swift 中，方法是与类、结构体、枚举等相关联的函数。方法允许我们在类、结构体、枚举等中定义某些行为。方法可以访问和修改实例属性，以及提供对实例的功能性访问。]]></description>
+            <link>https://manon.icu/blog/swift/11-methods</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/11-methods</guid>
+            <pubDate>Thu, 10 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 属性]]></title>
+            <description><![CDATA[在 Swift 中，属性是一个值或者一组值，它与特定的类、结构体或枚举相关联。属性可以是存储属性或计算属性。]]></description>
+            <link>https://manon.icu/blog/swift/10-properties</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/10-properties</guid>
+            <pubDate>Wed, 09 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 结构体和类]]></title>
+            <description><![CDATA[结构体和类是 Swift 中两种重要的数据类型，它们都可以用于定义自定义的复合数据类型。结构体和类非常相似，但它们也有一些重要的区别。]]></description>
+            <link>https://manon.icu/blog/swift/09-structes-classes</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/09-structes-classes</guid>
+            <pubDate>Tue, 08 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 枚举]]></title>
+            <description><![CDATA[枚举是一种定义通用类型的方式，它定义了一组相关值的列表。每个枚举成员都代表了一个具体的值，并且可以附加额外的信息，例如关联值或原始值。]]></description>
+            <link>https://manon.icu/blog/swift/08-enumerations</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/08-enumerations</guid>
+            <pubDate>Mon, 07 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 闭包]]></title>
+            <description><![CDATA[闭包是一种自包含的函数，可以在代码中被传递和使用]]></description>
+            <link>https://manon.icu/blog/swift/07-closures</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/07-closures</guid>
+            <pubDate>Sun, 06 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 函数]]></title>
+            <description><![CDATA[Swift 中的函数可以完成特定的任务，并且可以重复使用。函数使代码的组织和抽象化更加容易，也使代码更易于维护和重构。]]></description>
+            <link>https://manon.icu/blog/swift/06-functions</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/06-functions</guid>
+            <pubDate>Sat, 05 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 控制流]]></title>
+            <description><![CDATA[Swift 支持多种控制流语句，包括条件语句、循环语句和控制转移语句]]></description>
+            <link>https://manon.icu/blog/swift/05-control-flow</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/05-control-flow</guid>
+            <pubDate>Fri, 04 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 集合类型]]></title>
+            <description><![CDATA[Swift中的集合类型（Collection Types）是一组相同类型的值的集合，可以使用这些集合类型来存储和操作数据]]></description>
+            <link>https://manon.icu/blog/swift/04-collection-types</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/04-collection-types</guid>
+            <pubDate>Thu, 03 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 字符、字符串]]></title>
+            <description><![CDATA[字符串（String）是一种用于存储和操作文本的类型。字符串由一系列字符（Character）组成，可以包含字母、数字、符号和空格等文本字符。Swift 的字符串类型是可变的（Mutable），可以修改其值。]]></description>
+            <link>https://manon.icu/blog/swift/03-strings</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/03-strings</guid>
+            <pubDate>Wed, 02 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 基本运算]]></title>
+            <description><![CDATA[Swift 支持常见的数学运算，包括算术运算、比较运算和逻辑运算。]]></description>
+            <link>https://manon.icu/blog/swift/02-basic-operators</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/02-basic-operators</guid>
+            <pubDate>Tue, 01 Mar 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 基础知识]]></title>
+            <description><![CDATA[Swift是一种适用于iOS、macOS、watchOS和tvOS应用程序的编程语言。]]></description>
+            <link>https://manon.icu/blog/swift/01-basics</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/01-basics</guid>
+            <pubDate>Mon, 28 Feb 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Async & Promise]]></title>
+            <description><![CDATA[JavaScript的异步处理]]></description>
+            <link>https://manon.icu/blog/javascript/es6/Async_Promises</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/es6/Async_Promises</guid>
+            <pubDate>Mon, 14 Feb 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Objects]]></title>
+            <link>https://manon.icu/blog/javascript/es6/objects</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/es6/objects</guid>
+            <pubDate>Fri, 07 Jan 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[模板字符串]]></title>
+            <description><![CDATA[传统的JavaScript语言中，输出模板经常使用的是字符串拼接的形式，这样写相当繁琐，在ES6中引入了模板字符串的概念来解决以上问题。]]></description>
+            <link>https://manon.icu/blog/javascript/es6/String_Template_Literal</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/es6/String_Template_Literal</guid>
+            <pubDate>Mon, 03 Jan 2022 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sequences - 序列]]></title>
+            <description><![CDATA[Python 有三种序列类型：列表、元组、字符串。]]></description>
+            <link>https://manon.icu/blog/python/2.4-Sequences</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/2.4-Sequences</guid>
+            <pubDate>Tue, 28 Dec 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[作用域]]></title>
+            <link>https://manon.icu/blog/javascript/advance/作用域</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/advance/作用域</guid>
+            <pubDate>Mon, 27 Dec 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[如何获取 Screen、Window、Page 等组件的宽高？]]></title>
+            <link>https://manon.icu/blog/javascript/screen-window-page-sizes</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/screen-window-page-sizes</guid>
+            <pubDate>Sun, 26 Dec 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Formatting - 格式化]]></title>
+            <description><![CDATA[输出格式化]]></description>
+            <link>https://manon.icu/blog/python/2.3-formatting</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/2.3-formatting</guid>
+            <pubDate>Thu, 09 Dec 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[如何判断是否是日期对象？]]></title>
+            <description><![CDATA[一些常见的日期对象判断方法]]></description>
+            <link>https://manon.icu/blog/javascript/how-to-check-is-valid-date-object</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/how-to-check-is-valid-date-object</guid>
+            <pubDate>Tue, 07 Dec 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[如何校验URLs？]]></title>
+            <link>https://manon.icu/blog/javascript/how-to-validate-urls</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/how-to-validate-urls</guid>
+            <pubDate>Tue, 07 Dec 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Collections of python - 集合]]></title>
+            <description><![CDATA[集合包括列表、字典、集合。]]></description>
+            <link>https://manon.icu/blog/python/2.2-containers</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/2.2-containers</guid>
+            <pubDate>Sun, 05 Dec 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Data Types and Data Structures - 数据类型和数据结构]]></title>
+            <description><![CDATA[以元组和字典的形式介绍数据结构。]]></description>
+            <link>https://manon.icu/blog/python/2.1-data</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/2.1-data</guid>
+            <pubDate>Thu, 02 Dec 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Functions - 函数]]></title>
+            <description><![CDATA[随着程序的不断更新，我们会发现，函数的定义和调用是一致的。]]></description>
+            <link>https://manon.icu/blog/python/1.6-function</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/1.6-function</guid>
+            <pubDate>Wed, 01 Dec 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[File Management - 文件读写]]></title>
+            <description><![CDATA[大多数程序需要操作文件，比如读写文件，创建文件夹，删除文件等等。]]></description>
+            <link>https://manon.icu/blog/python/1.5-file</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/1.5-file</guid>
+            <pubDate>Tue, 30 Nov 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Lists - 列表]]></title>
+            <description><![CDATA[列表（List）是 python 的基本类型]]></description>
+            <link>https://manon.icu/blog/python/1.4-list</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/1.4-list</guid>
+            <pubDate>Thu, 25 Nov 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Strings - 字符类型]]></title>
+            <link>https://manon.icu/blog/python/1.3-strings</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/1.3-strings</guid>
+            <pubDate>Tue, 23 Nov 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Numbers - 数字类型]]></title>
+            <description><![CDATA[关于数学运算]]></description>
+            <link>https://manon.icu/blog/python/1.2-numbers</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/1.2-numbers</guid>
+            <pubDate>Fri, 19 Nov 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[如何在 vue 中使用 Debounce、Throttle]]></title>
+            <description><![CDATA[如input、resize、scroll、intersection observer 等事件可能发生得非常频繁，例如每秒发生几次，因此调用一个动作，比如对每个事件发出读取请求，并不是一个明智的方法。]]></description>
+            <link>https://manon.icu/blog/vue/debounce-throttle</link>
+            <guid isPermaLink="true">https://manon.icu/blog/vue/debounce-throttle</guid>
+            <pubDate>Fri, 19 Nov 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sets & Maps]]></title>
+            <description><![CDATA[Sets对象允许存储唯一的值，而Map对象允许存储键值对。]]></description>
+            <link>https://manon.icu/blog/javascript/es6/Sets_Maps</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/es6/Sets_Maps</guid>
+            <pubDate>Fri, 19 Nov 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[iterators generators]]></title>
+            <description><![CDATA[在 JavaScript 中，迭代器是一种对象，它定义了一系列值以及访问这些值的方法。迭代器用于遍历集合的元素，例如数组或对象。]]></description>
+            <link>https://manon.icu/blog/javascript/es6/iterators_generators</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/es6/iterators_generators</guid>
+            <pubDate>Fri, 19 Nov 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[First Program - 第一个程序]]></title>
+            <link>https://manon.icu/blog/python/1.1-first-program</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/1.1-first-program</guid>
+            <pubDate>Wed, 17 Nov 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Battery Api]]></title>
+            <description><![CDATA[Battery Api提供了有关系统充电级别的信息并提供了通过电池等级或者充电状态的改变提醒用户的事件]]></description>
+            <link>https://manon.icu/blog/apis/Battery</link>
+            <guid isPermaLink="true">https://manon.icu/blog/apis/Battery</guid>
+            <pubDate>Mon, 25 Oct 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[JavaScript - Ultimate Free Resources]]></title>
+            <link>https://manon.icu/blog/javascript/Ultimate_Free_Resouce</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/Ultimate_Free_Resouce</guid>
+            <pubDate>Thu, 02 Sep 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Hooks]]></title>
+            <description><![CDATA[Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。]]></description>
+            <link>https://manon.icu/blog/react/React Hooks</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Hooks</guid>
+            <pubDate>Wed, 21 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Context]]></title>
+            <description><![CDATA[Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。]]></description>
+            <link>https://manon.icu/blog/react/React Context</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Context</guid>
+            <pubDate>Tue, 20 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Lists]]></title>
+            <description><![CDATA[React是一个JavaScript库，致力于使UI开发变得简单]]></description>
+            <link>https://manon.icu/blog/react/React Lists</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Lists</guid>
+            <pubDate>Mon, 19 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Conditionals]]></title>
+            <description><![CDATA[React是一个JavaScript库，致力于使UI开发变得简单]]></description>
+            <link>https://manon.icu/blog/react/React Conditionals</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Conditionals</guid>
+            <pubDate>Sun, 18 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Children Props]]></title>
+            <description><![CDATA[React是一个JavaScript库，致力于使UI开发变得简单]]></description>
+            <link>https://manon.icu/blog/react/React Children Props</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Children Props</guid>
+            <pubDate>Sat, 17 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Props]]></title>
+            <description><![CDATA[React是一个JavaScript库，致力于使UI开发变得简单]]></description>
+            <link>https://manon.icu/blog/react/React Props</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Props</guid>
+            <pubDate>Fri, 16 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Components]]></title>
+            <description><![CDATA[React是一个JavaScript库，致力于使UI开发变得简单]]></description>
+            <link>https://manon.icu/blog/react/React Components</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Components</guid>
+            <pubDate>Thu, 15 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Fragments]]></title>
+            <description><![CDATA[React是一个JavaScript库，致力于使UI开发变得简单]]></description>
+            <link>https://manon.icu/blog/react/React Fragments</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Fragments</guid>
+            <pubDate>Wed, 14 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Elements Styles]]></title>
+            <description><![CDATA[React是一个JavaScript库，致力于使UI开发变得简单]]></description>
+            <link>https://manon.icu/blog/react/React Element Styles</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Element Styles</guid>
+            <pubDate>Tue, 13 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Elements Attributes]]></title>
+            <description><![CDATA[React是一个JavaScript库，致力于使UI开发变得简单]]></description>
+            <link>https://manon.icu/blog/react/React Element Attributes</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Element Attributes</guid>
+            <pubDate>Mon, 12 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[一些有用的Html&&css&&javascript Tips]]></title>
+            <link>https://manon.icu/blog/translate/some-tips</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/some-tips</guid>
+            <pubDate>Mon, 12 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[React Elements]]></title>
+            <description><![CDATA[React是一个JavaScript库，致力于使UI开发变得简单]]></description>
+            <link>https://manon.icu/blog/react/React Elements</link>
+            <guid isPermaLink="true">https://manon.icu/blog/react/React Elements</guid>
+            <pubDate>Sun, 11 Apr 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[基本类型与引用类型]]></title>
+            <link>https://manon.icu/blog/javascript/advance/基本类型与引用类型</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/advance/基本类型与引用类型</guid>
+            <pubDate>Wed, 31 Mar 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[21个用于日常开发的有用JavaScript片段]]></title>
+            <link>https://manon.icu/blog/translate/21个用于日常开发的有用JavaScript片段</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/21个用于日常开发的有用JavaScript片段</guid>
+            <pubDate>Wed, 13 Jan 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Dockerfile]]></title>
+            <description><![CDATA[Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明]]></description>
+            <link>https://manon.icu/blog/docker/Dockerfiles</link>
+            <guid isPermaLink="true">https://manon.icu/blog/docker/Dockerfiles</guid>
+            <pubDate>Thu, 07 Jan 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Docker入门]]></title>
+            <description><![CDATA[Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。]]></description>
+            <link>https://manon.icu/blog/docker/index</link>
+            <guid isPermaLink="true">https://manon.icu/blog/docker/index</guid>
+            <pubDate>Sun, 20 Dec 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[JS概念扩展]]></title>
+            <link>https://manon.icu/blog/translate/概念扩展</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/概念扩展</guid>
+            <pubDate>Fri, 18 Dec 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[安装Certbot]]></title>
+            <link>https://manon.icu/blog/server/安装Certbot</link>
+            <guid isPermaLink="true">https://manon.icu/blog/server/安装Certbot</guid>
+            <pubDate>Tue, 15 Dec 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[安装nvm和nodejs]]></title>
+            <link>https://manon.icu/blog/server/安装nvm和nodejs</link>
+            <guid isPermaLink="true">https://manon.icu/blog/server/安装nvm和nodejs</guid>
+            <pubDate>Wed, 18 Nov 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令export]]></title>
+            <description><![CDATA[export用于设置或显示环境变量。]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-export</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-export</guid>
+            <pubDate>Sun, 01 Nov 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令tar]]></title>
+            <description><![CDATA[tar用于linux的文件和目录创建档案，利用tar命令，可以把一大堆的文件和目录全部打包成一个文件]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-tar</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-tar</guid>
+            <pubDate>Thu, 29 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令traceroute]]></title>
+            <description><![CDATA[traceroute命令用于显示数据包到主机之间的路径]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-traceroute</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-traceroute</guid>
+            <pubDate>Tue, 27 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[安装mongodb]]></title>
+            <link>https://manon.icu/blog/server/安装mongodb</link>
+            <guid isPermaLink="true">https://manon.icu/blog/server/安装mongodb</guid>
+            <pubDate>Sun, 18 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css-BFC]]></title>
+            <link>https://manon.icu/blog/interview/css/BFC</link>
+            <guid isPermaLink="true">https://manon.icu/blog/interview/css/BFC</guid>
+            <pubDate>Sun, 18 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令cd]]></title>
+            <description><![CDATA[cd命令用于切换当前工作目录]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-cd</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-cd</guid>
+            <pubDate>Mon, 12 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令mkdir]]></title>
+            <description><![CDATA[用于显示目前在 Linux 系统上的文件系统磁盘使用情况统计]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-mkdir</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-mkdir</guid>
+            <pubDate>Mon, 12 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令gunzip]]></title>
+            <description><![CDATA[“gunzip”命令的快速指南，用于解压缩gzip文件。]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-gunzip</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-gunzip</guid>
+            <pubDate>Sun, 11 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令ping]]></title>
+            <description><![CDATA[ping命令用于检测主机]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-ping</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-ping</guid>
+            <pubDate>Sun, 11 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令df]]></title>
+            <description><![CDATA[用于显示目前在 Linux 系统上的文件系统磁盘使用情况统计]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-df</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-df</guid>
+            <pubDate>Sat, 10 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令nohup]]></title>
+            <description><![CDATA[用于忽略 SIGHUP (挂断信号) 在系统后台不挂断地运行命令，退出终端不会影响程序的运行]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-nohup</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-nohup</guid>
+            <pubDate>Sat, 10 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令xargs]]></title>
+            <description><![CDATA[xargs（英文全拼： eXtended ARGuments）是给命令传递参数的一个过滤器，也是组合多个命令的一个工具]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-xargs</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-xargs</guid>
+            <pubDate>Fri, 09 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Linux命令gzip]]></title>
+            <description><![CDATA[“gzip”命令的快速指南，用于压缩文件]]></description>
+            <link>https://manon.icu/blog/linux/Linux命令-gzip</link>
+            <guid isPermaLink="true">https://manon.icu/blog/linux/Linux命令-gzip</guid>
+            <pubDate>Thu, 08 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[安装jenkins]]></title>
+            <link>https://manon.icu/blog/server/安装jenkins</link>
+            <guid isPermaLink="true">https://manon.icu/blog/server/安装jenkins</guid>
+            <pubDate>Fri, 18 Sep 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Go - 数组、切片]]></title>
+            <link>https://manon.icu/blog/go/07-array-and-slices</link>
+            <guid isPermaLink="true">https://manon.icu/blog/go/07-array-and-slices</guid>
+            <pubDate>Sun, 24 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Go - 包管理]]></title>
+            <link>https://manon.icu/blog/go/05-packages</link>
+            <guid isPermaLink="true">https://manon.icu/blog/go/05-packages</guid>
+            <pubDate>Sat, 23 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Go - 控制流]]></title>
+            <link>https://manon.icu/blog/go/06-condition-statements-and-loops</link>
+            <guid isPermaLink="true">https://manon.icu/blog/go/06-condition-statements-and-loops</guid>
+            <pubDate>Sat, 23 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Go - 函数]]></title>
+            <link>https://manon.icu/blog/go/04-functions</link>
+            <guid isPermaLink="true">https://manon.icu/blog/go/04-functions</guid>
+            <pubDate>Fri, 22 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Go - 变量、类型、常量]]></title>
+            <link>https://manon.icu/blog/go/03-variables</link>
+            <guid isPermaLink="true">https://manon.icu/blog/go/03-variables</guid>
+            <pubDate>Thu, 21 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Go - 简介]]></title>
+            <link>https://manon.icu/blog/go/01-introduction</link>
+            <guid isPermaLink="true">https://manon.icu/blog/go/01-introduction</guid>
+            <pubDate>Wed, 20 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Go - Hello World]]></title>
+            <link>https://manon.icu/blog/go/02-helloworld</link>
+            <guid isPermaLink="true">https://manon.icu/blog/go/02-helloworld</guid>
+            <pubDate>Wed, 20 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Cypress入门]]></title>
+            <link>https://manon.icu/blog/translate/cypress测试入门</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/cypress测试入门</guid>
+            <pubDate>Tue, 19 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[MacbookPro-前端开发环境配置]]></title>
+            <link>https://manon.icu/blog/translate/MacbookPro-前端开发环境配置</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/MacbookPro-前端开发环境配置</guid>
+            <pubDate>Mon, 18 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[事件循环]]></title>
+            <description><![CDATA[事件循环是每个前端开发必须理解的概念]]></description>
+            <link>https://manon.icu/blog/javascript/advance/event_loop</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/advance/event_loop</guid>
+            <pubDate>Mon, 18 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[继承]]></title>
+            <description><![CDATA[JavaScript 支持继承，这是指在一个对象（称为“子类”）中继承另一个对象的属性和方法（称为“父类”）]]></description>
+            <link>https://manon.icu/blog/javascript/advance/js的继承</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/advance/js的继承</guid>
+            <pubDate>Mon, 18 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[this的指向]]></title>
+            <link>https://manon.icu/blog/javascript/advance/this指向</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/advance/this指向</guid>
+            <pubDate>Mon, 18 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[原型和原型链]]></title>
+            <link>https://manon.icu/blog/javascript/advance/原型和原型链</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/advance/原型和原型链</guid>
+            <pubDate>Mon, 18 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[强制类型转换]]></title>
+            <link>https://manon.icu/blog/javascript/advance/强制类型转换</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/advance/强制类型转换</guid>
+            <pubDate>Mon, 18 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[执行上下文]]></title>
+            <link>https://manon.icu/blog/javascript/advance/执行上下文</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/advance/执行上下文</guid>
+            <pubDate>Mon, 18 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[类型判断]]></title>
+            <link>https://manon.icu/blog/javascript/advance/类型判断</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/advance/类型判断</guid>
+            <pubDate>Mon, 18 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[闭包]]></title>
+            <link>https://manon.icu/blog/javascript/advance/闭包</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/advance/闭包</guid>
+            <pubDate>Mon, 18 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[面试题-手写instanceof]]></title>
+            <link>https://manon.icu/blog/interview/js/instanceof</link>
+            <guid isPermaLink="true">https://manon.icu/blog/interview/js/instanceof</guid>
+            <pubDate>Mon, 18 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Javascript - Null]]></title>
+            <link>https://manon.icu/blog/javascript/base/Null</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/base/Null</guid>
+            <pubDate>Sun, 10 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Symbol]]></title>
+            <link>https://manon.icu/blog/javascript/base/Symbol</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/base/Symbol</guid>
+            <pubDate>Thu, 07 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Undefined]]></title>
+            <link>https://manon.icu/blog/javascript/base/Undefined</link>
+            <guid isPermaLink="true">https://manon.icu/blog/javascript/base/Undefined</guid>
+            <pubDate>Wed, 06 May 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css的小技巧]]></title>
+            <link>https://manon.icu/blog/css/tips/小技巧-ChicksTricks</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/tips/小技巧-ChicksTricks</guid>
+            <pubDate>Wed, 29 Apr 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[使用js获取位置]]></title>
+            <link>https://manon.icu/blog/translate/使用js获取位置</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/使用js获取位置</guid>
+            <pubDate>Sat, 18 Apr 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[数组去重]]></title>
+            <link>https://manon.icu/blog/translate/数组去重</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/数组去重</guid>
+            <pubDate>Sat, 18 Apr 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[移动端抽奖]]></title>
+            <link>https://manon.icu/blog/translate/移动端抽奖</link>
+            <guid isPermaLink="true">https://manon.icu/blog/translate/移动端抽奖</guid>
+            <pubDate>Sat, 18 Apr 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Performance API]]></title>
+            <description><![CDATA[Performance API是一个浏览器提供的API，可用于测量和分析Web应用程序的性能]]></description>
+            <link>https://manon.icu/blog/apis/Performance</link>
+            <guid isPermaLink="true">https://manon.icu/blog/apis/Performance</guid>
+            <pubDate>Sat, 11 Apr 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Flexbox指南]]></title>
+            <description><![CDATA[Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。]]></description>
+            <link>https://manon.icu/blog/css/tips/Flexbox指南</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/tips/Flexbox指南</guid>
+            <pubDate>Sat, 11 Apr 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[三角形绘制方法]]></title>
+            <description><![CDATA[在做UI（页面重构）的时候，免不了和各种小图标打交道，这其中最多的应该是三角形以及箭头]]></description>
+            <link>https://manon.icu/blog/css/tips/css三角形绘制方法总结</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/tips/css三角形绘制方法总结</guid>
+            <pubDate>Sat, 11 Apr 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Promise]]></title>
+            <link>https://manon.icu/blog/apis/Promise</link>
+            <guid isPermaLink="true">https://manon.icu/blog/apis/Promise</guid>
+            <pubDate>Fri, 10 Apr 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[online&offline]]></title>
+            <description><![CDATA[当浏览器从在线与离线状态中切换时，这两个事件会在页面的 body 上触发]]></description>
+            <link>https://manon.icu/blog/apis/online-offline</link>
+            <guid isPermaLink="true">https://manon.icu/blog/apis/online-offline</guid>
+            <pubDate>Thu, 09 Apr 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[老生常谈-居中]]></title>
+            <description><![CDATA[几种居中的方法]]></description>
+            <link>https://manon.icu/blog/css/tips/老生常谈-居中</link>
+            <guid isPermaLink="true">https://manon.icu/blog/css/tips/老生常谈-居中</guid>
+            <pubDate>Fri, 03 Apr 2020 16:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
