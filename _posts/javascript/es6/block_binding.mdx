@@ -2,6 +2,43 @@
 date: '2022-02-17 10:19:48'
 title: '作用域绑定'
 tags: [javascript]
-draft: true
-description: '关于数学运算'
 ---
+
+JavaScript 中的作用域绑定是指确定变量和函数在代码中的可见性和访问权限的机制。作用域定义了变量和函数的可访问范围，以及它们在代码中的生命周期。
+
+JavaScript 中有两种主要的作用域绑定机制：词法作用域和动态作用域。
+
+## 词法作用域
+
+词法作用域是在代码编写阶段确定的作用域，它基于变量和函数在源代码中的位置进行绑定。也就是说，词法作用域是由代码的结构来决定的，不会被函数调用的位置或上下文影响。
+
+在词法作用域中，当定义一个变量或函数时，它们会被绑定到最近的包含它们的函数或全局作用域中。当在代码中引用一个变量或函数时，JavaScript 解释器会按照词法结构从内层作用域向外层作用域进行查找，直到找到匹配的标识符或达到全局作用域。
+
+示例：
+
+```javascript
+var globalVariable = 'Global'
+
+function outerFunction() {
+  var outerVariable = 'Outer'
+
+  function innerFunction() {
+    var innerVariable = 'Inner'
+    console.log(globalVariable) // 可以访问全局变量
+    console.log(outerVariable) // 可以访问外层函数的变量
+    console.log(innerVariable) // 可以访问当前函数的变量
+  }
+
+  innerFunction()
+}
+
+outerFunction()
+```
+
+## 动态作用域
+
+动态作用域是在运行时确定的作用域，它基于当前的执行上下文和调用链来绑定变量和函数。与词法作用域不同，动态作用域的可见性和访问权限取决于函数调用的位置和上下文。
+
+JavaScript 并没有内置的动态作用域机制，它使用的是词法作用域。但是，一些编程语言（如 Bash 脚本）使用动态作用域来确定变量的可见性。
+
+JavaScript 的作用域绑定机制是词法作用域，它基于代码的结构来决定变量和函数的可见性和访问权限。词法作用域通过将变量和函数绑定到最近的包含它们的作用域来实现。动态作用域是一种在运行时确定作用域的机制，但 JavaScript 并不支持动态作用域。
