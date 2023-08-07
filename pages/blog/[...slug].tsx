@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import ErrorPage from 'next/error'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import React from 'react'
 import remarkGfm from 'remark-gfm'
 import components from 'utils/components'
 

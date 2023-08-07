@@ -1,7 +1,6 @@
 import SEO from 'components/SEO'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import React from 'react'
 import {Analytics} from '@vercel/analytics/react'
 import 'assets/styles/main.scss'
 

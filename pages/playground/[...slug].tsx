@@ -1,5 +1,4 @@
-import dynamic from "next/dynamic";
-import React from "react";
+import dynamic from 'next/dynamic'
 
 export default function Playground(props) {
   const CustomComponent = dynamic(
@@ -8,7 +7,7 @@ export default function Playground(props) {
   )
 
   return (
-    <div className={'py-32'}>
+    <div className={'prose mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8'}>
       <CustomComponent />
     </div>
   )

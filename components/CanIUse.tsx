@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import {BrowserEnums} from 'utils'
-import * as lite from 'caniuse-lite'
+import {features, feature} from 'caniuse-lite'
 
 const Section = ({browser, data}) => {
   return (
@@ -11,17 +11,16 @@ const Section = ({browser, data}) => {
         {Object.entries(BrowserEnums[browser]).map(([key, value], index) => {
           return (
             <div
-              className={'flex flex-col justify-center items-center'}
+              className={'flex flex-col justify-center items-center gap-4'}
               key={key}
             >
-              <div className={'relative w-12 h-12'}>
-                <Image
-                  fill
-                  src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/logos/${value}.svg`}
-                  alt={key}
-                  loading="lazy"
-                />
-              </div>
+              <Image
+                src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/logos/${value}.svg`}
+                alt={key}
+                loading="lazy"
+                width={48}
+                height={48}
+              />
 
               <div
                 className={'mt-2 rounded-md font-bold p-2 w-full text-center'}
@@ -53,7 +52,7 @@ export default function CanIUse({tag}) {
       android,
       ios_saf
     }
-  } = lite.feature(lite.features[tag])
+  } = feature(features[tag])
   const getSupportData = (arr) => {
     return arr.map((item) => {
       const firstSupportItems = Object.entries(item).find((el) => el[1] === 'y')
