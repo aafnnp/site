@@ -1,0 +1,221 @@
+---
+date: 2020-05-26
+title: Go - 结构体
+tags: [go]
+description: Go 语言中的结构体，以及结构体的嵌套和匿名字段。
+---
+
+在 Go 中使用 Struct 表示结构体，结构体是由一系列具有相同或不同类型的数据构成的数据集合。
+
+## 结构体的定义
+
+```go
+type identifier struct {
+    field1 type1
+    field2 type2
+    ...
+}
+```
+
+## 结构体的初始化
+
+```go
+type person struct {
+    name string
+    age int
+}
+
+func main() {
+    var p1 person
+    p1.name = "张三"
+    p1.age = 18
+    fmt.Println(p1) // {张三 18}
+
+    p2 := person{"李四", 20}
+    fmt.Println(p2) // {李四 20}
+
+    p3 := person{name: "王五", age: 22}
+    fmt.Println(p3) // {王五 22}
+
+    p4 := new(person)
+    p4.name = "赵六"
+    p4.age = 24
+    fmt.Println(p4) // &{赵六 24}
+}
+```
+
+## 结构体的匿名字段
+
+```go
+type person struct {
+    name string
+    age int
+}
+
+type student struct {
+    person
+    school string
+}
+
+func main() {
+    s1 := student{person{"张三", 18}, "清华大学"}
+    fmt.Println(s1) // {{张三 18} 清华大学}
+    fmt.Println(s1.name) // 张三
+    fmt.Println(s1.age) // 18
+    fmt.Println(s1.school) // 清华大学
+}
+```
+
+## 结构体的嵌套
+
+```go
+type person struct {
+    name string
+    age int
+}
+
+type student struct {
+    person
+    school string
+}
+
+type teacher struct {
+    person
+    school string
+}
+
+func main() {
+    s1 := student{person{"张三", 18}, "清华大学"}
+    fmt.Println(s1) // {{张三 18} 清华大学}
+    fmt.Println(s1.name) // 张三
+    fmt.Println(s1.age) // 18
+    fmt.Println(s1.school) // 清华大学
+
+    t1 := teacher{person{"李四", 20}, "北京大学"}
+    fmt.Println(t1) // {{李四 20} 北京大学}
+    fmt.Println(t1.name) // 李四
+    fmt.Println(t1.age) // 20
+    fmt.Println(t1.school) // 北京大学
+}
+```
+
+## 结构体的方法
+
+```go
+type person struct {
+    name string
+    age int
+}
+
+func (p person) say() {
+    fmt.Printf("我叫 %s，今年 %d 岁。\n", p.name, p.age)
+}
+
+func main() {
+    p1 := person{"张三", 18}
+    p1.say() // 我叫 张三，今年 18 岁。
+}
+```
+
+## 结构体的指针
+
+```go
+type person struct {
+    name string
+    age int
+}
+
+func (p *person) say() {
+    fmt.Printf("我叫 %s，今年 %d 岁。\n", p.name, p.age)
+}
+
+func main() {
+    p1 := person{"张三", 18}
+    p1.say() // 我叫 张三，今年 18 岁。
+}
+```
+
+## 结构体的匿名字段方法
+
+```go
+type person struct {
+    name string
+    age int
+}
+
+type student struct {
+    person
+    school string
+}
+
+func (p person) say() {
+    fmt.Printf("我叫 %s，今年 %d 岁。\n", p.name, p.age)
+}
+
+func main() {
+    s1 := student{person{"张三", 18}, "清华大学"}
+    s1.say() // 我叫 张三，今年 18 岁。
+}
+```
+
+## 结构体的嵌套方法
+
+```go
+type person struct {
+    name string
+    age int
+}
+
+type student struct {
+    person
+    school string
+}
+
+type teacher struct {
+    person
+    school string
+}
+
+func (p person) say() {
+    fmt.Printf("我叫 %s，今年 %d 岁。\n", p.name, p.age)
+}
+
+func main() {
+    s1 := student{person{"张三", 18}, "清华大学"}
+    s1.say() // 我叫 张三，今年 18 岁。
+
+    t1 := teacher{person{"李四", 20}, "北京大学"}
+    t1.say() // 我叫 李四，今年 20 岁。
+}
+```
+
+## 结构体的匿名字段嵌套方法
+
+```go
+type person struct {
+    name string
+    age int
+}
+
+type student struct {
+    person
+    school string
+}
+
+type teacher struct {
+    person
+    school string
+}
+
+func (p person) say() {
+    fmt.Printf("我叫 %s，今年 %d 岁。\n", p.name, p.age)
+}
+
+func main() {
+    s1 := student{person{"张三", 18}, "清华大学"}
+    s1.say() // 我叫 张三，今年 18 岁。
+
+    t1 := teacher{person{"李四", 20}, "北京大学"}
+    t1.say() // 我叫 李四，今年 20 岁。
+}
+```
