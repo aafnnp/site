@@ -7,8 +7,13 @@ import {
   FaGithub,
   FaTwitter
 } from 'react-icons/fa6'
+import {useRouter} from 'next/router'
+import {useState} from 'react'
+import {motion} from 'framer-motion'
 
 const Navigation = () => {
+  const {asPath} = useRouter()
+  const [hoverPath, setHoverPath] = useState(asPath)
   return (
     <>
       <div className="bg-light">
@@ -32,21 +37,37 @@ const Navigation = () => {
       </div>
       <div className="bg-light sticky top-0 z-30 mb-8 border-b border-gray-100 py-1">
         <ul className="flex flex-row flex-wrap justify-center print:flex-col print:gap-2">
-          {LinkItems.map((i) => (
-            <li key={i.name} className="hover:bg-gray-100 rounded">
-              <Link
-                href={i.href}
-                className={
-                  'translate-0 group relative flex flex-row items-center rounded-lg px-4 py-2'
-                }
-              >
-                {i.icon}
-                <span className="mx-2 font-medium leading-6 print:md:inline">
-                  {i.name}
-                </span>
-              </Link>
-            </li>
-          ))}
+          {LinkItems.map((i) => {
+            return (
+              <li key={i.name} className="rounded">
+                <Link
+                  href={i.href}
+                  className={`translate-0 group relative flex flex-row items-center rounded-lg px-4 py-2`}
+                  onMouseOver={() => setHoverPath(i.href)}
+                  onMouseLeave={() => setHoverPath(asPath)}
+                >
+                  {i.icon}
+                  <span className="mx-2 font-medium leading-6 print:md:inline">
+                    {i.name}
+                  </span>
+                  {i.href === hoverPath ? (
+                    <motion.div
+                      className="absolute bottom-0 left-0 w-full h-full bg-black/10 rounded-md -z-10"
+                      layoutId="navbar"
+                      aria-hidden="true"
+                      transition={{
+                        type: 'spring',
+                        bounce: 0.25,
+                        stiffness: 130,
+                        damping: 9,
+                        duration: 0.3
+                      }}
+                    ></motion.div>
+                  ) : null}
+                </Link>
+              </li>
+            )
+          })}
         </ul>
       </div>
     </>
