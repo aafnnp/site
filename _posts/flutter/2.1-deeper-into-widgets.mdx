@@ -1,0 +1,31 @@
+---
+date: 2023-07-07
+title: Deeper into widgets
+tags: [flutter]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/hRP4St.png
+---
+
+## Understanding Widget Lifecycle
+
+In Flutter, everything is a widget. Widgets describe what their view should look like given their current configuration and state. When you make a change to the source code, the widget framework automatically updates the widget tree to reflect the change. This is done by a process called the Widget Lifecycle.
+
+The Widget Lifecycle consists of three stages: creation, update, and destruction.
+
+- Creation: This is the phase where the widget is instantiated. The constructor of the widget is called and the initial configuration is set.
+- Update: This phase is triggered when the state of the widget changes. The framework calls the build method which describes the widget in terms of other, lower-level widgets. The framework then compares the new widget with the previous widget and efficiently updates the user interface.
+- Destruction: This is the final phase of the lifecycle. When a widget is removed from the tree, the framework calls the dispose method, allowing the widget to free up any resources allocated to it.
+
+Understanding the widget lifecycle is crucial for managing resources and ensuring smooth performance of your Flutter applications.
+
+## In-depth look at some important Widgets
+
+Flutter provides a rich set of widgets out of the box. Let's take a closer look at some of the most commonly used ones:
+
+- Scaffold: The Scaffold widget provides a framework which adheres to the Material Design guidelines. It offers a number of features like an AppBar, a Drawer, a SnackBar, and more.
+- AppBar: The AppBar widget provides a convenient way to create a Material Design app bar. It can contain title text, actions, and more.
+- ListView: The ListView widget is used to display a scrolling list of widgets. It is particularly useful when you need to display a large number of similar items, like a contact list.
+- Container: The Container widget is a convenience widget that combines common painting, positioning, and sizing widgets. It can be used to create a visual "container" for other widgets.
+- Column and Row: These are flexible layout widgets that allow you to align children widgets along a vertical or horizontal axis respectively.
+- Stack: The Stack widget allows for stacking of multiple children widgets over each other. It can be useful for creating layouts where you want widgets to overlay others.
+
+Each of these widgets can be customized to suit your needs, and understanding them is key to building complex layouts in Flutter.

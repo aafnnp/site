@@ -1,0 +1,55 @@
+---
+date: 2023-07-12
+title: Building a Basic Application with Flutter
+tags: [flutter]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9Ajuhc.png
+---
+
+In this unit, we will walk through the process of setting up a new Flutter project, understanding the project structure, running the application on different platforms, and adding basic functionality and styling to the application.
+
+## Project Setup and Running a Flutter App
+
+### Creating a New Flutter Project
+
+To create a new Flutter project, open your terminal or command prompt and navigate to the directory where you want to create the project. Then, run the following command:
+
+```bash
+flutter create my_app
+```
+
+Replace "my_app" with the name of your project. This command creates a new directory named "my_app" with all the necessary files and directories for a Flutter project.
+
+### Understanding the Project Structure
+
+A Flutter project has a specific structure. Here are the most important directories and files you should know:
+
+- lib/: This is where you write your Dart code. The main entry point of the application (main.dart) is located in this directory.
+- test/: This directory is used for testing your application.
+- android/ and ios/: These directories contain files for Android and iOS respectively. You usually don't need to touch these files.
+- pubspec.yaml: This file is used to manage the packages and assets for your application.
+
+### Running a Flutter App
+
+To run your Flutter app, navigate to the project directory in your terminal and run the following command:
+
+```bash
+flutter run
+```
+
+This command builds and installs the Flutter app to the connected device or emulator.
+
+## Adding Functionality and Polish
+
+### Adding Interactivity to Your App
+
+In Flutter, everything is a widget. To add interactivity to your app, you can use stateful widgets. A stateful widget can change over time (for example, a widget that changes its appearance in response to user interactions).
+
+### Implementing Basic UI Elements
+
+Flutter provides a rich set of widgets for creating complex UIs. For example, you can use the Container widget for padding, the Row and Column widgets for layout, and the Text widget for displaying text.
+
+### Styling Your App
+
+Flutter provides a powerful styling system. You can style your app by providing a ThemeData to the MaterialApp widget. The ThemeData can specify colors, typography, and shapes for your app. You can also style individual widgets using their specific styling properties.
+
+In the next unit, we will learn how to add advanced features to our Flutter application. Stay tuned!

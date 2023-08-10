@@ -1,0 +1,48 @@
+---
+date: 2023-07-05
+title: Introduction to Flutter Widgets
+tags: [flutter]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/DYFdaa.png
+---
+
+Widgets are the fundamental building blocks of a Flutter application. They describe what the interface looks like at any given moment. In other words, every element that you see on the screen (and some that you don't) is a widget. This includes things like buttons, text, sliders, images, or even the app itself.
+
+In this unit, we will delve into the world of Flutter widgets. We will start by understanding the difference between stateless and stateful widgets, and then we will guide you through the process of creating your own custom widgets.
+
+## Understanding Stateless and Stateful Widgets
+
+In Flutter, widgets are either stateless or stateful.
+
+**Stateless Widgets** are immutable, meaning that their configuration is set when they are created and cannot be changed. They describe a part of the user interface which can depend on configuration information in the constructor and change only when that information changes. For example, a Text widget is stateless because we give it a string of text when we create it, and that text cannot change unless the widget is destroyed and recreated with new text.
+
+**Stateful Widgets**, on the other hand, can change over time. They can hold mutable state either within the widget itself or externally, and they can be redrawn on the screen by calling setState. For example, a checkbox is a stateful widget because it can be checked or unchecked over time.
+
+## Building Custom Widgets
+
+Building custom widgets in Flutter is a fundamental skill that every Flutter developer should have. It involves combining smaller widgets into larger, more complex ones.
+
+To create a custom widget, you need to create a new class that extends either StatelessWidget or StatefulWidget, and then override the build method. The build method describes what the widget looks like at any given moment. It returns a new widget tree, which can include both custom widgets that you've created, and standard Flutter widgets.
+
+Here's an example of a custom stateless widget:
+
+```dart
+class CustomButton extends StatelessWidget {
+  final String label;
+
+  CustomButton({this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      child: Text(label),
+      onPressed: () {
+        print('Button pressed');
+      },
+    );
+  }
+}
+```
+
+In this example, CustomButton is a stateless widget that takes a label as a parameter and creates a RaisedButton with that label. When the button is pressed, it prints a message to the console.
+
+By the end of this unit, you should have a solid understanding of how widgets work in Flutter, and you should be able to create your own custom widgets. This will be a crucial skill as we move forward and start building more complex Flutter applications.

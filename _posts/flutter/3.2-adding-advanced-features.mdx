@@ -1,0 +1,78 @@
+---
+date: 2023-07-13
+title: Adding Advanced Features to Your Flutter Application
+tags: [flutter]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9Ajuhc.png
+---
+
+In this section, we will delve into the process of adding advanced features to your Flutter application. Specifically, we will focus on making HTTP requests and handling image uploads and displays.
+
+## Making HTTP Requests
+
+HTTP requests are a crucial part of any mobile application that interacts with a server. They allow your app to send and receive data from a server. In Flutter, we can use the http package to handle these requests.
+
+First, you need to add the http package to your pubspec.yaml file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.3
+```
+
+Then, import the package in your Dart file:
+
+```dart
+import 'package:http/http.dart' as http;
+```
+
+To fetch data, you can use http.get(). Here's an example:
+
+```dart
+var url = Uri.parse('https://example.com/whatsit/create');
+var response = await http.get(url);
+```
+
+Remember to handle any potential errors during the HTTP request. You can do this using try-catch blocks.
+
+## Image Upload and Display
+
+Handling images is another common requirement for many mobile apps. Flutter provides the image_picker package for image selection, and you can use HTTP requests to upload these images to a server.
+
+First, add the image_picker package to your pubspec.yaml file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  image_picker: ^0.8.4
+```
+
+Then, import the package in your Dart file:
+
+```dart
+import 'package:image_picker/image_picker.dart';
+```
+
+To select an image, you can use ImagePicker().getImage(). Here's an example:
+
+```dart
+final picker = ImagePicker();
+final pickedFile = await picker.getImage(source: ImageSource.gallery);
+```
+
+To upload the selected image to a server, you can use http.MultipartRequest(). Here's an example:
+
+```dart
+var request = http.MultipartRequest('POST', Uri.parse('https://example.com/upload'));
+request.files.add(await http.MultipartFile.fromPath('picture', pickedFile.path));
+var response = await request.send();
+```
+
+To display an image from a URL, you can use the Image.network() widget. Here's an example:
+
+```dart
+Image.network('https://example.com/path/to/your/image.jpg')
+```
+
+By the end of this unit, you should be able to make HTTP requests and handle image uploads and displays in your Flutter application. Remember to always handle potential errors and exceptions to ensure your app runs smoothly.

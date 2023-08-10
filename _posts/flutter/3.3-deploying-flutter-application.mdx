@@ -1,0 +1,48 @@
+---
+date: 2023-07-15
+title: Deploying Flutter Applications
+tags: [flutter]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9Ajuhc.png
+---
+
+Deploying your Flutter application is the final step in the app development process. This involves preparing your app for release and building a release version for Android and iOS. Additionally, we will also cover the concept of Continuous Deployment and how to automate the deployment process with GitHub Actions.
+
+## Android and iOS Deployment
+
+### Preparing Your App for Release
+
+Before you can release your app, you need to prepare it for release. This involves setting the version number, creating an app icon, and configuring the build settings.
+
+- Setting the Version Number: The version number is important because it informs users and the Play Store of updates to your app. You can set the version number in the pubspec.yaml file.
+- Creating an App Icon: The app icon is what users see on their home screen. You can create an app icon using an online tool and then add it to your project.
+- Configuring the Build Settings: The build settings determine how your app is built. You can configure these settings in the android/app/build.gradle file for Android and the ios/Runner.xcworkspace file for iOS.
+
+### Building a Release APK for Android
+
+To build a release APK for Android, you need to create a keystore, reference the keystore in your project, and then build the APK.
+
+- Creating a Keystore: A keystore is a binary file that contains a set of private keys. You can create a keystore using the keytool command.
+- Referencing the Keystore in Your Project: After creating the keystore, you need to reference it in your project. You can do this by creating a key.properties file in the android directory.
+- Building the APK: Finally, you can build the APK by running the flutter build apk command.
+
+### Building a Release IPA for iOS
+
+To build a release IPA for iOS, you need to create an App Store Connect account, register your app, and then build the IPA.
+
+- Creating an App Store Connect Account: An App Store Connect account is required to distribute your app on the App Store. You can create an account on the App Store Connect website.
+- Registering Your App: After creating an account, you need to register your app. You can do this by creating a new iOS app on the App Store Connect website.
+- Building the IPA: Finally, you can build the IPA by running the flutter build ios command.
+
+## Continuous Deployment
+
+Continuous Deployment is a software development practice where code changes are automatically built, tested, and deployed. This practice is beneficial because it reduces manual errors, provides faster feedback, and accelerates the release process.
+
+To set up Continuous Deployment for your Flutter app, you can use GitHub Actions. GitHub Actions is a CI/CD service provided by GitHub that allows you to automate your workflow.
+
+Here are the steps to set up Continuous Deployment with GitHub Actions:
+
+- Create a Workflow File: A workflow file is a YAML file that defines your workflow. You can create a workflow file in the .github/workflows directory.
+- Define Your Workflow: After creating the workflow file, you need to define your workflow. This involves specifying the trigger, jobs, steps, and actions.
+- Commit and Push Your Changes: Finally, you need to commit and push your changes. Once you push your changes, GitHub Actions will automatically run your workflow.
+
+By following these steps, you can automate the deployment process and ensure that your app is always up-to-date.

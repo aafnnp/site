@@ -4,7 +4,103 @@
         <description><![CDATA[Untitled RSS Feed]]></description>
         <link>http://github.com/dylang/node-rss</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 07 Aug 2023 11:31:50 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 10 Aug 2023 06:52:48 GMT</lastBuildDate>
+        <item>
+            <title><![CDATA[Real-World Application Development with Flutter]]></title>
+            <link>https://manon.icu/blog/flutter/4.3-real-world-application</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/4.3-real-world-application</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Thu, 20 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Advanced Topics in Flutter Development]]></title>
+            <link>https://manon.icu/blog/flutter/4.2-more-advanced-topics</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/4.2-more-advanced-topics</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Tue, 18 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Best Practices for Flutter Development]]></title>
+            <link>https://manon.icu/blog/flutter/4.1-best-practices-for-flutter-development</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/4.1-best-practices-for-flutter-development</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Sun, 16 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Deploying Flutter Applications]]></title>
+            <link>https://manon.icu/blog/flutter/3.3-deploying-flutter-application</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/3.3-deploying-flutter-application</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Fri, 14 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Adding Advanced Features to Your Flutter Application]]></title>
+            <link>https://manon.icu/blog/flutter/3.2-adding-advanced-features</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/3.2-adding-advanced-features</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Wed, 12 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Building a Basic Application with Flutter]]></title>
+            <link>https://manon.icu/blog/flutter/3.1-building-a-basic-application</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/3.1-building-a-basic-application</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Tue, 11 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[State Management in Flutter]]></title>
+            <link>https://manon.icu/blog/flutter/2.3-state-management</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/2.3-state-management</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Mon, 10 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Working with Assets and Navigation in Flutter]]></title>
+            <link>https://manon.icu/blog/flutter/2.2-working-with-assets-and-naviation-in-flutter</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/2.2-working-with-assets-and-naviation-in-flutter</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Sat, 08 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Deeper into widgets]]></title>
+            <link>https://manon.icu/blog/flutter/2.1-deeper-into-widgets</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/2.1-deeper-into-widgets</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Thu, 06 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Introduction to Flutter Widgets]]></title>
+            <link>https://manon.icu/blog/flutter/1.3-introduction-to-flutter-widgets</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/1.3-introduction-to-flutter-widgets</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Tue, 04 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Getting Familiar with Dart]]></title>
+            <link>https://manon.icu/blog/flutter/1.2-getting-familiar-with-dart</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/1.2-getting-familiar-with-dart</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Sun, 02 Jul 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Introduction to Flutter and Installation Guide]]></title>
+            <link>https://manon.icu/blog/flutter/1.1-overview-and-installation</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/1.1-overview-and-installation</guid>
+            <category><![CDATA[flutter]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Fri, 30 Jun 2023 16:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[使用 Nodejs、 Express、 Postgres 和 Docker 在 JavaScript 中构建 CRUD Rest API]]></title>
             <link>https://manon.icu/blog/translate/build-a-crud-rest-api-in-javascript-using-nodejs-express-postgres-docker-jkb</link>
@@ -1726,21 +1822,21 @@
             <pubDate>Tue, 23 Nov 2021 16:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Numbers - 数字类型]]></title>
+            <description><![CDATA[关于数学运算]]></description>
+            <link>https://manon.icu/blog/python/1.2-numbers</link>
+            <guid isPermaLink="true">https://manon.icu/blog/python/1.2-numbers</guid>
+            <category><![CDATA[python]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Fri, 19 Nov 2021 16:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[如何在 vue 中使用 Debounce、Throttle]]></title>
             <description><![CDATA[如input、resize、scroll、intersection observer 等事件可能发生得非常频繁，例如每秒发生几次，因此调用一个动作，比如对每个事件发出读取请求，并不是一个明智的方法。]]></description>
             <link>https://manon.icu/blog/vue/debounce-throttle</link>
             <guid isPermaLink="true">https://manon.icu/blog/vue/debounce-throttle</guid>
             <category><![CDATA[vue]]></category>
             <category><![CDATA[javascript]]></category>
-            <dc:creator><![CDATA[pfan]]></dc:creator>
-            <pubDate>Fri, 19 Nov 2021 16:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Numbers - 数字类型]]></title>
-            <description><![CDATA[关于数学运算]]></description>
-            <link>https://manon.icu/blog/python/1.2-numbers</link>
-            <guid isPermaLink="true">https://manon.icu/blog/python/1.2-numbers</guid>
-            <category><![CDATA[python]]></category>
             <dc:creator><![CDATA[pfan]]></dc:creator>
             <pubDate>Fri, 19 Nov 2021 16:00:00 GMT</pubDate>
         </item>
@@ -2011,18 +2107,18 @@
             <pubDate>Tue, 27 Oct 2020 16:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[css-BFC]]></title>
-            <link>https://manon.icu/blog/interview/css/BFC</link>
-            <guid isPermaLink="true">https://manon.icu/blog/interview/css/BFC</guid>
-            <category><![CDATA[css]]></category>
-            <dc:creator><![CDATA[pfan]]></dc:creator>
-            <pubDate>Sun, 18 Oct 2020 16:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[安装mongodb]]></title>
             <link>https://manon.icu/blog/server/安装mongodb</link>
             <guid isPermaLink="true">https://manon.icu/blog/server/安装mongodb</guid>
             <category><![CDATA[server]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Sun, 18 Oct 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[css-BFC]]></title>
+            <link>https://manon.icu/blog/interview/css/BFC</link>
+            <guid isPermaLink="true">https://manon.icu/blog/interview/css/BFC</guid>
+            <category><![CDATA[css]]></category>
             <dc:creator><![CDATA[pfan]]></dc:creator>
             <pubDate>Sun, 18 Oct 2020 16:00:00 GMT</pubDate>
         </item>
@@ -2105,6 +2201,15 @@
             <category><![CDATA[server]]></category>
             <dc:creator><![CDATA[pfan]]></dc:creator>
             <pubDate>Fri, 18 Sep 2020 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Go - Error]]></title>
+            <description><![CDATA[Go 的错误处理主要基于两个概念：错误类型和错误值。]]></description>
+            <link>https://manon.icu/blog/go/10-errors</link>
+            <guid isPermaLink="true">https://manon.icu/blog/go/10-errors</guid>
+            <category><![CDATA[go]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Wed, 27 May 2020 16:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Go - 接口]]></title>
