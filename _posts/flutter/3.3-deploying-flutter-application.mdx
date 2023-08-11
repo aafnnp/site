@@ -5,44 +5,44 @@ tags: [flutter]
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9Ajuhc.png
 ---
 
-Deploying your Flutter application is the final step in the app development process. This involves preparing your app for release and building a release version for Android and iOS. Additionally, we will also cover the concept of Continuous Deployment and how to automate the deployment process with GitHub Actions.
+部署您的Flutter应用程序是应用程序开发过程的最后一步。这涉及为Android和iOS准备您的应用程序并构建发布版本。此外，我们还将介绍持续部署的概念以及如何使用GitHub Actions自动化部署过程。
 
-## Android and iOS Deployment
+## Android和iOS部署
 
-### Preparing Your App for Release
+### 为发布准备您的应用程序
 
-Before you can release your app, you need to prepare it for release. This involves setting the version number, creating an app icon, and configuring the build settings.
+在发布应用程序之前，您需要为其进行准备。这包括设置版本号、创建应用程序图标和配置构建设置。
 
-- Setting the Version Number: The version number is important because it informs users and the Play Store of updates to your app. You can set the version number in the pubspec.yaml file.
-- Creating an App Icon: The app icon is what users see on their home screen. You can create an app icon using an online tool and then add it to your project.
-- Configuring the Build Settings: The build settings determine how your app is built. You can configure these settings in the android/app/build.gradle file for Android and the ios/Runner.xcworkspace file for iOS.
+- 设置版本号：版本号很重要，因为它向用户和Play商店通知应用程序的更新。您可以在pubspec.yaml文件中设置版本号。
+- 创建应用程序图标：应用程序图标是用户在主屏幕上看到的内容。您可以使用在线工具创建应用程序图标，然后将其添加到您的项目中。
+- 配置构建设置：构建设置确定应用程序的构建方式。您可以在Android的android/app/build.gradle文件和iOS的ios/Runner.xcworkspace文件中配置这些设置。
 
-### Building a Release APK for Android
+### 为Android构建发布APK
 
-To build a release APK for Android, you need to create a keystore, reference the keystore in your project, and then build the APK.
+要为Android构建发布APK，您需要创建密钥库、在项目中引用该密钥库，然后构建APK。
 
-- Creating a Keystore: A keystore is a binary file that contains a set of private keys. You can create a keystore using the keytool command.
-- Referencing the Keystore in Your Project: After creating the keystore, you need to reference it in your project. You can do this by creating a key.properties file in the android directory.
-- Building the APK: Finally, you can build the APK by running the flutter build apk command.
+- 创建密钥库：密钥库是包含一组私钥的二进制文件。您可以使用keytool命令创建密钥库。
+- 在项目中引用密钥库：创建密钥库后，您需要在项目中引用它。可以通过在android目录中创建一个key.properties文件来实现这一点。
+- 构建APK：最后，通过运行flutter build apk命令，您可以构建APK。
 
-### Building a Release IPA for iOS
+### 为iOS构建发布IPA
 
-To build a release IPA for iOS, you need to create an App Store Connect account, register your app, and then build the IPA.
+要为iOS构建发布IPA，您需要创建App Store Connect帐户、注册您的应用程序，然后构建IPA。
 
-- Creating an App Store Connect Account: An App Store Connect account is required to distribute your app on the App Store. You can create an account on the App Store Connect website.
-- Registering Your App: After creating an account, you need to register your app. You can do this by creating a new iOS app on the App Store Connect website.
-- Building the IPA: Finally, you can build the IPA by running the flutter build ios command.
+- 创建App Store Connect帐户：在App Store上发布应用程序需要一个App Store Connect帐户。您可以在App Store Connect网站上创建一个帐户。
+- 注册您的应用程序：创建帐户后，您需要注册您的应用程序。可以通过在App Store Connect网站上创建一个新的iOS应用程序来实现这一点。
+- 构建IPA：最后，通过运行flutter build ios命令，您可以构建IPA。
 
-## Continuous Deployment
+## 持续部署
 
-Continuous Deployment is a software development practice where code changes are automatically built, tested, and deployed. This practice is beneficial because it reduces manual errors, provides faster feedback, and accelerates the release process.
+持续部署是一种软件开发实践，其中代码更改会自动构建、测试和部署。这种实践的好处在于减少手动错误、提供更快的反馈并加快发布过程。
 
-To set up Continuous Deployment for your Flutter app, you can use GitHub Actions. GitHub Actions is a CI/CD service provided by GitHub that allows you to automate your workflow.
+要为您的Flutter应用程序设置持续部署，可以使用GitHub Actions。GitHub Actions是GitHub提供的CI/CD服务，允许您自动化您的工作流程。
 
-Here are the steps to set up Continuous Deployment with GitHub Actions:
+以下是使用GitHub Actions设置持续部署的步骤：
 
-- Create a Workflow File: A workflow file is a YAML file that defines your workflow. You can create a workflow file in the .github/workflows directory.
-- Define Your Workflow: After creating the workflow file, you need to define your workflow. This involves specifying the trigger, jobs, steps, and actions.
-- Commit and Push Your Changes: Finally, you need to commit and push your changes. Once you push your changes, GitHub Actions will automatically run your workflow.
+- 创建工作流程文件：工作流程文件是定义工作流程的YAML文件。您可以在 .github/workflows 目录中创建工作流程文件。
+- 定义工作流程：创建工作流程文件后，您需要定义工作流程。这涉及指定触发器、作业、步骤和操作。
+- 提交并推送更改：最后，您需要提交并推送更改。一旦您推送更改，GitHub Actions将自动运行您的工作流程。
 
-By following these steps, you can automate the deployment process and ensure that your app is always up-to-date.
+遵循这些步骤，您可以自动化部署过程，并确保您的应用程序始终是最新的。

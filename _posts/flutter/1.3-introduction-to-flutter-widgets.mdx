@@ -5,25 +5,25 @@ tags: [flutter]
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/DYFdaa.png
 ---
 
-Widgets are the fundamental building blocks of a Flutter application. They describe what the interface looks like at any given moment. In other words, every element that you see on the screen (and some that you don't) is a widget. This includes things like buttons, text, sliders, images, or even the app itself.
+小部件（Widgets）是Flutter应用程序的基本构建块。它们描述了界面在任何给定时刻的外观。换句话说，您在屏幕上看到的每个元素（以及一些看不见的元素）都是一个小部件。这包括按钮、文本、滑块、图像，甚至应用程序本身。
 
-In this unit, we will delve into the world of Flutter widgets. We will start by understanding the difference between stateless and stateful widgets, and then we will guide you through the process of creating your own custom widgets.
+在本单元中，我们将深入探讨Flutter小部件的世界。我们将首先了解无状态（stateless）小部件和有状态（stateful）小部件之间的区别，然后指导您创建自己的自定义小部件的过程。
 
-## Understanding Stateless and Stateful Widgets
+## 理解无状态和有状态小部件
 
-In Flutter, widgets are either stateless or stateful.
+在Flutter中，小部件可以是无状态的或有状态的。
 
-**Stateless Widgets** are immutable, meaning that their configuration is set when they are created and cannot be changed. They describe a part of the user interface which can depend on configuration information in the constructor and change only when that information changes. For example, a Text widget is stateless because we give it a string of text when we create it, and that text cannot change unless the widget is destroyed and recreated with new text.
+无状态小部件是不可变的，这意味着它们的配置在创建时设置，并且无法更改。它们描述的是用户界面的一部分，可以依赖构造函数中的配置信息，并且仅在该信息发生变化时才会改变。例如，Text小部件是无状态的，因为在创建时我们给它一个文本字符串，除非销毁并重新创建带有新文本的小部件，否则文本不会更改。
 
-**Stateful Widgets**, on the other hand, can change over time. They can hold mutable state either within the widget itself or externally, and they can be redrawn on the screen by calling setState. For example, a checkbox is a stateful widget because it can be checked or unchecked over time.
+另一方面，有状态小部件可以随时间变化。它们可以在小部件本身或外部保存可变状态，并且可以通过调用setState在屏幕上重新绘制。例如，复选框是一个有状态小部件，因为它可以随时间被选中或取消选中。
 
-## Building Custom Widgets
+## 构建自定义小部件
 
-Building custom widgets in Flutter is a fundamental skill that every Flutter developer should have. It involves combining smaller widgets into larger, more complex ones.
+在Flutter中构建自定义小部件是每个Flutter开发者都应该具备的基本技能。它涉及将较小的小部件组合成更大、更复杂的小部件。
 
-To create a custom widget, you need to create a new class that extends either StatelessWidget or StatefulWidget, and then override the build method. The build method describes what the widget looks like at any given moment. It returns a new widget tree, which can include both custom widgets that you've created, and standard Flutter widgets.
+要创建一个自定义小部件，您需要创建一个新的类，该类扩展自StatelessWidget或StatefulWidget，然后覆盖build方法。build方法描述了小部件在任何给定时刻的外观。它返回一个新的小部件树，其中可以包括您创建的自定义小部件和标准Flutter小部件。
 
-Here's an example of a custom stateless widget:
+以下是一个自定义无状态小部件的示例：
 
 ```dart
 class CustomButton extends StatelessWidget {
@@ -43,6 +43,6 @@ class CustomButton extends StatelessWidget {
 }
 ```
 
-In this example, CustomButton is a stateless widget that takes a label as a parameter and creates a RaisedButton with that label. When the button is pressed, it prints a message to the console.
+在这个例子中，CustomButton是一个无状态小部件，它接受一个标签作为参数，并创建一个带有该标签的RaisedButton。当按钮被按下时，它会在控制台打印一条消息。
 
-By the end of this unit, you should have a solid understanding of how widgets work in Flutter, and you should be able to create your own custom widgets. This will be a crucial skill as we move forward and start building more complex Flutter applications.
+通过本单元的学习，您应该对Flutter中的小部件如何工作有了扎实的理解，并且能够创建自己的自定义小部件。随着我们继续前进并开始构建更复杂的Flutter应用程序，这将是一项关键的技能。
