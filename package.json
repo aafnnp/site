@@ -62,7 +62,7 @@
     "eslint-plugin-react": "^7.33.1",
     "fast-glob": "^3.3.1",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.3",
+    "lint-staged": "^14.0.0",
     "next-compose-plugins": "^2.2.1",
     "postcss": "^8.4.27",
     "prettier": "^3.0.1",
