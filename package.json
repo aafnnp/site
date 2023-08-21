@@ -71,7 +71,7 @@
     "remark-gfm": "^3.0.1",
     "sass": "^1.66.0",
     "semantic-commit-emoji": "^0.6.2",
-    "semantic-release": "^21.0.7",
+    "semantic-release": "^21.0.9",
     "semantic-release-gitmoji": "^1.6.4",
     "standard-version": "^9.5.0",
     "tailwindcss": "^3.3.3",
