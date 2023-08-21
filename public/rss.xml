@@ -4,7 +4,16 @@
         <description><![CDATA[Untitled RSS Feed]]></description>
         <link>http://github.com/dylang/node-rss</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 10 Aug 2023 09:02:02 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 21 Aug 2023 01:48:16 GMT</lastBuildDate>
+        <item>
+            <title><![CDATA[Swift - Create & Preview a SwiftUI View]]></title>
+            <description><![CDATA[Swift是一种适用于iOS、macOS、watchOS和tvOS应用程序的编程语言。]]></description>
+            <link>https://manon.icu/blog/swift/cookbook/section1/1-create-and-preview-a-swiftui-view</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/cookbook/section1/1-create-and-preview-a-swiftui-view</guid>
+            <category><![CDATA[swift]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Sun, 20 Aug 2023 16:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Real-World Application Development with Flutter]]></title>
             <link>https://manon.icu/blog/flutter/4.3-real-world-application</link>

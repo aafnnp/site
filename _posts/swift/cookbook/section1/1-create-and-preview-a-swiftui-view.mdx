@@ -1,0 +1,82 @@
+---
+date: '2023-08-21'
+title: 'Swift - Create & Preview a SwiftUI View'
+tags: [swift]
+description: Swift是一种适用于iOS、macOS、watchOS和tvOS应用程序的编程语言。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/lZDIhG.jpg
+originalUrl: https://www.kodeco.com/books/swiftui-cookbook/v1.0/chapters/1-create-preview-a-swiftui-view
+---
+
+SwiftUI 是一种用于构建用户界面的声明式框架。使用 SwiftUI，您可以使用易于阅读和编写的声明性 Swift 语法编写更少的代码。这些代码运行时将自动保持最新。
+
+在这篇中，我们将向您展示如何创建一个新的 SwiftUI 视图，向它添加一些基本元素，然后预览它。
+
+打开 Xcode 并使用 iOS App 模板创建一个新项目。命名项目，并确保 Interface 设置为 SwiftUI (默认值)。
+
+打开 `ContentView.swift` 并用以下内容替换该文件的内容:
+
+```swift
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        Text("Hello, SwifUI!")
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+```
+
+在右侧窗格中，您应该看到一个预览，显示一个带有“Hello, SwifUI!”文本的 iPhone。
+
+![lZDIhG](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/lZDIhG.jpg)
+
+## 它是如何工作的？
+
+我们一行一行地看一下代码，以便您了解它是如何工作的。
+
+```swift
+import SwiftUI
+```
+
+这是一个导入语句，它告诉 Swift 我们将使用 SwiftUI 框架。这是一个必需的步骤，因为我们将使用 SwiftUI 视图。
+
+```swift
+struct ContentView: View {
+```
+
+这是一个结构体声明，它定义了一个名为 ContentView 的新类型。它遵循 View 协议，这意味着它是一个 SwiftUI 视图。
+
+```swift
+var body: some View {
+```
+
+这是一个计算属性，它返回一个 View。它是一个计算属性，因为它没有存储任何东西，而是在需要时计算它的值。
+
+```swift
+Text("Hello, SwifUI!")
+```
+
+这是一个 Text 视图，它显示一个字符串。它是一个 SwiftUI 视图，因此它可以在 body 计算属性中返回。
+
+```swift
+struct ContentView_Previews: PreviewProvider {
+```
+
+这是另一个结构体声明，它定义了一个名为 ContentView_Previews 的新类型。它遵循 PreviewProvider 协议，这意味着它是一个 SwiftUI 预览。
+
+```swift
+static var previews: some View {
+```
+
+这是一个计算属性，它返回一个 View。它是一个计算属性，因为它没有存储任何东西，而是在需要时计算它的值。
+
+```swift
+ContentView()
+```
+
+这是 ContentView 的实例。它是一个 SwiftUI 视图，因此它可以在 previews 计算属性中返回。
