@@ -41,7 +41,7 @@
     "styled-components": "^6.0.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.11",
+    "@babel/core": "^7.22.17",
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
     "@mdx-js/loader": "^2.3.0",
