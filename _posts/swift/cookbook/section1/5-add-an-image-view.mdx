@@ -1,37 +1,58 @@
 ---
-date: '2023-08-24'
-title: 'Swift - 在 SwiftUI 中添加文本视图'
+date: '2023-08-25'
+title: 'Swift - 在 SwiftUI 中添加图像'
 tags: [swift]
-description: 文本视图是 SwiftUI 用户界面中最常用的元素之一。
-cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/lZDIhG.jpg
-originalUrl: https://www.kodeco.com/books/swiftui-cookbook/v1.0/chapters/4-add-a-text-view-in-swiftui
+description: 'SwiftUI 中的图像视图是一种用于显示图像的视图。它们是 `SwiftUI` 中最常用的视图之一，因为它们允许您在应用程序中显示图像。'
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/lswc73.jpg
+originalUrl: https://www.kodeco.com/books/swiftui-cookbook/v1.0/chapters/5-add-an-image-view-in-swiftui
 ---
 
-`Text` 视图是 `SwiftUI` 用户界面中最常用的元素之一。它们允许你向你的应用程序中添加文本，比如标签、标题、描述等等。在 `SwiftUI` 中，`Text`视图易于使用，只需要最少的代码，并提供很多的自定义选项。
+SwiftUI 中的图像视图是一种用于显示图像的视图。它们是 `SwiftUI` 中最常用的视图之一，因为它们允许您在应用程序中显示图像。
 
-若要创建 `Text` 视图，请使用 `Text` 初始值设定项并提供要在其中显示的文本。下面是如何创建显示简单消息的 `Text` 视图的示例:
-
-```swift
-struct ContentView: View {
-  var body: some View {
-    Text("Hello, World!")
-  }
-}
-```
-
-在 `ContentView` 结构中，我们定义`body`计算属性，该属性返回一个视图。在这里，我们使用 `Text` 视图创建一个文本视图的新实例，并使用“ `Hello，World!`”作为它的内容。
-
-## 自定义文本视图
-
-`Text` 视图是一个灵活而轻量级的视图，允许您自定义其字体、样式、颜色、大小、行间距以及更多使用修饰符。下面的示例说明如何通过添加`.font()`修饰语:
+拖拽图像到 Assets.xcassets 中，然后在代码中使用 `Image` 视图来显示图像。
 
 ```swift
 struct ContentView: View {
-  var body: some View {
-    Text("Hello, World!")
-      .font(.largeTitle)
-  }
+    var body: some View {
+        Image("Profile").resizeable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 200, height: 200)
+        .clipShape(Circle())
+        .overlay(Circle().stroke(Color.white, lineWidth: 5))
+        .shadow(radius: 10)
+    }
 }
 ```
 
-上面的代码使用字体修饰符将 `Text` 视图的字体大小和样式定义为`.largeTitle`。是 `SwiftUI` 预定义的文本样式之一。这只是 `Text` 视图可以合并的众多修饰符之一。
+显示如下：
+
+![lswc73](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/lswc73.jpg)
+
+## 使用 SF Symbols
+
+`SF Symbols` 是 `Apple` 提供的一套图标，可以在 `SwiftUI` 中使用。`SF Symbols` 是一套矢量图标，可以在不同的尺寸下显示，而不会失真。
+
+`SF Symbols` 可以在 `Apple` 的 [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/) 页面上找到。
+
+`SF Symbols` 可以在 `SwiftUI` 中使用 `Image` 视图来显示。要使用 `SF Symbols`，请使用 `Image` 视图并将 `systemName` 参数设置为 `SF Symbols` 的名称。
+
+```swift
+struct ContentView: View {
+    var body: some View {
+        Image(systemName: "person.circle.fill")
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 200, height: 200)
+        .clipShape(Circle())
+        .overlay(Circle().stroke(Color.white, lineWidth: 5))
+        .shadow(radius: 10)
+    }
+}
+```
+
+- `.resizable()`：使图像可以调整大小。
+- `.aspectRatio(contentMode: .fit)`：使图像保持其纵横比。
+- `.frame(width: 200, height: 200)`：设置图像的大小。
+- `.clipShape(Circle())`：将图像裁剪为圆形。
+- `.overlay(Circle().stroke(Color.white, lineWidth: 5))`：在图像周围添加一个圆形边框。
+- `.shadow(radius: 10)`：在图像周围添加阴影。
