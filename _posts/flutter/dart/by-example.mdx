@@ -1,0 +1,692 @@
+---
+date: 2023-10-09
+title: Dart by example
+tags: [flutter, dart]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/bWomlB.png
+---
+
+## Hello world
+
+```dart
+void main() {
+  print('Hello, World!');
+}
+
+// also
+
+main() => print('Hello, World!');
+```
+
+## Values
+
+```dart
+main() {
+  // Strings can be appended using +
+  print("dart" + "lang");
+
+  // Integers and Floats
+  print("1+1=${1+1}");
+  print("7.0/3.0 =${7.0/3.0}");
+
+  // Booleans
+  print(true && false);
+  print(false || true);
+  print(!true);
+}
+
+1+1=2
+7.0/3.0 =2.3333333333333335
+false
+true
+false
+```
+
+## Variables
+
+```dart
+main() {
+  // Variables: Strings
+  var name = 'Voyager I';
+  var year = 1977;
+  var antennaDiameter = 3.7;
+  var flybyObjects = ['Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+  var image = {
+    'tags': ['saturn'],
+    'url': '//path/to/saturn.jpg'
+  };
+
+  // Variables: Numbers
+  var one = int.parse('1');
+  assert(one == 1);
+
+  var onePointOne = double.parse('1.1');
+  assert(onePointOne == 1.1);
+
+  String oneAsString = 1.toString();
+  assert(oneAsString == '1');
+
+  String piAsString = 3.14159.toStringAsFixed(2);
+  assert(piAsString == '3.14');
+
+  // Variables: Booleans
+  var fullName = '';
+  assert(fullName.isEmpty);
+
+  var hitPoints = 0;
+  assert(hitPoints <= 0);
+
+  var unicorn;
+  assert(unicorn == null);
+
+  var iMeantToDoThis = 0 / 0;
+  assert(iMeantToDoThis.isNaN);
+}
+```
+
+## Control flow statements
+
+```dart
+main() {
+  // if and else
+  if (isRaining()) {
+    you.bringRainCoat();
+  } else if (isSnowing()) {
+    you.wearJacket();
+  } else {
+    car.putTopDown();
+  }
+
+  // for loops
+  for (int month = 1; month <= 12; month++) {
+    print(month);
+  }
+
+  // while and do-while
+  while (!isDone()) {
+    doSomething();
+  }
+
+  // break and continue
+  for (int i = 0; i < 10; i++) {
+    if (i > 5) break;
+    if (i % 2 == 0) continue;
+    print(i);
+  }
+
+  // switch and case
+  var command = 'OPEN';
+  switch (command) {
+    case 'CLOSED':
+      executeClosed();
+      break;
+    case 'PENDING':
+      executePending();
+      break;
+    case 'APPROVED':
+      executeApproved();
+      break;
+    case 'DENIED':
+      executeDenied();
+      break;
+    case 'OPEN':
+      executeOpen();
+      break;
+    default:
+      executeUnknown();
+  }
+}
+```
+
+## Exceptions
+
+```dart
+main() {
+  try {
+    breedMoreLlamas();
+  } on OutOfLlamasException {
+    buyMoreLlamas();
+  } on Exception catch (e) {
+    print('Unknown exception: $e');
+  } catch (e) {
+    print('Something really unknown: $e');
+  } finally {
+    cleanLlamaStalls();
+  }
+}
+```
+
+## List
+
+```dart
+main() {
+  // Creating lists
+  var list = [1, 2, 3];
+  var list = [1, 2, 3];
+
+  // Creating sets
+  var halogens = {'fluorine', 'chlorine', 'bromine', 'iodine', 'astatine'};
+
+  // Creating maps
+  var gifts = {
+    // Key:    Value
+    'first': 'partridge',
+    'second': 'turtledoves',
+    'fifth': 'golden rings'
+  };
+
+  var nobleGases = {
+    2: 'helium',
+    10: 'neon',
+    18: 'argon',
+  };
+
+  // Creating empty collections
+  var gifts = Map();
+  gifts['first'] = 'partridge';
+  gifts['second'] = 'turtledoves';
+  gifts['fifth'] = 'golden rings';
+
+  var nobleGases = Map();
+  nobleGases[2] = 'helium';
+  nobleGases[10] = 'neon';
+  nobleGases[18] = 'argon';
+}
+```
+
+## Map
+
+```dart
+main() {
+  // Creating maps
+  var gifts = {
+    // Key:    Value
+    'first': 'partridge',
+    'second': 'turtledoves',
+    'fifth': 'golden rings'
+  };
+
+  var nobleGases = {
+    2: 'helium',
+    10: 'neon',
+    18: 'argon',
+  };
+
+  // Creating empty collections
+  var gifts = Map();
+  gifts['first'] = 'partridge';
+  gifts['second'] = 'turtledoves';
+  gifts['fifth'] = 'golden rings';
+
+  var nobleGases = Map();
+  nobleGases[2] = 'helium';
+  nobleGases[10] = 'neon';
+  nobleGases[18] = 'argon';
+}
+```
+
+## Set
+
+```dart
+main() {
+  // Creating sets
+  var halogens = {'fluorine', 'chlorine', 'bromine', 'iodine', 'astatine'};
+
+  // Creating empty collections
+  var halogens = Set();
+  halogens.add('fluorine');
+  halogens.add('chlorine');
+  halogens.add('bromine');
+  halogens.add('iodine');
+  halogens.add('astatine');
+}
+```
+
+## Queue
+
+```dart
+main() {
+  // Creating queues
+  var q = Queue();
+  q.add(1);
+  q.add(2);
+  q.add(3);
+  q.removeFirst();
+  q.removeLast();
+}
+```
+
+## Functions
+
+```dart
+// Optional parameters
+String say(String from, String msg, [String device]) {
+  var result = '$from says $msg';
+  if (device != null) {
+    result = '$result with a $device';
+  }
+  return result;
+}
+
+// Named parameters
+void enableFlags({bool bold, bool hidden}) {...}
+
+// Anonymous functions
+var list = ['apples', 'bananas', 'oranges'];
+list.forEach((item) {
+  print('${list.indexOf(item)}: $item');
+});
+
+// Lexical scope
+bool topLevel = true;
+
+void main() {
+  var insideMain = true;
+
+  void myFunction() {
+    var insideFunction = true;
+
+    void nestedFunction() {
+      var insideNestedFunction = true;
+
+      assert(topLevel);
+      assert(insideMain);
+      assert(insideFunction);
+      assert(insideNestedFunction);
+    }
+  }
+}
+```
+
+## Constants
+
+```dart
+// Final and const
+final name = 'Bob'; // Without a type annotation
+final String nickname = 'Bobby';
+final time = DateTime.now();
+
+const bar = 1000000; // Unit of pressure (dynes/cm2)
+const double atm = 1.01325 * bar; // Standard atmosphere
+
+// Valid compile-time constants as of Dart 2.5.
+const Object i = 3; // Where i is a const Object with an int value...
+const list = [i as int]; // Use a typecast.
+const map = {if (i is int) i: "int"}; // Use is and collection if.
+const set = {if (list is List<int>) ...list}; // ...and a spread.
+```
+
+## Static
+
+```dart
+class Queue {
+  static const initialCapacity = 16;
+  // ···
+}
+
+main() {
+  assert(Queue.initialCapacity == 16);
+}
+```
+
+## Classes
+
+```dart
+class Point {
+  double x;
+  double y;
+
+  Point(this.x, this.y);
+
+  Point.fromJson(Map<String, double> json) {
+    x = json['x'];
+    y = json['y'];
+  }
+
+  Map<String, double> toJson() => {
+        'x': x,
+        'y': y,
+      };
+}
+
+main() {
+  var p = Point(2, 2);
+  var p = Point.fromJson({'x': 1, 'y': 2});
+
+  print(p.x);
+  print(p.toJson());
+}
+```
+
+## Initializer Lists
+
+```dart
+class Point {
+  final num x;
+  final num y;
+  final num distanceFromOrigin;
+
+  Point(x, y)
+      : x = x,
+        y = y,
+        distanceFromOrigin = sqrt(x * x + y * y);
+}
+```
+
+## Getters and Setters
+
+```dart
+class Rectangle {
+  num left, top, width, height;
+
+  Rectangle(this.left, this.top, this.width, this.height);
+
+  // Define two calculated properties: right and bottom.
+  num get right => left + width;
+  set right(num value) => left = value - width;
+  num get bottom => top + height;
+  set bottom(num value) => top = value - height;
+}
+
+main() {
+  var rect = Rectangle(3, 4, 20, 15);
+  assert(rect.left == 3);
+  rect.right = 12;
+  assert(rect.left == -8);
+}
+```
+
+## Inheritance
+
+```dart
+class Television {
+  void turnOn() {
+    _illuminateDisplay();
+    _activateIrSensor();
+  }
+  // ···
+}
+
+class SmartTelevision extends Television {
+  void turnOn() {
+    super.turnOn();
+    _bootNetworkInterface();
+    _initializeMemory();
+    _upgradeApps();
+  }
+  // ···
+}
+```
+
+## Mixins
+
+```dart
+class Musician extends Performer with Musical {
+  // ···
+}
+
+class Maestro extends Person
+    with Musical, Aggressive, Demented {
+  Maestro(String maestroName) {
+    name = maestroName;
+    canConduct = true;
+  }
+}
+```
+
+## Libraries
+
+```dart
+// Importing libraries
+import 'dart:html';
+import 'package:test/test.dart';
+
+// Exporting libraries
+export 'src/error.dart';
+export 'src/foo.dart' show foo;
+export 'src/bar.dart' hide foo;
+```
+
+## Pub
+
+```dart
+// pubspec.yaml
+name: project_name
+description: A sample web application
+
+dependencies:
+  browser: any
+  polymer: ^1.0.0-rc.16
+
+dev_dependencies:
+  test: any
+```
+
+## Comments
+
+```dart
+// This is a normal, one-line comment.
+
+/// This is a documentation comment, used to document libraries,
+
+/* This is a block comment
+   on multiple lines. */
+
+/// This is a documentation comment used to document
+/// a class. The [Dog] class is your best friend. */
+class Dog {
+  /// Declares the number of bones a [Dog] needs to be happy
+  int bonesNeeded;
+}
+```
+
+## Futures
+
+```dart
+main() {
+  Future<String> lookUpVersion() async => '1.0.0';
+
+  Future checkVersion() async {
+    var version = await lookUpVersion();
+    // Do something with version
+  }
+}
+```
+
+## Streams
+
+```dart
+main() {
+  Stream<String> timedCounter(Duration interval, int maxCount) async* {
+    int i = 0;
+    while (i < maxCount) {
+      await Future.delayed(interval);
+      yield 'tick $i';
+      i++;
+    }
+  }
+
+  Stream<String> timedCounter(Duration interval, int maxCount) async* {
+    int i = 0;
+    while (i < maxCount) {
+      await Future.delayed(interval);
+      yield 'tick $i';
+      i++;
+    }
+  }
+}
+```
+
+## Iterators
+
+```dart
+main() {
+  // Iterating over a list
+  var collection = [0, 1, 2];
+  for (var x in collection) {
+    print(x); // 0 1 2
+  }
+
+  // Iterating over a map
+  var collection = {'a': 1, 'b': 2, 'c': 3};
+  collection.forEach((k, v) => print('$k: $v')); // a: 1 b: 2 c: 3
+}
+```
+
+## Iterables
+
+```dart
+main() {
+  // Iterating over iterables
+  var collection = [1, 2, 3];
+  collection.map((x) => x * 2).forEach(print); // 2 4 6
+
+  // Iterating over iterables
+  var collection = [1, 2, 3];
+  collection.map((x) => x * 2).forEach(print); // 2 4 6
+}
+```
+
+## Async / Await
+
+```dart
+main() {
+  // Async
+  Future<String> lookUpVersion() async => '1.0.0';
+
+  // Await
+  Future checkVersion() async {
+    var version = await lookUpVersion();
+    // Do something with version
+  }
+}
+```
+
+## Sync\*(Generators)
+
+```dart
+main() {
+  // Sync*
+  Iterable<int> naturalsTo(int n) sync* {
+    int k = 0;
+    while (k < n) yield k++;
+  }
+
+  // Yield*
+  Iterable<int> naturalsDownFrom(int n) sync* {
+    if (n > 0) {
+      yield n;
+      yield* naturalsDownFrom(n - 1);
+    }
+  }
+}
+```
+
+## Async\*
+
+```dart
+main() {
+  // Async*
+  Stream<String> timedCounter(Duration interval, int maxCount) async* {
+    int i = 0;
+    while (i < maxCount) {
+      await Future.delayed(interval);
+      yield 'tick $i';
+      i++;
+    }
+  }
+}
+```
+
+## Await For
+
+```dart
+main() {
+  // Await for
+  Future main() async {
+    var stream = asynchronousNaturalsTo(5);
+    await for (var value in stream) {
+      print(value);
+    }
+  }
+}
+```
+
+## Yield\*
+
+```dart
+main() {
+  // Yield*
+  Iterable<int> naturalsDownFrom(int n) sync* {
+    if (n > 0) {
+      yield n;
+      yield* naturalsDownFrom(n - 1);
+    }
+  }
+}
+```
+
+## Zones
+
+```dart
+main() {
+  // Zones
+  runZoned(() {
+    // Code here executes in its own zone.
+  }, onError: (e) {
+    // Code here executes if an exception is thrown in the "runZoned" code.
+  });
+}
+```
+
+## Microtasks
+
+```dart
+main() {
+  // Microtasks
+  scheduleMicrotask(() => print('Hello, World!'));
+}
+```
+
+## Isolates
+
+```dart
+main() {
+  // Isolates
+  Isolate.spawn(echo, 'Hello, World!');
+}
+
+echo(msg) {
+  print(msg);
+}
+```
+
+## Http Server
+
+```dart
+import 'dart:io';
+
+main() async {
+  var server = await HttpServer.bind(
+    InternetAddress.loopbackIPv4,
+    4040,
+  );
+  await for (HttpRequest request in server) {
+    request.response.write('Hello, world!');
+    await request.response.close();
+  }
+}
+```
+
+## Http Requests
+
+```dart
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+main() async {
+  var url = 'https://example.com/whatsit/create';
+  var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
+}
+```
