@@ -27,7 +27,7 @@
     "framer-motion": "^10.16.4",
     "globby": "^13.2.2",
     "gray-matter": "^4.0.3",
-    "next": "13.4.19",
+    "next": "13.5.4",
     "next-mdx-remote": "4.4.1",
     "next-seo": "^6.1.0",
     "next-share": "^0.25.0",
