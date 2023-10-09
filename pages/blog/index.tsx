@@ -58,8 +58,6 @@ export async function getStaticProps() {
   const {GetAllPosts} = await import('utils/getAllPosts')
   const posts = await GetAllPosts()
   await generateRssFeed()
-  // console.log('🚀 ~ file: index.tsx:59 ~ getStaticProps ~ posts:', posts)
-  // grouped by year
   const postsByYear = posts.reduce((acc, post) => {
     const year = dayjs(post.date).get('year')
     if (!acc[year]) {

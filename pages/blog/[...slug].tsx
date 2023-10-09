@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import ErrorPage from 'next/error'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import remarkGfm from 'remark-gfm'
+// import remarkGfm from 'remark-gfm'
 import components from 'utils/components'
 
 const SEO = dynamic(() => import('components/SEO'), {ssr: false})
@@ -87,7 +87,7 @@ export const getStaticProps = async ({params}) => {
   const {getRandomArrayElements} = await import('utils')
   const mdxSource = await serialize(content, {
     mdxOptions: {
-      remarkPlugins: [[remarkGfm]],
+      remarkPlugins: [],
       rehypePlugins: []
     },
     scope: data

@@ -4,9 +4,54 @@
         <description><![CDATA[Untitled RSS Feed]]></description>
         <link>http://github.com/dylang/node-rss</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 21 Aug 2023 01:56:53 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 09 Oct 2023 06:38:23 GMT</lastBuildDate>
         <item>
-            <title><![CDATA[Swift - Create & Preview a SwiftUI View]]></title>
+            <title><![CDATA[Swift - 在 SwiftUI 中添加按钮]]></title>
+            <description><![CDATA[文本视图是 SwiftUI 用户界面中最常用的元素之一。]]></description>
+            <link>https://manon.icu/blog/swift/cookbook/section1/6-add-a-button-view</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/cookbook/section1/6-add-a-button-view</guid>
+            <category><![CDATA[swift]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Fri, 25 Aug 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 在 SwiftUI 中添加图像]]></title>
+            <description><![CDATA[SwiftUI 中的图像视图是一种用于显示图像的视图。它们是 `SwiftUI` 中最常用的视图之一，因为它们允许您在应用程序中显示图像。]]></description>
+            <link>https://manon.icu/blog/swift/cookbook/section1/5-add-an-image-view</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/cookbook/section1/5-add-an-image-view</guid>
+            <category><![CDATA[swift]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Thu, 24 Aug 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 在 SwiftUI 中添加文本视图]]></title>
+            <description><![CDATA[文本视图是 SwiftUI 用户界面中最常用的元素之一。]]></description>
+            <link>https://manon.icu/blog/swift/cookbook/section1/4-add-a-text-view-in-swiftui</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/cookbook/section1/4-add-a-text-view-in-swiftui</guid>
+            <category><![CDATA[swift]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Wed, 23 Aug 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 在 SwiftUI 中使用 Xcode 预览]]></title>
+            <description><![CDATA[SwiftUI 的一个重要特性是它如何与 Xcode 预览集成，这使您可以在处理用户界面时看到实时的用户界面代码。预览提供了一种快速有效的方法来开发和迭代应用程序的 UI 设计。]]></description>
+            <link>https://manon.icu/blog/swift/cookbook/section1/3-use-xcode-previews-with-swiftui</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/cookbook/section1/3-use-xcode-previews-with-swiftui</guid>
+            <category><![CDATA[swift]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Tue, 22 Aug 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 了解 SwiftUI 视图和视图层次结构]]></title>
+            <description><![CDATA[用 SwiftUI 开发的 iOS 应用程序的核心是一组视图，它们实际上是构成用户界面的构建块。在这里，我们将介绍一些有关 SwiftUI 视图如何工作的基本知识。]]></description>
+            <link>https://manon.icu/blog/swift/cookbook/section1/2-understand-swiftui-views-and-view-hierarchies</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/cookbook/section1/2-understand-swiftui-views-and-view-hierarchies</guid>
+            <category><![CDATA[swift]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Mon, 21 Aug 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 创建和预览 SwiftUI 视图]]></title>
             <description><![CDATA[Swift是一种适用于iOS、macOS、watchOS和tvOS应用程序的编程语言。]]></description>
             <link>https://manon.icu/blog/swift/cookbook/section1/1-create-and-preview-a-swiftui-view</link>
             <guid isPermaLink="true">https://manon.icu/blog/swift/cookbook/section1/1-create-and-preview-a-swiftui-view</guid>
