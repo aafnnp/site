@@ -4,7 +4,34 @@
         <description><![CDATA[Untitled RSS Feed]]></description>
         <link>http://github.com/dylang/node-rss</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 09 Oct 2023 06:43:08 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 27 Oct 2023 08:02:23 GMT</lastBuildDate>
+        <item>
+            <title><![CDATA[Dart by example]]></title>
+            <link>https://manon.icu/blog/flutter/dart/by-example</link>
+            <guid isPermaLink="true">https://manon.icu/blog/flutter/dart/by-example</guid>
+            <category><![CDATA[flutter]]></category>
+            <category><![CDATA[dart]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Sun, 08 Oct 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 在 SwiftUI 中添加路由]]></title>
+            <description><![CDATA[SwiftUI 中的路由]]></description>
+            <link>https://manon.icu/blog/swift/cookbook/section1/7-add-a-navigationstack</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/cookbook/section1/7-add-a-navigationstack</guid>
+            <category><![CDATA[swift]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Sat, 26 Aug 2023 16:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Swift - 在 SwiftUI 中添加列表视图]]></title>
+            <description><![CDATA[在 SwiftUI 中添加列表视图]]></description>
+            <link>https://manon.icu/blog/swift/cookbook/section1/8-add-a-list-view</link>
+            <guid isPermaLink="true">https://manon.icu/blog/swift/cookbook/section1/8-add-a-list-view</guid>
+            <category><![CDATA[swift]]></category>
+            <dc:creator><![CDATA[pfan]]></dc:creator>
+            <pubDate>Sat, 26 Aug 2023 16:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Swift - 在 SwiftUI 中添加按钮]]></title>
             <description><![CDATA[文本视图是 SwiftUI 用户界面中最常用的元素之一。]]></description>
