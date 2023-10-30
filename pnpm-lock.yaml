@@ -48,8 +48,8 @@ dependencies:
     specifier: ^0.27.0
     version: 0.27.0(react@18.2.0)
   openai:
-    specifier: ^4.14.0
-    version: 4.14.0
+    specifier: ^4.14.1
+    version: 4.14.1
   prismjs:
     specifier: ^1.29.0
     version: 1.29.0
@@ -6798,8 +6798,8 @@ packages:
       is-wsl: 1.1.0
     dev: true
 
-  /openai@4.14.0:
-    resolution: {integrity: sha512-pWQYkFWdeudR1yLyS/rFfIv/MTXqFEtlN4EKVm0F6KKKGjhuthznPOCC4hxfAFmjlgbpJJXhQQ/oBeB9bxFmUw==}
+  /openai@4.14.1:
+    resolution: {integrity: sha512-aBb7DVdzSnEUBFHTbnVoitauefvjRuUHS5pa7lm1m5JmHifD+1Hff1RzxYC12ogugVcCmWT99NZNfzyD6n/0IQ==}
     hasBin: true
     dependencies:
       '@types/node': 18.18.0
