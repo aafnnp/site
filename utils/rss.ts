@@ -1,11 +1,9 @@
 import RSS from 'rss'
 import fs from 'node:fs'
-import {GetAllPosts} from './getAllPosts'
+import {allPosts} from 'contentlayer/generated'
 
 export default async function generateRssFeed() {
   const site_url = 'https://manon.icu/blog'
-
-  const allPosts = await GetAllPosts()
 
   const feedOptions = {
     // ...

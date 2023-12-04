@@ -1,0 +1,80 @@
+---
+type: 'Post'
+date: '2021-11-23'
+title: 'ES6-数组'
+tags: [javascript]
+draft: true
+description: 'JavaScript 数组是一种非常灵活的数据结构'
+---
+
+> JavaScript 数组是一种非常灵活的数据结构，可用作列表、堆栈、队列、元组等。某些与数组相关的操作会破坏性地更改数组。另一些则以非破坏性方式生成新数组，并将更改应用于原始内容的副本。
+
+## 使用数组
+
+创建数组、访问数组元素、更改数组元素、删除数组元素
+
+```js
+// 创建数组
+const arr = ['a', 'b', 'c']
+// 取值
+arr[0] // 'a'
+// 更改值
+arr[0] = 'x' // ['x', 'b', 'c']
+// 数组长度
+arr.length // 3
+// 改变数组长度
+arr.length = 1 // ['x']
+// 添加元素
+arr[arr.length] = 'y' // ['x', 'y']
+// 使用push方法
+arr.push('z') // ['x', 'y', 'z']
+// 使用push & ...方法
+arr.push(...['w', 'v']) // ['x', 'y', 'z', 'w', 'v']
+// 清除数组
+arr.length = 0 // []
+// 循环数组
+for (let i = 0; i < arr.length; i++) {
+  console.log(arr[i])
+}
+for (const ovalue of arr) {
+  console.log(ovalue)
+}
+// 循环键值对
+for (const [index, value] of arr.entries()) {
+  console.log(index, value)
+}
+```
+
+## 数组方法
+
+`slice`,`filter`,`map`,`flatMap`返回新数组
+
+```js
+;['■', '●', '▲'].slice(1, 3) // ['●', '▲']
+;['■', '●', '■'].filter((x) => x === '■') // ['■', '■']
+;['▲', '●'].map((x) => x + x)[('▲', '●')].flatMap((x) => [x, x]) // ['▲', '▲', '●', '●']
+```
+
+删除给定索引处的数组元素
+
+```js
+const arr1 = ['■', '●', '▲']
+arr1.filter((x, i) => i !== 1) // ['■', '▲']
+arr1 // ['■','●','▲']; arr1的值没有改变
+
+const arr2 = ['■', '●', '▲']
+arr2.splice(1, 1) // ['■', '▲'] arr2的值改变了
+;['■', '●', '▲']
+  .some((x) => x === '●') // true
+  [('■', '●', '▲')].every((x) => x === '■') // false
+;['■', '●', '▲'].join('-') // '■-●-▲'
+;['■', '▲'].reduce((result, x) => result + x, '●') // '●▲●'
+;['■', '▲'].reduceRight((result, x) => result + x, '●') // '●▲■'
+```
+
+颠倒、填充数组
+
+```js
+;['■', '●', '▲'].reverse() // ['▲', '●', '■']
+;['■', '●', '▲'].fill('○') // ['○', '○', '○']
+```

@@ -1,0 +1,81 @@
+---
+type: 'Post'
+date: '2022-03-16'
+title: Swift - 可选链
+tags: [swift]
+description: 可选链（Optional Chaining）是 Swift 中一种用于在调用属性、方法或下标脚本时处理值可能为空的机制。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/4w1PoZ.png
+---
+
+可选链（Optional Chaining）是 Swift 中一种用于在调用属性、方法或下标脚本时处理值可能为空的机制。
+
+在 Swift 中，如果一个对象的属性或方法返回值类型是可选类型（Optional Type），则在访问这个属性或方法时，需要使用可选链来避免空值引用导致的运行时错误。
+
+可选链使用问号 ? 表示，如果一个属性、方法或下标脚本可能为空，则在其名称后面加上问号 ? 表示可选链：
+
+```swift
+class Person {
+    var name: String?
+}
+
+let person: Person? = Person()
+
+// 如果 person 为 nil，则不执行 name 的赋值操作
+person?.name = "Tom"
+```
+
+在上述示例中，如果 person 对象为空，即使尝试给 name 属性赋值也不会引发运行时错误。
+
+同时，可选链也可以用于调用方法或下标脚本：
+
+```swift
+class Person {
+    var name: String?
+
+    func sayHello() {
+        print("Hello, my name is \(name ?? "")")
+    }
+
+    subscript(index: Int) -> String? {
+        return name
+    }
+}
+
+let person: Person? = Person()
+
+// 如果 person 为空，则不执行 sayHello 方法
+person?.sayHello()
+
+// 如果 person 为空，则返回 nil
+let name = person?[0]
+```
+
+在上述示例中，使用可选链调用 sayHello 方法和获取下标脚本，即使 person 为空也不会引发运行时错误。
+
+需要注意的是，当使用可选链调用属性或方法时，如果这个属性或方法返回的是非可选类型，那么返回的值会被自动包装为可选类型。因此，当使用可选链调用方法或属性后需要对返回的值进行解包。
+
+```swift
+class Person {
+    var name: String?
+
+    func sayHello() {
+        print("Hello, my name is \(name ?? "")")
+    }
+
+    func getAge() -> Int {
+        return 18
+    }
+}
+
+let person: Person? = Person()
+
+// 返回值为可选类型，需要对返回值进行解包
+let age = person?.getAge()
+
+// age 的类型为 Optional<Int>，需要对其进行解包
+if let age = age {
+  print(age)
+}
+```
+
+在上述示例中，调用 getAge 方法返回的是一个 Int 类型，但是由于使用了可选链，返回的值被自动包装成了可选类型，需要对其进行解包。

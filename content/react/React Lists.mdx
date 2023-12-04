@@ -1,0 +1,25 @@
+---
+type: 'Post'
+date: '2021-04-20'
+title: 'React Lists'
+tags: [react, javascript]
+description: React是一个JavaScript库，致力于使UI开发变得简单
+---
+
+react 使用`.map`遍历并显示列表组件。
+
+```jsx
+function SoccerPlayers() {
+  const players = ['Messi', 'Ronaldo', 'Laspada']
+
+  return (
+    <div>
+      {players.map((playerName) => (
+        <SoccerPlayer key={playerName} name={playerName} />
+      ))}
+    </div>
+  )
+}
+```
+
+遍历输出的组件中`key`是必需的，因为它是用来唯一标识组件的。

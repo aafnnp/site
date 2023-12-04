@@ -1,0 +1,40 @@
+---
+type: 'Post'
+date: '2022-05-24'
+title: 'css - Transitions'
+tags: [css]
+---
+
+Transitions（过渡）是一种 CSS 技术，可以在状态变化时平滑地改变元素的属性值，从而创建动画效果。过渡通常用于鼠标悬停、焦点变化或点击等用户交互事件。
+
+过渡需要指定以下属性：
+
+- transition-property：指定要应用过渡效果的 CSS 属性名称，可以是单个属性或多个属性的组合。
+- transition-duration：指定过渡效果的持续时间，以秒或毫秒为单位。
+- transition-timing-function：指定过渡效果的时间函数，控制过渡效果的速度和动画形式。常见的时间函数包括 ease、linear、ease-in、ease-out 和 ease-in-out。
+- transition-delay：指定过渡效果的延迟时间，以秒或毫秒为单位。
+
+例如，以下代码将在鼠标悬停时将按钮的背景颜色从白色变为灰色，并在 1 秒内平滑过渡：
+
+```css
+button {
+  background-color: white;
+  transition: background-color 1s ease;
+}
+
+button:hover {
+  background-color: gray;
+}
+```
+
+过渡还可以通过使用 CSS3 的 transform 和 opacity 属性来创建更复杂的动画效果。例如，以下代码将使元素在鼠标悬停时旋转 45 度，并在 1 秒内平滑过渡：
+
+```css
+div {
+  transition: transform 1s ease;
+}
+
+div:hover {
+  transform: rotate(45deg);
+}
+```

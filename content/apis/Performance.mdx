@@ -1,0 +1,109 @@
+---
+type: 'Post'
+date: '2020-04-12'
+title: 'Performance API'
+tags: [javascript]
+description: Performance API是一个浏览器提供的API，可用于测量和分析Web应用程序的性能
+---
+
+Performance API 是一个浏览器提供的 API，可用于测量和分析 Web 应用程序的性能。下面是使用 Performance API 的一般步骤：
+
+- 获取 Performance 对象：使用 window.performance 属性可以获取 Performance 对象。
+- 使用 Performance.timing 属性获取时间信息：Performance.timing 属性返回一个对象，其中包含了各种时间信息，例如页面加载时间、DNS 解析时间等等。
+- 使用 Performance.navigation 属性获取导航信息：Performance.navigation 属性返回一个对象，其中包含了导航信息，例如重定向次数等等。
+- 使用 Performance.mark()方法进行标记：Performance.mark()方法可用于在代码中标记关键点，例如页面开始加载和结束加载。这样可以方便地跟踪代码执行的性能。
+- 使用 Performance.measure()方法进行测量：Performance.measure()方法可用于测量两个标记之间的时间差，例如页面加载时间。
+- 使用 Performance.getEntries()方法获取性能条目：Performance.getEntries()方法返回一个包含所有性能条目的数组，可以使用它来获取更详细的性能数据。
+
+下面是一个简单的示例，演示如何使用 Performance API 测量页面加载时间：
+
+```javascript
+// 获取Performance对象
+const performance = window.performance
+
+// 在代码中标记关键点
+performance.mark('start')
+
+// 当页面加载完成后，再次标记关键点
+window.addEventListener('load', () => {
+  performance.mark('end')
+
+  // 测量页面加载时间
+  performance.measure('loadTime', 'start', 'end')
+
+  // 获取性能条目
+  const entries = performance.getEntries()
+
+  // 打印页面加载时间
+  console.log('页面加载时间:', entries[0].duration)
+})
+```
+
+> Performance API 的可用性和功能因浏览器而异，因此在使用它时需要进行兼容性测试
+
+除了上述基本的使用方法外，Performance API 还提供了一些其他的功能，例如：
+
+- Performance.now()方法：Performance.now()方法返回从页面加载开始到当前时间的毫秒数，可用于测量代码执行时间。
+- Performance.memory 属性：Performance.memory 属性返回一个对象，其中包含了内存使用情况的信息，例如当前内存使用量和总内存使用量。
+- PerformanceObserver 接口：PerformanceObserver 接口可用于监视 Performance API 中的事件和条目，例如资源加载事件和用户交互事件。
+
+下面是一个简单的示例，演示如何使用 PerformanceObserver 接口监视页面中的资源加载事件：
+
+```javascript
+// 获取Performance对象
+const performance = window.performance
+
+// 创建PerformanceObserver对象
+const observer = new PerformanceObserver((list) => {
+  // 获取所有资源加载事件的条目
+  const entries = list
+    .getEntries()
+    .filter((entry) => entry.entryType === 'resource')
+
+  // 打印每个资源的加载时间
+  entries.forEach((entry) => {
+    console.log(`${entry.name}的加载时间为${entry.duration}毫秒`)
+  })
+})
+
+// 开始监视资源加载事件
+observer.observe({type: 'resource', buffered: true})
+```
+
+在这个示例中，我们使用 PerformanceObserver 接口创建了一个观察器，监视所有资源加载事件的条目，并打印每个资源的加载时间。请注意，要监视 Performance API 中的事件和条目，需要使用 PerformanceObserver 接口。
+
+除了前面提到的功能之外，Performance API 还提供了一些高级功能，例如：
+
+- Navigation Timing Level 2：Navigation Timing Level 2 是 Performance API 的一个扩展，提供了更详细的导航信息和时间信息。例如，它可以提供更准确的页面加载时间、页面卸载时间和重定向时间等信息。
+- Long Tasks API：Long Tasks API 可用于测量页面上执行时间较长的任务，例如 JavaScript 代码或布局计算。这可以帮助开发人员识别和优化慢速操作。
+- Paint Timing API：Paint Timing API 可用于测量页面上的绘制时间，例如首次绘制时间和重绘时间。这可以帮助开发人员识别和优化页面绘制问题。
+- User Timing API：User Timing API 可用于在代码中创建自定义的时间标记和测量，例如代码块的执行时间和用户交互时间。这可以帮助开发人员更精细地测量代码执行性能。
+
+下面是一个简单的示例，演示如何使用 User Timing API 测量代码块的执行时间：
+
+```javascript
+// 获取Performance对象
+const performance = window.performance
+
+// 在代码中标记关键点
+performance.mark('start')
+
+// 执行一个耗时的代码块
+for (let i = 0; i < 1000000000; i++) {}
+
+// 再次标记关键点
+performance.mark('end')
+
+// 测量代码块的执行时间
+performance.measure('代码块执行时间', 'start', 'end')
+
+// 获取性能条目
+const entries = performance.getEntries()
+
+// 打印代码块的执行时间
+console.log('代码块执行时间:', entries[0].duration)
+```
+
+在这个示例中，我们使用 User Timing API 在代码中标记了关键点，并测量了执行时间。请注意，User Timing API 可以在代码中创建自定义的时间标记和测量，从而更精细地测量代码执行性能。
+
+总的来说，Performance API 提供了很多有用的功能，可以帮助开发人员识别和解决 Web 应用程序中的性能问题。开发人员可以根据应用程序的需求选择适合的 API 和方法，从而优化 Web 应用程序的性能。

@@ -1,0 +1,67 @@
+---
+type: 'Post'
+date: '2023-08-23'
+title: 'Swift - 在 SwiftUI 中使用 Xcode 预览'
+tags: [swift]
+description: SwiftUI 的一个重要特性是它如何与 Xcode 预览集成，这使您可以在处理用户界面时看到实时的用户界面代码。预览提供了一种快速有效的方法来开发和迭代应用程序的 UI 设计。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/lZDIhG.jpg
+originalUrl: https://www.kodeco.com/books/swiftui-cookbook/v1.0/chapters/3-use-xcode-previews-with-swiftui
+---
+
+SwiftUI 的一个重要特性是它如何与 Xcode 预览集成，这使您可以在处理用户界面时看到实时的用户界面代码。预览提供了一种快速有效的方法来开发和迭代应用程序的 UI 设计。
+
+可以通过使用画布窗口中的控件或直接在 Xcode 编辑器中编辑代码来操作预览。在对代码进行更改时，预览将实时更新，使您能够看到这些更改如何影响 UI 的外观。
+
+下面是一个如何在 SwiftUI 中使用预览的例子:
+
+```swift
+import SwiftUI
+
+struct ContentView: View {
+  var body: some View {
+    VStack {
+      Text("Hello, SwiftUI!")
+        .padding()
+      Button(action: {
+        print("Button tapped!")
+      }) {
+        Text("Tap me!")
+      }
+    }
+  }
+}
+
+struct ContentView_Previews: PreviewProvider {
+  static var previews: some View {
+    ContentView()
+      .previewDevice("iPhone 14 Pro")
+  }
+}
+```
+
+在本例中，我们有一个简单的 `VStack`，它包含一个 `Text` 视图和一个 `Button` 视图。`ContentView_Previews` 结构负责生成实时预览。
+
+当你在 `Xcode` 运行这个程序并显示预览时，你会看到你的用户界面显示在 `iPhone14 Pro` 上。然后，可以通过修改代码或使用预览窗口中的工具实时操作此视图。
+
+![KocAYr](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/KocAYr.jpg)
+
+除了在不同的设备上预览 UI 之外，你还可以设置不同的预览配置，比如明暗外观、方向、可访问性设置等等。例如，可以将 `ContentView_Previews` 替换为以下内容:
+
+```swift
+struct ContentView_Previews: PreviewProvider {
+  static var previews: some View {
+    ContentView()
+      .previewDevice("iPhone 14 Pro")
+    ContentView()
+      .preferredColorScheme(.dark)
+    ContentView()
+      .previewInterfaceOrientation(.landscapeLeft)
+  }
+}
+```
+
+现在可以在你的画布上看到3个不同的预览: 一个是 iPhone 14 Pro，一个是 Dark Mode，还有一个是横向的:
+
+![GjjTsX](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/GjjTsX.jpg)
+
+使用预览是使用 SwiftUI 开发用户界面的一个强大工具。通过一点点的练习，你将能够快速而轻松地迭代你的设计，创建漂亮而响应迅速的应用程序。

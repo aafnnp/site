@@ -1,0 +1,231 @@
+---
+type: 'Post'
+date: '2022-03-04'
+title: Swift - 集合类型
+tags: [swift]
+description: Swift中的集合类型（Collection Types）是一组相同类型的值的集合，可以使用这些集合类型来存储和操作数据
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/brKfFk.jpg
+---
+
+Swift 中有三种主要的集合类型：数组、集合和字典。
+
+## 数组（Arrays）
+
+数组是一组有序的值的集合，可以使用下标来访问每个值。Swift 中的数组可以存储相同类型的值，也可以使用泛型来存储不同类型的值。
+
+以下是创建和操作数组的示例：
+
+```swift
+
+// 创建数组
+var numbers: [Int] = [1, 2, 3, 4, 5]
+var strings = ["Apple", "Banana", "Orange"]
+
+// 访问数组中的值
+let firstNum = numbers[0] // 1
+let lastStr = strings[strings.count - 1] // "Orange"
+
+// 修改数组中的值
+numbers[2] = 10
+strings.append("Grape")
+
+// 遍历数组中的所有值
+for number in numbers {
+print(number)
+}
+```
+
+## 集合（Sets）
+
+集合是一组无序的唯一值的集合。Swift 中的集合可以存储任何可哈希的值（Hashable），例如数字、字符串和布尔值等。集合中不允许存在重复的值。
+
+以下是创建和操作集合的示例：
+
+```swift
+
+// 创建集合
+var set1: Set<Int> = [1, 2, 3, 4, 5]
+var set2: Set<String> = ["Apple", "Banana", "Orange"]
+
+// 访问集合中的值
+let hasThree = set1.contains(3) // true
+
+// 修改集合中的值
+set1.insert(6)
+set2.remove("Banana")
+
+// 遍历集合中的所有值
+for element in set2 {
+print(element)
+}
+```
+
+## 字典（Dictionaries）
+
+字典是一组无序的键值对的集合，每个键都唯一且与一个值相关联。Swift 中的字典可以存储任何可哈希的键（Hashable）和任何值，例如数字、字符串和布尔值等。
+
+以下是创建和操作字典的示例：
+
+```swift
+
+// 创建字典
+var dict1: [String: Int] = ["One": 1, "Two": 2, "Three": 3]
+var dict2 = ["Red": "#FF0000", "Green": "#00FF00", "Blue": "#0000FF"]
+
+// 访问字典中的值
+let redCode = dict2["Red"] // "#FF0000"
+
+// 修改字典中的值
+dict1["One"] = 10
+dict2["Yellow"] = "#FFFF00"
+
+// 遍历字典中的所有键值对
+for (key, value) in dict1 {
+print("\(key): \(value)")
+}
+```
+
+Swift 中的集合类型还提供了各种方法和属性，以支持常见的集合操作，例如排序、筛选、合并、查找等。如果您需要更深入地了解 Swift 中的集合类型，可以查看 Swift 官方文档中的相关章
+
+## 元组（Tuples）
+
+元组是将多个值组合在一起的一种方式，这些值可以是任何类型，并不要求是相同类型。元组中的每个值都可以通过名称或下标来访问。
+
+以下是创建和操作元组的示例：
+
+```swift
+
+// 创建元组
+let person = ("Tom", 25, true)
+
+// 访问元组中的值
+let name = person.0 // "Tom"
+let age = person.1 // 25
+let isMale = person.2 // true
+
+// 创建带有标签的元组
+let student = (name: "Alice", age: 20, isMale: false)
+
+// 访问带有标签的元组中的值
+let studentName = student.name // "Alice"
+let studentAge = student.age // 20
+let studentIsMale = student.isMale // false
+```
+
+## Range（区间）
+
+区间是表示一定范围内值的类型。Swift 中有两种类型的区间：半开区间和闭区间。半开区间包含起始值，不包含结束值。闭区间包含起始值和结束值。
+
+以下是创建和操作区间的示例：
+
+```swift
+
+// 创建区间
+let range1 = 1..<5 // 半开区间，包含1，不包含5
+let range2 = 1...5 // 闭区间，包含1和5
+
+// 遍历区间中的所有值
+for i in range1 {
+print(i)
+}
+
+for i in range2.reversed() {
+print(i)
+}
+```
+
+Swift 的集合类型和区间类型提供了丰富的功能和操作，可以满足各种不同的需求。因此，在编写 Swift 代码时，选择正确的集合类型和区间类型非常重要，可以使代码更加简洁和高效。
+
+## 字典（Dictionary）
+
+字典是一种存储键值对的集合类型。在字典中，每个值都与一个唯一的键相关联。字典中的键必须是唯一的，并且必须是可哈希的（即可以用作字典键的类型必须符合 Hashable 协议）。
+
+以下是创建和操作字典的示例：
+
+```swift
+
+// 创建字典
+var scores = ["Tom": 80, "Jerry": 90, "Alice": 95]
+
+// 添加和更新字典中的值
+scores["Bob"] = 85 // 添加
+scores["Tom"] = 85 // 更新
+
+// 删除字典中的值
+scores.removeValue(forKey: "Jerry")
+
+// 遍历字典中的键值对
+for (name, score) in scores {
+print("\(name) scored \(score)")
+}
+
+// 获取字典中所有的键和值
+let names = Array(scores.keys)
+let scoresArray = Array(scores.values)
+```
+
+## 集合（Set）
+
+集合是一种无序的、不重复的元素集合类型。集合中的每个元素必须是唯一的，并且必须是可哈希的（即可以用作集合元素的类型必须符合 Hashable 协议）。
+
+以下是创建和操作集合的示例：
+
+```swift
+
+// 创建集合
+var set1: Set<Int> = [1, 2, 3, 4, 5]
+var set2: Set<Int> = [4, 5, 6, 7, 8]
+
+// 集合运算
+let union = set1.union(set2) // 并集
+let intersection = set1.intersection(set2) // 交集
+let difference = set1.symmetricDifference(set2) // 对称差集
+
+// 添加和删除集合中的元素
+set1.insert(6)
+set1.remove(5)
+
+// 遍历集合中的所有元素
+for element in set1 {
+print(element)
+}
+```
+
+Swift 的集合类型提供了丰富的功能和操作，可以方便地对数据进行处理和操作。选择正确的集合类型可以使代码更加简洁和高效。
+
+## 可选类型（Optional）
+
+Swift 的可选类型是一种用于处理值缺失的类型。可选类型可以表示一个值存在或不存在。如果一个值存在，可选类型就包含这个值；如果一个值不存在，可选类型就是 nil。
+
+以下是创建和操作可选类型的示例：
+
+```swift
+
+// 创建可选类型
+var name: String? = "Tom"
+
+// 访问可选类型中的值
+if let unwrappedName = name {
+print("Name is \(unwrappedName)")
+} else {
+print("Name is nil")
+}
+
+// 强制解包可选类型中的值
+let unwrappedName2 = name!
+print("Name is \(unwrappedName2)")
+
+// 可选绑定
+if let name = name {
+print("Name is \(name)")
+} else {
+print("Name is nil")
+}
+
+// nil 合并运算符
+let defaultName = "John"
+let finalName = name ?? defaultName
+print("Name is \(finalName)")
+```
+
+可选类型在 Swift 中经常使用，因为它可以很好地处理值缺失的情况。如果不使用可选类型，代码会变得非常冗长和复杂。因此，在 Swift 中，使用可选类型来处理值缺失的情况是一种很好的实践。

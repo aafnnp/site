@@ -1,0 +1,142 @@
+---
+type: 'Post'
+date: '2022-11-24 15:26:00'
+title: 'Next.js - Switch Theme Mode'
+tags: [Nextjs, javascript, react]
+description: 从性能、打包大小、SEO来看，Next.js可能是最适合写blog的React框架。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mode.gif
+---
+
+## 前置
+
+[【上一篇】](/blog/javascript/nextjs/tips/build-blog-with-nextjs)完成了使用 Next.js 构建 blog。
+
+**注意**
+
+主题切换基于`chakra-ui`、`tailwindcss(可选)`，chakra-ui 和 tailwind.css 都内置支持颜色模式
+
+> chakra-ui 将颜色模式变量值存储在`localstorage`中，以确保持久化
+
+详细文档参考[Color Mode](https://chakra-ui.com/docs/styled-system/color-mode)
+
+```bash
+pnpm install react-icons
+```
+
+## 设置
+
+新增`utils/theme.ts`
+
+```ts
+import {extendTheme, type ThemeConfig} from '@chakra-ui/react'
+
+const theme = extendTheme({
+  config: {
+    initialColorMode: 'system',
+    useSystemColorMode: true
+  } as ThemeConfig,
+  fonts: {
+    heading: `'Dosis', sans-serif`
+  }
+})
+
+export default theme
+```
+
+## 修改\_document.js
+
+```tsx
+// pages/_document.js
+
+import {ColorModeScript} from '@chakra-ui/react'
+import NextDocument, {Html, Head, Main, NextScript} from 'next/document'
+import theme from './theme'
+
+export default class Document extends NextDocument {
+  render() {
+    return (
+      <Html lang="en">
+        <Head />
+        <body>
+          {/* 👇 Here's the script */}
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    )
+  }
+}
+```
+
+新增`components/DarkModeSwitch/index.tsx`
+
+```tsx
+import {useColorMode, Box} from '@chakra-ui/react'
+import {BsMoonFill, BsFillSunFill} from 'react-icons/bs'
+
+const DarkModeSwitch = () => {
+  const {colorMode, toggleColorMode} = useColorMode()
+  return (
+    <Box
+      as="div"
+      position="absolute"
+      top={4}
+      right={4}
+      zIndex={9999}
+      onClick={toggleColorMode}
+    >
+      {colorMode === 'light' ? (
+        <BsMoonFill size={18} />
+      ) : (
+        <BsFillSunFill size={18} />
+      )}
+    </Box>
+  )
+}
+
+export default DarkModeSwitch
+```
+
+修改`pages/_app.tsx`
+
+```tsx
+import dynamic from 'next/dynamic'
+import Head from 'next/head'
+import React from 'react'
+import {ChakraProvider} from '@chakra-ui/react'
+import theme from 'utils/theme'
+
+// 新增
+const DarkModeSwitch = dynamic(() => import('components/DarkModeSwitch'), {
+  ssr: false
+})
+
+const App = ({Component, pageProps, router}) => {
+  const {route} = router
+  const url = `https://manon.icu${route}`
+
+  return (
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=5"
+        />
+        <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="Manon.icu,homepage" />
+        <title>Manon.icu | Home</title>
+      </Head>
+      <ChakraProvider theme={theme}>
+        {/* 新增 */}
+        <DarkModeSwitch />
+        <Component {...pageProps} canonical={url} key={url} />
+      </ChakraProvider>
+    </>
+  )
+}
+
+export default App
+```
+
+[Source Code](https://github.com/Manonicu/blog-demo/tree/feat-switch-theme-mode)

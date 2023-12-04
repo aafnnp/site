@@ -1,0 +1,99 @@
+---
+type: 'Post'
+date: '2022-04-07 10:13:27'
+title: 'Node.js - Crypto'
+tags: [nodejs, javascript]
+---
+
+`crypto`模块提供了加密功能，其中包括了用于 OpenSSL 散列、HMAC、加密、解密、签名、以及验证的函数的一整套封装。
+
+几种常见的加密、解密算法：
+
+- hash HMAC
+- cipher
+- decipher
+- sign
+- verify
+
+## 什么是 hash
+
+hash 是一种散列函数，用于生成一个唯一的值，用于比较两个值是否相同。
+
+## 什么是 HMAC
+
+HMAC 是一种基于 hash 的密钥的认证算法，它可以用于验证数据的完整性，以及防止被篡改。
+
+```js
+const {createHmac} = require('crypto')
+
+const secret = 'abcdefg'
+const hash = createHmac('sha256', secret)
+  .update('I love cupcakes')
+  .digest('hex')
+console.log(hash)
+// c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
+```
+
+使用`cipher`加密
+
+```js
+const crypto = require('crypto')
+const cipher = crypto.createCipher('aes192', 'a password')
+
+var encrypted = cipher.update('some clear text data', 'utf8', 'hex')
+encrypted += cipher.final('hex')
+
+console.log(encrypted)
+```
+
+使用`decipher`解密
+
+```js
+const crypto = require('crypto')
+const decipher = crypto.createDecipher('aes192', 'a password')
+
+var encrypted =
+  'c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e'
+var decrypted = decipher.update(encrypted, 'hex', 'utf8')
+decrypted += decipher.final('utf8')
+console.log(decipher)
+```
+
+使用`sign`签名
+
+```js
+const crypto = require('crypto')
+const buffer = require('buffer')
+
+const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa', {
+  modulusLength: 2048
+})
+
+const data = Buffer.from('I Love GeeksForGeeks')
+
+const sign = crypto.sign('SHA256', data, privateKey)
+
+const signature = sign.toString('base64')
+
+console.log(`Signature:\n\n ${signature}`)
+```
+
+使用`verify`验证
+
+```js
+const crypto = require('crypto')
+const buffer = require('buffer')
+
+const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa', {
+  modulusLength: 2048
+})
+const algorithm = 'SHA256'
+
+const data = Buffer.from('I Love GeeksForGeeks')
+
+const signature = crypto.sign(algorithm, data, privateKey)
+
+const isVerified = crypto.verify(algorithm, data, publicKey, signature)
+
+console.log(`Is signature verified:${isVerified}`)
+```

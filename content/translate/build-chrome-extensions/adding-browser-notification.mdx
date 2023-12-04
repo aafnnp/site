@@ -1,0 +1,63 @@
+---
+type: 'Post'
+date: '2022-08-27 15:07:44'
+title: 'Chrome插件开发 - Adding browser notifications'
+tags: [chrome]
+description: 基于react、tailwindcss开发自己的chrome插件
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9OUqg7.jpg
+---
+
+在这篇文章中将学习给浏览器添加通知推送事件，如下视频：
+
+<video
+  src="https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/notification_qlwotx.webm"
+  autoPlay
+/>
+
+## 添加通知推送
+
+[Browser notifications](https://web.dev/push-notifications-overview/)类似于手机上的消息通知。
+
+添加权限
+
+```json
+{
+  "permissions": ["notifications"]
+}
+```
+
+修改`src/App.jsx`
+
+```jsx
+export function App() {
+  const createNotification = () => {
+    chrome.notifications.create({
+      type: 'basic',
+      iconUrl: 'icons/icon-48.png',
+      title: 'Hi there 👋',
+      message: 'Just a reminder that you rock!',
+      buttons: [{title: 'I know ☺️'}],
+      priority: 0
+    })
+  }
+
+  return (
+    <div className="flex flex-col items-center justify-center w-screen h-auto bg-indigo-400 p-4">
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 text-2xl px-4 rounded"
+        onClick={createNotification}
+      >
+        Surprise me 🎉
+      </button>
+    </div>
+  )
+}
+```
+
+`chrome.notifications`创建浏览器通知
+
+![ACK4uA](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/ACK4uA.jpg)
+
+## Source Code
+
+[【Source Code】](https://github.com/rebelchris/popup-extension/tree/weather)

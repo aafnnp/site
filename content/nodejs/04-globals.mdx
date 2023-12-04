@@ -1,0 +1,168 @@
+---
+type: 'Post'
+date: '2022-04-01 11:31:20'
+title: 'Node.js - 全局对象(globals)'
+tags: [nodejs, javascript]
+---
+
+`Node.js`全局对象可以在任何模块使用，包括模块、函数、字符串、对象等。
+
+## \_\_dirname
+
+表示当前执行脚本所在的目录
+
+```js
+console.log(__dirname)
+```
+
+## \_\_filename
+
+表示当前执行脚本的文件名
+
+```js
+console.log(__filename)
+```
+
+## console
+
+用于控制台标准输出，常用 console 方法：
+
+- `log`:输出信息
+- `info`:输出信息，和 log 一样
+- `error`:输出错误信息 ❌
+- `warn`:输出警告消息 ⚠️
+- `dir`:用来对一个对象进行检查
+- `time`:开始时间，及时开始
+- `timeEnd`:结束时间，计时结束
+- `trace`:当前执行代码在堆栈中的调用路径
+- `assert`:判断两个表达式是否为真
+
+## process
+
+`process`用于描述当前 Node.js 进程状态的对象，提供了一个与操作系统的简单接口
+
+常用方法：
+
+- `exit`:当进程准备退出时触发
+- `beforeExit`:当 node 进程清空事件循环时
+- `uncaughtException`:当一个异常冒泡回到事件循环时
+- `signal` 事件:当进程接收到信号时
+
+常用属性：
+
+- `stdout`:标准输出流。
+- `stderr`:标准错误流。
+- `stdin`:标准输入流。
+- `argv`:argv 属性返回一个数组，由命令行执行脚本时的各个参数组成。它的第一个成员总是 node，第二个成员是脚本文件名，其余成员是脚本文件的参数。
+- `execPath`:返回执行当前脚本的 Node 二进制文件的绝对路径。
+- `execArgv`:返回一个数组，成员是命令行下执行脚本时，在 Node 可执行文件与脚本文件之间的命令行参数。
+- `env`:返回一个对象，成员为当前 shell 的环境变量
+- `exitCode`:进程退出时的代码，如果进程优通过 process.exit() 退出，不需要指定退出码。
+- `version`:Node 的版本，比如 v0.10.18。
+- `versions`:一个属性，包含了 node 的版本和依赖.
+- `config`:一个包含用来编译当前 node 执行文件的 javascript 配置选项的对象。它与运行 ./configure 脚本生成的 "config.gypi" 文件相同。
+- `pid`:当前进程的进程号。
+- `title`:进程名，默认值为"node"，可以自定义该值。
+- `arch`:当前 CPU 的架构：'arm'、'ia32' 或者 'x64'。
+- `platform`:运行程序所在的平台系统 'darwin', 'freebsd', 'linux', 'sunos' 或 'win32'
+- `mainModule`:require.main 的备选方法。不同点，如果主模块在运行时改变，require.main 可能会继续返回老的模块。可以认为，这两者引用了同一个模块。
+
+## buffer
+
+js 只有字符串数据类型，没有二进制数据类型，不过，在处理`tcp`流和文件流时，就必需使用到二进制数据。
+
+`buffer`用于创建存放二进制数据的缓存区
+
+```js
+const buf = Buffer.from('Hey!')
+```
+
+获取 buffer 的长度
+
+```js
+buf.length
+```
+
+遍历 buffer 的内容
+
+```js
+for (const item of buf) {
+  console.log(item)
+}
+```
+
+写入 buffer 内容
+
+```js
+buf.write('world')
+```
+
+复制 buffer
+
+```js
+buf.copy(Buffer.alloc(4))
+```
+
+切割 buffer
+
+```js
+buf.slice(0).toString()
+```
+
+## setImmediate
+
+当要异步地（但要尽可能快）执行某些代码时，即传入的任何函数将在事件循环的下一个迭代中执行回调。
+
+类似于`setTimeout(()=>{},0)`
+
+```js
+setImmediate(() => {
+  console.log('immediate')
+})
+```
+
+[setTimeout 和 setImmediate 到底谁先执行](https://segmentfault.com/a/1190000023315304)
+
+## setInterval
+
+在指定毫秒数`ms`后执行指定函数`cb`，在调用`clearInterval`之前，每隔指定毫秒数执行一次。
+
+```js
+function t() {
+  console.log(1)
+}
+
+const interFn = setInterval(t, 1000)
+```
+
+## setTimeout
+
+在指定毫秒数`ms`后执行指定函数`cb`，只执行一次
+
+```js
+function o() {
+  console.log(2)
+}
+
+const timeFn = setTimeout(o, 1000)
+```
+
+## clearImmediate
+
+用于清除`setImmediate`
+
+## clearInterval
+
+用于清除一个之前通过`setInterval`创建的定时器
+
+```js
+clearInterval(interFn)
+```
+
+## clearTimeout
+
+用于清除一个之前通过`setTimeout`创建的定时器
+
+```js
+clearTimeout(timeFn)
+```

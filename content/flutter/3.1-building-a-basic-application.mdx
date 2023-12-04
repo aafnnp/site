@@ -1,0 +1,56 @@
+---
+type: 'Post'
+date: 2023-07-12
+title: Building a Basic Application with Flutter
+tags: [flutter]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9Ajuhc.png
+---
+
+在本单元中，我们将逐步介绍设置新的Flutter项目、理解项目结构、在不同平台上运行应用程序以及向应用程序添加基本功能和样式的过程。
+
+## 设置项目并运行Flutter应用程序
+
+### 创建一个新的Flutter项目
+
+要创建一个新的Flutter项目，请打开终端或命令提示符，并导航到您想要创建项目的目录。然后运行以下命令：
+
+```bash
+flutter create my_app
+```
+
+将"my_app"替换为您的项目名称。此命令将创建一个名为"my_app"的新目录，并包含Flutter项目所需的所有文件和目录。
+
+### 理解项目结构
+
+Flutter项目具有特定的结构。以下是您应该了解的最重要的目录和文件：
+
+- lib/：这是您编写Dart代码的位置。应用程序的主入口点（main.dart）位于此目录中。
+- test/：此目录用于测试应用程序。
+- android/和ios/：这些目录分别包含Android和iOS的文件。通常情况下，您不需要修改这些文件。
+- pubspec.yaml：此文件用于管理应用程序的软件包和资源。
+
+### 运行Flutter应用程序
+
+要运行Flutter应用程序，请在终端中导航到项目目录，并运行以下命令：
+
+```bash
+flutter run
+```
+
+此命令会构建并将Flutter应用程序安装到连接的设备或模拟器中。
+
+## 添加功能和优化
+
+### 为应用程序添加交互性
+
+在Flutter中，一切都是小部件。要为应用程序添加交互性，可以使用有状态的小部件。有状态的小部件可以随时间改变（例如，根据用户交互更改外观的小部件）。
+
+### 实现基本UI元素
+
+Flutter提供了丰富的小部件集合，用于创建复杂的用户界面。例如，您可以使用Container小部件进行填充，使用Row和Column小部件进行布局，使用Text小部件显示文本。
+
+### 为应用程序添加样式
+
+Flutter提供了强大的样式系统。您可以通过向MaterialApp小部件提供ThemeData来为应用程序设置样式。ThemeData可以指定应用程序的颜色、排版和形状。您还可以使用特定的样式属性来为单个小部件设置样式。
+
+在下一个单元中，我们将学习如何为我们的Flutter应用程序添加高级功能。敬请关注！

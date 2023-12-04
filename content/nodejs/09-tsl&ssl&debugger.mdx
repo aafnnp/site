@@ -1,0 +1,82 @@
+---
+type: 'Post'
+date: '2022-04-07 15:28:16'
+title: 'Node.js - TLS & SSL & Debugger'
+tags: [nodejs, javascript]
+description: TLS负责安全传输，SSL负责安全签名，Debugger负责调试。
+---
+
+## TLS & SSL
+
+TSL 是一种安全传输协议，它是一种基于 SSL 的加密协议。
+
+TSL 使用公钥加密数据，使用私钥解密数据。
+
+公开密钥加密（public-key cryptography）也称为非对称密钥加密（asymmetric cryptography），是一种密码学算法类型。该加密算法使用两个不同的密钥：加密密钥和解密密钥。
+
+私钥创建：
+
+```bash
+openssl genrsa -out private.pem 2048
+```
+
+证书创建：
+
+```bash
+openssl req -new -key private.pem -out csr.pem
+```
+
+使用 CSR 证书创建证书：
+
+```bash
+openssl x509 -req -in csr.pem -signkey private.pem -out certificate.pem
+```
+
+TLS 客户端实例：
+
+```js
+const tls = require('tls')
+function connected(stream) {
+  if (stream) {
+    stream.write('GET / HTTP/1.0\n\rHost: encrypted.google.com:443\n\r\n\r')
+  } else {
+    console.log('Connection failed')
+  }
+}
+var dummy = this
+dummy.socket = tls.connect(443, 'encrypted.google.com', function () {
+  dummy.connected = true
+  if (dummy.socket.authorized) {
+    dummy.socket.setEncoding('utf-8')
+    connected(dummy.socket)
+  } else {
+    console.log(dummy.socket.authorizationError)
+    connected(null)
+  }
+})
+dummy.socket.addListener('data', function (data) {
+  console.log(data)
+})
+dummy.socket.addListener('error', function (error) {
+  if (!dummy.connected) {
+    connected(null)
+  }
+  console.log('FAIL')
+  console.log(error)
+})
+dummy.socket.addListener('close', function () {
+  // do something
+})
+```
+
+## Debugger
+
+`Node.js`提供一个简单的基于 TCP 的调试器，可以在控制台中调试脚本。
+
+语法：`node --inspect [script] [arguments]`或`node debug [script] [arguments]`
+
+```bash
+node demo.js
+```
+
+除此之外还可以使用`console.log`输出调试信息，这些信息将被输出到控制台。

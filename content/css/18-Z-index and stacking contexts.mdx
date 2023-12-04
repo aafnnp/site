@@ -1,0 +1,63 @@
+---
+type: 'Post'
+date: '2022-05-17'
+title: 'css - Z-index & Stacking Context'
+tags: [css]
+---
+
+在 CSS 中，z-index 和层叠上下文（Stacking Context）是用于控制元素的层叠顺序和叠放顺序的两个关键概念。它们通常用于解决重叠元素的显示问题。
+
+1. z-index：z-index 是一个 CSS 属性，用于控制元素在层叠顺序中的位置。它的取值可以是数字或 auto。数字越大，元素越靠近视口，也就是显示在前面。如果两个元素的 z-index 相同，它们的顺序将由它们在 HTML 中出现的顺序决定。z-index 只对已经定位（position）的元素有效。
+
+2. 层叠上下文（Stacking Context）：层叠上下文是一种 HTML 元素的层叠环境。每个层叠上下文都有自己的层叠顺序，元素在其中的位置由层叠顺序和 z-index 值共同决定。当一个元素有层叠上下文时，它的子元素的层叠顺序和 z-index 将相对于其父元素进行计算。
+
+层叠上下文有多种创建方式，包括：
+
+- 根元素（HTML）和 window 对象是层叠上下文的根元素。
+- position 值为 absolute 或 relative 且 z-index 值不为 auto 的元素。
+- position 值为 fixed 或 sticky 的元素。
+- 具有 opacity 值小于 1 的元素。
+- 具有 transform、filter、perspective、clip-path、mask、mix-blend-mode 等属性的元素。
+- 具有 isolation 属性设置为 isolate 的元素。
+- 具有 will-change 属性的元素（例如 will-change: transform）。
+
+当元素发生重叠时，可以通过改变层叠顺序和 z-index 值来控制它们的显示顺序。但是，应该注意避免滥用 z-index 和层叠上下文，因为它们可能会导致布局问题和难以维护的代码。建议尽可能使用更简单和可预测的布局方法，如 Flexbox 和 Grid，来避免这些问题。
+
+以下是一个示例，说明如何使用 z-index 和层叠上下文来控制元素的层叠顺序：
+
+HTML 代码：
+
+```html
+<div class="parent">
+  <div class="child child1"></div>
+  <div class="child child2"></div>
+</div>
+```
+
+CSS 代码：
+
+```css
+.parent {
+  position: relative;
+}
+
+.child {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+.child1 {
+  background-color: red;
+  z-index: 1;
+}
+
+.child2 {
+  background-color: blue;
+  z-index: 2;
+}
+```
+
+在这个例子中，父元素 .parent 有定位属性 position: relative;，使它成为一个层叠上下文。子元素 .child 都有绝对定位属性 position: absolute;，并设置了相同的宽度和高度。.child1 的 z-index 值为 1，.child2 的 z-index 值为 2，因此 .child2 会显示在 .child1 的前面，即蓝色盒子会显示在红色盒子上面。
+
+通过使用 z-index 和层叠上下文，可以方便地控制元素的层叠顺序，以达到所需的布局效果。

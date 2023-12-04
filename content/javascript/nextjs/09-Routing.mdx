@@ -1,0 +1,72 @@
+---
+type: 'Post'
+date: '2022-05-09 09:59:01'
+title: 'Next.js - Routing'
+tags: [nodejs, javascript, Nextjs]
+description: Next.js的路由基于文件系统
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js_bg.svg
+---
+
+Next.js 的路由基于文件系统，当在`pages`目录下新建一个文件时，它的路由路径就会自动生成。
+
+Next.js 的路由遵循以下规则：
+
+- `index routes`
+  1. 如果文件名为`index.js`，则路由路径为`/`
+  2. 如果文件名为`posts/index.js`，则路由路径为`/posts`
+- `nested routes`
+  1. 如果文件名为`pages/settings/dashboard/about.js`，则路由路径为`/settings/dashboard/about`
+  2. 如果文件名为`pages/posts/first.js`，则路由路径为`/posts/first`
+- `dynamic routes`
+  1. 如果文件名为`pages/posts/[slug].js`，则路由路径为`/posts/[slug]`，比如`/posts/first`
+  2. 如果文件名为`pages/[user]/settings.js`，则路由路径为`/posts/:user/settings`，比如`/posts/manon/settings`
+  3. 如果文件名为`pages/posts/[...slug].js`，则路由路径为`/posts/[...slug]`，比如`/posts/first/second/third`
+
+## 页面链接
+
+Next.js 的路由链接是通过`Link`组件来实现的，它的属性是：
+
+- `href`: pages 目录下的路径
+
+更新`index.js`文件，添加一个链接：
+
+```jsx
+import Head from 'next/head'
+import Link from 'next/link'
+
+function HomePage(props) {
+  return (
+    <>
+      <Head>
+        <title>Welcome to Next.js!</title>
+      </Head>
+      <div>Welcome to Next.js!</div>
+      <Link href="/posts/first">
+        <a>First Post</a>
+      </Link>
+      <div>Next stars: {props.stars}</div>
+      <img src="/logo.jpg" alt="Logo" />
+    </>
+  )
+}
+
+export async function getServerSideProps(context) {
+  const res = await fetch('https://api.github.com/repos/vercel/next.js')
+  const json = await res.json()
+  return {
+    props: {stars: json.stargazers_count}
+  }
+}
+
+export default HomePage
+```
+
+## 启动服务
+
+```bash
+npm run dev
+```
+
+## 检查结果
+
+![emWf77](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/emWf77.png)

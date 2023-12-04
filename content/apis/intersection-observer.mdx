@@ -1,0 +1,97 @@
+---
+type: 'Post'
+date: '2022-02-21 14:01:51'
+title: 'Intersection Observer API'
+tags: [javascript]
+draft: true
+description: Intersection Observer API 提供了一种异步检测目标元素与祖先元素或 viewport 相交情况变化的方法。
+---
+
+## 什么是 Intersection Observer API？
+
+Intersection Observer API 允许你配置一个回调函数，当以下情况发生时会被调用
+
+每当目标(target)元素与设备视窗或者其他指定元素发生交集的时候执行。设备视窗或者其他元素我们称它为根元素或根(root)。
+Observer 第一次监听目标元素的时候
+
+## 核心特性和概念
+
+通常，您需要关注文档最接近的可滚动祖先元素的交集更改，如果元素不是可滚动元素的后代，则默认为设备视窗。如果要观察相对于根(root)元素的交集，请指定根(root)元素为 null。
+
+无论您是使用视口还是其他元素作为根，API 都以相同的方式工作，只要目标元素的可见性发生变化，就会执行您提供的回调函数，以便它与所需的交叉点交叉。
+
+目标(target)元素与根(root)元素之间的交叉度是交叉比(intersection ratio)。这是目标(target)元素相对于根(root)的交集百分比的表示，它的取值在 0.0 和 1.0 之间。
+
+- root：用于跟踪可见性的祖先元素，默认为浏览器视口
+- rootMargin：允许使用与边距相似的百分比或像素值更改相交边界框 top right bottom left，这对于基于传递的跟踪很有用，例如祖先的中点与底部边缘
+- threshold：触发 ​​ 回调必须可见的目标元素的百分比，定义为单个数字或介于 0 和之间的十进制值数组 1
+  一旦目标基于这些参数可见，IO 就会使用可用于事件的其他数据启动回调。一个有趣的数据是 time 观察者开始和回调被触发之间的毫秒数。
+
+IO 的一个陷阱是 threshold 价值。如果您选择 1，表示当元素 100% 可见时，则整个元素必须 root 在一次内可见。考虑到从手机到具有不同分辨率纵横比的大型显示器的可滚动区域，在某些情况下很难在不失败的情况下实现 100%。threshold 的默认值为 0，这意味着只要可见 1 个像素，回调就会启动。发生回调时更可靠的更改方法是调整 rootMargin 以重新定位目标元素需要与 root.
+
+## 创建一个基本的交叉口观察器
+
+首先，我们将确保 API 可用：
+
+```js
+if ('IntersectionObserver' in window) {
+  // IO code here
+}
+```
+
+然后我们将启动观察者，并开始观察我们的目标：
+
+```js
+// Target to observe
+const boxEl = document.getElementById('box')
+// Observer
+const boxObserver = new IntersectionObserver(callback, options)
+// Observing #box
+boxObserver.observe(boxEl)
+```
+
+对于回调函数，entries 无论目标元素的数量如何，我们都会收到一个数组。在我们的示例中，我们只关心单个条目，因此我们可以通过零索引来保存它。我们将确保它相交、移除观察者并执行我们的事件。
+
+```js
+const callback = (entries) => {
+  const box = entries[0]
+  if (!box.isIntersecting) return
+  boxObserver.unobserve(box.target)
+  boxEl.textContent = 'intersected'
+  boxEl.style.backgroundColor = 'yellow'
+}
+```
+
+如果您只需要触发一次回调，最好删除观察者。在我们的粘性目录的场景中，我们希望保持观察者处于活动状态。
+
+由于本教程页面的设置，我们需要将观察者根范围限定为 box-root. 然后我们还将调整 rootMargin 以将底部拉到 50%，这意味着我们的回调不会触发，直到框滚动到 root 元素的中点之上。
+
+```js
+const rootEl = document.getElementById('box-root')
+const options = {
+  root: rootEl,
+  rootMargin: '0% 0% -50% 0%'
+}
+```
+
+基本路口观察员
+滚动...
+
+中点
+相交
+
+## 使用 Intersection Observer 的想法
+
+除了粘性目录跟踪（您可能也熟悉为“滚动间谍”），这里还有一些其他的想法。
+
+涉及可见性或阅读时间的分析事件
+触发动画
+延迟加载资产和脚本
+关闭看不见的菜单、工具提示和覆盖
+
+## 其他资源
+
+- MDN 文档
+- 我在收集分析事件的背景下探索了几种不同的跟踪方法
+- Travis Almand 对 IO 进行了深入调查
+- Preethi 为 IO 提供了几个实际用例，例如延迟加载或暂停看不到的视频

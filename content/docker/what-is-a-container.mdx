@@ -1,0 +1,77 @@
+---
+type: 'Post'
+date: 2023-02-04 20:31:55
+title: 什么是容器
+tags: [docker]
+---
+
+## 什么是容器
+
+在容器化里，容器是最基本的概念。正如官方解释：
+
+> A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
+> 容器是一个标准的软件单元，它将代码和所有依赖打包起来，使得应用程序可以快速可靠地从一个计算环境迁移到另一个计算环境。
+
+![5zgpMt](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/5zgpMt.jpg)
+
+每个虚拟机都有自己的客户操作系统，其重量与主机操作系统一样。
+
+在虚拟机中运行的应用程序与客户操作系统进行通信，客户操作系统与虚拟机管理程序进行通信，虚拟机管理程序再与主机操作系统进行通信，从而将必要的资源从物理基础设施分配给正在运行的应用程序。
+
+正如你所看到的，在虚拟机中运行的应用程序与物理基础设施之间存在一条长长的通。在虚拟机中运行的应用程序可能只占用很少的资源，但是来宾操作系统增加了明显的开销。与虚拟机不同，容器以更智能的方式完成虚拟化的工作。它没有在容器中拥有完整的客户操作系统，而是通过容器运行时利用主机操作系统，同时保持隔离——就像传统的虚拟机一样。
+
+![fVYWrK](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/fVYWrK.jpg)
+
+容器运行时是一个软件层，它位于主机操作系统和容器之间。容器运行时的主要任务是将容器中的应用程序与主机操作系统隔离开来。容器运行时还负责管理容器的生命周期，包括创建、启动、停止、删除和暂停容器。
+
+```shell
+uname -a
+# Linux alpha-centauri 5.8.0-22-generic #23-Ubuntu SMP Fri Oct 9 00:34:40 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+
+docker run alpine uname -a
+# Linux f08dbbe9199b 5.8.0-22-generic #23-Ubuntu SMP Fri Oct 9 00:34:40 UTC 2020 x86_64 Linux
+```
+
+在上面的代码块中，我已经在主机操作系统上执行了 uname-a 命令，以打印出内核的详细信息。
+
+然后在下一行中，我在运行 Alpine Linux 的容器中执行了相同的命令。
+
+正如您在输出中看到的，容器确实使用了来自我的主机操作系统的内核。这证明了容器虚拟化主机操作系统而不是拥有自己的操作系统的观点。
+
+如果你在一台 Windows 机器上，你会发现所有的容器都使用 WSL2内核。之所以会发生这种情况，是因为 WSL2充当 Windows 上 Docker 的后端。在 macOS 上，默认的后端是运行在 HyperKit hypervisor 上的 VM。
+
+## 容器操作
+
+当你部署你的应用程序，然后你想修复一个 bug，或者只是发布一个更新，会发生什么？
+
+运行容器后，可以使用 docker ps 获取其 ID，然后使用 docker commit 从中为图像创建新标记：
+
+```bash
+docker commit <id> <username>/<imagename>:<tagname>
+```
+
+您还可以添加一条 changelog 消息，列出新版本中更改的内容：
+
+```bash
+docker commit --change "description" <id> <username>/<imagename>:<tagname>
+```
+
+```bash
+# 列出本机正在运行的容器
+$ docker container ls
+```
+
+```bash
+# 列出本机所有容器，包括终止运行的容器
+$ docker container ls --all
+```
+
+上面命令的输出结果之中，包括容器的 ID。很多地方都需要提供这个 ID，比如上一节终止容器运行的 docker container kill 命令。
+
+终止运行的容器文件，依然会占据硬盘空间，可以使用 docker container rm 命令删除。
+
+```bash
+$ docker container rm [containerID]
+```
+
+运行上面的命令之后，再使用 docker container ls --all 命令，就会发现被删除的容器文件已经消失了。

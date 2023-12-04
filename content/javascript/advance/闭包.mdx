@@ -1,0 +1,48 @@
+---
+type: 'Post'
+date: '2020-05-19'
+title: '闭包'
+tags: [javascript]
+---
+
+## 什么是闭包
+
+作用：能够在函数定义的作用域外，使用函数定义作用域内的局部变量，并且不会污染全局。
+
+原理：基于词法作用域链和垃圾回收机制，通过维持函数作用域的引用，让函数作用域可以在当前作用域外被访问到
+
+```js
+function foo() {
+  var a = 'hzfe'
+  function bar() {
+    console.log(a)
+  }
+  return bar
+}
+
+var baz = foo()
+baz() // hzfe
+```
+
+在这个例子中，函数 bar 作为返回值返回后，在自己定义的词法作用域以外的地方执行。一般来说，在函数 foo 执行后，通常会期待函数 foo 的整个内部作用域被引擎回收机制销毁。而闭包可以阻止这件事情的发生。事实上内部作用域依然存在，因为函数 bar 本身在使用，所以并不会被回收。
+
+在 JavaScript 中，每当创建一个函数，闭包就会在函数创建的同时被创建出来。
+
+## 闭包的应用
+
+无论何时何地，如果将函数作为返回值，就会看到闭包在这些函数中的应用。在定时器，事件监听器，ajax 请求，跨窗口通信，web workers 或者任何其他的异步/同步任务中，只要使用了回调函数，实际上就是使用闭包。使用闭包的例子可以参考实现节流防抖函数。
+
+```js
+var a = 'hzfe'
+;(function IIFE() {
+  console.log(a)
+})()
+```
+
+通常认为立即执行函数（IIFE）是典型的观察闭包的典型例子，但严格来说并不是。虽然创建了闭包，但没有体现出闭包的作用。因为函数并不是在它本身的词法作用域以外执行的。 它在定义时所在的作用域中执行，而非外部作用域。
+
+## 扩展
+
+- [闭包 MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)
+- [垃圾回收机制](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Closed_Overlay_Requires_Arguments)
+- [你不知道的 JavaScript](https://www.imooc.com/article/2907)

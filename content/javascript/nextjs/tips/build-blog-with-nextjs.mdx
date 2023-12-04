@@ -1,0 +1,481 @@
+---
+type: 'Post'
+date: '2022-11-24 09:50:16'
+title: 'Next.js - Building a blog'
+tags: [Nextjs, javascript, react]
+description: 从性能、打包大小、SEO来看，Next.js可能是最适合写blog的React框架。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/ferenc-almasi-L8KQIPCODV8-unsplash.jpg
+---
+
+Next.js 已经成为 React 应用程序最重要的框架之一。它可以帮助开发人员在没有模板的情况下构建更好的服务器端渲染 React 应用程序。
+
+Next.js 之所以能成为目前最好的 React 框架之一，与其很多特性离不开，比如打包构建、路由预取、TypeScript、SEO 等。
+
+对于那些想要拥有一个简单但功能强大的博客的人来说，使用 Next.js 创建博客是当今的最佳选择。
+
+SEO（搜索引擎优化）是改进应用程序在搜索引擎排名的过程。对于任何想要在搜索引擎上获得更好排名并带来更多流量的博客来说，这都是非常重要的。
+
+我们将在本文中使用 Next.js 来构建博客。我们将介绍 SSG（静态站点生成）的工作原理，并完成 SEO 友好的博客。
+
+## 入门
+
+使用官方推荐的`Create Next App`创建项目
+
+```bash
+npx create-next-app@latest --typescript
+# or
+yarn create next-app --typescript
+# or
+pnpm create next-app --typescript
+```
+
+为什么要使用`Create Next App`
+
+- 交互式体验：不带任何参数运行`npx create-next-app@latest`，将会开启交互模式，引导创建项目
+- 零依赖：`Create Next App`没有依赖，毫秒级创建项目
+- 离线支持：`Create Next App`侦测网络状态，无网状态将使用本地依赖缓存
+- 支持模板：通过加入`--example`参数，可以拉取官方仓库任何模板
+- 集成测试：集成测试功能
+
+创建完成后项目目录构造如下：
+
+```bash
+.
+├── README.md
+├── next-env.d.ts
+├── next.config.js
+├── node_modules
+├── package.json
+├── pages
+├── pnpm-lock.yaml
+├── public
+├── styles
+└── tsconfig.json
+```
+
+## 安装依赖
+
+```bash
+pnpm install globby gray-matter dayjs @chakra-ui/react prismjs @emotion/react @emotion/styled framer-motion next-mdx-remote remark-gfm
+```
+
+## 创建文章
+
+根目录新增`_posts`目录，在`_posts`目录下创建两个`mdx`文件(\_posts/js/helloWorld.mdx,\_posts/demo.mdx)，为什么是`mdx`文件呢？`mdx`支持渲染组件，支持引入导出组件，详细文档参考[MDX](https://mdxjs.com/)
+
+## 创建公共函数目录
+
+根目录新增`utils`目录，在`utils`目录下创建`getAllPosts.js`并写入如下函数
+
+```js
+import fs from 'fs'
+import {globby} from 'globby'
+import matter from 'gray-matter'
+const dayjs = require('dayjs')
+const relativeTime = require('dayjs/plugin/relativeTime')
+
+dayjs.extend(relativeTime)
+
+//获取所有文章
+const GetAllPosts = async () => {
+  const posts = await globby(['_posts'])
+  return posts
+    .reduce((prev, next) => {
+      const fileContents = fs.readFileSync(next, 'utf8')
+      const {data, content} = matter(fileContents)
+      const postData = {
+        ...data,
+        group: dayjs(data.date).format('MMM/YYYY'),
+        date: dayjs(data.date).format('MMM DD, YYYY'),
+        fromNow: dayjs(data.date).fromNow(),
+        modified: dayjs(data.modified).format('MMM DD, YYYY'),
+        content,
+        slug: next.replace(/^_posts\//, '').replace(/\.mdx$/, '')
+      }
+      !data.draft && prev.push(postData)
+      return prev
+    }, [])
+    .sort((a, b) => dayjs(b.date) - dayjs(a.date))
+}
+
+// 根据slug导出文章
+const GetPostBySlug = (slug) => {
+  // eslint-disable-next-line no-undef
+  return new Promise((resolve, reject) => {
+    GetAllPosts()
+      .then((posts) => {
+        const post = posts.find((post) =>
+          post.slug.includes(`${slug.join('/')}`)
+        )
+        resolve(post)
+      })
+      .catch(() => {
+        reject({})
+      })
+  })
+}
+
+export {GetAllPosts, GetPostBySlug}
+```
+
+## 创建组件
+
+根目录新增`components`目录
+
+1. 创建`PostPage.tsx`组件，内容如下：
+
+```tsx
+import React, {useEffect} from 'react'
+import Prism from 'prismjs'
+import {Box} from '@chakra-ui/react'
+
+// 以下按需引入
+require('prismjs/components/prism-go')
+require('prismjs/components/prism-python')
+require('prismjs/components/prism-javascript')
+require('prismjs/components/prism-css')
+require('prismjs/components/prism-bash')
+require('prismjs/components/prism-swift')
+require('prismjs/components/prism-tsx')
+require('prismjs/components/prism-jsx')
+require('prismjs/components/prism-typescript')
+require('prismjs/components/prism-sql')
+require('prismjs/themes/prism-okaidia.min.css')
+
+const PostPage = ({children}) => {
+  useEffect(() => {
+    const highlight = async () => {
+      await Prism.highlightAll()
+    }
+    highlight().then(() => {})
+  }, [children])
+  return (
+    <Box position="relative" w="2/3" fontSize="text.sm">
+      {children}
+    </Box>
+  )
+}
+export default PostPage
+```
+
+2. 创建`pages/index.tsx`
+
+```tsx
+import NextLink from 'next/link'
+import {Fragment} from 'react'
+import {
+  List,
+  LinkOverlay,
+  ListItem,
+  Container,
+  Heading,
+  Image
+} from '@chakra-ui/react'
+
+const IndexPage = ({groupByMonthPosts}) => {
+  return (
+    <Container>
+      {Object.keys(groupByMonthPosts).map((group) => {
+        return (
+          <Fragment key={group}>
+            <Heading as="h3" mt={12} mb={4}>
+              {group}
+            </Heading>
+            <List spacing={3}>
+              {groupByMonthPosts[group].map((post) => {
+                return (
+                  <ListItem
+                    position="relative"
+                    display="flex"
+                    gap={2}
+                    alignItems="center"
+                    key={post.title}
+                  >
+                    <NextLink legacyBehavior href={`/${post.slug}`} passHref>
+                      <LinkOverlay>{post.title}</LinkOverlay>
+                    </NextLink>
+                    {post.tags.map((tag) => {
+                      return (
+                        <Image
+                          key={tag}
+                          boxSize={4}
+                          objectFit="cover"
+                          alt={tag}
+                          src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/icons/${tag}.svg`}
+                        />
+                      )
+                    })}
+                  </ListItem>
+                )
+              })}
+            </List>
+          </Fragment>
+        )
+      })}
+    </Container>
+  )
+}
+
+export default IndexPage
+
+export async function getStaticProps() {
+  const {GetAllPosts} = await import('utils/getAllPosts')
+  const posts = await GetAllPosts()
+  const groupByMonthPosts = posts.reduce((prev, next) => {
+    if (Array.isArray(prev[next.group])) {
+      prev[next.group].push(next)
+    } else {
+      prev[next.group] = []
+      prev[next.group].push(next)
+    }
+    return prev
+  }, {})
+  return {
+    props: {
+      groupByMonthPosts
+    }
+  }
+}
+```
+
+3. 创建`pages/[...slug].tsx`
+
+```tsx
+import {MDXRemote} from 'next-mdx-remote'
+import {serialize} from 'next-mdx-remote/serialize'
+import dynamic from 'next/dynamic'
+import ErrorPage from 'next/error'
+import NextLink from 'next/link'
+import {useRouter} from 'next/router'
+import React from 'react'
+import remarkGfm from 'remark-gfm'
+import components from 'utils/components'
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  Link,
+  Image,
+  Center
+} from '@chakra-ui/react'
+
+const PostPage = dynamic(() => import('components/PostPage'), {ssr: false})
+
+const Post = ({title, description, date, originalUrl, mdxSource, cover}) => {
+  const router = useRouter()
+  if (!router.isFallback && !mdxSource) {
+    return <ErrorPage statusCode={404} />
+  }
+  return (
+    <Container
+      mt={20}
+      maxW={{
+        sm: 'container.sm',
+        md: 'container.md',
+        lg: 'container.2xl',
+        xl: 'container.xl'
+      }}
+      className="post"
+    >
+      <NextSeo
+        title={title}
+        description={description}
+        openGraph={{title, description}}
+      />
+      <Box as="hgroup">
+        <Text textAlign="center" color="gray.500" fontSize="xs" as="p">
+          Published {date}
+        </Text>
+        <Heading textAlign="center" as="h1" mt={4} mb={2}>
+          {title}
+        </Heading>
+        {originalUrl && (
+          <Center color="gray.500" fontSize="sm" mb={8}>
+            本文翻译自：
+            <NextLink legacyBehavior href={originalUrl} passHref>
+              <Link>{originalUrl}</Link>
+            </NextLink>
+          </Center>
+        )}
+      </Box>
+      <Image
+        boxSize="100%"
+        src={
+          cover ??
+          'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NhSU3O.jpg'
+        }
+        alt={title}
+      />
+
+      <PostPage>
+        <MDXRemote {...mdxSource} components={components} />
+      </PostPage>
+    </Container>
+  )
+}
+
+export const getStaticPaths = async () => {
+  const {GetAllPosts} = await import('utils/getAllPosts')
+  const allPosts = await GetAllPosts()
+  const paths = allPosts.map((post) => ({
+    params: {
+      slug: post.slug.split('/')
+    }
+  }))
+
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+export const getStaticProps = async ({params}) => {
+  const {GetPostBySlug} = await import('utils/getAllPosts')
+  const {content, ...data} = await GetPostBySlug(params.slug)
+  const mdxSource = await serialize(content, {
+    mdxOptions: {
+      remarkPlugins: [[remarkGfm]],
+      rehypePlugins: []
+    },
+    scope: data
+  })
+  return {
+    props: {
+      ...data,
+      mdxSource
+    }
+  }
+}
+
+export default Post
+```
+
+至此，基本框架搭建完成，接下来调整样式及组件的引入，以及 mdx 渲染修正。
+
+4. 调整样式
+
+**可选**
+
+引入`tailwind.css`，执行`pnpm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p`
+
+修改`tailwind.config.js`,如下：
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}'
+  ],
+  theme: {
+    extend: {}
+  },
+  plugins: []
+}
+```
+
+修改全局样式`styles/globals.scss`
+
+```scss
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+**必须**
+
+修改`pages/_app.tsx`，引入`chakra-ui`的配置
+
+```tsx
+// pages/_app.js
+import {ChakraProvider} from '@chakra-ui/react'
+
+function MyApp({Component, pageProps}) {
+  return (
+    <ChakraProvider>
+      <Component {...pageProps} />
+    </ChakraProvider>
+  )
+}
+
+export default MyApp
+```
+
+到这里，不出意外，你的界面应该是长这样
+
+![QeISvi](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/QeISvi.png)
+
+点击链接，应该会报错，未引入`utils/components`，这个是配置 mdx 内元素渲染的组件，参考[MDX Components](https://mdxjs.com/table-of-components/)，mdx 提供默认的渲染组件，所以，这个是非必须的，不需要删除即可
+
+个人比较喜欢 chakra-ui，所以将组件都转成了 chakra-ui 提供的组件，配置如下：
+
+```js
+import CanIUse from 'components/CanIUse'
+import {Heading, Link, Box} from '@chakra-ui/react'
+import {FiExternalLink} from 'react-icons/fi'
+
+const components = {
+  CanIUse,
+  h2: (props) => (
+    <Heading as="h2" mb={4}>
+      {props.children}
+    </Heading>
+  ),
+  h3: (props) => (
+    <Heading as="h3" mb={4}>
+      {props.children}
+    </Heading>
+  ),
+  h4: (props) => (
+    <Heading as="h4" mb={4}>
+      {props.children}
+    </Heading>
+  ),
+  h5: (props) => (
+    <Heading as="h5" mb={4}>
+      {props.children}
+    </Heading>
+  ),
+  p: (props) => (
+    <Box as="div" mb={4}>
+      {props.children}
+    </Box>
+  ),
+  div: (props) => <Box mb={4}>{props.children}</Box>,
+  a: (props) => {
+    return (
+      <Link
+        display="inline-flex"
+        alignItems="center"
+        href={props.href}
+        gap={2}
+        isExternal
+      >
+        {props.children}
+        <FiExternalLink />
+      </Link>
+    )
+  }
+}
+
+export default components
+```
+
+好了，到这里基本完成了基于 Next.js 的博客搭建。
+
+## 部署到 Vercel
+
+Next.js 部署到 Vercel 无需更改和配置，无缝衔接。
+
+![LKxyVc](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/LKxyVc.png)
+
+![lwjB1p](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/lwjB1p.png)
+
+![XR6YO0](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/XR6YO0.png)
+
+![aUOfQO](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/aUOfQO.png)
+
+[【Source Code】](https://github.com/Manonicu/blog-demo)
+
+也可以参考我的个人网站[Manon.icu](https://manon.icu/)[Github Source Code](https://github.com/Manonicu/site)

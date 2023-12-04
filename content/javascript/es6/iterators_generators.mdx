@@ -1,0 +1,123 @@
+---
+type: 'Post'
+date: '2021-11-20'
+title: 'iterators generators'
+tags: [javascript]
+description: 在 JavaScript 中，迭代器是一种对象，它定义了一系列值以及访问这些值的方法。迭代器用于遍历集合的元素，例如数组或对象。
+---
+
+## 迭代器
+
+在 JavaScript 中，迭代器是一种对象，它定义了一系列值以及访问这些值的方法。迭代器用于遍历集合的元素，例如数组或对象。
+
+你可以在对象上实现 next() 方法来创建迭代器。next() 方法返回一个对象，该对象具有两个属性：value 和 done。value 属性是序列中的下一个值，done 属性是一个布尔值，表示迭代器是否到达了序列的末尾。
+
+下面是一个迭代器的示例，它返回数组的元素：
+
+```js
+let array = [1, 2, 3]
+let iterator = {
+  index: 0,
+  next: function () {
+    if (this.index < array.length) {
+      return {value: array[this.index++], done: false}
+    } else {
+      return {done: true}
+    }
+  }
+}
+```
+
+你可以使用 for...of 循环来遍历迭代器返回的值：
+
+```js
+for (let value of iterator) {
+  console.log(value)
+}
+```
+
+上面的 for...of 循环的输出是：
+
+```js
+1
+2
+3
+```
+
+你还可以使用 iterator.next() 方法来手动遍历迭代器返回的值：
+
+```js
+let result = iterator.next()
+while (!result.done) {
+  console.log(result.value)
+  result = iterator.next()
+}
+```
+
+## 生成器
+
+生成器是 JavaScript 中一种特殊的函数，它返回一个迭代器。生成器使用 function\* 语法定义，并使用 yield 关键字返回值。
+
+下面是一个返回数组元素的生成器的示例：
+
+```js
+function* generateArrayValues(array) {
+  for (let value of array) {
+    yield value
+  }
+}
+
+let iterator = generateArrayValues([1, 2, 3])
+```
+
+你可以使用 for...of 循环或 iterator.next() 方法来遍历生成器返回的值：
+
+```js
+for (let value of iterator) {
+  console.log(value)
+}
+
+// or
+
+let result = iterator.next()
+while (!result.done) {
+  console.log(result.value)
+  result = iterator.next()
+}
+```
+
+上面的 for...of 循环或使用 iterator.next() 的手动迭代的输出是：
+
+```js
+1
+2
+3
+```
+
+生成器还可以接受参数，并且可以使用 yield 关键字暂停和恢复。下面是一个生成数字序列的生成器的示例：
+
+```js
+function* generateNumbers(start, end) {
+  for (let i = start; i <= end; i++) {
+    yield i
+  }
+}
+
+let iterator = generateNumbers(1, 3)
+for (let value of iterator) {
+  console.log(value)
+}
+```
+
+上面的 for...of 循环的输出是：
+
+```bash
+1
+2
+3
+
+```
+
+生成器对于创建无法一次性存储在内存中的大型值序列非常有用。它们允许你一次一个地遍历值，并在必要时暂停生成器，这可以提高代码的性能。
+
+总之，生成器是 JavaScript 中返回迭代器的特殊函数。您可以使用 for... of 循环或 iterator.next ()方法来迭代生成器返回的值，生成器可以接受参数并使用 yield 关键字暂停和继续。

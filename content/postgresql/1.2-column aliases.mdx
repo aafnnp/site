@@ -1,0 +1,86 @@
+---
+type: 'Post'
+date: '2022-05-31 15:49:54'
+title: 'Postgresql - Column Aliases'
+tags: [postgresql, sql]
+description: 使用别名来查询数据库中的列
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/SJBeGU.jpg
+---
+
+Postgresql 允许为条件语句或表达式分配临时名称，`AS`是一个可选的选项。
+
+## 语法
+
+```sql
+SELECT [column_name] AS [alias_name] FROM [table_name];
+```
+
+`AS`关键字是可选的
+
+```sql
+SELECT [column_name] [alias_name] FROM [table_name];
+```
+
+## 示例
+
+使用示例数据库`customer`中的表展示如何使用别名
+
+![GLa9wQ](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/GLa9wQ.jpg)
+
+#### 分配别名
+
+```sql
+SELECT first_name,last_name FROM customer;
+```
+
+![9HMAUh](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9HMAUh.jpg)
+
+如果要重新命名`last_name`，可以使用`AS`关键字
+
+```sql
+SELECT first_name,last_name AS surname FROM customer;
+```
+
+![MC3NsJ](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/MC3NsJ.jpg)
+
+省略`AS`关键字，则列名将被自动命名
+
+```sql
+SELECT first_name,last_name surname FROM customer;
+```
+
+#### 表达式分配别名
+
+```sql
+SELECT first_name || '' || last_name FROM customer;
+```
+
+![MPeosC](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/MPeosC.jpg)
+
+可以看到表头是无意义的`?column?`，解决此问题，可以使用表达式分配别名
+
+```sql
+SELECT first_name || '' || last_name AS full_name FROM customer;
+```
+
+![cALRwO](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/cALRwO.jpg)
+
+#### 包含空格的别名
+
+如果列别名包含一个或多个空格，就需要用双引号引起来
+
+```sql
+column_name AS "column alias"
+```
+
+```sql
+SELECT first_name || '' || last_name "full name" FROM customer;
+```
+
+![4g2bXW](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/4g2bXW.jpg)
+
+## 总结
+
+- `[column || expression] AS alias_name`为列分配别名
+- `AS`关键字可选
+- 如果列别名包含一个或多个空格，就需要用双引号引起来

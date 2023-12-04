@@ -1,0 +1,107 @@
+---
+type: 'Post'
+date: '2021-11-20'
+title: 'ES6 - Functions'
+tags: [javascript]
+---
+
+ES6（ECMAScript 2015）引入了一些新的语法和功能来增强 JavaScript 中的函数。下面详细解释 ES6 中的一些函数相关的功能：
+
+## 箭头函数（Arrow Functions）
+
+箭头函数是一种更简洁的函数定义方式，它使用箭头语法（`=>`）来声明函数。
+
+示例：
+
+```javascript
+// 传统函数定义方式
+function sum(a, b) {
+  return a + b
+}
+
+// 箭头函数定义方式
+const sum = (a, b) => a + b
+```
+
+箭头函数有以下特点：
+
+- 省略了 `function` 关键字和函数体的大括号，使得函数定义更加简洁。
+- 如果函数体只有一条返回语句，可以省略 `return` 关键字。
+- 它具有词法作用域绑定，没有自己的 `this`，`this` 的值继承自外层作用域。
+
+## 默认参数值（Default Parameters）
+
+默认参数值允许我们在函数定义中为参数指定默认值，当调用函数时未提供对应参数的值时，将使用默认值。
+
+示例：
+
+```javascript
+function greet(name = 'Guest') {
+  console.log(`Hello, ${name}!`)
+}
+
+greet() // 输出: Hello, Guest!
+greet('John') // 输出: Hello, John!
+```
+
+在上述示例中，函数 `greet` 定义了一个默认参数 `name`，当调用函数时未提供 `name` 的值时，将使用默认值 `'Guest'`。
+
+## 剩余参数（Rest Parameters）
+
+剩余参数允许我们将不确定数量的参数收集到一个数组中，以便在函数体内进行处理。
+
+示例：
+
+```javascript
+function sum(...numbers) {
+  let total = 0
+  for (let number of numbers) {
+    total += number
+  }
+  return total
+}
+
+console.log(sum(1, 2, 3, 4, 5)) // 输出: 15
+```
+
+在上述示例中，函数 `sum` 使用剩余参数 `...numbers` 将传入的所有参数收集到一个名为 `numbers` 的数组中，然后对数组进行求和操作。
+
+## 展开语法（Spread Syntax）
+
+展开语法与剩余参数相反，它允许我们将一个数组或对象展开为独立的元素，可以在函数调用、数组字面量或对象字面量中使用。
+
+示例：
+
+```javascript
+function greet(name1, name2, name3) {
+  console.log(`Hello, ${name1}, ${name2}, ${name3}!`)
+}
+
+const names = ['John', 'Jane', 'Tom']
+greet(...names) // 输出: Hello, John, Jane, Tom!
+```
+
+在上述示例中，我们使用展开语法 `...names` 将数组 `names` 展开为独立的元素，然后作为参数传递给函数 `greet`。
+
+## 函数参数解构（Function Parameter Destructuring）
+
+函数参数解构允许我们使用解构赋值的方式从传入的对象或数组中提取值作为函数的参数。
+
+示例：
+
+```javascript
+function greet({name, age}) {
+  console.log(`Hello, ${name}! You are ${age} years old.`)
+}
+
+const person = {
+  name: 'John',
+  age: 30
+}
+
+greet(person) // 输出: Hello, John! You are 30 years old.
+```
+
+在上述示例中，函数 `greet` 的参数使用了对象解构赋值的方式，从传入的 `person` 对象中提取 `name` 和 `age` 属性作为参数。
+
+以上是 ES6 中一些函数相关的功能。这些功能使得函数的定义和使用更加灵活和简洁，并且提供了更多的工具来处理函数的参数和返回值。

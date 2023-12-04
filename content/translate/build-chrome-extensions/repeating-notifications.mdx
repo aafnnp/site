@@ -1,0 +1,85 @@
+---
+type: 'Post'
+date: '2022-08-28 14:22:23'
+title: 'Chrome插件开发 - Repeating notifications'
+tags: [chrome]
+description: 基于react、tailwindcss开发自己的chrome插件
+---
+
+在前一篇文章介绍了[Adding browser notification](/blog/translate/build-chrome-extenstions/adding-browser-notification)，这篇将学习如何创建重复的通知。
+
+## 创建重复通知
+
+为了实现重复通知，我们必须利用[alarm api](https://developer.chrome.com/docs/extensions/reference/alarms/)。这允许我们创建可以在指定时间发起通知。
+
+首先更新`manifest.json`，以便获取使用`alarm`权限
+
+```json
+{
+  "permissions": ["alarm", "notifications"]
+}
+```
+
+定时发起通知需要后台运行的服务，在 v3 manifest，可以注册一个后台服务
+
+```json
+{
+  "background": {
+    "service_worker": "background.js"
+  }
+}
+```
+
+然后修改`App.jsx`
+
+```jsx
+export function App() {
+  const createNotification = () => {
+    chrome.alarms.create({
+      periodInMinutes: 1
+    })
+    window.close()
+  }
+
+  const stopNotification = () => {
+    chrome.alarms.clearAll()
+    window.close()
+  }
+  return (
+    <div className="flex flex-col items-center justify-center w-screen h-auto bg-indigo-400 p-4">
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 text-2xl px-4 rounded"
+        onClick={createNotification}
+      >
+        Motivate me 🎉
+      </button>
+      <br />
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 text-2xl px-4 rounded"
+        onClick={stopNotification}
+      >
+        Stop motivating me 😅
+      </button>
+    </div>
+  )
+}
+```
+
+修改`background.js`
+
+```js
+chrome.alarms.onAlarm.addListener(() => {
+  chrome.notifications.create({
+    type: 'basic',
+    iconUrl: 'icons/icon-48.png',
+    title: 'Hi there 👋',
+    message: 'Just a reminder that you rock!',
+    buttons: [{title: 'I know ☺️'}],
+    priority: 0
+  })
+})
+```
+
+## Source Code
+
+[【Source Code】](https://github.com/rebelchris/popup-extension/tree/weather)

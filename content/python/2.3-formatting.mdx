@@ -1,0 +1,96 @@
+---
+type: 'Post'
+date: '2021-12-10 10:12:44'
+title: 'Formatting - 格式化'
+tags: [python]
+description: '输出格式化'
+---
+
+当输出数据时，我们希望能够按照一定的格式输出，这个时候就可以使用 format()函数。比如：
+
+```python
+      Name      Shares        Price
+----------  ----------  -----------
+        AA         100        32.20
+       IBM          50        91.10
+       CAT         150        83.44
+      MSFT         200        51.23
+        GE          95        40.37
+      MSFT          50        65.10
+       IBM         100        70.44
+```
+
+## 字符输出格式化
+
+在`python 3.6+`使用`f-strings`格式化字符串，如下：
+
+```python
+name = 'IBM'
+shares = 100
+price = 91.1
+f'{name:>10s} {shares:>10d} {price:>10.2f}'
+#'       IBM        100      91.10'
+
+# 通常配合 print()函数使用，如下：
+print(f'{name:>10s} {shares:>10d} {price:>10.2f}')
+```
+
+## 格式化代码
+
+格式代码(在`{}`中`:` 之后)类似于 c `printf ()`。常见代码包括:
+
+```python
+d       # 整数
+b       # 十六进制
+x       # 十六进制
+f       # 浮点数
+e       # 指数
+g       # 指数或浮点数
+s       # 字符串
+c       # 字符
+```
+
+常用的修饰符调整字段宽度和十进制精度。这是一个部分列表:
+
+```python
+:>10d   # 宽度为10，十进制精度无限制
+:<10d   # 宽度为10，十进制精度无限制
+:^10d   # 宽度为10，十进制精度无限制
+:0.2f   # 宽度为无限制，十进制精度为2
+```
+
+## 字典格式化
+
+使用`format_map`函数可以将字典中的键和值对应输出，如下：
+
+```python
+s = {
+    'name': 'IBM',
+    'shares': 100,
+    'price': 91.1
+}
+'{name:>10s} {shares:10d} {price:10.2f}'.format_map(s)
+#'       IBM        100      91.10'
+```
+
+## format()函数
+
+```python
+'{name:>10s} {shares:10d} {price:10.2f}'.format(name='IBM', shares=100, price=91.1)
+#'       IBM        100      91.10'
+'{:10s} {:10d} {:10.2f}'.format('IBM', 100, 91.1)
+#'       IBM        100      91.10'
+```
+
+## C 语言格式化
+
+使用`%`可以格式化字符串，如下：
+
+```python
+'The value is %d' % 3
+#'The value is 3'
+'%5d %-5d %10d' % (3,4,5)
+#'    3 4              5'
+'%0.2f' % (3.1415926,)
+#'3.14'
+```

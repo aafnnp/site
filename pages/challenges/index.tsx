@@ -69,7 +69,7 @@ export const getStaticProps = async () => {
       params: {
         slug: [group, title]
       }
-    } = item
+    } = item as any
     return {
       title: title,
       group: group,

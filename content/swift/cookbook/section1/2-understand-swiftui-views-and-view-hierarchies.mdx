@@ -1,0 +1,48 @@
+---
+type: 'Post'
+date: '2023-08-22'
+title: 'Swift - 了解 SwiftUI 视图和视图层次结构'
+tags: [swift]
+description: 用 SwiftUI 开发的 iOS 应用程序的核心是一组视图，它们实际上是构成用户界面的构建块。在这里，我们将介绍一些有关 SwiftUI 视图如何工作的基本知识。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/lZDIhG.jpg
+originalUrl: https://www.kodeco.com/books/swiftui-cookbook/v1.0/chapters/2-understand-swiftui-views-view-hierarchies
+---
+
+用 SwiftUI 开发的 iOS 应用程序的核心是一组视图，它们实际上是构成用户界面的构建块。在这里，我们将介绍一些有关 SwiftUI 视图如何工作的基本知识。
+
+## 什么是视图？
+
+在 SwiftUI 中，`View`是一个属性包装器，它提供了一种机制，用于创建和修改视图以响应状态或数据的更改。视图可以是按钮、文本标签或任何表示用户界面的东西。视图通常聚合在一起形成构成屏幕的层次结构。
+
+视图可以嵌套以创建确定用户界面结构的层次结构。根视图是应用程序的入口点，通常占据层次结构的顶部。
+
+每个视图都有一个父视图，并且可以有子视图。接下来，您将了解如何构建一个包含父级和两个子级的简单层次结构。
+
+## 构建视图层次结构
+
+首先，添加以下图片到`Assets.xcassets`:
+
+![AfZ3ds](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/AfZ3ds.jpg)
+
+然后，创建一个新的 SwiftUI 视图并将其命名为`ContentView`。将以下代码添加到该视图的`body`属性中并预览：
+
+```swift
+struct ContentView: View {
+  var body: some View {
+    VStack {
+      Image("Kodeco")
+      Text("Welcome to the Kodeco SwiftUI cookbook!")
+    }
+  }
+}
+```
+
+![MIT4fz](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/MIT4fz.jpg)
+
+在上面的代码中，我们定义了一个符合 `View` 协议的 `ContentView` 结构。在 `body` 属性内部，我们定义了一个 `VStack` 视图，这是一个在垂直堆栈中安排子视图的视图。在这个例子中，`VStack` 有两个子视图(一个文本视图和一个图像视图) ，垂直地将一个叠加在另一个上面。
+
+请注意，`body` 属性使用闭包语法，您可以在其中定义视图层次结构的内容。`body` 的返回值必须是单个视图，但该视图可以包含许多子视图，每个子视图可以包含更多子视图，依此类推。
+
+针对平面层次结构可以提高简单性和可维护性。对于复杂的视图层次结构，可以考虑使用不同的 `VStack`、 `HStack` 或 `ZStack` 实例对用户界面的各个部分进行逻辑分组和可视化分隔。(注意: 您可能想知道关于子视图数量的限制; 我们将在后面的章节中讨论这个主题。)
+
+{/* 有关详细信息，请参阅本烹饪书中的“ SwiftUI 中的视图和修饰符”部分。 */}

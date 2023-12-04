@@ -1,0 +1,159 @@
+---
+type: 'Post'
+date: '2021-12-08 14:45:58'
+title: '如何校验URLs？'
+tags: [javascript]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/HF7BGn.jpg
+originalUrl: https://www.freecodecamp.org/news/how-to-validate-urls-in-javascript/
+---
+
+所有有效的 URL 都遵循某些规则。因此，如果了解了这些模规则，就可以确定 URL 是否有效。
+
+- 如何使用`URL`构造器校验 URLs
+- 如何使用 npm 包校验 URLs
+- 如何使用正则校验 URLs
+
+## 如何使用`URL`构造器校验 URLs
+
+当向`URL`函数中传入字符串时，如果是有效的 url 会返回 url 对象，否则会抛出异常
+
+```js
+const fccUrl = new URL('https://www.freecodecamp.org/')
+console.log(fccUrl)
+```
+
+控制台将输出以下内容：
+
+![blfBu7](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/blfBu7.jpg)
+
+当传入值是无效的 url 时:
+
+freecodecamp 为无效的 url 链接，将抛出异常
+
+```js
+const fccUrl = new URL('freecodecamp')
+console.log(fccUrl)
+```
+
+![IHSS3p](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/IHSS3p.jpg)
+
+## 如何创建校验 url 有效性函数
+
+```js
+function isValidUrl(str) {
+  try {
+    new URL(str)
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
+console.log(isValidUrl('https://www.freecodecamp.org/')) // true
+console.log(isValidUrl('mailto://mail@freecodecamp.org')) // true
+console.log(isValidUrl('freecodecamp')) // false
+```
+
+当传入值是有效 url，则返回 true，否则返回 false。
+
+## 如何校验`http`url
+
+有时需要区分 http 协议和其他协议，比如`mailto://mail@freecodecamp.org`
+
+对`isValidUrl`函数做点改动，对返回的协议检查
+
+```js
+function isValidHttpUrl(str) {
+  try {
+    const newUrl = new URL(str)
+    return newUrl.protocol === 'http:' || newUrl.protocol === 'https:'
+  } catch (e) {
+    return false
+  }
+}
+
+console.log(isValidHttpUrl('https://www.freecodecamp.org/')) // true
+console.log(isValidHttpUrl('mailto://mail@freecodecamp.org')) // false
+console.log(isValidHttpUrl('freecodecamp')) // false
+```
+
+## 如何使用 npm 包校验
+
+`is-url`、`is-url-http`
+
+```js
+import isUrl from 'is-url'
+import isUrlHttp from 'is-url-http'
+
+const firstCheck = isUrl('https://www.freecodecamp.org/')
+const secondCheck = isUrl('mailto://mail@freecodecamp.org')
+const thirdCheck = isUrl('freeCodeCamp')
+
+console.log(firstCheck) // true
+console.log(secondCheck) // true
+console.log(thirdCheck) // false
+
+const firstCheck = isUrlHttp('https://www.freecodecamp.org/')
+const secondCheck = isUrlHttp('mailto://freecodecamp@mail.org')
+const thirdCheck = isUrlHttp('freeCodeCamp')
+
+console.log(firstCheck) // true
+console.log(secondCheck) // false
+console.log(thirdCheck) // false
+```
+
+## 如何使用正则校验
+
+所有有效链接遵循以下几种规则
+
+- 协议
+- 域名或 ip
+- 端口或路径
+
+你可以在[【The structure of URLS】](https://www.freecodecamp.org/news/what-happens-when-you-hit-url-in-your-browser/)学习更多关于`URL 规则`
+
+知道模式 URL 是由什么组成的，您可以使用正则表达式检查字符串中是否存在这样的模式。
+
+如果模式存在，则字符串通过正则表达式测试。否则就会失败。
+
+此外，使用正则表达式，您可以检查所有有效的 URL，或者只检查有效的 HTTP URL。
+
+```js
+function isValidUrl(str) {
+  const pattern = new RegExp(
+    '^([a-zA-Z]+:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR IP (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', // fragment locator
+    'i'
+  )
+  return pattern.test(str)
+}
+
+console.log(isValidUrl('https://www.freecodecamp.org/')) // true
+console.log(isValidUrl('mailto://freecodecamp.org')) // true
+console.log(isValidUrl('freeCodeCamp')) // false
+```
+
+校验协议并未严格限制`http`或`https`，所有`mailto`开头的协议会返回`true`，稍作改动仅校验`http`
+
+```js
+function isValidHttpUrl(str) {
+  const pattern = new RegExp(
+    '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', // fragment locator
+    'i'
+  )
+  return pattern.test(str)
+}
+
+console.log(isValidHttpUrl('https://www.freecodecamp.org/')) // true
+console.log(isValidHttpUrl('mailto://freecodecamp.org')) // false
+console.log(isValidHttpUrl('freeCodeCamp')) // false
+```

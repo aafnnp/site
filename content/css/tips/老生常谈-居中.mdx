@@ -1,0 +1,67 @@
+---
+type: 'Post'
+date: '2020-04-04'
+title: '老生常谈-居中'
+tags: [css]
+description: '几种居中的方法'
+---
+
+## 水平居中
+
+### Text
+
+```css
+p {
+  text-align: center;
+}
+```
+
+### Blocks
+
+![image](https://cdn.jsdelivr.net/gh/manonicu/pics@master/images/20190125091332.png)
+
+```css
+/*flexbox*/
+#mysection {
+  display: flex;
+  justify-content: center;
+}
+
+/*margin*/
+#mysection {
+  margin: 0 auto;
+  width: 50%;
+}
+```
+
+## 垂直居中
+
+### Text
+
+![image](https://cdn.jsdelivr.net/gh/manonicu/pics@master/images/20190125092037.png)
+
+```css
+#mysection {
+  display: flex;
+  align-items: center;
+}
+```
+
+## 水平垂直居中
+
+![image](https://cdn.jsdelivr.net/gh/manonicu/pics@master/images/20190125091735.png)
+
+```css
+/*flex*/
+#mysection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*grid*/
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+```

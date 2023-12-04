@@ -1,0 +1,222 @@
+---
+type: 'Post'
+date: '2021-12-28 09:39:44'
+title: '作用域'
+tags: [javascript]
+description:
+originalUrl: https://dmitripavlutin.com/javascript-scope/
+---
+
+> 作用域是管理变量可用性的一个重要概念。作用域在基本闭包处，定义了全局变量和局部变量的概念。
+
+## 作用域 - The Scope
+
+在深入理解作用域之前，先通过一个简单的例子看看是如何工作的。
+
+```js
+const message = 'hello'
+console.log(message) // hello
+```
+
+你可以轻松访问`message`变量。
+
+如果将`message`变量放在`if`语句内，比如：
+
+```js
+if (true) {
+  const message = 'hello'
+}
+console.log(message) // ReferenceError: message is not defined
+```
+
+为什么？
+
+`if` 代码块为消息变量创建一个作用域，而消息变量只能在这个作用域内访问。
+
+![The Scope](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/7EzPUL.jpg)
+
+在更高的级别上，变量的可访问性受到它们被创建的作用域的限制。您可以自由访问在其作用域内定义的变量。但是在它的作用域之外，变量是不可访问的。
+
+## 块级作用域 - Block Scope
+
+```js
+if (true) {
+  // if 块级作用域
+  const message = 'hello'
+  console.log(message) // hello
+}
+console.log(message) // ReferenceError: message is not defined
+```
+
+第一个`console.log`输出`hello`，因为`message`变量在`if`块级作用域内。
+
+第二个`console.log`输出`ReferenceError: message is not defined`，因为`message`变量在`if`块级作用域之外。
+
+`if`、`for`、`while`、`do`、`switch`、`with`、`function` 以及`catch`创建块级作用域。比如：
+
+```js
+for (const color of ['green', 'red', 'blue']) {
+  // "for" block scope
+  const message = 'Hi';
+  console.log(color);   // 'green', 'red', 'blue'
+  console.log(message); // 'Hi', 'Hi', 'Hi'
+}
+console.log(color);   // throws ReferenceError
+console.log(message); // throws ReferenceError
+
+while (/* condition */) {
+  // "while" block scope
+  const message = 'Hi';
+  console.log(message); // 'Hi'
+}
+console.log(message); // => throws ReferenceError
+```
+
+### `var` 不是块级作用域
+
+`var` 关键字不是块级作用域。比如：
+
+```js
+if (true) {
+  // "if" block scope
+  var count = 0
+  console.log(count) // 0
+}
+console.log(count) // 0
+```
+
+使用`var`定义的变量，会产生变量提升，即变量会在它们被访问之前被创建。在除`function`外的所有块级作用域中，`var` 关键字都是不可访问的。
+
+## 函数作用域 - Function Scope
+
+```js
+function run() {
+  // "run" function scope
+  var message = 'Run Forrest, run!'
+  console.log(message) // Run Forrest, run!
+}
+run()
+console.log(message) // ReferenceError: message is not defined
+```
+
+`run()`函数定义了一个块级作用域，它包含了`message`变量，`message`变量可以在`run()`函数内访问，但是不能在`run()`函数之外访问。
+
+同样`let`和`const`也是块级作用域。可以在`run()`函数内访问， 但是不能在`run()`函数之外访问。
+
+```js
+function run() {
+  // "run" function scope
+  const two = 2
+  let count = 0
+  function run2() {}
+  console.log(two) // 2
+  console.log(count) // 0
+  console.log(run2) // function
+}
+run()
+console.log(two) // throws ReferenceError
+console.log(count) // throws ReferenceError
+console.log(run2) // throws ReferenceError
+```
+
+## 模块作用域 - Module Scope
+
+ES2015 同样支持模块作用域。模块作用域是一个特殊的块级作用域，它可以在模块内部访问，但是不能在模块之外访问。
+
+```js
+// circle.js
+const PI = 3.14
+console.log(pi) // 3.14
+```
+
+`circle.js`模块定义了一个块级作用域，它包含了`PI`变量。但是未导出`PI`变量，因此不能在模块之外访问。
+
+```js
+import './circle'
+consoel.log(pi) // throws ReferenceError
+```
+
+## 嵌套作用域 - Scopes can be nested
+
+作用域可以嵌套。比如：
+
+```js
+function run() {
+  // "run" function scope
+  const message = 'Run, Forrest, Run!'
+  if (true) {
+    // "if" code block scope
+    const friend = 'Bubba'
+    console.log(message) // 'Run, Forrest, Run!'
+  }
+  console.log(friend) // throws ReferenceError
+}
+run()
+```
+
+`if`代码块作用域嵌套在`run()`函数作用域内。`if`代码块作用域内部可以访问`message`变量，但是不能`if`外部访问`friend`变量。
+
+![Scopes can be nested](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/yE2fSE.jpg)
+
+## 全局作用域 - Global Scope
+
+全局作用域是一个特殊的作用域，它可以在整个程序的所有位置访问。`<script>`标签内的代码块是全局作用域。
+
+```js
+;<script src="myScript.js"></script>
+
+// myScript.js
+// 全局作用域
+let counter = 1
+```
+
+在前面的代码片段中，`counter` 是一个全局变量。这个变量可以从网页的 JavaScript 的任何地方访问。
+
+全局作用域是一种机制，它允许 JavaScript 的主机(浏览器、节点)为应用程序提供特定于主机的函数作为全局变量。
+
+例如，`window` 和 `document` 是浏览器提供的全局变量。在 `Node` 环境中，可以将进程对象作为全局变量访问。
+
+## 词法作用域 - Lexical Scope
+
+定义两个函数，将函数`innerFunc`嵌套在函数`outerFunc`内部。
+
+```js
+function outerFunc() {
+  // the outer scope
+  let outerVar = 'I am from outside!'
+  function innerFunc() {
+    // the inner scope
+    console.log(outerVar) // 'I am from outside!'
+  }
+  return innerFunc
+}
+const inner = outerFunc()
+inner()
+```
+
+`inner()`函数执行时，`innerFunc()`函数定义了一个块级作用域，它包含了`outerVar`变量。
+
+实际上是执行了`outerFunc`函数内的`innerFunc()`函数。`outerFunc`函数返回函数，形成了一个闭包。
+
+所以`outerFunc`外部可以访问`innerFunc()`内部的`outerVar`变量。
+
+## 变量隔离 - Variables isolation
+
+您可以在不同的作用域中重用公共变量名(`count`、`index`、`current`、`value`、etc) ，而不会发生冲突。
+
+`foo()`和`bar()`函数作用域有它们自己的。
+
+```js
+function foo() {
+  // "foo" function scope
+  let count = 0
+  console.log(count) // 0
+}
+function bar() {
+  // "bar" function scope
+  let count = 1
+  console.log(count) // 1
+}
+foo()
+bar()
+```

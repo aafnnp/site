@@ -1,0 +1,138 @@
+---
+type: 'Post'
+date: '2022-09-05 14:18:30'
+title: 'Chrome插件开发 - Creating the TurboReader browser extension'
+tags: [chrome]
+description: 基于react、tailwindcss开发自己的chrome插件
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/F6eydI.jpg
+---
+
+本章学习如何创建`turboReader`插件，如下图：
+
+<video
+  src={
+    'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/turboreader_ghlbnk.webm'
+  }
+  autoPlay
+></video>
+
+## 初始化项目
+
+```bash
+mkdir turboReader && cd turboReader
+```
+
+添加`manifest.json.json`
+
+```json
+{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "TurboReader",
+  "description": "Become a faster reader with TurboReader",
+  "action": {},
+  "icons": {
+    "48": "icons/icon-48.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["activeTab", "scripting"]
+}
+```
+
+添加`background.js`，获取活动标签，并注入名为`turboMode`的函数。
+
+```js
+const turboMode = () => {
+  // do something
+}
+
+chrome.action.onClicked.addListener(async () => {
+  const [tab] = await chrome.tabs.query({active: true, currentWindow: true})
+  chrome.scripting.executeScript({
+    target: {tabId: tab.id},
+    function: turboMode
+  })
+})
+```
+
+## 创建函数
+
+首先获取页面内所有段落
+
+```js
+const paragraphs = document.getElementsByTagName('p')
+```
+
+判断当前是否是阅读模式
+
+```js
+const isTurboMode = document.body.classList.contains('trms')
+```
+
+遍历并处理段落
+
+```js
+for (const paragraph of paragraphs) {
+  if (isTurboMode) {
+    // 阅读模式已开启就返回当前段落
+    paragraph.innerText = paragraph.innerText
+  } else {
+    // 阅读模式未开启，返回处理后的段落
+    paragraph.innerHTML = paragraph.innerText
+      .split(' ')
+      .map((word) => {
+        const length = word.replace(/[^a-zA-Z0-9]+$/, '').length
+        const boldLength = length === 1 ? 1 : Math.floor(length / 2)
+        return `<strong>${word.substring(
+          0,
+          boldLength
+        )}</strong>${word.substring(boldLength)}`
+      })
+      .join(' ')
+  }
+}
+```
+
+在循环外部加入判断
+
+```js
+isTurboMode
+  ? document.body.classList.remove('trms')
+  : document.body.classList.add('trms')
+```
+
+完整代码
+
+```js
+const turboMode = () => {
+  const paragraphs = document.getElementsByTagName('p')
+  const isTurboMode = document.body.classList.contains('trms')
+  for (const paragraph of paragraphs) {
+    if (isTurboMode) {
+      paragraph.innerText = paragraph.innerText
+    } else {
+      paragraph.innerHTML = paragraph.innerText
+        .split(' ')
+        .map((word) => {
+          const length = word.replace(/[^a-zA-Z0-9]+$/, '').length
+          const boldLength = length === 1 ? 1 : Math.floor(length / 2)
+          return `<strong>${word.substring(
+            0,
+            boldLength
+          )}</strong>${word.substring(boldLength)}`
+        })
+        .join(' ')
+    }
+  }
+
+  isTurboMode
+    ? document.body.classList.remove('trms')
+    : document.body.classList.add('trms')
+}
+```
+
+## Source Code
+
+[【Source Code】](https://github.com/rebelchris/turbo-reader)

@@ -1,0 +1,89 @@
+---
+type: 'Post'
+date: '2021-11-20'
+title: 'ES6 - Classes'
+tags: [javascript]
+draft: true
+description: 'class（类）作为对象的模板，可以用来创建类的实例。'
+originalUrl: https://dmitripavlutin.com/javascript-classes-complete-guide/
+---
+
+> class 类似于构造函数，但是它没有自己的 this，而是继承父类的 this。class 的本质是函数，它可以看作是构造函数的语法糖。
+
+## 类的定义 - Definition: `class` keyword
+
+`class`关键词定义了一个类，类是一个构造函数，它的名字是类名，它的作用是创建类的实例。
+
+```js
+class User {}
+
+// 也可以将类赋值给变量
+const User = class {}
+
+// es0215 模块导出
+export default class User {}
+
+// es0215 命名模块导出
+export class User {}
+```
+
+![Class 实例化](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/PWqlhI.jpg)
+
+当`class`实例化后，它就是一个对象，它的属性和方法都是实例的属性和方法。比如：
+
+```js
+const myUser = new User()
+// new User 创建`User`的实例
+```
+
+## 类的初始化 - Initialization:`Constructor`
+
+`constructor(param1,param2,...)`是类的初始化函数，它的作用是初始化类的实例。
+
+```js
+class User {
+  constructor(name) {
+    this.name = name
+  }
+}
+```
+
+`User`的实例有一个`name`属性，`name`属性的值是`User`的构造函数传入的参数，并且会被赋值到`this.name`。
+
+```js
+const user = new User('Jon Snow')
+// this.name = 'Jon Snow'
+```
+
+## 字段 - Fields
+
+类字段是保存信息的变量。字段可以附加到两个实体:
+
+- 类实例的字段
+- 类的静态字段
+
+- 公有字段 - Public fields，可以被实例和类访问
+- 私有字段 - Private fields，只能被类访问
+
+### 公有字段 - Public fields
+
+```js
+const user = new User('Jon Snow')
+// user.name = 'Jon Snow'
+```
+
+`name`是一个公有字段，它可以被实例和类访问。
+
+## 方法
+
+## 继承:`extends`
+
+## 类型检查：`instanceof`
+
+## 类型和原型
+
+## 参考资料
+
+[Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+[ES6 Classes](https://www.runoob.com/w3cnote/es6-class.html)
+[Class](https://es6.ruanyifeng.com/#docs/class)

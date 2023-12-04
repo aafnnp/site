@@ -1,0 +1,155 @@
+---
+type: 'Post'
+date: '2022-03-22'
+title: Swift - 协议
+tags: [swift]
+description: 协议可以被任意类型实现，包括类、结构体、枚举和其他协议，从而让这些类型可以拥有相同的行为和接口。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/UVaCej.png
+---
+
+协议（Protocol）是 Swift 中一种重要的类型，它描述了一种方法或者属性的集合。协议可以被任意类型实现，包括类、结构体、枚举和其他协议，从而让这些类型可以拥有相同的行为和接口。
+
+协议定义了一些方法和属性，但不提供任何实现。实现协议的类型，必须遵循协议的要求并提供这些方法和属性的实际实现。
+
+协议的语法如下：
+
+```swift
+
+protocol SomeProtocol {
+// 协议定义
+}
+```
+
+接下来，我们将了解协议的常见用法和特性。
+
+## 协议的属性要求
+
+协议可以要求实现者提供特定名字和类型的实例属性或类型属性。协议不指定属性是存储属性还是计算属性，只指定属性的名称和类型。此外，协议还要求属性是可读写的或只读的。
+
+实现协议的类型，必须遵循协议的要求并提供这些属性的实际实现。如果协议要求实现的属性是可读写的，那么实现者必须提供一个可读写的属性实现；如果协议要求实现的属性是只读的，那么实现者可以提供一个可读的属性实现或一个只读的计算属性实现。
+
+下面是一个协议属性要求的例子：
+
+```swift
+
+protocol Person {
+var name: String { get set }
+var age: Int { get }
+}
+```
+
+这个协议定义了两个属性要求，name 和 age。name 是一个可读写的字符串类型的实例属性，age 是一个只读的整数类型的实例属性。
+
+接下来，我们定义一个结构体 Student 来实现 Person 协议：
+
+```swift
+
+struct Student: Person {
+var name: String
+var age: Int
+}
+```
+
+Student 结构体实现了 Person 协议，并提供了 name 和 age 属性的实现。由于 Person 协议要求 name 是可读写的，因此 Student 结构体提供了一个可读写的 name 属性实现。而 Person 协议要求 age 是只读的，因此 Student 结构体提供了一个只读的 age 属性实现。
+
+## 协议的方法要求
+
+协议可以要求实现者提供特定名字和类型的实例方法和类型方法。实现协议的类型，必须遵循协议的要求并提供这些方法的实际实现。
+
+和属性要求一样，协议中的方法要求只定义方法名、参数以及返回类型，但不提供具体的实现。实现者必须自行实现这些方法。
+
+下面是一个协议方法要求的例子：
+
+当一个类型符合一个协议时，我们称这个类型为遵循该协议。协议定义了一组要求，遵循该协议的类型必须满足这些要求。
+
+在 Swift 中，协议可以用来实现多态。这意味着，我们可以使用一个遵循该协议的实例来代替任何符合该协议的类型的实例，从而使代码更加通用。
+
+下面是一些常见的协议和它们的使用方法：
+
+## CustomStringConvertible
+
+该协议可以让我们自定义类型的字符串描述。当我们打印一个遵循 CustomStringConvertible 协议的类型时，它将返回一个字符串描述。这在调试和日志记录时非常有用。
+
+下面是一个实现 CustomStringConvertible 协议的例子：
+
+```swift
+
+struct Person: CustomStringConvertible {
+let name: String
+let age: Int
+
+    var description: String {
+        return "\(name), \(age) years old"
+    }
+}
+
+let person = Person(name: "Alice", age: 28)
+print(person) // Output: Alice, 28 years old
+```
+
+## Equatable
+
+该协议可以让我们比较两个实例是否相等。当我们需要比较两个对象时，遵循 Equatable 协议的类型会自动获得 == 运算符的实现。
+
+下面是一个实现 Equatable 协议的例子：
+
+```swift
+
+struct Point: Equatable {
+let x: Int
+let y: Int
+}
+
+let point1 = Point(x: 1, y: 2)
+let point2 = Point(x: 1, y: 2)
+
+if point1 == point2 {
+print("The two points are equal.")
+} else {
+print("The two points are not equal.")
+}
+```
+
+## Hashable
+
+该协议可以让我们将一个类型实例转换为一个唯一的哈希值。遵循 Hashable 协议的类型可以用作字典的键或集合的元素。
+
+下面是一个实现 Hashable 协议的例子：
+
+```swift
+
+struct User: Hashable {
+let id: Int
+let name: String
+}
+
+let user1 = User(id: 1, name: "Alice")
+let user2 = User(id: 2, name: "Bob")
+
+var userDict = [user1: "Alice", user2: "Bob"]
+print(userDict[user1]) // Output: Optional("Alice")
+```
+
+## Codable
+
+该协议可以让我们将一个类型编码为 JSON 或解码 JSON。遵循 Codable 协议的类型可以通过编码和解码操作在 Swift 和其他语言之间进行转换。
+
+下面是一个实现 Codable 协议的例子：
+
+```swift
+
+struct Person: Codable {
+let name: String
+let age: Int
+}
+
+let person = Person(name: "Alice", age: 28)
+
+let encoder = JSONEncoder()
+let data = try encoder.encode(person)
+
+let decoder = JSONDecoder()
+let decodedPerson = try decoder.decode(Person.self, from: data)
+
+print(decodedPerson) // Output: Person(name: "Alice", age: 28)
+```

@@ -1,0 +1,34 @@
+---
+type: 'Post'
+date: '2022-09-01 16:46:23'
+title: 'Chrome插件开发 - Icon action'
+tags: [chrome]
+description: 基于react、tailwindcss开发自己的chrome插件
+---
+
+## 浏览器扩展图标 - action
+
+修改`public/manifest.json`
+
+```json
+{
+  "action": {},
+  "background": {
+    "service_worker": "background.js"
+  }
+}
+```
+
+修改`public/background.js`
+
+```js
+chrome.action.onClicked.addListener(() => {
+  chrome.tabs.create({url: './new-tab.html', active: true})
+})
+```
+
+当点击图标，将会导航到新的选项卡
+
+## Source Code
+
+[【Source Code】](https://github.com/rebelchris/new-tab-extension/tree/action)

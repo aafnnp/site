@@ -1,0 +1,48 @@
+---
+type: 'Post'
+date: '2022-05-21 16:28:10'
+title: 'Next.js - Shallow Routing'
+tags: [nodejs, javascript, Nextjs]
+description: 浅路由是在同一个路由中跳转，不会调用数据获取函数。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js_bg.svg
+---
+
+浅路由是在同一个路由中跳转，不会调用数据获取函数，比如：`getServerSideProps`、`getStaticProps`等。
+
+启用浅路由的方式，在路由跳转中设置`shallow`为`true`
+
+```jsx
+import Router from 'next/router'
+import Head from 'next/head'
+
+function HomePage(props) {
+  return (
+    <>
+      <Head>
+        <title>Welcome to Next.js!</title>
+      </Head>
+      <div>Welcome to Next.js!</div>
+      <span
+        onClick={() => Router.push('/?counter=1', undefined, {shallow: true})}
+      >
+        Reload
+      </span>
+      <br />
+      <div>Next stars: {props.stars}</div>
+      <img src="/logo.png" alt="Logo" />
+    </>
+  )
+}
+
+export async function getServerSideProps(context) {
+  const res = await fetch('https://api.github.com/repos/vercel/next.js')
+  const json = await res.json()
+  return {
+    props: {stars: json.stargazers_count}
+  }
+}
+
+export default HomePage
+```
+
+上面的代码仅接收路由的参数更新，且不会被替换。

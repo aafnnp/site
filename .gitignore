@@ -35,3 +35,5 @@ yarn-error.log*
 
 pnpm-lock.yml
 
+# contentlayer
+.contentlayer

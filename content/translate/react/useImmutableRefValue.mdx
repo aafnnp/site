@@ -1,0 +1,100 @@
+---
+type: 'Post'
+date: '2022-12-05 10:04:53'
+title: 'useImmutableRefValue - 帮助你更好的使用Typescript开发React应用'
+tags: [react, javascript]
+description: useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue），返回的 ref 对象在组件的整个生命周期内保持不变。
+originalUrl: https://javascript.plainenglish.io/useimmutablerefvalue-to-help-you-code-better-in-typescript-react-d3767d20d79d
+---
+
+> `useRef` 返回一个可变的 `ref` 对象，其 `.current` 属性被初始化为传入的参数（initialValue），返回的 `ref` 对象在组件的整个生命周期内保持不变。
+
+例如：创建`VideoPlayer`组件
+
+```tsx
+import {useRef} from 'react'
+import VideoPlayer from 'videoplayer'
+
+function VideoPlayerComponent() {
+  const playerRef = useRef(new VideoPlayer())
+  //
+}
+```
+
+对于上面的代码，在初始化组件时，调用`new VideoPlayer()`的结果将存储在`ref`中，在下一次渲染时，仍将调用`new VideoPlayer()`，但是`useef`不会再接收到其调用结果，这意味着`playerRef`可能为空。
+
+同样的，`useState`也是存在这种情况，区别在于，`useState`可以接受初始化函数，比如
+
+```tsx
+import {useState} from 'react'
+import VideoPlayer from 'videoplayer'
+function VideoPlayerComponent() {
+  const [player] = useState(() => new VideoPlayer())
+  //
+}
+```
+
+所以，在使用`playerRef`的时候，需要对它做个判断：
+
+```tsx
+import {useRef} from 'react'
+import VideoPlayer from 'videoplayer'
+
+function VideoPlayerComponent() {
+  const playerRef = useRef<VideoPlayer | null>(null)
+
+  if (playerRef.current === null) {
+    playerRef.current = new VideoPlayer()
+  }
+
+  const onClick = () => {
+    // Error: Object is possibly 'null'.
+    playerRef.current.play()
+  }
+}
+```
+
+组件只会调用一次`new VideoPlayer()`并存储在`playerRef`中，但是 typescript 会检查并提示`Error: Object is possibly 'null'`
+
+解决方法：
+
+operation chaining - 可选链
+
+`playerRef.current.play()` => `playerRef.current？.play()`
+
+useImmutableRefValue
+
+```tsx
+import {useMemo, useRef} from 'react'
+
+const useImmutableRefValue = <R,>(createRef: () => R) => {
+  const ref = useRef<R>()
+
+  const value = useMemo(() => {
+    if (!ref.current) {
+      ref.current = createRef()
+    }
+
+    return ref.current
+    // Only one instance, no deps required.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return value
+}
+
+export default useImmutableRefValue
+```
+
+```tsx
+import VideoPlayer from 'videoplayer'
+import useImmutableRefValue from 'useImmutableRefValue'
+
+function Component() {
+  const player = useImmutableRefValue(() => new VideoPlayer())
+
+  const onClick = () => {
+    player.play()
+  }
+}
+```

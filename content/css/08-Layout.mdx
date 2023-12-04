@@ -1,0 +1,114 @@
+---
+type: 'Post'
+date: '2022-05-07'
+title: 'css - layout'
+tags: [css]
+---
+
+布局（Layout）是指如何在页面中安排和组织 HTML 元素的位置和大小，是 Web 前端开发中至关重要的一环。
+
+在 CSS 中，布局可以通过不同的布局方式来实现，主要包括以下几种：
+
+- 流动布局（Flow Layout）：默认的布局方式，HTML 元素按照文档流从上到下依次排列，每个元素占据一定的空间，如果空间不足则会自动换行。流动布局是最常用的一种布局方式，也是响应式设计的基础。
+- 浮动布局（Float Layout）：元素通过 float 属性向左或向右浮动，脱离文档流并且会覆盖在其他元素之上。浮动元素的周围的内容会环绕在其周围，可以用于实现多栏布局、图片与文本混排等效果。但是浮动布局有时会导致布局失效或者与其他元素重叠，需要注意清除浮动。
+- 定位布局（Position Layout）：元素通过 position 属性进行定位，可以相对于文档、相对于父元素或相对于其他元素进行定位。定位布局常用于实现层叠效果、悬浮菜单、弹出框等效果。
+- 弹性盒子布局（Flexbox Layout）：通过 display: flex 属性来设置元素为弹性盒子，可以定义主轴和交叉轴的方向，以及子元素在主轴和交叉轴上的对齐方式、分配比例等，是一种相对灵活的布局方式，适合于实现响应式设计和动态布局。
+- 网格布局（Grid Layout）：通过 display: grid 属性来设置元素为网格容器，可以在水平和垂直方向上划分出多行多列的网格单元格，并且可以通过 grid-template-rows、grid-template-columns、grid-template-areas 等属性来设置单元格的大小、位置、内容等，是一种非常灵活的布局方式，适合于实现复杂的页面布局。
+
+除了以上几种布局方式，还可以通过使用框架（如 Bootstrap、Foundation 等）或者 CSS Grid 系统（如 Bootstrap Grid、Semantic UI Grid 等）来快速构建布局，提高开发效率。
+
+以下是一个使用 CSS Grid 布局实现的响应式网格布局案例：
+
+HTML 代码：
+
+```html
+<div class="grid-container">
+  <div class="grid-item">1</div>
+  <div class="grid-item">2</div>
+  <div class="grid-item">3</div>
+  <div class="grid-item">4</div>
+  <div class="grid-item">5</div>
+  <div class="grid-item">6</div>
+  <div class="grid-item">7</div>
+  <div class="grid-item">8</div>
+  <div class="grid-item">9</div>
+</div>
+```
+
+CSS 代码：
+
+```css
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+.grid-item {
+  background-color: #ddd;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+}
+```
+
+在这个案例中，我们使用了 CSS Grid 的自适应列宽功能来实现响应式布局。具体来说，我们使用 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 来定义网格容器的列宽，其中 auto-fit 表示根据容器大小自动调整列数，minmax(200px, 1fr) 表示每列的最小宽度为 200 像素，最大宽度为 1 个网格单元格的剩余空间。通过这种方式，我们可以让网格容器自动适应不同的屏幕尺寸，同时保证每列的宽度合适。
+
+## 双飞翼布局
+
+双飞翼布局是一种基于 CSS 的三列布局方式，它可以让页面的内容更加灵活地适应不同的屏幕尺寸和浏览器窗口大小。下面是一个简单的双飞翼布局示例：
+
+HTML 代码：
+
+```html
+<div class="wrapper">
+  <div class="content">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget
+      ipsum id quam luctus rutrum nec eu nulla.
+    </p>
+  </div>
+  <div class="left">
+    <p>Left Column</p>
+  </div>
+  <div class="right">
+    <p>Right Column</p>
+  </div>
+</div>
+```
+
+CSS 代码：
+
+```css
+.wrapper {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.content {
+  flex-grow: 1;
+  margin: 0 200px;
+  background-color: #eee;
+}
+
+.left,
+.right {
+  width: 200px;
+  margin-left: -200px;
+  position: relative;
+}
+
+.left {
+  float: left;
+  background-color: #ccc;
+}
+
+.right {
+  float: right;
+  background-color: #ddd;
+}
+```
+
+在这个布局中，.content 元素是页面的主要内容区域，.left 和 .right 元素分别是左右两栏。通过使用 flex 属性和 margin 属性来控制 .content 的宽度和位置，同时使用负的 margin-left 属性来将 .left 和 .right 移动到正确的位置。通过设置 position: relative 属性，可以保证 .left 和 .right 相对于 .content 定位，从而不会影响页面的布局。

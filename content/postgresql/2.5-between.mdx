@@ -1,0 +1,68 @@
+---
+type: 'Post'
+date: '2022-06-06 12:01:23'
+title: 'Postgresql - BETWEEN'
+tags: [postgresql, sql]
+description: 使用 Postgresql BETWEEN 检索查询是否处于列表区间。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/m6LZPQ.jpg
+---
+
+使用`BETWEEN`运算符将一个值与一系列值进行匹配
+
+## 语法
+
+```sql
+value BETWEEN low AND high
+```
+
+如果`value`在`low`和`high`之间，则返回`TRUE`，否则返回`FALSE`。
+
+`BETWEEN`可以使用大于等于和小于等于运算符，但是不能使用`LIKE`运算符。
+
+```sql
+value >= low and value <= high
+```
+
+检查是否超出范围，可以使用`NOT`和`BETWEEN`组合运算符。
+
+```sql
+value NOT BETWEEN low AND high
+```
+
+等价于
+
+```sql
+value < low OR value > high
+```
+
+## 示例
+
+使用`BETWEEN`查询金额是否在 8 和 9 之间。
+
+```sql
+SELECT
+	customer_id,
+	payment_id,
+	amount
+FROM
+	payment
+WHERE
+	amount BETWEEN 8 AND 9;
+```
+
+![x42PKI](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/x42PKI.jpg)
+
+查询金额不在 8 和 9 之间。
+
+```sql
+SELECT
+	customer_id,
+	payment_id,
+	amount
+FROM
+	payment
+WHERE
+	amount NOT BETWEEN 8 AND 9;
+```
+
+![Fx8VVk](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Fx8VVk.jpg)

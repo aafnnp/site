@@ -1,0 +1,37 @@
+---
+type: 'Post'
+date: '2021-04-15'
+title: 'React Fragments'
+tags: [react, javascript]
+description: React是一个JavaScript库，致力于使UI开发变得简单
+---
+
+`React` 还为我们提供了一种称为`fragment`的元素。
+
+`React` 要求在单个“父”组件中返回所有返回的元素。
+
+例如，我们不能返回两个同级元素，比如 `h1` 和组件中的段落：
+
+```jsx
+// this syntax is invalid
+// function MyComponent() {
+//   return (
+//     <h1>My header</h1>
+//     <p>My paragraph</p>
+//   );
+// }
+```
+
+```jsx
+// valid syntax
+function MyComponent() {
+  return (
+    <>
+      <h1>My header</h1>
+      <p>My paragraph</p>
+    </>
+  )
+}
+```
+
+使用`<React.Fragment></React.Fragment>` or `<></>`可返回多个元素。

@@ -1,0 +1,23 @@
+---
+type: 'Post'
+date: '2022-06-13 10:11:51'
+title: 'Postgresql - SELF JOIN'
+tags: [postgresql, sql]
+description: PostgreSQL 中的自连接是一种连接方式，可以让您将表连接到自身
+---
+
+PostgreSQL 中的自连接是一种连接方式，可以让您将表连接到自身。当您有一个包含层次数据的表时，这很有用，比如员工表包含一个参考员工经理的 manager_id 列。
+
+要执行自连接，首先在 SELECT 语句的 FROM 子句中指定要连接到自身的表。然后，您可以给表分配两个不同的别名，比如 a 和 b，以区分连接条件中的两个表实例。
+
+例如，假设您有一个 employee 表，具有以下列： id、name 和 manager_id。要获取所有员工及其经理的列表，可以使用以下自连接查询：
+
+```sql
+SELECT a.name AS employee_name, b.name AS manager_name
+FROM employee a
+JOIN employee b ON a.manager_id = b.id
+```
+
+该查询将返回两列的结果集：employee_name 和 manager_name。结果集中的每一行都包含一个员工的姓名和他们的经理的姓名。
+
+自连接可以非常强大，因为它可以轻松地在数据库中处理层次数据。但是，它们也可能很难编写和理解，因此在使用自连接查询前，要仔细考虑是否自连接是问题的最佳解决方案。

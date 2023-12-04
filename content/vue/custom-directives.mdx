@@ -1,0 +1,29 @@
+---
+type: 'Post'
+date: '2022-03-31 15:39:50'
+title: '自定义指令'
+tags: [vue, javascript]
+description: 'Vue有很多内置指令，比如v-for、v-if'
+---
+
+Vue 有很多内置指令，比如`v-for`、`v-if`，我们可以自定义类似的指令。
+
+一个简单的自定义指令`v-bg-color`
+
+```vue
+<template>
+  <h1 v-bg-color="'skyblue'">This background is blue</h1>
+</template>
+```
+
+```js
+import {createApp} from 'vue'
+const app = createApp({})
+
+app.directive('bg-color', {
+  mounted(el, {value}) {
+    // Update the background color
+    el.style.background = value
+  }
+})
+```

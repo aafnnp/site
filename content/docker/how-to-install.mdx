@@ -1,0 +1,94 @@
+---
+type: 'Post'
+date: '2023-02-02 17:16:19'
+title: '如何安装Docker？'
+tags: [docker]
+---
+
+Docker 的安装根据所使用的操作系统有很大的不同。但是普遍来说这是很简单的。Docker 可以在 Mac、 Windows 和 Linux 这三个主要平台上完美地运行。在这三者中，Mac 上的安装过程是最简单的。
+
+## 在 Mac 上安装 Docker
+
+1. brew 安装 docker
+
+```bash
+#搜索
+==> Formulae
+docker                          docker-credential-helper        docker-machine-completion       docker-machine-nfs              docker2aci
+docker-clean                    docker-credential-helper-ecr    docker-machine-driver-hyperkit  docker-machine-parallels        dockerize
+docker-completion               docker-gen                      docker-machine-driver-vmware    docker-slim                     lazydocker
+docker-compose                  docker-ls                       docker-machine-driver-vultr     docker-squash
+docker-compose-completion       docker-machine                  docker-machine-driver-xhyve     docker-swarm
+==> Casks
+docker
+
+#安装
+brew install docker
+==> Downloading https://mirrors.ustc.edu.cn/homebrew-bottles/bottles/docker-19.03.14.big_sur.bottle.tar.gz
+######################################################################## 100.0%
+==> Pouring docker-19.03.14.big_sur.bottle.tar.gz
+==> Caveats
+zsh completions have been installed to:
+  /usr/local/share/zsh/site-functions
+==> Summary
+🍺  /usr/local/Cellar/docker/19.03.14: 14 files, 71.6MB
+```
+
+2. 手动安装
+
+下载[Stable](https://download.docker.com/mac/stable/Docker.dmg)，双击安装
+
+![PVr5uh](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/PVr5uh.jpg)
+
+安装完成后，通过命令检查 Docker 版本
+
+```bash
+docker --version
+
+Docker version 19.03.14, build 5eb3275
+```
+
+3. 镜像加速
+
+![NAWFnd](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/NAWFnd.png)
+
+安装完成后，在 Terminal 执行`docker version` 命令，如果出现如下结果，说明安装成功。
+
+```bash
+docker --version
+docker-compose --version
+```
+
+## 在 Windows 上安装 Docker
+
+在 windows 上安装 docker，首先需求安装并启用 Hyper-V，类似于 VMWare 或 VirtualBox。
+
+再去官网下载应用包，按照提示一步步安装即可。
+
+![ZJtVbO](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/ZJtVbO.jpg)
+
+## 在 Linux 上安装 Docker
+
+在 Linux 上安装 Docker 是一个有点不同的过程，而且根据您所在的发行版本的不同，这个过程可能会更加不同。
+
+但老实说，安装和其他两个平台一样容易(如果不是更容易的话)。
+
+Windows 或 Mac 上的 Docker Desktop 软件包是一系列工具的集合，比如 Docker Engine、 Docker Compose、 Docker Dashboard、 Kubernetes 和其他一些好东西。然而，在 Linux 上，你不会得到这样一个包。相反，您需要手动安装所有必要的工具。不同发行版的安装程序如下:
+
+1. 如果是 Ubuntu，按照[官方文档](https://docs.docker.com/engine/install/ubuntu/)操作。
+2. 如果是其他发行版
+
+- [Debian](https://docs.docker.com/engine/install/debian/)
+- [Fedora](https://docs.docker.com/engine/install/fedora/)
+- [Centos](https://docs.docker.com/engine/install/centos/)
+
+3. 如果你使用的发行版没有在列表上，可以使用[二进制方式安装](https://docs.docker.com/engine/install/binaries/)
+
+安装完成后，在 Terminal 执行`docker version` 命令，如果出现如下结果，说明安装成功。
+
+```bash
+docker --version
+docker-compose --version
+```
+
+![QEmx65](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/QEmx65.jpg)

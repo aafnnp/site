@@ -1,0 +1,119 @@
+---
+type: 'Post'
+date: '2021-12-06 14:11:54'
+title: 'Collections of python - 集合'
+tags: [python]
+description: '集合包括列表、字典、集合。'
+---
+
+## 总览
+
+程序员经常会用到的集合，列表、字典、集合。比如：
+
+- 股票池
+- 股票价格
+
+有多种选择来处理这一系列数据：
+
+- 列表。表示一组有序的数据
+- 字典。表示一组键值对的数据
+- 集合。表示一组无序的数据
+
+## 列表
+
+当数据的顺序很重要时，使用列表。记住列表可以容纳任何类型的对象。例如，元组列表。
+
+```python
+portfolio = [
+    ('GOOG', 100, 490.1),
+    ('IBM', 50, 91.3),
+    ('CAT', 150, 83.44)
+]
+
+portfolio[0]            # ('GOOG', 100, 490.1)
+portfolio[2]            # ('CAT', 150, 83.44)
+
+# 列表构造
+records=[] #初始化一个空列表
+
+records.append(('foo', 1, 2)) #添加元素
+records.append(('bar', 'hello')) #添加元素
+
+#从文件读取数据并写入列表
+with open('data.csv', 'w') as f:
+    next(f) #跳过第一行
+    for line in f:
+        row = line.strip().split(',')
+        records.append((row[0], row[1], row[2]))
+```
+
+## 字典
+
+如果你想要快速随机查找(按键名) ，字典是很有用的。例如，股票价格字典:
+
+```python
+prices = {
+   'GOOG': 513.25,
+   'CAT': 87.22,
+   'IBM': 93.37,
+   'MSFT': 44.12
+}
+
+prices['IBM']           # 93.37
+prices['MSFT']          # 44.12
+
+# 字典构造
+prices = {} #初始化一个空字典
+
+prices['GOOG'] = 513.25 #添加元素
+prices['CAT'] = 87.22 #添加元素
+
+#从文件读取数据并写入字典
+with open('data.csv', 'w') as f:
+    next(f) #跳过第一行
+    for line in f:
+        row = line.strip().split(',')
+        prices[row[0]] = row[1]
+
+# 字典查找
+if 'GOOG' in prices:
+    print('GOOG is in prices')
+
+name = prices.get('GOOG', 'N/A') #N/A表示默认值
+
+prices.get('GOOG', 0) # 513.25
+prices.get('SCOX', 0) # 0
+
+# 复合键 - 任何类型的数据都可以作为字典的键。例如，元组:
+
+holidays = {
+    (1, 1): 'New Year\'s Day',
+    (7, 4): 'Independence Day',
+    (12, 25): 'Christmas'
+}
+holidays[(1, 1)] # 'New Year\'s Day'
+```
+
+## 集合
+
+集合是一种特殊的字典，表示一组无序的数据，数据不重复。
+
+```python
+tech_stocks = {'GOOG', 'IBM', 'CAT'}
+tech_stocks = set(['GOOG', 'IBM', 'CAT'])
+
+names = ['IBM', 'AAPL', 'GOOG', 'IBM', 'GOOG', 'YHOO']
+
+unique = set(names)
+# unique = set(['IBM', 'AAPL','GOOG','YHOO'])
+
+unique.add('CAT')        # Add an item
+unique.remove('YHOO')    # Remove an item
+
+s1 = { 'a', 'b', 'c'}
+s2 = { 'c', 'd' }
+s1 | s2                 # Set union { 'a', 'b', 'c', 'd' }
+s1 & s2                 # Set intersection { 'c' }
+s1 - s2                 # Set difference { 'a', 'b' }
+
+```

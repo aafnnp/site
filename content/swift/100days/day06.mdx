@@ -1,0 +1,111 @@
+---
+type: 'Post'
+date: '2022-03-19'
+title: 'Closures - 闭包'
+tags: [swift]
+description: 闭包(Closures)是自包含的功能代码块，可以在代码中使用或者用来作为参数传值。
+---
+
+## 闭包的定义
+
+闭包(Closures)是自包含的功能代码块，可以将闭包视为无名函数，可以将其分配给变量或将其作为参数传递给函数。
+闭包主要用于在将来满足条件时执行某项操作。例如，成功下载文件后，将其内容存储到数据库中。
+
+全局函数和嵌套函数其实就是特殊的闭包。
+
+闭包的形式有：
+
+| 全局函数               | 嵌套函数                       | 闭包表达式                                         |
+| ---------------------- | ------------------------------ | -------------------------------------------------- |
+| 有名字但不能捕获任何值 | 有名字，也能捕获封闭函数内的值 | 无名闭包，使用轻量级语法，可以根据上下文环境捕获值 |
+
+## 创建闭包
+
+```swift
+let helloWorldClosure = {
+  print("hello")
+}
+
+helloWorldClosure()
+```
+
+上面的代码创建一个打印`Hello`的闭包，并将该闭包分配给`helloWorldClosure`变量。然后，可以像调用函数一样简单地调用闭包。
+
+## 接收参数
+
+```swift
+let driving = { (place: String) in
+    print("I'm going to \(place) in my car")
+}
+driving("London")
+```
+
+## 闭包返回值
+
+```swift
+let addClosure = { (first: Int, second: Int) -> Int in
+    return first + second
+}
+
+let sum = addClosure(1,2)
+```
+
+上面的代码创建一个以两个数字为参数的闭包，并返回数字的总和。
+
+## 作为参数传递
+
+```swift
+let saveFile = {
+   //code to save file
+}
+
+func downloadFile(imageUrl, onSuccess: () ->) {
+  //code to download file
+  if(downloadSuccessfull){
+     onSuccess()
+  }
+}
+
+downloadFile(imageUrl: "Instagram", onSuccess: saveFile)
+```
+
+闭包强制返回值，`()->Void`表示不接受参数并且不返回任何内容。可以将`Void`替换为任何类型，如`Int`或者`String`，强制闭包返回值。
+
+```swift
+func travel(action: (String) -> String) {
+    print("I'm getting ready to go.")
+    let description = action("London")
+    print(description)
+    print("I arrived!")
+}
+
+travel { (place: String) -> String in
+    return "I'm going to \(place) in my car"
+}
+
+# 闭包简写
+travel {
+    return "I'm going to \($0) in my car"
+}
+
+# 多参数传递
+func travel(action: (String, Int) -> String) {
+    print("I'm getting ready to go.")
+    let description = action("London", 60)
+    print(description)
+    print("I arrived!")
+}
+
+travel {
+    return "I'm going to \($0) at \($1) in my car"
+}
+```
+
+## 闭包总结
+
+- 可以将闭包赋值给变量
+- 闭包接收参数和返回值
+- 可以将闭包作为参数传递到函数中，这些闭包可以有自己的参数和返回值。
+- 如果函数的最后一个参数是闭包，则可以使用尾随闭包语法。
+- Swift 自动提供速记参数名称，如$0 和$1，但并非所有人都使用它们。
+- 如果在闭包中使用外部值，它们将被捕获，以便闭包稍后可以引用它们。

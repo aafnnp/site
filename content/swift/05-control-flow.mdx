@@ -1,0 +1,104 @@
+---
+type: 'Post'
+date: '2022-03-05'
+title: Swift - 控制流
+tags: [swift]
+description: Swift 支持多种控制流语句，包括条件语句、循环语句和控制转移语句
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/VP7Z5e.png
+---
+
+Swift 支持多种控制流语句，包括条件语句、循环语句和控制转移语句。这些语句可以控制代码的执行流程，使程序能够根据不同的条件执行不同的代码路径。
+
+以下是 Swift 中常用的控制流语句：
+
+条件语句（if、else、else if）
+
+```swift
+let age = 20
+if age < 18 {
+  print("未成年人")
+} else if age < 30 {
+  print("年轻人")
+} else {
+  print("中年人")
+}
+```
+
+循环语句（for、while、repeat-while）
+
+```swift
+// for 循环
+for i in 1...5 {
+  print(i)
+}
+
+// while 循环
+var i = 0
+while i < 5 {
+  print(i)
+  i += 1
+}
+
+// repeat-while 循环
+i = 0
+repeat {
+  print(i)
+  i += 1
+} while i < 5
+```
+
+控制转移语句（break、continue、fallthrough、return、throw）
+
+```swift
+// break 语句
+for i in 1...10 {
+if i == 5 {
+  break
+}
+print(i)
+}
+
+// continue 语句
+for i in 1...10 {
+if i % 2 == 0 {
+  continue
+}
+print(i)
+}
+
+// fallthrough 语句
+let score = 80
+var grade = ""
+switch score {
+  case 0..<60:
+  grade = "不及格"
+  case 60..<70:
+  grade = "及格"
+  case 70..<80:
+  grade = "中等"
+  case 80..<90:
+  grade = "良好"
+  case 90...100:
+  grade = "优秀"
+  fallthrough
+  default:
+  print("你的成绩是 \(score)，评级是 \(grade)")
+}
+
+// return 语句
+func sum(_ a: Int, _ b: Int) -> Int {
+  return a + b
+}
+
+// throw 语句
+enum MyError: Error {
+  case error1
+  case error2
+}
+
+func test() throws {
+  throw MyError.error1
+}
+```
+
+Swift 的控制流语句功能强大，使用灵活，可以编写出各种复杂的逻辑结构，从而满足不同的编程需求。需要根据具体的需求选择不同的控制流语句。

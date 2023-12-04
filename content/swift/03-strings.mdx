@@ -1,0 +1,112 @@
+---
+type: 'Post'
+date: '2022-03-03'
+title: Swift - 字符、字符串
+tags: [swift]
+description: 字符串（String）是一种用于存储和操作文本的类型。字符串由一系列字符（Character）组成，可以包含字母、数字、符号和空格等文本字符。Swift 的字符串类型是可变的（Mutable），可以修改其值。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/qYwzrA.png
+---
+
+## 字符串的定义：
+
+Swift 中可以使用两种方式来定义字符串：
+
+- 使用双引号("")将字符串括起来。
+- 使用三个双引号(""")来定义多行字符串。
+  例如：
+
+```swift
+let str1 = "Hello, world!" // 使用双引号定义字符串
+let str2 = """
+This is a
+multi-line
+string.
+""" // 使用三个双引号定义多行字符串
+```
+
+Swift 中的字符类型（Character）表示一个单独的字符，通常用于表示一个字母、数字、符号或空格等单个文本字符。
+
+## 字符的定义：
+
+Swift 中使用单引号('')来定义字符，例如：
+
+```swift
+let char1: Character = "A" // 定义单个字符
+```
+
+在字符串中，可以使用字符的集合来表示一段文本。例如：
+
+```swift
+let str3 = "Swift"
+for char in str3 {
+print(char)
+}
+```
+
+上述代码会输出字符串 "Swift" 中的每个字符，即 "S"、"w"、"i"、"f"、"t"。
+
+Swift 中的字符串和字符类型还支持各种文本处理功能，例如拼接、截取、查找、替换、转换大小写等。这些功能可通过使用字符串和字符类型的内置方法和属性来实现。
+
+以下是一些常见的字符串和字符处理方法和属性的示例：
+
+## 字符串拼接
+
+可以使用加号运算符（+）将两个字符串连接起来。例如：
+
+```swift
+let str1 = "Hello"
+let str2 = "world"
+let str3 = str1 + " " + str2 // "Hello world"
+```
+
+## 字符串截取
+
+可以使用下标操作符([])和 range(范围)操作符(...和..\<)从字符串中截取一段子字符串。例如：
+
+```swift
+let str = "Hello, world!"
+let subStr1 = str[..<5] // "Hello"
+let subStr2 = str[7...] // "world!"
+let subStr3 = str[7..<12] // "world"
+```
+
+## 字符串查找
+
+可以使用内置的 contains() 方法查找字符串是否包含某个子字符串，也可以使用 range(of: String) 方法查找子字符串的范围。例如：
+
+```swift
+let str = "Hello, world!"
+let hasWorld = str.contains("world") // true
+let range = str.range(of: "world") // Range<String.Index>(7..<12)
+```
+
+## 字符串替换
+
+可以使用 replaceSubrange() 方法替换字符串中的一段子字符串。例如：
+
+```swift
+var str = "Hello, world!"
+str.replaceSubrange(7..<12, with: "Swift") // "Hello, Swift!"
+```
+
+## 字符串大小写转换
+
+可以使用 uppercased() 方法将字符串中的所有字符转换为大写，使用 lowercased() 方法将其转换为小写。例如：
+
+```swift
+let str = "Hello, world!"
+let upperStr = str.uppercased() // "HELLO, WORLD!"
+let lowerStr = str.lowercased() // "hello, world!"
+```
+
+## 字符串和数字类型的相互转换
+
+可以使用 String() 方法将数字类型转换为字符串，使用 Int()、Float() 或 Double() 等方法将字符串转换为相应的数字类型。例如：
+
+```swift
+let num = 123
+let str = String(num) // "123"
+
+let str2 = "3.14"
+let floatNum = Float(str2) // 3.14
+```

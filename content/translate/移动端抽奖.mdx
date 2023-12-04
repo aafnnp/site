@@ -1,0 +1,102 @@
+---
+type: 'Post'
+date: '2020-04-19'
+title: '移动端抽奖'
+tags: [i18n, javascript]
+---
+
+## 抽奖类型
+
+- 圆形抽奖
+- 方形抽奖
+- 老虎机
+- 刮刮卡
+
+### 圆形抽奖
+
+代码如下：
+
+```js
+// prefix补全
+var CSSTransform = (function () {
+  var _elementStyle = document.createElement('div').style
+  var _vendor = (function () {
+    var vendors = ['t', 'webkitT', 'MozT', 'msT', 'OT'],
+      transform,
+      i = 0,
+      l = vendors.length
+    for (; i < l; i++) {
+      transform = vendors[i] + 'ransform'
+      if (transform in _elementStyle)
+        return vendors[i].substr(0, vendors[i].length - 1)
+    }
+    return false
+  })()
+
+  function _prefixStyle(style) {
+    if (_vendor === false) return false
+    if (_vendor === '') return style
+    return _vendor + style.charAt(0).toUpperCase() + style.substr(1)
+  }
+  return _prefixStyle('transform')
+})()
+
+// 转盘旋转效果
+var Lottery = function (el) {
+  this.running = false
+  this.el = $(el)[0]
+  /*
+	    旋转转盘至指定位置
+	    参数：
+	    giftIndex: 礼物的索引（从0开始到数组.length - 1）
+	    endCallback：转盘旋转完成时的回调
+	    */
+  this.rotateToGift = function (giftIndex, endCallback) {
+    if (typeof endCallback != 'function') return
+    if (giftIndex < 0 || giftIndex > CNST_GIFTS.length - 1) return
+    if (this.running) return
+    this.running = true
+    var degToRotate = (giftIndex + 1) * 45 + 360 * 3 - 22.5 //最少转3圈
+    var rotatedDeg = 0
+    var speed = 20 //deg
+    var speedRatio = 1
+    var _this = this
+
+    function r() {
+      _this.el.style[CSSTransform] = 'rotate(' + -rotatedDeg + 'deg)'
+      rotatedDeg += speed * speedRatio
+      if (rotatedDeg + 180 >= degToRotate)
+        //开始减速
+        speedRatio = (degToRotate - rotatedDeg) / 180
+      if (rotatedDeg >= degToRotate - 0.5) {
+        rotatedDeg = degToRotate
+        _this.el.style[CSSTransform] = 'rotate(' + -rotatedDeg + 'deg)'
+        _this.running = false
+        endCallback()
+      } else setTimeout(r, 1000 / 24)
+    }
+    r()
+  }
+}
+```
+
+**使用方法：**
+
+```html
+<div class="lottery">
+  <div class="lottery-bg"></div>
+  <button id="btnStart" class="button start" onClick="startLottery()"></button>
+</div>
+```
+
+调用方法：
+
+```js
+
+var myLottery = new Lottery($(".lottery .lottery-bg"));//初始化转盘
+myLottery.rotateToGift(giftIndex, function() {
+	    //giftIndex为后端接口下发的奖品ID，function为回调函数
+}
+```
+
+待续

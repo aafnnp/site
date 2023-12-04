@@ -1,0 +1,52 @@
+---
+type: 'Post'
+date: '2022-03-15'
+title: Swift - 取消初始化
+tags: [swift]
+description: 在 Swift 中，取消初始化通常指的是在初始化器中出现了错误或某些情况下无法完成初始化时，通过返回 nil 或抛出异常来表示初始化的失败或取消。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/WrsFq6.png
+---
+
+在 Swift 中，取消初始化通常指的是在初始化器中出现了错误或某些情况下无法完成初始化时，通过返回 nil 或抛出异常来表示初始化的失败或取消。
+
+取消初始化的常用方法有两种：
+
+使用可失败初始化器（Failable initializer）：可失败初始化器是指在初始化时可能会失败并返回 nil 的初始化器。可以通过在初始化方法后面加上问号来声明可失败初始化器。
+
+```swift
+class Person {
+    var name: String
+
+    init?(name: String) {
+        if name.isEmpty {
+            return nil
+        }
+        self.name = name
+    }
+}
+```
+
+在上述示例中，如果传入的 name 为空，则初始化失败并返回 nil。
+
+使用抛出错误（Throwing Errors）：抛出错误是指在初始化时如果遇到错误就会抛出一个异常，这可以让调用者来决定如何处理错误。可以通过在初始化方法中使用 throw 语句抛出一个异常。
+
+```swift
+enum InvalidInputError: Error {
+  case emptyName
+}
+
+class Person {
+  var name: String
+
+    init(name: String) throws {
+        if name.isEmpty {
+            throw InvalidInputError.emptyName
+        }
+        self.name = name
+    }
+}
+```
+
+在上述示例中，如果传入的 name 为空，则会抛出 InvalidInputError.emptyName 异常，调用者可以使用 do-catch 语句来处理异常。
+
+当然，取消初始化并不是一种推荐的行为，我们应该尽量避免在初始化器中使用返回 nil 或抛出异常的方式来取消初始化，而应该尽量保证初始化器的顺利完成，或者在初始化器中处理可能会导致初始化失败的情况。

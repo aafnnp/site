@@ -1,0 +1,38 @@
+---
+type: 'Post'
+date: '2021-04-19'
+title: 'React Conditionals'
+tags: [react, javascript]
+description: React是一个JavaScript库，致力于使UI开发变得简单
+---
+
+`react` 组件可以通过条件判断显示不同的内容。比如：
+
+```jsx
+function App() {
+  const isAuthUser = useAuth()
+
+  if (isAuthUser) {
+    // if our user is authenticated, let them use the app
+    return <AuthApp />
+  }
+
+  // if user is not authenticated, show a different screen
+  return <UnAuthApp />
+}
+```
+
+三元运算符简化条件判断
+
+```jsx
+function App() {
+  const isAuthUser = useAuth()
+
+  return (
+    <>
+      <h1>My App</h1>
+      {isAuthUser ? <AuthApp /> : <UnAuthApp />}
+    </>
+  )
+}
+```

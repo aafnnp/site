@@ -1,0 +1,65 @@
+---
+type: 'Post'
+date: '2021-12-02 17:28:47'
+title: 'Functions - 函数'
+tags: [python]
+description: '随着程序的不断更新，我们会发现，函数的定义和调用是一致的。'
+---
+
+## 函数的定义
+
+函数的定义是一个特殊的可复用的代码块，它的第一行必须是函数的声明，第二行开始是函数的实现。
+
+```python
+#定义函数
+def sumcount(n):
+    '''
+    Returns the sum of the first n integers
+    '''
+    total = 0
+    while n > 0:
+        total += n
+        n -= 1
+    return total
+#调用函数
+a = sumcount(100)
+```
+
+## 标准函数
+
+python 中的标准函数是一些内置的函数，通过`import`调用。
+
+```python
+import math
+x = math.sqrt(10)
+
+import urllib.request
+u = urllib.request.urlopen('http://www.python.org/')
+data = u.read()
+```
+
+## 错误和异常
+
+错误和异常是 python 中的两个主要概念，错误是指程序运行过程中发生的错误，异常是指程序运行过程中抛出的异常。例如：
+
+```python
+>>> int('N/A')
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+ValueError: invalid literal for int() with base 10: 'N/A'
+>>>
+```
+
+## 捕获、处理异常
+
+异常可以通过`try`和`except`来捕获，也可以通过`try`和`finally`来处理。
+
+```python
+for line in f:
+    fields = line.split()
+    try:
+        shares = int(fields[1])
+    except ValueError:
+        print("Couldn't parse", line)
+    ...
+```

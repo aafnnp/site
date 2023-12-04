@@ -1,0 +1,86 @@
+---
+type: 'Post'
+date: '2022-06-07 15:21:14'
+title: 'Postgresql - LIKE'
+tags: [postgresql, sql]
+description: 使用 Postgresql LIKE 检索查询是否类似于某个字符串。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/vUzvlJ.jpg
+---
+
+假如我们要查询 `name` 字段以 `Jen`开通 的所有记录，可以这样写：
+
+```sql
+SELECT
+	  first_name,
+    last_name
+FROM
+	customer
+WHERE
+	first_name LIKE 'Jen%';
+```
+
+![gqS8IL](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/gqS8IL.jpg)
+
+- `%` 匹配任意多个字符
+- `_` 匹配一个字符
+
+## 语法
+
+```sql
+value LIKE pattern [ESCAPE escape_character]
+value NOT LIKE pattern [ESCAPE escape_character]
+```
+
+## 示例
+
+```sql
+SELECT
+	'foo' LIKE 'foo', -- true
+	'foo' LIKE 'f%', -- true
+	'foo' LIKE '_o_', -- true
+	'bar' LIKE 'b_'; -- false
+```
+
+- 第一个表达式返 true，因为该表达式不包含任何通配符，类似于`=`
+- 第二个表达式返 true，因为该表达式包含一个通配符，以`f`开头，后跟任意数量的字符
+- 第三个表达式返 true，因为该表达式包含一个通配符，以`_`开头，匹配任何单个字符开通，后跟字幕`o`并以任何单个字符结尾的字符串
+- 第四个表达式返 false，因为该表达式包含一个通配符，以`b`开头，匹配任何单个字符开通，后跟字幕`_`并以任何单个字符结尾的字符串
+
+例如，查询返回名字包含`er`字符串的所有记录：
+
+```sql
+SELECT
+	first_name,
+  last_name
+FROM
+	customer
+WHERE
+	first_name LIKE '%er%'
+ORDER BY
+  first_name;
+```
+
+![Vy9Num](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Vy9Num.jpg)
+
+`%`与`_`的使用
+
+```sql
+SELECT
+	first_name,
+	last_name
+FROM
+	customer
+WHERE
+	first_name LIKE '_her%'
+ORDER BY
+  first_name;
+```
+
+![Po7USK](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Po7USK.jpg)
+
+| Operator | Equivalent |
+| -------- | ---------- |
+| ~~       | LIKE       |
+| ~~\*     | ILIKE      |
+| !~~      | NOT LIKE   |
+| !~~\*    | NOT ILIKE  |

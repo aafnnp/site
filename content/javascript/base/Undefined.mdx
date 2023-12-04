@@ -1,0 +1,37 @@
+---
+type: 'Post'
+date: '2020-05-07'
+title: 'Undefined'
+tags: [javascript]
+---
+
+在 JavaScript 中，undefined 是一个原始值，表示没有值。它是未初始化变量的默认值，也是没有返回值的函数返回的值。
+
+你可以使用 undefined 值来检查变量是否已初始化或函数是否已返回值：
+
+```js
+let x
+console.log(x === undefined) // true
+
+function f() {}
+console.log(f() === undefined) // true
+```
+
+请注意，undefined 与 null 不同，null 表示没有对象值。在 JavaScript 中，null 是可以赋值给变量的值，而 undefined 是未初始化变量的默认值。
+
+你还可以使用 typeof 运算符来检查一个值是否为 undefined。typeof 运算符对于 undefined 值会返回字符串 "undefined"：
+
+```js
+console.log(typeof undefined) // "undefined"
+```
+
+此外，你还可以使用 undefined 值将变量重置为其默认值：
+
+```js
+let x = 1
+x = undefined // x 现在为 undefined
+```
+
+通常认为使用 undefined 值重置变量是不好的做法，因为它会导致混淆，使代码难以理解。相反，最好是明确将变量设置为 null 或其他在代码上下文中有意义的值。
+
+总之，undefined 是 JavaScript 中的原始值，表示没有值。它是未初始化变量的默认值，也是没有返回值的函数返回的值。您可以使用“未定义”值来检查变量是否已初始化，或者函数是否已返回值，您还可以使用`typeof`操作符来检查值是否为 undefined。然而，使用 typeof 来检查值是否为 undefined 来重置变量通常被认为是一种不好的做法。

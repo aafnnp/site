@@ -1,0 +1,87 @@
+---
+type: 'Post'
+date: '2022-05-27 10:17:18'
+title: 'Next.js - CLI & Deployment'
+tags: [nodejs, javascript, Nextjs]
+description: Next.js命令行工具和部署方式
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js_bg.svg
+---
+
+## cli
+
+`Next.js`提供了一个简单的命令行工具，可以帮助我们快速部署和管理应用。
+
+```bash
+npx next -h
+
+#设置端口
+npx next dev -p 4000 #开发模式
+PORT=4000 npx next dev #开发模式
+
+npx next start -p 4000 #生产模式
+PORT=4000 next start #生产模式
+
+next lint #检查代码规范
+
+next build #构建静态资源
+next export #导出静态资源
+```
+
+![yqFSiE](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/yqFSiE.png)
+
+```bash
+➜  demo npm run build
+
+> demo@1.0.0 build
+> next build
+
+info  - Checking validity of types
+warn  - No ESLint configuration detected. Run next lint to begin setup
+info  - Creating an optimized production build
+info  - Compiled successfully
+info  - Collecting page data
+info  - Generating static pages (3/3)
+info  - Finalizing page optimization
+
+Page                                       Size     First Load JS
+┌ λ /                                      470 B          75.4 kB
+├   /_app                                  0 B            74.9 kB
+├ ○ /404                                   193 B          75.1 kB
+├ λ /api                                   0 B            74.9 kB
+└ ○ /posts/first                           2.75 kB        77.7 kB
+    └ css/9871d7e98c5c71df.css             103 B
++ First Load JS shared by all              74.9 kB
+  ├ chunks/framework-a87821de553db91d.js   45 kB
+  ├ chunks/main-d8b1ff545a609496.js        28.6 kB
+  ├ chunks/pages/_app-05a4472bc3e8727e.js  507 B
+  ├ chunks/webpack-69bfa6990bb9e155.js     769 B
+  └ css/5d2c4ba91281dd0f.css               175 B
+
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
+○  (Static)  automatically rendered as static HTML (uses no initial props)
+```
+
+## deployment
+
+通过`next build`构建静态资源，然后通过`next export`导出静态资源。
+
+- `.next/static/chunks/pages`–此文件夹中的每个 JavaScript 文件都与具有相同名称的路由相关联。例如，.next/static/chunks/pages/about.js 将是在应用程序中查看/about 路由时加载的 JavaScript 文件
+- `.next/static/media`–从 next/image 静态导入的图像在这里散列和复制
+- `.next/static/css`–应用程序中所有页面的全局 CSS 文件
+- `.next/server/pages`–从服务器预呈现的 HTML 和 JavaScript 入口点`.nft.json` 文件在启用输出文件跟踪时创建，并包含依赖于给定页面的所有文件路径。
+- `.next/server/chunks`– 在整个应用程序的多个地方使用的共享 JavaScript 块
+- `.next/cache`–从 Next.js 服务器输出构建缓存和缓存的图像、响应和页面。使用缓存有助于减少构建时间并提高加载图像的性能
+
+部署方式
+
+- Vercel
+- netlify
+- github pages
+- firebase
+- self-hosted
+- node.js server
+- docker
+
+## SSG vs SSR
+
+[SSG vs SSR](https://blog.logrocket.com/ssg-vs-ssr-in-next-js/)

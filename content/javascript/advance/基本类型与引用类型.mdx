@@ -1,0 +1,88 @@
+---
+type: 'Post'
+date: '2021-04-01'
+title: '基本类型与引用类型'
+tags: [javascript]
+---
+
+在 ECMAScript 中，变量可以存在两种类型的值，即原始值和引用值。
+
+1. 原始值占用的内存空间是固定的，而引用值占用的内存空间是动态的。
+2. 原始值的值存储在栈中，而引用值的值存储在堆中。
+3. 原始值的保存与复制是直接的，而引用值的保存与复制是通过值的拷贝来实现的。
+4. 原始值使用`typeof`运算符来检测其类型，而引用值使用`instanceof`运算符来检测其类型。
+5. 原始值的值可以通过`==`运算符来比较，而引用值的值可以通过`===`运算符来比较。
+6. 使用`new()`构造出的对象是引用值，而不是原始值。
+
+> 除了`null`和`undefined`之外，所有的基本类型都是原始值，而所有的引用类型都是引用值。
+
+## 基本类型
+
+- number
+- boolean
+- bigint
+- string
+- symbol
+- null
+- undefined
+
+## 引用类型
+
+- object
+- array
+- function
+
+```js
+const number = 10
+
+const bool = false
+
+const str = 'Hello!'
+
+const missingObject = null
+
+const nothing = undefined
+```
+
+基本类型的值是存储在栈中的，所以在 JavaScript 中，基本类型的值可替换但不可被改变。
+
+```js
+var bar = 'baz'
+console.log(bar) // baz
+bar.toUpperCase()
+console.log(bar) // baz
+
+// 使用数组方法可以改变一个数组
+var foo = []
+console.log(foo) // []
+foo.push('plugh')
+console.log(foo) // ["plugh"]
+
+// 赋值行为可以给基本类型一个新值，而不是改变它
+bar = bar.toUpperCase() // BAZ
+```
+
+```js
+// 基本类型
+let foo = 5
+
+// 定义一个貌似可以改变基本类型值的函数
+function addTwo(num) {
+  num += 2
+}
+// 和前面的函数一样
+function addTwo_v2(foo) {
+  foo += 2
+}
+
+// 调用第一个函数，并传入基本类型值作为参数
+addTwo(foo)
+// Getting the current Primitive value
+console.log(foo) // 5
+
+// 尝试调用第二个函数...
+addTwo_v2(foo)
+console.log(foo) // 5
+```
+
+**在执行函数体内语句之前，JavaScript 会将传递进来的参数（基本类型的值）复制一份，创建一个本地副本。这个副本只存在于该函数的作用域中，我们能够通过指定在函数中的标识符访问到它（addTwo 中的 num，addTwo_v2 中的 foo）。**

@@ -1,0 +1,69 @@
+---
+type: 'Post'
+date: '2022-11-24 15:26:00'
+title: 'Next.js - Add Next-seo'
+tags: [Nextjs, javascript, react]
+description: 从性能、打包大小、SEO来看，Next.js可能是最适合写blog的React框架。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/0gU3Yc.png
+---
+
+## 前置
+
+[【上一篇】](/blog/javascript/nextjs/tips/add-theme-mode-switch-to-blog)完成了使用 Next.js 构建 blog 并添加了主题切换功能。
+
+好的 SEO 将有助于提高网站权重，带来更多流量。作为前端工程师的我们，就有着得天独厚的优势，我们不需要做到优化工程师的级别，我们只需要做好几个方面，就能完成一个网站 80%左右的 SEO 优化工作了～因为我研究下来发现 SEO 针对点大部分都是前端基础～
+
+## 创建组件
+
+创建`components/SEO/index.tsx`
+
+```tsx
+import {NextSeo} from 'next-seo'
+
+export default function SEO(props) {
+  const {url, cover, description, title} = props
+  return (
+    <NextSeo
+      titleTemplate="%s - Manon.icu"
+      openGraph={{
+        type: 'website',
+        url,
+        description:
+          description ??
+          'The personal website for Manon, Frontend Web Developer.',
+        site_name: title ?? 'Manon | manon.icu',
+        images: [
+          {
+            url:
+              cover ??
+              'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/9oh25b.jpg',
+            width: 900,
+            height: 900
+          }
+        ]
+      }}
+      canonical={url}
+      twitter={{
+        handle: '@Manonicu',
+        cardType: 'summary_large_image'
+      }}
+    />
+  )
+}
+```
+
+修改`pages/_app.tsx`，引入`components/SEO/index.tsx`，在`Head`下添加 SEO 组件，组件加上 props`url`
+
+在 blog 内页同样引入，分别传入`title`、`description`、`cover`
+
+```tsx
+// pages/[...slug].tsx
+// <SEO
+//   title={title}
+//   description={description}
+//   cover={cover}
+//   openGraph={{title, description}}
+// />
+```
+
+[Source Code](https://github.com/Manonicu/blog-demo/tree/feat-seo)

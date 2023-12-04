@@ -1,0 +1,150 @@
+---
+type: 'Post'
+date: '2022-03-24'
+title: 'Optionals - 可选'
+tags: [swift]
+description: '可选是一个枚举类型，它可以是一个值或者空。类似于js的optional chaining'
+---
+
+> 可选字符串可能包含像“Hello”这样的字符串，或者它们可能是 `nil`——什么都没有。
+
+## 处理缺失数据 - handling missing data
+
+当不知道数据是否存在时，可以使用可选类型来处理。
+
+```swift
+var age: Int? = nil
+
+age = 38
+```
+
+当需要使用类型的方法又不知道变量是否存在值的时候，可以使用`if let`或者`guard let`来处理。
+
+`unwrapped`可以让你确保变量有值，如果没有值，程序会崩溃。
+
+```swift
+var name: String? = nil
+
+if let unwrapped = name {
+    print("\(unwrapped.count) letters")
+} else {
+    print("name is nil")
+}
+
+guard let unwrapped = name else {
+    print("name is nil")
+    return
+}
+```
+
+## 强制转换和隐式转换
+
+只有确认变量有值时，才可以使用`!`强制转换。
+
+```swift
+let str = "5"
+let num = Int(str) // 这是不安全的，因为str可能不是一个整数
+
+let num = Int(str)! // 这是安全的，因为str一定有值
+```
+
+隐式转换
+
+```swift
+let age: Int! = nil
+```
+
+## 合并可选值
+
+当程序需要两个可选值时，可以使用`??`运算符来合并可选值。
+
+```swift
+func username(for id: Int) -> String? {
+    if id == 1 {
+        return "Taylor Swift"
+    } else {
+        return nil
+    }
+}
+
+let user = username(for: 15) ?? "Anonymous"
+```
+
+## 可选链
+
+通过可选链可避免多层嵌套的可选值获取错误。
+
+```swift
+let names = ["John", "Paul", "George", "Ringo"]
+
+let beatle = names.first?.uppercased()
+```
+
+## 异常处理
+
+当程序抛出异常时，可以使用`try`和`catch`来处理异常。比如下面的代码
+
+```swift
+enum PasswordError: Error {
+    case obvious
+}
+
+func checkPassword(_ password: String) throws -> Bool {
+    if password == "password" {
+        throw PasswordError.obvious
+    }
+
+    return true
+}
+
+do {
+    try checkPassword("password")
+    print("That password is good!")
+} catch {
+    print("You can't use that password.")
+}
+```
+
+还有一种方式是使用`try?`来尝试调用方法，如果方法抛出异常，则返回`nil`。
+
+```swift
+if let result = try? checkPassword("password") {
+    print("Result was \(result)")
+} else {
+    print("Password is incorrect.")
+}
+```
+
+另外一种方式是使用`try!`来强制调用方法，如果方法抛出异常，则程序会崩溃。
+
+```swift
+try! checkPassword("sekrit")
+print("That password is good!")
+```
+
+## 类型转换
+
+`Swift`提供了两种类型转换：`as`和`as?`。
+
+```swift
+class Animal { }
+class Fish: Animal { }
+
+class Dog: Animal {
+    func makeNoise() {
+        print("Woof!")
+    }
+}
+
+let pets = [Fish(), Dog(), Fish(), Dog()]
+```
+
+使用`as?`来检查类型转换是否成功。如果类型转换成功，则返回一个可选值，否则返回`nil`。
+
+```swift
+for pet in pets {
+  if let dog = pet as? Dog{
+    dog.makeNoise()
+  }
+}
+```

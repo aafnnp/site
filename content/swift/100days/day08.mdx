@@ -1,0 +1,160 @@
+---
+type: 'Post'
+date: '2022-03-21'
+title: 'Classes - 类'
+tags: [swift]
+description: Swift 类是构建代码所用的一种通用且灵活的构造体。
+---
+
+## 创建类
+
+`Class`和`Struct`类似，但是类可以继承其他类，并且类可以定义属性和方法。
+
+```swift
+class Dog {
+    var name: String
+    var breed: String
+
+    init(name: String, breed: String) {
+        self.name = name
+        self.breed = breed
+    }
+
+    func bark() {
+        print("Woof!")
+    }
+}
+
+#创建实例
+let poppy = Dog(name: "Poppy", breed: "Poodle")
+```
+
+## 类继承
+
+和`Struct`不同的是，`Class`可以继承其他类。
+
+```swift
+class Poodle: Dog {
+    init(name: String) {
+        super.init(name: name, breed: "Poodle")
+    }
+}
+
+super.init(name: name, breed: "Poodle") // 调用父类的构造器
+```
+
+## 方法重写
+
+类创建的实例可以重写父类的方法。
+
+```swift
+class Dog {
+    func bark() {
+        print("Woof!")
+    }
+}
+
+let poppy = Dog()
+poppy.bark()
+
+# 类继承重写方法
+class Poodle: Dog {
+    override func bark() {
+        print("Yip!")
+    }
+}
+```
+
+## final 类
+
+`Swift`提供关键词`final`来防止类被继承。
+
+```swift
+fina class Dog {
+    func bark() {
+        print("Woof!")
+    }
+}
+```
+
+## 复制 objects
+
+与`Struct`不同的是，`Class`可以被复制。
+
+```swift
+class Dog {
+    var name: String
+    var breed: String
+
+    init(name: String, breed: String) {
+        self.name = name
+        self.breed = breed
+    }
+
+    func bark() {
+        print("Woof!")
+    }
+}
+var poppy = Dog(name: "Poppy", breed: "Poodle")
+var poppyCopy = poppy
+poppyCopy.name = "Poppy Copy"
+```
+
+## 反初始化
+
+与`Struct`不同的是，`Class`可以被反初始化。
+
+```swift
+class Person {
+    var name: String
+
+    init(name: String) {
+        self.name = name
+    }
+
+    func sayHello() {
+        print("Hello, \(name)!")
+    }
+}
+```
+
+在循环中创建实例，可以使用`deinit`来定义反初始化方法。
+
+```swift
+for _ in 1...10 {
+    let person = Person(name: "John")
+    person.sayHello()
+}
+
+deinit {
+    print("Goodbye, \(name)!")
+}
+```
+
+## 可变性
+
+类与结构在常量的处理方式上有所不同。如果一个类或结构体的实例被声明为常量，则该实例的所有属性也必须是常量。
+
+```swift
+class Person {
+    var name = "Taylor Swift"
+}
+let person = Person()
+person.name = "Justin Bieber"
+print(person.name) // Justin Bieber
+
+# 如果将类或结构体实例设置为常量，则不能修改实例的属性。
+class Person {
+    let name = "Taylor Swift"
+}
+```
+
+## 总结
+
+- `Class`和`Struct`是相似的，都可以使用属性和方法创建。
+- 类可以继承其他类，并获得父类的所有属性和方法。
+- 使用`final`来防止类被继承。
+- 可以重写父类的方法。
+- 当不同变量指向同一个类实例，它们指向的是同一块内存，改变一个会改变另一个
+- 可以被反初始化。
+- 类的属性可以被声明为可变的，但是不能被声明为常量。

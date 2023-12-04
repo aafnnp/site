@@ -1,0 +1,62 @@
+---
+type: 'Post'
+date: '2022-05-24 09:59:21'
+title: 'Next.js - Typescript Support'
+tags: [nodejs, javascript, Nextjs]
+description: Next.js 内置了 Typescript 支持。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js_bg.svg
+---
+
+Next.js 内置了 Typescript 支持。
+
+首先，在项目根目录新建`tsconfig.json`，Next.js 会自动检测项目中的`tsconfig.json`文件，并将其解析为项目的配置。
+
+![AF4Ur5](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/AF4Ur5.png)
+
+接下来安装相关依赖
+
+```bash
+npm install -D typescript @types/react @types/node
+```
+
+启动服务
+
+```bash
+npm run dev
+```
+
+打开`tsconfig.json`，可以看到内容已经被`Next.js`修改
+
+```json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
+```
+
+创建`hello.ts`
+
+```tsx
+import {NextApiRequest, NextApiResponse} from 'next'
+export default (req: NextApiRequest, res: NextApiResponse) => {
+  res.status(200).json({
+    message: 'Hello World'
+  })
+}
+```

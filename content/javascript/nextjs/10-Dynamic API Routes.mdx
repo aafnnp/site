@@ -1,0 +1,99 @@
+---
+type: 'Post'
+date: '2022-05-18 21:28:44'
+title: 'Next.js - Dynamic API Routes'
+tags: [nodejs, javascript, Nextjs]
+description: 在 Next.js 中，可以创建动态路由
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js_bg.svg
+---
+
+在 Next.js 中，可以创建动态路由。比如：
+
+- `[id].js`，表示 id 为相对路径的动态页面
+- `lib/posts.js`，表示在 lib 目录下的 post 页面
+
+创建`[id].js`
+
+```jsx
+import Link from 'next/link'
+import Head from 'next/head'
+import Container from '../../components/container'
+
+import {getAllPostIds, getPostData} from '../../lib/posts'
+
+export default function Post({postData}) {
+  return (
+    <Container>
+      {postData.id}
+      <br />
+      {postData.title}
+      <br />
+      {postData.date}
+    </Container>
+  )
+}
+export async function getStaticPaths() {
+  const paths = getAllPostIds()
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+export async function getStaticProps({params}) {
+  const postData = getPostData(params.id)
+  return {
+    props: {
+      postData
+    }
+  }
+}
+```
+
+创建`lib/posts.js`
+
+```jsx
+export function getPostData(id) {
+  const postOne = {
+    title: 'One',
+    id: 1,
+    date: '7/12/2020'
+  }
+
+  const postTwo = {
+    title: 'Two',
+    id: 2,
+    date: '7/12/2020'
+  }
+  if (id == 'one') {
+    return postOne
+  } else if (id == 'two') {
+    return postTwo
+  }
+}
+
+export function getAllPostIds() {
+  return [
+    {
+      params: {
+        id: 'one'
+      }
+    },
+    {
+      params: {
+        id: 'two'
+      }
+    }
+  ]
+}
+```
+
+启动服务
+
+```bash
+npm run dev
+```
+
+验证结果
+
+![U8lQOj](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/U8lQOj.jpg)

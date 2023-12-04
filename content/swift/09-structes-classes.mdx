@@ -1,0 +1,59 @@
+---
+type: 'Post'
+date: '2022-03-09'
+title: Swift - 结构体和类
+tags: [swift]
+description: 结构体和类是 Swift 中两种重要的数据类型，它们都可以用于定义自定义的复合数据类型。结构体和类非常相似，但它们也有一些重要的区别。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/acTJPh.png
+---
+
+结构体和类是 Swift 中两种重要的数据类型，它们都可以用于定义自定义的复合数据类型。结构体和类非常相似，但它们也有一些重要的区别。
+
+结构体是一种值类型，它是由一些属性组成的。可以将结构体视为包含数据和相关方法的容器。结构体的实例在传递时被复制，而不是被引用。以下是一个简单的结构体示例：
+
+```swift
+struct Point {
+var x: Int
+var y: Int
+
+    func moveX(by deltaX: Int) {
+        x += deltaX
+    }
+
+    func moveY(by deltaY: Int) {
+        y += deltaY
+    }
+}
+
+var point = Point(x: 10, y: 20)
+point.moveX(by: 5)
+point.moveY(by: -10)
+```
+
+在上面的示例中，Point 是一个结构体类型，它包含了两个 Int 类型的属性，x 和 y。结构体还定义了两个方法，moveX(by:) 和 moveY(by:)，用于移动点的 x 和 y 坐标。point 是一个变量，它的类型是 Point，它被初始化为一个具有 x 坐标为 10，y 坐标为 20 的点。然后，它被移动了 5 个单位的 x 坐标和 10 个单位的 y 坐标。
+
+类是一种引用类型，它也是由一些属性和方法组成的。类的实例是通过引用传递的，而不是通过复制。以下是一个简单的类示例：
+
+```swift
+class Person {
+var name: String
+var age: Int
+
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+
+    func celebrateBirthday() {
+        age += 1
+        print("Happy \(age)th birthday, \(name)!")
+    }
+}
+
+var person = Person(name: "Alice", age: 30)
+person.celebrateBirthday()
+```
+
+在上面的示例中，Person 是一个类类型，它包含了两个属性，name 和 age。类还定义了一个方法，celebrateBirthday()，用于增加年龄并输出生日祝福。person 是一个变量，它的类型是 Person，它被初始化为一个具有名字为 "Alice"，年龄为 30 的人。然后，它被庆祝了一次生日。
+
+Swift 中的结构体和类都可以有属性和方法，它们也都支持继承和协议。结构体通常用于表示简单的数据结构，而类通常用于表示更复杂的对象。在编写代码时，应该根据需要选择结构体或类，以便在代码中使用正确的数据类型。

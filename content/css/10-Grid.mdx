@@ -1,0 +1,88 @@
+---
+type: 'Post'
+date: '2022-05-09'
+title: 'css - Grid'
+tags: [css]
+cover: 'https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/0n30LE.png'
+---
+
+Grid 是 CSS 中用于创建网格布局的一种新的布局方式，可以轻松地创建复杂的网格布局。它具有以下特点：
+
+- 网格容器和网格项：Grid 布局中需要使用两个概念，一个是网格容器（Grid Container），一个是网格项（Grid Item）。网格容器是设置了 display: grid 或 display: inline-grid 属性的元素，它包含了多个网格项，而网格项则是容器的子元素。
+- 定义网格布局：通过在网格容器上设置 grid-template-columns 和 grid-template-rows 属性，可以定义网格布局的列数和行数。这两个属性可以接受一系列值，用空格分隔，每个值表示一列或一行的大小。
+- 支持自适应和固定大小：除了可以通过固定值来定义网格布局的大小，Grid 还支持使用 minmax() 函数和 auto 关键字来实现自适应和固定大小的网格布局。
+- 网格线和网格轨道：在网格布局中，每个网格项所在的交叉点称为网格线，而每个交叉点之间形成的空间称为网格轨道。可以通过设置网格线的名称或索引来定位网格项，以及通过设置网格轨道的大小来控制网格布局。
+- 网格区域：在网格布局中，可以通过将多个网格轨道合并成一个网格区域，来更加灵活地控制布局。可以使用 grid-template-areas 属性来定义网格区域。
+- 自动填充和空隙：当网格项无法完全填充网格容器时，可以使用自动填充来填充剩余的网格区域，还可以通过设置网格容器的 grid-auto-rows 和 grid-auto-columns 属性来定义自动填充的大小。此外，还可以使用 grid-gap 属性来设置网格项之间的间距。
+
+以下是一个简单的 Grid 布局案例，它实现了一个基本的网格布局：
+
+```html
+<div class="grid-container">
+  <div class="item1">Item 1</div>
+  <div class="item2">Item 2</div>
+  <div class="item3">Item 3</div>
+  <div class="item4">Item 4</div>
+  <div class="item5">Item 5</div>
+  <div class="item6">Item 6</div>
+</div>
+```
+
+```css
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 100px 100px;
+  grid-gap: 10px;
+}
+
+.grid-container > div {
+  background-color: #ddd;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.item1 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.item2 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+}
+
+.item3 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 2;
+}
+
+.item4 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+}
+
+.item5 {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+}
+
+.item6 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+}
+```
+
+在这个案例中，我们首先定义了一个网格容器 .grid-container，并设置了它的列数为 3，行数为 2，每个网格轨道的高度为 100px，网格项之间的间距为 10px。接着，我们定义了六个网格项，并通过设置它们在网格容器中所处的位置，来实现了一个三列、三行的网格布局。
+
+其中，.item1 占据了网格容器的第一行和第二行的前两列，.item2 占据了网格容器的第一行的第三列，.item3 占据了网格容器的第二行的第三列，.item4 占据了网格容器的第三行的第一列，.item5 占据了网格容器的第三行的第二列，.item6 占据了网格容器的第三行的第三列。
+
+![0n30LE](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/0n30LE.png)

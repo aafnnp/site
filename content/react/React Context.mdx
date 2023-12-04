@@ -1,0 +1,55 @@
+---
+type: 'Post'
+date: '2021-04-21'
+title: 'React Context'
+tags: [react, javascript]
+description: Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。
+---
+
+Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。
+
+> 在一个典型的 React 应用中，数据是通过 props 属性自上而下（由父及子）进行传递的，但此种用法对于某些类型的属性而言是极其繁琐的（例如：地区偏好，UI 主题），这些属性是应用程序中许多组件都需要的。Context 提供了一种在组件之间共享此类值的方式，而不必显式地通过组件树的逐层传递 props。
+
+例如如下代码：props 的传递需要层层传递，使用`context`则可以简化数据传递。
+
+```jsx
+function App() {
+  return <Body name="John Doe" />
+}
+
+function Body({name}) {
+  return <Greeting name={name} />
+}
+
+function Greeting({name}) {
+  return <h1>Welcome, {name}</h1>
+}
+```
+
+```jsx
+import { createContext } from 'react';
+
+const NameContext = createContext('');
+
+function App() {
+  return (
+    <NameContext.Provider value="John Doe">
+      <Body />
+    <NameContext.Provider>
+  );
+}
+
+function Body() {
+  return <Greeting />;
+}
+
+function Greeting() {
+  return (
+    <NameContext.Consumer>
+      {name => <h1>Welcome, {name}</h1>}
+    </NameContext.Consumer>
+  );
+}
+```
+
+`context`的设计目的是为了共享那些对于一个组件树而言是“全局”的数据。

@@ -1,0 +1,70 @@
+---
+type: 'Post'
+date: '2022-05-06 11:07:11'
+title: 'Next.js - Meta Data'
+tags: [nodejs, javascript, Nextjs]
+description: 在 Next.js 中，我们可以通过Head组件修改每个react页面的头信息。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js_bg.svg
+---
+
+在 `Next.js` 中，我们可以通过 Head 组件修改每个`react`页面的头信息。
+
+修改`index.js`
+
+```js
+import Link from 'next/link'
+import Head from 'next/head'
+
+function HomePage() {
+  return (
+    <>
+      <Head>
+        <title>Welcome to Next.js!</title>
+      </Head>
+      <div>Welcome to Next.js!</div>
+      <Link href="/posts/first">
+        <a>First Post</a>
+      </Link>
+      <br />
+      <img src="/logo.png" alt="TutorialsPoint Logo" />
+    </>
+  )
+}
+
+export default HomePage
+```
+
+修改`first.js`
+
+```js
+import Link from 'next/link'
+import Head from 'next/head'
+
+export default function FirstPost() {
+  return (
+    <>
+      <Head>
+        <title>My First Post</title>
+      </Head>
+      <h1>My First Post</h1>
+      <h2>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+      </h2>
+    </>
+  )
+}
+```
+
+启动服务
+
+```bash
+npm run dev
+```
+
+检查页面
+
+![SDEVR1](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/SDEVR1.png)
+
+![Ob9dC2](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Ob9dC2.png)

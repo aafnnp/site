@@ -1,0 +1,212 @@
+---
+type: 'Post'
+date: '2022-08-23 22:36:24'
+title: 'Chrome插件开发 - Popup extension'
+tags: [chrome]
+description: 基于react、tailwindcss开发自己的chrome插件
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/f1l2Nk.jpg
+---
+
+在此之前，我们学习了以下几个关于 chrome 插件开发的文章：
+
+- [First extension](/blog/translate/build-chrome-extensions/first-extension)
+- [New Tab](/blog/translate/build-chrome-extensions/new-tab)
+- [Add Tailwind](/blog/translate/build-chrome-extensions/add-tailwind)
+- [Add React](/blog/translate/build-chrome-extensions/spicing-with-react)
+
+这篇文章学习创建弹窗插件（点击插件图标时出现）
+
+![f1l2Nk](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/f1l2Nk.jpg)
+
+## 结构
+
+创建目录，然后初始化
+
+```bash
+mkdir popup-extension
+cd popup-extension
+npm init -y
+```
+
+安装依赖
+
+```bash
+npm i react react-dom tailwindcss vite
+
+npm i -D @vitejs/plugin-react postcss-cli
+
+npx tailwind init
+```
+
+- [React、React-dom](/blog/translate/build-chrome-extensions/spicing-with-react) for framework
+- [Tailwind](/blog/translate/build-chrome-extensions/add-tailwind) for css
+- [vite](/blog/translate/build-chrome-extensions/parcel-to-vite) for build
+
+`npx tailwind init`将会创建`tailwind.config.js`，内容如下：
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['src/*.jsx'],
+  theme: {
+    extend: {}
+  },
+  variants: {
+    extend: {}
+  },
+  plugins: []
+}
+```
+
+创建`.postcssrc.json`
+
+```json
+{
+  "plugins": {
+    "tailwindcss": {}
+  }
+}
+```
+
+创建`css/style.css`
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+创建`vite.config.js`
+
+```js
+import {defineConfig} from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()]
+})
+```
+
+修改`package.json`，添加如下`scripts`
+
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+创建`public/manifest.json`
+
+```json
+{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "Popup Extension",
+  "description": "A demo popup experience",
+  "action": {
+    "default_icon": "icons/icon-48.png",
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "48": "icons/icon-48.png"
+  }
+}
+```
+
+创建`index.html`
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DDT Popup</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+  </head>
+  <body>
+    Hello world 👋
+  </body>
+</html>
+```
+
+假如现在构建并加载插件，当前 Popup 插件将会展示如下：
+
+![tnq7AB](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/tnq7AB.jpg)
+
+添加`Tailwind`、`React`，修改`index.html`
+
+```html
+<body>
+  <div id="app"></div>
+  <script type="module" src="src/index.jsx"></script>
+</body>
+```
+
+创建`src`，并在`src`下添加`index.jsx`
+
+```jsx
+import ReactDOM from 'react-dom'
+import {App} from './App'
+
+const app = document.getElementById('app')
+ReactDOM.render(<App />, app)
+```
+
+创建`App.jsx`
+
+```jsx
+import Counter from './Counter'
+
+export function App() {
+  return (
+    <div className="flex flex-col items-center justify-center w-screen h-screen bg-indigo-400 text-6xl font-bold text-white">
+      <p>Welcome 👋</p>
+      <br />
+      <Counter />
+    </div>
+  )
+}
+```
+
+创建`Counter.jsx`
+
+```jsx
+import {useState} from 'react'
+
+export default function Counter() {
+  const [counter, setCounter] = useState(0)
+  const increase = () => setCounter((count) => count + 1)
+  const decrease = () => setCounter((count) => count - 1)
+  return (
+    <div>
+      <button onClick={decrease}>-</button>
+      <span className="px-4">{counter}</span>
+      <button onClick={increase}>+</button>
+    </div>
+  )
+}
+```
+
+构建后，现在的 Popup 插件展示如下：
+
+![Qk0rJH](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Qk0rJH.jpg)
+
+emm，宽度不够，修改`style.css`
+
+```css
+#app {
+  width: 350px;
+}
+```
+
+![TAwxHm](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/TAwxHm.jpg)
+
+## Source Code
+
+[【Source Code】](https://github.com/rebelchris/popup-extension)

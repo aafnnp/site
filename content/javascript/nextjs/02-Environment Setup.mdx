@@ -1,0 +1,95 @@
+---
+type: 'Post'
+date: '2022-05-05 11:24:55'
+title: 'Next.js - Environment Setup'
+tags: [nodejs, javascript, Nextjs]
+description: Next.js是基于React的框架，它提供了一个简单的构建工具，可以让你快速构建一个网站。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/Next.js_bg.svg
+---
+
+Next.js 是基于 React 的框架，它提供了一个简单的构建工具，可以让你快速构建一个网站。
+
+## 安装
+
+> 前置条件：安装 Node.js、npm
+
+```bash
+npm init -y
+npm install next react react-dom
+
+# + "next": "^12.1.6",
+# + "react": "^18.1.0",
+# + "react-dom": "^18.1.0"
+```
+
+```json
+{
+  "dependencies": {
+    "next": "^12.1.6",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "name": "demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "pfan",
+  "license": "ISC",
+  "description": ""
+}
+```
+
+添加`build`和`start`命令
+
+```bash
+{
+  "dependencies": {
+    "next": "^12.1.6",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "name": "demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "pfan",
+  "license": "ISC",
+  "description": ""
+}
+```
+
+## 创建`pages`目录
+
+```bash
+mkdir pages && cd pages && touch index.js
+```
+
+```js
+function HomePage() {
+  return <div>Welcome to Next.js!</div>
+}
+
+export default HomePage
+```
+
+## 启动服务
+
+```bash
+npm run dev
+
+#npm run dev --port=8888
+#
+#> demo@1.0.0 dev
+#> next dev
+#
+#ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+```
+
+![2mCs2M](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/2mCs2M.png)

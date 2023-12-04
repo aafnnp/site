@@ -1,0 +1,177 @@
+---
+type: 'Post'
+date: '2022-06-09 11:07:17'
+title: 'Postgresql - JOIN'
+tags: [postgresql, sql]
+description: Postgresql join包括inner join、left join、right join、full outer join。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/p2u0Z8.jpg
+---
+
+Postgresql join 用于连接两个或多个表的数据。下图是所有的 join 类型级语法
+
+![p2u0Z8](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/p2u0Z8.jpg)
+
+使用方式包括 inner join、left join、right join、full outer join。
+
+首先创建两个表：
+
+```sql
+CREATE TABLE basket_a (
+    a INT PRIMARY KEY,
+    fruit_a VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE basket_b (
+    b INT PRIMARY KEY,
+    fruit_b VARCHAR (100) NOT NULL
+);
+
+INSERT INTO basket_a (a, fruit_a)
+VALUES
+    (1, 'Apple'),
+    (2, 'Orange'),
+    (3, 'Banana'),
+    (4, 'Cucumber');
+
+INSERT INTO basket_b (b, fruit_b)
+VALUES
+    (1, 'Orange'),
+    (2, 'Apple'),
+    (3, 'Watermelon'),
+    (4, 'Pear');
+```
+
+新建的表中有一些相同的数据，比如`apple`和`orange`
+
+basket_a
+![mcohbG](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mcohbG.jpg)
+
+basket_b
+![LZ1fVY](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/LZ1fVY.jpg)
+
+### 内连接
+
+内连接检查第一个表 ( `basket_a`) 中的每一行。它将`fruit_a`列中的值 fruit_b 与第二个表 ( `basket_b`) 中每一行的列中的值进行比较。如果这些值相等，则内部连接会创建一个包含两个表中的列的新行，并将这个新行添加到结果集中。
+
+```sql
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+INNER JOIN basket_b
+    ON fruit_a = fruit_b;
+```
+
+![I03oHz](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/I03oHz.jpg)
+
+![2ML6Zl](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/2ML6Zl.jpg)
+
+### 左连接
+
+使用左连接子句将`basket_a`表与`basket_b`表连接起来。在左连接上下文中，第一个表称为左表，第二个表称为右表。
+
+```sql
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+LEFT JOIN basket_b
+   ON fruit_a = fruit_b;
+```
+
+![mJOIVk](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mJOIVk.jpg)
+
+左连接开始从左表中选择数据。它将 fruit_a 列中的值与 basket_b 表中 fruit_b 列中的值进行比较。
+
+如果这些值相等，则左连接会创建一个包含两个表的列的新行，并将此新行添加到结果集中。（参见结果集中的第 1 行和第 2 行）。
+
+如果值不相等，左连接还会创建一个包含两个表中的列的新行，并将其添加到结果集中。但是，它 basket_b 用空值填充右表 ( ) 的列。（参见结果集中的第 3 行和第 4 行）。
+
+![gEaTLq](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/gEaTLq.jpg)
+
+要从左表中选择右表中没有匹配行的行，请使用带 WHERE 子句的左连接。例如：
+
+```sql
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+LEFT JOIN basket_b
+    ON fruit_a = fruit_b
+WHERE b IS NULL;
+```
+
+![aa0z8Z](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/aa0z8Z.jpg)
+
+![UAhB6J](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/UAhB6J.jpg)
+
+### 右连接
+
+右连接是左连接的反转版本。右连接开始从右表中选择数据。它将右表中每一行的 fruit_b 列中的每个值与 fruit_a 表中每一行的 fruit_a 列中的每个值进行比较。
+
+如果这些值相等，则右连接会创建一个包含两个表中的列的新行。
+
+如果这些值不相等，右连接还会创建一个包含两个表中的列的新行。但是，它用 NULL 填充左表中的列。
+
+以下语句使用右连接将`basket_a`表与`basket_b`表连接起来：
+
+```sql
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+RIGHT JOIN basket_b ON fruit_a = fruit_b;
+```
+
+![ccsWxM](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/ccsWxM.jpg)
+![xQCLDj](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/xQCLDj.jpg)
+
+### 全连接
+
+完全外连接或完全连接返回一个结果集，其中包含左右表中的所有行，如果可用，则两边都有匹配的行。如果没有匹配，表的列将被填充为 NULL。
+
+```sql
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+FULL OUTER JOIN basket_b
+    ON fruit_a = fruit_b;
+```
+
+![mNxAIc](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/mNxAIc.jpg)
+
+![jMakjl](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/jMakjl.jpg)
+
+要返回一个表中没有匹配行的行，请使用带有`WHERE`如下子句的完全连接：
+
+```sql
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+FULL JOIN basket_b
+   ON fruit_a = fruit_b
+WHERE a IS NULL OR b IS NULL;
+```
+
+![C4xzzB](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/C4xzzB.jpg)
+![btoY9m](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/btoY9m.jpg)

@@ -1,0 +1,506 @@
+---
+type: 'Post'
+date: '2022-12-01 21:19:54'
+title: 'Javascript - 基本引用类型'
+tags: [javascript]
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/基本引用类型.png
+---
+
+> 引用类型是把数据和功能组织在一起的结构
+
+## 原始包装类型
+
+### Boolean
+
+Boolean 有两个值 true/false。
+
+| 数据类型  | 转换为 true 的值 | 转换为 false 的值 |
+| --------- | ---------------- | ----------------- |
+| Boolean   | true             | false             |
+| String    | 任意飞空字符串   | 空字符串          |
+| Number    | 任何非零值       | 0 和 NaN          |
+| Object    | 任何对象         | null              |
+| Undefined |                  | undefined         |
+
+### Number
+
+```js
+const age = 36
+typeof age //number
+
+const age = Number(36)
+typeof age //number
+
+//使用new声明的Number返回object类型，可使用valueOf获取原始值
+const age = new Number(36)
+typeof age //object
+```
+
+#### 属性
+
+1. EPSILON - 两个数字之间的最小间隔
+2. MAX_SAFE_INTEGER - 可表示的最大整数值
+3. MAX_VALUE - 可表示的最大正值
+4. MIN_SAFE_INTEGER - 可表示的最小整数值
+5. MIN_VALUE - 可表示的最小正值
+6. NAN - not a number
+7. NEGATIVE_INFINITY - 正向无穷大
+8. POSITIVE_INFINITY - 负向无穷大
+
+```js
+Number.EPSILON //2.220446049250313e-16
+Number.MAX_SAFE_INTEGER //9007199254740991
+Number.MAX_VALUE //1.7976931348623157e+308
+Number.MIN_SAFE_INTEGER //-9007199254740991
+Number.MIN_VALUE //5e-324
+Number.NAN //NaN
+Number.NEGATIVE_INFINITY //-Infinity
+Number.POSITIVE_INFINITY //Infinity
+```
+
+#### 方法
+
+- Number.isNaN(value) //当 value 为非 number 时返回 true
+- Number.isFinite(value) //当 value 是有穷值返回 true
+- Number.isInteger(value) //当 value 是整型值返回 true
+- Number.isSafeInteger(value) //当 value 是安全整型值返回 true
+- Number.parseFloat(value) //将值转换成浮点类型并返回
+- Number.parseInt(value) //将值转换成整形并返回
+
+#### 实例方法
+
+当使用 new 关键词声明一个数值，将会返回 object，并且提供如下方法。
+
+```js
+const age = new Number(36)
+typeof age //object
+```
+
+- .toExponential() //将值转换成指数计数法
+- .toFixed() //返回小数点后 N 位
+- .toLocaleString() //将值转换成字符类型
+- .toPrecision() //返回指定的精度
+- .toString() //将值转换成字符类型
+- .valueOf() //返回原始值
+
+### String
+
+- String.fromCharCode() //通过一串 Unicode 创建字符串。
+- String.fromCodePoint() //通过一串 码点 创建字符串。
+- String.raw() //通过模板字符串创建字符串。
+
+#### 实例方法
+
+- charAt(i)
+- charCodeAt(i)
+- codePointAt(i)
+- concat(str)
+- endsWith(str)
+- includes(str)
+- indexOf(str)
+- lastIndexOf(str)
+- localeCompare()
+- match(regex)
+- normalize()
+- padEnd()
+- padStart()
+- repeat()
+- replace(str1, str2)
+- search(str)
+- slice(begin, end)
+- split(separator)
+- startsWith(str)
+- substring()
+- toLocaleLowerCase()
+- toLocaleUpperCase()
+- toLowerCase()
+- toString()
+- toUpperCase()
+- trim()
+- trimEnd()
+- trimStart()
+- valueOf()
+
+#### charAt
+
+> 返回指定位置的字符,且返回的字符长度为 1，**_js 没有一种有别于字符串类型的字符数据类型_**
+
+```js
+string.charAt(index)
+
+'porhub'.charAt(0) //'p'
+'porhub'.charAt(1) //'o'
+'porhub'.charAt(2) //'r'
+```
+
+#### charCodeAt
+
+> 返回在指定的位置的字符的 Unicode 编码
+
+**字符串中第一个字符的下标是 0。如果 index 是负数，或大于等于字符串的长度，则 charCodeAt() 返回 NaN。**
+
+```js
+string.charCodeAt(index)
+
+'porhub'.charCodeAt(0) //112
+'porhub'.charCodeAt(1) //111
+'porhub'.charCodeAt(2) //114
+```
+
+#### codePointAt
+
+> ES2015 引入的，用于处理 2 UTF-16 字符的，比如中文，在 ES2015 之前 charCodeAt 只能处理单个字符，处理双字符必须一个个处理然后拼接。
+
+```js
+string.codePointAt(index)
+```
+
+#### concat
+
+> 类似 Array 的 concat
+
+```js
+stringObject.concat(stringX,stringX,...,stringX)
+
+"browser".concat("porhub");
+```
+
+通常使用 + 拼接来得更方便，或者使用 ES2015 的``字符扩展。
+
+#### endWith
+
+> 用来判断当前字符串是否是以另外一个给定的子字符串“结尾”的，根据判断结果返回 true 或 false。
+
+```js
+str.endsWith(searchString, position)
+
+'JavaScript'.endsWith('Script') //true
+'JavaScript'.endsWith('script') //false
+'JavaScript'.endsWith('Script', 5) //false
+'JavaScript'.endsWith('as', 5) //true
+```
+
+#### includes
+
+> 用于判断一个字符串是否包含在另一个字符串中，根据情况返回 true 或 false
+
+```js
+str.includes(searchString, position)
+
+'JavaScript'.includes('Script') //true
+'JavaScript'.includes('script') //false
+'JavaScript'.includes('nice') //true
+'JavaScript'.includes('nice', 3) //false
+```
+
+#### indexOf
+
+> 用于返回字符串中出现某个字符的初始位置，如果没有找到，返回-1.
+
+```js
+str.indexOf(searchString, startPosition)
+
+'JavaScript'.indexOf('a') //1
+'JavaScript'.indexOf('a', 2) //3
+```
+
+#### lastIndexOf
+
+> 用于返回某个字符最后出现的位置，如果没有，返回-1
+
+```js
+str.lastIndexOf(searchString, startPosition)
+
+'JavaScript'.lastIndexOf('a') //3
+'JavaScript'.lastIndexOf('a', 1) //1
+```
+
+#### padEnd
+
+> 用一个字符串填充当前字符串（如果需要的话则重复填充），返回填充后达到指定长度的字符串。从当前字符串的末尾（右侧）开始填充。
+
+```js
+str.padEnd(targetLength, string)
+
+'abc'.padEnd(10) // "abc       "
+'abc'.padEnd(10, 'foo') // "abcfoofoof"
+'abc'.padEnd(6, '123456') // "abc123"
+'abc'.padEnd(1) // "abc"
+```
+
+#### padStart
+
+> 用另一个字符串填充当前字符串(重复，如果需要的话)，以便产生的字符串达到给定的长度。填充从当前字符串的开始(左侧)应用的
+
+```js
+str.padStart(targetLength, string)
+
+'abc'.padStart(10) // "       abc"
+'abc'.padStart(10, 'foo') // "foofoofabc"
+'abc'.padStart(6, '123465') // "123abc"
+'abc'.padStart(8, '0') // "00000abc"
+'abc'.padStart(1) // "abc"
+```
+
+#### repeat
+
+> 构造并返回一个包含被连接在一起的指定数量的新字符串。
+
+```js
+str.repeat(count)
+
+'abc'.repeat(-1) // RangeError: repeat count must be positive and less than inifinity
+'abc'.repeat(0) // ""
+'abc'.repeat(1) // "abc"
+'abc'.repeat(2) // "abcabc"
+'abc'.repeat(3.5) // "abcabcabc" 参数count将会被自动转换成整数.
+'abc'.repeat(1 / 0) // RangeError: repeat count must be positive and less than inifinity
+```
+
+#### slice
+
+> 截取字符串的一部分，并返回一个新的字符串
+
+```js
+str.slice(startPosition, endPosition)
+
+'abc'.slice(0, 1) //a
+'abc'.slice(0, -1) //ab
+```
+
+#### split
+
+> 将字符串切割成数组
+
+```js
+str.split(separator, limit)
+
+'abc'.split() //"[a,b,c]";
+'a,b,c'.split(',', 1) //[a]
+```
+
+#### startWith
+
+> 判断字符串是否以给定的字符串开始，返回 true/false
+
+```js
+str.startsWith(searchString, poistion)
+
+'abc'.startsWith('a') //true
+'abc'.startsWith('a', 1) //false
+```
+
+#### substring
+
+> 根据开始索引到结束索引截取字符串
+
+```js
+str.substring(startPosition, endPosition)
+
+'abc'.substring(0, 1) //a
+'abc'.substring(-1) //abc
+```
+
+1. 如果 startPosition 等于 indexEnd，substring 返回一个空字符串。
+2. 如果省略 indexEnd，substring 提取字符一直到字符串末尾。
+3. 如果任一参数小于 0 或为 NaN，则被当作 0。
+4. 如果任一参数大于 stringName.length，则被当作 stringName.length。
+5. 如果 startPosition 大于 indexEnd，则 substring 的执行效果就像两个参数调换了一样。见下面的例子。
+
+### toLocaleLowerCase/toLocaleUpperCase/toUpperCase/toLowerCase
+
+> 将字符串转换成小写/大写
+
+```js
+str.toLocaleLowerCase() /
+  str.toLocaleUpperCase() /
+  str.toUpperCase() /
+  str.toLowerCase()
+
+'ABC'.toLocaleLowerCase() //abc
+'abc'.toLocaleUpperCase() //ABC
+```
+
+#### toString
+
+> 将\*转换成字符串
+
+```js
+var x = new String('Hello world')
+
+alert(x.toString()) // 输出 "Hello world"
+```
+
+#### trim/trimStart/trimEnd
+
+> 移除空白字符/起始位置空白字符/结尾位置空白字符
+
+```js
+str.trim() / str.trimStart() / str.trimEnd()
+
+'Testing'.trim() //'Testing'
+' Testing'.trim() //'Testing'
+' Testing '.trim() //'Testing'
+'Testing '.trim() //'Testing'
+```
+
+#### valueOf
+
+> 返回 str 的原始值，等同于 String.prototype.toString
+
+```js
+str.valueOf()
+
+x = new String('Hello world')
+alert(x.valueOf()) // Displays "Hello world"
+```
+
+#### 扩展学习
+
+```js
+1 +
+  '5'[(1, 3, 5)] + //"15"
+  1 //"1,3,51"
+10 + true // 11
+15 + {} // "15[object Object]"
+8 + null // 8
+'queen' + null // "queennull"
+12 + undefined // NaN
+```
+
+[See examples in jsbin](http://jsbin.com/fiwemir/2/edit?js,console)
+
+## 单例内置对象
+
+### global
+
+在全局作用域中定义的变量和函数都会成为`global`对象的属性。
+
+常见的 global 对象属性和方法：
+
+- 基本类型和引用类型等
+- isNaN
+- Infinity
+- isFinate
+- parseInt
+- parseFloat
+- encodeURI
+- encodeURIComponent
+- decodeURI
+- decodeURIComponent
+- eval
+
+也可以通过`console.log(window)`来查看
+
+### Math
+
+除 global 之外，`Math`也是单例内置对象，提供了一组用于执行常见数学运算的方法。例如，可以使用 Math.max()方法来计算一组数值中的最大值，使用 Math.round()方法来对数值进行四舍五入等。
+
+- Math.max(val1, val2, ...)：计算一组数值的最大值。
+- Math.min(val1, val2, ...)：计算一组数值的最小值。
+- Math.round(val)：对数值进行四舍五入。
+- Math.ceil(val)：向上取整。
+- Math.floor(val)：向下取整。
+- Math.random()：生成一个 0 到 1 之间的随机数。
+
+例如，下面的代码计算了一组数值的最大值、最小值、平均值：
+
+```js
+var values = [3, 5, 8, 10, 12]
+
+// 计算最大值
+var max = Math.max.apply(null, values)
+console.log(max) // 12
+
+// 计算最小值
+var min = Math.min.apply(null, values)
+console.log(min) // 3
+
+// 计算平均值
+var sum = 0
+for (var i = 0; i < values.length; i++) {
+  sum += values[i]
+}
+var avg = sum / values.length
+console.log(avg) // 7.4
+```
+
+上面的代码中，首先使用 Math.max.apply(null, values)计算了一组数值的最大值，其中 apply 方法用于指定 Math.max 方法的作用对象为 null，并将 values 数组作为参数传入该方法。接着，使用类似的方法计算了一组数值的最小值。最后，通过遍历数组计算所有数值的和，然后除以数值的个数，得平均值。
+
+## Date
+
+JavaScript 的 Date 对象用于处理日期和时间。它可以获取当前日期和时间，也可以处理其他日期和时间。
+
+要在 JavaScript 中使用 Date 对象，需要使用 Date 构造函数创建一个日期对象。语法如下：
+
+```js
+var date = new Date(
+  [year],
+  [month],
+  [day],
+  [hours],
+  [minutes],
+  [seconds],
+  [milliseconds]
+)
+```
+
+其中，参数 year、month、day、hours、minutes、seconds、milliseconds 表示年份、月份、日、小时、分钟、秒、毫秒，可以省略。如果省略，则表示使用当前日期和时间。
+
+例如，下面的代码创建了一个日期对象，表示当前日期和时间：
+
+```js
+var date = new Date()
+```
+
+JavaScript 的 Date 对象提供了很多方法，用于处理日期和时间。例如，可以使用 getFullYear 方法来获取年份，使用 getMonth 方法来获取月份，使用 getDate 方法来获取日期等。
+
+例如，下面的代码获取了当前日期对象的年份、月份、日期：
+
+```js
+var date = new Date()
+var year = date.getFullYear()
+var month = date.getMonth()
+var day = date.getDate()
+```
+
+此外，JavaScript 的 Date 对象还提供了一些静态方法，可以用于创建特定日期和时间的日期对象。例如，可以使用 Date.parse 方法来解析日期字符串
+
+Date 对象提供了许多方法来处理日期和时间信息，下面列出一些常用的方法：
+
+- getFullYear()：获取当前日期所在年份。
+- getMonth()：获取当前日期所在月份（0-11）。
+- getDate()：获取当前日期所在月份的日期（1-31）。
+- getDay()：获取当前日期所在周的星期（0-6，0 表示星期天，1 表示星期一，以此类推）。
+- getHours()：获取当前时间的小时数（0-23）。
+- getMinutes()：获取当前时间
+
+![6hlbYR](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/6hlbYR.png)
+
+## Regexp
+
+正则表达式（Regular Expression，简称 regexp 或 regex）是用来描述、匹配文本模式的一种工具。在 JavaScript 中，可以使用正则表达式来搜索、替换、提取字符串中的指定文本，从而实现对文本的高级操作。
+
+要在 JavaScript 中使用正则表达式，需要使用 RegExp 构造函数来创建一个正则表达式对象。语法如下：
+
+```js
+var regexp = new RegExp(pattern[, flags]);
+```
+
+其中，pattern 是正则表达式的模式字符串，flags 是可选的标志字符串，用来指定正则表达式的匹配方式。
+
+例如，下面的代码创建了一个正则表达式对象，该对象可以匹配字符串"hello"：
+
+```js
+var regexp = new RegExp('hello')
+```
+
+JavaScript 的正则表达式有两种匹配方式：全局匹配和非全局匹配。
+
+在全局匹配模式下，正则表达式会尝试匹配整个字符串，并返回所有匹配结果。要在正则表达式中使用全局匹配，需要在模式字符串中加入一个"g"标志，如下所示：
+
+```js
+var regexp = new RegExp('hello', 'g')
+```
+
+在非全局匹配模式下，正则表达式会尝试匹配字符串的一部分
