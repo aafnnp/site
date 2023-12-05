@@ -1,3 +1,4 @@
+'use client'
 import {
   EmailIcon,
   EmailShareButton,
@@ -10,18 +11,18 @@ import {
   WeiboIcon,
   WeiboShareButton
 } from 'next-share'
-import {useRouter} from 'next/router'
+import {usePathname} from 'next/navigation'
 import {useEffect, useState} from 'react'
 
 export default function Share({title, tag, handle}) {
-  const {asPath} = useRouter()
-  const [url, setUrl] = useState(asPath)
+  const pathName = usePathname()
+  const [url, setUrl] = useState(pathName)
 
   useEffect(() => {
     setUrl(location.href)
-  }, [asPath])
+  }, [pathName])
 
-  return asPath === '/' ? null : (
+  return pathName === '/' ? null : (
     <div className={'flex gap-2 py-4 mb-8 justify-center'}>
       <TwitterShareButton
         url={url}
@@ -40,7 +41,7 @@ export default function Share({title, tag, handle}) {
       <RedditShareButton url={url} title={title}>
         <RedditIcon size={24} round />
       </RedditShareButton>
-      <FacebookShareButton url={asPath} quote={title} hashtag={tag[0]}>
+      <FacebookShareButton url={pathName} quote={title} hashtag={tag[0]}>
         <FacebookIcon size={24} round />
       </FacebookShareButton>
     </div>

@@ -1,18 +1,19 @@
+'use client'
 import React, {useEffect} from 'react'
-import {useRouter} from 'next/router'
+import {usePathname} from 'next/navigation'
 
 export default function Ad() {
-  const {asPath} = useRouter()
+  const pathName = usePathname()
   useEffect(() => {
     try {
       ;(window.adsbygoogle = window.adsbygoogle || []).push({})
     } catch (error) {
       console.log(error)
     }
-  }, [asPath])
+  }, [pathName])
 
   return (
-    <div className={'my-8'} key={asPath}>
+    <div className={'my-8'} key={pathName}>
       <ins
         className="adsbygoogle"
         style={{display: 'block'}}

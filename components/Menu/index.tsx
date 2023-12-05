@@ -1,23 +1,23 @@
+'use client'
 import Link from 'next/link'
 import {
   FaBookOpen,
   FaHouseChimney,
-  FaDev,
   FaMailchimp,
   FaGithub,
   FaTwitter
 } from 'react-icons/fa6'
-import {useRouter} from 'next/router'
+import {usePathname} from 'next/navigation'
 import {useState} from 'react'
 import {motion} from 'framer-motion'
 
 const Navigation = () => {
-  const {asPath} = useRouter()
-  const [hoverPath, setHoverPath] = useState(asPath)
+  const pathName = usePathname()
+  const [hoverPath, setHoverPath] = useState(pathName)
   return (
     <>
       <div className="bg-light">
-        <section className="mx-auto flex max-w-4xl flex-wrap gap-8 px-4 py-8 sm:px-8">
+        <section className="mx-auto flex justify-center max-w-4xl flex-wrap gap-8 px-4 py-8 sm:px-8">
           <div
             className="flex-grow text-center font-medium"
             style={{flexBasis: '25rem'}}
@@ -25,7 +25,7 @@ const Navigation = () => {
             <p aria-hidden className="text-4xl">
               Hi, I'm
             </p>
-            <h1 className="mb-8 text-5xl ">
+            <h1 className="mb-8 text-5xl">
               <Link href={'/'}>Manon.icu</Link>
             </h1>
             <h2 className="mx-auto max-w-[35ch] text-xl ">
@@ -44,7 +44,7 @@ const Navigation = () => {
                   href={i.href}
                   className={`translate-0 group relative flex flex-row items-center rounded-lg px-4 py-2`}
                   onMouseOver={() => setHoverPath(i.href)}
-                  onMouseLeave={() => setHoverPath(asPath)}
+                  onMouseLeave={() => setHoverPath(pathName)}
                 >
                   {i.icon}
                   <span className="mx-2 font-medium leading-6 print:md:inline">
@@ -78,11 +78,11 @@ const LinkItems = [
   {name: 'Home', href: '/', icon: <FaHouseChimney className="w-6 h-6" />},
   {name: 'Blog', href: '/blog', icon: <FaBookOpen className="w-6 h-6" />},
   // {name: 'Challenges', href: '/challenges', icon: <FaDev />},
-  {
-    name: 'Playground',
-    href: '/playground',
-    icon: <FaDev className="w-6 h-6" />
-  },
+  // {
+  //   name: 'Playground',
+  //   href: '/playground',
+  //   icon: <FaDev className="w-6 h-6" />
+  // },
   {
     name: 'Contact',
     href: '/contact',

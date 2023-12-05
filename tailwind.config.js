@@ -1,8 +1,8 @@
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
-    './utils/**/*.{js,ts,jsx,tsx}',
+    './content/**/*.{js,ts,jsx,tsx}',
     './_playground/**/*.{js,ts,jsx,tsx}',
     './_challenges/**/*.{js,ts,jsx,tsx}'
   ],

@@ -1,7 +1,8 @@
-import Link from "next/link";
-import { FaGithub, FaHome, FaSitemap, FaTwitter } from "react-icons/fa";
-import styles from "assets/styles/about.module.scss";
-import { motion } from "framer-motion";
+'use client'
+import Link from 'next/link'
+import {FaGithub, FaHome, FaSitemap, FaTwitter} from 'react-icons/fa'
+import styles from 'assets/styles/about.module.scss'
+import {motion} from 'framer-motion'
 
 export default function Index() {
   const animate = {
@@ -35,7 +36,9 @@ export default function Index() {
       })}
 
       <div
-        className={'absolute w-screen bottom-0 left-0 p-4 flex justify-between items-end text-white'}
+        className={
+          'absolute w-screen bottom-0 left-0 p-4 flex justify-between items-end text-white'
+        }
       >
         <h1>
           <p className={'text-2xl'}>Freelancer</p>

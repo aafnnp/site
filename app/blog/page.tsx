@@ -1,9 +1,8 @@
+'use client'
 import Link from 'next/link'
 import {useMemo, useState} from 'react'
 import dayjs from 'dayjs'
-import generateRssFeed from 'utils/rss'
-import {allPosts, Post} from 'contentlayer/generated'
-import {GetStaticPropsResult} from 'next'
+import {allPosts} from 'contentlayer/generated'
 
 const IndexPage = () => {
   const postsByYear = allPosts.reduce((acc, post) => {
@@ -65,14 +64,3 @@ const IndexPage = () => {
 }
 
 export default IndexPage
-
-export async function getStaticProps(): Promise<
-  GetStaticPropsResult<{posts: Post[]}>
-> {
-  await generateRssFeed()
-  return {
-    props: {
-      posts: allPosts
-    }
-  }
-}

@@ -18,7 +18,13 @@
     "typeRoots": ["./node_modules/@types", "./types"],
     "paths": {
       "contentlayer/generated": ["./.contentlayer/generated"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
