@@ -90,12 +90,12 @@ const LinkItems = [
   },
   {
     name: 'Github',
-    href: 'https://github.com/Manonicu',
+    href: 'https://github.com/aafnnp',
     icon: <FaGithub className="w-6 h-6" />
   },
   {
     name: 'Twitter',
-    href: 'https://twitter.com/Manonicu',
+    href: 'https://twitter.com/aafnnp',
     icon: <FaTwitter className="w-6 h-6" />
   }
 ]
