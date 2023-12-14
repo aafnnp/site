@@ -7,13 +7,6 @@ import {notFound} from 'next/navigation'
 const Ad = dynamic(() => import('components/ad'), {ssr: false})
 const Share = dynamic(() => import('components/Share'), {ssr: false})
 
-export const generateStaticParams = async () => {
-  const slugs = allPosts.map((post) => ({
-    params: {slug: post.url.split('/').filter(Boolean)}
-  }))
-  return slugs
-}
-
 const Page = ({params}: {params: {slug: string[]}}) => {
   const post: Post | undefined = allPosts.find((post) => {
     return post.slug === params.slug.join('/')
@@ -53,7 +46,10 @@ const Page = ({params}: {params: {slug: string[]}}) => {
 export default Page
 
 export const generateMetadata = ({params}: any) => {
-  const post = allPosts.find((post) => post.url === params.slug.join('/'))
+  const post = allPosts.find((post) => {
+    return post.slug === params.slug.join('/')
+  })
+
   return {
     title: post?.title,
     description: post?.description,
