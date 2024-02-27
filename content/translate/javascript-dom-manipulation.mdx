@@ -1,0 +1,496 @@
+---
+type: 'Post'
+date: '2024-01-12 13:41:42'
+title: 'JS DOM Manipulation'
+tags: [javascript]
+---
+
+DOM 操作是 JavaScript 中最令人兴奋的主题之一。这是因为 JavaScript 的主要用途之一是使网页具有交互性，而文档对象模型 （DOM） 在这方面发挥了重要作用。
+
+DOM 是一个强大的工具，允许您与网页上的元素进行交互和操作。这本手册将帮助您理解并自信地使用它。
+
+您将首先了解 DOM 是什么以及您可以用它做什么。然后，我们将深入探讨如何选择、修改和设置 DOM 元素的样式。您还将学习如何创建新元素并将它们添加到您的网页中。
+
+## 什么是 DOM？
+
+DOM 是文档对象模型的缩写。它是一个 API，允许您以编程方式访问和操作 HTML 和 XML 文档的内容。
+
+“文档”部分是指您在浏览器中看到的网页。具体来说，就是处理页面内容结构的 HTML 文档。这包括构成页面的文本、图像、链接和其他元素。
+
+对象意味着图像、标题和段落等元素被视为对象。每个对象都有其属性（如 id、class、style）和方法。使用这些属性和方法，可以操作元素。
+
+DOM 中的模型意味着它是 HTML 文档作为分层树的表示或副本。此树包含所有元素。它捕获了它们之间的父子关系。
+
+DOM 始终与 HTML 文档相同。浏览器确保它们保持同步。因此，如果 HTML 中的某些内容发生了变化，DOM 也会发生变化，反之亦然。
+
+![rq5QZ5](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/rq5QZ5.jpg)
+
+层次结构的顶部是 Document 对象。它只有一个子元素—— html 元素。该 html 元素（也称为根元素）有两个子元素，即 head 和 body 元素。而且他们每个人都有自己的子元素。
+
+元素之间的父子关系允许您遍历或移动并选择它们。稍后会详细介绍。
+
+### 可以用 DOM 做什么
+
+DOM 操作允许开发人员与网页的结构、样式和内容进行交互。以下是您可以使用 DOM 执行的一些操作：
+
+- 更改和删除现有元素
+- 创建新元素
+- 更改元素的样式
+- 添加事件监听器
+- 更改元素的属性
+- 遍历元素
+
+## 如何选择 DOM 元素
+
+要对 DOM 元素执行某些操作，首先必须选择或访问相关元素。在本节中，您将学习一些选择 DOM 元素的常用方法。
+
+假如有如下 DOM 结构
+
+```html
+<h1 id="page-title">Phonebook</h1>
+<p class="family">Marie</p>
+<p class="family">Jose</p>
+<p class="work">Anne</p>
+<p class="work">Joan</p>
+```
+
+### getElementById
+
+获取 id 为 page-title 的元素
+
+```js
+const pageTitle = document.getElementById('page-title')
+console.log(pageTitle)
+```
+
+![zcr2UK](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/zcr2UK.jpg)
+
+### getElementsByClassName
+
+获取 class 为 family 的元素
+
+```js
+const family = document.getElementsByClassName('family')
+console.log(family)
+```
+
+![mSqM1c](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/mSqM1c.jpg)
+
+```js
+console.log(family[0])
+```
+
+![5L61zc](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/5L61zc.jpg)
+
+遍历元素
+
+```js
+let famContactsArray = [...family]
+
+famContactsArray.forEach((element) => console.log(element))
+```
+
+![JmU3bI](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/JmU3bI.jpg)
+
+### getElementsByTagName
+
+获取所有 p 元素
+
+```js
+const paragraphs = document.getElementsByTagName('p')
+```
+
+![VD8CUg](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/VD8CUg.jpg)
+
+```js
+let allContactsArray = [...paragraphs]
+
+allContactsArray.map((element) => console.log(element))
+```
+
+![T5WEJR](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/T5WEJR.jpg)
+
+### querySelector
+
+获取第一个 class 为 work 的元素
+
+```js
+const firstWorkContact = document.querySelector('.work')
+console.log(firstWorkContact)
+```
+
+![iElhmb](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/iElhmb.jpg)
+
+获取第 N 个元素
+
+```html
+<div>
+  <button>First button</button>
+  <button>Second button</button>
+  <button>Third button</button>
+  <button>Fourth button</button>
+</div>
+```
+
+```js
+const thirdButton = document.querySelector('div button:nth-child(3)')
+console.log(thirdButton)
+```
+
+![9VR7Xm](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/9VR7Xm.jpg)
+
+### querySelectorAll
+
+获取所有 button 元素
+
+```js
+const allBtns = document.querySelectorAll('button')
+console.log(allBtns)
+```
+
+![MbXWwv](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/MbXWwv.jpg)
+
+遍历元素
+
+```js
+allBtns.forEach((btn) => console.log(btn))
+```
+
+![G5QZg6](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/G5QZg6.jpg)
+
+## 如何更改 DOM 元素的内容
+
+使用`innerHTML`、`textContent`、`innerText`属性可以更改 DOM 元素的内容。
+
+### innerHTML
+
+```js
+const pageTitle = document.getElementById('page-title')
+pageTitle.innerHTML = 'Contacts'
+```
+
+### innerHTML 的安全性
+
+使用`innerHTML`会带来潜在的安全风险，比如可能会导致跨站脚本攻击（XSS）。因此，如果您不信任内容，最好不要使用`innerHTML`。
+
+务必在使用`innerHTML`之前对内容进行严格的验证和过滤。比如使用`DOMPurity`库。
+
+如果使用纯文本，可以使用`textContent`或`innerText`。
+
+### textContent
+
+```js
+const pageTitle = document.getElementById('page-title')
+pageTitle.textContent = 'Contacts'
+```
+
+## 如何使用 DOM 元素的属性
+
+```html
+<img id="profile-pic" src="profile.jpg" alt="Profile picture" />
+```
+
+ImageElement.id的值是`profile-pic`，ImageElement.src的值是`profile.jpg`，ImageElement.alt的值是`Profile picture`。
+
+使用`getAttribute`和`setAttribute`方法可以获取和设置元素的属性。
+
+### getAttribute
+
+获取 img 的 src 属性
+
+```js
+const profilePic = document.getElementById('profile-pic')
+console.log(profilePic.getAttribute('src'))
+```
+
+### setAttribute
+
+设置 img 的 src 属性
+
+```js
+const profilePic = document.getElementById('profile-pic')
+profilePic.setAttribute('src', 'new-profile.jpg')
+```
+
+### removeAttribute
+
+移除 img 的 alt 属性
+
+```js
+const profilePic = document.getElementById('profile-pic')
+profilePic.removeAttribute('alt')
+```
+
+### hasAttribute
+
+检查 img 是否有 alt 属性
+
+```js
+const profilePic = document.getElementById('profile-pic')
+console.log(profilePic.hasAttribute('alt'))
+```
+
+## 如何更改 DOM 元素的样式
+
+使用`.style`属性或者`classList`可以更改 DOM 元素的样式。
+
+### style 属性
+
+```js
+const pageTitle = document.getElementById('page-title')
+pageTitle.style.color = 'red'
+pageTitle.style.backgroundColor = 'yellow'
+```
+
+### classList 属性
+
+```html
+<p id="paragraph" class="family">Marie</p>
+```
+
+```js
+const paragraph = document.getElementById('paragraph')
+paragraph.classList.add('friend')
+paragraph.classList.remove('family')
+```
+
+判断元素是否有某个类
+
+```js
+const paragraph = document.getElementById('paragraph')
+console.log(paragraph.classList.contains('family'))
+```
+
+切换类
+
+```js
+const paragraph = document.getElementById('paragraph')
+paragraph.classList.toggle('family')
+```
+
+## 如何遍历 DOM 元素
+
+使用`childNodes`、`children`、`firstChild`、`lastChild`、`nextSibling`、`previousSibling`可以遍历 DOM 元素。
+
+### 节点和元素的区别
+
+节点是 DOM 树中的所有对象的通用名称。元素是节点的一种类型。
+
+### 使用 parentNode 和 parentElement 选择父元素
+
+```html
+<div>
+  <p>First paragraph</p>
+  <p>Second paragraph</p>
+</div>
+```
+
+```js
+const firstParagraph = document.querySelector('p')
+console.log(firstParagraph.parentNode)
+console.log(firstParagraph.parentElement)
+```
+
+### 选择有 childNodes 和 children 的子元素
+
+```html
+<div>
+  <p>First paragraph</p>
+  <p>Second paragraph</p>
+</div>
+```
+
+```js
+const div = document.querySelector('div')
+console.log(div.childNodes)
+console.log(div.children)
+```
+
+### 选择第一个或最后一个子元素
+
+```html
+<div>
+  <p>First paragraph</p>
+  <p>Second paragraph</p>
+</div>
+```
+
+```js
+const div = document.querySelector('div')
+console.log(div.firstChild)
+console.log(div.lastChild)
+```
+
+### 选择兄弟节点
+
+```html
+<div>
+  <p>First paragraph</p>
+  <p>Second paragraph</p>
+</div>
+```
+
+```js
+const firstParagraph = document.querySelector('p')
+console.log(firstParagraph.nextSibling)
+console.log(firstParagraph.previousSibling)
+```
+
+## DOM 事件和事件监听
+
+DOM 事件是在 HTML 文档中发生的事情。它可以是用户操作，也可以是浏览器操作。
+
+事件监听是指在事件发生时执行的代码。事件监听器是一个函数，它会在事件发生时被调用。
+
+### 事件监听和事件处理程序的区别
+
+事件监听是指在事件发生时执行的代码。事件处理程序是一个函数，它会在事件发生时被调用。
+
+事件处理程序是事件监听器的一种。事件监听器是一个函数，它会在事件发生时被调用。
+
+### 注册事件的三种方法
+
+- HTML 属性
+- DOM 属性
+- addEventListener 方法
+
+### HTML 属性
+
+```html
+<button onclick="alert('Hello')">Click me</button>
+```
+
+### DOM 属性
+
+```html
+<button id="btn">Click me</button>
+```
+
+```js
+const btn = document.getElementById('btn')
+btn.onclick = function () {
+  alert('Hello')
+}
+```
+
+### addEventListener 方法
+
+```html
+<button id="btn">Click me</button>
+```
+
+```js
+const btn = document.getElementById('btn')
+btn.addEventListener('click', function () {
+  alert('Hello')
+})
+```
+
+### 事件对象
+
+事件对象是在事件发生时由浏览器创建的对象。它包含有关事件的信息，如事件类型、目标元素和鼠标位置。
+
+```html
+<button id="btn">Click me</button>
+```
+
+```js
+const btn = document.getElementById('btn')
+btn.addEventListener('click', function (event) {
+  console.log(event)
+})
+```
+
+### 事件类型
+
+- click
+- mouseover
+- mouseout
+- keydown
+- keyup
+- focus
+- blur
+- submit
+- change
+
+## 事件流
+
+事件流描述了事件从页面中的元素传播到最外层元素的顺序。
+
+![HO71xL](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/HO71xL.jpg)
+
+### 事件冒泡
+
+事件冒泡是指事件从最内层元素向最外层元素传播的过程。
+
+```html
+<div id="outer">
+  <div id="inner">Click me</div>
+</div>
+```
+
+```js
+const inner = document.getElementById('inner')
+const outer = document.getElementById('outer')
+
+inner.addEventListener('click', function () {
+  console.log('Inner div clicked')
+})
+
+outer.addEventListener('click', function () {
+  console.log('Outer div clicked')
+})
+```
+
+### 事件捕获
+
+![LcxfqT](https://cdn.jsdelivr.net/gh/aafnnp/pics@master/uPic/LcxfqT.jpg)
+
+事件捕获是指事件从最外层元素向最内层元素传播的过程。
+
+```html
+<div id="outer">
+  <div id="inner">Click me</div>
+</div>
+```
+
+```js
+const inner = document.getElementById('inner')
+const outer = document.getElementById('outer')
+
+inner.addEventListener(
+  'click',
+  function () {
+    console.log('Inner div clicked')
+  },
+  true
+)
+
+outer.addEventListener(
+  'click',
+  function () {
+    console.log('Outer div clicked')
+  },
+  true
+)
+```
+
+### 阻止默认行为
+
+使用`preventDefault`、`stopPropagation`方法可以阻止事件的默认行为。
+
+```html
+<a href="https://www.google.com" id="link">Google</a>
+```
+
+```js
+const link = document.getElementById('link')
+link.addEventListener('click', function (event) {
+  event.preventDefault()
+})
+
+const btn = document.getElementById('btn')
+btn.addEventListener('click', function (event) {
+  event.stopPropagation()
+})
+```
