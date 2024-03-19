@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function IndexPage() {
+export default async function IndexPage() {
   return (
     <div className={'mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8'}>
       <h1 className={'text-3xl'}>Feedback</h1>
