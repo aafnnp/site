@@ -59,7 +59,7 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "next-compose-plugins": "^2.2.1",
-    "postcss": "^8.4.36",
+    "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "pretty-quick": "^4.0.0",
     "remark-codesandbox": "^0.10.1",
