@@ -39,7 +39,7 @@
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0",
+    "@babel/core": "^7.24.3",
     "@commitlint/cli": "^19.2.0",
     "@commitlint/config-conventional": "^19.1.0",
     "@tailwindcss/typography": "^0.5.10",
