@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   EmailIcon,
   EmailShareButton,
@@ -9,25 +9,33 @@ import {
   TwitterIcon,
   TwitterShareButton,
   WeiboIcon,
-  WeiboShareButton
-} from 'next-share'
-import {usePathname} from 'next/navigation'
-import {useEffect, useState} from 'react'
+  WeiboShareButton,
+} from "next-share";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function Share({title, tag, handle}) {
-  const pathName = usePathname()
-  const [url, setUrl] = useState(pathName)
+export default function Share({
+  title,
+  tag,
+  handle,
+}: {
+  title: string;
+  tag: string[];
+  handle?: string;
+}) {
+  const pathName = usePathname();
+  const [url, setUrl] = useState(pathName);
 
   useEffect(() => {
-    setUrl(location.href)
-  }, [pathName])
+    setUrl(location.href);
+  }, [pathName]);
 
-  return pathName === '/' ? null : (
-    <div className={'flex gap-2 py-4 mb-8 justify-center'}>
+  return pathName === "/" ? null : (
+    <div className={"flex gap-2 py-4 mb-8 justify-center"}>
       <TwitterShareButton
         url={url}
         title={title}
-        via={handle ?? 'manon'}
+        via={handle ?? "manon"}
         hashtags={tag}
       >
         <TwitterIcon size={24} round />
@@ -45,5 +53,5 @@ export default function Share({title, tag, handle}) {
         <FacebookIcon size={24} round />
       </FacebookShareButton>
     </div>
-  )
+  );
 }
