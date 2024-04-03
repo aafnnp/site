@@ -1,33 +1,36 @@
-![Logo](https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/tobias-rademacher-CUHhXklINMY-unsplash.jpg)
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-# Site
+## Getting Started
 
-Personal Site Build With Next.js、MDX、framer-motion and etc.
+First, run the development server:
 
-## Badges
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-Add badges from somewhere like: [shields.io](https://shields.io/)
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![Build and Deploy](https://github.com/Manonicu/site/actions/workflows/release.yml/badge.svg)](https://github.com/Manonicu/site/actions/workflows/release.yml)
-![Next JS](https://img.shields.io/badge/Next-black.svg)
-![Vercel](https://img.shields.io/badge/vercel-white.svg)
-![WebStorm](https://img.shields.io/badge/webstorm-blue.svg)
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-<a href="https://app.daily.dev/Manonicu" style="position:absolute;top:0;right:0"><img src="https://github.com/Manonicu/site/blob/master/devcard.svg" width="200" alt="Manon.icu's Dev Card"/></a>
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Skills Certificates
+## Learn More
 
-<a href ="https://www.hackerrank.com/certificates/d88cd5622a28"><img src="https://s2.loli.net/2022/01/14/WOubtrP2GiyBhDe.jpg" width="100"/></a>
+To learn more about Next.js, take a look at the following resources:
 
-## Acknowledgements
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- [Next.js](https://nextjs.org)
-- [MDX](https://mdxjs.com)
-- [Framer Motion](https://www.framer.com)
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Demo
+## Deploy on Vercel
 
-- https://manon.icu/
-- https://site-lk00kjo3z-manonicu.vercel.app/
-- https://site-jcqb.pages.dev/
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
