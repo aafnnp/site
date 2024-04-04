@@ -1,5 +1,6 @@
 import globFiles from "@/utils/globFiles";
 import { marked } from "marked";
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,18 +10,15 @@ const Share = dynamic(() => import("@/components/Share"), { ssr: false });
 
 async function getData(slug: string[]) {
   const posts = globFiles(process.cwd() + "/src/content");
-  return posts.find((post) => post.slug.includes(slug.join("/"))) ?? {};
+  return posts.find((post) => post.slug.includes(slug.join("/")));
 }
 
 export async function generateStaticParams() {
   const posts = globFiles(process.cwd() + "/src/content");
-  return posts.map((post) => {
-    return {
-      params: {
-        slug: post.slug.replace("/blog/", "").split("/"),
-      },
-    };
-  });
+
+  return posts.map((post) => ({
+    slug: post.slug.replace("/blog/", "").split("/"),
+  }));
 }
 
 export default async function Page({
@@ -58,4 +56,36 @@ export default async function Page({
       {/* 底部广告结束 */}
     </div>
   );
+}
+
+export async function generateMetadata({
+  params: { slug },
+}: {
+  params: { slug: string[] };
+}): Promise<Metadata> {
+  const posts = globFiles(process.cwd() + "/src/content");
+  const post = posts.find((post) => post.slug.includes(slug.join("/")));
+  return {
+    title: post?.data.title,
+    description: post?.data.description,
+    keywords: post?.data.tags,
+    creator: "pfan",
+    publisher: "pfan",
+    openGraph: {
+      images: post?.data?.cover,
+    },
+    robots: {
+      index: false,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: false,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+  };
 }
