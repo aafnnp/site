@@ -10,14 +10,22 @@ const Share = dynamic(() => import("@/components/Share"), { ssr: false });
 
 async function getData(slug: string[]) {
   const posts = globFiles(process.cwd() + "/src/content");
-  return posts.find((post) => post.slug.includes(slug.join("/")));
+  return (
+    posts.find((post) => {
+      return post.slug.includes(
+        slug.map((item) => decodeURIComponent(item)).join("/")
+      );
+    }) ?? {}
+  );
 }
 
 export async function generateStaticParams() {
   const posts = globFiles(process.cwd() + "/src/content");
-
   return posts.map((post) => ({
-    slug: post.slug.replace("/blog/", "").split("/"),
+    slug: post.slug
+      .replace("/blog/", "")
+      .split("/")
+      .map((item: string) => encodeURIComponent(item)),
   }));
 }
 
