@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "caniuse-lite": "^1.0.30001605",
+    "caniuse-lite": "^1.0.30001614",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.0.24",
     "gray-matter": "^4.0.3",
