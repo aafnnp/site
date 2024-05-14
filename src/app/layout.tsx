@@ -1,10 +1,15 @@
-import React from 'react'
-import '@/assets/styles/main.scss'
-import dynamic from 'next/dynamic'
+import React from "react";
+import "@/assets/styles/main.scss";
+import dynamic from "next/dynamic";
+import Script from "next/script";
 
-const Menu = dynamic(() => import('@/components/Menu'), { ssr: false })
+const Menu = dynamic(() => import("@/components/Menu"), { ssr: false });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <head>
@@ -22,7 +27,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         />
+        <Script
+          id="clarity"
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "lv84p8uuy6");`,
+          }}
+        />
       </body>
     </html>
-  )
+  );
 }
