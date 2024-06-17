@@ -18,8 +18,8 @@ dependencies:
     specifier: ^4.0.3
     version: 4.0.3
   marked:
-    specifier: ^12.0.1
-    version: 12.0.1
+    specifier: ^13.0.0
+    version: 13.0.0
   next:
     specifier: 14.1.4
     version: 14.1.4(react-dom@18.2.0)(react@18.3.1)(sass@1.74.1)
@@ -2029,8 +2029,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /marked@12.0.1:
-    resolution: {integrity: sha512-Y1/V2yafOcOdWQCX0XpAKXzDakPOpn6U0YLxTJs3cww6VxOzZV1BTOOYWLvH3gX38cq+iLwljHHTnMtlDfg01Q==}
+  /marked@13.0.0:
+    resolution: {integrity: sha512-VTeDCd9txf4KLLljUZ0nljE/Incb9SrWuueE44QVuU0pkOdh4sfCeW1Z6lPcxyDRSVY6rm8db/0OPaN75RNUmw==}
     engines: {node: '>= 18'}
     hasBin: true
     dev: false
