@@ -1,9 +1,9 @@
 import React from "react";
-import "@/assets/styles/main.scss";
+import "@/assets/styles/main.css";
 import dynamic from "next/dynamic";
 import Script from "next/script";
 
-const Menu = dynamic(() => import("@/components/Menu"), { ssr: false });
+const Menu = dynamic(() => import("@/components/Menu"));
 
 export default function RootLayout({
   children,

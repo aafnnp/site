@@ -9,29 +9,30 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "caniuse-lite": "^1.0.30001614",
-    "date-fns": "^3.6.0",
-    "framer-motion": "^11.1.7",
+    "caniuse-lite": "^1.0.30001684",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^11.11.17",
     "gray-matter": "^4.0.3",
-    "marked": "^12.0.1",
-    "next": "14.1.4",
+    "marked": "^15.0.2",
+    "next": "15.0.3",
     "next-share": "^0.27.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^5.0.1"
+    "react-icons": "^5.3.0"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.12",
+    "@tailwindcss/typography": "^0.5.15",
     "@types/caniuse-lite": "^1.0.5",
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.1.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9",
+    "eslint-config-next": "15.0.3",
     "postcss": "^8",
-    "sass": "^1.72.0",
-    "tailwindcss": "^3.3.0",
+    "sass": "^1.81.0",
+    "tailwindcss": "^3.4.15",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@7.8.0+sha512.8f36fdfe0b68e27c2e540da2b53464d0f261b9a65c035341441dbdf14cd786a29940c8ed1c24be28bce1ed15a4e67de0f8a9cc839147afa3308352fad9d073d4"
 }

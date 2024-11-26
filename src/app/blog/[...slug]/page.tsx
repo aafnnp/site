@@ -5,8 +5,8 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const Ad = dynamic(() => import("@/components/ad"), { ssr: false });
-const Share = dynamic(() => import("@/components/Share"), { ssr: false });
+const Ad = dynamic(() => import("@/components/ad"));
+const Share = dynamic(() => import("@/components/Share"));
 
 async function getData(slug: string[]) {
   const posts = globFiles(process.cwd() + "/src/content");
