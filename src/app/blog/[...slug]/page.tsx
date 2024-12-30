@@ -30,11 +30,11 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({
-  params: { slug },
+  params,
 }: {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 }) {
-  const { data, content } = await getData(slug);
+  const { data, content } = await getData((await params).slug);
   if (!data) {
     return notFound();
   }
@@ -67,11 +67,12 @@ export default async function Page({
 }
 
 export async function generateMetadata({
-  params: { slug },
+  params,
 }: {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 }): Promise<Metadata> {
   const posts = globFiles(process.cwd() + "/src/content");
+  const { slug } = await params;
   const post = posts.find((post) => post.slug.includes(slug.join("/")));
   return {
     title: post?.data.title,
