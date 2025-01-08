@@ -1,7 +1,8 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import "@/assets/styles/main.css";
 import dynamic from "next/dynamic";
-import Script from "next/script";
+import Clarity from "@microsoft/clarity";
 
 const Menu = dynamic(() => import("@/components/Menu"));
 
@@ -10,6 +11,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      Clarity.init("lv84p8uuy6");
+    }
+  }, []);
   return (
     <html lang="en">
       <head>
@@ -27,7 +33,7 @@ export default function RootLayout({
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         />
-        <Script
+        {/* <Script
           id="clarity"
           dangerouslySetInnerHTML={{
             __html: `(function(c,l,a,r,i,t,y){
@@ -36,7 +42,7 @@ export default function RootLayout({
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "lv84p8uuy6");`,
           }}
-        />
+        /> */}
       </body>
     </html>
   );
