@@ -28,7 +28,7 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         />
         <Script
-          id="show-banner"
+          id="clarity"
           dangerouslySetInnerHTML={{
             __html: `(function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
