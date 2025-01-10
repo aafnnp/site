@@ -1,31 +1,41 @@
-'use client'
-import Link from 'next/link'
-import { FaBookOpen, FaHouseChimney, FaMailchimp, FaGithub, FaTwitter } from 'react-icons/fa6'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+"use client";
+import Link from "next/link";
+import {
+  FaBookOpen,
+  FaHouseChimney,
+  FaMailchimp,
+  FaGithub,
+  FaTwitter,
+} from "react-icons/fa6";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Navigation = () => {
-  const pathName = usePathname()
-  const [hoverPath, setHoverPath] = useState(pathName)
+  const pathName = usePathname();
+  const [hoverPath, setHoverPath] = useState(pathName);
   return (
     <>
-      <div className="bg-light">
+      <div className="bg-white">
         <section className="mx-auto flex justify-center max-w-4xl flex-wrap gap-8 px-4 py-8 sm:px-8">
-          <div className="flex-grow text-center font-medium" style={{ flexBasis: '25rem' }}>
+          <div
+            className="flex-grow text-center font-medium"
+            style={{ flexBasis: "25rem" }}
+          >
             <p aria-hidden className="text-4xl">
               Hi, I'm
             </p>
             <h1 className="mb-8 text-5xl">
-              <Link href={'/'}>Manon.icu</Link>
+              <Link href={"/"}>Manon.icu</Link>
             </h1>
             <h2 className="mx-auto max-w-[35ch] text-xl ">
-              I'm here to make you a better developer by teaching you everything I know about building for the web.
+              I'm here to make you a better developer by teaching you everything
+              I know about building for the web.
             </h2>
           </div>
         </section>
       </div>
-      <div className="bg-light sticky top-0 z-30 mb-8 border-b border-gray-100 py-1">
+      <div className="bg-white sticky top-0 z-30 mb-8 border-b border-gray-100 py-1">
         <ul className="flex flex-row flex-wrap justify-center">
           {LinkItems.map((i) => {
             return (
@@ -37,14 +47,16 @@ const Navigation = () => {
                   onMouseLeave={() => setHoverPath(pathName)}
                 >
                   {i.icon}
-                  <span className="mx-2 font-medium leading-6 print:md:inline">{i.name}</span>
+                  <span className="mx-2 font-medium leading-6 print:md:inline">
+                    {i.name}
+                  </span>
                   {i.href === hoverPath ? (
                     <motion.div
                       className="absolute bottom-0 left-0 w-full h-full bg-black/10 rounded-md -z-10"
                       layoutId="navbar"
                       aria-hidden="true"
                       transition={{
-                        type: 'spring',
+                        type: "spring",
                         bounce: 0.25,
                         stiffness: 130,
                         damping: 9,
@@ -54,17 +66,17 @@ const Navigation = () => {
                   ) : null}
                 </Link>
               </li>
-            )
+            );
           })}
         </ul>
       </div>
     </>
-  )
-}
+  );
+};
 
 const LinkItems = [
-  { name: 'Home', href: '/', icon: <FaHouseChimney className="w-6 h-6" /> },
-  { name: 'Blog', href: '/blog', icon: <FaBookOpen className="w-6 h-6" /> },
+  { name: "Home", href: "/", icon: <FaHouseChimney className="w-6 h-6" /> },
+  { name: "Blog", href: "/blog", icon: <FaBookOpen className="w-6 h-6" /> },
   // {name: 'Challenges', href: '/challenges', icon: <FaDev />},
   // {
   //   name: 'Playground',
@@ -72,20 +84,20 @@ const LinkItems = [
   //   icon: <FaDev className="w-6 h-6" />
   // },
   {
-    name: 'Contact',
-    href: '/contact',
+    name: "Contact",
+    href: "/contact",
     icon: <FaMailchimp className="w-6 h-6" />,
   },
   {
-    name: 'Github',
-    href: 'https://github.com/aafnnp',
+    name: "Github",
+    href: "https://github.com/aafnnp",
     icon: <FaGithub className="w-6 h-6" />,
   },
   {
-    name: 'Twitter',
-    href: 'https://twitter.com/aafnnp',
+    name: "Twitter",
+    href: "https://twitter.com/aafnnp",
     icon: <FaTwitter className="w-6 h-6" />,
   },
-]
+];
 
-export default Navigation
+export default Navigation;
