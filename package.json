@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.12.1",
     "@microsoft/clarity": "^1.0.0",
     "caniuse-lite": "^1.0.30001690",
     "date-fns": "^4.1.0",

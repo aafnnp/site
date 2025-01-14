@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@lottiefiles/dotlottie-react':
+        specifier: ^0.12.1
+        version: 0.12.1(react@19.0.0)
       '@microsoft/clarity':
         specifier: ^1.0.0
         version: 1.0.0
@@ -268,6 +271,14 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@lottiefiles/dotlottie-react@0.12.1':
+    resolution: {integrity: sha512-8l0db31gqozQMC2ZfzV6NWN1cit/NOlevVgS98qC2N4vugS6CZ6IWE4EfLLJEa9DILSinENDE4K85+eIJw4MOQ==}
+    peerDependencies:
+      react: ^17 || ^18 || ^19
+
+  '@lottiefiles/dotlottie-web@0.39.0':
+    resolution: {integrity: sha512-kJWL6NEtbXQQHFK8kMfNte/5vuTHjFhL11a30s4PJSikao8IeEu+hLJH72flWHyTLpL4tmnxW3WkTKUwZ8Osug==}
 
   '@microsoft/clarity@1.0.0':
     resolution: {integrity: sha512-2QY6SmXnqRj6dWhNY8NYCN3e53j4zCFebH4wGnNhdGV1mqAsQwql2fT0w8TISxCvwwfVp8idsWLIdrRHOms1PQ==}
@@ -2117,6 +2128,13 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@lottiefiles/dotlottie-react@0.12.1(react@19.0.0)':
+    dependencies:
+      '@lottiefiles/dotlottie-web': 0.39.0
+      react: 19.0.0
+
+  '@lottiefiles/dotlottie-web@0.39.0': {}
 
   '@microsoft/clarity@1.0.0': {}
 
