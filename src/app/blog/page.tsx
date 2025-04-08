@@ -62,13 +62,13 @@ async function getData({
 export default async function Page({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     pageSize?: string;
     tag?: string;
-  };
+  }>;
 }) {
-  const { page = "1", pageSize = "10", tag } = searchParams;
+  const { page = "1", pageSize = "10", tag } = await searchParams;
   const { data, tags } = await getData({
     pageNum: parseInt(page),
     pageSize: parseInt(pageSize),
