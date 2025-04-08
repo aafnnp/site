@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 // 导航链接项类型定义
 type LinkItem = {

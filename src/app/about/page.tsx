@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { FaGithub, FaHome, FaSitemap, FaTwitter } from "react-icons/fa";
 import styles from "@/assets/styles/about.module.scss";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 // 定义动画和过渡效果的常量
 const ANIMATION_CONFIG = {

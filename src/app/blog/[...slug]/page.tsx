@@ -34,16 +34,6 @@ async function getData(slug: string[]): Promise<PostData> {
   return posts.find((post) => post.slug.includes(decodedSlug)) ?? {};
 }
 
-// 生成静态路径参数
-export async function generateStaticParams() {
-  const contentPath = path.join(process.cwd(), "src/content");
-  const posts = globFiles(contentPath);
-
-  return posts.map((post) => ({
-    slug: post.slug.replace("/blog/", "").split("/").map(encodeURIComponent),
-  }));
-}
-
 // 博客文章页面组件
 export default async function Page({
   params,
