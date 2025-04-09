@@ -6,10 +6,7 @@ import Clarity from "@microsoft/clarity";
 import Script from "next/script";
 
 // 动态导入菜单组件以优化首屏加载
-const Menu = dynamic(() => import("@/components/Menu"), {
-  ssr: false,
-  loading: () => <div>Loading...</div>,
-});
+const Menu = dynamic(() => import("@/components/Menu"));
 
 // 定义 Clarity ID 常量
 const CLARITY_ID = "lv84p8uuy6";
