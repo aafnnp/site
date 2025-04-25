@@ -11,6 +11,7 @@
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.13.3",
     "@microsoft/clarity": "^1.0.0",
+    "@supabase/supabase-js": "^2.49.4",
     "caniuse-lite": "^1.0.30001712",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",

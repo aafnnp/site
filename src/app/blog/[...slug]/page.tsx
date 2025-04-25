@@ -9,6 +9,7 @@ import path from "path";
 // 动态导入组件
 const Ad = dynamic(() => import("@/components/ad"));
 const Share = dynamic(() => import("@/components/Share"));
+const Comments = dynamic(() => import("@/components/Comments"));
 
 // 定义文章数据接口
 interface PostData {
@@ -47,6 +48,7 @@ export default async function Page({
   }
 
   const articleContent = marked.parse(content || "");
+  const postSlug = (await params).slug.join("/");
 
   return (
     <article
@@ -75,6 +77,9 @@ export default async function Page({
       {/* 底部广告 */}
       <Ad />
       {/* 底部广告结束 */}
+      
+      {/* 留言区域 */}
+      <Comments postSlug={postSlug} />
     </article>
   );
 }
