@@ -10,6 +10,7 @@ import {
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion } from "motion/react";
+import { useLocale } from "@/components/LocaleProvider";
 
 // 导航链接项类型定义
 type LinkItem = {
@@ -30,8 +31,9 @@ const transitionConfig = {
 const Navigation = () => {
   const pathName = usePathname();
   const [hoverPath, setHoverPath] = useState(pathName);
+  const { messages } = useLocale();
 
-  // 渲染导航链接
+  // 菜单文本配置已抽离到 locale
   const renderNavLinks = (items: LinkItem[]) => {
     return items.map((item) => (
       <li key={item.name} className="rounded">
@@ -43,7 +45,7 @@ const Navigation = () => {
         >
           {item.icon}
           <span className="mx-2 font-medium leading-6 print:md:inline">
-            {item.name}
+            {messages.menu[item.name]}
           </span>
           {item.href === hoverPath && (
             <motion.div
