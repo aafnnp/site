@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 
 interface BlogLayoutProps {
@@ -9,7 +9,6 @@ interface BlogLayoutProps {
 
 export default function BlogLayout({ children }: BlogLayoutProps) {
   const pathname = usePathname();
-  // 假设 allTags 通过 props 或 context 传入
 
   return (
     <div className="flex">
