@@ -1,0 +1,94 @@
+---
+type: "Post"
+date: "2025-05-01 18:41:39"
+title: "Kotlin 基础语法"
+tags: [Kotlin]
+description: Kotlin 基础语法包含变量与常量声明、数据类型、运算符与表达式、控制流语句等内容。
+---
+
+## 变量与常量声明
+
+1. 变量 var
+
+变量声明后可以随时修改其值。
+
+```kotlin
+var age = 25
+```
+
+```kotlin
+var name: String = "John"
+```
+
+2. 常量 val
+
+常量声明后不可修改其值。
+
+```kotlin
+val PI = 3.14
+```
+
+```kotlin
+val message: String = "Hello, Kotlin!"
+```
+
+## 数据类型
+
+1. 基本数据类型
+   Kotlin 中的基本数据类型包括 Int、Long、Double、Boolean、Char 等。
+
+```kotlin
+val num: Int = 10
+```
+
+```kotlin
+val price: Double = 9.99
+```
+
+2. 可空类型
+   Kotlin 中的可空类型使用 ? 表示，可以为 null。
+
+```kotlin
+var str: String? = null
+```
+
+```kotlin
+var num: Int? = null
+```
+
+## 运算符与表达式
+
+1. 算术运算符
+   Kotlin 中的算术运算符包括加(+)、减(-)、乘(\*)、除(/)、取模(%)等。
+
+```kotlin
+val a = 10
+val b = 5
+val sum = a + b
+```
+
+```kotlin
+val a = 10
+val b = 5
+val difference = a - b
+```
+
+2. 比较运算符
+
+   Kotlin 中的比较运算符包括等于(==)、不等于(!=)、大于(\>)、小于(\<)、大于等于(\>=)、小于等于(\<=)等。
+
+```kotlin
+val a = 10
+val b = 5
+if (a > b) {
+    println("a is greater than b")
+}
+```
+
+```kotlin
+val a = 10
+val b = 5
+if (a != b) {
+    println("a is not equal to b")
+}
+```

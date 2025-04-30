@@ -6,7 +6,9 @@ export async function POST(request: Request) {
   const { pageSize = 10, pageNum = 1, tag } = body;
 
   const contentPath = path.join(process.cwd(), "src/content");
-  let posts = globFiles(contentPath);
+  let posts = globFiles(contentPath).sort((a, b) => {
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  });
 
   // 根据标签过滤
   if (tag) {
