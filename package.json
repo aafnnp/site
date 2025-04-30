@@ -15,6 +15,7 @@
     "caniuse-lite": "^1.0.30001712",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
     "marked": "^15.0.8",
     "motion": "^12.6.3",
     "next": "15.2.4",

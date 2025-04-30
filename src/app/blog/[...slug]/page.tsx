@@ -10,6 +10,7 @@ import path from "path";
 const Ad = dynamic(() => import("@/components/ad"));
 const Share = dynamic(() => import("@/components/Share"));
 const Comments = dynamic(() => import("@/components/Comments"));
+const MarkdownContent = dynamic(() => import("@/components/MarkdownContent"));
 
 // 定义文章数据接口
 interface PostData {
@@ -67,17 +68,13 @@ export default async function Page({
         )}
         <Share title={data.title} tag={data.tags} handle={data.handle} />
       </header>
-
       {/* 头部广告 */}
       <Ad />
       {/* 头部广告结束 */}
-
-      <div dangerouslySetInnerHTML={{ __html: articleContent }}></div>
-
+      <MarkdownContent html={articleContent} />
       {/* 底部广告 */}
       <Ad />
       {/* 底部广告结束 */}
-      
       {/* 留言区域 */}
       <Comments postSlug={postSlug} />
     </article>
