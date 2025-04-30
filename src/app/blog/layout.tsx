@@ -7,7 +7,7 @@ interface BlogLayoutProps {
   children: ReactNode;
 }
 
-export default async function BlogLayout({ children }: BlogLayoutProps) {
+export default function BlogLayout({ children }: BlogLayoutProps) {
   const pathname = usePathname();
   // 假设 allTags 通过 props 或 context 传入
 
