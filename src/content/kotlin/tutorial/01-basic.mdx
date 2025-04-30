@@ -35,7 +35,8 @@ val message: String = "Hello, Kotlin!"
 ## 数据类型
 
 1. 基本数据类型
-   Kotlin 中的基本数据类型包括 Int、Long、Double、Boolean、Char 等。
+
+Kotlin 中的基本数据类型包括 Int、Long、Double、Boolean、Char 等。
 
 ```kotlin
 val num: Int = 10
@@ -46,7 +47,8 @@ val price: Double = 9.99
 ```
 
 2. 可空类型
-   Kotlin 中的可空类型使用 ? 表示，可以为 null。
+
+Kotlin 中的可空类型使用 ? 表示，可以为 null。
 
 ```kotlin
 var str: String? = null
@@ -59,7 +61,8 @@ var num: Int? = null
 ## 运算符与表达式
 
 1. 算术运算符
-   Kotlin 中的算术运算符包括加(+)、减(-)、乘(\*)、除(/)、取模(%)等。
+
+Kotlin 中的算术运算符包括加(+)、减(-)、乘(\*)、除(/)、取模(%)等。
 
 ```kotlin
 val a = 10
@@ -75,7 +78,7 @@ val difference = a - b
 
 2. 比较运算符
 
-   Kotlin 中的比较运算符包括等于(==)、不等于(!=)、大于(\>)、小于(\<)、大于等于(\>=)、小于等于(\<=)等。
+Kotlin 中的比较运算符包括等于(==)、不等于(!=)、大于(\>)、小于(\<)、大于等于(\>=)、小于等于(\<=)等。
 
 ```kotlin
 val a = 10
@@ -90,5 +93,120 @@ val a = 10
 val b = 5
 if (a != b) {
     println("a is not equal to b")
+}
+```
+
+3. 逻辑运算符
+   Kotlin 中的逻辑运算符包括与(&&)、或(||)、非(!)等。
+
+```kotlin
+val a = true
+val b = false
+if (a && b) {
+    println("Both a and b are true")
+}
+```
+
+```kotlin
+val a = true
+val b = false
+if (a || b) {
+    println("At least one of a and b is true")
+}
+```
+
+```kotlin
+val a = true
+if (!a) {
+    println("a is false")
+}
+```
+
+4. 条件表达式
+
+Kotlin 中的条件表达式使用 if-else 语句。
+
+```kotlin
+val a = 10
+val b = 5
+val max = if (a > b) a else b
+```
+
+```kotlin
+val a = 10
+val b = 5
+val min = if (a < b) a else b
+```
+
+## 控制流语句
+
+1. if 语句
+
+Kotlin 中的 if 语句用于条件判断。
+
+```kotlin
+val a = 10
+val b = 5
+if (a > b) {
+    println("a is greater than b")
+}
+```
+
+```kotlin
+val a = 10
+val b = 5
+if (a != b) {
+    println("a is not equal to b")
+}
+```
+
+2. when 语句
+
+Kotlin 中的 when 语句用于多条件判断。
+
+```kotlin
+val a = 10
+when (a) {
+    1 -> println("a is 1")
+    2 -> println("a is 2")
+    else -> println("a is neither 1 nor 2")
+}
+```
+
+```kotlin
+val a = 10
+when (a) {
+    1, 2, 3 -> println("a is 1, 2, or 3")
+    else -> println("a is not 1, 2, or 3")
+}
+```
+
+3. for 循环
+
+Kotlin 中的 for 循环用于遍历集合或数组。
+
+```kotlin
+val list = listOf(1, 2, 3, 4, 5)
+for (item in list) {
+    println(item)
+}
+```
+
+```kotlin
+val array = arrayOf(1, 2, 3, 4, 5)
+for (item in array) {
+    println(item)
+}
+```
+
+4. while 循环
+
+Kotlin 中的 while 循环用于循环执行一段代码，直到条件不满足。
+
+```kotlin
+var i = 0
+while (i < 5) {
+    println(i)
+    i++
 }
 ```
