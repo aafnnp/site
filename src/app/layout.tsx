@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Clarity from "@microsoft/clarity";
 import Script from "next/script";
 import { LocaleProvider, useLocale } from "@/components/LocaleProvider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 // 动态导入菜单组件以优化首屏加载
 const Menu = dynamic(() => import("@/components/Menu"));
@@ -51,11 +52,14 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <LocaleProvider>
-          <Menu />
-          <main>{children}</main>
-          <LanguageSwitcher />
-        </LocaleProvider>
+        <ClerkProvider>
+          <LocaleProvider>
+            <Menu />
+            <main>{children}</main>
+            <LanguageSwitcher />
+          </LocaleProvider>
+        </ClerkProvider>
+
         <Script
           id="adsense"
           data-ad-client="ca-pub-3854566314387093"
