@@ -2,7 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { useUser, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import {
+  useUser,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+} from "@clerk/nextjs";
 
 // 创建Supabase客户端
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
@@ -134,17 +140,34 @@ export default function Comments({ postSlug }: { postSlug: string }) {
 
           {error && <p className="text-red-500 mb-4">{error}</p>}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
-          >
-            {loading ? "Submitting..." : "Submit"}
-          </button>
+          <div className="flex gap-4">
+            <button
+              type="submit"
+              disabled={loading}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+            >
+              {loading ? "Submitting..." : "Submit"}
+            </button>
+            <SignOutButton>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50"
+              >
+                Sign Out
+              </button>
+            </SignOutButton>
+          </div>
         </form>
       </SignedIn>
       <SignedOut>
-        <SignInButton />
+        <SignInButton mode="modal">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+          >
+            Sign In
+          </button>
+        </SignInButton>
         <div className="mb-8 text-gray-500">请先登录后再发表评论。</div>
       </SignedOut>
       {/* 评论列表 */}
