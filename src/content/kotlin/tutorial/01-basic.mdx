@@ -20,6 +20,8 @@ var age = 25
 var name: String = "John"
 ```
 
+> Kotlin 支持类型自动推断，上述 `age` 会自动推断为 Int 类型。
+
 2. 常量 val
 
 常量声明后不可修改其值。
@@ -32,30 +34,48 @@ val PI = 3.14
 val message: String = "Hello, Kotlin!"
 ```
 
+> 推荐优先使用 val，只有需要可变变量时才用 var。
+
 ## 数据类型
 
 1. 基本数据类型
 
-Kotlin 中的基本数据类型包括 Int、Long、Double、Boolean、Char 等。
+Kotlin 中的基本数据类型包括 Int、Long、Double、Boolean、Char、Float、Short、Byte 等。
 
 ```kotlin
 val num: Int = 10
+val price: Double = 9.99
+val flag: Boolean = true
+val letter: Char = 'A'
+val pi: Float = 3.14f
 ```
+
+2. 字符串与模板字符串
 
 ```kotlin
-val price: Double = 9.99
+val name = "Kotlin"
+val greeting = "Hello, $name!"
+val info = "${name.length} characters"
 ```
 
-2. 可空类型
+3. 可空类型
 
 Kotlin 中的可空类型使用 ? 表示，可以为 null。
 
 ```kotlin
 var str: String? = null
+var num: Int? = null
 ```
 
+> 访问可空类型属性时需用安全调用符 `?.`，如 `str?.length`。
+
+4. 类型转换
+
+Kotlin 不支持隐式类型转换，需使用 toInt()、toDouble() 等方法。
+
 ```kotlin
-var num: Int? = null
+val s = "123"
+val n = s.toInt()
 ```
 
 ## 运算符与表达式
@@ -68,17 +88,12 @@ Kotlin 中的算术运算符包括加(+)、减(-)、乘(\*)、除(/)、取模(%)
 val a = 10
 val b = 5
 val sum = a + b
-```
-
-```kotlin
-val a = 10
-val b = 5
-val difference = a - b
+val product = a * b
 ```
 
 2. 比较运算符
 
-Kotlin 中的比较运算符包括等于(==)、不等于(!=)、大于(\>)、小于(\<)、大于等于(\>=)、小于等于(\<=)等。
+Kotlin 中的比较运算符包括等于(==)、不等于(!=)、大于(>)、小于(\<)、大于等于(>=)、小于等于(\<=)等。
 
 ```kotlin
 val a = 10
@@ -86,18 +101,16 @@ val b = 5
 if (a > b) {
     println("a is greater than b")
 }
-```
-
-```kotlin
-val a = 10
-val b = 5
-if (a != b) {
-    println("a is not equal to b")
+if (a == b) {
+    println("a equals b")
 }
 ```
 
+> 注意：== 比较的是值，=== 比较的是引用。
+
 3. 逻辑运算符
-   Kotlin 中的逻辑运算符包括与(&&)、或(||)、非(!)等。
+
+Kotlin 中的逻辑运算符包括与(&&)、或(||)、非(!)等。
 
 ```kotlin
 val a = true
@@ -105,18 +118,9 @@ val b = false
 if (a && b) {
     println("Both a and b are true")
 }
-```
-
-```kotlin
-val a = true
-val b = false
 if (a || b) {
     println("At least one of a and b is true")
 }
-```
-
-```kotlin
-val a = true
 if (!a) {
     println("a is false")
 }
@@ -132,10 +136,15 @@ val b = 5
 val max = if (a > b) a else b
 ```
 
+> if 语句本身可以作为表达式有返回值。
+
+5. 区间与 in 运算符
+
 ```kotlin
-val a = 10
-val b = 5
-val min = if (a < b) a else b
+val x = 5
+if (x in 1..10) {
+    println("x 在 1 到 10 之间")
+}
 ```
 
 ## 控制流语句
@@ -152,56 +161,40 @@ if (a > b) {
 }
 ```
 
-```kotlin
-val a = 10
-val b = 5
-if (a != b) {
-    println("a is not equal to b")
-}
-```
-
 2. when 语句
 
-Kotlin 中的 when 语句用于多条件判断。
+Kotlin 中的 when 语句用于多条件判断，类似 switch，但更强大。
 
 ```kotlin
 val a = 10
 when (a) {
     1 -> println("a is 1")
-    2 -> println("a is 2")
-    else -> println("a is neither 1 nor 2")
-}
-```
-
-```kotlin
-val a = 10
-when (a) {
-    1, 2, 3 -> println("a is 1, 2, or 3")
-    else -> println("a is not 1, 2, or 3")
+    2, 3 -> println("a is 2 or 3")
+    in 4..10 -> println("a 在 4 到 10 之间")
+    else -> println("a 不在上述范围")
 }
 ```
 
 3. for 循环
 
-Kotlin 中的 for 循环用于遍历集合或数组。
+Kotlin 中的 for 循环用于遍历集合或区间。
 
 ```kotlin
 val list = listOf(1, 2, 3, 4, 5)
 for (item in list) {
     println(item)
 }
-```
 
-```kotlin
-val array = arrayOf(1, 2, 3, 4, 5)
-for (item in array) {
-    println(item)
+for (i in 0..4) {
+    println(i)
+}
+
+for (i in 10 downTo 1 step 2) {
+    println(i)
 }
 ```
 
-4. while 循环
-
-Kotlin 中的 while 循环用于循环执行一段代码，直到条件不满足。
+4. while 与 do-while 循环
 
 ```kotlin
 var i = 0
@@ -209,4 +202,68 @@ while (i < 5) {
     println(i)
     i++
 }
+
+do {
+    println(i)
+    i--
+} while (i > 0)
+```
+
+## 其他常用语法
+
+### 智能类型判断
+
+Kotlin 会自动判断类型，无需强制转换：
+
+```kotlin
+fun getLength(obj: Any): Int? {
+    if (obj is String) {
+        // obj 自动为 String 类型
+        return obj.length
+    }
+    return null
+}
+```
+
+### 字符串模板与原始字符串
+
+```kotlin
+val name = "Kotlin"
+val s = "Hello, $name!"
+val raw = """
+    多行字符串
+    保留格式
+""".trimIndent()
+```
+
+### 数组与集合
+
+```kotlin
+val arr = arrayOf(1, 2, 3)
+val list = listOf("a", "b", "c")
+val mutableList = mutableListOf(1, 2, 3)
+```
+
+### 空安全操作符
+
+```kotlin
+val s: String? = null
+val len = s?.length ?: 0 // 如果 s 为 null，返回 0
+```
+
+### 数据类（data class）
+
+```kotlin
+data class User(val name: String, val age: Int)
+val u = User("Tom", 20)
+println(u)
+```
+
+### 对象表达式与单例
+
+```kotlin
+object Singleton {
+    val name = "唯一实例"
+}
+println(Singleton.name)
 ```

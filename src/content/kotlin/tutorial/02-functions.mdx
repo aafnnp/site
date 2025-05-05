@@ -1,0 +1,123 @@
+---
+type: "Post"
+date: "2025-05-05 21:21:03"
+title: "Kotlin 函数与 Lambda 表达式"
+tags: [Kotlin]
+description: Kotlin 函数与 Lambda 表达式的用法详解
+---
+
+# Kotlin 函数与 Lambda 表达式
+
+Kotlin 作为一门现代编程语言，对函数和函数式编程有着良好的支持。本文将介绍 Kotlin 中函数的定义、参数传递、返回值、匿名函数、lambda 表达式的语法与用法，以及高阶函数的简单应用。
+
+## 1. 函数的定义
+
+Kotlin 使用 `fun` 关键字定义函数。
+
+```kotlin
+fun add(a: Int, b: Int): Int {
+    return a + b
+}
+```
+
+- `fun`：声明函数。
+- `add`：函数名。
+- `(a: Int, b: Int)`：参数列表，参数名:类型。
+- `: Int`：返回值类型。
+- 函数体用花括号包裹。
+
+### 简化写法（表达式函数体）
+
+如果函数体只有一行，可以用 `=` 简化：
+
+```kotlin
+fun add(a: Int, b: Int) = a + b
+```
+
+## 2. 参数与返回值
+
+- 参数可以有默认值：
+
+```kotlin
+fun greet(name: String = "World") {
+    println("Hello, $name!")
+}
+```
+
+- 返回值类型可以省略（返回 Unit，相当于 Java 的 void）：
+
+```kotlin
+fun printSum(a: Int, b: Int) {
+    println(a + b)
+}
+```
+
+## 3. 匿名函数
+
+匿名函数没有名字，常用于需要将函数作为参数传递的场景。
+
+```kotlin
+val sum = fun(a: Int, b: Int): Int {
+    return a + b
+}
+println(sum(3, 5)) // 输出 8
+```
+
+## 4. Lambda 表达式
+
+Lambda 表达式是 Kotlin 支持函数式编程的核心语法。
+
+基本语法：
+
+```kotlin
+val lambdaName: (参数类型, ...) -> 返回值类型 = { 参数名, ... -> 函数体 }
+```
+
+示例：
+
+```kotlin
+val sum: (Int, Int) -> Int = { a, b -> a + b }
+println(sum(2, 3)) // 输出 5
+```
+
+- 花括号 `{}` 包裹 lambda 体。
+- `->` 左边是参数，右边是表达式或代码块。
+- 如果只有一个参数，可以用 `it` 代替参数名：
+
+```kotlin
+val square: (Int) -> Int = { it * it }
+println(square(4)) // 输出 16
+```
+
+## 5. Lambda 与集合操作
+
+Kotlin 的集合操作大量用到 lambda 表达式：
+
+```kotlin
+val list = listOf(1, 2, 3, 4)
+val doubled = list.map { it * 2 }
+println(doubled) // 输出 [2, 4, 6, 8]
+
+val filtered = list.filter { it % 2 == 0 }
+println(filtered) // 输出 [2, 4]
+```
+
+## 6. 高阶函数
+
+高阶函数是指以函数作为参数或返回值的函数。
+
+```kotlin
+fun operate(a: Int, b: Int, op: (Int, Int) -> Int): Int {
+    return op(a, b)
+}
+
+val result = operate(10, 20) { x, y -> x + y }
+println(result) // 输出 30
+```
+
+- `op: (Int, Int) -> Int` 表示参数 `op` 是一个接收两个 Int 并返回 Int 的函数。
+- 调用时可以直接传 lambda。
+
+## 7. 小结
+
+Kotlin 的函数和 lambda 表达式让代码更加简洁、灵活，极大提升了开发效率。建议多练习函数与 lambda 的写法，结合集合操作和高阶函数，体会 Kotlin 的函数式编程魅力。
