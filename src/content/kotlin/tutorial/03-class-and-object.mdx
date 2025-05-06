@@ -1,0 +1,167 @@
+---
+type: "Post"
+date: "2025-05-06 14:03:37"
+title: "Kotlin 类与对象"
+tags: [Kotlin]
+description: Kotlin 类与对象的用法详解
+---
+
+# Kotlin 类与对象
+
+Kotlin 作为一门现代编程语言，对面向对象编程（OOP）有着简洁且强大的支持。本文将系统介绍 Kotlin 中类与对象的相关知识，包括类的定义、构造函数、属性、方法、继承、接口、数据类、对象表达式、伴生对象等内容，配合代码示例，帮助初学者快速掌握 Kotlin 的 OOP 编程。
+
+## 1. 类的定义与实例化
+
+Kotlin 使用 `class` 关键字定义类：
+
+```kotlin
+class Person {
+    var name: String = ""
+    var age: Int = 0
+}
+
+val p = Person()
+p.name = "Tom"
+p.age = 20
+```
+
+- `class Person`：定义一个名为 Person 的类。
+- 通过 `val p = Person()` 实例化对象。
+
+## 2. 构造函数
+
+Kotlin 支持主构造函数和次构造函数。
+
+### 主构造函数
+
+```kotlin
+class User(val name: String, var age: Int)
+
+val u = User("Alice", 18)
+println(u.name) // 输出 Alice
+```
+
+- 主构造函数直接跟在类名后。
+- `val`/`var` 修饰的参数会自动成为属性。
+
+### 次构造函数
+
+```kotlin
+class Student(val name: String) {
+    var age: Int = 0
+    constructor(name: String, age: Int) : this(name) {
+        this.age = age
+    }
+}
+
+val s = Student("Bob", 22)
+```
+
+## 3. 属性与方法
+
+属性即成员变量，方法即成员函数。
+
+```kotlin
+class Rectangle(var width: Int, var height: Int) {
+    fun area(): Int {
+        return width * height
+    }
+}
+
+val rect = Rectangle(3, 4)
+println(rect.area()) // 输出 12
+```
+
+## 4. 继承
+
+Kotlin 的类默认是 final 的，需用 `open` 修饰才能被继承。
+
+```kotlin
+open class Animal(val name: String) {
+    open fun sound() {
+        println("动物叫声")
+    }
+}
+
+class Dog(name: String) : Animal(name) {
+    override fun sound() {
+        println("汪汪")
+    }
+}
+
+val dog = Dog("旺财")
+dog.sound() // 输出 汪汪
+```
+
+- `open` 允许类/方法被继承/重写。
+- `override` 重写父类方法。
+
+## 5. 接口
+
+Kotlin 接口可包含抽象方法和实现方法。
+
+```kotlin
+interface Movable {
+    fun move()
+}
+
+class Car : Movable {
+    override fun move() {
+        println("汽车行驶")
+    }
+}
+
+val car = Car()
+car.move() // 输出 汽车行驶
+```
+
+## 6. 数据类（Data Class）
+
+用于存储数据的类，自动生成 equals、hashCode、toString 等方法。
+
+```kotlin
+data class Point(val x: Int, val y: Int)
+
+val p1 = Point(1, 2)
+val p2 = Point(1, 2)
+println(p1 == p2) // 输出 true
+println(p1) // 输出 Point(x=1, y=2)
+```
+
+## 7. 对象表达式与单例
+
+### 对象表达式（匿名对象）
+
+```kotlin
+val obj = object {
+    val x = 10
+    fun show() = println(x)
+}
+obj.show() // 输出 10
+```
+
+### 单例对象
+
+```kotlin
+object Database {
+    fun connect() = println("连接数据库")
+}
+Database.connect() // 输出 连接数据库
+```
+
+## 8. 伴生对象（Companion Object）
+
+用于定义与类相关的静态成员。
+
+```kotlin
+class Utils {
+    companion object {
+        fun sayHello() = println("Hello")
+    }
+}
+Utils.sayHello() // 输出 Hello
+```
+
+## 9. 总结
+
+Kotlin 的类与对象体系简洁而强大，支持主/次构造函数、属性、方法、继承、接口、数据类、对象表达式、单例与伴生对象等特性，极大提升了面向对象编程的效率和表达力。建议多动手实践，深入理解每个特性的用法和场景。
