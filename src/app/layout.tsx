@@ -6,6 +6,7 @@ import Clarity from "@microsoft/clarity";
 import Script from "next/script";
 import { LocaleProvider, useLocale } from "@/components/LocaleProvider";
 import { ClerkProvider } from "@clerk/nextjs";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // 动态导入菜单组件以优化首屏加载
 const Menu = dynamic(() => import("@/components/Menu"));
@@ -59,6 +60,7 @@ export default function RootLayout({
             <LanguageSwitcher />
           </LocaleProvider>
         </ClerkProvider>
+        <SpeedInsights />
 
         <Script
           id="adsense"

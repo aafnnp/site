@@ -14,6 +14,7 @@
     "@lottiefiles/dotlottie-react": "^0.13.5",
     "@microsoft/clarity": "^1.0.0",
     "@supabase/supabase-js": "^2.49.4",
+    "@vercel/speed-insights": "^1.2.0",
     "caniuse-lite": "^1.0.30001717",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
