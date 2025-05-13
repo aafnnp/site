@@ -42,8 +42,8 @@ importers:
         specifier: ^15.0.11
         version: 15.0.11
       motion:
-        specifier: ^12.9.7
-        version: 12.9.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^12.10.5
+        version: 12.10.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next:
         specifier: 15.3.1
         version: 15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.87.0)
@@ -1282,8 +1282,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@12.9.7:
-    resolution: {integrity: sha512-Eo5TYU6sEPPy82GDx32PJm++G+AkBCrzxtEQOWLnpQX896Q3LFrsYhMZ5YO5ct4wL7wyHU6hqlrpYXeexKAevg==}
+  framer-motion@12.10.5:
+    resolution: {integrity: sha512-p6VF1YkwWvNDFzg5IQ5lqPx11Td4TQ6LqDnshV7sWj0Nrp4dwz2/aEzmgh9WA9ridcTIJ625Fr0oiuhgqIoFwQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -1659,14 +1659,14 @@ packages:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
-  motion-dom@12.9.6:
-    resolution: {integrity: sha512-IK9pm5zU8BIp3FCoUGF3T7AHVLVOlXxlwco/bIbcnpBtyYb2gDQhdOzUh2KSDJVjYl1MZ9vdq8tnFTTahX2lfg==}
+  motion-dom@12.10.5:
+    resolution: {integrity: sha512-F7XKmhxXEH/y3aWWf0N2w69wNSN+6PcJ1seqR1WolClmXpPhj+xwzs9j5CpsMFzeHR1D7irl3JcWMToPRwX6Hg==}
 
   motion-utils@12.9.4:
     resolution: {integrity: sha512-BW3I65zeM76CMsfh3kHid9ansEJk9Qvl+K5cu4DVHKGsI52n76OJ4z2CUJUV+Mn3uEP9k1JJA3tClG0ggSrRcg==}
 
-  motion@12.9.7:
-    resolution: {integrity: sha512-Vh5NJxec7lZ4iNZXEhdweJpKwP2gjgevL/4Dx+dfMc7ABPMnLJaBUkz91TG/ZONhz/GUAy0Mw3Xd5rYtnxNRmw==}
+  motion@12.10.5:
+    resolution: {integrity: sha512-vRzav5F6STetDXx1gpduztcChF7St+HM6gmHhBjaCc7qHC+fBoeMtO2npSt2YXRJKhwQggTTVx2fHP6RL2QxMA==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -3588,9 +3588,9 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@12.9.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  framer-motion@12.10.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      motion-dom: 12.9.6
+      motion-dom: 12.10.5
       motion-utils: 12.9.4
       tslib: 2.8.1
     optionalDependencies:
@@ -3962,15 +3962,15 @@ snapshots:
 
   minipass@7.1.2: {}
 
-  motion-dom@12.9.6:
+  motion-dom@12.10.5:
     dependencies:
       motion-utils: 12.9.4
 
   motion-utils@12.9.4: {}
 
-  motion@12.9.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  motion@12.10.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      framer-motion: 12.9.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      framer-motion: 12.10.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tslib: 2.8.1
     optionalDependencies:
       react: 19.1.0
