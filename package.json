@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.30.4",
-    "@clerk/nextjs": "^6.18.5",
+    "@clerk/nextjs": "^6.19.2",
     "@lottiefiles/dotlottie-react": "^0.13.5",
     "@microsoft/clarity": "^1.0.0",
     "@supabase/supabase-js": "^2.49.4",
