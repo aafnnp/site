@@ -15,7 +15,7 @@
     "@microsoft/clarity": "^1.0.0",
     "@supabase/supabase-js": "^2.49.4",
     "@vercel/speed-insights": "^1.2.0",
-    "caniuse-lite": "^1.0.30001717",
+    "caniuse-lite": "^1.0.30001718",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
