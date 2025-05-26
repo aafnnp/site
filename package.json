@@ -13,7 +13,7 @@
     "@clerk/nextjs": "^6.19.4",
     "@lottiefiles/dotlottie-react": "^0.13.5",
     "@microsoft/clarity": "^1.0.0",
-    "@supabase/supabase-js": "^2.49.4",
+    "@supabase/supabase-js": "^2.49.8",
     "@vercel/speed-insights": "^1.2.0",
     "caniuse-lite": "^1.0.30001718",
     "date-fns": "^4.1.0",
