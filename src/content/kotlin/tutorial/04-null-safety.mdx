@@ -1,0 +1,82 @@
+---
+type: "Post"
+date: "2025-06-12 09:32:37"
+title: "Null Safety in Kotlin"
+tags: [Kotlin]
+description: Kotlin 的空安全特性，如何避免空指针异常，使用可空类型、非空断言、Elvis 操作符等。
+---
+
+# Kotlin 空安全（Null Safety）教程
+
+Kotlin 通过内置的空安全机制，有效避免了 Java 中常见的空指针异常（NullPointerException，NPE）。本教程将介绍 Kotlin 的空安全特性，包括可空类型、非空断言、Elvis 操作符等。
+
+## 1. 可空类型（Nullable Types）
+
+在 Kotlin 中，类型默认是非空的。如果需要声明一个变量可以为 null，需要在类型后加上 `?`：
+
+```kotlin
+var name: String = "Kotlin"
+// name = null // 编译错误
+
+var nullableName: String? = "Kotlin"
+nullableName = null // 合法
+```
+
+## 2. 安全调用操作符（?.）
+
+安全调用操作符 `?.` 用于在对象可能为 null 时安全地访问其属性或方法：
+
+```kotlin
+val length: Int? = nullableName?.length
+```
+
+如果 `nullableName` 为 null，表达式结果为 null，否则返回 `length`。
+
+## 3. Elvis 操作符（?:）
+
+Elvis 操作符用于在左侧为 null 时提供默认值：
+
+```kotlin
+val lengthOrZero: Int = nullableName?.length ?: 0
+```
+
+如果 `nullableName` 为 null，则 `lengthOrZero` 为 0。
+
+## 4. 非空断言操作符（!!）
+
+非空断言操作符 `!!` 会抛出空指针异常，如果变量为 null：
+
+```kotlin
+val length: Int = nullableName!!.length // 如果为 null 会抛出 NPE
+```
+
+一般不推荐使用，除非你非常确定变量不为 null。
+
+## 5. let 函数
+
+`let` 函数常与安全调用操作符一起使用，便于在变量不为 null 时执行某些操作：
+
+```kotlin
+nullableName?.let {
+    println("长度为：${it.length}")
+}
+```
+
+## 6. 智能类型转换（Smart Casts）
+
+Kotlin 编译器会自动判断变量是否为 null，从而进行智能类型转换：
+
+```kotlin
+if (nullableName != null) {
+    // 这里 nullableName 自动被当作非空类型 String
+    println(nullableName.length)
+}
+```
+
+## 7. 总结
+
+Kotlin 的空安全特性极大地减少了空指针异常的发生。建议优先使用非空类型，只有在确实需要时才使用可空类型，并善用安全调用、Elvis 操作符等语法糖。
+
+---
+
+更多内容可参考 [Kotlin 官方文档](https://kotlinlang.org/docs/null-safety.html)。
