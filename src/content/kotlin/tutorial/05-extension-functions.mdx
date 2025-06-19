@@ -1,0 +1,110 @@
+---
+type: "Post"
+date: "2025-06-12 09:52:57"
+title: "Extension Functions in Kotlin"
+tags: [Kotlin]
+description: Kotlin 的扩展函数，如何在不修改类的情况下添加新功能，使用语法和示例。
+---
+
+扩展函数适用于在不修改现有类的情况下，为类添加新功能。Kotlin 的扩展函数允许你在类外部定义函数，这些函数可以像成员函数一样调用。
+
+在此之前需要了解接收器类型（Receiver Type）和接收器对象（Receiver Object）
+
+## 接收器类型
+
+接收器类型是扩展函数的第一个参数类型，它指定了扩展函数可以被调用的对象类型。接收器类型决定了扩展函数可以访问哪些属性和方法。
+
+```kotlin
+fun String.printWithPrefix(prefix: String) {
+    println("$prefix $this")
+}
+```
+
+在这个例子中，`String` 是接收器类型，`printWithPrefix` 是扩展函数。
+
+## 接收器对象
+
+接收器对象是调用扩展函数时的实际对象。它是扩展函数的隐式参数，可以直接访问接收器类型的属性和方法。
+
+```kotlin
+val message = "Hello, Kotlin"
+message.printWithPrefix("Greeting:") // 输出 "Greeting: Hello, Kotlin"
+```
+
+## 定义扩展函数
+
+扩展函数的定义语法如下：
+
+```kotlin
+fun ReceiverType.functionName(parameters): ReturnType {
+    // 函数体
+}
+```
+
+例如，定义一个扩展函数来计算字符串的字节长度：
+
+```kotlin
+fun String.byteLength(): Int {
+    return this.toByteArray().size
+}
+```
+
+使用这个扩展函数：
+
+```kotlin
+val text = "Hello, Kotlin"
+val length = text.byteLength() // 输出 13
+```
+
+## 扩展函数案例
+
+```kotlin
+class HttpClient {
+  fun request(method:String,url: String,headers:Map<String,String>): HttpResponse {
+    return HttpResponse(200,"OK")
+  }
+}
+
+fun HttpClient.get(url: String, headers: Map<String, String> = emptyMap()): HttpResponse {
+    return request("GET", url, headers)
+}
+
+fun HttpClient.post(url: String, body: String, headers: Map<String, String> = emptyMap()): HttpResponse {
+    return request("POST", url, headers)
+}
+
+fun main() {
+    val client = HttpClient()
+    val response = client.get("https://example.com")
+    println(response.status) // 输出 200
+}
+```
+
+## 练习
+
+1. 定义一个扩展函数 `List<Int>.sum()`，返回列表中所有整数的和。
+
+```kotlin
+fun List<Int>.sum(): Int {
+    var total = 0
+    for (num in this) {
+        total += num
+    }
+    return total
+}
+val numbers = listOf(1, 2, 3, 4, 5)
+val total = numbers.sum() // 输出 15
+println(total)
+```
+
+2. 定义一个扩展函数 `String.isPalindrome()`，检查字符串是否是回文。
+
+```kotlin
+fun String.isPalindrome(): Boolean {
+    val cleaned = this.replace("\\s".toRegex(), "").lowercase()
+    return cleaned == cleaned.reversed()
+}
+val word = "level"
+val isPalindrome = word.isPalindrome() // 输出 true
+println(isPalindrome)
+```
