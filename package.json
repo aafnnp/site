@@ -20,7 +20,7 @@
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "marked": "^15.0.12",
-    "motion": "^12.17.0",
+    "motion": "^12.19.1",
     "next": "15.3.3",
     "next-share": "^0.27.0",
     "react": "^19",
