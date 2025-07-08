@@ -1,0 +1,80 @@
+---
+type: "Post"
+date: "2025-06-24 10:00:00"
+title: "Kotlin 继承与多态"
+tags: [Kotlin]
+description: Kotlin 的继承与多态，如何实现类与类之间的继承关系，以及多态的实现。
+---
+
+Kotlin 的继承与多态，如何实现类与类之间的继承关系，以及多态的实现。
+
+## 继承的实现与 super 关键字
+
+在 Kotlin 中，继承使用 `open` 关键字来标记可被继承的类，使用 `:` 来表示继承关系。
+
+```kotlin
+open class Animal(val name: String) {
+    fun eat() {
+        println("$name is eating")
+    }
+}
+```
+
+```kotlin
+class Dog(name: String) : Animal(name) {
+    fun bark() {
+        println("$name is barking")
+    }
+}
+```
+
+## 接口的定义与实现
+
+在 Kotlin 中，接口（interface）可以包含抽象方法和实现方法。类通过 `:` 实现接口，并用 `override` 关键字重写接口的方法。
+
+```kotlin
+interface Movable {
+    fun move()
+}
+
+class Car(val brand: String) : Movable {
+    override fun move() {
+        println("$brand is moving")
+    }
+}
+```
+
+## 抽象类与抽象方法
+
+抽象类（abstract class）不能被实例化，可以包含抽象方法（没有方法体）和普通方法。子类必须实现抽象方法。
+
+```kotlin
+abstract class Shape {
+    abstract fun area(): Double
+    fun describe() {
+        println("This is a shape.")
+    }
+}
+
+class Circle(val radius: Double) : Shape() {
+    override fun area(): Double = Math.PI * radius * radius
+}
+```
+
+## 多态的概念与应用场景
+
+多态指同一个接口或父类，调用的方法表现不同。Kotlin 通过继承、接口实现多态。
+
+```kotlin
+fun printArea(shape: Shape) {
+    println("Area: ${shape.area()}")
+}
+
+val c = Circle(2.0)
+printArea(c) // 输出 Area: 12.566370614359172
+```
+
+多态常用于：
+
+- 统一处理不同子类对象（如上例）
+- 设计可扩展、解耦的系统

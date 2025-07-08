@@ -1,3 +1,0 @@
-onlyBuiltDependencies:
-  - '@clerk/shared'
-  - '@vercel/speed-insights'

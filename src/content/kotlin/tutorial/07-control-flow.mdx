@@ -1,0 +1,85 @@
+---
+type: "Post"
+date: "2025-07-08 10:00:00"
+title: "Kotlin 控制流"
+tags: [Kotlin]
+description: Kotlin 的控制流，如何实现条件判断、循环等控制流。
+---
+
+Kotlin 的控制流，如何实现条件判断、循环等控制流。
+
+## When
+
+```kotlin
+val x = 2
+when (x) {
+    1 -> println("x == 1")
+    2 -> println("x == 2")
+    else -> println("x 不是 1 也不是 2")
+}
+```
+
+when 也可以作为表达式返回值：
+
+```kotlin
+val result = when (x) {
+    1 -> "one"
+    2 -> "two"
+    else -> "other"
+}
+```
+
+## for 循环
+
+Kotlin 的 for 循环可以遍历区间、数组、集合等。
+
+```kotlin
+for (i in 1..5) {
+    println(i)
+}
+
+val items = listOf("apple", "banana", "kiwi")
+for (item in items) {
+    println(item)
+}
+```
+
+## while 与 do-while 循环
+
+while 先判断条件再执行，do-while 先执行再判断。
+
+```kotlin
+var y = 5
+while (y > 0) {
+    println(y)
+    y--
+}
+
+var z = 0
+do {
+    println(z)
+    z++
+} while (z < 3)
+```
+
+## break 与 continue
+
+- break：跳出当前循环。
+- continue：跳过本次循环，进入下次循环。
+
+```kotlin
+for (i in 1..5) {
+    if (i == 3) continue
+    if (i == 4) break
+    println(i)
+}
+// 输出 1 2
+```
+
+## if 表达式
+
+Kotlin 的 if 既可以作为语句，也可以作为表达式返回值。
+
+```kotlin
+val max = if (a > b) a else b
+```
