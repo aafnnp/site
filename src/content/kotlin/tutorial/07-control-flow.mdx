@@ -8,21 +8,81 @@ description: Kotlin 的控制流，如何实现条件判断、循环等控制流
 
 Kotlin 的控制流，如何实现条件判断、循环等控制流。
 
-## When
+## if 表达式
+
+if 是最常用的条件判断语句。Kotlin 的 if 不仅可以像 Java/C 语言那样作为语句使用，还可以作为表达式直接赋值给变量，这让代码更加简洁。
+
+- **适用场景**：需要根据条件执行不同分支，或根据条件为变量赋值。
+- **与 Java 区别**：Kotlin 的 if 是表达式，有返回值；Java 的 if 只能作为语句。
+- **建议**：分支较多时建议用 when，if 适合简单判断。
 
 ```kotlin
-val x = 2
-when (x) {
-    1 -> println("x == 1")
-    2 -> println("x == 2")
-    else -> println("x 不是 1 也不是 2")
+val max = if (a > b) a else b
+```
+
+if 还可以有多个分支：
+
+```kotlin
+val max = if (a > b) {
+    println("a 大于 b")
+    a
+} else if (a == b) {
+    println("a 等于 b")
+    a
+} else {
+    println("a 小于 b")
+    b
 }
 ```
 
-when 也可以作为表达式返回值：
+## when 表达式
+
+when 是 Kotlin 中功能强大的多分支选择结构，类似于 Java 的 switch，但更灵活：
+
+- **支持任意类型的匹配**，不仅限于常量，还可以是区间、类型、表达式等。
+- **可以作为表达式**，直接返回值赋给变量。
+- **支持多个条件合并**，如 `0, 1 -> ...`。
+- **适用场景**：需要根据变量的多种可能值执行不同逻辑，或根据类型、区间等复杂条件分支。
+- **与 Java 区别**：Java 的 switch 只能匹配常量，Kotlin 的 when 更灵活。
+- **建议**：复杂分支优先用 when，代码更清晰。
+
+### 匹配区间
 
 ```kotlin
-val result = when (x) {
+val score = 85
+when (score) {
+    in 90..100 -> println("优秀")
+    in 60..89 -> println("及格")
+    else -> println("不及格")
+}
+```
+
+### 匹配类型
+
+```kotlin
+fun checkType(obj: Any) {
+    when (obj) {
+        is String -> println("字符串长度: ${obj.length}")
+        is Int -> println("整数: $obj")
+        else -> println("未知类型")
+    }
+}
+```
+
+### 匹配多个条件
+
+```kotlin
+val x = 1
+when (x) {
+    0, 1 -> println("x 是 0 或 1")
+    else -> println("x 不是 0 也不是 1")
+}
+```
+
+### when 作为表达式
+
+```kotlin
+val desc = when (x) {
     1 -> "one"
     2 -> "two"
     else -> "other"
@@ -31,22 +91,63 @@ val result = when (x) {
 
 ## for 循环
 
-Kotlin 的 for 循环可以遍历区间、数组、集合等。
+for 循环用于遍历区间、数组、集合等。Kotlin 的 for 循环语法简洁，支持多种遍历方式：
+
+- **遍历区间**：`for (i in 1..5)`，可指定步长、递减等。
+- **遍历集合**：`for (item in items)`，直接获取元素。
+- **遍历索引和值**：`for ((index, value) in items.withIndex())`。
+- **适用场景**：需要对集合、区间等进行逐个处理时。
+- **与 Java 区别**：Kotlin 没有传统的 for(;;) 语法，推荐用区间和集合遍历。
+- **建议**：优先用 withIndex() 获取索引和值，代码更直观。
+
+### 遍历区间
 
 ```kotlin
-for (i in 1..5) {
+for (i in 1..5) { // 包含 5
     println(i)
 }
+for (i in 1 until 5) { // 不包含 5
+    println(i)
+}
+for (i in 5 downTo 1) { // 递减
+    println(i)
+}
+for (i in 1..10 step 2) { // 步长为2
+    println(i)
+}
+```
 
+### 遍历集合
+
+```kotlin
 val items = listOf("apple", "banana", "kiwi")
 for (item in items) {
     println(item)
 }
 ```
 
+### 遍历索引
+
+```kotlin
+for (index in items.indices) {
+    println("第$index 个元素是 ${items[index]}")
+}
+for ((index, value) in items.withIndex()) {
+    println("$index: $value")
+}
+```
+
 ## while 与 do-while 循环
 
-while 先判断条件再执行，do-while 先执行再判断。
+while 和 do-while 适合在循环次数不确定、需根据条件动态判断时使用。
+
+- **while**：先判断条件再执行循环体，条件不满足时一次也不执行。
+- **do-while**：先执行循环体，再判断条件，至少执行一次。
+- **典型应用**：如用户输入校验、等待某个条件达成等。
+- **与 Java 区别**：语法基本一致。
+- **建议**：循环体内要注意条件变量的变化，避免死循环。
+
+### while 示例
 
 ```kotlin
 var y = 5
@@ -54,7 +155,11 @@ while (y > 0) {
     println(y)
     y--
 }
+```
 
+### do-while 示例
+
+```kotlin
 var z = 0
 do {
     println(z)
@@ -62,24 +167,51 @@ do {
 } while (z < 3)
 ```
 
+### 典型应用：输入校验
+
+```kotlin
+var input: String?
+do {
+    println("请输入非空内容：")
+    input = readLine()
+} while (input.isNullOrBlank())
+```
+
 ## break 与 continue
 
-- break：跳出当前循环。
-- continue：跳过本次循环，进入下次循环。
+- **break**：立即跳出当前循环，常用于提前结束循环。
+- **continue**：跳过本次循环，直接进入下次循环判断。
+- **带标签的 break/continue**：适用于多层嵌套循环，指定跳出哪一层，提升代码可读性。
+- **适用场景**：需要提前终止循环或跳过某些特殊情况时。
+- **与 Java 区别**：Kotlin 的标签 break/continue 更加直观和强大。
+- **建议**：多层循环时建议使用标签，避免逻辑混乱。
 
 ```kotlin
 for (i in 1..5) {
-    if (i == 3) continue
-    if (i == 4) break
+    if (i == 3) continue // 跳过3
+    if (i == 4) break    // 跳出循环
     println(i)
 }
 // 输出 1 2
 ```
 
-## if 表达式
+### 带标签的 break/continue
 
-Kotlin 的 if 既可以作为语句，也可以作为表达式返回值。
+适用于多层嵌套循环：
 
 ```kotlin
-val max = if (a > b) a else b
+outer@for (i in 1..3) {
+    for (j in 1..3) {
+        if (i == 2 && j == 2) break@outer
+        println("i=$i, j=$j")
+    }
+}
 ```
+
+## 常见易错点与注意事项
+
+- if/when 都是表达式，可以直接赋值，减少冗余代码。
+- 区间 1..5 包含 5，1 until 5 不包含 5，注意 off-by-one 错误。
+- for (i in items.indices) 获取的是索引，不是元素本身。
+- while/do-while 循环要注意条件变量的变化，避免死循环。
+- 多层循环建议用标签 break/continue 提高可读性，避免嵌套混乱。

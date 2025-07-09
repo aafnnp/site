@@ -1,0 +1,80 @@
+---
+type: "Post"
+date: "2025-07-09 10:00:00"
+title: "Kotlin 特殊类"
+tags: [Kotlin]
+description: Kotlin 的特殊类，如何实现单例、数据类、密封类等特殊类。
+---
+
+## 数据类（Data Class）
+
+数据类用于只保存数据的类，Kotlin 用 `data class` 关键字声明。编译器会自动为数据类生成 `equals()`、`hashCode()`、`toString()`、`copy()`、`componentN()` 等常用方法。
+
+```kotlin
+data class User(val name: String, val age: Int)
+
+val user1 = User("Alice", 25)
+val user2 = user1.copy(age = 30)
+println(user1) // User(name=Alice, age=25)
+println(user2) // User(name=Alice, age=30)
+```
+
+- 适用于只需保存数据、无需复杂逻辑的场景。
+- 构造参数至少要有一个，且必须用 `val` 或 `var` 修饰。
+
+## 单例（Object）
+
+Kotlin 用 `object` 关键字声明单例对象。单例在全局只会有一个实例，常用于工具类、管理器等。
+
+```kotlin
+object DatabaseConfig {
+    val url = "jdbc:mysql://localhost:3306/db"
+    fun connect() {
+        println("连接数据库: $url")
+    }
+}
+
+DatabaseConfig.connect()
+```
+
+- 适用于全局唯一、无需多实例的场景。
+
+## 枚举类（Enum Class）
+
+枚举类用 `enum class` 声明，适合表示有限个常量的类型。
+
+```kotlin
+enum class Direction {
+    NORTH, SOUTH, EAST, WEST
+}
+
+val dir = Direction.NORTH
+println(dir.name) // NORTH
+println(dir.ordinal) // 0
+```
+
+- 枚举常量可带属性和方法。
+
+```kotlin
+enum class Color(val rgb: Int) {
+    RED(0xFF0000), GREEN(0x00FF00), BLUE(0x0000FF);
+    fun containsRed() = (rgb and 0xFF0000 != 0)
+}
+```
+
+## 密封类（Sealed Class）
+
+密封类用 `sealed class` 声明，适合表达受限的类层次结构。所有子类必须定义在同一文件内。
+
+```kotlin
+sealed class Result
+class Success(val data: String) : Result()
+class Error(val exception: Exception) : Result()
+
+fun handle(result: Result) = when (result) {
+    is Success -> println("成功: ${result.data}")
+    is Error -> println("失败: ${result.exception}")
+}
+```
+
+- 适用于表达有限状态、配合 when 表达式使用时无需 else 分支。
