@@ -17,7 +17,7 @@ export default function Index() {
   // 生成过渡效果配置的函数
   const getTransitionConfig = (index: number) => ({
     duration: ANIMATION_DURATION,
-    ease: "linear",
+    ease: ["linear"],
     times: TRANSITION_TIMES,
     repeat: Infinity,
     delay: 3 * index,
@@ -39,7 +39,11 @@ export default function Index() {
           key={index}
           className="absolute w-screen h-screen top-0 left-0"
           animate={ANIMATION_CONFIG}
-          transition={getTransitionConfig(index)}
+          transition={{
+            ...getTransitionConfig(index),
+            // 修复类型错误，将 ease 从字符串改为数组
+            ease: ["linear"],
+          }}
           alt="Manon.icu"
           src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/hero-bg-${
             index + 1
