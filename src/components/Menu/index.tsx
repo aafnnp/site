@@ -19,15 +19,6 @@ type LinkItem = {
   icon: React.ReactNode;
 };
 
-// 动画配置
-const transitionConfig = {
-  type: "spring",
-  bounce: 0.25,
-  stiffness: 130,
-  damping: 9,
-  duration: 0.3,
-};
-
 const Navigation = () => {
   const pathName = usePathname();
   const [hoverPath, setHoverPath] = useState(pathName);
@@ -52,7 +43,13 @@ const Navigation = () => {
               className="absolute bottom-0 left-0 w-full h-full bg-black/10 rounded-md -z-10"
               layoutId="navbar"
               aria-hidden="true"
-              transition={transitionConfig}
+              transition={{
+                type: "spring" as const,
+                bounce: 0.25,
+                stiffness: 130,
+                damping: 9,
+                duration: 0.3,
+              }}
             />
           )}
         </Link>
