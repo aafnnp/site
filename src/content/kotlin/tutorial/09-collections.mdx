@@ -1,0 +1,213 @@
+---
+type: "Post"
+date: "2025-07-10 10:00:00"
+title: "Kotlin 集合"
+tags: [Kotlin]
+description: Kotlin 的集合，如何使用集合。
+---
+
+## 集合
+
+Kotlin 的集合分为可变集合和不可变集合。可变集合使用 `var` 修饰，不可变集合使用 `val` 修饰。可变集合使用 `mutableListOf()`、`mutableSetOf()`、`mutableMapOf()` 等函数创建，不可变集合使用 `listOf()`、`setOf()`、`mapOf()` 等函数创建。
+
+```kotlin
+val list = mutableListOf("apple", "banana", "cherry")
+val set = mutableSetOf("apple", "banana", "cherry")
+val map = mutableMapOf("apple" to 1, "banana" to 2, "cherry" to 3)
+```
+
+## List
+
+list 是有序的集合，在 kotlin 中 list 是可变或只读，使用 `listOf()` 创建只读 list，使用 `mutableListOf()` 创建可变 list。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+val mutableList = mutableListOf("apple", "banana", "cherry")
+```
+
+## Set
+
+set 是无序的集合，在 kotlin 中 set 是可变或只读，使用 `setOf()` 创建只读 set，使用 `mutableSetOf()` 创建可变 set。
+
+```kotlin
+val set = setOf("apple", "banana", "cherry")
+val mutableSet = mutableSetOf("apple", "banana", "cherry")
+```
+
+## Map
+
+map 是键值对的集合，在 kotlin 中 map 是可变或只读，使用 `mapOf()` 创建只读 map，使用 `mutableMapOf()` 创建可变 map。
+
+```kotlin
+val map = mapOf("apple" to 1, "banana" to 2, "cherry" to 3)
+val mutableMap = mutableMapOf("apple" to 1, "banana" to 2, "cherry" to 3)
+```
+
+## filter
+
+filter 是过滤集合中的元素，使用 `filter()` 函数过滤集合中的元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+val filteredList = list.filter { it.length > 5 }
+println(filteredList) // [banana, cherry]
+```
+
+## map
+
+map 是映射集合中的元素，使用 `map()` 函数映射集合中的元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+val mappedList = list.map { it.toUpperCase() }
+println(mappedList) // [APPLE, BANANA, CHERRY]
+```
+
+## flatMap
+
+flatMap 是扁平化集合中的元素，使用 `flatMap()` 函数扁平化集合中的元素。
+
+```kotlin
+val list = listOf(listOf("apple", "banana"), listOf("cherry", "date"))
+val flatList = list.flatMap { it }
+println(flatList) // [apple, banana, cherry, date]
+```
+
+## count
+
+count 是统计集合中的元素个数，使用 `count()` 函数统计集合中的元素个数。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+println(list.count()) // 3
+```
+
+## partition
+
+partition 是分割集合中的元素，使用 `partition()` 函数分割集合中的元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+val (even, odd) = list.partition { it.length % 2 == 0 }
+println(even) // [banana]
+println(odd) // [apple, cherry]
+```
+
+## sorted
+
+sort 是排序集合中的元素，使用 `sort()` 函数排序集合中的元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+list.sort()
+println(list) // [apple, banana, cherry]
+```
+
+## zip
+
+zip 是合并集合中的元素，使用 `zip()` 函数合并集合中的元素。
+
+```kotlin
+val list1 = listOf("apple", "banana", "cherry")
+val list2 = listOf(1, 2, 3)
+val zippedList = list1.zip(list2)
+println(zippedList) // [(apple, 1), (banana, 2), (cherry, 3)]
+```
+
+## getOrElse
+
+getOrElse 是获取集合中的元素，使用 `getOrElse()` 函数获取集合中的元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+println(list.getOrElse(1) { "unknown" }) // banana
+```
+
+## any、all、none
+
+any 是判断集合中是否存在元素，使用 `any()` 函数判断集合中是否存在元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+println(list.any { it.length > 5 }) // true
+```
+
+all 是判断集合中是否所有元素都满足条件，使用 `all()` 函数判断集合中是否所有元素都满足条件。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+println(list.all { it.length > 5 }) // false
+```
+
+none 是判断集合中是否所有元素都不满足条件，使用 `none()` 函数判断集合中是否所有元素都不满足条件。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+println(list.none { it.length > 5 }) // true
+```
+
+## find、findLast
+
+find 是查找集合中的元素，使用 `find()` 函数查找集合中的元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+println(list.find { it.length > 5 }) // banana
+```
+
+findLast 是查找集合中的最后一个元素，使用 `findLast()` 函数查找集合中的最后一个元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+println(list.findLast { it.length > 5 }) // cherry
+```
+
+## first、last
+
+first 是获取集合中的第一个元素，使用 `first()` 函数获取集合中的第一个元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+println(list.first()) // apple
+```
+
+last 是获取集合中的最后一个元素，使用 `last()` 函数获取集合中的最后一个元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+println(list.last()) // cherry
+```
+
+## associateBy、groupBy
+
+associateBy 是根据条件映射集合中的元素，使用 `associateBy()` 函数根据条件映射集合中的元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+val associateMap = list.associateBy { it.length }
+println(associateMap) // {5=apple, 6=banana, 6=cherry}
+```
+
+groupBy 是根据条件分组集合中的元素，使用 `groupBy()` 函数根据条件分组集合中的元素。
+
+```kotlin
+val list = listOf("apple", "banana", "cherry")
+val groupMap = list.groupBy { it.length }
+println(groupMap) // {5=[apple], 6=[banana, cherry]}
+```
+
+## minOrNull、maxOrNull
+
+minOrNull 是获取集合中的最小元素，使用 `minOrNull()` 函数获取集合中的最小元素。
+
+```kotlin
+val list = listOf(1, 2, 3)
+println(list.minOrNull()) // 1
+```
+
+maxOrNull 是获取集合中的最大元素，使用 `maxOrNull()` 函数获取集合中的最大元素。
+
+```kotlin
+val list = listOf(1, 2, 3)
+println(list.maxOrNull()) // 3
+```
