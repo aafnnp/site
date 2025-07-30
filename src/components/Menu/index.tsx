@@ -35,7 +35,7 @@ const Navigation = () => {
           onMouseLeave={() => setHoverPath(pathName)}
         >
           {item.icon}
-          <span className="mx-2 font-medium leading-6 print:md:inline">
+          <span className="mx-2 font-medium leading-6 print:md:inline text-gray-700 dark:text-gray-300">
             {messages.menu[item.name]}
           </span>
           {item.href === hoverPath && (
@@ -59,7 +59,7 @@ const Navigation = () => {
 
   return (
     <>
-      <header className="bg-white">
+      {/* <header className="bg-white">
         <section className="mx-auto flex justify-center max-w-4xl flex-wrap gap-8 px-4 py-8 sm:px-8">
           <div
             className="flex-grow text-center font-medium"
@@ -77,8 +77,8 @@ const Navigation = () => {
             </h2>
           </div>
         </section>
-      </header>
-      <nav className="bg-white sticky top-0 z-30 mb-8 border-b border-gray-100 py-1">
+      </header> */}
+      <nav className=" sticky top-0 z-30  py-1 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <ul className="flex flex-row flex-wrap justify-center">
           {renderNavLinks(LinkItems)}
         </ul>
@@ -88,22 +88,32 @@ const Navigation = () => {
 };
 
 const LinkItems: LinkItem[] = [
-  { name: "Home", href: "/", icon: <FaHouseChimney className="w-6 h-6" /> },
-  { name: "Blog", href: "/blog", icon: <FaBookOpen className="w-6 h-6" /> },
+  {
+    name: "Home",
+    href: "/",
+    icon: (
+      <FaHouseChimney className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+    ),
+  },
+  {
+    name: "Blog",
+    href: "/blog",
+    icon: <FaBookOpen className="w-6 h-6 text-gray-700 dark:text-gray-300" />,
+  },
   {
     name: "Contact",
     href: "/contact",
-    icon: <FaMailchimp className="w-6 h-6" />,
+    icon: <FaMailchimp className="w-6 h-6 text-gray-700 dark:text-gray-300" />,
   },
   {
     name: "Github",
     href: "https://github.com/aafnnp",
-    icon: <FaGithub className="w-6 h-6" />,
+    icon: <FaGithub className="w-6 h-6 text-gray-700 dark:text-gray-300" />,
   },
   {
     name: "Twitter",
     href: "https://twitter.com/aafnnp",
-    icon: <FaTwitter className="w-6 h-6" />,
+    icon: <FaTwitter className="w-6 h-6 text-gray-700 dark:text-gray-300" />,
   },
 ];
 

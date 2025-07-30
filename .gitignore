@@ -37,3 +37,5 @@ pnpm-lock.yml
 
 # contentlayer
 .contentlayer
+# clerk configuration (can include secrets)
+/.clerk/
