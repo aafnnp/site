@@ -370,18 +370,6 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@lottiefiles/dotlottie-react@^0.14.1":
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/@lottiefiles/dotlottie-react/-/dotlottie-react-0.14.1.tgz#810a49dd27fa3500f978a6b72a0636cdd0c9b0a0"
-  integrity sha512-bLZ85h9LzsV6kLrPm9vNhw+OdPemo0AY5PH4bUSnJxRt6ksCUZyHn4PZdTUV7tdCLOyX8fkwqICD+t2/yXkQeA==
-  dependencies:
-    "@lottiefiles/dotlottie-web" "0.46.0"
-
-"@lottiefiles/dotlottie-web@0.46.0":
-  version "0.46.0"
-  resolved "https://registry.yarnpkg.com/@lottiefiles/dotlottie-web/-/dotlottie-web-0.46.0.tgz#877b6f460985c9fc3110732a401866a73ab12478"
-  integrity sha512-wirTuVcR/cu9HTckgrXjQggeO4sap4QPBLWDUyBDEQJugY3CLHm4lECrDtLBtIzUJZXTeyidvTOY9lZIQ5qdTw==
-
 "@microsoft/clarity@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@microsoft/clarity/-/clarity-1.0.0.tgz#e5f6c87d4aac9bac0cedeaa94158a3fd32fbcd5e"
@@ -2985,9 +2973,9 @@ react-is@^16.13.1:
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
 react@^19:
-  version "19.1.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-19.1.0.tgz#926864b6c48da7627f004795d6cce50e90793b75"
-  integrity sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==
+  version "19.1.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-19.1.1.tgz#06d9149ec5e083a67f9a1e39ce97b06a03b644af"
+  integrity sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==
 
 read-cache@^1.0.0:
   version "1.0.0"
