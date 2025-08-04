@@ -19,22 +19,13 @@
     standardwebhooks "^1.0.0"
     tslib "2.8.1"
 
-"@clerk/clerk-react@^5.31.9":
-  version "5.37.0"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-react/-/clerk-react-5.37.0.tgz#7da915f3cfc9e533a21f262fa8a14377070ea87c"
-  integrity sha512-jJ7xSE8aqTmxzdAsz7UeBEIXXTTwpWJjMhxcuTDc8iTgR7RVKqmTtx910da+F0ewGE26RrgdR3PfTCF+0Fgj1A==
+"@clerk/clerk-react@^5.38.0", "@clerk/clerk-react@^5.38.1":
+  version "5.38.1"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-react/-/clerk-react-5.38.1.tgz#799842c212ad5f69cc20a6bd54baa8f09d5f32ef"
+  integrity sha512-IOn/Raet3jwkug8P/gLMe2nsw2wKllWGOGPFOAaaYxbXfIZ8MPngNv2/MMgVRF7cAX1UwrmU1PzrLNtBJ/EHPQ==
   dependencies:
-    "@clerk/shared" "^3.15.1"
-    "@clerk/types" "^4.70.1"
-    tslib "2.8.1"
-
-"@clerk/clerk-react@^5.38.0":
-  version "5.38.0"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-react/-/clerk-react-5.38.0.tgz#d0b72efb2044ac4a75a2ec0b86c77fa8f118e901"
-  integrity sha512-tkKolFShrLUk0ku2xUJnH5Fn8O4wBEVPr84juIDo5AYxaKH6l4qdqW2yW4QslfvqjPh9Kz/fr9sTFTS90g69Hw==
-  dependencies:
-    "@clerk/shared" "^3.16.0"
-    "@clerk/types" "^4.71.0"
+    "@clerk/shared" "^3.17.0"
+    "@clerk/types" "^4.72.0"
     tslib "2.8.1"
 
 "@clerk/nextjs@^6.22.0":
@@ -49,41 +40,22 @@
     server-only "0.0.1"
     tslib "2.8.1"
 
-"@clerk/shared@^3.15.1":
-  version "3.15.1"
-  resolved "https://registry.yarnpkg.com/@clerk/shared/-/shared-3.15.1.tgz#5198a70677b50099a058d374a08458b0f08c30c1"
-  integrity sha512-5k4ooQ5EsiboShv9W9LV1bK4PWiqqgqyBNxz5/GRnsdE+Ng2i+nbd0jP9eqCJSGIaar3Q9a1iE/zttIB8Uxi3Q==
+"@clerk/shared@^3.16.0", "@clerk/shared@^3.17.0":
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/@clerk/shared/-/shared-3.17.0.tgz#859e439802ef1e00ca29608f0f3b14b3689e3734"
+  integrity sha512-eYbA0xmKG1DluFmdVykXiElgZGTpCruEyXmIBAwokpxypd5nOpDsS1xvEKwYvZieLTZkFz21Z3Y6HdDI5cPxBQ==
   dependencies:
-    "@clerk/types" "^4.70.1"
+    "@clerk/types" "^4.72.0"
     dequal "2.0.3"
     glob-to-regexp "0.4.1"
     js-cookie "3.0.5"
     std-env "^3.9.0"
     swr "2.3.4"
 
-"@clerk/shared@^3.16.0":
-  version "3.16.0"
-  resolved "https://registry.yarnpkg.com/@clerk/shared/-/shared-3.16.0.tgz#2f1eec1aad74bb3df3d3bafbc0beba39557e3f10"
-  integrity sha512-jzaa7mnFszxWn0xPBu9tBmHQl3iTLMuHbTjOPWkEdz6/1rdPYWaUfCudMhv2p7Zv9YPesn3Nyui6BZ1nygxMig==
-  dependencies:
-    "@clerk/types" "^4.71.0"
-    dequal "2.0.3"
-    glob-to-regexp "0.4.1"
-    js-cookie "3.0.5"
-    std-env "^3.9.0"
-    swr "2.3.4"
-
-"@clerk/types@^4.70.1":
-  version "4.70.1"
-  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-4.70.1.tgz#434e3340963c0089f0b0fc55473db667e364c05c"
-  integrity sha512-AfaNAxVQlH+ekHUa2TLRsTkqkE01bxwK1xw07/uE4qzx2rs5oaH76AnZVBoiBIUQK7cCnZ2Tk2s563RJIK6kSA==
-  dependencies:
-    csstype "3.1.3"
-
-"@clerk/types@^4.71.0":
-  version "4.71.0"
-  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-4.71.0.tgz#66a72d61270429061e5329f25f9f189d8688c4c0"
-  integrity sha512-QsZEIzx9AFTXAjcGc+aQ+k0TjzXTqi2EpScl36w187xhO3+CWXuk/tZai8IdVclp091+KmQKd8ayxuKnhg3QYQ==
+"@clerk/types@^4.71.0", "@clerk/types@^4.72.0":
+  version "4.72.0"
+  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-4.72.0.tgz#7731b68c333419d461e557676dd630241c5817b8"
+  integrity sha512-SEkgiQNeTstC0/mQjHCGBEyX0/ALyWAa5QZBBvVOok204r48MLipfIKsXQhyWE2Hk6FIo5WT6YyqD36jaxUEIw==
   dependencies:
     csstype "3.1.3"
 
@@ -369,18 +341,6 @@
   dependencies:
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
-
-"@lottiefiles/dotlottie-react@^0.14.1":
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/@lottiefiles/dotlottie-react/-/dotlottie-react-0.14.1.tgz#810a49dd27fa3500f978a6b72a0636cdd0c9b0a0"
-  integrity sha512-bLZ85h9LzsV6kLrPm9vNhw+OdPemo0AY5PH4bUSnJxRt6ksCUZyHn4PZdTUV7tdCLOyX8fkwqICD+t2/yXkQeA==
-  dependencies:
-    "@lottiefiles/dotlottie-web" "0.46.0"
-
-"@lottiefiles/dotlottie-web@0.46.0":
-  version "0.46.0"
-  resolved "https://registry.yarnpkg.com/@lottiefiles/dotlottie-web/-/dotlottie-web-0.46.0.tgz#877b6f460985c9fc3110732a401866a73ab12478"
-  integrity sha512-wirTuVcR/cu9HTckgrXjQggeO4sap4QPBLWDUyBDEQJugY3CLHm4lECrDtLBtIzUJZXTeyidvTOY9lZIQ5qdTw==
 
 "@microsoft/clarity@^1.0.0":
   version "1.0.0"
