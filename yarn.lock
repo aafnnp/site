@@ -370,18 +370,6 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@lottiefiles/dotlottie-react@^0.14.1":
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/@lottiefiles/dotlottie-react/-/dotlottie-react-0.14.1.tgz#810a49dd27fa3500f978a6b72a0636cdd0c9b0a0"
-  integrity sha512-bLZ85h9LzsV6kLrPm9vNhw+OdPemo0AY5PH4bUSnJxRt6ksCUZyHn4PZdTUV7tdCLOyX8fkwqICD+t2/yXkQeA==
-  dependencies:
-    "@lottiefiles/dotlottie-web" "0.46.0"
-
-"@lottiefiles/dotlottie-web@0.46.0":
-  version "0.46.0"
-  resolved "https://registry.yarnpkg.com/@lottiefiles/dotlottie-web/-/dotlottie-web-0.46.0.tgz#877b6f460985c9fc3110732a401866a73ab12478"
-  integrity sha512-wirTuVcR/cu9HTckgrXjQggeO4sap4QPBLWDUyBDEQJugY3CLHm4lECrDtLBtIzUJZXTeyidvTOY9lZIQ5qdTw==
-
 "@microsoft/clarity@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@microsoft/clarity/-/clarity-1.0.0.tgz#e5f6c87d4aac9bac0cedeaa94158a3fd32fbcd5e"
@@ -2551,10 +2539,10 @@ map-obj@^5.0.2:
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-5.0.2.tgz#174ad9f7e5e4e777a219126d9a734ff3e14a1c68"
   integrity sha512-K6K2NgKnTXimT3779/4KxSvobxOtMmx1LBZ3NwRxT/MDIR3Br/fQ4Q+WCX5QxjyUR8zg5+RV9Tbf2c5pAWTD2A==
 
-marked@^15.0.12:
-  version "15.0.12"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-15.0.12.tgz#30722c7346e12d0a2d0207ab9b0c4f0102d86c4e"
-  integrity sha512-8dD6FusOQSrpv9Z1rdNMdlSgQOIP880DHqnohobOmYLElGEqAL/JvxvuxZO16r4HtjTlfPRDC1hbvxC9dPN2nA==
+marked@^16.1.2:
+  version "16.1.2"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-16.1.2.tgz#b723ad2eb0a19d5bf5809b62816af85d117672e3"
+  integrity sha512-rNQt5EvRinalby7zJZu/mB+BvaAY2oz3wCuCjt1RDrWNpS1Pdf9xqMOeC9Hm5adBdcV/3XZPJpG58eT+WBc0XQ==
 
 math-intrinsics@^1.1.0:
   version "1.1.0"
