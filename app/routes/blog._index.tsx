@@ -1,7 +1,5 @@
-import { MetaFunction, LoaderFunctionArgs, json } from "@remix-run/node";
+import { MetaFunction, LoaderFunctionArgs, json } from "@remix-run/cloudflare";
 import { useLoaderData, Link, useSearchParams } from "@remix-run/react";
-import path from "path";
-import globFiles from "~/utils/globFiles";
 
 // 定义类型接口
 interface BlogData {
@@ -26,14 +24,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const pageSize = url.searchParams.get("pageSize") || "10";
   const tag = url.searchParams.get("tag") || undefined;
 
-  const contentPath = path.join(process.cwd(), "src/content");
-  let posts = globFiles(contentPath).sort((a, b) => {
-    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  let posts = postsData.sort((a, b) => {
+    const dateA = a?.data?.date ? new Date(a.data.date).getTime() : 0;
+    const dateB = b?.data?.date ? new Date(b.data.date).getTime() : 0;
+    return dateB - dateA;
   });
 
   // 根据标签过滤
   if (tag) {
-    posts = posts.filter((post) => post.data.tags?.includes(tag));
+    posts = posts.filter((post) => post?.data?.tags?.includes(tag));
   }
 
   // 使用 Set 来去重，提高性能
@@ -41,10 +40,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const tagSet = new Set<string>();
 
   posts.forEach((file: BlogData) => {
-    const year = file.data.date.split("-")[0];
-    yearSet.add(year);
+    if (file?.data?.date) {
+      const year = file.data.date.split("-")[0];
+      yearSet.add(year);
+    }
 
-    file.data.tags?.forEach((tag) => tagSet.add(tag));
+    file?.data?.tags?.forEach((tag) => tagSet.add(tag));
   });
 
   // 计算分页
@@ -64,7 +65,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function BlogIndex() {
-  const { data, tags, currentPage, pageSize, tag } = useLoaderData<typeof loader>();
+  const { data, tags, currentPage, pageSize, tag } =
+    useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
 
   // 计算分页链接
@@ -120,7 +122,7 @@ export default function BlogIndex() {
             </article>
           ))}
         </ol>
-        
+
         {/* 分页 */}
         <nav className="mt-12 flex items-center justify-between">
           {prevPage ? (

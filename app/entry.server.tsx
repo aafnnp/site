@@ -1,7 +1,8 @@
-import type { AppLoadContext, EntryContext } from "@remix-run/node";
+import type { AppLoadContext } from "@remix-run/cloudflare";
+import type { EntryContext } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
-import { renderToString } from "react-dom/server";
+import { renderToReadableStream } from "react-dom/server";
 
 export default async function handleRequest(
   request: Request,
@@ -10,11 +11,21 @@ export default async function handleRequest(
   remixContext: EntryContext,
   loadContext: AppLoadContext
 ) {
-  const body = renderToString(
-    <RemixServer context={remixContext} url={request.url} />
+  const body = await renderToReadableStream(
+    <RemixServer context={remixContext} url={request.url} />,
+    {
+      signal: request.signal,
+      onError(error: unknown) {
+        // Log streaming rendering errors from inside the shell
+        console.error(error);
+        responseStatusCode = 500;
+      },
+    }
   );
 
-  // Bot detection handled by renderToString
+  if (isbot(request.headers.get("user-agent"))) {
+    await body.allReady;
+  }
 
   responseHeaders.set("Content-Type", "text/html");
   return new Response(body, {

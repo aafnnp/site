@@ -1,0 +1,13 @@
+{
+  "routes": [
+    {
+      "routePath": "/:path*",
+      "mountPath": "/",
+      "method": "",
+      "module": [
+        "[[path]].ts:onRequest"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}
