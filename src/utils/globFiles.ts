@@ -7,6 +7,7 @@ import { format } from "date-fns";
 interface BlogPost {
   data: {
     date: string;
+    tags?: string[];
     draft?: boolean;
     title?: string;
     [key: string]: any;

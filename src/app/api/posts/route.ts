@@ -1,6 +1,6 @@
 import path from "path";
 import globFiles from "@/utils/globFiles";
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 export async function POST(request: Request) {
   const body = await request.json();
   const { pageSize = 10, pageNum = 1, tag } = body;
