@@ -2,7 +2,7 @@ name: Lighthouse CI
 on:
   push:
     branches:
-      - dev
+      - master
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
