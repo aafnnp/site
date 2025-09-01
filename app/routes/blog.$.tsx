@@ -47,41 +47,22 @@ async function getData(slug: string): Promise<PostData | null> {
   // 构建完整的slug路径进行精确匹配
   const fullSlugPath = `/blog/${decodedSlug}`;
   
-  console.log('getData - Looking for:', fullSlugPath);
-  console.log('getData - Total posts:', posts.length);
-  console.log('getData - First 3 post slugs:', posts.slice(0, 3).map(p => p.slug));
-  
   // 使用精确匹配而不是includes
   const foundPost = posts.find((post) => post.slug === fullSlugPath);
-  
-  console.log('getData - Found post:', foundPost ? 'Yes' : 'No');
-  if (foundPost) {
-    console.log('getData - Post title:', foundPost.data?.title);
-  }
   
   return foundPost || null;
 }
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const { slug } = params;
+  const splat = params['*'];
   
-  if (!slug) {
+  if (!splat) {
     throw new Response("Not Found", { status: 404 });
   }
-
-  const decodedSlug = decodeURIComponent(slug);
-  const fullSlugPath = `/blog/${decodedSlug}`;
   
-  console.log('=== SLUG MATCHING DEBUG ===');
-  console.log('Original slug param:', slug);
-  console.log('Decoded slug:', decodedSlug);
-  console.log('Constructed fullSlugPath:', fullSlugPath);
-  
-  const post = await getData(slug);
-  console.log('Loader - Found post:', post ? 'Yes' : 'No');
+  const post = await getData(splat);
   
   if (!post || !post.data) {
-    console.log('Loader - No post found or no post data');
     throw new Response("Not Found", { status: 404 });
   }
 
