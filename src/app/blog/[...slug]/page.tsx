@@ -36,6 +36,7 @@ async function getData(slug: string[]): Promise<PostData> {
   return posts.find((post) => post.slug.includes(decodedSlug)) ?? {};
 }
 
+export const runtime = 'edge';
 // 博客文章页面组件
 export default async function Page({
   params,
