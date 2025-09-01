@@ -1,10 +1,10 @@
 import globFiles from "@/utils/globFiles";
+import { getBlogFiles } from "@/data/content-loader";
 import { marked } from "marked";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import path from "path";
 
 // 动态导入组件
 const Ad = dynamic(() => import("@/components/ad"));
@@ -29,14 +29,14 @@ interface PostData {
 
 // 获取文章数据
 async function getData(slug: string[]): Promise<PostData> {
-  const contentPath = path.join(process.cwd(), "src/content");
-  const posts = globFiles(contentPath);
+  const preProcessedFiles = getBlogFiles();
+  const posts = globFiles(preProcessedFiles);
   const decodedSlug = slug.map(decodeURIComponent).join("/");
 
   return posts.find((post) => post.slug.includes(decodedSlug)) ?? {};
 }
 
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 // 博客文章页面组件
 export default async function Page({
   params,
@@ -88,8 +88,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string[] }>;
 }): Promise<Metadata> {
-  const contentPath = path.join(process.cwd(), "src/content");
-  const posts = globFiles(contentPath);
+  const preProcessedFiles = getBlogFiles();
+  const posts = globFiles(preProcessedFiles);
   const { slug } = await params;
   const post = posts.find((post) => post.slug.includes(slug.join("/")));
 

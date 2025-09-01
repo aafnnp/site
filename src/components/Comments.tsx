@@ -2,13 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
-import {
-  useUser,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignOutButton,
-} from "@clerk/nextjs";
 
 // 创建Supabase客户端
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
@@ -24,26 +17,11 @@ interface Comment {
 }
 
 export default function Comments({ postSlug }: { postSlug: string }) {
-  const { isSignedIn, user } = useUser();
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
   const [author, setAuthor] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  // 自动填充已登录用户的用户名
-  useEffect(() => {
-    if (isSignedIn && user) {
-      setAuthor(
-        user.fullName ||
-          user.username ||
-          user.primaryEmailAddress?.emailAddress ||
-          ""
-      );
-    } else {
-      setAuthor("");
-    }
-  }, [isSignedIn, user]);
 
   // 获取评论
   useEffect(() => {
@@ -107,69 +85,47 @@ export default function Comments({ postSlug }: { postSlug: string }) {
     <div className="mt-10 border-t pt-6">
       <h3 className="text-xl font-bold mb-4">Comments</h3>
       {/* 评论表单 */}
-      <SignedIn>
-        <form onSubmit={submitComment} className="mb-8">
-          <div className="mb-4">
-            <label htmlFor="author" className="block text-sm font-medium mb-1">
-              Name
-            </label>
-            <input
-              type="text"
-              id="author"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md"
-              required
-              disabled
-            />
-          </div>
+      <form onSubmit={submitComment} className="mb-8">
+        <div className="mb-4">
+          <label htmlFor="author" className="block text-sm font-medium mb-1">
+            Name
+          </label>
+          <input
+            type="text"
+            id="author"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+            required
+            placeholder="Enter your name"
+          />
+        </div>
 
-          <div className="mb-4">
-            <label htmlFor="comment" className="block text-sm font-medium mb-1">
-              Content
-            </label>
-            <textarea
-              id="comment"
-              rows={4}
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md"
-              required
-            />
-          </div>
+        <div className="mb-4">
+          <label htmlFor="comment" className="block text-sm font-medium mb-1">
+            Content
+          </label>
+          <textarea
+            id="comment"
+            rows={4}
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+            required
+            placeholder="Enter your comment"
+          />
+        </div>
 
-          {error && <p className="text-red-500 mb-4">{error}</p>}
+        {error && <p className="text-red-500 mb-4">{error}</p>}
 
-          <div className="flex gap-4">
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
-            >
-              {loading ? "Submitting..." : "Submit"}
-            </button>
-            <SignOutButton>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50"
-              >
-                Sign Out
-              </button>
-            </SignOutButton>
-          </div>
-        </form>
-      </SignedIn>
-      <SignedOut>
-        <SignInButton mode="modal">
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
-          >
-            Sign In
-          </button>
-        </SignInButton>
-        <div className="mb-8 text-gray-500">请先登录后再发表评论。</div>
-      </SignedOut>
+        <button
+          type="submit"
+          disabled={loading}
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+        >
+          {loading ? "Submitting..." : "Submit"}
+        </button>
+      </form>
       {/* 评论列表 */}
       <div>
         {comments.length === 0 ? (

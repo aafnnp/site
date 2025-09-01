@@ -59,7 +59,7 @@ async function getData({
   };
 }
 
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 export default async function Page({
   searchParams,

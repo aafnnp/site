@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Clarity from "@microsoft/clarity";
 import Script from "next/script";
 import { LocaleProvider, useLocale } from "@/components/LocaleProvider";
-import { ClerkProvider } from "@clerk/nextjs";
+// import { ClerkProvider } from "@clerk/nextjs"; // Removed for Edge Runtime compatibility
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // 动态导入菜单组件以优化首屏加载
@@ -53,13 +53,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <ClerkProvider>
-          <LocaleProvider>
-            <Menu />
-            <main>{children}</main>
-            <LanguageSwitcher />
-          </LocaleProvider>
-        </ClerkProvider>
+        <LocaleProvider>
+          <Menu />
+          <main>{children}</main>
+          <LanguageSwitcher />
+        </LocaleProvider>
         <SpeedInsights />
 
         <Script

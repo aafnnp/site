@@ -1,12 +1,15 @@
-import path from "path";
 import globFiles from "@/utils/globFiles";
-export const runtime = 'nodejs';
+import { getBlogFiles } from "@/data/content-loader";
+
+export const runtime = 'edge';
+
 export async function POST(request: Request) {
   const body = await request.json();
   const { pageSize = 10, pageNum = 1, tag } = body;
 
-  const contentPath = path.join(process.cwd(), "src/content");
-  let posts = globFiles(contentPath).sort((a, b) => {
+  // 使用预处理的文件数据
+  const preProcessedFiles = getBlogFiles();
+  let posts = globFiles(preProcessedFiles).sort((a, b) => {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
   });
 

@@ -1,6 +1,4 @@
-// 遍历 content 目录下的所有文件，获取文件内容
-import { readFileSync, readdirSync, statSync } from "fs";
-import { join } from "path";
+// Edge Runtime兼容的文件处理工具
 import matter from "gray-matter";
 import { format } from "date-fns";
 
@@ -16,42 +14,27 @@ interface BlogPost {
   [key: string]: any;
 }
 
-export default function globFiles(dir: string): BlogPost[] {
-  // 读取目录下的所有文件
-  const files = readdirSync(dir);
-
-  // 递归处理所有文件
-  const allPosts = files.reduce<BlogPost[]>((acc, file) => {
-    // 忽略 .DS_Store 文件
-    if (file.endsWith(".DS_Store")) {
-      return acc;
-    }
-
-    const fullPath = join(dir, file);
-    const stats = statSync(fullPath);
-
-    // 如果是目录，递归处理
-    if (stats.isDirectory()) {
-      return [...acc, ...globFiles(fullPath)];
-    }
-
+// Edge Runtime兼容的文件处理函数
+// 由于Edge Runtime不支持文件系统操作，这个函数需要预处理的文件列表
+export default function globFiles(preProcessedFiles: { path: string; content: string }[]): BlogPost[] {
+  const allPosts = preProcessedFiles.map(({ path, content }) => {
     // 处理单个文件
-    const { data, content, ...rest } = matter(readFileSync(fullPath, "utf-8"));
+    const { data, content: fileContent, ...rest } = matter(content);
 
     const post: BlogPost = {
       data: {
         ...data,
         date: format(data?.date ?? new Date(), "yyyy-MM-dd"),
       },
-      content,
-      slug: fullPath
-        .replace(process.cwd() + "/src/content", "/blog")
+      content: fileContent,
+      slug: path
+        .replace("/src/content", "/blog")
         .replace(".mdx", ""),
       ...rest,
     };
 
-    return [...acc, post];
-  }, []);
+    return post;
+  });
 
   // 过滤并排序文章
   return allPosts
