@@ -1,6 +1,6 @@
 # Cloudflare Pages 配置文件
 name = "blog-remix-site"
-compatibility_date = "2024-01-01"
+compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
 # Pages 构建输出目录
