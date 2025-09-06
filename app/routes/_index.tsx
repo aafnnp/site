@@ -164,7 +164,7 @@ export default function LandingPage() {
               <button
                 className="inline-flex items-center px-8 py-3 text-lg font-medium bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-colors duration-200 group"
                 onClick={() => {
-                  window.open("https://kit-khaki-pi.vercel.app/", "_blank");
+                  window.open("https://kit.manon.icu/", "_blank");
                 }}
               >
                 <FiMonitor className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
