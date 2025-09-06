@@ -11,7 +11,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const body = await request.json();
   const { pageSize = 10, pageNum = 1, tag } = body;
 
-  const contentPath = path.join(process.cwd(), "src/content");
+  const contentPath = path.join(process.cwd(), "app/content");
   let posts = globFiles(contentPath).sort((a, b) => {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
   });

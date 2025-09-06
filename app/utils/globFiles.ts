@@ -44,7 +44,7 @@ export default function globFiles(dir: string): BlogPost[] {
       },
       content,
       slug: fullPath
-        .replace(process.cwd() + "/src/content", "/blog")
+        .replace(process.cwd() + "/app/content", "/blog")
         .replace(".mdx", ""),
       ...rest,
     };

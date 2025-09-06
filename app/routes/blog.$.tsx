@@ -40,7 +40,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 // 获取文章数据
 async function getData(slug: string): Promise<PostData | null> {
-  const contentPath = path.join(process.cwd(), "src/content");
+  const contentPath = path.join(process.cwd(), "app/content");
   const posts = globFiles(contentPath);
   const decodedSlug = decodeURIComponent(slug);
   

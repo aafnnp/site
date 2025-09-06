@@ -26,7 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const pageSize = url.searchParams.get("pageSize") || "10";
   const tag = url.searchParams.get("tag") || undefined;
 
-  const contentPath = path.join(process.cwd(), "src/content");
+  const contentPath = path.join(process.cwd(), "app/content");
   let posts = globFiles(contentPath).sort((a, b) => {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
   });
