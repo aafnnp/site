@@ -8,6 +8,9 @@ import { format } from "date-fns";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// 统一内容根目录，确保 slug 计算对齐到 /app/content
+const CONTENT_ROOT = join(__dirname, "../app/content");
+
 function globFiles(dir) {
   // 读取目录下的所有文件
   const files = readdirSync(dir);
@@ -41,9 +44,10 @@ function globFiles(dir) {
         date: format(data?.date ?? new Date(), "yyyy-MM-dd"),
       },
       content,
+      // 计算 slug：将绝对路径前缀 /app/content 替换为 /blog，并去掉 .mdx 扩展名
       slug: fullPath
-        .replace(join(__dirname, "../src/content"), "/blog")
-        .replace(".mdx", ""),
+        .replace(CONTENT_ROOT, "/blog")
+        .replace(/\.mdx$/i, ""),
       ...rest,
     };
 
@@ -60,7 +64,7 @@ function globFiles(dir) {
 }
 
 // 检查内容目录是否存在
-const contentPath = join(__dirname, "../app/content");
+const contentPath = CONTENT_ROOT;
 const outputPath = join(__dirname, "../app/data/posts.json");
 let posts = [];
 
