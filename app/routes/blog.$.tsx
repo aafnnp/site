@@ -1,4 +1,6 @@
-import { MetaFunction, LoaderFunctionArgs, json } from "@remix-run/cloudflare";
+import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import {
   useLoaderData,
   Link,
@@ -6,20 +8,24 @@ import {
   isRouteErrorResponse,
 } from "@remix-run/react";
 import { marked } from "marked";
+import postsData from "../data/posts.json";
 
 // 定义文章数据接口
 interface PostData {
-  data?: {
-    title?: string;
+  data: {
+    type?: string;
     date?: string;
-    originalUrl?: string;
+    title?: string;
     tags?: string[];
+    originalUrl?: string;
     handle?: string;
-    description?: string;
+    description?: string | null;
     cover?: string;
   };
   content?: string;
   slug?: string;
+  isEmpty?: boolean;
+  excerpt?: string;
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {

@@ -1,5 +1,8 @@
-import { MetaFunction, LoaderFunctionArgs, json } from "@remix-run/cloudflare";
+import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData, Link, useSearchParams } from "@remix-run/react";
+import postsData from "../data/posts.json";
 
 // 定义类型接口
 interface BlogData {
