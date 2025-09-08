@@ -10,11 +10,8 @@ import type { LinksFunction } from "@remix-run/node";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { LocaleProvider, useLocale } from "~/components/LocaleProvider";
 import Navigation from "~/components/Menu";
-import ClientScripts from "~/components/ClientScripts";
-import { useEffect } from "react";
 
 import "./styles/main.css";
-
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -50,7 +47,6 @@ function LanguageSwitcher() {
 }
 
 function App() {
-
   return (
     <html lang="en">
       <head>
@@ -73,8 +69,12 @@ function App() {
         </LocaleProvider>
         <ScrollRestoration />
         <Scripts />
-        <ClientScripts />
-        <LiveReload />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3854566314387093"
+          crossOrigin="anonymous"
+        />
+        {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
   );
