@@ -24,6 +24,7 @@ import {
   FiMonitor,
   FiLayers,
 } from "react-icons/fi";
+import Ad from "../components/ad";
 
 export const meta: MetaFunction = () => {
   return [
@@ -221,6 +222,8 @@ export default function LandingPage() {
           </motion.div>
         </div>
       </section>
+      
+      <Ad />
 
       {/* Features Section */}
       <section className="py-20 bg-gray-50 dark:bg-gray-800/50">
@@ -274,6 +277,8 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      
+      <Ad />
 
       {/* Highlights Section */}
       <section className="py-20">

@@ -1,14 +1,24 @@
-'use client'
 import React, {useEffect} from 'react'
-import {usePathname} from 'next/navigation'
+import {useLocation} from '@remix-run/react'
+
+// 声明全局window对象的adsbygoogle属性
+declare global {
+  interface Window {
+    adsbygoogle: any[]
+  }
+}
 
 export default function Ad() {
-  const pathName = usePathname()
+  const location = useLocation()
+  const pathName = location.pathname
+  // 当路径改变时重新初始化广告
   useEffect(() => {
-    try {
-      ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-    } catch (error) {
-      console.log(error)
+    if (typeof window !== 'undefined') {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({})
+      } catch (error) {
+        console.log('AdSense error:', error)
+      }
     }
   }, [pathName])
 

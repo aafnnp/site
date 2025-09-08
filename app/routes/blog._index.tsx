@@ -3,6 +3,7 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, Link, useSearchParams } from "@remix-run/react";
 import postsData from "../data/posts.json";
+import Ad from "../components/ad";
 
 // 定义类型接口
 interface BlogData {
@@ -104,6 +105,8 @@ export default function BlogIndex() {
     <div className="relative flex mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8">
       <main className="flex-1">
         <h1 className="mb-12 text-2xl">Articles, guides, and cheat sheets</h1>
+        
+        <Ad />
 
         {/* 文章列表 */}
         <ol className="relative grid gap-x-8">
@@ -125,6 +128,8 @@ export default function BlogIndex() {
             </article>
           ))}
         </ol>
+        
+        <Ad />
 
         {/* 分页 */}
         <nav className="mt-12 flex items-center justify-between">

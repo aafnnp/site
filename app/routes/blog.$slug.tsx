@@ -9,6 +9,7 @@ import {
 } from "@remix-run/react";
 import { marked } from "marked";
 import postsData from "../data/posts.json";
+import Ad from "../components/ad";
 
 // 定义文章数据接口
 interface PostData {
@@ -130,10 +131,14 @@ export default function BlogPost() {
         )}
       </header>
 
+      <Ad />
+      
       <div
         className="prose-content"
         dangerouslySetInnerHTML={{ __html: articleContent }}
       />
+      
+      <Ad />
     </article>
   );
 }

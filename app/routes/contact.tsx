@@ -1,5 +1,6 @@
 import { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
+import Ad from "../components/ad";
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,6 +12,8 @@ export const meta: MetaFunction = () => {
 export default function Contact() {
   return (
     <div className={"mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8"}>
+      <Ad />
+      
       <h1 className={"text-3xl"}>Feedback</h1>
       <p className={"mb-4"}>
         You can send me feedback, suggestions and questions by emailing me at{" "}
@@ -24,6 +27,8 @@ export default function Contact() {
         If you spot outdated information in any of my articles, send me a link
         and I will make sure to update the article ASAP.
       </p>
+      
+      <Ad />
     </div>
   );
 }
