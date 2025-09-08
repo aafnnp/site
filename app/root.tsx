@@ -15,12 +15,6 @@ import { useEffect } from "react";
 
 import "./styles/main.css";
 
-// 扩展 Window 接口以支持 Clarity
-declare global {
-  interface Window {
-    clarity?: (action: string, id: string) => void;
-  }
-}
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -56,12 +50,6 @@ function LanguageSwitcher() {
 }
 
 function App() {
-  useEffect(() => {
-    // 仅在客户端初始化 Clarity
-    if (typeof window !== "undefined" && window.clarity) {
-      window.clarity("init", "lv84p8uuy6");
-    }
-  }, []);
 
   return (
     <html lang="en">
