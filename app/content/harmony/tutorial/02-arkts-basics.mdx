@@ -1,0 +1,537 @@
+---
+type: "Post"
+date: "2025-01-27 10:00:00"
+title: "ArkTS 语言基础"
+tags: [HarmonyOS, ArkTS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解 ArkTS 的基本语法和类型系统
+- 掌握变量声明和类型推断
+- 学会定义和使用函数
+- 掌握控制流语句的使用
+- 理解数组和对象的操作
+
+## 前置知识
+
+- 完成[开发环境搭建](/blog/harmony/tutorial/01-environment-setup)
+- 了解基本的编程概念（如果有 TypeScript/JavaScript 经验更佳）
+
+## 核心概念
+
+### ArkTS 简介
+
+ArkTS 是 HarmonyOS 应用开发的主要编程语言，基于 TypeScript 扩展而来。如果你熟悉 TypeScript，学习 ArkTS 会非常容易。
+
+**对比 Web 开发**：
+
+- TypeScript → ArkTS
+- JavaScript → ArkTS（语法相似）
+- 类型系统、语法糖、装饰器等概念基本一致
+
+### 类型系统
+
+ArkTS 是静态类型语言，支持类型推断，类型安全。
+
+## 详细内容
+
+### 1. 变量与常量声明
+
+#### 变量声明（let）
+
+```typescript
+// 使用 let 声明变量，可以重新赋值
+let name: string = "HarmonyOS";
+let age: number = 5;
+let isActive: boolean = true;
+
+// 类型推断：可以省略类型声明
+let message = "Hello"; // 自动推断为 string 类型
+let count = 10; // 自动推断为 number 类型
+```
+
+**对比 TypeScript**：语法完全相同，`let` 用于声明可变变量。
+
+#### 常量声明（const）
+
+```typescript
+// 使用 const 声明常量，不可重新赋值
+const PI: number = 3.14159;
+const APP_NAME = "MyApp"; // 类型推断
+
+// const 对象可以修改属性，但不能重新赋值
+const user = { name: "Tom", age: 20 };
+user.age = 21; // OK
+// user = { name: "Jerry" };  // Error: 不能重新赋值
+```
+
+**对比 Web 开发**：与 JavaScript/TypeScript 的 `const` 行为一致。
+
+### 2. 基本数据类型
+
+#### 数字类型（number）
+
+```typescript
+let integer: number = 42;
+let float: number = 3.14;
+let hex: number = 0xff; // 十六进制
+let binary: number = 0b1010; // 二进制
+let octal: number = 0o744; // 八进制
+```
+
+#### 字符串类型（string）
+
+```typescript
+let singleQuote: string = "Hello";
+let doubleQuote: string = "World";
+let template: string = `Hello ${singleQuote}`; // 模板字符串
+
+// 字符串方法
+let str = "HarmonyOS";
+let length = str.length; // 8
+let upper = str.toUpperCase(); // "HARMONYOS"
+let lower = str.toLowerCase(); // "harmonyos"
+let substring = str.substring(0, 4); // "Harm"
+```
+
+#### 布尔类型（boolean）
+
+```typescript
+let isTrue: boolean = true;
+let isFalse: boolean = false;
+
+// 布尔运算
+let result1 = true && false; // false
+let result2 = true || false; // true
+let result3 = !true; // false
+```
+
+#### 空值类型（null 和 undefined）
+
+```typescript
+let nullValue: null = null;
+let undefinedValue: undefined = undefined;
+
+// 联合类型
+let value: string | null = null;
+value = "Hello";
+```
+
+### 3. 函数定义与调用
+
+#### 函数声明
+
+```typescript
+// 基本函数
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+
+// 箭头函数
+const add = (a: number, b: number): number => {
+  return a + b;
+};
+
+// 简写形式（单表达式）
+const multiply = (a: number, b: number): number => a * b;
+
+// 可选参数
+function introduce(name: string, age?: number): string {
+  if (age !== undefined) {
+    return `I'm ${name}, ${age} years old.`;
+  }
+  return `I'm ${name}.`;
+}
+
+// 默认参数
+function createUser(name: string, role: string = "user"): object {
+  return { name, role };
+}
+
+// 剩余参数
+function sum(...numbers: number[]): number {
+  return numbers.reduce((acc, num) => acc + num, 0);
+}
+```
+
+**对比 Web 开发**：函数语法与 TypeScript 完全一致。
+
+#### 函数调用
+
+```typescript
+let greeting = greet("HarmonyOS");
+let result = add(5, 3);
+let total = sum(1, 2, 3, 4, 5);
+```
+
+### 4. 控制流语句
+
+#### if-else 语句
+
+```typescript
+let score: number = 85;
+
+if (score >= 90) {
+  console.log("优秀");
+} else if (score >= 80) {
+  console.log("良好");
+} else if (score >= 60) {
+  console.log("及格");
+} else {
+  console.log("不及格");
+}
+
+// 三元运算符
+let grade = score >= 60 ? "及格" : "不及格";
+```
+
+#### switch 语句
+
+```typescript
+let day: number = 3;
+let dayName: string;
+
+switch (day) {
+  case 1:
+    dayName = "Monday";
+    break;
+  case 2:
+    dayName = "Tuesday";
+    break;
+  case 3:
+    dayName = "Wednesday";
+    break;
+  default:
+    dayName = "Unknown";
+}
+```
+
+#### for 循环
+
+```typescript
+// 传统 for 循环
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+
+// for...of 循环（遍历数组）
+let fruits = ["apple", "banana", "orange"];
+for (let fruit of fruits) {
+  console.log(fruit);
+}
+
+// for...in 循环（遍历对象属性）
+let person = { name: "Tom", age: 20 };
+for (let key in person) {
+  console.log(`${key}: ${person[key]}`);
+}
+```
+
+#### while 和 do-while 循环
+
+```typescript
+// while 循环
+let count = 0;
+while (count < 5) {
+  console.log(count);
+  count++;
+}
+
+// do-while 循环
+let num = 0;
+do {
+  console.log(num);
+  num++;
+} while (num < 5);
+```
+
+### 5. 数组操作
+
+#### 数组声明
+
+```typescript
+// 类型声明
+let numbers: number[] = [1, 2, 3, 4, 5];
+let names: Array<string> = ["Tom", "Jerry", "Bob"];
+
+// 空数组
+let empty: number[] = [];
+
+// 混合类型数组
+let mixed: (string | number)[] = ["hello", 42, "world"];
+```
+
+#### 数组方法
+
+```typescript
+let arr = [1, 2, 3, 4, 5];
+
+// 添加元素
+arr.push(6); // [1, 2, 3, 4, 5, 6]
+arr.unshift(0); // [0, 1, 2, 3, 4, 5, 6]
+
+// 删除元素
+arr.pop(); // 返回 6，数组变为 [0, 1, 2, 3, 4, 5]
+arr.shift(); // 返回 0，数组变为 [1, 2, 3, 4, 5]
+
+// 查找元素
+let index = arr.indexOf(3); // 2
+let found = arr.find((x) => x > 3); // 4
+
+// 遍历
+arr.forEach((item, index) => {
+  console.log(`${index}: ${item}`);
+});
+
+// 映射
+let doubled = arr.map((x) => x * 2); // [2, 4, 6, 8, 10]
+
+// 过滤
+let evens = arr.filter((x) => x % 2 === 0); // [2, 4]
+
+// 归约
+let sum = arr.reduce((acc, x) => acc + x, 0); // 15
+```
+
+**对比 Web 开发**：数组方法与 JavaScript/TypeScript 完全一致。
+
+### 6. 对象操作
+
+#### 对象声明
+
+```typescript
+// 对象字面量
+let user = {
+  name: "Tom",
+  age: 20,
+  email: "tom@example.com",
+};
+
+// 类型定义
+interface User {
+  name: string;
+  age: number;
+  email?: string; // 可选属性
+}
+
+let user1: User = {
+  name: "Jerry",
+  age: 25,
+};
+
+// 访问属性
+let userName = user.name;
+let userAge = user["age"];
+
+// 修改属性
+user.age = 21;
+user["email"] = "newemail@example.com";
+
+// 添加新属性
+user.phone = "123456789";
+```
+
+#### 对象方法
+
+```typescript
+let calculator = {
+  value: 0,
+
+  add(num: number): void {
+    this.value += num;
+  },
+
+  subtract(num: number): void {
+    this.value -= num;
+  },
+
+  getValue(): number {
+    return this.value;
+  },
+};
+
+calculator.add(10);
+calculator.subtract(3);
+console.log(calculator.getValue()); // 7
+```
+
+## 实践练习
+
+### 练习 1：温度转换器
+
+**目标**：创建一个函数，将摄氏度转换为华氏度
+
+**要求**：
+
+- 函数名：`celsiusToFahrenheit`
+- 参数：摄氏度（number）
+- 返回值：华氏度（number）
+- 公式：F = C × 9/5 + 32
+
+**参考代码**：
+
+```typescript
+function celsiusToFahrenheit(celsius: number): number {
+  return (celsius * 9) / 5 + 32;
+}
+
+// 测试
+let temp = 25;
+console.log(`${temp}°C = ${celsiusToFahrenheit(temp)}°F`);
+```
+
+### 练习 2：数组统计
+
+**目标**：编写函数统计数组中的最大值、最小值和平均值
+
+**要求**：
+
+- 函数名：`analyzeArray`
+- 参数：数字数组
+- 返回值：包含 max、min、avg 的对象
+
+**参考代码**：
+
+```typescript
+function analyzeArray(numbers: number[]): {
+  max: number;
+  min: number;
+  avg: number;
+} {
+  if (numbers.length === 0) {
+    return { max: 0, min: 0, avg: 0 };
+  }
+
+  let max = numbers[0];
+  let min = numbers[0];
+  let sum = 0;
+
+  for (let num of numbers) {
+    if (num > max) max = num;
+    if (num < min) min = num;
+    sum += num;
+  }
+
+  return {
+    max,
+    min,
+    avg: sum / numbers.length,
+  };
+}
+
+// 测试
+let nums = [1, 5, 3, 9, 2, 7];
+let result = analyzeArray(nums);
+console.log(result); // { max: 9, min: 1, avg: 4.5 }
+```
+
+### 练习 3：用户信息管理
+
+**目标**：创建一个用户信息管理系统
+
+**要求**：
+
+1. 定义 User 接口，包含 name、age、email
+2. 创建用户数组
+3. 实现添加用户、查找用户、删除用户的功能
+
+**参考代码**：
+
+```typescript
+interface User {
+  name: string;
+  age: number;
+  email: string;
+}
+
+let users: User[] = [];
+
+function addUser(user: User): void {
+  users.push(user);
+}
+
+function findUser(name: string): User | undefined {
+  return users.find((u) => u.name === name);
+}
+
+function removeUser(name: string): boolean {
+  let index = users.findIndex((u) => u.name === name);
+  if (index !== -1) {
+    users.splice(index, 1);
+    return true;
+  }
+  return false;
+}
+
+// 测试
+addUser({ name: "Tom", age: 20, email: "tom@example.com" });
+addUser({ name: "Jerry", age: 25, email: "jerry@example.com" });
+
+console.log(findUser("Tom"));
+removeUser("Tom");
+console.log(users);
+```
+
+## 常见问题
+
+### Q1: ArkTS 和 TypeScript 有什么区别？
+
+**A**: ArkTS 基于 TypeScript，语法基本一致。主要区别在于：
+
+- ArkTS 增加了装饰器支持（@State、@Prop 等）
+- 某些 API 和库可能不同
+- 针对 HarmonyOS 平台进行了优化
+
+### Q2: 什么时候使用 let，什么时候使用 const？
+
+**A**:
+
+- 如果变量需要重新赋值，使用 `let`
+- 如果变量不需要重新赋值，使用 `const`（推荐）
+- 优先使用 `const`，需要时才使用 `let`
+
+### Q3: 如何判断数组是否为空？
+
+**A**:
+
+```typescript
+let arr: number[] = [];
+if (arr.length === 0) {
+  console.log("数组为空");
+}
+```
+
+### Q4: 对象和数组的区别是什么？
+
+**A**:
+
+- 数组是有序的，通过索引访问（0, 1, 2...）
+- 对象是无序的键值对集合，通过键名访问
+- 数组适合存储同类型的有序数据
+- 对象适合存储不同类型的数据，表示实体
+
+### Q5: 如何遍历对象的所有属性？
+
+**A**:
+
+```typescript
+let obj = { a: 1, b: 2, c: 3 };
+for (let key in obj) {
+  console.log(`${key}: ${obj[key]}`);
+}
+```
+
+## 扩展阅读
+
+- [ArkTS 语言规范](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkts-overview-V3)
+- [TypeScript 官方文档](https://www.typescriptlang.org/)（参考语法）
+- [ArkTS 类型系统](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkts-type-system-V3)
+
+## 下一步
+
+完成基础语法学习后，建议继续学习：
+
+- [ArkTS 进阶特性](/blog/harmony/tutorial/03-arkts-advanced) - 学习类、接口、泛型等高级特性

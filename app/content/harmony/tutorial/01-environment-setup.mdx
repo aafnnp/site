@@ -1,0 +1,380 @@
+---
+type: "Post"
+date: "2025-01-27 10:00:00"
+title: "开发环境搭建"
+tags: [HarmonyOS, DevEco Studio]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 安装和配置 DevEco Studio 开发环境
+- 创建第一个 HarmonyOS 应用项目
+- 理解项目结构（对比 Web 项目）
+- 配置模拟器和真机调试环境
+- 运行并调试应用
+
+## 前置知识
+
+- 基本的计算机操作能力
+- 了解编程的基本概念（如果有 Web 开发经验更佳）
+- 熟悉文件系统和命令行操作
+
+## 核心概念
+
+### DevEco Studio 简介
+
+DevEco Studio 是华为官方提供的 HarmonyOS 应用开发 IDE，类似于 Web 开发中的 VS Code 或 WebStorm。它基于 IntelliJ IDEA，提供了完整的开发、调试、测试工具链。
+
+**对比 Web 开发**：
+
+- VS Code / WebStorm → DevEco Studio
+- npm / yarn → HarmonyOS SDK
+- Chrome DevTools → DevEco Studio 调试工具
+
+### HarmonyOS 项目结构
+
+HarmonyOS 项目采用模块化结构，与 Web 项目有相似之处：
+
+```
+MyApplication/
+├── AppScope/              # 应用级配置（类似 package.json）
+│   └── app.json5
+├── entry/                 # 主模块（类似 src/）
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── ets/      # ArkTS 代码（类似 .ts/.js）
+│   │   │   ├── resources/ # 资源文件（类似 public/）
+│   │   │   └── module.json5
+│   └── oh-package.json5  # 依赖管理（类似 package.json）
+└── build-profile.json5    # 构建配置（类似 webpack.config.js）
+```
+
+## 详细步骤
+
+### 1. 安装 DevEco Studio
+
+#### Windows / macOS
+
+1. 访问 [HarmonyOS 开发者官网](https://developer.harmonyos.com/)
+2. 下载 DevEco Studio（选择对应操作系统版本）
+3. 运行安装程序，按照向导完成安装
+4. 首次启动时，选择安装 HarmonyOS SDK
+
+#### 配置要求
+
+- **操作系统**：Windows 10/11、macOS 10.15+、Ubuntu 18.04+
+- **内存**：建议 8GB 以上
+- **磁盘空间**：至少 10GB 可用空间
+
+### 2. 创建第一个项目
+
+1. 打开 DevEco Studio，点击 "Create Project"
+2. 选择 "Empty Ability" 模板
+3. 配置项目信息：
+   - Project Name: `MyFirstApp`
+   - Project Type: `Application`
+   - Bundle Name: `com.example.myfirstapp`
+   - Save Location: 选择保存路径
+   - Compile SDK: 选择最新的 API 版本
+   - Language: `ArkTS`
+   - Compatible SDK: 选择兼容的最低版本
+4. 点击 "Finish" 创建项目
+
+### 3. 项目结构解析
+
+创建完成后，你会看到以下主要文件：
+
+```typescript
+// entry/src/main/ets/entryability/EntryAbility.ets
+// 应用入口文件（类似 Web 的 index.js 或 main.ts）
+
+import UIAbility from "@ohos.app.ability.UIAbility";
+import hilog from "@ohos.hilog";
+import window from "@ohos.window";
+
+export default class EntryAbility extends UIAbility {
+  onCreate(want, launchParam) {
+    hilog.info(0x0000, "testTag", "%{public}s", "Ability onCreate");
+  }
+
+  onDestroy() {
+    hilog.info(0x0000, "testTag", "%{public}s", "Ability onDestroy");
+  }
+
+  onWindowStageCreate(windowStage: window.WindowStage) {
+    // Main window is created, set main page for this ability
+    hilog.info(0x0000, "testTag", "%{public}s", "Ability onWindowStageCreate");
+
+    windowStage.loadContent("pages/Index", (err, data) => {
+      if (err.code) {
+        hilog.error(
+          0x0000,
+          "testTag",
+          "Failed to load the content. Cause: %{public}s",
+          JSON.stringify(err) ?? ""
+        );
+        return;
+      }
+      hilog.info(
+        0x0000,
+        "testTag",
+        "Succeeded in loading the content. Data: %{public}s",
+        JSON.stringify(data) ?? ""
+      );
+    });
+  }
+
+  onWindowStageDestroy() {
+    // Main window is destroyed, release UI related resources
+    hilog.info(0x0000, "testTag", "%{public}s", "Ability onWindowStageDestroy");
+  }
+
+  onForeground() {
+    // Ability has brought to foreground
+    hilog.info(0x0000, "testTag", "%{public}s", "Ability onForeground");
+  }
+
+  onBackground() {
+    // Ability has brought to background
+    hilog.info(0x0000, "testTag", "%{public}s", "Ability onBackground");
+  }
+}
+```
+
+```typescript
+// entry/src/main/ets/pages/Index.ets
+// 主页面文件（类似 React 的 App.tsx 或 Vue 的 App.vue）
+
+import router from '@ohos.router';
+
+@Entry
+@Component
+struct Index {
+  @State message: string = 'Hello World';
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+          .onClick(() => {
+            this.message = 'Hello HarmonyOS';
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
+```
+
+**对比 Web 开发**：
+
+- `EntryAbility.ets` 类似应用的入口文件，负责应用生命周期管理
+- `Index.ets` 类似 React 组件或 Vue 组件，负责 UI 渲染
+- `@Entry` 装饰器类似 React 的 `export default` 或 Vue 的组件导出
+- `@Component` 装饰器定义了一个可复用的组件
+
+### 4. 配置模拟器
+
+1. 在 DevEco Studio 中，点击工具栏的 "Device Manager"
+2. 选择 "Local Emulator" 标签
+3. 点击 "+ New Emulator"
+4. 选择一个设备模板（如 Phone）
+5. 选择系统镜像（建议选择最新的 API 版本）
+6. 点击 "Finish" 创建模拟器
+7. 点击模拟器右侧的启动按钮启动模拟器
+
+### 5. 运行应用
+
+1. 确保模拟器已启动或连接真机
+2. 点击工具栏的 "Run" 按钮（绿色三角形）
+3. 选择目标设备
+4. 等待编译和安装完成
+5. 应用会自动在设备上启动
+
+### 6. 真机调试配置
+
+#### 开启开发者模式
+
+1. 在手机上打开 "设置" → "关于手机"
+2. 连续点击 "版本号" 7 次，开启开发者模式
+3. 返回设置，进入 "系统和更新" → "开发人员选项"
+4. 开启 "USB 调试"
+
+#### 连接真机
+
+1. 使用 USB 数据线连接手机和电脑
+2. 在手机上允许 USB 调试授权
+3. 在 DevEco Studio 的设备列表中可以看到你的手机
+4. 选择手机作为运行目标即可
+
+## 实践练习
+
+### 练习 1：修改欢迎信息
+
+**目标**：修改 Index.ets 中的文本内容
+
+**步骤**：
+
+1. 打开 `entry/src/main/ets/pages/Index.ets`
+2. 将 `message` 的初始值改为 `'欢迎学习鸿蒙开发'`
+3. 点击文本时，改为显示 `'点击成功！'`
+4. 运行应用，测试效果
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct Index {
+  @State message: string = '欢迎学习鸿蒙开发';
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+          .onClick(() => {
+            this.message = '点击成功！';
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
+```
+
+### 练习 2：添加按钮组件
+
+**目标**：在页面上添加一个按钮，点击后改变文本
+
+**步骤**：
+
+1. 在 Column 中添加一个 Button 组件
+2. 设置按钮文本为 "点击我"
+3. 点击按钮时，改变 Text 的内容
+4. 运行应用，测试交互效果
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct Index {
+  @State message: string = '欢迎学习鸿蒙开发';
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+
+        Button('点击我')
+          .margin({ top: 20 })
+          .onClick(() => {
+            this.message = '按钮被点击了！';
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
+```
+
+### 练习 3：创建新页面
+
+**目标**：创建一个新的页面文件，并在主页面中添加跳转功能
+
+**步骤**：
+
+1. 在 `pages` 目录下创建新文件 `Detail.ets`
+2. 创建一个简单的详情页面
+3. 在主页面添加按钮，点击后跳转到详情页
+4. 运行应用，测试页面跳转
+
+**参考代码**：
+
+```typescript
+// Detail.ets
+@Entry
+@Component
+struct Detail {
+  build() {
+    Row() {
+      Column() {
+        Text('这是详情页面')
+          .fontSize(30)
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
+```
+
+```typescript
+// Index.ets 中添加跳转
+Button("跳转到详情页")
+  .margin({ top: 20 })
+  .onClick(() => {
+    router.pushUrl({
+      url: "pages/Detail",
+    });
+  });
+```
+
+## 常见问题
+
+### Q1: 安装 SDK 时下载速度很慢怎么办？
+
+**A**: 可以配置代理或使用国内镜像源。在 DevEco Studio 的设置中，找到 "Appearance & Behavior" → "System Settings" → "HTTP Proxy"，配置代理服务器。
+
+### Q2: 模拟器启动失败怎么办？
+
+**A**:
+
+1. 检查系统是否支持虚拟化（Windows 需要开启 Hyper-V 或 VirtualBox）
+2. 确保有足够的磁盘空间（至少 10GB）
+3. 尝试重启 DevEco Studio 或电脑
+
+### Q3: 真机连接后无法识别怎么办？
+
+**A**:
+
+1. 确保已开启 USB 调试
+2. 检查 USB 数据线是否支持数据传输（有些只能充电）
+3. 在手机上确认 USB 调试授权
+4. 尝试更换 USB 接口或数据线
+
+### Q4: 项目编译失败，提示找不到模块？
+
+**A**:
+
+1. 点击 "File" → "Sync Project with Gradle Files"
+2. 或者在终端运行 `ohpm install` 安装依赖
+3. 确保网络连接正常，可以下载依赖包
+
+### Q5: 如何查看应用日志？
+
+**A**: 在 DevEco Studio 底部打开 "Log" 面板，可以查看应用运行时的日志输出。也可以使用 `hilog` API 在代码中输出日志。
+
+## 扩展阅读
+
+- [HarmonyOS 开发者官网](https://developer.harmonyos.com/)
+- [DevEco Studio 使用指南](https://developer.harmonyos.com/cn/develop/deveco-studio)
+- [HarmonyOS 应用开发文档](https://developer.harmonyos.com/cn/documentation)
+- [ArkTS 语言规范](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkts-overview-V3)
+
+## 下一步
+
+完成环境搭建后，建议继续学习：
+
+- [ArkTS 语言基础](/blog/harmony/tutorial/02-arkts-basics) - 掌握 ArkTS 的基本语法
