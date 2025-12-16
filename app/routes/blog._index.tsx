@@ -1,20 +1,15 @@
 import type { MetaFunction } from "@remix-run/node";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData, Link, useSearchParams } from "@remix-run/react";
-import postsData from "../data/posts.json";
+import { useLoaderData, Link } from "@remix-run/react";
 import Ad from "../components/ad";
 import { SITE_URL, SITE_NAME, TWITTER_HANDLE } from "../utils/seo";
-
-// Type interface
-interface BlogData {
-  data: {
-    date: string;
-    title?: string;
-    tags?: string[];
-  };
-  slug: string;
-}
+import {
+  getPostsSorted,
+  filterPostsByTag,
+  paginatePosts,
+  extractTags,
+} from "../utils/posts";
 
 export const meta: MetaFunction = () => {
   const title = "Articles, guides, and cheat sheets";
@@ -51,40 +46,20 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const pageSize = url.searchParams.get("pageSize") || "10";
   const tag = url.searchParams.get("tag") || undefined;
 
-  let posts = postsData.sort((a, b) => {
-    const dateA = a?.data?.date ? new Date(a.data.date).getTime() : 0;
-    const dateB = b?.data?.date ? new Date(b.data.date).getTime() : 0;
-    return dateB - dateA;
-  });
+  // Use shared utility functions
+  let posts = getPostsSorted();
+  posts = filterPostsByTag(posts, tag);
 
-  // 根据标签过滤
-  if (tag) {
-    posts = posts.filter((post) => post?.data?.tags?.includes(tag));
-  }
+  const tags = extractTags(posts);
 
-  // 使用 Set 来去重，提高性能
-  const yearSet = new Set<string>();
-  const tagSet = new Set<string>();
-
-  posts.forEach((file: BlogData) => {
-    if (file?.data?.date) {
-      const year = file.data.date.split("-")[0];
-      yearSet.add(year);
-    }
-
-    file?.data?.tags?.forEach((tag) => tagSet.add(tag));
-  });
-
-  // 计算分页
+  // Paginate
   const currentPage = parseInt(page);
   const pageSizeNum = parseInt(pageSize);
-  const start = (currentPage - 1) * pageSizeNum;
-  const end = start + pageSizeNum;
-  const paginatedPosts = posts.slice(start, end);
+  const paginatedPosts = paginatePosts(posts, currentPage, pageSizeNum);
 
   return json({
     data: paginatedPosts,
-    tags: Array.from(tagSet),
+    tags,
     currentPage,
     pageSize: pageSizeNum,
     tag,
@@ -94,7 +69,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function BlogIndex() {
   const { data, tags, currentPage, pageSize, tag } =
     useLoaderData<typeof loader>();
-  const [searchParams] = useSearchParams();
 
   // 计算分页链接
   const prevPage = currentPage > 1 ? currentPage - 1 : null;

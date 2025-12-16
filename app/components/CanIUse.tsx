@@ -1,6 +1,5 @@
-import Link from "next/link";
-import Image from "next/image";
-import { BrowserEnums } from "@/utils/index";
+import { Link } from "@remix-run/react";
+import { BrowserEnums } from "~/utils/index";
 import { features, feature } from "caniuse-lite";
 
 // 浏览器支持信息展示区块组件
@@ -24,7 +23,7 @@ const Section: React.FC<SectionProps> = ({ browser, data }) => {
             className="flex flex-col justify-center items-center gap-4"
             key={key}
           >
-            <Image
+            <img
               src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/logos/${value}.svg`}
               alt={key}
               loading="lazy"
@@ -88,7 +87,7 @@ const CanIUse: React.FC<CanIUseProps> = ({ tag }) => {
         This browser support data is from
         <Link
           className="px-1 text-red-500"
-          href={`https://caniuse.com/#feat=${tag}`}
+          to={`https://caniuse.com/#feat=${tag}`}
         >
           Caniuse
         </Link>
