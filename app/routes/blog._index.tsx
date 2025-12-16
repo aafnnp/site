@@ -4,8 +4,9 @@ import { json } from "@remix-run/node";
 import { useLoaderData, Link, useSearchParams } from "@remix-run/react";
 import postsData from "../data/posts.json";
 import Ad from "../components/ad";
+import { SITE_URL, SITE_NAME, TWITTER_HANDLE } from "../utils/seo";
 
-// 定义类型接口
+// Type interface
 interface BlogData {
   data: {
     date: string;
@@ -16,9 +17,31 @@ interface BlogData {
 }
 
 export const meta: MetaFunction = () => {
+  const title = "Articles, guides, and cheat sheets";
+  const description = "分享技术文章、开发指南和见解";
+  const url = `${SITE_URL}/blog`;
+
   return [
-    { title: "Articles, guides, and cheat sheets - Manon.icu" },
-    { name: "description", content: "分享技术文章和见解" },
+    { title: `${title} - ${SITE_NAME}` },
+    { name: "description", content: description },
+    {
+      name: "keywords",
+      content: "技术文章, 开发指南, 前端开发, 全栈开发, Web开发",
+    },
+    // Canonical
+    { tagName: "link", rel: "canonical", href: url },
+    // Open Graph
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: url },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: `${SITE_URL}/og-default.png` },
+    // Twitter Card
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: TWITTER_HANDLE },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: `${SITE_URL}/og-default.png` },
   ];
 };
 
@@ -105,7 +128,7 @@ export default function BlogIndex() {
     <div className="relative flex mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8">
       <main className="flex-1">
         <h1 className="mb-12 text-2xl">Articles, guides, and cheat sheets</h1>
-        
+
         <Ad />
 
         {/* 文章列表 */}
@@ -128,7 +151,7 @@ export default function BlogIndex() {
             </article>
           ))}
         </ol>
-        
+
         <Ad />
 
         {/* 分页 */}

@@ -6,12 +6,19 @@ import {
   ScrollRestoration,
   LiveReload,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { LocaleProvider, useLocale } from "~/components/LocaleProvider";
 import Navigation from "~/components/Menu";
+import { SITE_URL, SITE_NAME } from "~/utils/seo";
 
 import "./styles/main.css";
+
+export const meta: MetaFunction = () => [
+  { name: "theme-color", content: "#3b82f6" },
+  { name: "robots", content: "index, follow" },
+  { property: "og:site_name", content: SITE_NAME },
+  { property: "og:locale", content: "zh_CN" },
+];
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,11 +31,20 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
+  // RSS Feed discovery
+  {
+    rel: "alternate",
+    type: "application/rss+xml",
+    title: `${SITE_NAME} RSS Feed`,
+    href: `${SITE_URL}/rss.xml`,
+  },
+  // Sitemap
+  {
+    rel: "sitemap",
+    type: "application/xml",
+    href: `${SITE_URL}/sitemap.xml`,
+  },
 ];
-
-export const loader = (args: LoaderFunctionArgs) => {
-  return null;
-};
 
 function LanguageSwitcher() {
   const { locale, setLocaleMessages } = useLocale();
@@ -48,7 +64,7 @@ function LanguageSwitcher() {
 
 function App() {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

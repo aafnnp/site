@@ -25,11 +25,34 @@ import {
   FiLayers,
 } from "react-icons/fi";
 import Ad from "../components/ad";
+import { SITE_URL, TWITTER_HANDLE } from "../utils/seo";
 
 export const meta: MetaFunction = () => {
+  const title = "Kit - 现代化多功能工具箱";
+  const description =
+    "集成70+种高频开发与生活工具，完全本地运行，保护数据隐私，提升工作效率";
+
   return [
-    { title: "Kit - 现代化多功能工具箱" },
-    { name: "description", content: "集成70+种高频开发与生活工具，完全本地运行，保护数据隐私，提升工作效率" },
+    { title },
+    { name: "description", content: description },
+    {
+      name: "keywords",
+      content: "工具箱, 开发工具, 在线工具, Kit, 文本处理, 图片处理, 加密解密",
+    },
+    // Canonical
+    { tagName: "link", rel: "canonical", href: SITE_URL },
+    // Open Graph
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: SITE_URL },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: `${SITE_URL}/og-default.png` },
+    // Twitter Card
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: TWITTER_HANDLE },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: `${SITE_URL}/og-default.png` },
   ];
 };
 
@@ -222,7 +245,7 @@ export default function LandingPage() {
           </motion.div>
         </div>
       </section>
-      
+
       <Ad />
 
       {/* Features Section */}
@@ -277,7 +300,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      
+
       <Ad />
 
       {/* Highlights Section */}

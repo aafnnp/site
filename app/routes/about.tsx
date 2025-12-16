@@ -2,11 +2,30 @@ import { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import { FaGithub, FaHome, FaSitemap, FaTwitter } from "react-icons/fa";
 import { motion } from "motion/react";
+import { SITE_URL, SITE_NAME, TWITTER_HANDLE } from "../utils/seo";
 
 export const meta: MetaFunction = () => {
+  const title = "About";
+  const description = "Freelancer, Fullstack Developer, Particular Frontend";
+  const url = `${SITE_URL}/about`;
+
   return [
-    { title: "About - Manon.icu" },
-    { name: "description", content: "Freelancer, Fullstack Developer, Particular Frontend" },
+    { title: `${title} - ${SITE_NAME}` },
+    { name: "description", content: description },
+    // Canonical
+    { tagName: "link", rel: "canonical", href: url },
+    // Open Graph
+    { property: "og:type", content: "profile" },
+    { property: "og:url", content: url },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: `${SITE_URL}/og-default.png` },
+    // Twitter Card
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: TWITTER_HANDLE },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: `${SITE_URL}/og-default.png` },
   ];
 };
 
