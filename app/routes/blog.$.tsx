@@ -1,7 +1,7 @@
 import type { MetaFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, Link } from "@remix-run/react";
-import { marked } from "marked";
+import { parseMarkdown } from "../utils/markdown";
 import postsData from "../data/posts.json";
 import {
   generatePostSeoMeta,
@@ -54,7 +54,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Response("Not Found", { status: 404 });
   }
 
-  const articleContent = marked.parse(post.content || "");
+  const articleContent = await parseMarkdown(post.content || "");
   const jsonLd = generatePostJsonLd(post);
 
   return json({ post, articleContent, jsonLd });
