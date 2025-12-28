@@ -3,7 +3,7 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, Link } from "@remix-run/react";
 import Ad from "../components/ad";
-import { SITE_URL, SITE_NAME, TWITTER_HANDLE } from "../utils/seo";
+import { SITE_URL, SITE_NAME, generateSeoMeta } from "../utils/seo";
 import {
   getPostsSorted,
   filterPostsByTag,
@@ -20,27 +20,14 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 export const meta: MetaFunction = () => {
   const title = "Articles, guides, and cheat sheets";
   const description = "分享技术文章、开发指南和见解";
-  const url = `${SITE_URL}/blog`;
-
-  return [
-    { title: `${title} - ${SITE_NAME}` },
-    { name: "description", content: description },
-    {
-      name: "keywords",
-      content: "技术文章, 开发指南, 前端开发, 全栈开发, Web开发",
-    },
-    { tagName: "link", rel: "canonical", href: url },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: url },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: `${SITE_URL}/og-default.png` },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: TWITTER_HANDLE },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { name: "twitter:image", content: `${SITE_URL}/og-default.png` },
-  ];
+  
+  return generateSeoMeta({
+    title,
+    description,
+    url: "/blog",
+    type: "website",
+    tags: ["技术文章", "开发指南", "前端开发", "全栈开发", "Web开发"],
+  });
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {

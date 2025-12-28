@@ -22,8 +22,35 @@ interface SeoMetaOptions {
   type?: "website" | "article";
   image?: string;
   publishedTime?: string;
+  modifiedTime?: string;
   tags?: string[];
   author?: string;
+  section?: string;
+}
+
+/**
+ * 增强 HarmonyOS 相关文章的关键词
+ * 如果文章包含 HarmonyOS 标签，自动添加相关关键词
+ */
+function enhanceHarmonyKeywords(tags?: string[]): string[] {
+  if (!tags || !tags.includes("HarmonyOS")) {
+    return tags || [];
+  }
+
+  const harmonyKeywords = [
+    "HarmonyOS",
+    "鸿蒙",
+    "鸿蒙开发",
+    "HarmonyOS 开发",
+    "ArkTS",
+    "ArkUI",
+    "华为鸿蒙",
+    "鸿蒙应用开发",
+  ];
+
+  // 合并原有标签和新关键词，去重
+  const combined = new Set([...tags, ...harmonyKeywords]);
+  return Array.from(combined);
 }
 
 /**
@@ -37,12 +64,17 @@ export function generateSeoMeta(options: SeoMetaOptions) {
     type = "website",
     image,
     publishedTime,
+    modifiedTime,
     tags,
     author = DEFAULT_AUTHOR,
+    section,
   } = options;
 
   const canonicalUrl = `${SITE_URL}${url}`;
   const ogImage = image || `${SITE_URL}/og-default.png`;
+  
+  // 增强关键词（针对 HarmonyOS 文章）
+  const enhancedTags = enhanceHarmonyKeywords(tags);
 
   const meta: Array<Record<string, string>> = [
     { title: `${title} - ${SITE_NAME}` },
@@ -58,6 +90,7 @@ export function generateSeoMeta(options: SeoMetaOptions) {
     { property: "og:description", content: description },
     { property: "og:image", content: ogImage },
     { property: "og:locale", content: "zh_CN" },
+    { property: "og:locale:alternate", content: "en_US" },
     // Twitter Card
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: TWITTER_HANDLE },
@@ -68,16 +101,26 @@ export function generateSeoMeta(options: SeoMetaOptions) {
   ];
 
   // Add keywords if tags provided
-  if (tags && tags.length > 0) {
-    meta.push({ name: "keywords", content: tags.join(", ") });
+  if (enhancedTags && enhancedTags.length > 0) {
+    meta.push({ name: "keywords", content: enhancedTags.join(", ") });
   }
 
   // Add article-specific meta
-  if (type === "article" && publishedTime) {
-    meta.push({ property: "article:published_time", content: publishedTime });
+  if (type === "article") {
+    if (publishedTime) {
+      meta.push({ property: "article:published_time", content: publishedTime });
+    }
+    if (modifiedTime || publishedTime) {
+      meta.push({ property: "article:modified_time", content: modifiedTime || publishedTime });
+    }
     meta.push({ property: "article:author", content: author });
-    if (tags) {
-      tags.forEach((tag) => {
+    
+    if (section) {
+      meta.push({ property: "article:section", content: section });
+    }
+    
+    if (enhancedTags) {
+      enhancedTags.forEach((tag) => {
         meta.push({ property: "article:tag", content: tag });
       });
     }
@@ -87,19 +130,72 @@ export function generateSeoMeta(options: SeoMetaOptions) {
 }
 
 /**
+ * 从 slug 中提取文章分类/章节信息
+ */
+function extractSectionFromSlug(slug?: string): string | undefined {
+  if (!slug) return undefined;
+  
+  // 从 /blog/harmony/journey/01-preparation 提取 "鸿蒙开发"
+  if (slug.includes("/harmony/")) {
+    return "鸿蒙开发";
+  }
+  // 可以根据需要添加更多分类规则
+  if (slug.includes("/javascript/")) {
+    return "JavaScript";
+  }
+  if (slug.includes("/css/")) {
+    return "CSS";
+  }
+  
+  return undefined;
+}
+
+/**
+ * 为 HarmonyOS 文章生成优化的描述
+ */
+function generateHarmonyDescription(
+  title?: string,
+  description?: string | null,
+  slug?: string
+): string {
+  if (description) {
+    return description;
+  }
+  
+  // 如果文章是关于 HarmonyOS 的，生成描述
+  if (slug?.includes("/harmony/")) {
+    if (title) {
+      return `学习 ${title}，掌握 HarmonyOS 鸿蒙应用开发技术，包括 ArkTS 语言和 ArkUI 框架。适合 Web 开发人员快速上手鸿蒙开发。`;
+    }
+    return "学习 HarmonyOS 鸿蒙应用开发，掌握 ArkTS 语言和 ArkUI 框架，适合 Web 开发人员快速上手。";
+  }
+  
+  return title || "";
+}
+
+/**
  * Generate SEO meta tags for a blog post
  */
 export function generatePostSeoMeta(post: { data: PostData; slug?: string }) {
   const { data, slug } = post;
+  
+  const description = generateHarmonyDescription(
+    data.title,
+    data.description,
+    slug
+  );
+  const section = extractSectionFromSlug(slug);
 
   return generateSeoMeta({
     title: data.title || "Untitled",
-    description: data.description || data.title || "",
+    description: description,
     url: slug || "/blog",
     type: "article",
     image: data.cover,
     publishedTime: data.date,
+    modifiedTime: data.date, // 如果没有单独的修改时间，使用发布日期
     tags: data.tags,
+    section: section,
   });
 }
 
@@ -109,15 +205,25 @@ export function generatePostSeoMeta(post: { data: PostData; slug?: string }) {
 export function generatePostJsonLd(post: { data: PostData; slug?: string }) {
   const { data, slug } = post;
   const canonicalUrl = `${SITE_URL}${slug || "/blog"}`;
+  
+  // 增强关键词（针对 HarmonyOS 文章）
+  const enhancedTags = enhanceHarmonyKeywords(data.tags);
+  const description = generateHarmonyDescription(
+    data.title,
+    data.description,
+    slug
+  );
+  const section = extractSectionFromSlug(slug);
 
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: data.title,
-    description: data.description || data.title,
+    description: description,
     image: data.cover || `${SITE_URL}/og-default.png`,
     datePublished: data.date,
     dateModified: data.date,
+    inLanguage: "zh-CN",
     author: {
       "@type": "Person",
       name: DEFAULT_AUTHOR,
@@ -132,7 +238,8 @@ export function generatePostJsonLd(post: { data: PostData; slug?: string }) {
       "@type": "WebPage",
       "@id": canonicalUrl,
     },
-    keywords: data.tags?.join(", "),
+    keywords: enhancedTags?.join(", ") || "",
+    articleSection: section,
   };
 }
 
