@@ -1,0 +1,70 @@
+---
+type: "Exercise"
+date: "2025-01-27 10:00:00"
+title: "动画效果练习"
+tags: [HarmonyOS, 练习, 动画]
+description: "实现各种动画效果，提升用户体验。"
+---
+
+## 练习目标
+
+实现常见的动画效果，包括淡入淡出、缩放、旋转等。
+
+## 基础练习
+
+创建一个动画演示页面，包含：
+
+1. 淡入淡出动画
+2. 缩放动画
+3. 旋转动画
+4. 位移动画
+
+## 参考代码
+
+```typescript
+import { animateTo } from '@ohos.animator';
+
+@Entry
+@Component
+struct AnimationDemo {
+  @State opacity: number = 1.0;
+  @State scale: number = 1.0;
+  @State rotate: number = 0;
+  @State translateX: number = 0;
+
+  build() {
+    Column() {
+      Button('淡入淡出')
+        .onClick(() => {
+          animateTo({ duration: 500 }, () => {
+            this.opacity = this.opacity === 1.0 ? 0.3 : 1.0;
+          });
+        })
+
+      Text('动画文本')
+        .opacity(this.opacity)
+        .fontSize(30)
+        .margin(20)
+
+      Button('缩放')
+        .onClick(() => {
+          animateTo({ duration: 500 }, () => {
+            this.scale = this.scale === 1.0 ? 1.5 : 1.0;
+          });
+        })
+
+      Text('缩放文本')
+        .scale({ x: this.scale, y: this.scale })
+        .fontSize(30)
+        .margin(20)
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+## 下一步
+
+- [跨设备应用项目](/blog/harmony/journey/02-ux-design/exercises/03-cross-device-project)

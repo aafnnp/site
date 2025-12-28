@@ -1,0 +1,54 @@
+---
+type: "Post"
+date: "2025-01-27 10:00:00"
+title: "交互设计"
+tags: [HarmonyOS, 交互, UX]
+description: "学习 HarmonyOS 应用的交互设计，实现良好的用户体验。"
+---
+
+## 学习目标
+
+通过本课程，你将学会：
+
+- 理解交互设计原则
+- 实现手势操作
+- 设计反馈机制
+- 优化用户操作流程
+
+## 详细内容
+
+### 手势操作
+
+```typescript
+@Entry
+@Component
+struct GestureExample {
+  @State scale: number = 1.0;
+
+  build() {
+    Column() {
+      Text('手势操作')
+        .fontSize(30)
+        .scale({ x: this.scale, y: this.scale })
+        .gesture(
+          PinchGesture({ fingers: 2 })
+            .onActionStart(() => {
+              console.log('手势开始');
+            })
+            .onActionUpdate((event: GestureEvent) => {
+              this.scale = event.scale;
+            })
+            .onActionEnd(() => {
+              console.log('手势结束');
+            })
+        )
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+## 下一步
+
+- [跨设备应用项目](/blog/harmony/journey/02-ux-design/exercises/03-cross-device-project)

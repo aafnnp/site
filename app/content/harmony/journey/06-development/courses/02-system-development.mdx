@@ -1,0 +1,40 @@
+---
+type: "Post"
+date: "2025-01-27 10:00:00"
+title: "系统开发"
+tags: [HarmonyOS, 系统, 开发]
+description: "学习 HarmonyOS 系统级功能开发，包括通知、后台任务等。"
+---
+
+## 学习目标
+
+通过本课程，你将学会：
+
+- 实现系统通知
+- 创建后台任务
+- 使用系统服务
+- 处理系统事件
+
+## 详细内容
+
+### 系统通知
+
+```typescript
+import notificationManager from "@ohos.notificationManager";
+
+// 发送通知
+notificationManager.publish({
+  content: {
+    contentType:
+      notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
+    normal: {
+      title: "通知标题",
+      text: "通知内容",
+    },
+  },
+});
+```
+
+## 下一步
+
+- [服务集成练习](/blog/harmony/journey/06-development/exercises/04-services-integration)

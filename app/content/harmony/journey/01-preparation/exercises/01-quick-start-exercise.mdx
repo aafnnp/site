@@ -1,0 +1,371 @@
+---
+type: "Exercise"
+date: "2025-01-27 10:00:00"
+title: "快速入门练习"
+tags: [HarmonyOS, 练习, 入门]
+description: "通过创建第一个 HarmonyOS 应用，熟悉开发环境和基本操作。"
+---
+
+## 练习目标
+
+通过本练习，你将能够：
+
+- 熟练使用 DevEco Studio 创建项目
+- 理解 HarmonyOS 项目结构
+- 编写简单的 ArkTS 代码
+- 运行和调试应用
+
+## 前置要求
+
+- 已安装 DevEco Studio
+- 已配置开发环境
+- 完成"了解 HarmonyOS"课程
+
+## 基础练习
+
+### 练习 1：创建 Hello World 应用
+
+**目标**：创建一个简单的 Hello World 应用
+
+**步骤**：
+
+1. 打开 DevEco Studio
+2. 创建新项目，选择 "Empty Ability" 模板
+3. 配置项目信息：
+   - Project Name: `HelloWorld`
+   - Language: `ArkTS`
+   - Compile SDK: 选择最新版本
+4. 修改 `Index.ets` 文件，显示 "Hello HarmonyOS"
+5. 运行应用，查看效果
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct Index {
+  @State message: string = 'Hello HarmonyOS';
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(30)
+          .fontWeight(FontWeight.Bold)
+      }
+      .width('100%')
+    }
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+### 练习 2：添加交互功能
+
+**目标**：添加按钮，点击后改变文本
+
+**步骤**：
+
+1. 在现有项目中添加 Button 组件
+2. 使用 @State 管理文本状态
+3. 实现点击按钮改变文本的功能
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct Index {
+  @State message: string = 'Hello HarmonyOS';
+  @State count: number = 0;
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(30)
+          .fontWeight(FontWeight.Bold)
+          .margin({ bottom: 20 })
+
+        Text(`点击次数: ${this.count}`)
+          .fontSize(20)
+          .margin({ bottom: 20 })
+
+        Button('点击我')
+          .onClick(() => {
+            this.count++;
+            this.message = `已点击 ${this.count} 次`;
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+### 练习 3：创建新页面
+
+**目标**：创建第二个页面，实现页面跳转
+
+**步骤**：
+
+1. 在 `pages` 目录下创建 `Detail.ets` 文件
+2. 实现详情页面 UI
+3. 在主页面添加跳转按钮
+4. 实现页面跳转功能
+
+**参考代码**：
+
+```typescript
+// pages/Detail.ets
+@Entry
+@Component
+struct Detail {
+  build() {
+    Row() {
+      Column() {
+        Text('这是详情页面')
+          .fontSize(30)
+          .fontWeight(FontWeight.Bold)
+          .margin({ bottom: 20 })
+
+        Button('返回')
+          .onClick(() => {
+            router.back();
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+```typescript
+// pages/Index.ets 中添加跳转
+Button("跳转到详情页")
+  .margin({ top: 20 })
+  .onClick(() => {
+    router.pushUrl({
+      url: "pages/Detail",
+    });
+  });
+```
+
+## 进阶练习
+
+### 练习 4：实现计数器应用
+
+**目标**：创建一个完整的计数器应用
+
+**要求**：
+
+- 显示当前计数
+- 提供增加、减少、重置按钮
+- 使用状态管理
+- 添加简单的样式
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct CounterApp {
+  @State count: number = 0;
+
+  build() {
+    Row() {
+      Column() {
+        Text('计数器')
+          .fontSize(40)
+          .fontWeight(FontWeight.Bold)
+          .margin({ bottom: 40 })
+
+        Text(`${this.count}`)
+          .fontSize(60)
+          .fontWeight(FontWeight.Bold)
+          .fontColor(Color.Blue)
+          .margin({ bottom: 40 })
+
+        Row() {
+          Button('-')
+            .width(80)
+            .height(50)
+            .onClick(() => {
+              this.count--;
+            })
+
+          Button('重置')
+            .width(100)
+            .height(50)
+            .margin({ left: 20, right: 20 })
+            .onClick(() => {
+              this.count = 0;
+            })
+
+          Button('+')
+            .width(80)
+            .height(50)
+            .onClick(() => {
+              this.count++;
+            })
+        }
+      }
+      .width('100%')
+    }
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+    .padding(20)
+  }
+}
+```
+
+## 项目实战
+
+### 项目：待办事项应用（简化版）
+
+**目标**：创建一个简单的待办事项应用
+
+**功能要求**：
+
+1. 显示待办事项列表
+2. 添加新待办事项
+3. 标记完成/未完成
+4. 删除待办事项
+
+**实现步骤**：
+
+1. 定义待办事项数据模型
+2. 使用 @State 管理待办事项列表
+3. 实现添加、删除、标记功能
+4. 使用 List 组件显示列表
+
+**参考代码结构**：
+
+```typescript
+// 数据模型
+interface TodoItem {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+@Entry
+@Component
+struct TodoApp {
+  @State todos: TodoItem[] = [];
+  @State newTodo: string = '';
+  private nextId: number = 1;
+
+  // 添加待办事项
+  addTodo() {
+    if (this.newTodo.trim()) {
+      this.todos.push({
+        id: this.nextId++,
+        title: this.newTodo,
+        completed: false
+      });
+      this.newTodo = '';
+    }
+  }
+
+  // 切换完成状态
+  toggleTodo(id: number) {
+    const todo = this.todos.find(item => item.id === id);
+    if (todo) {
+      todo.completed = !todo.completed;
+    }
+  }
+
+  // 删除待办事项
+  deleteTodo(id: number) {
+    this.todos = this.todos.filter(item => item.id !== id);
+  }
+
+  build() {
+    Column() {
+      // 输入框和添加按钮
+      Row() {
+        TextInput({ placeholder: '输入待办事项' })
+          .layoutWeight(1)
+          .onChange((value: string) => {
+            this.newTodo = value;
+          })
+
+        Button('添加')
+          .margin({ left: 10 })
+          .onClick(() => {
+            this.addTodo();
+          })
+      }
+      .width('100%')
+      .padding(10)
+
+      // 待办事项列表
+      List() {
+        ForEach(this.todos, (todo: TodoItem) => {
+          ListItem() {
+            Row() {
+              Text(todo.title)
+                .fontSize(18)
+                .decoration({ type: todo.completed ? TextDecorationType.LineThrough : TextDecorationType.None })
+                .layoutWeight(1)
+
+              Button(todo.completed ? '未完成' : '完成')
+                .margin({ right: 10 })
+                .onClick(() => {
+                  this.toggleTodo(todo.id);
+                })
+
+              Button('删除')
+                .onClick(() => {
+                  this.deleteTodo(todo.id);
+                })
+            }
+            .width('100%')
+            .padding(10)
+          }
+        })
+      }
+      .layoutWeight(1)
+      .width('100%')
+    }
+    .width('100%')
+    .height('100%')
+    .padding(20)
+  }
+}
+```
+
+## 评分标准
+
+- **基础练习**（60 分）：
+
+  - 完成练习 1：20 分
+  - 完成练习 2：20 分
+  - 完成练习 3：20 分
+
+- **进阶练习**（20 分）：
+
+  - 完成计数器应用：20 分
+
+- **项目实战**（20 分）：
+  - 完成待办事项应用：20 分
+
+## 扩展挑战
+
+1. **添加数据持久化**：使用 Preferences 保存待办事项
+2. **添加分类功能**：为待办事项添加分类标签
+3. **添加优先级**：为待办事项设置优先级
+4. **美化界面**：添加更好的 UI 设计和动画效果
+
+## 下一步
+
+完成本练习后，建议继续：
+
+- [第一个应用项目](/blog/harmony/journey/01-preparation/exercises/02-first-app-project) - 完成更完整的项目实战
+- [02. 应用体验设计](/blog/harmony/journey/02-ux-design) - 开始学习应用设计

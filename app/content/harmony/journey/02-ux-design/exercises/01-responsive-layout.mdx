@@ -1,0 +1,109 @@
+---
+type: "Exercise"
+date: "2025-01-27 10:00:00"
+title: "响应式布局练习"
+tags: [HarmonyOS, 练习, 布局]
+description: "实现适配不同屏幕尺寸的响应式布局。"
+---
+
+## 练习目标
+
+实现一个响应式布局，能够适配手机、平板和桌面设备。
+
+## 基础练习
+
+创建一个新闻阅读应用的主页面，包含：
+
+1. 头部导航栏
+2. 侧边栏（平板和桌面显示）
+3. 主内容区域
+4. 底部导航（手机显示）
+
+## 参考代码
+
+```typescript
+@Entry
+@Component
+struct ResponsiveNewsApp {
+  @State isTablet: boolean = false;
+
+  build() {
+    Column() {
+      // 头部
+      this.buildHeader()
+
+      // 内容区域
+      if (this.isTablet) {
+        Row() {
+          this.buildSidebar()
+          this.buildMainContent()
+        }
+        .layoutWeight(1)
+      } else {
+        Column() {
+          this.buildMainContent()
+          this.buildBottomNav()
+        }
+        .layoutWeight(1)
+      }
+    }
+    .width('100%')
+    .height('100%')
+    .onAreaChange((oldValue, newValue) => {
+      this.isTablet = newValue.width >= 600;
+    })
+  }
+
+  @Builder buildHeader() {
+    Text('新闻应用')
+      .fontSize(24)
+      .fontWeight(FontWeight.Bold)
+      .width('100%')
+      .height(60)
+      .textAlign(TextAlign.Center)
+      .backgroundColor('#2196F3')
+      .fontColor(Color.White)
+  }
+
+  @Builder buildSidebar() {
+    Column() {
+      Text('分类1')
+      Text('分类2')
+      Text('分类3')
+    }
+    .width(200)
+    .height('100%')
+    .backgroundColor('#F5F5F5')
+    .padding(10)
+  }
+
+  @Builder buildMainContent() {
+    List() {
+      ForEach([1, 2, 3, 4, 5], (item: number) => {
+        ListItem() {
+          Text(`新闻标题 ${item}`)
+            .fontSize(18)
+            .margin(10)
+        }
+      })
+    }
+    .layoutWeight(1)
+  }
+
+  @Builder buildBottomNav() {
+    Row() {
+      Text('首页')
+      Text('分类')
+      Text('我的')
+    }
+    .width('100%')
+    .height(60)
+    .justifyContent(FlexAlign.SpaceAround)
+    .backgroundColor('#F5F5F5')
+  }
+}
+```
+
+## 下一步
+
+- [动画效果练习](/blog/harmony/journey/02-ux-design/exercises/02-animation-practice)
