@@ -8,6 +8,13 @@ import {
   generatePostJsonLd,
   generate404Meta,
 } from "../utils/seo";
+import { ReadingProgress } from "~/components/blog/ReadingProgress";
+import { TableOfContents } from "~/components/blog/TableOfContents";
+import { PostNavigation } from "~/components/blog/PostNavigation";
+import { Badge } from "~/components/ui/Badge";
+import { Sidebar } from "~/components/layout";
+import { getPostsSorted } from "../utils/posts";
+import { motion } from "motion/react";
 
 // Post data interface
 interface PostData {
@@ -57,38 +64,107 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const articleContent = await parseMarkdown(post.content || "");
   const jsonLd = generatePostJsonLd(post);
 
-  return json({ post, articleContent, jsonLd });
+  // 获取相邻文章
+  const allPosts = getPostsSorted();
+  const currentIndex = allPosts.findIndex((p) => p.slug === post.slug);
+  const prevPost =
+    currentIndex > 0
+      ? {
+          slug: allPosts[currentIndex - 1].slug,
+          title: allPosts[currentIndex - 1].data?.title || "无标题",
+        }
+      : undefined;
+  const nextPost =
+    currentIndex < allPosts.length - 1 && currentIndex >= 0
+      ? {
+          slug: allPosts[currentIndex + 1].slug,
+          title: allPosts[currentIndex + 1].data?.title || "无标题",
+        }
+      : undefined;
+
+  return json({ post, articleContent, jsonLd, prevPost, nextPost });
 }
 
 export default function BlogPost() {
-  const { post, articleContent, jsonLd } = useLoaderData<typeof loader>();
+  const { post, articleContent, jsonLd, prevPost, nextPost } =
+    useLoaderData<typeof loader>();
 
   return (
-    <article className="prose mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8">
-      {/* JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <>
+      <ReadingProgress />
+      <div className="container mx-auto px-4 py-8 min-h-screen">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* 主内容区 */}
+          <article className="flex-1 prose prose-lg dark:prose-invert max-w-none">
+            {/* JSON-LD Structured Data */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
 
-      <header>
-        <div className="text-center text-slate-500 text-xs">
-          Published {post.data?.date}
+            <motion.header
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {post.data?.date && (
+                <div className="text-center text-gray-500 dark:text-gray-400 text-sm mb-4">
+                  发布于 {post.data.date}
+                </div>
+              )}
+              <h1 className="text-center mt-4 mb-6 text-3xl sm:text-4xl font-bold">
+                {post.data?.title}
+              </h1>
+
+              {post.data?.tags && post.data.tags.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-2 mb-6">
+                  {post.data.tags.map((tag) => (
+                    <Badge key={tag} variant="default">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+
+              {post.data?.originalUrl && (
+                <div className="text-center text-gray-500 dark:text-gray-400 text-sm mb-6">
+                  本文翻译自：{" "}
+                  <Link
+                    to={post.data.originalUrl}
+                    className="text-primary-600 dark:text-primary-400 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {post.data.originalUrl}
+                  </Link>
+                </div>
+              )}
+
+              {post.data?.description && (
+                <p className="text-center text-gray-600 dark:text-gray-400 text-lg mb-8">
+                  {post.data.description}
+                </p>
+              )}
+            </motion.header>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="prose-content prose-headings:scroll-mt-24"
+              dangerouslySetInnerHTML={{ __html: articleContent }}
+            />
+
+            <PostNavigation prevPost={prevPost} nextPost={nextPost} />
+          </article>
+
+          {/* 目录侧边栏 */}
+          <Sidebar sticky className="hidden lg:block">
+            <TableOfContents />
+          </Sidebar>
         </div>
-        <h1 className="text-center mt-4 mb-2">{post.data?.title}</h1>
-        {post.data?.originalUrl && (
-          <div className="text-center text-slate-500 text-sm">
-            本文翻译自：
-            <Link to={post.data.originalUrl}>{post.data.originalUrl}</Link>
-          </div>
-        )}
-      </header>
-
-      <div
-        className="prose-content"
-        dangerouslySetInnerHTML={{ __html: articleContent }}
-      />
-    </article>
+      </div>
+    </>
   );
 }
 

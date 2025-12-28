@@ -7,7 +7,7 @@ import {
   LiveReload,
 } from "@remix-run/react";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
-import { LocaleProvider, useLocale } from "~/components/LocaleProvider";
+import { LocaleProvider } from "~/components/LocaleProvider";
 import Navigation from "~/components/Menu";
 import { SITE_URL, SITE_NAME } from "~/utils/seo";
 
@@ -51,22 +51,6 @@ export const links: LinksFunction = () => [
   },
 ];
 
-function LanguageSwitcher() {
-  const { locale, setLocaleMessages } = useLocale();
-  return (
-    <div style={{ position: "fixed", right: 24, bottom: 24, zIndex: 9999 }}>
-      <button
-        onClick={() =>
-          setLocaleMessages(locale === "zh-CN" ? "en-US" : "zh-CN")
-        }
-        className="px-3 py-1 bg-gray-200 rounded shadow hover:bg-gray-300"
-      >
-        {locale === "zh-CN" ? "English" : "中文"}
-      </button>
-    </div>
-  );
-}
-
 function App() {
   return (
     <html lang="zh-CN">
@@ -86,7 +70,6 @@ function App() {
           <main>
             <Outlet />
           </main>
-          <LanguageSwitcher />
         </LocaleProvider>
         <ScrollRestoration />
         <Scripts />

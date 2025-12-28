@@ -1,7 +1,56 @@
+@import "./design-system.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   padding: 0;
+}
+
+/* 响应式工具类 */
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 触摸优化 */
+  @media (hover: none) and (pointer: coarse) {
+    .hover\:scale-105:hover {
+      transform: scale(1);
+    }
+  }
+
+  /* 平滑滚动 */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* 图片优化 */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 代码块优化 */
+  .prose pre {
+    overflow-x: auto;
+  }
+
+  /* 移动端优化 */
+  @media (max-width: 640px) {
+    .prose {
+      font-size: 0.9rem;
+    }
+  }
 }

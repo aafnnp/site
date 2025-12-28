@@ -10,6 +10,12 @@ import {
   paginatePosts,
   extractTags,
 } from "../utils/posts";
+import { PostCard } from "~/components/blog/PostCard";
+import { Badge } from "~/components/ui/Badge";
+import { Button } from "~/components/ui/Button";
+import { Sidebar } from "~/components/layout";
+import { motion } from "motion/react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 export const meta: MetaFunction = () => {
   const title = "Articles, guides, and cheat sheets";
@@ -23,15 +29,12 @@ export const meta: MetaFunction = () => {
       name: "keywords",
       content: "技术文章, 开发指南, 前端开发, 全栈开发, Web开发",
     },
-    // Canonical
     { tagName: "link", rel: "canonical", href: url },
-    // Open Graph
     { property: "og:type", content: "website" },
     { property: "og:url", content: url },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
     { property: "og:image", content: `${SITE_URL}/og-default.png` },
-    // Twitter Card
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: TWITTER_HANDLE },
     { name: "twitter:title", content: title },
@@ -43,19 +46,18 @@ export const meta: MetaFunction = () => {
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const page = url.searchParams.get("page") || "1";
-  const pageSize = url.searchParams.get("pageSize") || "10";
+  const pageSize = url.searchParams.get("pageSize") || "12";
   const tag = url.searchParams.get("tag") || undefined;
 
-  // Use shared utility functions
   let posts = getPostsSorted();
   posts = filterPostsByTag(posts, tag);
 
   const tags = extractTags(posts);
 
-  // Paginate
   const currentPage = parseInt(page);
   const pageSizeNum = parseInt(pageSize);
   const paginatedPosts = paginatePosts(posts, currentPage, pageSizeNum);
+  const totalPages = Math.ceil(posts.length / pageSizeNum);
 
   return json({
     data: paginatedPosts,
@@ -63,18 +65,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
     currentPage,
     pageSize: pageSizeNum,
     tag,
+    totalPages,
+    total: posts.length,
   });
 }
 
 export default function BlogIndex() {
-  const { data, tags, currentPage, pageSize, tag } =
+  const { data, tags, currentPage, pageSize, tag, totalPages, total } =
     useLoaderData<typeof loader>();
 
-  // 计算分页链接
   const prevPage = currentPage > 1 ? currentPage - 1 : null;
-  const nextPage = data.length === pageSize ? currentPage + 1 : null;
+  const nextPage = currentPage < totalPages ? currentPage + 1 : null;
 
-  // 构建分页URL
   const createPageUrl = (page: number | null, selectedTag?: string) => {
     if (!page) return null;
 
@@ -85,12 +87,10 @@ export default function BlogIndex() {
     return `/blog?${params.toString()}`;
   };
 
-  // 构建标签URL
   const createTagUrl = (selectedTag: string) => {
     const params = new URLSearchParams();
     params.set("page", "1");
 
-    // 如果当前已选中该标签，则取消选择
     if (tag !== selectedTag) {
       params.set("tag", selectedTag);
     }
@@ -99,87 +99,132 @@ export default function BlogIndex() {
   };
 
   return (
-    <div className="relative flex mx-auto min-h-screen max-w-4xl px-4 py-6 sm:px-8">
-      <main className="flex-1">
-        <h1 className="mb-12 text-2xl">Articles, guides, and cheat sheets</h1>
+    <div className="container mx-auto px-4 py-8 min-h-screen">
+      <div className="flex flex-col lg:flex-row gap-8">
+        {/* 主内容区 */}
+        <main className="flex-1">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-gray-900 dark:text-white">
+              文章列表
+            </h1>
 
-        <Ad />
+            {tag && (
+              <div className="mb-6 flex items-center gap-2">
+                <span className="text-sm text-gray-600 dark:text-gray-400">筛选标签：</span>
+                <Badge variant="primary">{tag}</Badge>
+                <Link
+                  to="/blog"
+                  className="text-sm text-primary-600 dark:text-primary-400 hover:underline"
+                >
+                  清除
+                </Link>
+              </div>
+            )}
 
-        {/* 文章列表 */}
-        <ol className="relative grid gap-x-8">
-          {data.map(({ data, slug }: { data: any; slug: string }) => (
-            <article key={slug} className="group">
-              <Link
-                to={slug}
-                className="-ml-4 flex overflow-hidden rounded-lg transition-colors hover:bg-gray-100"
-              >
-                <div className="flex flex-col gap-2 px-4 py-4">
-                  <time className="text-xs font-bold uppercase tracking-wide text-gray-500">
-                    {data?.date}
-                  </time>
-                  <h2 className="text-xl font-bold text-gray-800 break-words">
-                    {data.title}
-                  </h2>
+            <Ad />
+
+            {/* 文章列表 */}
+            {data.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {data.map((post, index) => (
+                  <motion.div
+                    key={post.slug}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <PostCard
+                      slug={post.slug}
+                      title={post.data?.title || "无标题"}
+                      date={post.data?.date}
+                      description={post.data?.description || post.excerpt}
+                      tags={post.data?.tags}
+                      cover={post.data?.cover}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16">
+                <p className="text-gray-600 dark:text-gray-400 text-lg">
+                  暂无文章
+                </p>
+              </div>
+            )}
+
+            <Ad />
+
+            {/* 分页 */}
+            {totalPages > 1 && (
+              <nav className="mt-12 flex items-center justify-between">
+                <div>
+                  {prevPage ? (
+                    <Link to={createPageUrl(prevPage, tag) || "#"}>
+                      <Button variant="outline" size="sm">
+                        <FiChevronLeft className="w-4 h-4 mr-1" />
+                        上一页
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button variant="outline" size="sm" disabled>
+                      <FiChevronLeft className="w-4 h-4 mr-1" />
+                      上一页
+                    </Button>
+                  )}
                 </div>
-              </Link>
-            </article>
-          ))}
-        </ol>
 
-        <Ad />
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  第 {currentPage} / {totalPages} 页
+                  <span className="ml-2">共 {total} 篇文章</span>
+                </div>
 
-        {/* 分页 */}
-        <nav className="mt-12 flex items-center justify-between">
-          {prevPage ? (
-            <Link
-              to={createPageUrl(prevPage, tag) || "#"}
-              className="px-4 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-            >
-              上一页
-            </Link>
-          ) : (
-            <span className="px-4 py-2 text-sm text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">
-              上一页
-            </span>
-          )}
+                <div>
+                  {nextPage ? (
+                    <Link to={createPageUrl(nextPage, tag) || "#"}>
+                      <Button variant="outline" size="sm">
+                        下一页
+                        <FiChevronRight className="w-4 h-4 ml-1" />
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button variant="outline" size="sm" disabled>
+                      下一页
+                      <FiChevronRight className="w-4 h-4 ml-1" />
+                    </Button>
+                  )}
+                </div>
+              </nav>
+            )}
+          </motion.div>
+        </main>
 
-          <span className="text-sm text-gray-600">第 {currentPage} 页</span>
-
-          {nextPage ? (
-            <Link
-              to={createPageUrl(nextPage, tag) || "#"}
-              className="px-4 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-            >
-              下一页
-            </Link>
-          ) : (
-            <span className="px-4 py-2 text-sm text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">
-              下一页
-            </span>
-          )}
-        </nav>
-      </main>
-
-      {/* 标签侧边栏 */}
-      {/* <aside className="tag-list flex-none w-52">
-        <h2 className="mt-12 mb-4 text-xl font-bold">Tags</h2>
-        <ul className="flex flex-wrap gap-2">
-          {tags.map((tagName: string) => (
-            <li key={tagName}>
-              <Link
-                to={createTagUrl(tagName)}
-                className={`px-2 py-1 text-sm ${
-                  tag === tagName
-                    ? "bg-blue-200 text-blue-800"
-                    : "bg-gray-100 text-gray-700"
-                } rounded-full capitalize hover:bg-gray-200 transition-colors`}
-              >
-                {tagName}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </aside> */}
+        {/* 标签侧边栏 */}
+        <Sidebar sticky className="hidden lg:block">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+            <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">标签</h2>
+            <div className="flex flex-wrap gap-2">
+              {tags.length > 0 ? (
+                tags.map((tagName: string) => (
+                  <Link key={tagName} to={createTagUrl(tagName)}>
+                    <Badge
+                      variant={tag === tagName ? "primary" : "default"}
+                      className="cursor-pointer hover:opacity-80 transition-opacity"
+                    >
+                      {tagName}
+                    </Badge>
+                  </Link>
+                ))
+              ) : (
+                <p className="text-sm text-gray-500 dark:text-gray-400">暂无标签</p>
+              )}
+            </div>
+          </div>
+        </Sidebar>
+      </div>
     </div>
   );
 }
