@@ -7,6 +7,24 @@ description: Swift是一种适用于iOS、macOS、watchOS和tvOS应用程序的�
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/LExMnt.jpg
 ---
 
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解 Swift 语言的基本特性和设计理念
+- 掌握变量和常量的声明与使用
+- 了解 Swift 的基本数据类型
+- 理解类型安全和类型推断
+- 掌握可选类型的概念和用法
+- 了解元组的使用
+
+## 前置知识
+
+- 基本的编程概念（如果有其他编程语言经验更佳）
+- 了解如何使用 Xcode Playground 运行代码（可选）
+
+## Swift 简介
+
 Swift 是一种适用于 iOS、macOS、watchOS 和 Apple tvOS app 开发的新编程语言。尽管如此，Swift的许多部分将从您在C和Objective-C中开发的经验中熟悉。
 
 Swift提供所有基本C和Objective-C类型的版本，包括用于整数的Int、用于浮点值的Double和Float、用于布尔值的Bool和用于文本数据的String。Swift还提供了三种主要集合类型的强大版本，例如Array、Set和Dictionary，如Collection Types中所述。
@@ -289,3 +307,138 @@ if age > 10 {
 }
 // Prints "You can ride the ferris wheel."
 ```
+
+## 练习
+
+### 练习 1：变量和常量
+
+创建一个 Playground，完成以下任务：
+
+1. 声明一个常量存储你的姓名（使用 `let`）
+2. 声明一个变量存储你的年龄（使用 `var`）
+3. 使用字符串插值打印：`"我的名字是 {姓名}，今年 {年龄} 岁"`
+
+**参考答案**：
+
+```swift
+let name = "张三"
+var age = 25
+print("我的名字是 \(name)，今年 \(age) 岁")
+```
+
+### 练习 2：类型标注和类型推断
+
+完成以下代码，并说明每个变量的类型：
+
+```swift
+// 添加类型标注
+let number: Int = 42
+let pi: Double = 3.14159
+let isSwiftAwesome: Bool = true
+
+// 使用类型推断
+let message = "Hello, Swift!"
+let count = 10
+```
+
+### 练习 3：元组
+
+定义一个元组存储学生的信息（姓名、年龄、成绩），然后：
+
+1. 使用命名元组元素
+2. 分解元组并打印每个元素
+3. 使用下标访问元组元素
+
+**参考答案**：
+
+```swift
+// 定义元组
+let student = (name: "李四", age: 20, score: 95)
+
+// 分解元组
+let (name, age, score) = student
+print("姓名：\(name)")
+print("年龄：\(age)")
+print("成绩：\(score)")
+
+// 使用下标访问
+print("姓名：\(student.0)")
+print("年龄：\(student.1)")
+print("成绩：\(student.2)")
+
+// 使用命名访问
+print("姓名：\(student.name)")
+print("年龄：\(student.age)")
+print("成绩：\(student.score)")
+```
+
+### 练习 4：可选类型
+
+完成以下任务：
+
+1. 声明一个可选字符串变量
+2. 使用可选绑定检查值是否存在
+3. 使用 nil 合并运算符提供默认值
+
+**参考答案**：
+
+```swift
+// 声明可选类型
+var optionalName: String? = "Swift"
+var optionalAge: Int? = nil
+
+// 可选绑定
+if let name = optionalName {
+    print("名字是 \(name)")
+} else {
+    print("名字为空")
+}
+
+// nil 合并运算符
+let name = optionalName ?? "未知"
+let age = optionalAge ?? 0
+print("姓名：\(name)，年龄：\(age)")
+```
+
+### 练习 5：综合练习
+
+编写一个程序，模拟一个简单的用户登录系统：
+
+1. 定义常量存储最大登录尝试次数（3次）
+2. 定义变量存储当前登录尝试次数
+3. 使用元组存储登录状态（状态码、消息）
+4. 判断是否超过最大尝试次数，并打印相应消息
+
+**参考答案**：
+
+```swift
+let maximumLoginAttempts = 3
+var currentLoginAttempt = 0
+
+// 模拟登录尝试
+currentLoginAttempt = 4
+
+let loginStatus: (code: Int, message: String)
+if currentLoginAttempt > maximumLoginAttempts {
+    loginStatus = (code: 401, message: "登录失败次数过多，账户已锁定")
+} else if currentLoginAttempt == maximumLoginAttempts {
+    loginStatus = (code: 400, message: "这是最后一次尝试机会")
+} else {
+    loginStatus = (code: 200, message: "可以继续尝试登录")
+}
+
+print("状态码：\(loginStatus.code)")
+print("消息：\(loginStatus.message)")
+```
+
+## 总结
+
+本章介绍了 Swift 语言的基础知识：
+
+- **变量和常量**：使用 `var` 声明变量，`let` 声明常量
+- **类型系统**：Swift 是类型安全的语言，支持类型推断
+- **基本数据类型**：整数、浮点数、布尔值、字符串
+- **元组**：将多个值组合成一个复合值
+- **可选类型**：处理值可能缺失的情况，提高代码安全性
+
+下一章我们将学习 [基本运算符](/blog/swift/02-basic-operators)，了解 Swift 中的各种运算符。

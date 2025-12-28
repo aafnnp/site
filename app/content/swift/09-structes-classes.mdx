@@ -1,11 +1,26 @@
 ---
-type: 'Post'
-date: '2022-03-09'
+type: "Post"
+date: "2022-03-09"
 title: Swift - 结构体和类
 tags: [swift]
 description: 结构体和类是 Swift 中两种重要的数据类型，它们都可以用于定义自定义的复合数据类型。结构体和类非常相似，但它们也有一些重要的区别。
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/acTJPh.png
 ---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解结构体和类的定义和使用
+- 掌握结构体和类的区别（值类型 vs 引用类型）
+- 了解结构体和类的初始化
+- 掌握属性和方法的定义
+- 理解何时使用结构体，何时使用类
+
+## 前置知识
+
+- 完成 [基础知识](/blog/swift/01-basics) 的学习
+- 了解 [函数](/blog/swift/06-functions) 的基本概念
 
 结构体和类是 Swift 中两种重要的数据类型，它们都可以用于定义自定义的复合数据类型。结构体和类非常相似，但它们也有一些重要的区别。
 
@@ -56,4 +71,309 @@ person.celebrateBirthday()
 
 在上面的示例中，Person 是一个类类型，它包含了两个属性，name 和 age。类还定义了一个方法，celebrateBirthday()，用于增加年龄并输出生日祝福。person 是一个变量，它的类型是 Person，它被初始化为一个具有名字为 "Alice"，年龄为 30 的人。然后，它被庆祝了一次生日。
 
-Swift 中的结构体和类都可以有属性和方法，它们也都支持继承和协议。结构体通常用于表示简单的数据结构，而类通常用于表示更复杂的对象。在编写代码时，应该根据需要选择结构体或类，以便在代码中使用正确的数据类型。
+## 结构体与类的区别
+
+### 主要区别
+
+1. **类型不同**：
+
+   - 结构体是**值类型**（Value Type）：赋值时进行值拷贝
+   - 类是**引用类型**（Reference Type）：赋值时传递引用
+
+2. **继承**：
+
+   - 结构体不支持继承
+   - 类支持继承
+
+3. **初始化器**：
+
+   - 结构体自动生成成员初始化器
+   - 类需要自定义初始化器（如果没有存储属性或所有属性都有默认值）
+
+4. **内存管理**：
+   - 结构体由系统自动管理内存
+   - 类使用引用计数（ARC）管理内存
+
+### 值类型 vs 引用类型示例
+
+```swift
+// 结构体（值类型）
+struct Point {
+    var x: Int
+    var y: Int
+}
+
+var point1 = Point(x: 10, y: 20)
+var point2 = point1  // 值拷贝
+point2.x = 30
+print(point1.x)  // 10（point1 没有被改变）
+print(point2.x)  // 30
+
+// 类（引用类型）
+class Person {
+    var name: String
+    var age: Int
+
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+}
+
+var person1 = Person(name: "Alice", age: 30)
+var person2 = person1  // 引用拷贝
+person2.age = 31
+print(person1.age)  // 31（person1 也被改变了）
+print(person2.age)  // 31
+```
+
+## 选择结构体还是类？
+
+### 使用结构体的场景
+
+- 简单的数据封装
+- 值语义（希望赋值时进行拷贝）
+- 不需要继承
+- 线程安全（值类型天然线程安全）
+
+### 使用类的场景
+
+- 需要继承
+- 需要标识符比较（`===` 和 `!==`）
+- 需要共享状态（引用语义）
+- 复杂的数据模型
+
+## 练习
+
+### 练习 1：定义结构体
+
+创建一个结构体表示坐标点（Point），包含：
+
+1. x 和 y 属性
+2. 计算到原点距离的方法
+3. 移动到新位置的方法
+
+**参考答案**：
+
+```swift
+struct Point {
+    var x: Double
+    var y: Double
+
+    // 计算到原点的距离
+    func distanceToOrigin() -> Double {
+        return sqrt(x * x + y * y)
+    }
+
+    // 移动到新位置
+    mutating func moveTo(x: Double, y: Double) {
+        self.x = x
+        self.y = y
+    }
+
+    // 移动指定距离
+    mutating func moveBy(deltaX: Double, deltaY: Double) {
+        self.x += deltaX
+        self.y += deltaY
+    }
+}
+
+var point = Point(x: 3.0, y: 4.0)
+print("到原点的距离：\(point.distanceToOrigin())")  // 5.0
+point.moveBy(deltaX: 2.0, deltaY: 1.0)
+print("移动后坐标：(\(point.x), \(point.y))")  // (5.0, 5.0)
+```
+
+### 练习 2：定义类
+
+创建一个 Person 类，包含：
+
+1. name 和 age 属性
+2. 初始化器
+3. 介绍自己的方法
+4. 庆祝生日的方法
+
+**参考答案**：
+
+```swift
+class Person {
+    var name: String
+    var age: Int
+
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+
+    func introduce() -> String {
+        return "我叫 \(name)，今年 \(age) 岁"
+    }
+
+    func celebrateBirthday() {
+        age += 1
+        print("\(name) 过生日了，现在 \(age) 岁！")
+    }
+}
+
+let person = Person(name: "张三", age: 25)
+print(person.introduce())
+person.celebrateBirthday()
+```
+
+### 练习 3：值类型 vs 引用类型
+
+编写代码演示结构体和类在赋值时的不同行为：
+
+1. 创建结构体实例，赋值给另一个变量，修改新变量，观察原变量
+2. 创建类实例，赋值给另一个变量，修改新变量，观察原变量
+
+**参考答案**：
+
+```swift
+// 结构体（值类型）
+struct Size {
+    var width: Int
+    var height: Int
+}
+
+var size1 = Size(width: 100, height: 200)
+var size2 = size1  // 值拷贝
+size2.width = 300
+print("size1: \(size1.width) x \(size1.height)")  // 100 x 200
+print("size2: \(size2.width) x \(size2.height)")  // 300 x 200
+
+// 类（引用类型）
+class Rectangle {
+    var width: Int
+    var height: Int
+
+    init(width: Int, height: Int) {
+        self.width = width
+        self.height = height
+    }
+}
+
+let rect1 = Rectangle(width: 100, height: 200)
+let rect2 = rect1  // 引用拷贝
+rect2.width = 300
+print("rect1: \(rect1.width) x \(rect1.height)")  // 300 x 200
+print("rect2: \(rect2.width) x \(rect2.height)")  // 300 x 200
+```
+
+### 练习 4：结构体和类的组合使用
+
+创建一个结构体表示矩形（Rectangle），使用 Point 和 Size：
+
+1. 使用 Point 表示位置
+2. 使用 Size 表示大小
+3. 添加计算面积的方法
+4. 添加判断是否包含某个点的方法
+
+**参考答案**：
+
+```swift
+struct Point {
+    var x: Double
+    var y: Double
+}
+
+struct Size {
+    var width: Double
+    var height: Double
+}
+
+struct Rectangle {
+    var origin: Point
+    var size: Size
+
+    // 计算面积
+    func area() -> Double {
+        return size.width * size.height
+    }
+
+    // 判断是否包含某个点
+    func contains(_ point: Point) -> Bool {
+        return point.x >= origin.x &&
+               point.x <= origin.x + size.width &&
+               point.y >= origin.y &&
+               point.y <= origin.y + size.height
+    }
+}
+
+let rect = Rectangle(
+    origin: Point(x: 0, y: 0),
+    size: Size(width: 10, height: 5)
+)
+
+print("面积：\(rect.area())")  // 50.0
+print(rect.contains(Point(x: 5, y: 3)))  // true
+print(rect.contains(Point(x: 15, y: 3)))  // false
+```
+
+### 练习 5：综合练习
+
+设计一个简单的学生管理系统：
+
+1. 使用结构体定义 Student（包含姓名、学号、成绩）
+2. 使用类定义 Classroom（包含学生数组和管理方法）
+3. 实现添加学生、计算平均分等功能
+
+**参考答案**：
+
+```swift
+struct Student {
+    var name: String
+    var studentId: String
+    var score: Double
+}
+
+class Classroom {
+    var students: [Student] = []
+
+    // 添加学生
+    func addStudent(_ student: Student) {
+        students.append(student)
+    }
+
+    // 计算平均分
+    func averageScore() -> Double {
+        guard !students.isEmpty else { return 0 }
+        let total = students.reduce(0.0) { $0 + $1.score }
+        return total / Double(students.count)
+    }
+
+    // 找出最高分学生
+    func topStudent() -> Student? {
+        return students.max { $0.score < $1.score }
+    }
+
+    // 列出所有学生
+    func listStudents() {
+        for student in students {
+            print("\(student.name)（\(student.studentId)）：\(student.score)")
+        }
+    }
+}
+
+let classroom = Classroom()
+classroom.addStudent(Student(name: "张三", studentId: "001", score: 85))
+classroom.addStudent(Student(name: "李四", studentId: "002", score: 92))
+classroom.addStudent(Student(name: "王五", studentId: "003", score: 78))
+
+print("平均分：\(classroom.averageScore())")
+if let top = classroom.topStudent() {
+    print("最高分：\(top.name) - \(top.score)")
+}
+classroom.listStudents()
+```
+
+## 总结
+
+本章介绍了 Swift 中结构体和类的使用：
+
+- **结构体**：值类型，适合简单数据封装
+- **类**：引用类型，支持继承，适合复杂对象
+- **主要区别**：值类型进行值拷贝，引用类型传递引用
+- **选择原则**：简单数据用结构体，需要继承或共享状态用类
+
+结构体和类是面向对象编程的基础，下一章我们将学习 [属性](/blog/swift/10-properties)，深入了解属性系统的各种特性。

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build-content.js && remix vite:build",
-    "dev": "remix vite:dev",
+    "dev": "node scripts/build-content.js && remix vite:dev",
     "deploy": "npm run build && wrangler pages deploy ./build/client",
     "dev:wrangler": "wrangler pages dev ./build/client --compatibility-date=2024-01-01",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",

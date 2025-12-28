@@ -1,13 +1,28 @@
 ---
-type: 'Post'
-date: '2022-03-03'
-title: Swift - 字符、字符串
+type: "Post"
+date: "2022-03-03"
+title: Swift - 字符串和字符
 tags: [swift]
 description: 字符串（String）是一种用于存储和操作文本的类型。字符串由一系列字符（Character）组成，可以包含字母、数字、符号和空格等文本字符。Swift 的字符串类型是可变的（Mutable），可以修改其值。
 cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/qYwzrA.png
 ---
 
-## 字符串的定义：
+## 学习目标
+
+通过本教程，你将学会：
+
+- 掌握字符串和字符的定义与使用
+- 理解字符串拼接和字符串插值
+- 掌握字符串的常用操作方法（查找、替换、截取）
+- 了解字符串的大小写转换
+- 掌握字符串与数字类型的相互转换
+
+## 前置知识
+
+- 完成 [基础知识](/blog/swift/01-basics) 的学习
+- 了解 [基本运算符](/blog/swift/02-basic-operators) 的使用
+
+## 字符串的定义
 
 Swift 中可以使用两种方式来定义字符串：
 
@@ -110,3 +125,235 @@ let str = String(num) // "123"
 let str2 = "3.14"
 let floatNum = Float(str2) // 3.14
 ```
+
+## 字符串索引和子字符串
+
+Swift 中字符串的索引类型是 `String.Index`，不能直接使用整数索引。需要使用 `startIndex`、`endIndex` 和 `index()` 方法来访问字符。
+
+```swift
+let greeting = "Hello, Swift!"
+
+// 获取第一个字符
+let firstChar = greeting[greeting.startIndex]
+print(firstChar) // H
+
+// 获取最后一个字符
+let lastChar = greeting[greeting.index(before: greeting.endIndex)]
+print(lastChar) // !
+
+// 获取子字符串
+let startIndex = greeting.index(greeting.startIndex, offsetBy: 7)
+let endIndex = greeting.index(before: greeting.endIndex)
+let substring = greeting[startIndex..<endIndex]
+print(substring) // Swift
+
+// 使用 prefix 和 suffix
+let prefix = greeting.prefix(5)
+let suffix = greeting.suffix(6)
+print(prefix) // Hello
+print(suffix) // Swift!
+```
+
+## 练习
+
+### 练习 1：字符串定义和拼接
+
+完成以下任务：
+
+1. 定义一个多行字符串，包含你的个人信息（姓名、年龄、城市）
+2. 使用字符串拼接和字符串插值两种方式组合字符串
+
+**参考答案**：
+
+```swift
+// 多行字符串
+let personalInfo = """
+姓名：张三
+年龄：25
+城市：北京
+"""
+
+// 字符串拼接
+let firstName = "张"
+let lastName = "三"
+let fullName = firstName + lastName
+print(fullName)
+
+// 字符串插值
+let name = "张三"
+let age = 25
+let city = "北京"
+let info = "我的名字是 \(name)，今年 \(age) 岁，来自 \(city)"
+print(info)
+```
+
+### 练习 2：字符串查找和判断
+
+编写代码实现以下功能：
+
+1. 检查一个字符串是否包含某个子字符串
+2. 统计字符串中某个字符出现的次数
+3. 判断字符串是否以某个前缀开头或后缀结尾
+
+**参考答案**：
+
+```swift
+let text = "Swift is a powerful programming language"
+
+// 1. 检查是否包含
+if text.contains("Swift") {
+    print("包含 Swift")
+}
+
+// 2. 统计字符出现次数
+let charToFind: Character = "a"
+let count = text.filter { $0 == charToFind }.count
+print("字符 '\(charToFind)' 出现了 \(count) 次")
+
+// 3. 判断前缀和后缀
+if text.hasPrefix("Swift") {
+    print("以 Swift 开头")
+}
+
+if text.hasSuffix("language") {
+    print("以 language 结尾")
+}
+```
+
+### 练习 3：字符串替换和修改
+
+完成以下任务：
+
+1. 将字符串中的某个子字符串替换为另一个字符串
+2. 删除字符串中的空白字符
+3. 将字符串中的所有小写字母转换为大写
+
+**参考答案**：
+
+```swift
+var message = "Hello, World! Welcome to Swift."
+
+// 1. 替换子字符串
+let newMessage = message.replacingOccurrences(of: "World", with: "Swift")
+print(newMessage)
+
+// 2. 删除空白字符
+let textWithSpaces = "  Hello  Swift  "
+let trimmedText = textWithSpaces.trimmingCharacters(in: .whitespaces)
+print(trimmedText)
+
+// 3. 大小写转换
+let original = "Hello Swift"
+let uppercased = original.uppercased()
+let lowercased = original.lowercased()
+print("大写：\(uppercased)")
+print("小写：\(lowercased)")
+```
+
+### 练习 4：字符串分割和组合
+
+编写代码实现以下功能：
+
+1. 将字符串按某个分隔符分割成数组
+2. 将字符串数组组合成一个字符串
+3. 提取字符串中的单词（按空格分割）
+
+**参考答案**：
+
+```swift
+// 1. 字符串分割
+let fruits = "苹果,香蕉,橙子,葡萄"
+let fruitArray = fruits.components(separatedBy: ",")
+for fruit in fruitArray {
+    print(fruit)
+}
+
+// 2. 数组组合
+let words = ["Hello", "Swift", "World"]
+let combined = words.joined(separator: " ")
+print(combined)
+
+// 3. 提取单词
+let sentence = "Swift is a powerful language"
+let wordsArray = sentence.components(separatedBy: " ")
+print("共有 \(wordsArray.count) 个单词：\(wordsArray)")
+```
+
+### 练习 5：字符串和数字转换
+
+完成以下任务：
+
+1. 将整数转换为字符串
+2. 将字符串转换为整数（处理转换失败的情况）
+3. 将浮点数字符串转换为 Double 类型
+
+**参考答案**：
+
+```swift
+// 1. 整数转字符串
+let number = 123
+let numberString = String(number)
+print("数字字符串：\(numberString)")
+
+// 2. 字符串转整数（使用可选绑定）
+let stringNumber = "456"
+if let intValue = Int(stringNumber) {
+    print("转换成功：\(intValue)")
+} else {
+    print("转换失败")
+}
+
+// 使用 nil 合并运算符
+let invalidString = "abc"
+let result = Int(invalidString) ?? 0
+print("转换结果（失败时返回0）：\(result)")
+
+// 3. 字符串转浮点数
+let piString = "3.14159"
+if let piValue = Double(piString) {
+    print("π 的值是 \(piValue)")
+}
+```
+
+### 练习 6：综合练习
+
+编写一个简单的字符串处理程序：
+
+1. 输入一个邮箱地址字符串
+2. 验证邮箱格式（简单验证：包含 @ 和 .）
+3. 提取邮箱的用户名部分（@ 前面的部分）
+4. 提取邮箱的域名部分（@ 后面的部分）
+
+**参考答案**：
+
+```swift
+let email = "user@example.com"
+
+// 验证邮箱格式
+let hasAt = email.contains("@")
+let hasDot = email.contains(".")
+let isValidEmail = hasAt && hasDot
+print("邮箱 \(email) \(isValidEmail ? "格式正确" : "格式错误")")
+
+// 提取用户名和域名
+if let atIndex = email.firstIndex(of: "@") {
+    let username = String(email[..<atIndex])
+    let domainStart = email.index(after: atIndex)
+    let domain = String(email[domainStart...])
+
+    print("用户名：\(username)")
+    print("域名：\(domain)")
+}
+```
+
+## 总结
+
+本章介绍了 Swift 中字符串和字符的使用：
+
+- **字符串定义**：使用双引号或多行字符串
+- **字符类型**：使用 Character 表示单个字符
+- **字符串操作**：拼接、查找、替换、截取、大小写转换
+- **字符串索引**：使用 String.Index 访问字符
+- **类型转换**：字符串与数字类型之间的转换
+
+字符串处理是编程中的常见任务，下一章我们将学习 [集合类型](/blog/swift/04-collection-types)，了解数组、集合和字典的使用。
