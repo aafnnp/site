@@ -36,6 +36,24 @@
     scroll-behavior: smooth;
   }
 
+  /* 暗黑模式文字颜色优化 */
+  [data-theme="dark"] body {
+    color: #ffffff;
+  }
+
+  /* 暗黑模式常用文字颜色增强 */
+  [data-theme="dark"] .text-gray-400 {
+    color: #e5e7eb;
+  }
+
+  [data-theme="dark"] .text-gray-500 {
+    color: #d1d5db;
+  }
+
+  [data-theme="dark"] .text-gray-600 {
+    color: #e5e7eb;
+  }
+
   /* 图片优化 */
   img {
     max-width: 100%;
