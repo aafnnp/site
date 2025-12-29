@@ -7,12 +7,13 @@ import {
   FaTwitter,
   FaBox,
 } from "react-icons/fa6";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLocale } from "~/components/LocaleProvider";
 import { ThemeToggle } from "~/components/ThemeToggle";
-import { FiSearch, FiX, FiMenu } from "react-icons/fi";
+import { FiSearch, FiX, FiMenu, FiChevronDown } from "react-icons/fi";
 import { Header } from "~/components/layout";
+import { getAllColumns } from "~/utils/columns";
 
 /**
  * 导航链接项类型定义
@@ -72,12 +73,39 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [columnsMenuOpen, setColumnsMenuOpen] = useState(false);
+  const columnsMenuRef = useRef<HTMLLIElement>(null);
   const { messages } = useLocale();
+  const columns = getAllColumns();
+
+  // 检查是否在专栏页面
+  const isColumnPage = pathName.startsWith("/column/");
 
   // 关闭移动端菜单当路由变化时
   useEffect(() => {
     setMobileMenuOpen(false);
+    setColumnsMenuOpen(false);
   }, [pathName]);
+
+  // 点击外部关闭专栏下拉菜单
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        columnsMenuRef.current &&
+        !columnsMenuRef.current.contains(event.target as Node)
+      ) {
+        setColumnsMenuOpen(false);
+      }
+    };
+
+    if (columnsMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [columnsMenuOpen]);
 
   // 处理搜索
   const handleSearch = (e: React.FormEvent) => {
@@ -175,6 +203,78 @@ const Navigation = () => {
             <div className="hidden md:flex items-center gap-2">
               <ul className="flex items-center gap-1">
                 {renderNavLinks(LinkItems)}
+                
+                {/* 专栏下拉菜单 */}
+                <li className="relative" ref={columnsMenuRef}>
+                  <button
+                    onClick={() => setColumnsMenuOpen(!columnsMenuOpen)}
+                    className={`group relative flex flex-row items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 ${
+                      isColumnPage
+                        ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    }`}
+                  >
+                    <FaBookOpen className="w-5 h-5" />
+                    <span className="font-medium leading-6">
+                      {messages.menu.Columns || "专栏"}
+                    </span>
+                    <FiChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        columnsMenuOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                    {isColumnPage && !columnsMenuOpen && (
+                      <motion.div
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full"
+                        layoutId="navbar-indicator"
+                        aria-hidden="true"
+                        transition={{
+                          type: "spring",
+                          bounce: 0.25,
+                          stiffness: 130,
+                          damping: 9,
+                          duration: 0.3,
+                        }}
+                      />
+                    )}
+                  </button>
+
+                  {/* 下拉菜单 */}
+                  <AnimatePresence>
+                    {columnsMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden z-50"
+                      >
+                        <div className="py-2">
+                          {columns.map((column) => {
+                            const isActive = pathName === `/column/${column.slug}`;
+                            return (
+                              <Link
+                                key={column.slug}
+                                to={`/column/${column.slug}`}
+                                onClick={() => setColumnsMenuOpen(false)}
+                                className={`block px-4 py-2 text-sm transition-colors ${
+                                  isActive
+                                    ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20"
+                                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                }`}
+                              >
+                                <div className="font-medium">{column.name}</div>
+                                <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">
+                                  {column.description}
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </li>
               </ul>
 
               {/* 搜索按钮 */}
@@ -231,6 +331,37 @@ const Navigation = () => {
           >
             <ul className="container mx-auto px-4 py-4 space-y-1">
               {renderNavLinks(LinkItems, true)}
+              
+              {/* 移动端专栏菜单 */}
+              <li>
+                <div className="px-4 py-2">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
+                    {messages.menu.Columns || "专栏"}
+                  </div>
+                  <div className="space-y-1">
+                    {columns.map((column) => {
+                      const isActive = pathName === `/column/${column.slug}`;
+                      return (
+                        <Link
+                          key={column.slug}
+                          to={`/column/${column.slug}`}
+                          className={`block px-4 py-2 rounded-lg text-sm transition-colors ${
+                            isActive
+                              ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20"
+                              : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                          }`}
+                        >
+                          <div className="font-medium">{column.name}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">
+                            {column.description}
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </li>
+              
               <li>
                 <LanguageSwitcher isMobile />
               </li>
