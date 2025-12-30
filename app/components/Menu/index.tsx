@@ -41,6 +41,12 @@ const LinkItems: LinkItem[] = [
     href: "/blog",
     icon: <FaBookOpen className="w-5 h-5" />,
   },
+];
+
+/**
+ * 联系和社交链接配置
+ */
+const contactLinks: LinkItem[] = [
   {
     name: "Contact",
     href: "/contact",
@@ -74,20 +80,25 @@ const Navigation = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [columnsMenuOpen, setColumnsMenuOpen] = useState(false);
+  const [contactMenuOpen, setContactMenuOpen] = useState(false);
   const columnsMenuRef = useRef<HTMLLIElement>(null);
+  const contactMenuRef = useRef<HTMLLIElement>(null);
   const { messages } = useLocale();
   const columns = getAllColumns();
 
   // 检查是否在专栏页面
   const isColumnPage = pathName.startsWith("/column/");
+  // 检查是否在联系页面
+  const isContactPage = pathName === "/contact";
 
   // 关闭移动端菜单当路由变化时
   useEffect(() => {
     setMobileMenuOpen(false);
     setColumnsMenuOpen(false);
+    setContactMenuOpen(false);
   }, [pathName]);
 
-  // 点击外部关闭专栏下拉菜单
+  // 点击外部关闭下拉菜单
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -96,16 +107,22 @@ const Navigation = () => {
       ) {
         setColumnsMenuOpen(false);
       }
+      if (
+        contactMenuRef.current &&
+        !contactMenuRef.current.contains(event.target as Node)
+      ) {
+        setContactMenuOpen(false);
+      }
     };
 
-    if (columnsMenuOpen) {
+    if (columnsMenuOpen || contactMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [columnsMenuOpen]);
+  }, [columnsMenuOpen, contactMenuOpen]);
 
   // 处理搜索
   const handleSearch = (e: React.FormEvent) => {
@@ -276,6 +293,109 @@ const Navigation = () => {
                     )}
                   </AnimatePresence>
                 </li>
+
+                {/* 联系和社交下拉菜单 */}
+                <li className="relative" ref={contactMenuRef}>
+                  <button
+                    onClick={() => setContactMenuOpen(!contactMenuOpen)}
+                    className={`group relative flex flex-row items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 ${
+                      isContactPage
+                        ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    }`}
+                  >
+                    <FaMailchimp className="w-5 h-5" />
+                    <span className="font-medium leading-6">
+                      {messages.menu.Contact || "联系"}
+                    </span>
+                    <FiChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        contactMenuOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                    {isContactPage && !contactMenuOpen && (
+                      <motion.div
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full"
+                        layoutId="contact-navbar-indicator"
+                        aria-hidden="true"
+                        transition={{
+                          type: "spring",
+                          bounce: 0.25,
+                          stiffness: 130,
+                          damping: 9,
+                          duration: 0.3,
+                        }}
+                      />
+                    )}
+                  </button>
+
+                  {/* 下拉菜单 */}
+                  <AnimatePresence>
+                    {contactMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden z-50"
+                      >
+                        <div className="py-2">
+                          {contactLinks.map((item) => {
+                            const isActive = item.href === pathName;
+                            const linkContent = (
+                              <div className="flex items-center gap-3 px-4 py-2 text-sm transition-colors">
+                                <div className="flex-shrink-0">{item.icon}</div>
+                                <span
+                                  className={`font-medium ${
+                                    isActive
+                                      ? "text-primary-600 dark:text-primary-400"
+                                      : "text-gray-700 dark:text-gray-300"
+                                  }`}
+                                >
+                                  {messages.menu[item.name]}
+                                </span>
+                              </div>
+                            );
+
+                            if (item.external) {
+                              return (
+                                <a
+                                  key={item.name}
+                                  href={item.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={() => setContactMenuOpen(false)}
+                                  className={`block ${
+                                    isActive
+                                      ? "bg-primary-50 dark:bg-primary-900/20"
+                                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                                  }`}
+                                >
+                                  {linkContent}
+                                </a>
+                              );
+                            }
+
+                            return (
+                              <Link
+                                key={item.name}
+                                to={item.href}
+                                onClick={() => setContactMenuOpen(false)}
+                                className={`block ${
+                                  isActive
+                                    ? "bg-primary-50 dark:bg-primary-900/20"
+                                    : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                                }`}
+                              >
+                                {linkContent}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </li>
               </ul>
 
               {/* 搜索按钮 */}
@@ -356,6 +476,55 @@ const Navigation = () => {
                           <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">
                             {column.description}
                           </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </li>
+
+              {/* 移动端联系和社交菜单 */}
+              <li>
+                <div className="px-4 py-2">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
+                    {messages.menu.Contact || "联系"}
+                  </div>
+                  <div className="space-y-1">
+                    {contactLinks.map((item) => {
+                      const isActive = item.href === pathName;
+                      const linkClassName = `flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-colors ${
+                        isActive
+                          ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20"
+                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      }`;
+
+                      if (item.external) {
+                        return (
+                          <a
+                            key={item.name}
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={linkClassName}
+                          >
+                            {item.icon}
+                            <span className="font-medium">
+                              {messages.menu[item.name]}
+                            </span>
+                          </a>
+                        );
+                      }
+
+                      return (
+                        <Link
+                          key={item.name}
+                          to={item.href}
+                          className={linkClassName}
+                        >
+                          {item.icon}
+                          <span className="font-medium">
+                            {messages.menu[item.name]}
+                          </span>
                         </Link>
                       );
                     })}
