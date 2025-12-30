@@ -35,7 +35,7 @@ interface PostData {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  if (!data?.post?.data) {
+  if (!data || !data.post?.data) {
     return generate404Meta();
   }
   return generatePostSeoMeta(data.post);
@@ -45,7 +45,18 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 function getPostBySlug(slug: string): PostData | null {
   const decodedSlug = decodeURIComponent(slug);
   const fullSlugPath = `/blog/${decodedSlug}`;
-  return postsData.find((post) => post.slug === fullSlugPath) || null;
+
+  // 首先尝试直接匹配
+  let post: PostData | null =
+    postsData.find((post) => post.slug === fullSlugPath) || null;
+
+  // 如果找不到，尝试匹配 index 文件（处理目录下的 index.mdx）
+  if (!post) {
+    const indexSlugPath = `${fullSlugPath}/index`;
+    post = postsData.find((post) => post.slug === indexSlugPath) || null;
+  }
+
+  return post;
 }
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -118,7 +129,7 @@ export default function BlogPost() {
 
               {post.data?.tags && post.data.tags.length > 0 && (
                 <div className="flex flex-wrap justify-center gap-2 mb-6">
-                  {post.data.tags.map((tag) => (
+                  {post.data.tags.map((tag: string) => (
                     <Badge key={tag} variant="default">
                       {tag}
                     </Badge>
