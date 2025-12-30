@@ -29,7 +29,7 @@ export interface BadgeProps {
  * 徽章组件样式映射
  */
 const variantStyles: Record<BadgeVariant, string> = {
-  default: "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100",
+  default: "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100",
   primary:
     "bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-100",
   success:

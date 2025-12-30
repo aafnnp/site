@@ -3,7 +3,7 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, Link } from "@remix-run/react";
 import Ad from "../components/ad";
-import { SITE_URL, SITE_NAME, generateSeoMeta } from "../utils/seo";
+import { generateSeoMeta } from "../utils/seo";
 import {
   getPostsSorted,
   filterPostsByTag,
@@ -20,7 +20,7 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 export const meta: MetaFunction = () => {
   const title = "Articles, guides, and cheat sheets";
   const description = "分享技术文章、开发指南和见解";
-  
+
   return generateSeoMeta({
     title,
     description,
@@ -101,7 +101,9 @@ export default function BlogIndex() {
 
             {tag && (
               <div className="mb-6 flex items-center gap-2">
-                <span className="text-sm text-gray-600 dark:text-gray-400">筛选标签：</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  筛选标签：
+                </span>
                 <Badge variant="primary">{tag}</Badge>
                 <Link
                   to="/blog"
@@ -191,8 +193,10 @@ export default function BlogIndex() {
 
         {/* 标签侧边栏 */}
         <Sidebar sticky className="hidden lg:block">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
-            <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">标签</h2>
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6">
+            <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+              标签
+            </h2>
             <div className="flex flex-wrap gap-2">
               {tags.length > 0 ? (
                 tags.map((tagName: string) => (
@@ -206,7 +210,9 @@ export default function BlogIndex() {
                   </Link>
                 ))
               ) : (
-                <p className="text-sm text-gray-500 dark:text-gray-400">暂无标签</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  暂无标签
+                </p>
               )}
             </div>
           </div>

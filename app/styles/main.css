@@ -36,9 +36,14 @@
     scroll-behavior: smooth;
   }
 
-  /* 暗黑模式文字颜色优化 */
+  /* 暗黑模式背景和文字颜色优化 */
   [data-theme="dark"] body {
+    background-color: #030712;
     color: #ffffff;
+  }
+
+  [data-theme="dark"] html {
+    background-color: #030712;
   }
 
   /* 暗黑模式常用文字颜色增强 - 提高对比度和可读性 */

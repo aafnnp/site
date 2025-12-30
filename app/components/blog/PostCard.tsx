@@ -74,7 +74,7 @@ export const PostCard: React.FC<PostCardProps> = ({
   return (
     <Link to={slug} className="block">
       <Card hoverable className="h-full">
-        <div className="w-full h-48 mb-4 overflow-hidden rounded-t-xl bg-gray-100 dark:bg-gray-700">
+        <div className="w-full h-48 mb-4 overflow-hidden rounded-t-xl bg-gray-100 dark:bg-gray-800">
           <img
             src={imageUrl}
             alt={title}

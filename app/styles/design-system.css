@@ -54,9 +54,9 @@
 
   /* ========== 深色模式颜色 ========== */
   [data-theme="dark"] {
-    --color-bg-primary: #111827;
-    --color-bg-secondary: #1f2937;
-    --color-bg-tertiary: #374151;
+    --color-bg-primary: #030712;
+    --color-bg-secondary: #111827;
+    --color-bg-tertiary: #1f2937;
 
     --color-text-primary: #ffffff;
     --color-text-secondary: #e5e7eb;

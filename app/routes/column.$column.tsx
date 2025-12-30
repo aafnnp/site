@@ -146,7 +146,7 @@ export default function ColumnPage() {
 
               {/* 统计信息 */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <FiBook className="w-4 h-4 text-gray-500 dark:text-gray-300" />
                     <span className="text-sm text-gray-600 dark:text-gray-300">
@@ -159,7 +159,7 @@ export default function ColumnPage() {
                 </div>
 
                 {stats.latestDate && (
-                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                  <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <FiCalendar className="w-4 h-4 text-gray-500 dark:text-gray-300" />
                       <span className="text-sm text-gray-600 dark:text-gray-300">
@@ -173,7 +173,7 @@ export default function ColumnPage() {
                 )}
 
                 {stats.tags.length > 0 && (
-                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                  <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <FiTag className="w-4 h-4 text-gray-500 dark:text-gray-300" />
                       <span className="text-sm text-gray-600 dark:text-gray-300">
@@ -209,23 +209,34 @@ export default function ColumnPage() {
             {/* 文章列表 */}
             {data.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {data.map((post, index) => (
-                  <motion.div
-                    key={post.slug}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <PostCard
-                      slug={post.slug}
-                      title={post.data?.title || "无标题"}
-                      date={post.data?.date}
-                      description={post.data?.description || post.excerpt}
-                      tags={post.data?.tags}
-                      cover={post.data?.cover}
-                    />
-                  </motion.div>
-                ))}
+                {data.map((post, index) => {
+                  const postData = post.data as
+                    | {
+                        description?: string;
+                        cover?: string;
+                        title?: string;
+                        date?: string;
+                        tags?: string[];
+                      }
+                    | undefined;
+                  return (
+                    <motion.div
+                      key={post.slug}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <PostCard
+                        slug={post.slug}
+                        title={postData?.title || "无标题"}
+                        date={postData?.date}
+                        description={postData?.description || post.excerpt}
+                        tags={postData?.tags}
+                        cover={postData?.cover}
+                      />
+                    </motion.div>
+                  );
+                })}
               </div>
             ) : (
               <div className="text-center py-16">
@@ -283,7 +294,7 @@ export default function ColumnPage() {
 
         {/* 侧边栏 */}
         <Sidebar sticky className="hidden lg:block">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6">
             <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
               专栏信息
             </h2>

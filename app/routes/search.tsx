@@ -76,7 +76,7 @@ export default function SearchPage() {
               name="q"
               defaultValue={query}
               placeholder="输入关键词搜索..."
-              className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 dark:text-white"
+              className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 dark:text-white"
               autoFocus
             />
           </div>
@@ -85,10 +85,15 @@ export default function SearchPage() {
         {query && (
           <div className="mb-6">
             <p className="text-gray-600 dark:text-gray-400">
-              找到 <span className="font-semibold text-gray-900 dark:text-white">{total}</span> 篇相关文章
+              找到{" "}
+              <span className="font-semibold text-gray-900 dark:text-white">
+                {total}
+              </span>{" "}
+              篇相关文章
               {query && (
                 <>
-                  {" "}关于 "<span className="font-semibold">{query}</span>"
+                  {" "}
+                  关于 "<span className="font-semibold">{query}</span>"
                 </>
               )}
             </p>
@@ -137,4 +142,3 @@ export default function SearchPage() {
     </div>
   );
 }
-

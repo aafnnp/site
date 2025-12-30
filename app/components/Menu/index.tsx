@@ -203,7 +203,7 @@ const Navigation = () => {
             <div className="hidden md:flex items-center gap-2">
               <ul className="flex items-center gap-1">
                 {renderNavLinks(LinkItems)}
-                
+
                 {/* 专栏下拉菜单 */}
                 <li className="relative" ref={columnsMenuRef}>
                   <button
@@ -247,11 +247,12 @@ const Navigation = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden z-50"
+                        className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden z-50"
                       >
                         <div className="py-2">
                           {columns.map((column) => {
-                            const isActive = pathName === `/column/${column.slug}`;
+                            const isActive =
+                              pathName === `/column/${column.slug}`;
                             return (
                               <Link
                                 key={column.slug}
@@ -331,7 +332,7 @@ const Navigation = () => {
           >
             <ul className="container mx-auto px-4 py-4 space-y-1">
               {renderNavLinks(LinkItems, true)}
-              
+
               {/* 移动端专栏菜单 */}
               <li>
                 <div className="px-4 py-2">
@@ -361,7 +362,7 @@ const Navigation = () => {
                   </div>
                 </div>
               </li>
-              
+
               <li>
                 <LanguageSwitcher isMobile />
               </li>
@@ -388,7 +389,7 @@ const Navigation = () => {
               initial={{ opacity: 0, scale: 0.95, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              className="fixed top-20 left-1/2 -translate-x-1/2 w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-xl shadow-2xl z-modal"
+              className="fixed top-20 left-1/2 -translate-x-1/2 w-full max-w-2xl mx-4 bg-white dark:bg-gray-900 rounded-xl shadow-2xl z-modal"
             >
               <form onSubmit={handleSearch} className="p-4">
                 <div className="flex items-center gap-2">
@@ -428,7 +429,7 @@ function LanguageSwitcher({ isMobile = false }: { isMobile?: boolean }) {
   const { locale, setLocaleMessages } = useLocale();
   const className = isMobile
     ? "w-full flex items-center gap-2 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-    : "px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-800 rounded-lg shadow hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors";
+    : "px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-900 rounded-lg shadow hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors";
 
   return (
     <button
