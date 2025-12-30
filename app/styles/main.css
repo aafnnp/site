@@ -41,17 +41,25 @@
     color: #ffffff;
   }
 
-  /* 暗黑模式常用文字颜色增强 */
-  [data-theme="dark"] .text-gray-400 {
-    color: #e5e7eb;
-  }
+  /* 暗黑模式常用文字颜色增强 - 提高对比度和可读性 */
+  @layer utilities {
+    [data-theme="dark"] .text-gray-400,
+    .dark .text-gray-400 {
+      --tw-text-opacity: 1;
+      color: rgb(209 213 219 / var(--tw-text-opacity));
+    }
 
-  [data-theme="dark"] .text-gray-500 {
-    color: #d1d5db;
-  }
+    [data-theme="dark"] .text-gray-500,
+    .dark .text-gray-500 {
+      --tw-text-opacity: 1;
+      color: rgb(209 213 219 / var(--tw-text-opacity));
+    }
 
-  [data-theme="dark"] .text-gray-600 {
-    color: #e5e7eb;
+    [data-theme="dark"] .text-gray-600,
+    .dark .text-gray-600 {
+      --tw-text-opacity: 1;
+      color: rgb(209 213 219 / var(--tw-text-opacity));
+    }
   }
 
   /* 图片优化 */

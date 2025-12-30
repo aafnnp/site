@@ -94,7 +94,7 @@ export const CardDescription: React.FC<{
   children: React.ReactNode;
   className?: string;
 }> = ({ children, className = "" }) => (
-  <p className={`text-sm text-gray-600 dark:text-gray-400 ${className}`}>
+  <p className={`text-sm text-gray-600 dark:text-gray-300 ${className}`}>
     {children}
   </p>
 );

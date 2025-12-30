@@ -88,7 +88,7 @@ export const PostCard: React.FC<PostCardProps> = ({
         </div>
         <CardHeader>
           {date && (
-            <time className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
+            <time className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-300 mb-2">
               {date}
             </time>
           )}

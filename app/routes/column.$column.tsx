@@ -2,19 +2,21 @@ import type { MetaFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, Link } from "@remix-run/react";
 import Ad from "../components/ad";
-import { SITE_URL, SITE_NAME, generateSeoMeta } from "../utils/seo";
-import {
-  getColumnPosts,
-  getColumnStats,
-  paginatePosts,
-} from "../utils/posts";
+import { SITE_NAME, generateSeoMeta } from "../utils/seo";
+import { getColumnPosts, getColumnStats, paginatePosts } from "../utils/posts";
 import { getColumnBySlug, isValidColumnSlug } from "../utils/columns";
 import { PostCard } from "~/components/blog/PostCard";
 import { Badge } from "~/components/ui/Badge";
 import { Button } from "~/components/ui/Button";
 import { Sidebar } from "~/components/layout";
 import { motion } from "motion/react";
-import { FiChevronLeft, FiChevronRight, FiBook, FiCalendar, FiTag } from "react-icons/fi";
+import {
+  FiChevronLeft,
+  FiChevronRight,
+  FiBook,
+  FiCalendar,
+  FiTag,
+} from "react-icons/fi";
 
 /**
  * 生成专栏页面的 SEO meta 标签
@@ -28,7 +30,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
   }
 
   const { column, stats } = data;
-  
+
   return generateSeoMeta({
     title: `${column.name} - 专栏`,
     description: column.description,
@@ -43,7 +45,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
  */
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const columnSlug = params.column;
-  
+
   // 验证专栏 slug 是否有效
   if (!columnSlug || !isValidColumnSlug(columnSlug)) {
     throw new Response("专栏未找到", { status: 404 });
@@ -63,7 +65,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const page = url.searchParams.get("page") || "1";
   const pageSize = url.searchParams.get("pageSize") || "12";
-  
+
   const currentPage = parseInt(page);
   const pageSizeNum = parseInt(pageSize);
   const paginatedPosts = paginatePosts(allPosts, currentPage, pageSizeNum);
@@ -127,7 +129,9 @@ export default function ColumnPage() {
             <div className="mb-8">
               <div className="flex items-center gap-3 mb-4">
                 <div
-                  className={`p-3 rounded-xl bg-gradient-to-r ${column.color || "from-gray-500 to-gray-600"} text-white`}
+                  className={`p-3 rounded-xl bg-gradient-to-r ${
+                    column.color || "from-gray-500 to-gray-600"
+                  } text-white`}
                 >
                   <FiBook className="w-6 h-6" />
                 </div>
@@ -135,8 +139,8 @@ export default function ColumnPage() {
                   {column.name}
                 </h1>
               </div>
-              
-              <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                 {column.description}
               </p>
 
@@ -144,8 +148,10 @@ export default function ColumnPage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                 <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <FiBook className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">文章总数</span>
+                    <FiBook className="w-4 h-4 text-gray-500 dark:text-gray-300" />
+                    <span className="text-sm text-gray-600 dark:text-gray-300">
+                      文章总数
+                    </span>
                   </div>
                   <div className="text-2xl font-bold text-gray-900 dark:text-white">
                     {stats.total}
@@ -155,8 +161,10 @@ export default function ColumnPage() {
                 {stats.latestDate && (
                   <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <FiCalendar className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                      <span className="text-sm text-gray-600 dark:text-gray-400">最新更新</span>
+                      <FiCalendar className="w-4 h-4 text-gray-500 dark:text-gray-300" />
+                      <span className="text-sm text-gray-600 dark:text-gray-300">
+                        最新更新
+                      </span>
                     </div>
                     <div className="text-sm font-medium text-gray-900 dark:text-white">
                       {formatDate(stats.latestDate)}
@@ -167,8 +175,10 @@ export default function ColumnPage() {
                 {stats.tags.length > 0 && (
                   <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <FiTag className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                      <span className="text-sm text-gray-600 dark:text-gray-400">标签数量</span>
+                      <FiTag className="w-4 h-4 text-gray-500 dark:text-gray-300" />
+                      <span className="text-sm text-gray-600 dark:text-gray-300">
+                        标签数量
+                      </span>
                     </div>
                     <div className="text-2xl font-bold text-gray-900 dark:text-white">
                       {stats.tags.length}
@@ -180,7 +190,7 @@ export default function ColumnPage() {
               {/* 热门标签 */}
               {stats.tags.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-3">
                     热门标签
                   </h3>
                   <div className="flex flex-wrap gap-2">
@@ -219,7 +229,7 @@ export default function ColumnPage() {
               </div>
             ) : (
               <div className="text-center py-16">
-                <p className="text-gray-600 dark:text-gray-400 text-lg">
+                <p className="text-gray-600 dark:text-gray-300 text-lg">
                   该专栏暂无文章
                 </p>
               </div>
@@ -246,7 +256,7 @@ export default function ColumnPage() {
                   )}
                 </div>
 
-                <div className="text-sm text-gray-600 dark:text-gray-400">
+                <div className="text-sm text-gray-600 dark:text-gray-300">
                   第 {currentPage} / {totalPages} 页
                   <span className="ml-2">共 {total} 篇文章</span>
                 </div>
@@ -279,17 +289,17 @@ export default function ColumnPage() {
             </h2>
             <div className="space-y-4">
               <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                <div className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                   文章总数
                 </div>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {stats.total}
                 </div>
               </div>
-              
+
               {stats.latestDate && (
                 <div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <div className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                     最新更新
                   </div>
                   <div className="text-sm font-medium text-gray-900 dark:text-white">
@@ -313,4 +323,3 @@ export default function ColumnPage() {
     </div>
   );
 }
-
