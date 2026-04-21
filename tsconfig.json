@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -10,15 +14,38 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
-    "types": ["@remix-run/dev", "@cloudflare/workers-types"],
+    "types": [
+      "@remix-run/dev",
+      "@cloudflare/workers-types"
+    ],
     "paths": {
-      "@/*": ["./*"],
-      "~/*": ["./app/*"]
+      "@/*": [
+        "./*"
+      ],
+      "~/*": [
+        "./app/*"
+      ]
     },
-    "target": "ES2022"
+    "target": "ES2022",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["env.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "./build", "./public/build"]
+  "include": [
+    "env.d.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "./build",
+    "./public/build"
+  ]
 }

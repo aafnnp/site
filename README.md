@@ -31,3 +31,9 @@ Add badges from somewhere like: [shields.io](https://shields.io/)
 - https://manon.icu/
 - https://site-lk00kjo3z-manonicu.vercel.app/
 - https://site-jcqb.pages.dev/
+
+## Deploy
+
+- Build: `npm run build:worker`
+- Deploy: `npm run deploy`
+- Runtime: Cloudflare Workers (OpenNext)

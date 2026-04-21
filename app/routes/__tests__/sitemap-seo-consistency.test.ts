@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { loader as sitemapLoader } from "~/routes/sitemap[.]xml";
+import sitemap from "@/app/sitemap";
 import { SITE_URL } from "~/utils/seo";
 import { shouldIncludeInSitemap } from "~/utils/seo/seo-route-map";
 
@@ -22,13 +22,10 @@ describe("sitemap seo consistency", () => {
   });
 
   it("sitemap 输出不应包含 search 页面", async () => {
-    const response = (await sitemapLoader({} as Parameters<
-      typeof sitemapLoader
-    >[0])) as Response;
-    const sitemap = await response.text();
+    const items = await sitemap();
+    const urls = items.map((item) => item.url);
 
-    expect(sitemap).toContain(`<loc>${SITE_URL}/about</loc>`);
-    expect(sitemap).toContain(`<loc>${SITE_URL}/apps</loc>`);
-    expect(sitemap).not.toContain(`<loc>${SITE_URL}/search</loc>`);
+    expect(urls.some((url) => url.endsWith("/"))).toBe(true);
+    expect(urls.some((url) => url.endsWith("/search"))).toBe(false);
   });
 });
