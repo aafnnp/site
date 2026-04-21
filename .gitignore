@@ -11,6 +11,8 @@ node_modules
 # next.javascript
 /.next/
 /open-next/
+/.open-next/
+/.wrangler/
 /out/
 .idea
 # production

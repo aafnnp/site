@@ -17,7 +17,6 @@
     "jsx": "react-jsx",
     "incremental": true,
     "types": [
-      "@remix-run/dev",
       "@cloudflare/workers-types"
     ],
     "paths": {
@@ -46,6 +45,12 @@
   "exclude": [
     "node_modules",
     "./build",
-    "./public/build"
+    "./public/build",
+    "app/components/**",
+    "app/content/**",
+    "app/data/**",
+    "app/locales/**",
+    "app/routes/**",
+    "app/utils/**"
   ]
 }

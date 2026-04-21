@@ -1,6 +1,4 @@
 /**
- * 布局组件统一导出
+ * 布局组件已迁移至 Next 链路，此目录保留为兼容占位。
  */
-export { Header, type HeaderProps } from "./Header";
-export { Footer, type FooterProps } from "./Footer";
-export { Sidebar, type SidebarProps } from "./Sidebar";
+export {};
