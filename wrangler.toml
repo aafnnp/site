@@ -1,26 +1,7 @@
-# Cloudflare Pages 配置文件
-# 域名: https://manon.icu/
-name = "blog-remix-site"
-compatibility_date = "2024-12-01"
+name = "site-next-worker"
+compatibility_date = "2026-04-21"
 compatibility_flags = ["nodejs_compat"]
+main = ".open-next/worker.js"
 
-# Pages 构建输出目录
-pages_build_output_dir = "build/client"
-
-# 环境变量
 [vars]
-NODE_ENV = "production"
 SITE_URL = "https://manon.icu"
-
-# 绑定配置 (可选，用于 KV、D1 等服务)
-# [[kv_namespaces]]
-# binding = "MY_KV_NAMESPACE"
-# id = "your-kv-namespace-id"
-
-# 预览环境配置
-[env.preview]
-name = "blog-remix-site-preview"
-
-# 生产环境配置  
-[env.production]
-name = "blog-remix-site-prod"
