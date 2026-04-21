@@ -10,7 +10,7 @@ import {
   FiCheckCircle,
 } from "react-icons/fi";
 import Ad from "../components/ad";
-import { SITE_URL, SITE_NAME, TWITTER_HANDLE } from "../utils/seo";
+import { buildContactRouteMeta } from "../utils/seo/route-seo";
 import {
   Card,
   CardHeader,
@@ -20,29 +20,7 @@ import {
 } from "~/components/ui/Card";
 import { Footer } from "~/components/layout";
 
-export const meta: MetaFunction = () => {
-  const title = "联系我";
-  const description = "获取联系信息，发送反馈、建议和问题";
-  const url = `${SITE_URL}/contact`;
-
-  return [
-    { title: `${title} - ${SITE_NAME}` },
-    { name: "description", content: description },
-    // Canonical
-    { tagName: "link", rel: "canonical", href: url },
-    // Open Graph
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: url },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: `${SITE_URL}/og-default.png` },
-    // Twitter Card
-    { name: "twitter:card", content: "summary" },
-    { name: "twitter:site", content: TWITTER_HANDLE },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-  ];
-};
+export const meta: MetaFunction = () => buildContactRouteMeta();
 
 /**
  * 联系方式数据配置

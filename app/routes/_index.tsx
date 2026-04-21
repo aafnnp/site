@@ -11,8 +11,9 @@ import {
   FiBox,
   FiTrendingUp,
 } from "react-icons/fi";
-import { SITE_URL, SITE_NAME, TWITTER_HANDLE } from "../utils/seo";
+import { SITE_NAME } from "../utils/seo";
 import { getPostsSorted } from "../utils/posts";
+import { buildHomeRouteMeta } from "../utils/seo/route-seo";
 import { PostCard } from "~/components/blog/PostCard";
 import {
   Card,
@@ -25,31 +26,7 @@ import { Button } from "~/components/ui/Button";
 import { Badge } from "~/components/ui/Badge";
 import { Footer } from "~/components/layout";
 
-export const meta: MetaFunction = () => {
-  const title = `${SITE_NAME} - 技术博客与开发工具集合`;
-  const description =
-    "分享技术文章、开发指南和实用工具，帮助开发者提升技能和工作效率";
-
-  return [
-    { title },
-    { name: "description", content: description },
-    {
-      name: "keywords",
-      content: "技术博客, 开发工具, 前端开发, 全栈开发, Web开发, 编程教程",
-    },
-    { tagName: "link", rel: "canonical", href: SITE_URL },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: SITE_URL },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: `${SITE_URL}/og-default.png` },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: TWITTER_HANDLE },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { name: "twitter:image", content: `${SITE_URL}/og-default.png` },
-  ];
-};
+export const meta: MetaFunction = () => buildHomeRouteMeta();
 
 export async function loader({ request }: LoaderFunctionArgs) {
   // 获取最新文章

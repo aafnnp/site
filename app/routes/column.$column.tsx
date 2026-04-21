@@ -2,7 +2,7 @@ import type { MetaFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, Link } from "@remix-run/react";
 import Ad from "../components/ad";
-import { SITE_NAME, generateSeoMeta } from "../utils/seo";
+import { buildColumnDetailRouteMeta } from "../utils/seo/route-seo";
 import { getColumnPosts, getColumnStats, paginatePosts } from "../utils/posts";
 import { getColumnBySlug, isValidColumnSlug } from "../utils/columns";
 import { PostCard } from "~/components/blog/PostCard";
@@ -22,22 +22,7 @@ import {
  * 生成专栏页面的 SEO meta 标签
  */
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  if (!data || !data.column) {
-    return [
-      { title: "专栏未找到 - " + SITE_NAME },
-      { name: "description", content: "请求的专栏不存在" },
-    ];
-  }
-
-  const { column, stats } = data;
-
-  return generateSeoMeta({
-    title: `${column.name} - 专栏`,
-    description: column.description,
-    url: `/column/${column.slug}`,
-    type: "website",
-    tags: stats.tags,
-  });
+  return buildColumnDetailRouteMeta(data);
 };
 
 /**

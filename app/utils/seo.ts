@@ -2,10 +2,19 @@
  * SEO utilities for generating meta tags
  */
 
-export const SITE_URL = "https://manon.icu";
-export const SITE_NAME = "Manon.icu";
-export const TWITTER_HANDLE = "@Manonicu";
-export const DEFAULT_AUTHOR = "pfan";
+import {
+  buildSeoMetaSafe,
+  type BuildSeoMetaContext,
+  type SeoMetaDescriptor,
+} from "./seo/seo-builder";
+import {
+  DEFAULT_AUTHOR,
+  SITE_NAME,
+  SITE_URL,
+  TWITTER_HANDLE,
+} from "./seo/seo-config";
+
+export { DEFAULT_AUTHOR, SITE_NAME, SITE_URL, TWITTER_HANDLE };
 
 interface PostData {
   title?: string;
@@ -26,6 +35,80 @@ interface SeoMetaOptions {
   tags?: string[];
   author?: string;
   section?: string;
+}
+
+/**
+ * 将旧 SEO 接口中的 URL 归一化为 pathname。
+ */
+function normalizeLegacySeoPath(url: string): string {
+  if (/^https?:\/\//.test(url)) {
+    return new URL(url).pathname || "/";
+  }
+
+  return url.startsWith("/") ? url : `/${url}`;
+}
+
+/**
+ * 为旧 SEO 接口推导统一 builder 使用的 routeKey。
+ */
+function resolveLegacyRouteKey(
+  pathname: string,
+  type: SeoMetaOptions["type"]
+): string {
+  if (pathname === "/") {
+    return "home";
+  }
+  if (pathname === "/blog") {
+    return "blogList";
+  }
+  if (pathname === "/about") {
+    return "about";
+  }
+  if (pathname === "/contact") {
+    return "contact";
+  }
+  if (pathname === "/search") {
+    return "search";
+  }
+  if (pathname === "/apps") {
+    return "apps";
+  }
+  if (pathname.startsWith("/blog/")) {
+    return "blogDetail";
+  }
+  if (pathname.startsWith("/column/")) {
+    return "columnDetail";
+  }
+
+  return type === "article" ? "blogDetail" : "legacy";
+}
+
+/**
+ * 为旧 SEO 接口补充仍需保留的历史字段。
+ */
+function appendLegacySeoFields(
+  meta: SeoMetaDescriptor[],
+  options: {
+    author: string;
+    tags: string[];
+    section?: string;
+    type: "website" | "article";
+  }
+): SeoMetaDescriptor[] {
+  const nextMeta = [...meta, { name: "author", content: options.author }];
+
+  if (options.tags.length > 0) {
+    nextMeta.push({ name: "keywords", content: options.tags.join(", ") });
+  }
+
+  if (options.type === "article" && options.section) {
+    nextMeta.push({
+      property: "article:section",
+      content: options.section,
+    });
+  }
+
+  return nextMeta;
 }
 
 /**
@@ -70,63 +153,26 @@ export function generateSeoMeta(options: SeoMetaOptions) {
     section,
   } = options;
 
-  const canonicalUrl = `${SITE_URL}${url}`;
-  const ogImage = image || `${SITE_URL}/og-default.png`;
-  
-  // 增强关键词（针对 HarmonyOS 文章）
+  const pathname = normalizeLegacySeoPath(url);
   const enhancedTags = enhanceHarmonyKeywords(tags);
+  const routeKey = resolveLegacyRouteKey(pathname, type);
+  const meta = buildSeoMetaSafe(routeKey, {
+    title,
+    description,
+    pathname,
+    image,
+    author,
+    publishedTime,
+    modifiedTime,
+    tags: enhancedTags,
+  });
 
-  const meta: Array<Record<string, string>> = [
-    { title: `${title} - ${SITE_NAME}` },
-    { name: "description", content: description },
-    { name: "author", content: author },
-    // Canonical URL
-    { tagName: "link", rel: "canonical", href: canonicalUrl },
-    // Open Graph
-    { property: "og:type", content: type },
-    { property: "og:site_name", content: SITE_NAME },
-    { property: "og:url", content: canonicalUrl },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: ogImage },
-    { property: "og:locale", content: "zh_CN" },
-    { property: "og:locale:alternate", content: "en_US" },
-    // Twitter Card
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: TWITTER_HANDLE },
-    { name: "twitter:creator", content: TWITTER_HANDLE },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { name: "twitter:image", content: ogImage },
-  ];
-
-  // Add keywords if tags provided
-  if (enhancedTags && enhancedTags.length > 0) {
-    meta.push({ name: "keywords", content: enhancedTags.join(", ") });
-  }
-
-  // Add article-specific meta
-  if (type === "article") {
-    if (publishedTime) {
-      meta.push({ property: "article:published_time", content: publishedTime });
-    }
-    if (modifiedTime || publishedTime) {
-      meta.push({ property: "article:modified_time", content: modifiedTime || publishedTime });
-    }
-    meta.push({ property: "article:author", content: author });
-    
-    if (section) {
-      meta.push({ property: "article:section", content: section });
-    }
-    
-    if (enhancedTags) {
-      enhancedTags.forEach((tag) => {
-        meta.push({ property: "article:tag", content: tag });
-      });
-    }
-  }
-
-  return meta;
+  return appendLegacySeoFields(meta, {
+    author,
+    tags: enhancedTags,
+    section,
+    type,
+  });
 }
 
 /**
@@ -134,7 +180,7 @@ export function generateSeoMeta(options: SeoMetaOptions) {
  */
 function extractSectionFromSlug(slug?: string): string | undefined {
   if (!slug) return undefined;
-  
+
   // 从 /blog/harmony/journey/01-preparation 提取 "鸿蒙开发"
   if (slug.includes("/harmony/")) {
     return "鸿蒙开发";
@@ -146,7 +192,7 @@ function extractSectionFromSlug(slug?: string): string | undefined {
   if (slug.includes("/css/")) {
     return "CSS";
   }
-  
+
   return undefined;
 }
 
@@ -161,7 +207,7 @@ function generateHarmonyDescription(
   if (description) {
     return description;
   }
-  
+
   // 如果文章是关于 HarmonyOS 的，生成描述
   if (slug?.includes("/harmony/")) {
     if (title) {
@@ -169,7 +215,7 @@ function generateHarmonyDescription(
     }
     return "学习 HarmonyOS 鸿蒙应用开发，掌握 ArkTS 语言和 ArkUI 框架，适合 Web 开发人员快速上手。";
   }
-  
+
   return title || "";
 }
 
@@ -177,26 +223,36 @@ function generateHarmonyDescription(
  * Generate SEO meta tags for a blog post
  */
 export function generatePostSeoMeta(post: { data: PostData; slug?: string }) {
-  const { data, slug } = post;
-  
-  const description = generateHarmonyDescription(
-    data.title,
-    data.description,
-    slug
-  );
-  const section = extractSectionFromSlug(slug);
-
   return generateSeoMeta({
-    title: data.title || "Untitled",
-    description: description,
-    url: slug || "/blog",
+    ...resolvePostSeoMetaContext(post),
+    url: post.slug || "/blog",
     type: "article",
-    image: data.cover,
-    publishedTime: data.date,
-    modifiedTime: data.date, // 如果没有单独的修改时间，使用发布日期
-    tags: data.tags,
-    section: section,
+    publishedTime: post.data.date,
+    modifiedTime: post.data.date, // 如果没有单独的修改时间，使用发布日期
+    tags: post.data.tags,
+    section: extractSectionFromSlug(post.slug),
   });
+}
+
+/**
+ * 解析博客详情页统一 SEO 构建器所需上下文。
+ */
+export function resolvePostSeoMetaContext(post: {
+  data: PostData;
+  slug?: string;
+}): BuildSeoMetaContext {
+  const { data, slug } = post;
+
+  return {
+    title: data.title || "Untitled",
+    description: generateHarmonyDescription(data.title, data.description, slug),
+    pathname: slug || "/blog",
+    image: data.cover,
+    author: DEFAULT_AUTHOR,
+    publishedTime: data.date,
+    modifiedTime: data.date,
+    tags: enhanceHarmonyKeywords(data.tags),
+  };
 }
 
 /**
@@ -205,7 +261,7 @@ export function generatePostSeoMeta(post: { data: PostData; slug?: string }) {
 export function generatePostJsonLd(post: { data: PostData; slug?: string }) {
   const { data, slug } = post;
   const canonicalUrl = `${SITE_URL}${slug || "/blog"}`;
-  
+
   // 增强关键词（针对 HarmonyOS 文章）
   const enhancedTags = enhanceHarmonyKeywords(data.tags);
   const description = generateHarmonyDescription(
