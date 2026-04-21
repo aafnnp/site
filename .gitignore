@@ -39,3 +39,6 @@ pnpm-lock.yml
 .contentlayer
 # clerk configuration (can include secrets)
 /.clerk/
+
+# local git worktrees
+.worktrees/
