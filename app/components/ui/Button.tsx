@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 
 /**
  * 按钮组件的尺寸类型
@@ -20,7 +19,10 @@ export type ButtonVariant =
  * 按钮组件属性接口
  */
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    "onAnimationStart"
+  > {
   /** 按钮尺寸 */
   size?: ButtonSize;
   /** 按钮变体 */
@@ -80,9 +82,7 @@ export const Button: React.FC<ButtonProps> = ({
   const widthStyle = fullWidth ? "w-full" : "";
 
   return (
-    <motion.button
-      whileHover={{ scale: disabled || loading ? 1 : 1.02 }}
-      whileTap={{ scale: disabled || loading ? 1 : 0.98 }}
+    <button
       className={`${baseStyles} ${variantStyle} ${sizeStyle} ${widthStyle} ${className}`}
       disabled={disabled || loading}
       {...props}
@@ -110,6 +110,6 @@ export const Button: React.FC<ButtonProps> = ({
         </svg>
       )}
       {children}
-    </motion.button>
+    </button>
   );
 };

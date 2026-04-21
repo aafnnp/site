@@ -3,13 +3,13 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, Link } from "@remix-run/react";
 import Ad from "../components/ad";
-import { generateSeoMeta } from "../utils/seo";
 import {
   getPostsSorted,
   filterPostsByTag,
   paginatePosts,
   extractTags,
 } from "../utils/posts";
+import { buildBlogListRouteMeta } from "../utils/seo/route-seo";
 import { PostCard } from "~/components/blog/PostCard";
 import { Badge } from "~/components/ui/Badge";
 import { Button } from "~/components/ui/Button";
@@ -17,18 +17,7 @@ import { Sidebar } from "~/components/layout";
 import { motion } from "motion/react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-export const meta: MetaFunction = () => {
-  const title = "Articles, guides, and cheat sheets";
-  const description = "分享技术文章、开发指南和见解";
-
-  return generateSeoMeta({
-    title,
-    description,
-    url: "/blog",
-    type: "website",
-    tags: ["技术文章", "开发指南", "前端开发", "全栈开发", "Web开发"],
-  });
-};
+export const meta: MetaFunction = () => buildBlogListRouteMeta();
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -119,23 +108,35 @@ export default function BlogIndex() {
             {/* 文章列表 */}
             {data.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {data.map((post, index) => (
-                  <motion.div
-                    key={post.slug}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <PostCard
-                      slug={post.slug}
-                      title={post.data?.title || "无标题"}
-                      date={post.data?.date}
-                      description={post.data?.description || post.excerpt}
-                      tags={post.data?.tags}
-                      cover={post.data?.cover}
-                    />
-                  </motion.div>
-                ))}
+                {data.map((post, index) => {
+                  const postData = post.data as
+                    | {
+                        title?: string;
+                        date?: string;
+                        description?: string;
+                        tags?: string[];
+                        cover?: string;
+                      }
+                    | undefined;
+
+                  return (
+                    <motion.div
+                      key={post.slug}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <PostCard
+                        slug={post.slug}
+                        title={postData?.title || "无标题"}
+                        date={postData?.date}
+                        description={postData?.description || post.excerpt}
+                        tags={postData?.tags}
+                        cover={postData?.cover}
+                      />
+                    </motion.div>
+                  );
+                })}
               </div>
             ) : (
               <div className="text-center py-16">

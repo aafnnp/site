@@ -1,7 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import { motion } from "motion/react";
-import { SITE_URL, SITE_NAME } from "../utils/seo";
+import { buildAppsRouteMeta } from "../utils/seo/route-seo";
 import {
   Card,
   CardHeader,
@@ -12,16 +12,7 @@ import {
 import { Badge } from "~/components/ui/Badge";
 import { FiBox, FiZap } from "react-icons/fi";
 
-export const meta: MetaFunction = () => {
-  const title = "应用中心";
-  const description = "探索我们开发的各种实用工具和应用";
-
-  return [
-    { title: `${title} - ${SITE_NAME}` },
-    { name: "description", content: description },
-    { tagName: "link", rel: "canonical", href: `${SITE_URL}/apps` },
-  ];
-};
+export const meta: MetaFunction = () => buildAppsRouteMeta();
 
 /**
  * 应用信息接口

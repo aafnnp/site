@@ -9,6 +9,8 @@
     "dev": "node scripts/build-content.js && remix vite:dev",
     "deploy": "npm run build && wrangler pages deploy ./build/client",
     "dev:wrangler": "wrangler pages dev ./build/client --compatibility-date=2024-01-01",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc"
@@ -54,6 +56,7 @@
     "typescript": "^5.6.3",
     "vite": "^5.4.10",
     "vite-tsconfig-paths": "^5.1.2",
+    "vitest": "^4.1.4",
     "wrangler": "^3.78.12"
   },
   "engines": {

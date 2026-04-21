@@ -3,11 +3,8 @@ import { json } from "@remix-run/node";
 import { useLoaderData, Link } from "@remix-run/react";
 import { parseMarkdown } from "../utils/markdown";
 import postsData from "../data/posts.json";
-import {
-  generatePostSeoMeta,
-  generatePostJsonLd,
-  generate404Meta,
-} from "../utils/seo";
+import { generatePostJsonLd } from "../utils/seo";
+import { buildBlogDetailRouteMeta } from "../utils/seo/route-seo";
 import { ReadingProgress } from "~/components/blog/ReadingProgress";
 import { TableOfContents } from "~/components/blog/TableOfContents";
 import { PostNavigation } from "~/components/blog/PostNavigation";
@@ -35,10 +32,7 @@ interface PostData {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  if (!data || !data.post?.data) {
-    return generate404Meta();
-  }
-  return generatePostSeoMeta(data.post);
+  return buildBlogDetailRouteMeta(data);
 };
 
 // Get post data by slug (splat route)

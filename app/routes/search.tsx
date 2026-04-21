@@ -2,21 +2,12 @@ import type { MetaFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, useSearchParams } from "@remix-run/react";
 import { getPostsSorted } from "../utils/posts";
-import { SITE_URL, SITE_NAME } from "../utils/seo";
+import { buildSearchRouteMeta } from "../utils/seo/route-seo";
 import { PostCard } from "~/components/blog/PostCard";
 import { motion } from "motion/react";
 import { FiSearch } from "react-icons/fi";
 
-export const meta: MetaFunction = () => {
-  const title = "搜索文章";
-  const description = "搜索技术文章和开发指南";
-
-  return [
-    { title: `${title} - ${SITE_NAME}` },
-    { name: "description", content: description },
-    { tagName: "link", rel: "canonical", href: `${SITE_URL}/search` },
-  ];
-};
+export const meta: MetaFunction = () => buildSearchRouteMeta();
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -102,23 +93,35 @@ export default function SearchPage() {
 
         {results.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {results.map((post, index) => (
-              <motion.div
-                key={post.slug}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <PostCard
-                  slug={post.slug}
-                  title={post.data?.title || "无标题"}
-                  date={post.data?.date}
-                  description={post.data?.description || post.excerpt}
-                  tags={post.data?.tags}
-                  cover={post.data?.cover}
-                />
-              </motion.div>
-            ))}
+            {results.map((post, index) => {
+              const postData = post.data as
+                | {
+                    title?: string;
+                    date?: string;
+                    description?: string;
+                    tags?: string[];
+                    cover?: string;
+                  }
+                | undefined;
+
+              return (
+                <motion.div
+                  key={post.slug}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <PostCard
+                    slug={post.slug}
+                    title={postData?.title || "无标题"}
+                    date={postData?.date}
+                    description={postData?.description || post.excerpt}
+                    tags={postData?.tags}
+                    cover={postData?.cover}
+                  />
+                </motion.div>
+              );
+            })}
           </div>
         ) : query ? (
           <div className="text-center py-16">

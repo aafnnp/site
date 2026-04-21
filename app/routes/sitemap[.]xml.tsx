@@ -1,6 +1,10 @@
 import type { LoaderFunction } from "@remix-run/node";
 import postsData from "../data/posts.json";
 import { SITE_URL } from "../utils/seo";
+import {
+  shouldIncludeInSitemap,
+  type SeoRouteKey,
+} from "../utils/seo/seo-route-map";
 
 interface SitemapUrl {
   url: string;
@@ -12,12 +16,54 @@ interface SitemapUrl {
 export const loader: LoaderFunction = async () => {
   const today = new Date().toISOString().split("T")[0];
 
-  const staticPages: SitemapUrl[] = [
-    { url: "/", changefreq: "daily", priority: "1.0", lastmod: today },
-    { url: "/blog", changefreq: "daily", priority: "0.9", lastmod: today },
-    { url: "/about", changefreq: "monthly", priority: "0.7", lastmod: today },
-    { url: "/contact", changefreq: "monthly", priority: "0.5", lastmod: today },
+  const staticPageDefinitions: Array<SitemapUrl & { routeKey: SeoRouteKey }> = [
+    {
+      routeKey: "home",
+      url: "/",
+      changefreq: "daily",
+      priority: "1.0",
+      lastmod: today,
+    },
+    {
+      routeKey: "blogList",
+      url: "/blog",
+      changefreq: "daily",
+      priority: "0.9",
+      lastmod: today,
+    },
+    {
+      routeKey: "search",
+      url: "/search",
+      changefreq: "weekly",
+      priority: "0.4",
+      lastmod: today,
+    },
+    {
+      routeKey: "about",
+      url: "/about",
+      changefreq: "monthly",
+      priority: "0.7",
+      lastmod: today,
+    },
+    {
+      routeKey: "apps",
+      url: "/apps",
+      changefreq: "weekly",
+      priority: "0.7",
+      lastmod: today,
+    },
+    {
+      routeKey: "contact",
+      url: "/contact",
+      changefreq: "monthly",
+      priority: "0.5",
+      lastmod: today,
+    },
   ];
+
+  const staticPages: SitemapUrl[] = staticPageDefinitions
+    .filter((page) => shouldIncludeInSitemap(page.routeKey))
+    .map(({ routeKey: _routeKey, ...page }) => page);
 
   const postUrls: SitemapUrl[] = postsData.map((post) => ({
     url: post.slug,
