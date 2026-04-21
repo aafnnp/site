@@ -5,14 +5,16 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build-content.js && remix vite:build",
-    "dev": "node scripts/build-content.js && remix vite:dev",
-    "deploy": "npm run build && wrangler pages deploy ./build/client",
+    "build": "next build",
+    "build:worker": "opennextjs-cloudflare build",
+    "dev": "next dev",
+    "deploy": "npm run build:worker && wrangler deploy",
+    "deploy:worker": "npm run build:worker && wrangler deploy",
     "dev:wrangler": "wrangler pages dev ./build/client --compatibility-date=2024-01-01",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix-serve ./build/server/index.js",
+    "start": "next start",
     "typecheck": "tsc"
   },
   "dependencies": {
@@ -29,7 +31,9 @@
     "isbot": "^4",
     "marked": "^15.0.12",
     "motion": "^12.19.1",
+    "next": "^16.2.4",
     "next-share": "^0.27.0",
+    "opennextjs-cloudflare": "^1.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0"

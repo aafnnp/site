@@ -14,10 +14,11 @@
     "incremental": true,
     "types": ["@remix-run/dev", "@cloudflare/workers-types"],
     "paths": {
+      "@/*": ["./*"],
       "~/*": ["./app/*"]
     },
     "target": "ES2022"
   },
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["env.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules", "./build", "./public/build"]
 }
