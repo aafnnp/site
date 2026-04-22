@@ -1,4 +1,4 @@
-name = "site-next-worker"
+name = "blog"
 compatibility_date = "2026-04-21"
 compatibility_flags = ["nodejs_compat"]
 main = ".open-next/worker.js"
