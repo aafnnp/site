@@ -1,0 +1,673 @@
+---
+type: "Post"
+date: "2025-08-30 10:00:00"
+title: "路由导航"
+tags: [HarmonyOS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解页面路由的概念
+- 掌握页面跳转和参数传递
+- 学会使用路由守卫和拦截
+- 实现底部导航栏
+- 理解页面栈管理
+
+## 前置知识
+
+- 完成[状态管理](/blog/harmony/tutorial/06-state-management)
+- 了解基本的页面概念
+
+## 核心概念
+
+### 路由系统
+
+HarmonyOS 使用路由系统管理页面导航，类似于 Web 开发中的路由。
+
+**对比 Web 开发**：
+
+- React Router → HarmonyOS Router
+- Vue Router → HarmonyOS Router
+- 页面跳转概念一致
+
+## 详细内容
+
+### 1. 基本页面跳转
+
+#### 页面定义
+
+首先需要在 `pages` 目录下创建页面文件：
+
+```typescript
+// pages/Detail.ets
+@Entry
+@Component
+struct DetailPage {
+  build() {
+    Column() {
+      Text('Detail Page')
+        .fontSize(30)
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+#### 页面跳转
+
+```typescript
+import router from '@ohos.router';
+
+@Entry
+@Component
+struct IndexPage {
+  build() {
+    Column() {
+      Button('Go to Detail')
+        .onClick(() => {
+          router.pushUrl({
+            url: 'pages/Detail'
+          });
+        })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+**对比 Web 开发**：类似 `router.push('/detail')` 或 `navigate('/detail')`
+
+### 2. 参数传递
+
+#### 传递参数
+
+```typescript
+// 跳转时传递参数
+router.pushUrl({
+  url: "pages/Detail",
+  params: {
+    id: 123,
+    name: "HarmonyOS",
+    data: { key: "value" },
+  },
+});
+```
+
+#### 接收参数
+
+```typescript
+import router from '@ohos.router';
+
+@Entry
+@Component
+struct DetailPage {
+  @State id: number = 0;
+  @State name: string = '';
+
+  aboutToAppear() {
+    // 获取路由参数
+    let params = router.getParams() as { id: number, name: string };
+    if (params) {
+      this.id = params.id;
+      this.name = params.name;
+    }
+  }
+
+  build() {
+    Column() {
+      Text(`ID: ${this.id}`)
+        .fontSize(20)
+      Text(`Name: ${this.name}`)
+        .fontSize(20)
+        .margin({ top: 10 })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+### 3. 页面返回
+
+#### 返回上一页
+
+```typescript
+// 返回上一页
+router.back();
+
+// 返回并传递结果
+router.back({
+  url: "pages/Index",
+  result: { success: true, data: "result data" },
+});
+```
+
+#### 接收返回结果
+
+```typescript
+@Entry
+@Component
+struct IndexPage {
+  @State result: string = '';
+
+  build() {
+    Column() {
+      Text(this.result)
+        .fontSize(20)
+
+      Button('Go to Detail')
+        .onClick(() => {
+          router.pushUrl({
+            url: 'pages/Detail'
+          }).then(() => {
+            // 页面返回时接收结果
+            let result = router.getParams() as { success: boolean, data: string };
+            if (result) {
+              this.result = result.data;
+            }
+          });
+        })
+    }
+  }
+}
+```
+
+### 4. 路由模式
+
+#### 标准模式（默认）
+
+```typescript
+router.pushUrl({
+  url: "pages/Detail",
+  mode: router.RouterMode.Standard, // 标准模式，会入栈
+});
+```
+
+#### 单例模式
+
+```typescript
+router.pushUrl({
+  url: "pages/Detail",
+  mode: router.RouterMode.Single, // 单例模式，如果已存在则复用
+});
+```
+
+### 5. 页面栈管理
+
+#### 获取页面栈信息
+
+```typescript
+// 获取当前页面栈长度
+let stackLength = router.getLength();
+
+// 检查是否可以返回
+let canBack = router.canBack();
+```
+
+#### 清空页面栈
+
+```typescript
+// 清空页面栈并跳转
+router.clear();
+router.pushUrl({
+  url: "pages/Login",
+});
+```
+
+#### 替换当前页面
+
+```typescript
+router.replaceUrl({
+  url: "pages/NewPage",
+});
+```
+
+### 6. 底部导航栏
+
+#### 使用 Tabs 组件
+
+```typescript
+@Entry
+@Component
+struct MainPage {
+  @State currentIndex: number = 0;
+
+  build() {
+    Tabs({ barPosition: BarPosition.End }) {
+      // Tab 1
+      TabContent() {
+        HomePage()
+      }
+      .tabBar('Home', $r('app.media.ic_home'))
+
+      // Tab 2
+      TabContent() {
+        DiscoverPage()
+      }
+      .tabBar('Discover', $r('app.media.ic_discover'))
+
+      // Tab 3
+      TabContent() {
+        ProfilePage()
+      }
+      .tabBar('Profile', $r('app.media.ic_profile'))
+    }
+    .onChange((index: number) => {
+      this.currentIndex = index;
+    })
+  }
+}
+
+@Component
+struct HomePage {
+  build() {
+    Column() {
+      Text('Home Page')
+        .fontSize(30)
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+
+@Component
+struct DiscoverPage {
+  build() {
+    Column() {
+      Text('Discover Page')
+        .fontSize(30)
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+
+@Component
+struct ProfilePage {
+  build() {
+    Column() {
+      Text('Profile Page')
+        .fontSize(30)
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+### 7. 路由守卫
+
+#### 页面生命周期钩子
+
+```typescript
+@Entry
+@Component
+struct ProtectedPage {
+  aboutToAppear() {
+    // 页面显示前执行
+    console.log('Page about to appear');
+    // 可以在这里进行权限检查
+  }
+
+  onPageShow() {
+    // 页面显示时执行
+    console.log('Page shown');
+  }
+
+  onPageHide() {
+    // 页面隐藏时执行
+    console.log('Page hidden');
+  }
+
+  aboutToDisappear() {
+    // 页面消失前执行
+    console.log('Page about to disappear');
+  }
+
+  build() {
+    Column() {
+      Text('Protected Page')
+    }
+  }
+}
+```
+
+#### 自定义路由拦截
+
+```typescript
+// 工具类：路由守卫
+class RouteGuard {
+  static isAuthenticated(): boolean {
+    // 检查登录状态
+    return true;  // 实际应从存储中读取
+  }
+
+  static checkPermission(permission: string): boolean {
+    // 检查权限
+    return true;
+  }
+}
+
+// 使用路由守卫
+@Entry
+@Component
+struct IndexPage {
+  navigateToDetail() {
+    if (RouteGuard.isAuthenticated()) {
+      router.pushUrl({
+        url: 'pages/Detail'
+      });
+    } else {
+      // 跳转到登录页
+      router.pushUrl({
+        url: 'pages/Login'
+      });
+    }
+  }
+
+  build() {
+    Column() {
+      Button('Go to Detail')
+        .onClick(() => {
+          this.navigateToDetail();
+        })
+    }
+  }
+}
+```
+
+## 实践练习
+
+### 练习 1：实现页面跳转和返回
+
+**目标**：创建两个页面，实现跳转和返回功能
+
+**要求**：
+
+1. 主页面有跳转按钮
+2. 详情页显示传递的参数
+3. 详情页有返回按钮
+
+**参考代码**：
+
+```typescript
+// pages/Index.ets
+import router from '@ohos.router';
+
+@Entry
+@Component
+struct IndexPage {
+  build() {
+    Column() {
+      Text('Home Page')
+        .fontSize(30)
+        .margin({ bottom: 30 })
+
+      Button('Go to Detail')
+        .onClick(() => {
+          router.pushUrl({
+            url: 'pages/Detail',
+            params: {
+              title: 'Detail Page',
+              id: 123
+            }
+          });
+        })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+
+// pages/Detail.ets
+import router from '@ohos.router';
+
+@Entry
+@Component
+struct DetailPage {
+  @State title: string = '';
+  @State id: number = 0;
+
+  aboutToAppear() {
+    let params = router.getParams() as { title: string, id: number };
+    if (params) {
+      this.title = params.title;
+      this.id = params.id;
+    }
+  }
+
+  build() {
+    Column() {
+      Text(this.title)
+        .fontSize(30)
+        .margin({ bottom: 20 })
+
+      Text(`ID: ${this.id}`)
+        .fontSize(20)
+        .margin({ bottom: 30 })
+
+      Button('Back')
+        .onClick(() => {
+          router.back();
+        })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+### 练习 2：实现底部导航栏
+
+**目标**：创建一个包含三个标签页的应用
+
+**要求**：
+
+1. 使用 Tabs 组件
+2. 每个标签页显示不同内容
+3. 底部显示导航栏
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct MainApp {
+  @State currentTab: number = 0;
+
+  build() {
+    Tabs({ barPosition: BarPosition.End, index: this.currentTab }) {
+      TabContent() {
+        Column() {
+          Text('Home')
+            .fontSize(30)
+        }
+        .width('100%')
+        .height('100%')
+        .justifyContent(FlexAlign.Center)
+      }
+      .tabBar('Home', $r('app.media.ic_home'))
+
+      TabContent() {
+        Column() {
+          Text('Search')
+            .fontSize(30)
+        }
+        .width('100%')
+        .height('100%')
+        .justifyContent(FlexAlign.Center)
+      }
+      .tabBar('Search', $r('app.media.ic_search'))
+
+      TabContent() {
+        Column() {
+          Text('Profile')
+            .fontSize(30)
+        }
+        .width('100%')
+        .height('100%')
+        .justifyContent(FlexAlign.Center)
+      }
+      .tabBar('Profile', $r('app.media.ic_profile'))
+    }
+    .onChange((index: number) => {
+      this.currentTab = index;
+    })
+  }
+}
+```
+
+### 练习 3：实现登录路由守卫
+
+**目标**：实现登录检查，未登录跳转到登录页
+
+**要求**：
+
+1. 创建登录状态管理
+2. 实现路由守卫
+3. 保护需要登录的页面
+
+**参考代码**：
+
+```typescript
+// 登录状态管理
+class AuthService {
+  private static isLoggedIn: boolean = false;
+
+  static login(): void {
+    this.isLoggedIn = true;
+  }
+
+  static logout(): void {
+    this.isLoggedIn = false;
+  }
+
+  static checkAuth(): boolean {
+    return this.isLoggedIn;
+  }
+}
+
+// 主页面
+import router from '@ohos.router';
+
+@Entry
+@Component
+struct IndexPage {
+  aboutToAppear() {
+    // 路由守卫：检查登录状态
+    if (!AuthService.checkAuth()) {
+      router.replaceUrl({
+        url: 'pages/Login'
+      });
+    }
+  }
+
+  build() {
+    Column() {
+      Text('Protected Content')
+        .fontSize(30)
+
+      Button('Logout')
+        .onClick(() => {
+          AuthService.logout();
+          router.replaceUrl({
+            url: 'pages/Login'
+          });
+        })
+    }
+  }
+}
+
+// 登录页面
+@Entry
+@Component
+struct LoginPage {
+  @State username: string = '';
+  @State password: string = '';
+
+  handleLogin() {
+    // 模拟登录
+    if (this.username && this.password) {
+      AuthService.login();
+      router.replaceUrl({
+        url: 'pages/Index'
+      });
+    }
+  }
+
+  build() {
+    Column() {
+      TextInput({ placeholder: 'Username' })
+        .onChange((value: string) => {
+          this.username = value;
+        })
+        .margin({ bottom: 20 })
+
+      TextInput({ placeholder: 'Password' })
+        .type(InputType.Password)
+        .onChange((value: string) => {
+          this.password = value;
+        })
+        .margin({ bottom: 30 })
+
+      Button('Login')
+        .onClick(() => {
+          this.handleLogin();
+        })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+    .padding(20)
+  }
+}
+```
+
+## 常见问题
+
+### Q1: 如何传递复杂对象作为参数？
+
+**A**: 可以传递对象，但需要确保对象是可序列化的。建议传递基本类型或简单对象。
+
+### Q2: 页面返回时如何传递数据？
+
+**A**: 使用 `router.back({ result: data })` 传递数据，在 `pushUrl().then()` 中接收。
+
+### Q3: 如何实现页面间的通信？
+
+**A**: 可以使用路由参数、全局状态管理（@Provide/@Consume）或事件总线。
+
+### Q4: Tabs 和路由有什么区别？
+
+**A**:
+
+- Tabs: 用于同一页面内的标签切换，不会创建新的页面栈
+- 路由: 用于页面间的跳转，会创建新的页面栈
+
+### Q5: 如何实现页面转场动画？
+
+**A**: 可以在路由配置中设置转场动画，或使用自定义转场效果。
+
+## 扩展阅读
+
+- [路由开发指南](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkui-navigation-V3)
+- [页面路由 API](https://developer.harmonyos.com/cn/documentation/doc-references-V3/js-apis-router-V3)
+- [Tabs 组件](https://developer.harmonyos.com/cn/documentation/doc-references-V3/ts-container-tabs-V3)
+
+## 下一步
+
+完成路由导航学习后，建议继续学习：
+
+- [网络请求](/blog/harmony/tutorial/08-network-requests) - 学习如何获取远程数据

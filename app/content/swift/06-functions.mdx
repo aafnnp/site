@@ -1,0 +1,404 @@
+---
+type: "Post"
+date: "2022-03-06"
+title: Swift - 函数
+tags: [swift]
+description: Swift 中的函数可以完成特定的任务，并且可以重复使用。函数使代码的组织和抽象化更加容易，也使代码更易于维护和重构。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/jD8mvZ.png
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 掌握函数的定义和调用
+- 理解函数参数和返回值的各种用法
+- 了解默认参数、可变参数、inout 参数
+- 掌握函数类型和函数作为参数或返回值
+- 能够编写实用的函数解决实际问题
+
+## 前置知识
+
+- 完成 [基础知识](/blog/swift/01-basics) 和 [控制流](/blog/swift/05-control-flow) 的学习
+- 了解基本的编程概念
+
+Swift 中的函数可以完成特定的任务，并且可以重复使用。函数使代码的组织和抽象化更加容易，也使代码更易于维护和重构。
+
+## 函数的基本定义
+
+```swift
+// 定义一个函数
+func greet(person: String) -> String {
+  let greeting = "Hello, " + person + "!"
+  return greeting
+}
+
+// 调用函数
+let result = greet(person: "Tom")
+print(result)
+```
+
+Swift 中的函数有以下特点：
+
+- 可以有多个参数，每个参数都有一个名字和一个类型。
+- 可以有返回值，返回值可以是任何类型，也可以没有返回值。
+- 可以有默认参数，使函数的调用更加方便。
+- 可以使用可变参数，使函数的参数数量变得不确定。
+- 可以使用 inout 参数，使函数可以修改传入参数的值。
+- 可以使用函数类型，使函数作为参数或返回值传递。
+  以下是上述特点的示例：
+
+```swift
+// 默认参数
+func greet(person: String, greeting: String = "Hello") -> String {
+  let result = greeting + ", " + person + "!"
+  return result
+}
+
+let result2 = greet(person: "Tom")
+let result3 = greet(person: "Tom", greeting: "Hi")
+
+// 可变参数
+func sum(numbers: Int...) -> Int {
+  var result = 0
+  for number in numbers {
+    result += number
+  }
+  return result
+}
+
+let result4 = sum(numbers: 1, 2, 3, 4)
+
+// inout 参数
+func swapTwoInts(_ a: inout Int, _ b: inout Int) {
+  let temp = a
+  a = b
+  b = temp
+}
+
+var a = 10
+var b = 20
+swapTwoInts(&a, &b)
+
+// 函数类型
+func add(_ a: Int, _ b: Int) -> Int {
+  return a + b
+}
+
+func subtract(_ a: Int, _ b: Int) -> Int {
+  return a - b
+}
+
+func operate(_ a: Int, _ b: Int, operation: (Int, Int) -> Int) -> Int {
+  return operation(a, b)
+}
+
+let result5 = operate(10, 5, operation: add)
+let result6 = operate(10, 5, operation: subtract)
+```
+
+## 函数类型
+
+函数类型可以像其他类型一样使用，可以作为参数传递或作为返回值：
+
+```swift
+// 函数类型作为参数
+func calculate(_ a: Int, _ b: Int, operation: (Int, Int) -> Int) -> Int {
+  return operation(a, b)
+}
+
+func add(_ a: Int, _ b: Int) -> Int {
+  return a + b
+}
+
+func multiply(_ a: Int, _ b: Int) -> Int {
+  return a * b
+}
+
+let result1 = calculate(10, 5, operation: add)
+let result2 = calculate(10, 5, operation: multiply)
+```
+
+## 嵌套函数
+
+可以在函数内部定义另一个函数：
+
+```swift
+func chooseStepFunction(backward: Bool) -> (Int) -> Int {
+  func stepForward(input: Int) -> Int { return input + 1 }
+  func stepBackward(input: Int) -> Int { return input - 1 }
+
+  return backward ? stepBackward : stepForward
+}
+```
+
+## 练习
+
+### 练习 1：基本函数
+
+编写以下函数：
+
+1. 一个函数计算两个数的和
+2. 一个函数判断一个数是否为偶数
+3. 一个函数返回两个数中的较大值
+
+**参考答案**：
+
+```swift
+// 1. 计算和
+func add(_ a: Int, _ b: Int) -> Int {
+  return a + b
+}
+
+let sum = add(10, 20)
+print("和：\(sum)")
+
+// 2. 判断偶数
+func isEven(_ number: Int) -> Bool {
+  return number % 2 == 0
+}
+
+print(isEven(4))  // true
+print(isEven(5))  // false
+
+// 3. 返回较大值
+func max(_ a: Int, _ b: Int) -> Int {
+  return a > b ? a : b
+}
+
+print(max(10, 20))  // 20
+```
+
+### 练习 2：参数标签
+
+编写函数，使用不同的参数标签：
+
+1. 一个函数计算矩形面积，使用外部参数名 `width` 和 `height`
+2. 一个函数格式化输出姓名，使用外部参数名 `firstName` 和 `lastName`
+3. 使用 `_` 省略外部参数名
+
+**参考答案**：
+
+```swift
+// 1. 矩形面积
+func rectangleArea(width: Int, height: Int) -> Int {
+  return width * height
+}
+
+let area = rectangleArea(width: 10, height: 5)
+print("面积：\(area)")
+
+// 2. 格式化姓名
+func formatName(firstName: String, lastName: String) -> String {
+  return "\(lastName), \(firstName)"
+}
+
+let name = formatName(firstName: "三", lastName: "张")
+print(name)  // 张, 三
+
+// 3. 省略外部参数名
+func greet(_ name: String, message: String = "Hello") -> String {
+  return "\(message), \(name)!"
+}
+
+print(greet("Swift"))  // Hello, Swift!
+print(greet("World", message: "Hi"))  // Hi, World!
+```
+
+### 练习 3：默认参数和可变参数
+
+编写以下函数：
+
+1. 一个计算幂的函数，默认指数为 2
+2. 一个函数计算多个数的平均值（使用可变参数）
+3. 一个函数连接多个字符串（使用可变参数和分隔符）
+
+**参考答案**：
+
+```swift
+// 1. 计算幂
+func power(_ base: Int, exponent: Int = 2) -> Int {
+  var result = 1
+  for _ in 1...exponent {
+    result *= base
+  }
+  return result
+}
+
+print(power(3))       // 9 (3^2)
+print(power(2, exponent: 4))  // 16 (2^4)
+
+// 2. 计算平均值
+func average(_ numbers: Double...) -> Double {
+  guard numbers.count > 0 else { return 0 }
+  var sum: Double = 0
+  for number in numbers {
+    sum += number
+  }
+  return sum / Double(numbers.count)
+}
+
+print(average(1, 2, 3, 4, 5))  // 3.0
+print(average(10, 20, 30))     // 20.0
+
+// 3. 连接字符串
+func joinStrings(_ strings: String..., separator: String = ", ") -> String {
+  return strings.joined(separator: separator)
+}
+
+print(joinStrings("苹果", "香蕉", "橙子"))
+// 输出：苹果, 香蕉, 橙子
+print(joinStrings("Swift", "Python", "Java", separator: " | "))
+// 输出：Swift | Python | Java
+```
+
+### 练习 4：inout 参数
+
+编写函数使用 inout 参数：
+
+1. 一个函数交换两个变量的值
+2. 一个函数将数组中的所有元素翻倍
+3. 一个函数对数字进行递增操作
+
+**参考答案**：
+
+```swift
+// 1. 交换两个值
+func swap(_ a: inout Int, _ b: inout Int) {
+  let temp = a
+  a = b
+  b = temp
+}
+
+var x = 10
+var y = 20
+swap(&x, &y)
+print("x = \(x), y = \(y)")  // x = 20, y = 10
+
+// 2. 数组元素翻倍
+func doubleArray(_ numbers: inout [Int]) {
+  for i in 0..<numbers.count {
+    numbers[i] *= 2
+  }
+}
+
+var numbers = [1, 2, 3, 4, 5]
+doubleArray(&numbers)
+print(numbers)  // [2, 4, 6, 8, 10]
+
+// 3. 递增操作
+func increment(_ number: inout Int, by amount: Int = 1) {
+  number += amount
+}
+
+var value = 5
+increment(&value)
+print(value)  // 6
+increment(&value, by: 3)
+print(value)  // 9
+```
+
+### 练习 5：函数类型和高级用法
+
+编写以下函数：
+
+1. 一个函数接受操作符函数作为参数，执行不同的运算
+2. 一个函数返回另一个函数（实现简单的计数器）
+3. 使用函数类型作为返回值
+
+**参考答案**：
+
+```swift
+// 1. 操作符函数
+func performOperation(_ a: Int, _ b: Int, operation: (Int, Int) -> Int) -> Int {
+  return operation(a, b)
+}
+
+func add(_ a: Int, _ b: Int) -> Int { return a + b }
+func subtract(_ a: Int, _ b: Int) -> Int { return a - b }
+func multiply(_ a: Int, _ b: Int) -> Int { return a * b }
+
+print(performOperation(10, 5, operation: add))        // 15
+print(performOperation(10, 5, operation: subtract))   // 5
+print(performOperation(10, 5, operation: multiply))   // 50
+
+// 2. 返回函数（计数器）
+func makeCounter(start: Int = 0) -> () -> Int {
+  var count = start
+  return {
+    count += 1
+    return count
+  }
+}
+
+let counter1 = makeCounter()
+print(counter1())  // 1
+print(counter1())  // 2
+print(counter1())  // 3
+
+let counter2 = makeCounter(start: 10)
+print(counter2())  // 11
+print(counter2())  // 12
+```
+
+### 练习 6：综合练习
+
+编写一个简单的计算器程序，包含以下功能：
+
+1. 加、减、乘、除运算函数
+2. 一个通用的计算函数，接受操作符和两个数
+3. 一个函数计算多个运算的结果
+
+**参考答案**：
+
+```swift
+// 基本运算函数
+func add(_ a: Double, _ b: Double) -> Double { return a + b }
+func subtract(_ a: Double, _ b: Double) -> Double { return a - b }
+func multiply(_ a: Double, _ b: Double) -> Double { return a * b }
+func divide(_ a: Double, _ b: Double) -> Double? {
+  guard b != 0 else { return nil }
+  return a / b
+}
+
+// 通用计算函数
+func calculate(_ a: Double, _ b: Double, operation: String) -> Double? {
+  switch operation {
+  case "+":
+    return add(a, b)
+  case "-":
+    return subtract(a, b)
+  case "*":
+    return multiply(a, b)
+  case "/":
+    return divide(a, b)
+  default:
+    return nil
+  }
+}
+
+// 使用
+if let result = calculate(10, 5, operation: "+") {
+  print("10 + 5 = \(result)")
+}
+
+if let result = calculate(10, 0, operation: "/") {
+  print("10 / 0 = \(result)")
+} else {
+  print("除数不能为零")
+}
+```
+
+## 总结
+
+本章介绍了 Swift 中函数的各种用法：
+
+- **函数定义**：使用 `func` 关键字定义函数
+- **参数和返回值**：可以有多个参数和返回值
+- **参数标签**：外部参数名和内部参数名
+- **默认参数**：为参数提供默认值
+- **可变参数**：使用 `...` 表示可变数量的参数
+- **inout 参数**：修改外部变量的值
+- **函数类型**：函数可以作为参数和返回值
+
+函数是代码组织和重用的基础，下一章我们将学习 [闭包](/blog/swift/07-closures)，了解 Swift 中强大的闭包特性。

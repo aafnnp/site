@@ -1,0 +1,87 @@
+@import "./design-system.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  padding: 0;
+}
+
+/* 响应式工具类 */
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 触摸优化 */
+  @media (hover: none) and (pointer: coarse) {
+    .hover\:scale-105:hover {
+      transform: scale(1);
+    }
+  }
+
+  /* 平滑滚动 */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* 暗黑模式背景和文字颜色优化 */
+  [data-theme="dark"] body {
+    background-color: #030712;
+    color: #ffffff;
+  }
+
+  [data-theme="dark"] html {
+    background-color: #030712;
+  }
+
+  /* 暗黑模式常用文字颜色增强 - 提高对比度和可读性 */
+  @layer utilities {
+    [data-theme="dark"] .text-gray-400,
+    .dark .text-gray-400 {
+      --tw-text-opacity: 1;
+      color: rgb(209 213 219 / var(--tw-text-opacity));
+    }
+
+    [data-theme="dark"] .text-gray-500,
+    .dark .text-gray-500 {
+      --tw-text-opacity: 1;
+      color: rgb(209 213 219 / var(--tw-text-opacity));
+    }
+
+    [data-theme="dark"] .text-gray-600,
+    .dark .text-gray-600 {
+      --tw-text-opacity: 1;
+      color: rgb(209 213 219 / var(--tw-text-opacity));
+    }
+  }
+
+  /* 图片优化 */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 代码块优化 */
+  .prose pre {
+    overflow-x: auto;
+  }
+
+  /* 移动端优化 */
+  @media (max-width: 640px) {
+    .prose {
+      font-size: 0.9rem;
+    }
+  }
+}

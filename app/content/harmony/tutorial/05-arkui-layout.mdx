@@ -1,0 +1,747 @@
+---
+type: "Post"
+date: "2025-08-28 10:00:00"
+title: "ArkUI 布局系统"
+tags: [HarmonyOS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解 Flex 布局的概念和使用
+- 掌握相对布局和绝对定位
+- 学会响应式布局设计
+- 理解栅格系统的使用
+- 掌握布局性能优化技巧
+
+## 前置知识
+
+- 完成[ArkUI 组件系统](/blog/harmony/tutorial/04-arkui-components)
+- 了解基本的 CSS 布局概念（如果有 Web 开发经验更佳）
+
+## 核心概念
+
+### Flex 布局
+
+ArkUI 的布局系统基于 Flexbox，与 CSS Flexbox 非常相似。理解 Flex 布局是掌握 ArkUI 布局的关键。
+
+**对比 Web 开发**：
+
+- CSS `display: flex` → ArkUI Flex 布局（默认）
+- CSS Flexbox 属性 → ArkUI 布局属性（概念一致）
+
+## 详细内容
+
+### 1. Flex 布局基础
+
+#### Column（垂直布局）
+
+```typescript
+@Entry
+@Component
+struct ColumnLayout {
+  build() {
+    Column() {
+      Text('Item 1')
+      Text('Item 2')
+      Text('Item 3')
+    }
+    .width('100%')
+    .height('100%')
+    // 主轴对齐（垂直方向）
+    .justifyContent(FlexAlign.Start)      // 顶部对齐
+    // .justifyContent(FlexAlign.Center)   // 居中
+    // .justifyContent(FlexAlign.End)      // 底部对齐
+    // .justifyContent(FlexAlign.SpaceBetween)  // 两端对齐
+    // .justifyContent(FlexAlign.SpaceAround)   // 环绕分布
+    // .justifyContent(FlexAlign.SpaceEvenly)   // 均匀分布
+    // 交叉轴对齐（水平方向）
+    .alignItems(HorizontalAlign.Start)     // 左对齐
+    // .alignItems(HorizontalAlign.Center)  // 居中
+    // .alignItems(HorizontalAlign.End)    // 右对齐
+    // 子组件间距
+    .space(10)
+  }
+}
+```
+
+**对比 CSS**：
+
+```css
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+```
+
+#### Row（水平布局）
+
+```typescript
+@Entry
+@Component
+struct RowLayout {
+  build() {
+    Row() {
+      Text('Left')
+      Text('Center')
+      Text('Right')
+    }
+    .width('100%')
+    // 主轴对齐（水平方向）
+    .justifyContent(FlexAlign.SpaceBetween)
+    // 交叉轴对齐（垂直方向）
+    .alignItems(VerticalAlign.Center)
+    .height(60)
+    .padding(10)
+  }
+}
+```
+
+**对比 CSS**：
+
+```css
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+```
+
+### 2. 子组件布局属性
+
+#### layoutWeight（Flex 权重）
+
+```typescript
+@Entry
+@Component
+struct FlexWeightExample {
+  build() {
+    Row() {
+      Text('Fixed Width')
+        .width(100)
+        .backgroundColor(Color.Blue)
+
+      Text('Flex 1')
+        .layoutWeight(1)
+        .backgroundColor(Color.Red)
+
+      Text('Flex 2')
+        .layoutWeight(2)
+        .backgroundColor(Color.Green)
+    }
+    .width('100%')
+    .height(100)
+  }
+}
+```
+
+**对比 CSS**：类似 `flex: 1` 和 `flex: 2`
+
+#### alignSelf（自身对齐）
+
+```typescript
+@Entry
+@Component
+struct AlignSelfExample {
+  build() {
+    Column() {
+      Text('Item 1')
+      Text('Item 2 - Self Aligned')
+        .alignSelf(ItemAlign.End)  // 自身右对齐
+      Text('Item 3')
+    }
+    .width('100%')
+    .alignItems(HorizontalAlign.Start)
+  }
+}
+```
+
+### 3. 相对布局
+
+#### 使用 margin 实现相对定位
+
+```typescript
+@Entry
+@Component
+struct RelativeLayout {
+  build() {
+    Stack() {
+      // 基准元素
+      Column() {
+        Text('Base Element')
+      }
+      .width(200)
+      .height(200)
+      .backgroundColor(Color.Gray)
+
+      // 相对定位的元素
+      Text('Relative Element')
+        .margin({ top: 50, left: 50 })
+        .backgroundColor(Color.Blue)
+        .padding(10)
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+### 4. 绝对定位
+
+#### 使用 Stack + 绝对定位
+
+```typescript
+@Entry
+@Component
+struct AbsoluteLayout {
+  build() {
+    Stack() {
+      // 背景层
+      Column() {
+        Text('Background')
+      }
+      .width('100%')
+      .height('100%')
+
+      // 绝对定位的元素
+      Column() {
+        Text('Absolute Positioned')
+      }
+      .width(150)
+      .height(100)
+      .backgroundColor(Color.Blue)
+      .position({ x: 50, y: 100 })  // 绝对定位
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+**对比 CSS**：类似 `position: absolute; top: 100px; left: 50px;`
+
+### 5. 响应式布局
+
+#### 使用百分比和 vp 单位
+
+```typescript
+@Entry
+@Component
+struct ResponsiveLayout {
+  build() {
+    Column() {
+      // 使用百分比
+      Text('50% Width')
+        .width('50%')
+        .backgroundColor(Color.Blue)
+
+      // 使用 vp（虚拟像素）
+      Text('200vp Width')
+        .width(200)
+        .backgroundColor(Color.Red)
+
+      // 响应式高度
+      Row() {
+        Text('Flex Height')
+          .layoutWeight(1)
+          .backgroundColor(Color.Green)
+      }
+      .layoutWeight(1)
+      .width('100%')
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+#### 使用媒体查询（条件渲染）
+
+```typescript
+@Entry
+@Component
+struct MediaQueryLayout {
+  @State screenWidth: number = 0;
+
+  aboutToAppear() {
+    // 获取屏幕宽度（示例）
+    this.screenWidth = 1080;  // 实际应从系统 API 获取
+  }
+
+  build() {
+    if (this.screenWidth > 600) {
+      // 大屏布局
+      Row() {
+        Text('Sidebar')
+          .width('30%')
+        Text('Main Content')
+          .layoutWeight(1)
+      }
+    } else {
+      // 小屏布局
+      Column() {
+        Text('Header')
+        Text('Main Content')
+          .layoutWeight(1)
+      }
+    }
+  }
+}
+```
+
+### 6. 栅格系统
+
+#### 自定义栅格布局
+
+```typescript
+@Entry
+@Component
+struct GridLayout {
+  build() {
+    Column() {
+      // 3 列栅格
+      Row() {
+        Text('Col 1')
+          .layoutWeight(1)
+          .backgroundColor(Color.Blue)
+        Text('Col 2')
+          .layoutWeight(1)
+          .backgroundColor(Color.Green)
+        Text('Col 3')
+          .layoutWeight(1)
+          .backgroundColor(Color.Red)
+      }
+      .width('100%')
+      .height(100)
+      .space(10)
+
+      // 2 列栅格
+      Row() {
+        Text('Col 1')
+          .layoutWeight(1)
+        Text('Col 2')
+          .layoutWeight(1)
+      }
+      .width('100%')
+      .height(100)
+      .space(10)
+    }
+    .width('100%')
+    .padding(10)
+  }
+}
+```
+
+#### 使用 Grid 组件
+
+```typescript
+@Entry
+@Component
+struct GridComponentExample {
+  @State data: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  build() {
+    Grid() {
+      ForEach(this.data, (item: number) => {
+        GridItem() {
+          Text(`${item}`)
+            .fontSize(30)
+            .fontColor(Color.White)
+        }
+        .backgroundColor(Color.Blue)
+      })
+    }
+    .columnsTemplate('1fr 1fr 1fr')  // 3 列等宽
+    .rowsTemplate('1fr 1fr 1fr')      // 3 行等高
+    .columnsGap(10)
+    .rowsGap(10)
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+### 7. 常见布局模式
+
+#### 居中布局
+
+```typescript
+@Entry
+@Component
+struct CenterLayout {
+  build() {
+    // 方法 1: 使用 justifyContent 和 alignItems
+    Column() {
+      Text('Centered Content')
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+    .alignItems(HorizontalAlign.Center)
+  }
+}
+```
+
+#### 卡片布局
+
+```typescript
+@Entry
+@Component
+struct CardLayout {
+  build() {
+    Column() {
+      Column() {
+        Text('Card Title')
+          .fontSize(20)
+          .fontWeight(FontWeight.Bold)
+          .margin({ bottom: 10 })
+
+        Text('Card content goes here')
+          .fontSize(16)
+      }
+      .width('90%')
+      .padding(20)
+      .backgroundColor(Color.White)
+      .borderRadius(8)
+      .shadow({
+        radius: 10,
+        color: Color.Gray,
+        offsetX: 0,
+        offsetY: 2
+      })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+    .backgroundColor('#F5F5F5')
+  }
+}
+```
+
+#### 列表项布局
+
+```typescript
+@Entry
+@Component
+struct ListItemLayout {
+  @State items: string[] = ['Item 1', 'Item 2', 'Item 3'];
+
+  build() {
+    List() {
+      ForEach(this.items, (item: string) => {
+        ListItem() {
+          Row() {
+            Image($r('app.media.icon'))
+              .width(40)
+              .height(40)
+
+            Column() {
+              Text(item)
+                .fontSize(18)
+              Text('Subtitle')
+                .fontSize(14)
+                .fontColor(Color.Gray)
+            }
+            .layoutWeight(1)
+            .margin({ left: 10 })
+
+            Image($r('app.media.ic_arrow'))
+              .width(20)
+              .height(20)
+          }
+          .width('100%')
+          .padding(15)
+          .justifyContent(FlexAlign.SpaceBetween)
+        }
+      })
+    }
+  }
+}
+```
+
+### 8. 布局性能优化
+
+#### 避免过度嵌套
+
+```typescript
+// ❌ 不好的做法：过度嵌套
+Column() {
+  Column() {
+    Column() {
+      Column() {
+        Text('Content')
+      }
+    }
+  }
+}
+
+// ✅ 好的做法：扁平化结构
+Column() {
+  Text('Content')
+    .margin(10)
+    .padding(10)
+}
+```
+
+#### 使用 layoutWeight 替代固定尺寸
+
+```typescript
+// ✅ 好的做法：使用 Flex 权重
+Row() {
+  Text('Left')
+    .layoutWeight(1)
+  Text('Right')
+    .layoutWeight(1)
+}
+
+// ❌ 避免：固定尺寸可能导致布局问题
+Row() {
+  Text('Left')
+    .width(200)
+  Text('Right')
+    .width(200)
+}
+```
+
+#### 合理使用缓存
+
+```typescript
+@Entry
+@Component
+struct OptimizedLayout {
+  @State data: string[] = [];
+
+  build() {
+    List() {
+      // ForEach 会自动优化渲染
+      ForEach(this.data, (item: string, index: number) => {
+        ListItem() {
+          Text(item)
+        }
+      }, (item: string) => item)  // 提供 key 生成函数
+    }
+  }
+}
+```
+
+## 实践练习
+
+### 练习 1：创建响应式导航栏
+
+**目标**：创建一个自适应宽度的导航栏
+
+**要求**：
+
+1. 左侧显示 Logo
+2. 中间显示标题（居中）
+3. 右侧显示操作按钮
+4. 使用 Flex 布局实现
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct ResponsiveNavBar {
+  build() {
+    Row() {
+      Image($r('app.media.logo'))
+        .width(40)
+        .height(40)
+
+      Text('App Title')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .layoutWeight(1)
+        .textAlign(TextAlign.Center)
+
+      Button('Menu')
+        .type(ButtonType.Normal)
+    }
+    .width('100%')
+    .height(56)
+    .padding({ left: 16, right: 16 })
+    .backgroundColor(Color.White)
+    .justifyContent(FlexAlign.SpaceBetween)
+    .alignItems(VerticalAlign.Center)
+  }
+}
+```
+
+### 练习 2：创建网格布局
+
+**目标**：创建一个 2x2 的网格布局
+
+**要求**：
+
+1. 使用 Grid 组件
+2. 每个网格项显示不同的内容
+3. 网格项之间有间距
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct GridLayoutExample {
+  build() {
+    Grid() {
+      GridItem() {
+        Column() {
+          Text('Item 1')
+            .fontSize(20)
+        }
+        .width('100%')
+        .height('100%')
+        .justifyContent(FlexAlign.Center)
+        .backgroundColor(Color.Blue)
+      }
+
+      GridItem() {
+        Column() {
+          Text('Item 2')
+            .fontSize(20)
+        }
+        .width('100%')
+        .height('100%')
+        .justifyContent(FlexAlign.Center)
+        .backgroundColor(Color.Green)
+      }
+
+      GridItem() {
+        Column() {
+          Text('Item 3')
+            .fontSize(20)
+        }
+        .width('100%')
+        .height('100%')
+        .justifyContent(FlexAlign.Center)
+        .backgroundColor(Color.Red)
+      }
+
+      GridItem() {
+        Column() {
+          Text('Item 4')
+            .fontSize(20)
+        }
+        .width('100%')
+        .height('100%')
+        .justifyContent(FlexAlign.Center)
+        .backgroundColor(Color.Yellow)
+      }
+    }
+    .columnsTemplate('1fr 1fr')
+    .rowsTemplate('1fr 1fr')
+    .columnsGap(10)
+    .rowsGap(10)
+    .width('100%')
+    .height('100%')
+    .padding(10)
+  }
+}
+```
+
+### 练习 3：创建复杂卡片布局
+
+**目标**：创建一个包含头像、标题、描述和操作的卡片
+
+**要求**：
+
+1. 左侧显示圆形头像
+2. 中间显示标题和描述（垂直排列）
+3. 右侧显示操作按钮
+4. 整体使用 Flex 布局
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct ComplexCard {
+  build() {
+    Row() {
+      // 左侧头像
+      Image($r('app.media.avatar'))
+        .width(60)
+        .height(60)
+        .borderRadius(30)
+
+      // 中间内容
+      Column() {
+        Text('Card Title')
+          .fontSize(18)
+          .fontWeight(FontWeight.Bold)
+          .margin({ bottom: 5 })
+
+        Text('This is a description of the card content')
+          .fontSize(14)
+          .fontColor(Color.Gray)
+          .maxLines(2)
+          .textOverflow({ overflow: TextOverflow.Ellipsis })
+      }
+      .layoutWeight(1)
+      .alignItems(HorizontalAlign.Start)
+      .margin({ left: 15 })
+
+      // 右侧操作
+      Button('Action')
+        .type(ButtonType.Normal)
+    }
+    .width('100%')
+    .padding(15)
+    .backgroundColor(Color.White)
+    .borderRadius(8)
+    .shadow({
+      radius: 5,
+      color: Color.Gray,
+      offsetX: 0,
+      offsetY: 2
+    })
+  }
+}
+```
+
+## 常见问题
+
+### Q1: 如何实现水平居中？
+
+**A**: 使用 `alignItems(HorizontalAlign.Center)` 或 `textAlign(TextAlign.Center)`
+
+### Q2: 如何实现垂直居中？
+
+**A**: 使用 `justifyContent(FlexAlign.Center)`
+
+### Q3: layoutWeight 和固定宽度有什么区别？
+
+**A**:
+
+- `layoutWeight`: 按比例分配剩余空间，响应式
+- 固定宽度: 固定尺寸，不响应式
+
+### Q4: 如何实现等间距布局？
+
+**A**: 使用 `justifyContent(FlexAlign.SpaceEvenly)` 或 `justifyContent(FlexAlign.SpaceAround)`
+
+### Q5: Stack 和 Column/Row 的区别？
+
+**A**:
+
+- `Stack`: 层叠布局，子组件可以重叠
+- `Column/Row`: Flex 布局，子组件按顺序排列
+
+## 扩展阅读
+
+- [ArkUI 布局参考](https://developer.harmonyos.com/cn/documentation/doc-references-V3/ts-container-column-V3)
+- [Flex 布局指南](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkui-layout-development-V3)
+- [响应式布局](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkui-layout-development-responsive-V3)
+
+## 下一步
+
+完成布局系统学习后，建议继续学习：
+
+- [状态管理](/blog/harmony/tutorial/06-state-management) - 学习组件间数据传递

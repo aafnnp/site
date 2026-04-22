@@ -1,0 +1,35 @@
+---
+type: "Post"
+date: "2025-07-19 10:00:00"
+title: "应用并发设计"
+tags: [HarmonyOS]
+description: "学习 HarmonyOS 应用的并发设计模式。"
+---
+
+## 学习目标
+
+通过本课程，你将学会：
+
+- 理解并发编程概念
+- 使用异步编程
+- 实现任务调度
+- 保证并发安全
+
+## 详细内容
+
+### 异步编程
+
+```typescript
+async function fetchData() {
+  try {
+    const response = await http.get("/api/data");
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+```
+
+## 下一步
+
+- [架构设计练习](/blog/harmony/journey/03-architecture/exercises/01-architecture-design)

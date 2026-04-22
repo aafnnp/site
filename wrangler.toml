@@ -1,0 +1,7 @@
+name = "blog"
+compatibility_date = "2026-04-21"
+compatibility_flags = ["nodejs_compat"]
+main = ".open-next/worker.js"
+
+[vars]
+SITE_URL = "https://manon.icu"

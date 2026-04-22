@@ -1,0 +1,633 @@
+---
+type: "Post"
+date: "2025-09-04 10:00:00"
+title: "项目实战"
+tags: [HarmonyOS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 如何规划一个完整的 HarmonyOS 应用项目
+- 项目结构设计和代码组织
+- 实现核心功能模块
+- 性能优化和用户体验优化
+- 应用打包和发布流程
+
+## 前置知识
+
+- 完成前面所有教程的学习
+- 对 HarmonyOS 开发有基本了解
+
+## 项目选择
+
+### 推荐项目类型
+
+1. **待办清单应用（Todo App）**
+   - 功能简单，适合初学者
+   - 涵盖 CRUD 操作、数据存储、状态管理
+
+2. **新闻阅读器**
+   - 涵盖网络请求、列表展示、详情页
+   - 可以学习分页加载、下拉刷新
+
+3. **天气应用**
+   - 学习 API 调用、数据展示
+   - 可以添加定位功能
+
+4. **记账应用**
+   - 涵盖数据存储、图表展示
+   - 可以学习数据统计和分析
+
+## 项目规划
+
+### 1. 需求分析
+
+#### 功能需求
+
+以**待办清单应用**为例：
+
+**核心功能**：
+- 添加待办事项
+- 编辑待办事项
+- 删除待办事项
+- 标记完成/未完成
+- 按状态筛选（全部/已完成/未完成）
+
+**扩展功能**：
+- 分类管理
+- 优先级设置
+- 提醒功能
+- 数据统计
+
+#### 技术需求
+
+- **数据存储**：使用 Preferences 或数据库
+- **UI 设计**：简洁美观的界面
+- **状态管理**：使用 @State、@Prop、@Link
+- **路由导航**：页面间跳转
+
+### 2. 项目结构设计
+
+```
+TodoApp/
+├── entry/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── ets/
+│   │   │   │   ├── pages/           # 页面
+│   │   │   │   │   ├── Index.ets
+│   │   │   │   │   ├── AddTodo.ets
+│   │   │   │   │   └── TodoDetail.ets
+│   │   │   │   ├── components/      # 组件
+│   │   │   │   │   ├── TodoItem.ets
+│   │   │   │   │   └── FilterBar.ets
+│   │   │   │   ├── models/          # 数据模型
+│   │   │   │   │   └── Todo.ts
+│   │   │   │   ├── services/        # 业务逻辑
+│   │   │   │   │   └── TodoService.ts
+│   │   │   │   ├── utils/           # 工具类
+│   │   │   │   │   ├── Storage.ts
+│   │   │   │   │   └── DateUtils.ts
+│   │   │   │   └── App.ets          # 应用入口
+│   │   │   └── resources/           # 资源文件
+```
+
+### 3. 数据模型设计
+
+```typescript
+// models/Todo.ts
+export interface Todo {
+  id: string;
+  title: string;
+  description?: string;
+  completed: boolean;
+  priority: 'low' | 'medium' | 'high';
+  category?: string;
+  createdAt: number;
+  updatedAt: number;
+  dueDate?: number;
+}
+
+export enum FilterType {
+  All = 'all',
+  Active = 'active',
+  Completed = 'completed'
+}
+```
+
+### 4. UI/UX 设计
+
+#### 主页面设计
+
+- 顶部：标题和添加按钮
+- 中间：筛选栏（全部/进行中/已完成）
+- 底部：待办列表
+- 每个列表项：复选框、标题、描述、操作按钮
+
+#### 颜色方案
+
+- 主色：蓝色系
+- 完成状态：绿色
+- 高优先级：红色
+- 背景：浅灰色
+
+## 核心功能实现
+
+### 1. 数据服务层
+
+```typescript
+// services/TodoService.ts
+import { Todo } from '../models/Todo';
+import { StorageManager } from '../utils/Storage';
+
+export class TodoService {
+  private static STORAGE_KEY = 'todos';
+  private static storage: StorageManager;
+  
+  static init(context: Context) {
+    this.storage = new StorageManager(context);
+  }
+  
+  static async getAllTodos(): Promise<Todo[]> {
+    return await this.storage.getObject<Todo[]>(this.STORAGE_KEY, []);
+  }
+  
+  static async addTodo(todo: Todo): Promise<void> {
+    let todos = await this.getAllTodos();
+    todos.push(todo);
+    await this.storage.setObject(this.STORAGE_KEY, todos);
+  }
+  
+  static async updateTodo(id: string, updates: Partial<Todo>): Promise<void> {
+    let todos = await this.getAllTodos();
+    let index = todos.findIndex(t => t.id === id);
+    if (index >= 0) {
+      todos[index] = { ...todos[index], ...updates, updatedAt: Date.now() };
+      await this.storage.setObject(this.STORAGE_KEY, todos);
+    }
+  }
+  
+  static async deleteTodo(id: string): Promise<void> {
+    let todos = await this.getAllTodos();
+    todos = todos.filter(t => t.id !== id);
+    await this.storage.setObject(this.STORAGE_KEY, todos);
+  }
+  
+  static async toggleTodo(id: string): Promise<void> {
+    let todos = await this.getAllTodos();
+    let todo = todos.find(t => t.id === id);
+    if (todo) {
+      await this.updateTodo(id, { completed: !todo.completed });
+    }
+  }
+}
+```
+
+### 2. 主页面实现
+
+```typescript
+// pages/Index.ets
+import { TodoService } from '../services/TodoService';
+import { Todo, FilterType } from '../models/Todo';
+import { TodoItem } from '../components/TodoItem';
+
+@Entry
+@Component
+struct TodoListPage {
+  @State todos: Todo[] = [];
+  @State filter: FilterType = FilterType.All;
+  @State loading: boolean = true;
+  
+  async aboutToAppear() {
+    TodoService.init(getContext(this));
+    await this.loadTodos();
+  }
+  
+  async loadTodos() {
+    this.loading = true;
+    this.todos = await TodoService.getAllTodos();
+    this.loading = false;
+  }
+  
+  get filteredTodos(): Todo[] {
+    switch (this.filter) {
+      case FilterType.Active:
+        return this.todos.filter(t => !t.completed);
+      case FilterType.Completed:
+        return this.todos.filter(t => t.completed);
+      default:
+        return this.todos;
+    }
+  }
+  
+  async handleToggle(id: string) {
+    await TodoService.toggleTodo(id);
+    await this.loadTodos();
+  }
+  
+  async handleDelete(id: string) {
+    await TodoService.deleteTodo(id);
+    await this.loadTodos();
+  }
+  
+  build() {
+    Column() {
+      // 标题栏
+      Row() {
+        Text('待办清单')
+          .fontSize(24)
+          .fontWeight(FontWeight.Bold)
+          .layoutWeight(1)
+        
+        Button('+')
+          .type(ButtonType.Circle)
+          .onClick(() => {
+            router.pushUrl({ url: 'pages/AddTodo' });
+          })
+      }
+      .width('100%')
+      .padding(15)
+      .backgroundColor(Color.White)
+      
+      // 筛选栏
+      FilterBar({ 
+        filter: this.filter,
+        onFilterChange: (filter: FilterType) => {
+          this.filter = filter;
+        }
+      })
+      
+      // 待办列表
+      if (this.loading) {
+        Text('加载中...')
+          .fontSize(16)
+          .fontColor(Color.Gray)
+          .margin({ top: 50 })
+      } else if (this.filteredTodos.length === 0) {
+        Text('暂无待办事项')
+          .fontSize(16)
+          .fontColor(Color.Gray)
+          .margin({ top: 50 })
+      } else {
+        List() {
+          ForEach(this.filteredTodos, (todo: Todo) => {
+            ListItem() {
+              TodoItem({
+                todo: todo,
+                onToggle: () => this.handleToggle(todo.id),
+                onDelete: () => this.handleDelete(todo.id)
+              })
+            }
+          })
+        }
+        .layoutWeight(1)
+      }
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#F5F5F5')
+  }
+}
+```
+
+### 3. 组件实现
+
+```typescript
+// components/TodoItem.ets
+import { Todo } from '../models/Todo';
+
+@Component
+export struct TodoItem {
+  todo: Todo;
+  onToggle?: () => void;
+  onDelete?: () => void;
+  
+  build() {
+    Row() {
+      // 复选框
+      Checkbox()
+        .select(this.todo.completed)
+        .onChange((checked: boolean) => {
+          if (this.onToggle) {
+            this.onToggle();
+          }
+        })
+      
+      // 内容
+      Column() {
+        Text(this.todo.title)
+          .fontSize(18)
+          .fontWeight(FontWeight.Medium)
+          .decoration({
+            type: this.todo.completed ? TextDecorationType.LineThrough : TextDecorationType.None
+          })
+        
+        if (this.todo.description) {
+          Text(this.todo.description)
+            .fontSize(14)
+            .fontColor(Color.Gray)
+            .margin({ top: 5 })
+        }
+      }
+      .layoutWeight(1)
+      .alignItems(HorizontalAlign.Start)
+      .margin({ left: 10 })
+      
+      // 删除按钮
+      Button('删除')
+        .type(ButtonType.Normal)
+        .onClick(() => {
+          if (this.onDelete) {
+            this.onDelete();
+          }
+        })
+    }
+    .width('100%')
+    .padding(15)
+    .backgroundColor(Color.White)
+    .borderRadius(8)
+    .margin({ bottom: 10 })
+  }
+}
+```
+
+### 4. 添加页面实现
+
+```typescript
+// pages/AddTodo.ets
+import { TodoService } from '../services/TodoService';
+import { Todo } from '../models/Todo';
+
+@Entry
+@Component
+struct AddTodoPage {
+  @State title: string = '';
+  @State description: string = '';
+  @State priority: 'low' | 'medium' | 'high' = 'medium';
+  
+  async saveTodo() {
+    if (!this.title.trim()) {
+      prompt.showToast({ message: '请输入标题' });
+      return;
+    }
+    
+    let todo: Todo = {
+      id: Date.now().toString(),
+      title: this.title.trim(),
+      description: this.description.trim(),
+      completed: false,
+      priority: this.priority,
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    };
+    
+    await TodoService.addTodo(todo);
+    router.back();
+  }
+  
+  build() {
+    Column() {
+      Text('添加待办')
+        .fontSize(24)
+        .fontWeight(FontWeight.Bold)
+        .margin({ bottom: 20 })
+      
+      TextInput({ placeholder: '标题（必填）' })
+        .onChange((value: string) => {
+          this.title = value;
+        })
+        .margin({ bottom: 15 })
+      
+      TextArea({ placeholder: '描述（可选）' })
+        .height(100)
+        .onChange((value: string) => {
+          this.description = value;
+        })
+        .margin({ bottom: 15 })
+      
+      // 优先级选择
+      Row() {
+        Text('优先级：')
+        Radio({ value: 'low', group: 'priority' })
+          .checked(this.priority === 'low')
+          .onChange((checked: boolean) => {
+            if (checked) this.priority = 'low';
+          })
+        Text('低')
+        
+        Radio({ value: 'medium', group: 'priority' })
+          .checked(this.priority === 'medium')
+          .onChange((checked: boolean) => {
+            if (checked) this.priority = 'medium';
+          })
+        Text('中')
+        
+        Radio({ value: 'high', group: 'priority' })
+          .checked(this.priority === 'high')
+          .onChange((checked: boolean) => {
+            if (checked) this.priority = 'high';
+          })
+        Text('高')
+      }
+      .margin({ bottom: 30 })
+      
+      Button('保存')
+        .width('100%')
+        .type(ButtonType.Capsule)
+        .onClick(() => {
+          this.saveTodo();
+        })
+    }
+    .width('100%')
+    .padding(20)
+  }
+}
+```
+
+## 性能优化
+
+### 1. 列表优化
+
+```typescript
+// 使用 key 优化列表渲染
+ForEach(this.todos, (todo: Todo) => {
+  ListItem() {
+    TodoItem({ todo: todo })
+  }
+}, (todo: Todo) => todo.id)  // 提供唯一 key
+```
+
+### 2. 避免不必要的重渲染
+
+```typescript
+// 使用计算属性而不是在 build 中计算
+get filteredTodos(): Todo[] {
+  // 计算逻辑
+}
+```
+
+### 3. 图片优化
+
+```typescript
+Image($r('app.media.icon'))
+  .width(50)
+  .height(50)
+  .objectFit(ImageFit.Contain)  // 合适的填充模式
+```
+
+## 用户体验优化
+
+### 1. 加载状态
+
+```typescript
+if (this.loading) {
+  LoadingProgress()
+} else {
+  // 内容
+}
+```
+
+### 2. 错误处理
+
+```typescript
+try {
+  await this.loadTodos();
+} catch (error) {
+  prompt.showToast({ message: '加载失败，请重试' });
+}
+```
+
+### 3. 空状态提示
+
+```typescript
+if (this.todos.length === 0) {
+  Column() {
+    Image($r('app.media.empty'))
+    Text('暂无待办事项')
+  }
+}
+```
+
+## 应用打包和发布
+
+### 1. 配置应用信息
+
+在 `AppScope/app.json5` 中配置：
+
+```json
+{
+  "app": {
+    "bundleName": "com.example.todoapp",
+    "vendor": "example",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    }
+  }
+}
+```
+
+### 2. 生成签名
+
+1. 打开 DevEco Studio
+2. 选择 "Build" → "Generate Key"
+3. 填写签名信息
+4. 保存签名文件
+
+### 3. 构建应用
+
+1. 选择 "Build" → "Build Hap(s)/App(s)" → "Build Hap(s)"
+2. 等待构建完成
+3. 在 `build/default/outputs/default` 目录找到 HAP 文件
+
+### 4. 发布到应用市场
+
+1. 准备应用图标、截图、描述
+2. 登录华为开发者联盟
+3. 创建应用并上传 HAP 文件
+4. 填写应用信息并提交审核
+
+## 项目检查清单
+
+### 功能检查
+
+- [ ] 所有核心功能已实现
+- [ ] 数据存储正常工作
+- [ ] 页面跳转正常
+- [ ] 状态管理正确
+
+### 性能检查
+
+- [ ] 列表滚动流畅
+- [ ] 无内存泄漏
+- [ ] 启动速度快
+- [ ] 资源占用合理
+
+### 用户体验检查
+
+- [ ] UI 美观统一
+- [ ] 交互流畅
+- [ ] 错误提示友好
+- [ ] 空状态处理完善
+
+### 代码质量
+
+- [ ] 代码结构清晰
+- [ ] 注释完整
+- [ ] 无明显的 bug
+- [ ] 遵循最佳实践
+
+## 扩展功能建议
+
+1. **数据同步**：添加云同步功能
+2. **主题切换**：支持深色模式
+3. **数据统计**：显示完成率、趋势图
+4. **提醒功能**：定时提醒待办事项
+5. **分享功能**：分享待办清单
+
+## 常见问题
+
+### Q1: 如何调试应用？
+
+**A**: 使用 DevEco Studio 的调试功能，设置断点，查看日志输出。
+
+### Q2: 如何处理不同屏幕尺寸？
+
+**A**: 使用响应式布局，使用百分比和 vp 单位，避免固定尺寸。
+
+### Q3: 如何优化应用体积？
+
+**A**: 
+- 压缩图片资源
+- 移除未使用的资源
+- 使用代码混淆
+
+### Q4: 如何处理版本升级？
+
+**A**: 在数据迁移时保持兼容性，使用版本号管理数据结构。
+
+### Q5: 如何收集用户反馈？
+
+**A**: 集成反馈 SDK，或添加应用内反馈入口。
+
+## 扩展阅读
+
+- [应用发布指南](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/publish-overview-V3)
+- [性能优化指南](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/performance-optimization-V3)
+- [最佳实践](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/best-practices-V3)
+
+## 总结
+
+通过完成这个项目，你已经掌握了：
+
+1. ✅ HarmonyOS 应用开发的完整流程
+2. ✅ ArkTS 语言和 ArkUI 框架的使用
+3. ✅ 数据存储和状态管理
+4. ✅ 网络请求和数据处理
+5. ✅ UI 设计和用户体验优化
+6. ✅ 应用打包和发布
+
+恭喜你完成了鸿蒙开发的学习之旅！继续实践和探索，不断提升你的开发技能。
+

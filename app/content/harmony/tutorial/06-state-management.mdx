@@ -1,0 +1,718 @@
+---
+type: "Post"
+date: "2025-08-29 10:00:00"
+title: "状态管理"
+tags: [HarmonyOS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解状态管理的概念和重要性
+- 掌握 @State 装饰器的使用
+- 掌握 @Prop 和 @Link 装饰器的使用
+- 学会使用 @Provide 和 @Consume 实现跨组件通信
+- 理解状态提升和数据流设计
+- 了解全局状态管理方案
+
+## 前置知识
+
+- 完成[ArkUI 布局系统](/blog/harmony/tutorial/05-arkui-layout)
+- 了解组件通信的基本概念（如果有 React/Vue 经验更佳）
+
+## 核心概念
+
+### 状态管理概述
+
+状态管理是 UI 开发的核心概念。在 ArkUI 中，状态的变化会自动触发 UI 更新，实现响应式界面。
+
+**对比 Web 开发**：
+
+- React `useState` → ArkUI `@State`
+- React `props` → ArkUI `@Prop`
+- React `Context` → ArkUI `@Provide/@Consume`
+- Vue `data` → ArkUI `@State`
+- Vue `props` → ArkUI `@Prop`
+
+## 详细内容
+
+### 1. @State 装饰器
+
+`@State` 用于管理组件内部状态，状态变化会自动更新 UI。
+
+#### 基本使用
+
+```typescript
+@Entry
+@Component
+struct CounterPage {
+  @State count: number = 0;  // 组件内部状态
+
+  build() {
+    Column() {
+      Text(`Count: ${this.count}`)
+        .fontSize(30)
+
+      Button('Increment')
+        .onClick(() => {
+          this.count++;  // 修改状态，UI 自动更新
+        })
+
+      Button('Decrement')
+        .onClick(() => {
+          this.count--;
+        })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+#### 对象和数组状态
+
+```typescript
+@Entry
+@Component
+struct ObjectStatePage {
+  @State user: { name: string, age: number } = { name: 'Tom', age: 20 };
+  @State items: string[] = ['Item 1', 'Item 2'];
+
+  build() {
+    Column() {
+      Text(`Name: ${this.user.name}, Age: ${this.user.age}`)
+
+      Button('Update User')
+        .onClick(() => {
+          // 需要创建新对象来触发更新
+          this.user = { name: 'Jerry', age: 25 };
+        })
+
+      ForEach(this.items, (item: string) => {
+        Text(item)
+      })
+
+      Button('Add Item')
+        .onClick(() => {
+          // 需要创建新数组来触发更新
+          this.items = [...this.items, `Item ${this.items.length + 1}`];
+        })
+    }
+  }
+}
+```
+
+**重要提示**：修改对象或数组时，需要创建新对象/数组，不能直接修改属性。
+
+### 2. @Prop 装饰器
+
+`@Prop` 用于从父组件接收数据，实现单向数据流。
+
+#### 基本使用
+
+```typescript
+// 子组件
+@Component
+struct ChildComponent {
+  @Prop message: string;  // 从父组件接收，只读
+
+  build() {
+    Column() {
+      Text(this.message)
+        .fontSize(20)
+
+      // 错误：不能直接修改 @Prop
+      // Button('Change')
+      //   .onClick(() => {
+      //     this.message = 'Changed';  // Error!
+      //   })
+    }
+  }
+}
+
+// 父组件
+@Entry
+@Component
+struct ParentPage {
+  @State message: string = 'Hello from Parent';
+
+  build() {
+    Column() {
+      Text(this.message)
+        .margin({ bottom: 20 })
+
+      ChildComponent({ message: this.message })
+
+      Button('Update Parent')
+        .onClick(() => {
+          this.message = 'Updated!';  // 父组件状态变化，子组件自动更新
+        })
+    }
+  }
+}
+```
+
+**对比 React**：`@Prop` 类似 React 的 `props`，是只读的。
+
+### 3. @Link 装饰器
+
+`@Link` 实现双向数据绑定，子组件可以修改并同步到父组件。
+
+#### 基本使用
+
+```typescript
+// 子组件
+@Component
+struct ChildComponent {
+  @Link count: number;  // 双向绑定
+
+  build() {
+    Column() {
+      Text(`Child Count: ${this.count}`)
+
+      Button('Increment in Child')
+        .onClick(() => {
+          this.count++;  // 可以修改，会同步到父组件
+        })
+    }
+  }
+}
+
+// 父组件
+@Entry
+@Component
+struct ParentPage {
+  @State count: number = 0;
+
+  build() {
+    Column() {
+      Text(`Parent Count: ${this.count}`)
+        .margin({ bottom: 20 })
+
+      // 使用 $ 符号传递引用
+      ChildComponent({ count: $count })
+
+      Button('Increment in Parent')
+        .onClick(() => {
+          this.count++;
+        })
+    }
+  }
+}
+```
+
+**对比 React**：`@Link` 类似 React 的 `useState` + 回调函数实现双向绑定。
+
+### 4. @Provide 和 @Consume
+
+`@Provide` 和 `@Consume` 用于跨组件通信，无需逐层传递。
+
+#### 基本使用
+
+```typescript
+// 祖先组件
+@Entry
+@Component
+struct AncestorPage {
+  @Provide theme: string = 'light';
+  @Provide user: { name: string } = { name: 'Tom' };
+
+  build() {
+    Column() {
+      Text(`Theme: ${this.theme}`)
+        .margin({ bottom: 20 })
+
+      MiddleComponent()
+
+      Button('Toggle Theme')
+        .onClick(() => {
+          this.theme = this.theme === 'light' ? 'dark' : 'light';
+        })
+    }
+  }
+}
+
+// 中间组件（不需要传递）
+@Component
+struct MiddleComponent {
+  build() {
+    Column() {
+      Text('Middle Component')
+      ChildComponent()
+    }
+  }
+}
+
+// 子组件
+@Component
+struct ChildComponent {
+  @Consume theme: string;  // 直接从祖先组件获取
+  @Consume user: { name: string };
+
+  build() {
+    Column() {
+      Text(`Theme: ${this.theme}`)
+      Text(`User: ${this.user.name}`)
+
+      Button('Change User')
+        .onClick(() => {
+          // 修改会同步到所有使用 @Consume 的组件
+          this.user.name = 'Jerry';
+        })
+    }
+    .padding(20)
+    .backgroundColor(this.theme === 'light' ? Color.White : Color.Black)
+  }
+}
+```
+
+**对比 React**：`@Provide/@Consume` 类似 React 的 `Context`。
+
+### 5. @Watch 装饰器
+
+`@Watch` 用于监听状态变化。
+
+```typescript
+@Entry
+@Component
+struct WatchExample {
+  @State count: number = 0;
+  @State message: string = '';
+
+  // 监听 count 变化
+  @Watch('count')
+  onCountChanged(newValue: number, oldValue: number) {
+    console.log(`Count changed from ${oldValue} to ${newValue}`);
+    this.message = `Count is now ${newValue}`;
+  }
+
+  build() {
+    Column() {
+      Text(`Count: ${this.count}`)
+        .fontSize(30)
+
+      Text(this.message)
+        .margin({ top: 10 })
+
+      Button('Increment')
+        .onClick(() => {
+          this.count++;
+        })
+    }
+  }
+}
+```
+
+### 6. 状态提升
+
+状态提升是将状态从子组件提升到父组件，实现多个子组件共享状态。
+
+```typescript
+// 子组件 1
+@Component
+struct InputComponent {
+  @Prop value: string;
+  onChange?: (value: string) => void;
+
+  build() {
+    TextInput({ text: this.value })
+      .onChange((value: string) => {
+        if (this.onChange) {
+          this.onChange(value);
+        }
+      })
+  }
+}
+
+// 子组件 2
+@Component
+struct DisplayComponent {
+  @Prop value: string;
+
+  build() {
+    Text(`You typed: ${this.value}`)
+      .fontSize(20)
+  }
+}
+
+// 父组件（状态提升）
+@Entry
+@Component
+struct ParentPage {
+  @State inputValue: string = '';  // 状态在父组件
+
+  build() {
+    Column() {
+      InputComponent({
+        value: this.inputValue,
+        onChange: (value: string) => {
+          this.inputValue = value;  // 更新父组件状态
+        }
+      })
+
+      DisplayComponent({ value: this.inputValue })
+    }
+  }
+}
+```
+
+### 7. 全局状态管理
+
+#### 使用单例模式
+
+```typescript
+// 全局状态管理类
+class AppState {
+  private static instance: AppState;
+  @State theme: string = 'light';
+  @State user: { name: string } | null = null;
+
+  private constructor() {}
+
+  static getInstance(): AppState {
+    if (!AppState.instance) {
+      AppState.instance = new AppState();
+    }
+    return AppState.instance;
+  }
+
+  setTheme(theme: string): void {
+    this.theme = theme;
+  }
+
+  setUser(user: { name: string }): void {
+    this.user = user;
+  }
+}
+
+// 使用全局状态
+@Entry
+@Component
+struct App {
+  private appState = AppState.getInstance();
+
+  build() {
+    Column() {
+      Text(`Theme: ${this.appState.theme}`)
+      Text(`User: ${this.appState.user?.name || 'Not logged in'}`)
+
+      Button('Toggle Theme')
+        .onClick(() => {
+          this.appState.setTheme(
+            this.appState.theme === 'light' ? 'dark' : 'light'
+          );
+        })
+    }
+  }
+}
+```
+
+#### 使用 @Provide 实现全局状态
+
+```typescript
+// 在根组件使用 @Provide
+@Entry
+@Component
+struct RootPage {
+  @Provide appTheme: string = 'light';
+  @Provide currentUser: { name: string } | null = null;
+
+  build() {
+    // 应用主界面
+    MainPage()
+  }
+}
+
+// 任何子组件都可以使用 @Consume 访问
+@Component
+struct AnyComponent {
+  @Consume appTheme: string;
+  @Consume currentUser: { name: string } | null;
+
+  build() {
+    Column() {
+      Text(`Theme: ${this.appTheme}`)
+      if (this.currentUser) {
+        Text(`User: ${this.currentUser.name}`)
+      }
+    }
+  }
+}
+```
+
+## 实践练习
+
+### 练习 1：实现计数器应用
+
+**目标**：创建一个计数器应用，包含显示组件和操作组件
+
+**要求**：
+
+1. 使用状态提升，将 count 状态放在父组件
+2. 创建显示组件和操作组件
+3. 实现增加、减少、重置功能
+
+**参考代码**：
+
+```typescript
+// 显示组件
+@Component
+struct CounterDisplay {
+  @Prop count: number;
+
+  build() {
+    Text(`Count: ${this.count}`)
+      .fontSize(40)
+      .fontWeight(FontWeight.Bold)
+  }
+}
+
+// 操作组件
+@Component
+struct CounterControls {
+  onIncrement?: () => void;
+  onDecrement?: () => void;
+  onReset?: () => void;
+
+  build() {
+    Row() {
+      Button('Decrease')
+        .onClick(() => {
+          if (this.onDecrement) {
+            this.onDecrement();
+          }
+        })
+
+      Button('Reset')
+        .margin({ left: 10, right: 10 })
+        .onClick(() => {
+          if (this.onReset) {
+            this.onReset();
+          }
+        })
+
+      Button('Increase')
+        .onClick(() => {
+          if (this.onIncrement) {
+            this.onIncrement();
+          }
+        })
+    }
+  }
+}
+
+// 父组件
+@Entry
+@Component
+struct CounterApp {
+  @State count: number = 0;
+
+  build() {
+    Column() {
+      CounterDisplay({ count: this.count })
+        .margin({ bottom: 30 })
+
+      CounterControls({
+        onIncrement: () => { this.count++; },
+        onDecrement: () => { this.count--; },
+        onReset: () => { this.count = 0; }
+      })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+### 练习 2：实现主题切换
+
+**目标**：使用 @Provide/@Consume 实现全局主题切换
+
+**要求**：
+
+1. 在根组件使用 @Provide 提供主题
+2. 在多个子组件使用 @Consume 消费主题
+3. 实现主题切换功能
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct ThemeApp {
+  @Provide theme: string = 'light';
+
+  build() {
+    Column() {
+      ThemeToggle()
+      ThemedPage1()
+      ThemedPage2()
+    }
+  }
+}
+
+@Component
+struct ThemeToggle {
+  @Consume theme: string;
+
+  build() {
+    Button(`Current: ${this.theme}`)
+      .onClick(() => {
+        this.theme = this.theme === 'light' ? 'dark' : 'light';
+      })
+  }
+}
+
+@Component
+struct ThemedPage1 {
+  @Consume theme: string;
+
+  build() {
+    Column() {
+      Text('Page 1')
+        .fontSize(20)
+    }
+    .width('100%')
+    .height(200)
+    .backgroundColor(this.theme === 'light' ? Color.White : Color.Black)
+  }
+}
+
+@Component
+struct ThemedPage2 {
+  @Consume theme: string;
+
+  build() {
+    Column() {
+      Text('Page 2')
+        .fontSize(20)
+        .fontColor(this.theme === 'light' ? Color.Black : Color.White)
+    }
+    .width('100%')
+    .height(200)
+    .backgroundColor(this.theme === 'light' ? '#F5F5F5' : '#333333')
+  }
+}
+```
+
+### 练习 3：实现表单组件
+
+**目标**：创建一个表单，使用 @Link 实现双向绑定
+
+**要求**：
+
+1. 创建表单数据模型
+2. 使用 @Link 绑定表单字段
+3. 实现表单验证和提交
+
+**参考代码**：
+
+```typescript
+interface FormData {
+  username: string;
+  email: string;
+  age: number;
+}
+
+@Entry
+@Component
+struct FormPage {
+  @State formData: FormData = {
+    username: '',
+    email: '',
+    age: 0
+  };
+
+  build() {
+    Column() {
+      FormField({
+        label: 'Username',
+        value: $formData.username
+      })
+
+      FormField({
+        label: 'Email',
+        value: $formData.email
+      })
+
+      FormField({
+        label: 'Age',
+        value: $formData.age
+      })
+
+      Button('Submit')
+        .onClick(() => {
+          console.log('Form Data:', this.formData);
+        })
+    }
+    .width('100%')
+    .padding(20)
+  }
+}
+
+@Component
+struct FormField {
+  label: string;
+  @Link value: string | number;
+
+  build() {
+    Column() {
+      Text(this.label)
+        .fontSize(16)
+        .margin({ bottom: 5 })
+
+      TextInput({ text: String(this.value) })
+        .onChange((value: string) => {
+          if (typeof this.value === 'number') {
+            this.value = Number(value) || 0;
+          } else {
+            this.value = value;
+          }
+        })
+    }
+    .width('100%')
+    .margin({ bottom: 15 })
+  }
+}
+```
+
+## 常见问题
+
+### Q1: @State、@Prop、@Link 的区别？
+
+**A**:
+
+- `@State`: 组件内部状态，可修改
+- `@Prop`: 从父组件接收，只读，单向数据流
+- `@Link`: 双向绑定，可修改并同步到父组件
+
+### Q2: 什么时候使用 @Provide/@Consume？
+
+**A**: 当需要在多层组件间传递数据，且中间组件不需要这些数据时，使用 `@Provide/@Consume` 可以避免逐层传递。
+
+### Q3: 为什么修改对象/数组状态需要创建新对象？
+
+**A**: ArkUI 通过对象引用来检测变化。直接修改属性不会改变引用，框架无法检测到变化。创建新对象会改变引用，触发更新。
+
+### Q4: @Watch 可以监听多个属性吗？
+
+**A**: 可以，为每个属性添加一个 `@Watch` 装饰器。
+
+### Q5: 如何实现全局状态管理？
+
+**A**: 可以使用单例模式、@Provide/@Consume，或者第三方状态管理库。
+
+## 扩展阅读
+
+- [ArkTS 状态管理](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkts-state-management-overview-V3)
+- [@State 装饰器](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkts-state-V3)
+- [@Prop 和 @Link](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkts-prop-link-V3)
+
+## 下一步
+
+完成状态管理学习后，建议继续学习：
+
+- [路由导航](/blog/harmony/tutorial/07-navigation-routing) - 学习页面间导航

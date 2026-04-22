@@ -1,0 +1,717 @@
+---
+type: "Post"
+date: "2025-08-31 10:00:00"
+title: "网络请求"
+tags: [HarmonyOS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解 HTTP 请求的基本概念
+- 掌握 http 模块的使用
+- 学会封装网络请求工具类
+- 实现请求拦截器和响应处理
+- 处理错误和实现重试机制
+- 实现请求缓存策略
+
+## 前置知识
+
+- 完成[路由导航](/blog/harmony/tutorial/07-navigation-routing)
+- 了解 HTTP 协议基础（如果有 Web 开发经验更佳）
+
+## 核心概念
+
+### 网络请求
+
+HarmonyOS 使用 `@ohos.net.http` 模块进行网络请求，类似于 Web 开发中的 `fetch` 或 `axios`。
+
+**对比 Web 开发**：
+
+- `fetch` / `axios` → `@ohos.net.http`
+- Promise/async-await → 完全一致
+- 请求/响应拦截器 → 概念一致
+
+## 详细内容
+
+### 1. 基本 HTTP 请求
+
+#### GET 请求
+
+```typescript
+import http from "@ohos.net.http";
+
+async function fetchData() {
+  let httpRequest = http.createHttp();
+
+  try {
+    let response = await httpRequest.request("https://api.example.com/data", {
+      method: http.RequestMethod.GET,
+      header: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("Status:", response.responseCode);
+    console.log("Data:", JSON.parse(response.result.toString()));
+
+    return JSON.parse(response.result.toString());
+  } catch (error) {
+    console.error("Request failed:", error);
+    throw error;
+  } finally {
+    httpRequest.destroy();
+  }
+}
+```
+
+#### POST 请求
+
+```typescript
+async function postData(data: object) {
+  let httpRequest = http.createHttp();
+
+  try {
+    let response = await httpRequest.request("https://api.example.com/data", {
+      method: http.RequestMethod.POST,
+      header: {
+        "Content-Type": "application/json",
+      },
+      extraData: JSON.stringify(data),
+    });
+
+    return JSON.parse(response.result.toString());
+  } catch (error) {
+    console.error("Request failed:", error);
+    throw error;
+  } finally {
+    httpRequest.destroy();
+  }
+}
+```
+
+**对比 Web 开发**：类似 `fetch(url, { method: 'POST', body: JSON.stringify(data) })`
+
+### 2. 封装请求工具类
+
+#### 基础封装
+
+```typescript
+import http from "@ohos.net.http";
+
+interface RequestOptions {
+  url: string;
+  method?: http.RequestMethod;
+  headers?: Record<string, string>;
+  params?: Record<string, any>;
+  data?: any;
+  timeout?: number;
+}
+
+interface Response<T = any> {
+  code: number;
+  data: T;
+  message: string;
+}
+
+class HttpClient {
+  private baseURL: string;
+  private defaultHeaders: Record<string, string>;
+
+  constructor(baseURL: string) {
+    this.baseURL = baseURL;
+    this.defaultHeaders = {
+      "Content-Type": "application/json",
+    };
+  }
+
+  async request<T = any>(options: RequestOptions): Promise<Response<T>> {
+    let httpRequest = http.createHttp();
+
+    try {
+      // 构建完整 URL
+      let url = this.baseURL + options.url;
+      if (options.params) {
+        url += "?" + this.buildQueryString(options.params);
+      }
+
+      // 合并请求头
+      let headers = {
+        ...this.defaultHeaders,
+        ...options.headers,
+      };
+
+      // 发送请求
+      let response = await httpRequest.request(url, {
+        method: options.method || http.RequestMethod.GET,
+        header: headers,
+        extraData: options.data ? JSON.stringify(options.data) : undefined,
+        connectTimeout: options.timeout || 60000,
+        readTimeout: options.timeout || 60000,
+      });
+
+      // 解析响应
+      let result = JSON.parse(response.result.toString());
+
+      return {
+        code: response.responseCode,
+        data: result,
+        message: "Success",
+      };
+    } catch (error) {
+      console.error("Request error:", error);
+      throw error;
+    } finally {
+      httpRequest.destroy();
+    }
+  }
+
+  private buildQueryString(params: Record<string, any>): string {
+    return Object.keys(params)
+      .map(
+        (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+      )
+      .join("&");
+  }
+
+  // 便捷方法
+  async get<T>(
+    url: string,
+    params?: Record<string, any>
+  ): Promise<Response<T>> {
+    return this.request<T>({ url, method: http.RequestMethod.GET, params });
+  }
+
+  async post<T>(url: string, data?: any): Promise<Response<T>> {
+    return this.request<T>({ url, method: http.RequestMethod.POST, data });
+  }
+
+  async put<T>(url: string, data?: any): Promise<Response<T>> {
+    return this.request<T>({ url, method: http.RequestMethod.PUT, data });
+  }
+
+  async delete<T>(url: string): Promise<Response<T>> {
+    return this.request<T>({ url, method: http.RequestMethod.DELETE });
+  }
+}
+
+// 使用示例
+const api = new HttpClient("https://api.example.com");
+
+// GET 请求
+let users = await api.get("/users", { page: 1, limit: 10 });
+
+// POST 请求
+let newUser = await api.post("/users", { name: "Tom", age: 20 });
+```
+
+### 3. 请求拦截器
+
+#### 实现拦截器
+
+```typescript
+type RequestInterceptor = (
+  config: RequestOptions
+) => RequestOptions | Promise<RequestOptions>;
+type ResponseInterceptor = (response: Response) => Response | Promise<Response>;
+
+class HttpClientWithInterceptors extends HttpClient {
+  private requestInterceptors: RequestInterceptor[] = [];
+  private responseInterceptors: ResponseInterceptor[] = [];
+
+  // 添加请求拦截器
+  addRequestInterceptor(interceptor: RequestInterceptor): void {
+    this.requestInterceptors.push(interceptor);
+  }
+
+  // 添加响应拦截器
+  addResponseInterceptor(interceptor: ResponseInterceptor): void {
+    this.responseInterceptors.push(interceptor);
+  }
+
+  async request<T = any>(options: RequestOptions): Promise<Response<T>> {
+    // 执行请求拦截器
+    let config = options;
+    for (let interceptor of this.requestInterceptors) {
+      config = await interceptor(config);
+    }
+
+    // 发送请求
+    let response = await super.request<T>(config);
+
+    // 执行响应拦截器
+    for (let interceptor of this.responseInterceptors) {
+      response = await interceptor(response);
+    }
+
+    return response;
+  }
+}
+
+// 使用拦截器
+const api = new HttpClientWithInterceptors("https://api.example.com");
+
+// 添加 Token 到请求头
+api.addRequestInterceptor((config) => {
+  config.headers = {
+    ...config.headers,
+    Authorization: "Bearer " + getToken(),
+  };
+  return config;
+});
+
+// 统一处理响应
+api.addResponseInterceptor((response) => {
+  if (response.code === 401) {
+    // Token 过期，跳转到登录页
+    router.pushUrl({ url: "pages/Login" });
+  }
+  return response;
+});
+```
+
+### 4. 错误处理
+
+#### 统一错误处理
+
+```typescript
+class ApiError extends Error {
+  code: number;
+  data: any;
+
+  constructor(message: string, code: number, data?: any) {
+    super(message);
+    this.code = code;
+    this.data = data;
+    this.name = "ApiError";
+  }
+}
+
+class HttpClientWithErrorHandling extends HttpClient {
+  async request<T = any>(options: RequestOptions): Promise<Response<T>> {
+    try {
+      let response = await super.request<T>(options);
+
+      // 检查业务错误
+      if (response.code >= 400) {
+        throw new ApiError(
+          response.message || "Request failed",
+          response.code,
+          response.data
+        );
+      }
+
+      return response;
+    } catch (error) {
+      // 处理网络错误
+      if (error instanceof ApiError) {
+        throw error;
+      }
+
+      // 网络错误
+      throw new ApiError("Network error: " + error.message, 0, error);
+    }
+  }
+}
+
+// 使用错误处理
+try {
+  let data = await api.get("/users");
+} catch (error) {
+  if (error instanceof ApiError) {
+    if (error.code === 401) {
+      // 未授权
+    } else if (error.code === 404) {
+      // 未找到
+    } else {
+      // 其他错误
+      prompt.showToast({ message: error.message });
+    }
+  }
+}
+```
+
+### 5. 重试机制
+
+#### 实现请求重试
+
+```typescript
+class HttpClientWithRetry extends HttpClient {
+  private maxRetries: number = 3;
+  private retryDelay: number = 1000;
+
+  async request<T = any>(
+    options: RequestOptions,
+    retryCount: number = 0
+  ): Promise<Response<T>> {
+    try {
+      return await super.request<T>(options);
+    } catch (error) {
+      // 判断是否应该重试
+      if (retryCount < this.maxRetries && this.shouldRetry(error)) {
+        // 等待后重试
+        await this.delay(this.retryDelay * (retryCount + 1));
+        return this.request<T>(options, retryCount + 1);
+      }
+      throw error;
+    }
+  }
+
+  private shouldRetry(error: any): boolean {
+    // 网络错误或超时错误才重试
+    return error.code === 0 || error.code === 408;
+  }
+
+  private delay(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+}
+```
+
+### 6. 请求缓存
+
+#### 实现简单缓存
+
+```typescript
+interface CacheItem {
+  data: any;
+  timestamp: number;
+  ttl: number; // Time to live in milliseconds
+}
+
+class HttpClientWithCache extends HttpClient {
+  private cache: Map<string, CacheItem> = new Map();
+
+  async get<T>(
+    url: string,
+    params?: Record<string, any>,
+    useCache: boolean = true
+  ): Promise<Response<T>> {
+    let cacheKey = url + JSON.stringify(params);
+
+    // 检查缓存
+    if (useCache) {
+      let cached = this.cache.get(cacheKey);
+      if (cached && Date.now() - cached.timestamp < cached.ttl) {
+        return cached.data;
+      }
+    }
+
+    // 请求数据
+    let response = await super.get<T>(url, params);
+
+    // 存入缓存
+    if (useCache) {
+      this.cache.set(cacheKey, {
+        data: response,
+        timestamp: Date.now(),
+        ttl: 5 * 60 * 1000, // 5 分钟
+      });
+    }
+
+    return response;
+  }
+
+  // 清除缓存
+  clearCache(): void {
+    this.cache.clear();
+  }
+
+  // 清除过期缓存
+  clearExpiredCache(): void {
+    let now = Date.now();
+    for (let [key, item] of this.cache.entries()) {
+      if (now - item.timestamp >= item.ttl) {
+        this.cache.delete(key);
+      }
+    }
+  }
+}
+```
+
+## 实践练习
+
+### 练习 1：实现用户列表 API
+
+**目标**：创建一个用户列表页面，从 API 获取数据
+
+**要求**：
+
+1. 封装 HTTP 客户端
+2. 创建用户列表 API
+3. 在页面中显示用户列表
+
+**参考代码**：
+
+```typescript
+// utils/http.ts
+import http from '@ohos.net.http';
+
+class ApiClient {
+  private baseURL = 'https://jsonplaceholder.typicode.com';
+
+  async get<T>(url: string): Promise<T> {
+    let httpRequest = http.createHttp();
+    try {
+      let response = await httpRequest.request(this.baseURL + url, {
+        method: http.RequestMethod.GET
+      });
+      return JSON.parse(response.result.toString());
+    } finally {
+      httpRequest.destroy();
+    }
+  }
+}
+
+export const api = new ApiClient();
+
+// models/User.ts
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+// services/userService.ts
+import { api } from '../utils/http';
+import { User } from '../models/User';
+
+export class UserService {
+  static async getUsers(): Promise<User[]> {
+    return await api.get<User[]>('/users');
+  }
+
+  static async getUser(id: number): Promise<User> {
+    return await api.get<User>(`/users/${id}`);
+  }
+}
+
+// pages/UserList.ets
+import { UserService } from '../services/userService';
+import { User } from '../models/User';
+
+@Entry
+@Component
+struct UserListPage {
+  @State users: User[] = [];
+  @State loading: boolean = true;
+  @State error: string = '';
+
+  async loadUsers() {
+    try {
+      this.loading = true;
+      this.error = '';
+      this.users = await UserService.getUsers();
+    } catch (err) {
+      this.error = 'Failed to load users';
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  aboutToAppear() {
+    this.loadUsers();
+  }
+
+  build() {
+    Column() {
+      if (this.loading) {
+        Text('Loading...')
+          .fontSize(20)
+      } else if (this.error) {
+        Text(this.error)
+          .fontSize(20)
+          .fontColor(Color.Red)
+      } else {
+        List() {
+          ForEach(this.users, (user: User) => {
+            ListItem() {
+              Column() {
+                Text(user.name)
+                  .fontSize(18)
+                  .fontWeight(FontWeight.Bold)
+                Text(user.email)
+                  .fontSize(14)
+                  .fontColor(Color.Gray)
+              }
+              .width('100%')
+              .padding(15)
+            }
+          })
+        }
+      }
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+### 练习 2：实现请求拦截器添加 Token
+
+**目标**：实现自动添加认证 Token 的拦截器
+
+**要求**：
+
+1. 创建 Token 管理服务
+2. 实现请求拦截器
+3. 处理 Token 过期
+
+**参考代码**：
+
+```typescript
+// utils/token.ts
+class TokenManager {
+  private static token: string = "";
+
+  static setToken(token: string): void {
+    this.token = token;
+    // 实际应该存储到 Preferences
+  }
+
+  static getToken(): string {
+    return this.token;
+    // 实际应该从 Preferences 读取
+  }
+
+  static clearToken(): void {
+    this.token = "";
+  }
+}
+
+// utils/http.ts
+class ApiClient {
+  addAuthInterceptor(): void {
+    // 在请求前添加 Token
+    this.addRequestInterceptor((config) => {
+      let token = TokenManager.getToken();
+      if (token) {
+        config.headers = {
+          ...config.headers,
+          Authorization: `Bearer ${token}`,
+        };
+      }
+      return config;
+    });
+
+    // 处理 401 错误
+    this.addResponseInterceptor((response) => {
+      if (response.code === 401) {
+        TokenManager.clearToken();
+        router.pushUrl({ url: "pages/Login" });
+      }
+      return response;
+    });
+  }
+}
+```
+
+### 练习 3：实现下拉刷新和上拉加载
+
+**目标**：实现列表的下拉刷新和上拉加载更多
+
+**要求**：
+
+1. 使用 Refresh 组件
+2. 实现分页加载
+3. 处理加载状态
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct RefreshableList {
+  @State users: User[] = [];
+  @State loading: boolean = false;
+  @State page: number = 1;
+  @State hasMore: boolean = true;
+
+  async loadUsers(refresh: boolean = false) {
+    if (this.loading) return;
+
+    this.loading = true;
+    try {
+      let page = refresh ? 1 : this.page;
+      let response = await UserService.getUsers(page);
+
+      if (refresh) {
+        this.users = response.data;
+        this.page = 2;
+      } else {
+        this.users = [...this.users, ...response.data];
+        this.page++;
+      }
+
+      this.hasMore = response.hasMore;
+    } catch (error) {
+      prompt.showToast({ message: 'Load failed' });
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  build() {
+    Refresh({ refreshing: this.loading, offset: 60, friction: 100 }) {
+      List() {
+        ForEach(this.users, (user: User) => {
+          ListItem() {
+            UserItem({ user: user })
+          }
+        })
+
+        if (this.loading && !this.hasMore) {
+          ListItem() {
+            Text('Loading...')
+              .width('100%')
+              .textAlign(TextAlign.Center)
+          }
+        }
+      }
+      .onReachEnd(() => {
+        if (this.hasMore && !this.loading) {
+          this.loadUsers();
+        }
+      })
+    }
+    .onRefreshing(() => {
+      this.loadUsers(true);
+    })
+  }
+}
+```
+
+## 常见问题
+
+### Q1: 如何处理跨域问题？
+
+**A**: HarmonyOS 应用不存在浏览器跨域限制，但需要确保服务器允许请求。
+
+### Q2: 如何上传文件？
+
+**A**: 使用 `http.uploadFile()` 方法，或使用 FormData 格式的请求体。
+
+### Q3: 如何取消请求？
+
+**A**: 保存 `httpRequest` 对象，调用 `httpRequest.destroy()` 取消请求。
+
+### Q4: 请求超时如何设置？
+
+**A**: 在请求配置中设置 `connectTimeout` 和 `readTimeout`。
+
+### Q5: 如何处理并发请求？
+
+**A**: 使用 `Promise.all()` 或 `Promise.allSettled()` 处理多个并发请求。
+
+## 扩展阅读
+
+- [HTTP 请求开发指南](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/http-request-V3)
+- [网络管理 API](https://developer.harmonyos.com/cn/documentation/doc-references-V3/js-apis-http-V3)
+
+## 下一步
+
+完成网络请求学习后，建议继续学习：
+
+- [数据存储](/blog/harmony/tutorial/09-data-storage) - 学习本地数据存储

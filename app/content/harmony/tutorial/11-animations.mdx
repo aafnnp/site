@@ -1,0 +1,620 @@
+---
+type: "Post"
+date: "2025-09-03 10:00:00"
+title: "动画与交互"
+tags: [HarmonyOS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解动画的基本概念
+- 掌握属性动画的使用
+- 学会转场动画的实现
+- 掌握手势识别和处理
+- 实现自定义动画效果
+- 优化动画性能
+
+## 前置知识
+
+- 完成[生命周期管理](/blog/harmony/tutorial/10-lifecycle)
+- 了解基本的动画概念（如果有 CSS/Web 动画经验更佳）
+
+## 核心概念
+
+### 动画系统
+
+ArkUI 提供了丰富的动画 API，可以实现流畅的 UI 动画效果。
+
+**对比 Web 开发**：
+- CSS `transition` → ArkUI `animateTo`
+- CSS `@keyframes` → ArkUI 动画 API
+- CSS `transform` → ArkUI 变换属性
+
+## 详细内容
+
+### 1. 属性动画
+
+#### animateTo 基础使用
+
+```typescript
+@Entry
+@Component
+struct AnimationExample {
+  @State width: number = 100;
+  @State height: number = 100;
+  @State opacity: number = 1.0;
+  @State angle: number = 0;
+  
+  build() {
+    Column() {
+      // 动画目标元素
+      Column() {
+        Text('Animated')
+      }
+      .width(this.width)
+      .height(this.height)
+      .opacity(this.opacity)
+      .rotate({ angle: this.angle })
+      .backgroundColor(Color.Blue)
+      .margin(20)
+      
+      Button('Animate')
+        .onClick(() => {
+          // 执行动画
+          animateTo({
+            duration: 1000,        // 动画时长（毫秒）
+            curve: Curve.EaseInOut, // 动画曲线
+            iterations: 1,        // 重复次数
+            playMode: PlayMode.Normal // 播放模式
+          }, () => {
+            // 修改属性值，自动产生动画
+            this.width = 200;
+            this.height = 200;
+            this.opacity = 0.5;
+            this.angle = 180;
+          });
+        })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+#### 动画曲线
+
+```typescript
+// 不同的动画曲线
+animateTo({
+  duration: 1000,
+  curve: Curve.EaseInOut,  // 缓入缓出
+  // curve: Curve.EaseIn,   // 缓入
+  // curve: Curve.EaseOut,  // 缓出
+  // curve: Curve.Linear,   // 线性
+  // curve: Curve.Ease,     // 默认缓动
+}, () => {
+  this.width = 200;
+});
+
+// 自定义贝塞尔曲线
+animateTo({
+  duration: 1000,
+  curve: Curve.CubicBezier(0.25, 0.1, 0.25, 1.0)
+}, () => {
+  this.width = 200;
+});
+```
+
+**对比 CSS**：类似 `transition: width 1s ease-in-out;`
+
+### 2. 转场动画
+
+#### 页面转场
+
+```typescript
+// 页面跳转时使用转场动画
+router.pushUrl({
+  url: 'pages/Detail',
+  params: { id: 123 }
+}, router.RouterMode.Standard, (err) => {
+  if (err) {
+    console.error('Navigation failed');
+  }
+});
+```
+
+#### 组件转场
+
+```typescript
+@Entry
+@Component
+struct TransitionExample {
+  @State show: boolean = true;
+  
+  build() {
+    Column() {
+      if (this.show) {
+        // 使用 transition 定义转场动画
+        Text('Fade In/Out')
+          .transition(TransitionEffect.OPACITY.animation({
+            duration: 300,
+            curve: Curve.EaseInOut
+          }))
+      }
+      
+      Button('Toggle')
+        .onClick(() => {
+          this.show = !this.show;
+        })
+    }
+  }
+}
+```
+
+#### 多种转场效果
+
+```typescript
+// 淡入淡出
+.transition(TransitionEffect.OPACITY)
+
+// 缩放
+.transition(TransitionEffect.SCALE)
+
+// 平移
+.transition(TransitionEffect.translate({ x: 100, y: 0 }))
+
+// 旋转
+.transition(TransitionEffect.ROTATION)
+
+// 组合效果
+.transition(
+  TransitionEffect.OPACITY
+    .combine(TransitionEffect.SCALE)
+    .animation({ duration: 300 })
+)
+```
+
+### 3. 手势识别
+
+#### 点击手势
+
+```typescript
+@Entry
+@Component
+struct GestureExample {
+  @State message: string = 'Tap me';
+  
+  build() {
+    Column() {
+      Text(this.message)
+        .fontSize(30)
+        .gesture(
+          TapGesture({ count: 1 })
+            .onAction(() => {
+              this.message = 'Tapped!';
+            })
+        )
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+#### 长按手势
+
+```typescript
+.gesture(
+  LongPressGesture({ duration: 1000 })
+    .onAction(() => {
+      this.message = 'Long pressed!';
+    })
+)
+```
+
+#### 拖动手势
+
+```typescript
+@Entry
+@Component
+struct DragExample {
+  @State offsetX: number = 0;
+  @State offsetY: number = 0;
+  
+  build() {
+    Stack() {
+      Column() {
+        Text('Drag Me')
+      }
+      .width(100)
+      .height(100)
+      .backgroundColor(Color.Blue)
+      .translate({ x: this.offsetX, y: this.offsetY })
+      .gesture(
+        PanGesture({ fingers: 1, direction: PanDirection.All })
+          .onActionUpdate((event: GestureEvent) => {
+            this.offsetX += event.offsetX;
+            this.offsetY += event.offsetY;
+          })
+      )
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+#### 捏合手势（缩放）
+
+```typescript
+@Entry
+@Component
+struct PinchExample {
+  @State scale: number = 1.0;
+  
+  build() {
+    Column() {
+      Image($r('app.media.image'))
+        .width(200)
+        .height(200)
+        .scale({ x: this.scale, y: this.scale })
+        .gesture(
+          PinchGesture({ fingers: 2 })
+            .onActionUpdate((event: GestureEvent) => {
+              this.scale = event.scale;
+            })
+        )
+    }
+  }
+}
+```
+
+### 4. 组合手势
+
+#### 手势组合
+
+```typescript
+.gesture(
+  GestureGroup(GestureMode.Parallel, [
+    TapGesture().onAction(() => {
+      console.log('Tap');
+    }),
+    LongPressGesture().onAction(() => {
+      console.log('Long press');
+    })
+  ])
+)
+```
+
+#### 手势识别优先级
+
+```typescript
+.gesture(
+  GestureGroup(GestureMode.Exclusive, [
+    LongPressGesture({ duration: 500 })
+      .onAction(() => {
+        console.log('Long press');
+      }),
+    TapGesture()
+      .onAction(() => {
+        console.log('Tap');
+      })
+  ])
+)
+```
+
+### 5. 自定义动画
+
+#### 关键帧动画
+
+```typescript
+@Entry
+@Component
+struct KeyframeAnimation {
+  @State progress: number = 0;
+  
+  build() {
+    Column() {
+      Text('Animation')
+        .width(100 + this.progress * 100)
+        .height(100 + this.progress * 100)
+        .opacity(1.0 - this.progress * 0.5)
+    }
+    .onAppear(() => {
+      // 使用 animateTo 实现关键帧动画
+      animateTo({
+        duration: 2000,
+        curve: Curve.EaseInOut
+      }, () => {
+        this.progress = 1.0;
+      });
+    })
+  }
+}
+```
+
+#### 循环动画
+
+```typescript
+@Entry
+@Component
+struct LoopAnimation {
+  @State angle: number = 0;
+  
+  aboutToAppear() {
+    this.startRotation();
+  }
+  
+  startRotation() {
+    animateTo({
+      duration: 2000,
+      curve: Curve.Linear,
+      iterations: -1,  // 无限循环
+      playMode: PlayMode.Normal
+    }, () => {
+      this.angle = 360;
+    });
+  }
+  
+  build() {
+    Column() {
+      Image($r('app.media.icon'))
+        .width(100)
+        .height(100)
+        .rotate({ angle: this.angle })
+    }
+  }
+}
+```
+
+### 6. 性能优化
+
+#### 使用 willChange 提示
+
+```typescript
+Column() {
+  Text('Optimized')
+}
+.willChange(WillChange.Transform)  // 提示浏览器优化
+```
+
+#### 避免过度动画
+
+```typescript
+// ❌ 不好的做法：同时动画多个属性
+animateTo({}, () => {
+  this.width = 200;
+  this.height = 200;
+  this.opacity = 0.5;
+  this.angle = 180;
+  this.x = 100;
+  this.y = 100;
+});
+
+// ✅ 好的做法：合并相关属性
+animateTo({}, () => {
+  this.width = 200;
+  this.height = 200;
+});
+animateTo({}, () => {
+  this.opacity = 0.5;
+});
+```
+
+## 实践练习
+
+### 练习 1：实现卡片翻转动画
+
+**目标**：创建一个可以翻转的卡片
+
+**要求**：
+1. 点击卡片时翻转
+2. 使用 3D 旋转动画
+3. 显示正面和背面内容
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct FlipCard {
+  @State flipped: boolean = false;
+  @State angleY: number = 0;
+  
+  flip() {
+    animateTo({
+      duration: 500,
+      curve: Curve.EaseInOut
+    }, () => {
+      this.angleY = this.flipped ? 0 : 180;
+      this.flipped = !this.flipped;
+    });
+  }
+  
+  build() {
+    Stack() {
+      // 正面
+      if (!this.flipped) {
+        Column() {
+          Text('Front')
+            .fontSize(30)
+        }
+        .width(200)
+        .height(300)
+        .backgroundColor(Color.Blue)
+        .rotate({ x: 0, y: this.angleY })
+      }
+      
+      // 背面
+      if (this.flipped) {
+        Column() {
+          Text('Back')
+            .fontSize(30)
+        }
+        .width(200)
+        .height(300)
+        .backgroundColor(Color.Red)
+        .rotate({ x: 0, y: this.angleY + 180 })
+      }
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+    .onClick(() => {
+      this.flip();
+    })
+  }
+}
+```
+
+### 练习 2：实现下拉刷新动画
+
+**目标**：实现下拉刷新时的加载动画
+
+**要求**：
+1. 下拉时显示加载指示器
+2. 使用旋转动画
+3. 刷新完成后停止动画
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct PullToRefresh {
+  @State refreshing: boolean = false;
+  @State angle: number = 0;
+  
+  startRefresh() {
+    this.refreshing = true;
+    this.startRotation();
+    
+    // 模拟刷新
+    setTimeout(() => {
+      this.refreshing = false;
+    }, 2000);
+  }
+  
+  startRotation() {
+    animateTo({
+      duration: 1000,
+      curve: Curve.Linear,
+      iterations: -1
+    }, () => {
+      this.angle = 360;
+    });
+  }
+  
+  build() {
+    Column() {
+      if (this.refreshing) {
+        Image($r('app.media.ic_refresh'))
+          .width(30)
+          .height(30)
+          .rotate({ angle: this.angle })
+      }
+      
+      List() {
+        // 列表内容
+      }
+    }
+  }
+}
+```
+
+### 练习 3：实现拖拽排序
+
+**目标**：实现列表项的拖拽排序功能
+
+**要求**：
+1. 长按开始拖拽
+2. 拖拽时显示预览
+3. 释放时完成排序
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct DragSortList {
+  @State items: string[] = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+  @State draggingIndex: number = -1;
+  @State dragOffset: number = 0;
+  
+  build() {
+    List() {
+      ForEach(this.items, (item: string, index: number) => {
+        ListItem() {
+          Row() {
+            Text(item)
+          }
+          .width('100%')
+          .padding(15)
+          .opacity(this.draggingIndex === index ? 0.5 : 1.0)
+          .translate({ y: this.draggingIndex === index ? this.dragOffset : 0 })
+          .gesture(
+            LongPressGesture({ duration: 300 })
+              .onAction(() => {
+                this.draggingIndex = index;
+              })
+          )
+          .gesture(
+            PanGesture()
+              .onActionUpdate((event: GestureEvent) => {
+                if (this.draggingIndex === index) {
+                  this.dragOffset = event.offsetY;
+                }
+              })
+              .onActionEnd(() => {
+                // 完成排序
+                this.draggingIndex = -1;
+                this.dragOffset = 0;
+              })
+          )
+        }
+      })
+    }
+  }
+}
+```
+
+## 常见问题
+
+### Q1: 如何暂停和恢复动画？
+
+**A**: 可以使用动画控制器（AnimationController）来控制动画的播放、暂停和恢复。
+
+### Q2: 如何实现弹簧动画？
+
+**A**: 使用自定义的贝塞尔曲线或物理动画库来实现弹簧效果。
+
+### Q3: 手势冲突如何解决？
+
+**A**: 使用 `GestureGroup` 的 `Exclusive` 模式，或调整手势的识别顺序。
+
+### Q4: 动画性能如何优化？
+
+**A**: 
+- 使用 `willChange` 提示
+- 避免同时动画过多属性
+- 使用 GPU 加速的属性（transform、opacity）
+
+### Q5: 如何实现页面切换动画？
+
+**A**: 使用路由转场动画，或在页面组件上使用 `transition` 属性。
+
+## 扩展阅读
+
+- [动画开发指南](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkui-animation-overview-V3)
+- [手势处理](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkui-gesture-overview-V3)
+- [转场动画](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkui-transition-overview-V3)
+
+## 下一步
+
+完成动画学习后，建议继续学习：
+- [项目实战](/blog/harmony/tutorial/12-project-practice) - 综合运用所有知识完成项目
+

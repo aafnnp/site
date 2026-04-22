@@ -1,0 +1,690 @@
+---
+type: "Post"
+date: "2025-09-01 10:00:00"
+title: "数据存储"
+tags: [HarmonyOS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解 HarmonyOS 的数据存储方式
+- 掌握 Preferences 的使用（轻量级存储）
+- 学会文件存储操作
+- 掌握关系型数据库的使用
+- 了解数据加密和安全
+
+## 前置知识
+
+- 完成[网络请求](/blog/harmony/tutorial/08-network-requests)
+- 了解基本的数据存储概念
+
+## 核心概念
+
+### 数据存储方式
+
+HarmonyOS 提供多种数据存储方式：
+
+1. **Preferences** - 轻量级键值对存储（类似 Web 的 localStorage）
+2. **文件存储** - 文件系统操作
+3. **关系型数据库** - SQLite 数据库
+
+**对比 Web 开发**：
+
+- `localStorage` → Preferences
+- `File API` → 文件存储 API
+- `IndexedDB` → 关系型数据库
+
+## 详细内容
+
+### 1. Preferences（轻量级存储）
+
+#### 基本使用
+
+```typescript
+import dataPreferences from "@ohos.data.preferences";
+
+// 获取 Preferences 实例
+async function getPreferences(
+  context: Context,
+  name: string
+): Promise<dataPreferences.Preferences> {
+  return await dataPreferences.getPreferences(context, name);
+}
+
+// 存储数据
+async function saveData() {
+  let prefs = await dataPreferences.getPreferences(getContext(this), "myPrefs");
+
+  // 存储字符串
+  await prefs.put("username", "Tom");
+
+  // 存储数字
+  await prefs.put("age", 20);
+
+  // 存储布尔值
+  await prefs.put("isLoggedIn", true);
+
+  // 存储对象（需要序列化）
+  await prefs.put("user", JSON.stringify({ name: "Tom", age: 20 }));
+
+  // 提交更改
+  await prefs.flush();
+}
+
+// 读取数据
+async function loadData() {
+  let prefs = await dataPreferences.getPreferences(getContext(this), "myPrefs");
+
+  // 读取字符串（提供默认值）
+  let username = await prefs.get("username", "");
+
+  // 读取数字
+  let age = await prefs.get("age", 0);
+
+  // 读取布尔值
+  let isLoggedIn = await prefs.get("isLoggedIn", false);
+
+  // 读取对象
+  let userStr = await prefs.get("user", "{}");
+  let user = JSON.parse(userStr);
+
+  return { username, age, isLoggedIn, user };
+}
+
+// 删除数据
+async function deleteData() {
+  let prefs = await dataPreferences.getPreferences(getContext(this), "myPrefs");
+  await prefs.delete("username");
+  await prefs.flush();
+}
+
+// 清空所有数据
+async function clearData() {
+  let prefs = await dataPreferences.getPreferences(getContext(this), "myPrefs");
+  await prefs.clear();
+  await prefs.flush();
+}
+```
+
+**对比 Web 开发**：类似 `localStorage.setItem()` 和 `localStorage.getItem()`
+
+#### 封装 Preferences 工具类
+
+```typescript
+import dataPreferences from '@ohos.data.preferences';
+import { getContext } from '@ohos.ability.common';
+
+class PreferencesManager {
+  private static instance: PreferencesManager;
+  private prefs: dataPreferences.Preferences | null = null;
+  private context: Context;
+
+  private constructor(context: Context) {
+    this.context = context;
+  }
+
+  static async getInstance(context: Context): Promise<PreferencesManager> {
+    if (!PreferencesManager.instance) {
+      PreferencesManager.instance = new PreferencesManager(context);
+      await PreferencesManager.instance.init();
+    }
+    return PreferencesManager.instance;
+  }
+
+  private async init(): Promise<void> {
+    this.prefs = await dataPreferences.getPreferences(this.context, 'app_prefs');
+  }
+
+  async setString(key: string, value: string): Promise<void> {
+    if (this.prefs) {
+      await this.prefs.put(key, value);
+      await this.prefs.flush();
+    }
+  }
+
+  async getString(key: string, defaultValue: string = ''): Promise<string> {
+    if (this.prefs) {
+      return await this.prefs.get(key, defaultValue);
+    }
+    return defaultValue;
+  }
+
+  async setNumber(key: string, value: number): Promise<void> {
+    if (this.prefs) {
+      await this.prefs.put(key, value);
+      await this.prefs.flush();
+    }
+  }
+
+  async getNumber(key: string, defaultValue: number = 0): Promise<number> {
+    if (this.prefs) {
+      return await this.prefs.get(key, defaultValue);
+    }
+    return defaultValue;
+  }
+
+  async setBoolean(key: string, value: boolean): Promise<void> {
+    if (this.prefs) {
+      await this.prefs.put(key, value);
+      await this.prefs.flush();
+    }
+  }
+
+  async getBoolean(key: string, defaultValue: boolean = false): Promise<boolean> {
+    if (this.prefs) {
+      return await this.prefs.get(key, defaultValue);
+    }
+    return defaultValue;
+  }
+
+  async setObject<T>(key: string, value: T): Promise<void> {
+    await this.setString(key, JSON.stringify(value));
+  }
+
+  async getObject<T>(key: string, defaultValue: T): Promise<T> {
+    let str = await this.getString(key, '');
+    if (str) {
+      return JSON.parse(str) as T;
+    }
+    return defaultValue;
+  }
+
+  async remove(key: string): Promise<void> {
+    if (this.prefs) {
+      await this.prefs.delete(key);
+      await this.prefs.flush();
+    }
+  }
+
+  async clear(): Promise<void> {
+    if (this.prefs) {
+      await this.prefs.clear();
+      await this.prefs.flush();
+    }
+  }
+}
+
+// 使用示例
+@Entry
+@Component
+struct StorageExample {
+  private prefsManager: PreferencesManager | null = null;
+  @State username: string = '';
+
+  async aboutToAppear() {
+    this.prefsManager = await PreferencesManager.getInstance(getContext(this));
+    this.username = await this.prefsManager.getString('username', '');
+  }
+
+  async saveUsername() {
+    if (this.prefsManager) {
+      await this.prefsManager.setString('username', this.username);
+    }
+  }
+
+  build() {
+    Column() {
+      TextInput({ text: this.username, placeholder: 'Username' })
+        .onChange((value: string) => {
+          this.username = value;
+        })
+
+      Button('Save')
+        .onClick(() => {
+          this.saveUsername();
+        })
+    }
+  }
+}
+```
+
+### 2. 文件存储
+
+#### 基本文件操作
+
+```typescript
+import fs from "@ohos.file.fs";
+import { getContext } from "@ohos.ability.common";
+
+// 获取文件目录
+function getFilesDir(context: Context): string {
+  return context.filesDir;
+}
+
+// 写入文件
+async function writeFile(filename: string, content: string): Promise<void> {
+  let context = getContext(this);
+  let filePath = context.filesDir + "/" + filename;
+
+  let file = await fs.open(
+    filePath,
+    fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY
+  );
+  await fs.write(file.fd, content);
+  await fs.close(file);
+}
+
+// 读取文件
+async function readFile(filename: string): Promise<string> {
+  let context = getContext(this);
+  let filePath = context.filesDir + "/" + filename;
+
+  let file = await fs.open(filePath, fs.OpenMode.READ_ONLY);
+  let stat = await fs.stat(filePath);
+  let buffer = new ArrayBuffer(stat.size);
+  await fs.read(file.fd, buffer);
+  await fs.close(file);
+
+  return new TextDecoder().decode(buffer);
+}
+
+// 检查文件是否存在
+async function fileExists(filename: string): Promise<boolean> {
+  let context = getContext(this);
+  let filePath = context.filesDir + "/" + filename;
+
+  try {
+    await fs.access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// 删除文件
+async function deleteFile(filename: string): Promise<void> {
+  let context = getContext(this);
+  let filePath = context.filesDir + "/" + filename;
+  await fs.unlink(filePath);
+}
+
+// 列出目录文件
+async function listFiles(dirPath: string): Promise<string[]> {
+  let dir = await fs.opendir(dirPath);
+  let files: string[] = [];
+
+  for await (let entry of dir) {
+    files.push(entry.name);
+  }
+
+  await dir.close();
+  return files;
+}
+```
+
+#### 文件工具类封装
+
+```typescript
+import fs from "@ohos.file.fs";
+import { getContext } from "@ohos.ability.common";
+
+class FileManager {
+  private context: Context;
+
+  constructor(context: Context) {
+    this.context = context;
+  }
+
+  private getFilePath(filename: string): string {
+    return this.context.filesDir + "/" + filename;
+  }
+
+  async writeText(filename: string, content: string): Promise<void> {
+    let filePath = this.getFilePath(filename);
+    let file = await fs.open(
+      filePath,
+      fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC
+    );
+    await fs.write(file.fd, content);
+    await fs.close(file);
+  }
+
+  async readText(filename: string): Promise<string> {
+    let filePath = this.getFilePath(filename);
+    let file = await fs.open(filePath, fs.OpenMode.READ_ONLY);
+    let stat = await fs.stat(filePath);
+    let buffer = new ArrayBuffer(stat.size);
+    await fs.read(file.fd, buffer);
+    await fs.close(file);
+    return new TextDecoder().decode(buffer);
+  }
+
+  async writeJSON<T>(filename: string, data: T): Promise<void> {
+    await this.writeText(filename, JSON.stringify(data));
+  }
+
+  async readJSON<T>(filename: string): Promise<T | null> {
+    try {
+      let content = await this.readText(filename);
+      return JSON.parse(content) as T;
+    } catch {
+      return null;
+    }
+  }
+
+  async exists(filename: string): Promise<boolean> {
+    try {
+      await fs.access(this.getFilePath(filename));
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  async delete(filename: string): Promise<void> {
+    await fs.unlink(this.getFilePath(filename));
+  }
+}
+```
+
+### 3. 关系型数据库
+
+#### 数据库基本操作
+
+```typescript
+import relationalStore from "@ohos.data.relationalStore";
+
+interface User {
+  id?: number;
+  name: string;
+  email: string;
+  age: number;
+}
+
+class DatabaseManager {
+  private rdbStore: relationalStore.RdbStore | null = null;
+  private context: Context;
+
+  constructor(context: Context) {
+    this.context = context;
+  }
+
+  // 初始化数据库
+  async initDatabase(): Promise<void> {
+    const config: relationalStore.StoreConfig = {
+      name: "user.db",
+      securityLevel: relationalStore.SecurityLevel.S1,
+    };
+
+    this.rdbStore = await relationalStore.getRdbStore(this.context, config);
+
+    // 创建表
+    const sql = `CREATE TABLE IF NOT EXISTS user (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      email TEXT UNIQUE,
+      age INTEGER
+    )`;
+
+    await this.rdbStore.executeSql(sql);
+  }
+
+  // 插入数据
+  async insertUser(user: User): Promise<number> {
+    if (!this.rdbStore) {
+      await this.initDatabase();
+    }
+
+    const valueBucket: relationalStore.ValuesBucket = {
+      name: user.name,
+      email: user.email,
+      age: user.age,
+    };
+
+    return await this.rdbStore!.insert("user", valueBucket);
+  }
+
+  // 查询数据
+  async queryUsers(): Promise<User[]> {
+    if (!this.rdbStore) {
+      await this.initDatabase();
+    }
+
+    const predicates = new relationalStore.RdbPredicates("user");
+    const resultSet = await this.rdbStore!.query(predicates, [
+      "id",
+      "name",
+      "email",
+      "age",
+    ]);
+
+    let users: User[] = [];
+    while (resultSet.goToNextRow()) {
+      users.push({
+        id: resultSet.getLong(resultSet.getColumnIndex("id")),
+        name: resultSet.getString(resultSet.getColumnIndex("name")),
+        email: resultSet.getString(resultSet.getColumnIndex("email")),
+        age: resultSet.getLong(resultSet.getColumnIndex("age")),
+      });
+    }
+    resultSet.close();
+
+    return users;
+  }
+
+  // 更新数据
+  async updateUser(id: number, user: Partial<User>): Promise<number> {
+    if (!this.rdbStore) {
+      await this.initDatabase();
+    }
+
+    const predicates = new relationalStore.RdbPredicates("user");
+    predicates.equalTo("id", id);
+
+    const valueBucket: relationalStore.ValuesBucket = {};
+    if (user.name) valueBucket["name"] = user.name;
+    if (user.email) valueBucket["email"] = user.email;
+    if (user.age !== undefined) valueBucket["age"] = user.age;
+
+    return await this.rdbStore!.update(valueBucket, predicates);
+  }
+
+  // 删除数据
+  async deleteUser(id: number): Promise<number> {
+    if (!this.rdbStore) {
+      await this.initDatabase();
+    }
+
+    const predicates = new relationalStore.RdbPredicates("user");
+    predicates.equalTo("id", id);
+
+    return await this.rdbStore!.delete(predicates);
+  }
+}
+```
+
+## 实践练习
+
+### 练习 1：实现用户设置存储
+
+**目标**：使用 Preferences 存储用户设置
+
+**要求**：
+
+1. 存储主题设置（light/dark）
+2. 存储语言设置
+3. 提供读取和更新方法
+
+**参考代码**：
+
+```typescript
+class SettingsManager {
+  private prefs: PreferencesManager;
+
+  constructor(context: Context) {
+    this.prefs = PreferencesManager.getInstance(context);
+  }
+
+  async getTheme(): Promise<string> {
+    return await this.prefs.getString("theme", "light");
+  }
+
+  async setTheme(theme: string): Promise<void> {
+    await this.prefs.setString("theme", theme);
+  }
+
+  async getLanguage(): Promise<string> {
+    return await this.prefs.getString("language", "zh");
+  }
+
+  async setLanguage(lang: string): Promise<void> {
+    await this.prefs.setString("language", lang);
+  }
+}
+```
+
+### 练习 2：实现笔记应用数据存储
+
+**目标**：使用文件存储实现简单的笔记应用
+
+**要求**：
+
+1. 保存笔记到文件
+2. 读取笔记列表
+3. 删除笔记
+
+**参考代码**：
+
+```typescript
+interface Note {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: number;
+}
+
+class NoteManager {
+  private fileManager: FileManager;
+  private notesFile = "notes.json";
+
+  constructor(context: Context) {
+    this.fileManager = new FileManager(context);
+  }
+
+  async saveNote(note: Note): Promise<void> {
+    let notes = await this.getNotes();
+    let index = notes.findIndex((n) => n.id === note.id);
+
+    if (index >= 0) {
+      notes[index] = note;
+    } else {
+      notes.push(note);
+    }
+
+    await this.fileManager.writeJSON(this.notesFile, notes);
+  }
+
+  async getNotes(): Promise<Note[]> {
+    let notes = await this.fileManager.readJSON<Note[]>(this.notesFile);
+    return notes || [];
+  }
+
+  async deleteNote(id: string): Promise<void> {
+    let notes = await this.getNotes();
+    notes = notes.filter((n) => n.id !== id);
+    await this.fileManager.writeJSON(this.notesFile, notes);
+  }
+}
+```
+
+### 练习 3：实现用户数据库操作
+
+**目标**：使用关系型数据库管理用户数据
+
+**要求**：
+
+1. 创建用户表
+2. 实现 CRUD 操作
+3. 实现查询功能
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct UserDBPage {
+  private dbManager: DatabaseManager;
+  @State users: User[] = [];
+
+  aboutToAppear() {
+    this.dbManager = new DatabaseManager(getContext(this));
+    this.loadUsers();
+  }
+
+  async loadUsers() {
+    this.users = await this.dbManager.queryUsers();
+  }
+
+  async addUser() {
+    await this.dbManager.insertUser({
+      name: 'New User',
+      email: 'user@example.com',
+      age: 25
+    });
+    await this.loadUsers();
+  }
+
+  build() {
+    Column() {
+      Button('Add User')
+        .onClick(() => {
+          this.addUser();
+        })
+
+      List() {
+        ForEach(this.users, (user: User) => {
+          ListItem() {
+            Text(`${user.name} - ${user.email}`)
+          }
+        })
+      }
+    }
+  }
+}
+```
+
+## 常见问题
+
+### Q1: Preferences 和文件存储的区别？
+
+**A**:
+
+- Preferences: 适合存储简单的键值对数据，性能好
+- 文件存储: 适合存储复杂数据或大量数据
+
+### Q2: 数据库和文件存储如何选择？
+
+**A**:
+
+- 数据库: 需要复杂查询、关系数据时使用
+- 文件存储: 简单数据、配置文件时使用
+
+### Q3: 如何实现数据加密？
+
+**A**: 使用 `SecurityLevel.S1` 或更高安全级别，或使用加密库对敏感数据进行加密。
+
+### Q4: 数据存储在哪里？
+
+**A**:
+
+- Preferences: 应用私有目录
+- 文件: 应用文件目录（filesDir）
+- 数据库: 应用数据库目录
+
+### Q5: 如何备份和恢复数据？
+
+**A**: 可以将数据导出为文件，或使用云备份服务。
+
+## 扩展阅读
+
+- [数据管理开发指南](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/data-persistence-overview-V3)
+- [Preferences 使用指南](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/data-persistence-by-preferences-V3)
+- [关系型数据库](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/data-persistence-by-relational-database-V3)
+
+## 下一步
+
+完成数据存储学习后，建议继续学习：
+
+- [生命周期管理](/blog/harmony/tutorial/10-lifecycle) - 学习页面和组件生命周期

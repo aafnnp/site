@@ -1,0 +1,781 @@
+---
+type: "Post"
+date: "2025-08-26 10:00:00"
+title: "ArkTS 进阶特性"
+tags: [HarmonyOS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解面向对象编程的概念
+- 掌握类和对象的定义与使用
+- 学会定义和使用接口
+- 理解泛型编程
+- 掌握装饰器的使用（@State、@Prop、@Link）
+- 学会异步编程（Promise、async/await）
+
+## 前置知识
+
+- 完成[ArkTS 语言基础](/blog/harmony/tutorial/02-arkts-basics)
+- 了解基本的面向对象概念（如果有 Java/C# 经验更佳）
+
+## 核心概念
+
+### 面向对象编程
+
+ArkTS 支持面向对象编程，包括类、继承、接口等特性。这些概念与 TypeScript 和 Java 类似。
+
+**对比 Web 开发**：
+
+- TypeScript 类 → ArkTS 类（语法一致）
+- React Hooks → ArkTS 装饰器（概念相似）
+- Promise/async-await → 完全一致
+
+## 详细内容
+
+### 1. 类与对象
+
+#### 类定义
+
+```typescript
+// 基本类定义
+class Person {
+  // 属性
+  name: string;
+  age: number;
+
+  // 构造函数
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  // 方法
+  introduce(): string {
+    return `I'm ${this.name}, ${this.age} years old.`;
+  }
+
+  // 静态方法
+  static createAdult(name: string): Person {
+    return new Person(name, 18);
+  }
+}
+
+// 创建对象
+let person = new Person("Tom", 20);
+console.log(person.introduce());
+let adult = Person.createAdult("Jerry");
+```
+
+#### 访问修饰符
+
+```typescript
+class BankAccount {
+  private balance: number = 0; // 私有属性
+  public accountNumber: string; // 公有属性（默认）
+
+  constructor(accountNumber: string) {
+    this.accountNumber = accountNumber;
+  }
+
+  // 公有方法
+  public deposit(amount: number): void {
+    if (amount > 0) {
+      this.balance += amount;
+    }
+  }
+
+  public withdraw(amount: number): boolean {
+    if (amount > 0 && amount <= this.balance) {
+      this.balance -= amount;
+      return true;
+    }
+    return false;
+  }
+
+  // 私有方法
+  private validateAmount(amount: number): boolean {
+    return amount > 0;
+  }
+
+  // Getter
+  getBalance(): number {
+    return this.balance;
+  }
+}
+```
+
+**对比 Web 开发**：与 TypeScript 的类语法完全一致。
+
+### 2. 继承
+
+#### 基本继承
+
+```typescript
+// 基类
+class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  makeSound(): void {
+    console.log("Some sound");
+  }
+}
+
+// 派生类
+class Dog extends Animal {
+  breed: string;
+
+  constructor(name: string, breed: string) {
+    super(name); // 调用父类构造函数
+    this.breed = breed;
+  }
+
+  // 重写方法
+  override makeSound(): void {
+    console.log("Woof!");
+  }
+
+  // 新增方法
+  fetch(): void {
+    console.log(`${this.name} is fetching.`);
+  }
+}
+
+let dog = new Dog("Buddy", "Golden Retriever");
+dog.makeSound(); // "Woof!"
+dog.fetch();
+```
+
+#### 抽象类
+
+```typescript
+// 抽象类
+abstract class Shape {
+  abstract area(): number;
+
+  // 普通方法
+  display(): void {
+    console.log(`Area: ${this.area()}`);
+  }
+}
+
+// 实现抽象类
+class Circle extends Shape {
+  radius: number;
+
+  constructor(radius: number) {
+    super();
+    this.radius = radius;
+  }
+
+  override area(): number {
+    return Math.PI * this.radius * this.radius;
+  }
+}
+
+let circle = new Circle(5);
+circle.display(); // "Area: 78.54..."
+```
+
+### 3. 接口
+
+#### 接口定义
+
+```typescript
+// 基本接口
+interface User {
+  name: string;
+  age: number;
+  email?: string; // 可选属性
+}
+
+// 实现接口
+class Student implements User {
+  name: string;
+  age: number;
+  email?: string;
+  studentId: string;
+
+  constructor(name: string, age: number, studentId: string) {
+    this.name = name;
+    this.age = age;
+    this.studentId = studentId;
+  }
+}
+
+// 接口方法
+interface Calculator {
+  add(a: number, b: number): number;
+  subtract(a: number, b: number): number;
+}
+
+class BasicCalculator implements Calculator {
+  add(a: number, b: number): number {
+    return a + b;
+  }
+
+  subtract(a: number, b: number): number {
+    return a - b;
+  }
+}
+```
+
+#### 接口继承
+
+```typescript
+interface Animal {
+  name: string;
+  makeSound(): void;
+}
+
+interface Pet extends Animal {
+  owner: string;
+  play(): void;
+}
+
+class Cat implements Pet {
+  name: string;
+  owner: string;
+
+  constructor(name: string, owner: string) {
+    this.name = name;
+    this.owner = owner;
+  }
+
+  makeSound(): void {
+    console.log("Meow!");
+  }
+
+  play(): void {
+    console.log(`${this.name} is playing with ${this.owner}.`);
+  }
+}
+```
+
+**对比 Web 开发**：接口语法与 TypeScript 完全一致。
+
+### 4. 泛型编程
+
+#### 泛型函数
+
+```typescript
+// 基本泛型函数
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+let num = identity<number>(42);
+let str = identity<string>("Hello");
+
+// 泛型约束
+interface Lengthwise {
+  length: number;
+}
+
+function logLength<T extends Lengthwise>(arg: T): void {
+  console.log(arg.length);
+}
+
+logLength("Hello"); // 5
+logLength([1, 2, 3]); // 3
+```
+
+#### 泛型类
+
+```typescript
+// 泛型类
+class Box<T> {
+  private content: T;
+
+  constructor(content: T) {
+    this.content = content;
+  }
+
+  getContent(): T {
+    return this.content;
+  }
+
+  setContent(content: T): void {
+    this.content = content;
+  }
+}
+
+let numberBox = new Box<number>(42);
+let stringBox = new Box<string>("Hello");
+```
+
+#### 泛型接口
+
+```typescript
+interface Repository<T> {
+  findById(id: number): T | null;
+  save(entity: T): void;
+  delete(id: number): boolean;
+}
+
+class UserRepository implements Repository<User> {
+  private users: User[] = [];
+
+  findById(id: number): User | null {
+    return this.users.find((u) => u.id === id) || null;
+  }
+
+  save(user: User): void {
+    this.users.push(user);
+  }
+
+  delete(id: number): boolean {
+    let index = this.users.findIndex((u) => u.id === id);
+    if (index !== -1) {
+      this.users.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+}
+```
+
+### 5. 装饰器
+
+装饰器是 ArkTS 的重要特性，用于状态管理和组件通信。
+
+#### @State 装饰器
+
+```typescript
+@Entry
+@Component
+struct CounterPage {
+  @State count: number = 0;  // 组件内部状态
+
+  build() {
+    Column() {
+      Text(`Count: ${this.count}`)
+        .fontSize(30)
+
+      Button('Increment')
+        .onClick(() => {
+          this.count++;  // 修改状态会自动更新 UI
+        })
+    }
+  }
+}
+```
+
+**对比 React**：`@State` 类似 React 的 `useState` Hook。
+
+#### @Prop 装饰器
+
+```typescript
+// 父组件
+@Entry
+@Component
+struct ParentPage {
+  @State message: string = "Hello from Parent";
+
+  build() {
+    Column() {
+      Text(this.message)
+      ChildComponent({ message: this.message })
+    }
+  }
+}
+
+// 子组件
+@Component
+struct ChildComponent {
+  @Prop message: string;  // 从父组件接收，单向数据流
+
+  build() {
+    Text(this.message)
+      .onClick(() => {
+        // this.message = "Changed";  // Error: @Prop 是只读的
+      })
+  }
+}
+```
+
+**对比 React**：`@Prop` 类似 React 的 `props`，是只读的。
+
+#### @Link 装饰器
+
+```typescript
+// 父组件
+@Entry
+@Component
+struct ParentPage {
+  @State message: string = "Hello";
+
+  build() {
+    Column() {
+      Text(this.message)
+      ChildComponent({ message: $message })  // 使用 $ 符号传递引用
+    }
+  }
+}
+
+// 子组件
+@Component
+struct ChildComponent {
+  @Link message: string;  // 双向绑定
+
+  build() {
+    Text(this.message)
+      .onClick(() => {
+        this.message = "Changed";  // OK: 可以修改，会同步到父组件
+      })
+  }
+}
+```
+
+**对比 React**：`@Link` 类似 React 的 `useState` + 回调函数实现双向绑定。
+
+#### @Provide 和 @Consume
+
+```typescript
+// 祖先组件
+@Entry
+@Component
+struct AncestorPage {
+  @Provide theme: string = "light";
+
+  build() {
+    Column() {
+      MiddleComponent()
+    }
+  }
+}
+
+// 中间组件（不需要传递）
+@Component
+struct MiddleComponent {
+  build() {
+    Column() {
+      ChildComponent()
+    }
+  }
+}
+
+// 子组件
+@Component
+struct ChildComponent {
+  @Consume theme: string;  // 直接从祖先组件获取
+
+  build() {
+    Text(`Theme: ${this.theme}`)
+  }
+}
+```
+
+**对比 React**：`@Provide/@Consume` 类似 React 的 `Context`。
+
+### 6. 异步编程
+
+#### Promise
+
+```typescript
+// 创建 Promise
+function fetchData(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Data loaded");
+      // 或 reject(new Error("Failed"));
+    }, 1000);
+  });
+}
+
+// 使用 Promise
+fetchData()
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+```
+
+#### async/await
+
+```typescript
+// async 函数
+async function loadUserData(userId: number): Promise<User> {
+  try {
+    // 模拟 API 调用
+    let response = await fetch(`/api/users/${userId}`);
+    let user = await response.json();
+    return user;
+  } catch (error) {
+    console.error("Failed to load user:", error);
+    throw error;
+  }
+}
+
+// 使用 async/await
+async function displayUser(userId: number): Promise<void> {
+  try {
+    let user = await loadUserData(userId);
+    console.log(`User: ${user.name}`);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+```
+
+#### 并发处理
+
+```typescript
+// 并行执行多个异步操作
+async function loadMultipleUsers(userIds: number[]): Promise<User[]> {
+  let promises = userIds.map((id) => loadUserData(id));
+  return await Promise.all(promises);
+}
+
+// 等待第一个完成
+async function loadFirstAvailable(urls: string[]): Promise<string> {
+  let promises = urls.map((url) => fetch(url));
+  let response = await Promise.race(promises);
+  return await response.text();
+}
+```
+
+**对比 Web 开发**：Promise 和 async/await 语法与 JavaScript/TypeScript 完全一致。
+
+## 实践练习
+
+### 练习 1：实现购物车类
+
+**目标**：创建一个购物车类，支持添加商品、删除商品、计算总价
+
+**要求**：
+
+1. 定义 `Product` 接口（name, price, quantity）
+2. 定义 `ShoppingCart` 类
+3. 实现添加、删除、计算总价的方法
+
+**参考代码**：
+
+```typescript
+interface Product {
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+class ShoppingCart {
+  private items: Product[] = [];
+
+  addProduct(product: Product): void {
+    let existing = this.items.find((item) => item.name === product.name);
+    if (existing) {
+      existing.quantity += product.quantity;
+    } else {
+      this.items.push(product);
+    }
+  }
+
+  removeProduct(name: string): boolean {
+    let index = this.items.findIndex((item) => item.name === name);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+
+  getTotalPrice(): number {
+    return this.items.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0);
+  }
+
+  getItems(): Product[] {
+    return [...this.items]; // 返回副本
+  }
+}
+```
+
+### 练习 2：使用装饰器实现计数器组件
+
+**目标**：创建一个计数器组件，使用 @State 管理状态
+
+**要求**：
+
+1. 显示当前计数
+2. 提供增加、减少、重置按钮
+3. 使用 @State 装饰器
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct CounterApp {
+  @State count: number = 0;
+
+  build() {
+    Column() {
+      Text(`Count: ${this.count}`)
+        .fontSize(40)
+        .margin({ bottom: 20 })
+
+      Row() {
+        Button('Decrease')
+          .onClick(() => {
+            this.count--;
+          })
+
+        Button('Reset')
+          .margin({ left: 10, right: 10 })
+          .onClick(() => {
+            this.count = 0;
+          })
+
+        Button('Increase')
+          .onClick(() => {
+            this.count++;
+          })
+      }
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+### 练习 3：异步数据加载
+
+**目标**：创建一个组件，异步加载并显示用户列表
+
+**要求**：
+
+1. 定义 User 接口
+2. 创建模拟的异步加载函数
+3. 使用 async/await 加载数据
+4. 显示加载状态和错误处理
+
+**参考代码**：
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+// 模拟 API
+function fetchUsers(): Promise<User[]> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        { id: 1, name: "Tom", email: "tom@example.com" },
+        { id: 2, name: "Jerry", email: "jerry@example.com" }
+      ]);
+    }, 1000);
+  });
+}
+
+@Entry
+@Component
+struct UserListPage {
+  @State users: User[] = [];
+  @State loading: boolean = true;
+  @State error: string = '';
+
+  async loadUsers() {
+    try {
+      this.loading = true;
+      this.error = '';
+      this.users = await fetchUsers();
+    } catch (err) {
+      this.error = 'Failed to load users';
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  aboutToAppear() {
+    this.loadUsers();
+  }
+
+  build() {
+    Column() {
+      if (this.loading) {
+        Text('Loading...')
+      } else if (this.error) {
+        Text(this.error)
+          .fontColor(Color.Red)
+      } else {
+        List() {
+          ForEach(this.users, (user: User) => {
+            ListItem() {
+              Column() {
+                Text(user.name)
+                  .fontSize(20)
+                Text(user.email)
+                  .fontSize(14)
+                  .fontColor(Color.Gray)
+              }
+              .width('100%')
+              .padding(10)
+            }
+          })
+        }
+      }
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+## 常见问题
+
+### Q1: @State、@Prop、@Link 的区别是什么？
+
+**A**:
+
+- `@State`: 组件内部状态，可以修改
+- `@Prop`: 从父组件接收，只读，单向数据流
+- `@Link`: 双向绑定，可以修改并同步到父组件
+
+### Q2: 什么时候使用接口，什么时候使用类？
+
+**A**:
+
+- 接口：定义契约，不包含实现，用于类型检查
+- 类：包含实现，可以创建实例
+- 如果只需要类型定义，用接口；如果需要实现逻辑，用类
+
+### Q3: 泛型的作用是什么？
+
+**A**: 泛型提供类型参数，使代码更灵活和可复用。可以在不指定具体类型的情况下编写代码，提高代码复用性。
+
+### Q4: async/await 和 Promise 有什么区别？
+
+**A**:
+
+- `async/await` 是 Promise 的语法糖，使异步代码看起来像同步代码
+- `async/await` 更易读，错误处理更直观
+- 两者可以混用，`async` 函数返回 Promise
+
+### Q5: 装饰器可以叠加使用吗？
+
+**A**: 可以，但需要遵循特定规则。例如，一个属性可以同时使用 `@State` 和 `@Watch`（监听变化）。
+
+## 扩展阅读
+
+- [ArkTS 装饰器详解](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkts-decorator-overview-V3)
+- [ArkTS 类与对象](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkts-classes-and-objects-V3)
+- [ArkTS 异步并发](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkts-async-concurrency-V3)
+
+## 下一步
+
+完成进阶特性学习后，建议继续学习：
+
+- [ArkUI 组件系统](/blog/harmony/tutorial/04-arkui-components) - 开始学习 UI 开发

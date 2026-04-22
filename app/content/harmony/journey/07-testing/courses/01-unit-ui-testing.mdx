@@ -1,0 +1,36 @@
+---
+type: "Post"
+date: "2025-08-12 10:00:00"
+title: "单元测试和 UI 测试"
+tags: [HarmonyOS]
+description: "学习 HarmonyOS 应用的单元测试和 UI 测试方法。"
+---
+
+## 学习目标
+
+通过本课程，你将学会：
+
+- 编写单元测试
+- 实现 UI 测试
+- 使用自动化测试框架
+- 编写测试脚本
+
+## 详细内容
+
+### 单元测试
+
+```typescript
+import { describe, it, expect } from '@ohos/hypium';
+
+describe('Calculator', () => {
+  it('should add two numbers', () => {
+    const result = add(2, 3);
+    expect(result).assertEqual(5);
+  });
+});
+```
+
+## 下一步
+
+- [测试实践](/blog/harmony/journey/07-testing/exercises/01-testing-practice)
+

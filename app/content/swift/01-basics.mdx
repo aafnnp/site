@@ -1,0 +1,444 @@
+---
+type: 'Post'
+date: '2022-03-01'
+title: 'Swift - 基础知识'
+tags: [swift]
+description: Swift是一种适用于iOS、macOS、watchOS和tvOS应用程序的编程语言。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/LExMnt.jpg
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解 Swift 语言的基本特性和设计理念
+- 掌握变量和常量的声明与使用
+- 了解 Swift 的基本数据类型
+- 理解类型安全和类型推断
+- 掌握可选类型的概念和用法
+- 了解元组的使用
+
+## 前置知识
+
+- 基本的编程概念（如果有其他编程语言经验更佳）
+- 了解如何使用 Xcode Playground 运行代码（可选）
+
+## Swift 简介
+
+Swift 是一种适用于 iOS、macOS、watchOS 和 Apple tvOS app 开发的新编程语言。尽管如此，Swift的许多部分将从您在C和Objective-C中开发的经验中熟悉。
+
+Swift提供所有基本C和Objective-C类型的版本，包括用于整数的Int、用于浮点值的Double和Float、用于布尔值的Bool和用于文本数据的String。Swift还提供了三种主要集合类型的强大版本，例如Array、Set和Dictionary，如Collection Types中所述。
+
+与C一样，Swift使用变量通过标识名称存储和引用值。Swift还广泛使用其值无法更改的变量。这些被称为常数，比C中的常数强大得多。当您处理不需要更改的值时，整个Swift都使用常量，以使代码的意图更安全、更清晰。
+
+除了熟悉的类型外，Swift还引入了Objective-C中没有的高级类型，例如元组。元组使您能够创建和传递值分组。您可以使用元组将函数中的多个值作为单个复合值返回。
+
+Swift还引入了可选类型，用于处理缺少值的情况。可选的说“有一个值，它等于x”或“根本没有值”。使用可选选项类似于在Objective-C中使用带有指针的nil，但它们适用于任何类型，而不仅仅是类。可选选项不仅比Objective-C中的nil指针更安全、更具表现力，而且是Swift许多最强大功能的核心。
+
+Swift是一种类型安全的语言，这意味着该语言可以帮助您清楚地了解代码可以使用的值类型。如果您的部分代码需要String，类型安全性会阻止您错误地将其传递给Int。同样，类型安全可防止您意外地将可选String传递给需要非可选String的代码。类型安全可帮助您尽早在开发过程中捕获和修复错误。
+
+## 常量和变量
+
+常量和变量将值分配给特定的标识符，以便您可以在代码中引用它们。常量的值一旦设置就无法更改，而变量的值可以更改。
+
+### 声明常量和变量
+
+您可以使用let关键字声明常量，使用var关键字声明变量。常量和变量的名称可以包含任何字符，包括Unicode字符：
+
+```swift
+let maximumNumberOfLoginAttempts = 10
+var currentLoginAttempt = 0
+```
+
+常量和变量的名称不能包含空格、数学符号、箭头、保留的（或者非法的）Unicode代码点、连线和制表符。也不能以数字开头，但可以在名称的其他地方包含数字。
+
+打印常量和变量的值：
+
+```swift
+print(maximumNumberOfLoginAttempts)
+print(currentLoginAttempt)
+```
+
+使用反斜杠（\）将常量和变量的名称放在括号中，以在字符串插值中包含它们的当前值：
+
+```swift
+print("Maximum number of login attempts is \(maximumNumberOfLoginAttempts)")
+```
+
+### 类型标注
+
+您可以在声明常量或变量时提供类型标注（type annotation），以明确常量或变量可以存储的值的类型。在类型标注后面加上一个冒号和空格，然后加上类型名称，以指定常量或变量可以存储的值的类型：
+
+```swift
+var welcomeMessage: String
+```
+
+类型标注是一种为常量或变量提供关于其允许存储的值类型的方法。它不会为常量或变量的值分配任何实际的值；它只是说明了常量或变量可以存储的值的类型。如果您在声明常量或变量时提供了类型标注，您可以在该常量或变量的赋值语句中省略对其类型的说明。类型标注的使用可以使您的代码更具可读性，因为它允许您立即知道常量或变量可以存储的值的类型。
+
+## 注释
+
+您可以使用单行注释（single-line comments）将注释嵌入到代码中。单行注释以两个正斜杠（//）开头：
+
+```swift
+// This is a comment
+```
+
+您可以使用多行注释（multi-line comments）将注释嵌入到代码中。多行注释以正斜杠后跟星号（/_）开头，以星号后跟正斜杠（_/）结尾：
+
+```swift
+/* This is also a comment
+but is written over multiple lines. */
+```
+
+## 分号
+
+Swift不要求您在每个语句结尾处使用分号（;），但是您可以使用分号将多个独立的语句写在同一行上：
+
+```swift
+let cat = "🐱"; print(cat)
+```
+
+## 整数
+
+整数是没有小数部分的数字，例如42和-23。Swift提供了8、16、32和64位有符号和无符号整数类型。这些整数类型的名称与它们的位数相同，例如UInt8表示8位无符号整数，Int32表示32位有符号整数。
+
+整数范围：
+
+```swift
+let minValue = UInt8.min
+let maxValue = UInt8.max
+```
+
+## 浮点数
+
+浮点数是有小数部分的数字，例如3.14159、0.1和-273.15。Swift提供了两种有符号的浮点数类型：
+
+- Double表示64位浮点数。
+- Float表示32位浮点数。
+
+如果您需要在您的代码中选择浮点数类型，推荐使用Double类型，除非你特别需要它的性能。
+
+## 类型安全和类型推断
+
+Swift是一种类型安全（type-safe）语言。类型安全语言可以让您清楚地知道代码可以处理的值的类型。如果部分代码期望得到String，您就不能传递一个Int来代替。
+
+Swift通过类型推断（type inference）来选择合适的类型。如果您没有明确指定类型，Swift使用类型推断来选择合适的类型。例如，如果您给一个新的浮点值赋值，Swift会推断您想要创建一个Double而不是Float：
+
+```swift
+let meaningOfLife = 42
+// meaningOfLife is inferred to be of type Int
+let pi = 3.14159
+// pi is inferred to be of type Double
+```
+
+如果您在一行中声明多个同类型的值，您可以在一行中写出所有值，用逗号隔开，Swift会自动推断出这些值的类型：
+
+```swift
+let x = 0.0, y = 0.0, z = 0.0
+```
+
+## 数值型字面量
+
+整数字面量可以被写作：
+
+- 一个十进制数，没有前缀
+- 一个二进制数，前缀是0b
+- 一个八进制数，前缀是0o
+- 一个十六进制数，前缀是0x
+
+十进制数的例子：
+
+```swift
+let decimalInteger = 17
+let binaryInteger = 0b10001       // 17 in binary notation
+let octalInteger = 0o21           // 17 in octal notation
+let hexadecimalInteger = 0x11     // 17 in hexadecimal notation
+```
+
+浮点字面量可以是十进制（没有前缀），或者是十六进制（前缀是0x）。十进制浮点字面量还可以有一个可选的指数（exponent），通过大写或小写的e来指定。十六进制浮点字面量必须有一个指数；指数通过大写或小写的p来指定。十进制浮点字面量的例子：
+
+```swift
+let decimalDouble = 12.1875
+let exponentDouble = 1.21875e1
+let hexadecimalDouble = 0xC.3p0
+```
+
+## 数值型类型转换
+
+整数和浮点数类型转换必须显式指定类型：
+
+```swift
+let twoThousand: UInt16 = 2_000
+let one: UInt8 = 1
+let twoThousandAndOne = twoThousand + UInt16(one)
+// twoThousandAndOne is equal to 2001
+```
+
+## 类型别名
+
+类型别名（type aliases）就是给现有类型定义另一个名字。你可以使用typealias关键字来定义类型别名。
+
+```swift
+typealias AudioSample = UInt16
+var maxAmplitudeFound = AudioSample.min
+// maxAmplitudeFound is now 0
+```
+
+## 布尔值
+
+Swift有一个基本的布尔（Boolean）类型，叫做Bool。布尔值指逻辑上的值，因为它们只能是真或者假。Swift提供两个布尔常量，true和false：
+
+```swift
+let orangesAreOrange = true
+let turnipsAreDelicious = false
+```
+
+## 元组
+
+元组（tuples）把多个值组合成一个复合值。元组内的值可以是任意类型，并不要求是相同类型。
+
+```swift
+let http404Error = (404, "Not Found")
+// http404Error is of type (Int, String), and equals (404, "Not Found")
+```
+
+元组的内容可以分解（decompose）成单独的常量和变量，然后你就可以正常使用它们了：
+
+```swift
+let (statusCode, statusMessage) = http404Error
+print("The status code is \(statusCode)")
+// Prints "The status code is 404"
+print("The status message is \(statusMessage)")
+// Prints "The status message is Not Found"
+```
+
+如果你只需要一部分元组值，分解的时候可以把要忽略的部分用下划线（\_）标记：
+
+```swift
+let (justTheStatusCode, _) = http404Error
+print("The status code is \(justTheStatusCode)")
+// Prints "The status code is 404"
+```
+
+你也可以通过下标来访问元组中的单个元素，下标从零开始：
+
+```swift
+print("The status code is \(http404Error.0)")
+// Prints "The status code is 404"
+print("The status message is \(http404Error.1)")
+// Prints "The status message is Not Found"
+```
+
+你可以在定义元组的时候给单个元素命名：
+
+```swift
+let http200Status = (statusCode: 200, description: "OK")
+```
+
+这个元组的名字叫做http200Status，它的类型是(Int, String)。你可以通过名字来获取元素的值：
+
+```swift
+print("The status code is \(http200Status.statusCode)")
+// Prints "The status code is 200"
+print("The status message is \(http200Status.description)")
+// Prints "The status message is OK"
+```
+
+## 可选类型
+
+Swift的可选类型（optional types）表示：
+
+- 这个值可能有值，等于x
+- 这个值可能没有值
+
+可选类型有点像Objective-C中的nil指针，但是它们可以用于任何类型，不仅仅是类。可选类型表示的是值缺失，而不是值为nil。这样的设计可以让你避免在你的代码中使用nil值。
+
+## 可选绑定
+
+可选绑定（optional binding）用来判断可选类型是否包含值，如果包含就把值赋给一个临时常量或变量。可选绑定可以用在if和while语句中来对可选类型的值进行判断并把值赋给一个常量或变量。
+
+```swift
+if let constantName = someOptional {
+    statements
+}
+```
+
+## 隐式解析可选类型
+
+有时候在变量的生命周期中，会确定一个可选类型变量总会有值。在这种情况下，每次都需要判断和解析可选值是非常麻烦的。这时候可以选择隐式解析可选类型（implicitly unwrapped optionals）。
+
+```swift
+let possibleString: String? = "An optional string."
+let forcedString: String = possibleString! // requires an exclamation point
+
+let assumedString: String! = "An implicitly unwrapped optional string."
+let implicitString: String = assumedString // no need for an exclamation point
+```
+
+## 错误处理
+
+Swift提供了一种在运行时表示和抛出错误的机制。这个机制让你能够表示和抛出你自己的错误，并且把函数抛出的错误传递到程序的某个地方。
+
+```swift
+enum VendingMachineError: ErrorType {
+    case InvalidSelection
+    case InsufficientFunds(coinsNeeded: Int)
+    case OutOfStock
+}
+
+throw VendingMachineError.InsufficientFunds(coinsNeeded: 5)
+```
+
+## 断言和先决条件
+
+断言和先决条件用来检查在运行时一个必要的条件是否为真。如果条件判断的结果为true，代码继续运行。如果条件判断的结果为false，代码执行结束，你的应用被终止。
+
+```swift
+let age = -3
+assert(age >= 0, "A person's age cannot be less than zero")
+// This assertion fails because -3 is not >= 0.
+
+if age > 10 {
+    print("You can ride the roller-coaster or the ferris wheel.")
+} else if age >= 0 {
+    print("You can ride the ferris wheel.")
+} else {
+    assertionFailure("A person's age can't be less than zero.")
+}
+// Prints "You can ride the ferris wheel."
+```
+
+## 练习
+
+### 练习 1：变量和常量
+
+创建一个 Playground，完成以下任务：
+
+1. 声明一个常量存储你的姓名（使用 `let`）
+2. 声明一个变量存储你的年龄（使用 `var`）
+3. 使用字符串插值打印：`"我的名字是 {姓名}，今年 {年龄} 岁"`
+
+**参考答案**：
+
+```swift
+let name = "张三"
+var age = 25
+print("我的名字是 \(name)，今年 \(age) 岁")
+```
+
+### 练习 2：类型标注和类型推断
+
+完成以下代码，并说明每个变量的类型：
+
+```swift
+// 添加类型标注
+let number: Int = 42
+let pi: Double = 3.14159
+let isSwiftAwesome: Bool = true
+
+// 使用类型推断
+let message = "Hello, Swift!"
+let count = 10
+```
+
+### 练习 3：元组
+
+定义一个元组存储学生的信息（姓名、年龄、成绩），然后：
+
+1. 使用命名元组元素
+2. 分解元组并打印每个元素
+3. 使用下标访问元组元素
+
+**参考答案**：
+
+```swift
+// 定义元组
+let student = (name: "李四", age: 20, score: 95)
+
+// 分解元组
+let (name, age, score) = student
+print("姓名：\(name)")
+print("年龄：\(age)")
+print("成绩：\(score)")
+
+// 使用下标访问
+print("姓名：\(student.0)")
+print("年龄：\(student.1)")
+print("成绩：\(student.2)")
+
+// 使用命名访问
+print("姓名：\(student.name)")
+print("年龄：\(student.age)")
+print("成绩：\(student.score)")
+```
+
+### 练习 4：可选类型
+
+完成以下任务：
+
+1. 声明一个可选字符串变量
+2. 使用可选绑定检查值是否存在
+3. 使用 nil 合并运算符提供默认值
+
+**参考答案**：
+
+```swift
+// 声明可选类型
+var optionalName: String? = "Swift"
+var optionalAge: Int? = nil
+
+// 可选绑定
+if let name = optionalName {
+    print("名字是 \(name)")
+} else {
+    print("名字为空")
+}
+
+// nil 合并运算符
+let name = optionalName ?? "未知"
+let age = optionalAge ?? 0
+print("姓名：\(name)，年龄：\(age)")
+```
+
+### 练习 5：综合练习
+
+编写一个程序，模拟一个简单的用户登录系统：
+
+1. 定义常量存储最大登录尝试次数（3次）
+2. 定义变量存储当前登录尝试次数
+3. 使用元组存储登录状态（状态码、消息）
+4. 判断是否超过最大尝试次数，并打印相应消息
+
+**参考答案**：
+
+```swift
+let maximumLoginAttempts = 3
+var currentLoginAttempt = 0
+
+// 模拟登录尝试
+currentLoginAttempt = 4
+
+let loginStatus: (code: Int, message: String)
+if currentLoginAttempt > maximumLoginAttempts {
+    loginStatus = (code: 401, message: "登录失败次数过多，账户已锁定")
+} else if currentLoginAttempt == maximumLoginAttempts {
+    loginStatus = (code: 400, message: "这是最后一次尝试机会")
+} else {
+    loginStatus = (code: 200, message: "可以继续尝试登录")
+}
+
+print("状态码：\(loginStatus.code)")
+print("消息：\(loginStatus.message)")
+```
+
+## 总结
+
+本章介绍了 Swift 语言的基础知识：
+
+- **变量和常量**：使用 `var` 声明变量，`let` 声明常量
+- **类型系统**：Swift 是类型安全的语言，支持类型推断
+- **基本数据类型**：整数、浮点数、布尔值、字符串
+- **元组**：将多个值组合成一个复合值
+- **可选类型**：处理值可能缺失的情况，提高代码安全性
+
+下一章我们将学习 [基本运算符](/blog/swift/02-basic-operators)，了解 Swift 中的各种运算符。

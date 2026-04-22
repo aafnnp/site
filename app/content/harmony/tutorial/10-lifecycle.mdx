@@ -1,0 +1,596 @@
+---
+type: "Post"
+date: "2025-09-02 10:00:00"
+title: "生命周期管理"
+tags: [HarmonyOS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解页面和组件的生命周期
+- 掌握页面生命周期回调
+- 掌握组件生命周期回调
+- 学会资源管理和内存优化
+- 理解后台任务处理
+
+## 前置知识
+
+- 完成[数据存储](/blog/harmony/tutorial/09-data-storage)
+- 了解基本的应用生命周期概念
+
+## 核心概念
+
+### 生命周期概述
+
+生命周期是组件从创建到销毁的整个过程。理解生命周期有助于：
+
+- 在合适的时机初始化资源
+- 及时释放资源，避免内存泄漏
+- 处理页面显示/隐藏逻辑
+
+**对比 Web 开发**：
+
+- React `useEffect` → ArkUI 生命周期回调
+- Vue `mounted/unmounted` → ArkUI 生命周期回调
+
+## 详细内容
+
+### 1. 页面生命周期
+
+#### 生命周期回调
+
+```typescript
+@Entry
+@Component
+struct LifecyclePage {
+  // 页面显示前（仅调用一次）
+  aboutToAppear() {
+    console.log('Page about to appear');
+    // 初始化数据、请求网络等
+  }
+
+  // 页面显示时
+  onPageShow() {
+    console.log('Page shown');
+    // 刷新数据、恢复动画等
+  }
+
+  // 页面隐藏时
+  onPageHide() {
+    console.log('Page hidden');
+    // 暂停动画、保存状态等
+  }
+
+  // 页面销毁前（仅调用一次）
+  aboutToDisappear() {
+    console.log('Page about to disappear');
+    // 清理资源、取消请求等
+  }
+
+  build() {
+    Column() {
+      Text('Lifecycle Demo')
+    }
+  }
+}
+```
+
+#### 生命周期流程图
+
+```
+页面创建
+  ↓
+aboutToAppear()  ← 仅调用一次
+  ↓
+onPageShow()     ← 每次显示时调用
+  ↓
+[页面可见]
+  ↓
+onPageHide()     ← 每次隐藏时调用
+  ↓
+aboutToDisappear() ← 仅调用一次
+  ↓
+页面销毁
+```
+
+### 2. 组件生命周期
+
+#### 组件生命周期回调
+
+```typescript
+@Component
+struct LifecycleComponent {
+  // 组件创建时（仅调用一次）
+  aboutToAppear() {
+    console.log('Component about to appear');
+  }
+
+  // 组件销毁前（仅调用一次）
+  aboutToDisappear() {
+    console.log('Component about to disappear');
+  }
+
+  build() {
+    Column() {
+      Text('Component')
+    }
+  }
+}
+```
+
+**注意**：组件没有 `onPageShow` 和 `onPageHide`，这些是页面级别的回调。
+
+### 3. 资源管理
+
+#### 在生命周期中管理资源
+
+```typescript
+@Entry
+@Component
+struct ResourceManagementPage {
+  private timer: number | null = null;
+  private httpRequest: http.HttpRequest | null = null;
+
+  aboutToAppear() {
+    // 初始化资源
+    this.startTimer();
+    this.loadData();
+  }
+
+  onPageHide() {
+    // 页面隐藏时暂停
+    this.pauseTimer();
+  }
+
+  onPageShow() {
+    // 页面显示时恢复
+    this.resumeTimer();
+  }
+
+  aboutToDisappear() {
+    // 清理资源
+    this.stopTimer();
+    this.cancelRequest();
+  }
+
+  startTimer() {
+    this.timer = setInterval(() => {
+      console.log('Timer tick');
+    }, 1000);
+  }
+
+  pauseTimer() {
+    // 暂停逻辑
+  }
+
+  resumeTimer() {
+    // 恢复逻辑
+  }
+
+  stopTimer() {
+    if (this.timer !== null) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+  }
+
+  async loadData() {
+    this.httpRequest = http.createHttp();
+    // 请求数据...
+  }
+
+  cancelRequest() {
+    if (this.httpRequest) {
+      this.httpRequest.destroy();
+      this.httpRequest = null;
+    }
+  }
+
+  build() {
+    Column() {
+      Text('Resource Management')
+    }
+  }
+}
+```
+
+### 4. 内存优化
+
+#### 避免内存泄漏
+
+```typescript
+@Entry
+@Component
+struct MemoryOptimizationPage {
+  @State data: any[] = [];
+  private listeners: (() => void)[] = [];
+
+  aboutToAppear() {
+    // 注册事件监听
+    this.addListener(() => {
+      console.log('Event fired');
+    });
+  }
+
+  aboutToDisappear() {
+    // 移除所有监听器，避免内存泄漏
+    this.listeners = [];
+  }
+
+  addListener(callback: () => void) {
+    this.listeners.push(callback);
+  }
+
+  build() {
+    Column() {
+      // 使用 ForEach 时提供 key，提高性能
+      ForEach(this.data, (item: any, index: number) => {
+        ListItem() {
+          Text(`Item ${index}`)
+        }
+      }, (item: any, index: number) => `${item.id}-${index}`)
+    }
+  }
+}
+```
+
+#### 及时释放大对象
+
+```typescript
+@Entry
+@Component
+struct LargeDataPage {
+  @State largeData: number[] = [];
+
+  onPageShow() {
+    // 加载大数据
+    this.loadLargeData();
+  }
+
+  onPageHide() {
+    // 页面隐藏时清空大数据，释放内存
+    this.largeData = [];
+  }
+
+  loadLargeData() {
+    // 模拟加载大量数据
+    this.largeData = Array.from({ length: 10000 }, (_, i) => i);
+  }
+
+  build() {
+    Column() {
+      Text(`Data count: ${this.largeData.length}`)
+    }
+  }
+}
+```
+
+### 5. 后台任务处理
+
+#### 页面进入后台时的处理
+
+```typescript
+@Entry
+@Component
+struct BackgroundTaskPage {
+  @State isActive: boolean = true;
+
+  onPageShow() {
+    this.isActive = true;
+    // 恢复后台任务
+    this.resumeBackgroundTasks();
+  }
+
+  onPageHide() {
+    this.isActive = false;
+    // 暂停后台任务
+    this.pauseBackgroundTasks();
+  }
+
+  resumeBackgroundTasks() {
+    // 恢复定时器、动画等
+    console.log('Resume background tasks');
+  }
+
+  pauseBackgroundTasks() {
+    // 暂停定时器、动画等
+    console.log('Pause background tasks');
+  }
+
+  build() {
+    Column() {
+      Text(this.isActive ? 'Active' : 'Inactive')
+    }
+  }
+}
+```
+
+### 6. 数据刷新策略
+
+#### 根据生命周期刷新数据
+
+```typescript
+@Entry
+@Component
+struct DataRefreshPage {
+  @State users: User[] = [];
+  private lastRefreshTime: number = 0;
+  private refreshInterval: number = 5 * 60 * 1000; // 5 分钟
+
+  aboutToAppear() {
+    // 首次加载
+    this.loadUsers();
+  }
+
+  onPageShow() {
+    // 检查是否需要刷新
+    let now = Date.now();
+    if (now - this.lastRefreshTime > this.refreshInterval) {
+      this.loadUsers();
+    }
+  }
+
+  async loadUsers() {
+    try {
+      this.users = await UserService.getUsers();
+      this.lastRefreshTime = Date.now();
+    } catch (error) {
+      console.error('Failed to load users:', error);
+    }
+  }
+
+  build() {
+    Column() {
+      List() {
+        ForEach(this.users, (user: User) => {
+          ListItem() {
+            Text(user.name)
+          }
+        })
+      }
+    }
+  }
+}
+```
+
+## 实践练习
+
+### 练习 1：实现页面数据加载
+
+**目标**：在页面显示时加载数据，隐藏时暂停
+
+**要求**：
+
+1. 在 `aboutToAppear` 中初始化
+2. 在 `onPageShow` 中刷新数据
+3. 在 `onPageHide` 中暂停操作
+4. 在 `aboutToDisappear` 中清理资源
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct DataLoadPage {
+  @State data: any[] = [];
+  @State loading: boolean = false;
+  private refreshTimer: number | null = null;
+
+  aboutToAppear() {
+    console.log('Page initializing');
+    this.loadData();
+  }
+
+  onPageShow() {
+    console.log('Page shown, refreshing data');
+    this.startAutoRefresh();
+  }
+
+  onPageHide() {
+    console.log('Page hidden, pausing refresh');
+    this.stopAutoRefresh();
+  }
+
+  aboutToDisappear() {
+    console.log('Page destroying, cleaning up');
+    this.stopAutoRefresh();
+  }
+
+  async loadData() {
+    this.loading = true;
+    try {
+      // 模拟网络请求
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      this.data = [1, 2, 3, 4, 5];
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  startAutoRefresh() {
+    this.refreshTimer = setInterval(() => {
+      this.loadData();
+    }, 30000); // 每 30 秒刷新
+  }
+
+  stopAutoRefresh() {
+    if (this.refreshTimer !== null) {
+      clearInterval(this.refreshTimer);
+      this.refreshTimer = null;
+    }
+  }
+
+  build() {
+    Column() {
+      if (this.loading) {
+        Text('Loading...')
+      } else {
+        ForEach(this.data, (item: number) => {
+          Text(`Item ${item}`)
+        })
+      }
+    }
+  }
+}
+```
+
+### 练习 2：实现组件资源清理
+
+**目标**：创建一个组件，在销毁时清理所有资源
+
+**要求**：
+
+1. 管理定时器
+2. 管理网络请求
+3. 清理事件监听
+
+**参考代码**：
+
+```typescript
+@Component
+struct ResourceComponent {
+  private timer: number | null = null;
+  private httpRequest: http.HttpRequest | null = null;
+  @State count: number = 0;
+
+  aboutToAppear() {
+    // 启动定时器
+    this.timer = setInterval(() => {
+      this.count++;
+    }, 1000);
+
+    // 发起网络请求
+    this.loadData();
+  }
+
+  aboutToDisappear() {
+    // 清理定时器
+    if (this.timer !== null) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+
+    // 取消网络请求
+    if (this.httpRequest) {
+      this.httpRequest.destroy();
+      this.httpRequest = null;
+    }
+  }
+
+  async loadData() {
+    this.httpRequest = http.createHttp();
+    // 请求逻辑...
+  }
+
+  build() {
+    Column() {
+      Text(`Count: ${this.count}`)
+    }
+  }
+}
+```
+
+### 练习 3：实现页面状态保存和恢复
+
+**目标**：在页面隐藏时保存状态，显示时恢复
+
+**要求**：
+
+1. 保存滚动位置
+2. 保存表单数据
+3. 恢复时应用保存的状态
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct StateSavePage {
+  @State scrollOffset: number = 0;
+  @State formData: { name: string, email: string } = { name: '', email: '' };
+  private prefs: PreferencesManager;
+
+  async aboutToAppear() {
+    this.prefs = await PreferencesManager.getInstance(getContext(this));
+    // 恢复状态
+    await this.restoreState();
+  }
+
+  onPageHide() {
+    // 保存状态
+    this.saveState();
+  }
+
+  async saveState() {
+    await this.prefs.setNumber('scrollOffset', this.scrollOffset);
+    await this.prefs.setObject('formData', this.formData);
+  }
+
+  async restoreState() {
+    this.scrollOffset = await this.prefs.getNumber('scrollOffset', 0);
+    this.formData = await this.prefs.getObject('formData', { name: '', email: '' });
+  }
+
+  build() {
+    Scroll() {
+      Column() {
+        TextInput({ text: this.formData.name, placeholder: 'Name' })
+          .onChange((value: string) => {
+            this.formData.name = value;
+          })
+
+        TextInput({ text: this.formData.email, placeholder: 'Email' })
+          .onChange((value: string) => {
+            this.formData.email = value;
+          })
+      }
+    }
+    .onScroll((offset: number) => {
+      this.scrollOffset = offset;
+    })
+  }
+}
+```
+
+## 常见问题
+
+### Q1: aboutToAppear 和 onPageShow 的区别？
+
+**A**:
+
+- `aboutToAppear`: 页面创建时调用一次，适合初始化
+- `onPageShow`: 每次页面显示时调用，适合刷新数据
+
+### Q2: 什么时候使用 onPageHide？
+
+**A**: 当页面隐藏时需要暂停操作（如动画、定时器）时使用。
+
+### Q3: 组件有 onPageShow 吗？
+
+**A**: 没有，`onPageShow` 和 `onPageHide` 是页面级别的回调。
+
+### Q4: 如何避免内存泄漏？
+
+**A**:
+
+- 在 `aboutToDisappear` 中清理所有资源
+- 取消定时器、网络请求
+- 移除事件监听器
+
+### Q5: 页面切换时数据会丢失吗？
+
+**A**: 不会自动保存，需要在 `onPageHide` 中手动保存状态。
+
+## 扩展阅读
+
+- [页面生命周期](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkui-page-lifecycle-V3)
+- [组件生命周期](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkui-component-lifecycle-V3)
+- [内存管理](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/application-memory-overview-V3)
+
+## 下一步
+
+完成生命周期学习后，建议继续学习：
+
+- [动画效果](/blog/harmony/tutorial/11-animations) - 学习动画和交互

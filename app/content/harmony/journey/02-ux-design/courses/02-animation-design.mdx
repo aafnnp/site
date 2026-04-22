@@ -1,0 +1,111 @@
+---
+type: "Post"
+date: "2025-07-09 10:00:00"
+title: "动效设计"
+tags: [HarmonyOS]
+description: "学习 HarmonyOS 应用的动画设计，实现流畅的动画效果。"
+---
+
+## 学习目标
+
+通过本课程，你将学会：
+
+- 理解动画设计原则
+- 掌握属性动画的使用
+- 实现转场动画
+- 创建自定义动画效果
+
+## 前置知识
+
+- 完成布局设计课程
+- 熟悉 ArkUI 组件
+
+## 核心概念
+
+### 动画设计原则
+
+- **流畅性**：动画要流畅自然
+- **目的性**：动画要有明确的目的
+- **适度性**：不要过度使用动画
+- **性能**：确保动画不影响性能
+
+### 动画类型
+
+- **属性动画**：改变组件的属性值
+- **转场动画**：页面切换动画
+- **手势动画**：跟随手势的动画
+
+## 详细内容
+
+### 1. 属性动画
+
+```typescript
+import { animateTo } from '@ohos.animator';
+
+@Entry
+@Component
+struct AnimationExample {
+  @State width: number = 100;
+  @State height: number = 100;
+  @State opacity: number = 1.0;
+
+  build() {
+    Column() {
+      Button('开始动画')
+        .onClick(() => {
+          animateTo({
+            duration: 1000,
+            curve: Curve.EaseInOut
+          }, () => {
+            this.width = 200;
+            this.height = 200;
+            this.opacity = 0.5;
+          });
+        })
+
+      Text('动画文本')
+        .width(this.width)
+        .height(this.height)
+        .opacity(this.opacity)
+        .backgroundColor(Color.Blue)
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+### 2. 转场动画
+
+```typescript
+@Entry
+@Component
+struct TransitionExample {
+  @State show: boolean = false;
+
+  build() {
+    Column() {
+      Button('切换')
+        .onClick(() => {
+          this.show = !this.show;
+        })
+
+      if (this.show) {
+        Text('出现')
+          .transition(TransitionEffect.OPACITY.animation({ duration: 300 }))
+      }
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+## 扩展阅读
+
+- [ArkUI 动画参考](https://developer.harmonyos.com/cn/documentation)
+
+## 下一步
+
+- [动画效果练习](/blog/harmony/journey/02-ux-design/exercises/02-animation-practice)

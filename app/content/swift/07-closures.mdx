@@ -1,0 +1,318 @@
+---
+type: "Post"
+date: "2022-03-07"
+title: Swift - 闭包
+tags: [swift]
+description: 闭包是一种自包含的函数，可以在代码中被传递和使用
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/ejftR3.png
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解闭包的概念和作用
+- 掌握闭包表达式的语法和简化写法
+- 了解尾随闭包的使用
+- 理解值捕获的概念
+- 能够在实际开发中使用闭包
+
+## 前置知识
+
+- 完成 [函数](/blog/swift/06-functions) 的学习
+- 了解函数类型和函数作为参数的概念
+
+闭包是一种自包含的函数，可以在代码中被传递和使用。闭包可以捕获和存储其所在上下文中的任何常量和变量的引用，因此被称为闭包，因为它们会封闭这些变量。Swift 中的闭包与 C 和 Objective-C 中的块（blocks）以及其他一些编程语言中的匿名函数类似。
+
+以下是一个简单的示例，用于排序一个字符串数组：
+
+```swift
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+
+func backward(_ s1: String, _ s2: String) -> Bool {
+  return s1 > s2
+}
+
+var reversedNames = names.sorted(by: backward)
+```
+
+在上面的示例中，backward 函数接受两个字符串参数，比较它们的大小，并返回一个布尔值，表示第一个字符串是否在第二个字符串之后。sorted 函数接受一个闭包作为参数，并使用该闭包对数组进行排序。由于 backward 函数符合 sorted 函数要求的类型，因此可以将 backward 函数作为 sorted 函数的参数传递。
+
+在 Swift 中，可以使用闭包表达式来定义闭包。闭包表达式使用一对花括号（{}）来定义，并且在花括号中可以指定参数列表、返回类型和函数体。
+
+以下是使用闭包表达式进行排序的示例：
+
+```swift
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+
+var reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
+  return s1 > s2
+})
+```
+
+在上面的示例中，sorted 函数的参数是一个闭包表达式。闭包表达式包含了与 backward 函数相同的代码，但是这些代码被写成了更简单的形式。闭包表达式使用一对花括号来定义闭包，并指定参数列表和返回类型。在闭包体中，可以使用 return 关键字来返回值。
+
+Swift 中的闭包还有以下特点：
+
+- 闭包表达式可以从上下文中推断出参数类型和返回类型，因此可以省略它们。
+- 闭包表达式可以使用简写参数名，用 $0、$1、$2 等来代替参数名。
+- 如果闭包表达式只包含一行代码，可以省略 return 关键字。
+- 可以将闭包表达式作为函数的最后一个参数传递，并将其放在圆括号外面，以提高可读性。
+  以下是使用闭包表达式进行排序的更简单的示例：
+
+```swift
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+
+var reversedNames = names.sorted(by: { $0 > $1 })
+```
+
+## 尾随闭包
+
+如果闭包是函数的最后一个参数，可以将闭包写在函数调用的圆括号后面：
+
+```swift
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+
+// 普通写法
+var reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
+    return s1 > s2
+})
+
+// 尾随闭包写法
+reversedNames = names.sorted { (s1: String, s2: String) -> Bool in
+    return s1 > s2
+}
+
+// 更简洁的写法
+reversedNames = names.sorted { $0 > $1 }
+```
+
+## 值捕获
+
+闭包可以捕获外部作用域的常量和变量：
+
+```swift
+func makeIncrementer(incrementAmount: Int) -> () -> Int {
+    var total = 0
+    let incrementer: () -> Int = {
+        total += incrementAmount
+        return total
+    }
+    return incrementer
+}
+
+let incrementByTen = makeIncrementer(incrementAmount: 10)
+print(incrementByTen())  // 10
+print(incrementByTen())  // 20
+print(incrementByTen())  // 30
+```
+
+## 练习
+
+### 练习 1：基本闭包
+
+使用闭包完成以下任务：
+
+1. 使用闭包对数组进行排序
+2. 使用闭包过滤数组中的元素
+3. 使用闭包对数组元素进行转换（map）
+
+**参考答案**：
+
+```swift
+let numbers = [1, 5, 3, 8, 2, 9, 4]
+
+// 1. 排序（降序）
+let sorted = numbers.sorted { $0 > $1 }
+print("排序后：\(sorted)")
+
+// 2. 过滤（找出偶数）
+let evens = numbers.filter { $0 % 2 == 0 }
+print("偶数：\(evens)")
+
+// 3. 转换（每个数乘以2）
+let doubled = numbers.map { $0 * 2 }
+print("翻倍：\(doubled)")
+```
+
+### 练习 2：闭包简化
+
+将以下函数转换为闭包，并使用简化语法：
+
+```swift
+// 原始函数
+func multiply(_ a: Int, _ b: Int) -> Int {
+    return a * b
+}
+```
+
+**参考答案**：
+
+```swift
+// 闭包表达式（完整形式）
+let multiply1: (Int, Int) -> Int = { (a: Int, b: Int) -> Int in
+    return a * b
+}
+
+// 简化形式1（类型推断）
+let multiply2 = { (a: Int, b: Int) -> Int in
+    return a * b
+}
+
+// 简化形式2（使用简写参数名）
+let multiply3: (Int, Int) -> Int = { $0 * $1 }
+
+print(multiply3(5, 3))  // 15
+```
+
+### 练习 3：尾随闭包
+
+使用尾随闭包重写以下代码：
+
+```swift
+let numbers = [1, 2, 3, 4, 5]
+
+// 原始写法
+let result = numbers.map({ (number: Int) -> Int in
+    return number * number
+})
+```
+
+**参考答案**：
+
+```swift
+let numbers = [1, 2, 3, 4, 5]
+
+// 尾随闭包写法
+let squares = numbers.map { number in
+    return number * number
+}
+
+// 更简洁的写法
+let squares2 = numbers.map { $0 * $0 }
+
+print(squares2)  // [1, 4, 9, 16, 25]
+```
+
+### 练习 4：闭包捕获值
+
+编写一个闭包，实现计数器功能：
+
+1. 创建一个计数器闭包
+2. 计数器可以从任意数字开始
+3. 每次调用计数器，值递增
+
+**参考答案**：
+
+```swift
+func makeCounter(start: Int = 0, step: Int = 1) -> () -> Int {
+    var count = start
+    return {
+        count += step
+        return count
+    }
+}
+
+let counter1 = makeCounter()
+print(counter1())  // 1
+print(counter1())  // 2
+print(counter1())  // 3
+
+let counter2 = makeCounter(start: 10, step: 5)
+print(counter2())  // 15
+print(counter2())  // 20
+```
+
+### 练习 5：闭包作为参数
+
+编写函数，使用闭包作为参数：
+
+1. 一个函数对数组执行自定义操作（map）
+2. 一个函数过滤数组元素（filter）
+3. 一个函数计算数组的累积值（reduce）
+
+**参考答案**：
+
+```swift
+let numbers = [1, 2, 3, 4, 5]
+
+// 1. Map 操作
+func customMap<T, U>(_ array: [T], transform: (T) -> U) -> [U] {
+    var result: [U] = []
+    for item in array {
+        result.append(transform(item))
+    }
+    return result
+}
+
+let squares = customMap(numbers) { $0 * $0 }
+print(squares)  // [1, 4, 9, 16, 25]
+
+// 2. Filter 操作
+func customFilter<T>(_ array: [T], predicate: (T) -> Bool) -> [T] {
+    var result: [T] = []
+    for item in array {
+        if predicate(item) {
+            result.append(item)
+        }
+    }
+    return result
+}
+
+let evens = customFilter(numbers) { $0 % 2 == 0 }
+print(evens)  // [2, 4]
+
+// 3. Reduce 操作
+func customReduce<T, U>(_ array: [T], initial: U, combine: (U, T) -> U) -> U {
+    var result = initial
+    for item in array {
+        result = combine(result, item)
+    }
+    return result
+}
+
+let sum = customReduce(numbers, initial: 0) { $0 + $1 }
+print(sum)  // 15
+```
+
+### 练习 6：综合练习
+
+使用闭包实现一个简单的数据处理管道：
+
+1. 给定一个数字数组
+2. 过滤出大于 5 的数字
+3. 将每个数字乘以 2
+4. 计算所有数字的和
+
+**参考答案**：
+
+```swift
+let numbers = [1, 3, 5, 7, 9, 11, 13, 15]
+
+let result = numbers
+    .filter { $0 > 5 }        // 过滤：保留大于5的数 [7, 9, 11, 13, 15]
+    .map { $0 * 2 }           // 转换：每个数乘以2 [14, 18, 22, 26, 30]
+    .reduce(0) { $0 + $1 }    // 累积：求和
+
+print("结果：\(result)")  // 结果：110
+
+// 或者使用尾随闭包
+let result2 = numbers
+    .filter { $0 > 5 }
+    .map { $0 * 2 }
+    .reduce(0, +)
+
+print("结果：\(result2)")  // 结果：110
+```
+
+## 总结
+
+本章介绍了 Swift 中闭包的使用：
+
+- **闭包概念**：自包含的函数，可以捕获上下文中的值
+- **闭包语法**：从完整形式到简化形式的演变
+- **尾随闭包**：当闭包是最后一个参数时的简化写法
+- **值捕获**：闭包可以捕获外部作用域的变量
+- **实际应用**：数组的 map、filter、reduce 等操作
+
+闭包是 Swift 中非常强大的特性，广泛应用于函数式编程和异步操作中。下一章我们将学习 [枚举](/blog/swift/08-enumerations)，了解如何定义和使用枚举类型。

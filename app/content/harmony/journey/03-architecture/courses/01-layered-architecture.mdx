@@ -1,0 +1,64 @@
+---
+type: "Post"
+date: "2025-07-17 10:00:00"
+title: "分层架构设计"
+tags: [HarmonyOS]
+description: "学习 HarmonyOS 应用的分层架构设计，构建可维护的应用结构。"
+---
+
+## 学习目标
+
+通过本课程，你将学会：
+
+- 理解分层架构的概念
+- 设计应用的分层结构
+- 实现数据层、业务层、UI 层的分离
+- 掌握层间通信方法
+
+## 详细内容
+
+### 分层架构
+
+典型的分层架构包括：
+
+- **UI 层**：负责界面展示和用户交互
+- **业务层**：处理业务逻辑
+- **数据层**：负责数据存储和网络请求
+
+### 实现示例
+
+```typescript
+// 数据层
+export class DataRepository {
+  async fetchData(): Promise<Data[]> {
+    // 网络请求或本地存储
+  }
+}
+
+// 业务层
+export class BusinessService {
+  private repository = new DataRepository();
+
+  async processData(): Promise<ProcessedData> {
+    const data = await this.repository.fetchData();
+    // 业务逻辑处理
+    return processedData;
+  }
+}
+
+// UI 层
+@Entry
+@Component
+struct MainPage {
+  private service = new BusinessService();
+  @State data: ProcessedData[] = [];
+
+  async aboutToAppear() {
+    this.data = await this.service.processData();
+  }
+}
+```
+
+## 下一步
+
+- [架构设计练习](/blog/harmony/journey/03-architecture/exercises/01-architecture-design)

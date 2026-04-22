@@ -10,6 +10,9 @@ node_modules
 
 # next.javascript
 /.next/
+/open-next/
+/.open-next/
+/.wrangler/
 /out/
 .idea
 # production
@@ -39,3 +42,6 @@ pnpm-lock.yml
 .contentlayer
 # clerk configuration (can include secrets)
 /.clerk/
+
+# local git worktrees
+.worktrees/

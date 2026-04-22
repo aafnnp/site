@@ -1,0 +1,329 @@
+---
+type: "Post"
+date: "2025-07-08 10:00:00"
+title: "布局设计"
+tags: [HarmonyOS]
+description: "学习 HarmonyOS 应用的布局设计原则，实现响应式布局和多设备适配。"
+---
+
+## 学习目标
+
+通过本课程，你将学会：
+
+- 理解 HarmonyOS 布局设计原则
+- 掌握响应式布局设计方法
+- 实现多设备适配
+- 使用栅格系统
+
+## 前置知识
+
+- 完成阶段 01 的学习
+- 熟悉 ArkUI 基础组件
+- 了解 Flex 布局
+
+## 核心概念
+
+### 布局设计原则
+
+HarmonyOS 布局设计遵循以下原则：
+
+- **响应式设计**：适配不同屏幕尺寸
+- **一致性**：保持界面风格统一
+- **易用性**：符合用户操作习惯
+- **美观性**：提供良好的视觉体验
+
+### 响应式布局
+
+响应式布局能够根据屏幕尺寸自动调整：
+
+- **断点设计**：定义不同屏幕尺寸的断点
+- **弹性布局**：使用 Flex 布局实现弹性适配
+- **相对单位**：使用百分比和相对单位
+
+## 详细内容
+
+### 1. 基础布局组件
+
+#### Column 和 Row
+
+```typescript
+// 垂直布局
+Column() {
+  Text('Item 1')
+  Text('Item 2')
+  Text('Item 3')
+}
+.width('100%')
+.justifyContent(FlexAlign.Center)
+
+// 水平布局
+Row() {
+  Text('Left')
+  Text('Center')
+  Text('Right')
+}
+.width('100%')
+.justifyContent(FlexAlign.SpaceBetween)
+```
+
+#### Stack 层叠布局
+
+```typescript
+Stack({ alignContent: Alignment.Center }) {
+  Image($r('app.media.background'))
+    .width('100%')
+    .height('100%')
+
+  Column() {
+    Text('Overlay Content')
+      .fontSize(30)
+      .fontColor(Color.White)
+  }
+}
+.width('100%')
+.height('100%')
+```
+
+### 2. 响应式布局
+
+#### 使用相对单位
+
+```typescript
+@Entry
+@Component
+struct ResponsiveLayout {
+  build() {
+    Column() {
+      // 使用百分比
+      Text('响应式文本')
+        .width('80%')
+        .fontSize('5%') // 相对于父容器
+
+      // 使用 vp 单位（虚拟像素）
+      Button('按钮')
+        .width(200)
+        .height(50)
+        .fontSize(16)
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+#### 断点设计
+
+```typescript
+@Entry
+@Component
+struct BreakpointLayout {
+  @State screenWidth: number = 0;
+
+  build() {
+    Column() {
+      if (this.screenWidth < 600) {
+        // 手机布局
+        this.buildMobileLayout()
+      } else if (this.screenWidth < 1200) {
+        // 平板布局
+        this.buildTabletLayout()
+      } else {
+        // 桌面布局
+        this.buildDesktopLayout()
+      }
+    }
+    .width('100%')
+    .height('100%')
+    .onAreaChange((oldValue, newValue) => {
+      this.screenWidth = newValue.width;
+    })
+  }
+
+  @Builder buildMobileLayout() {
+    Column() {
+      Text('手机布局')
+    }
+  }
+
+  @Builder buildTabletLayout() {
+    Row() {
+      Column() {
+        Text('侧边栏')
+      }
+      .width('30%')
+
+      Column() {
+        Text('主内容')
+      }
+      .layoutWeight(1)
+    }
+  }
+
+  @Builder buildDesktopLayout() {
+    Row() {
+      Column() {
+        Text('左侧栏')
+      }
+      .width('20%')
+
+      Column() {
+        Text('主内容')
+      }
+      .layoutWeight(1)
+
+      Column() {
+        Text('右侧栏')
+      }
+      .width('20%')
+    }
+  }
+}
+```
+
+### 3. 栅格系统
+
+```typescript
+@Entry
+@Component
+struct GridLayout {
+  build() {
+    Column() {
+      // 12 列栅格系统
+      Row() {
+        Column() {
+          Text('1/12')
+        }
+        .width('8.33%')
+
+        Column() {
+          Text('11/12')
+        }
+        .layoutWeight(1)
+      }
+      .width('100%')
+
+      Row() {
+        Column() {
+          Text('1/3')
+        }
+        .width('33.33%')
+
+        Column() {
+          Text('1/3')
+        }
+        .width('33.33%')
+
+        Column() {
+          Text('1/3')
+        }
+        .width('33.33%')
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .padding(10)
+  }
+}
+```
+
+### 4. 多设备适配
+
+#### 使用资源限定符
+
+在 `resources` 目录下创建不同设备的资源：
+
+```
+resources/
+├── base/
+│   └── element/
+│       └── string.json
+├── phone/
+│   └── element/
+│       └── string.json
+└── tablet/
+    └── element/
+        └── string.json
+```
+
+#### 动态适配
+
+```typescript
+@Entry
+@Component
+struct AdaptiveLayout {
+  @State isTablet: boolean = false;
+
+  build() {
+    Column() {
+      if (this.isTablet) {
+        // 平板布局：左右分栏
+        Row() {
+          this.buildSidebar()
+          this.buildMainContent()
+        }
+      } else {
+        // 手机布局：上下堆叠
+        Column() {
+          this.buildHeader()
+          this.buildMainContent()
+        }
+      }
+    }
+    .width('100%')
+    .height('100%')
+    .onAreaChange((oldValue, newValue) => {
+      this.isTablet = newValue.width >= 600;
+    })
+  }
+
+  @Builder buildSidebar() {
+    Column() {
+      Text('侧边栏')
+    }
+    .width(200)
+    .height('100%')
+    .backgroundColor('#F0F0F0')
+  }
+
+  @Builder buildHeader() {
+    Text('头部')
+      .width('100%')
+      .height(60)
+      .backgroundColor('#F0F0F0')
+  }
+
+  @Builder buildMainContent() {
+    Column() {
+      Text('主内容')
+        .layoutWeight(1)
+    }
+    .layoutWeight(1)
+  }
+}
+```
+
+## 常见问题
+
+### Q1: 如何实现不同设备的适配？
+
+**A**: 可以使用断点设计、资源限定符、动态布局等方式实现多设备适配。
+
+### Q2: 响应式布局会影响性能吗？
+
+**A**: 合理使用响应式布局不会明显影响性能，但要避免过于复杂的布局计算。
+
+### Q3: 如何选择合适的布局方式？
+
+**A**: 根据内容类型和交互需求选择，简单列表用 Column/Row，复杂布局用 Stack 或自定义布局。
+
+## 扩展阅读
+
+- [ArkUI 布局参考](https://developer.harmonyos.com/cn/documentation/doc-references-V3/ts-container-column-V3)
+- [响应式设计指南](https://developer.harmonyos.com/cn/documentation)
+
+## 下一步
+
+完成本课程后，建议继续学习：
+
+- [动效设计](/blog/harmony/journey/02-ux-design/courses/02-animation-design) - 学习动画设计
+- [响应式布局练习](/blog/harmony/journey/02-ux-design/exercises/01-responsive-layout) - 完成布局练习

@@ -1,0 +1,720 @@
+---
+type: "Post"
+date: "2025-08-27 10:00:00"
+title: "ArkUI 组件系统"
+tags: [HarmonyOS]
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 理解声明式 UI 的概念
+- 掌握基础组件的使用（Text、Button、Image、Input）
+- 掌握容器组件的使用（Column、Row、Stack、List）
+- 学会组件属性设置和事件绑定
+- 理解组件复用和组合
+
+## 前置知识
+
+- 完成[ArkTS 进阶特性](/blog/harmony/tutorial/03-arkts-advanced)
+- 了解基本的 UI 概念（如果有 React/Vue 经验更佳）
+
+## 核心概念
+
+### 声明式 UI
+
+ArkUI 采用声明式 UI 开发范式，类似于 React 和 Vue。你只需要描述 UI 应该是什么样子，框架会自动处理更新。
+
+**对比 Web 开发**：
+
+- React JSX → ArkUI 组件语法
+- Vue Template → ArkUI 组件语法
+- 组件化开发理念一致
+
+### 组件结构
+
+每个 ArkUI 组件都是一个使用 `@Component` 装饰的结构体：
+
+```typescript
+@Component
+struct MyComponent {
+  build() {
+    // UI 描述
+  }
+}
+```
+
+## 详细内容
+
+### 1. 基础组件
+
+#### Text 组件
+
+```typescript
+@Entry
+@Component
+struct TextExample {
+  build() {
+    Column() {
+      // 基本文本
+      Text('Hello HarmonyOS')
+        .fontSize(30)
+        .fontColor(Color.Blue)
+        .fontWeight(FontWeight.Bold)
+
+      // 多行文本
+      Text('This is a long text that will wrap to multiple lines when it exceeds the container width.')
+        .maxLines(3)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+
+      // 文本样式
+      Text('Styled Text')
+        .fontSize(24)
+        .fontStyle(FontStyle.Italic)
+        .decoration({ type: TextDecorationType.Underline })
+        .letterSpacing(2)
+    }
+    .width('100%')
+    .padding(20)
+  }
+}
+```
+
+**对比 Web 开发**：类似 HTML 的 `<p>` 或 `<span>` 标签。
+
+#### Button 组件
+
+```typescript
+@Entry
+@Component
+struct ButtonExample {
+  @State count: number = 0;
+
+  build() {
+    Column() {
+      Text(`Count: ${this.count}`)
+        .fontSize(30)
+        .margin({ bottom: 20 })
+
+      // 基本按钮
+      Button('Click Me')
+        .onClick(() => {
+          this.count++;
+        })
+
+      // 按钮样式
+      Button('Styled Button')
+        .type(ButtonType.Capsule)
+        .backgroundColor(Color.Blue)
+        .fontColor(Color.White)
+        .margin({ top: 10 })
+        .onClick(() => {
+          this.count += 10;
+        })
+
+      // 禁用按钮
+      Button('Disabled')
+        .enabled(false)
+        .margin({ top: 10 })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+**对比 Web 开发**：类似 HTML 的 `<button>` 标签。
+
+#### Image 组件
+
+```typescript
+@Entry
+@Component
+struct ImageExample {
+  build() {
+    Column() {
+      // 本地图片
+      Image($r('app.media.icon'))
+        .width(100)
+        .height(100)
+
+      // 网络图片
+      Image('https://example.com/image.jpg')
+        .width(200)
+        .height(200)
+        .alt('Description')
+
+      // 图片填充模式
+      Image($r('app.media.icon'))
+        .width(200)
+        .height(200)
+        .objectFit(ImageFit.Cover)  // Cover, Contain, Fill, None, ScaleDown
+
+      // 图片圆角
+      Image($r('app.media.icon'))
+        .width(100)
+        .height(100)
+        .borderRadius(50)  // 圆形图片
+    }
+    .width('100%')
+    .padding(20)
+  }
+}
+```
+
+**对比 Web 开发**：类似 HTML 的 `<img>` 标签。
+
+#### Input 组件
+
+```typescript
+@Entry
+@Component
+struct InputExample {
+  @State username: string = '';
+  @State password: string = '';
+
+  build() {
+    Column() {
+      // 文本输入
+      TextInput({ placeholder: 'Enter username' })
+        .onChange((value: string) => {
+          this.username = value;
+        })
+        .margin({ bottom: 10 })
+
+      // 密码输入
+      TextInput({ placeholder: 'Enter password' })
+        .type(InputType.Password)
+        .onChange((value: string) => {
+          this.password = value;
+        })
+        .margin({ bottom: 10 })
+
+      // 多行文本输入
+      TextArea({ placeholder: 'Enter message' })
+        .height(100)
+        .onChange((value: string) => {
+          console.log(value);
+        })
+
+      Button('Submit')
+        .onClick(() => {
+          console.log(`Username: ${this.username}`);
+        })
+    }
+    .width('100%')
+    .padding(20)
+  }
+}
+```
+
+**对比 Web 开发**：类似 HTML 的 `<input>` 和 `<textarea>` 标签。
+
+### 2. 容器组件
+
+#### Column 组件（垂直布局）
+
+```typescript
+@Entry
+@Component
+struct ColumnExample {
+  build() {
+    Column() {
+      Text('Item 1')
+      Text('Item 2')
+      Text('Item 3')
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)  // 主轴对齐
+    .alignItems(HorizontalAlign.Center)  // 交叉轴对齐
+    .space(10)  // 子组件间距
+  }
+}
+```
+
+**对比 Web 开发**：类似 CSS `display: flex; flex-direction: column;`
+
+#### Row 组件（水平布局）
+
+```typescript
+@Entry
+@Component
+struct RowExample {
+  build() {
+    Row() {
+      Text('Left')
+      Text('Center')
+      Text('Right')
+    }
+    .width('100%')
+    .justifyContent(FlexAlign.SpaceBetween)  // 两端对齐
+    .alignItems(VerticalAlign.Center)
+    .padding(10)
+  }
+}
+```
+
+**对比 Web 开发**：类似 CSS `display: flex; flex-direction: row;`
+
+#### Stack 组件（层叠布局）
+
+```typescript
+@Entry
+@Component
+struct StackExample {
+  build() {
+    Stack({ alignContent: Alignment.Center }) {
+      // 底层
+      Image($r('app.media.background'))
+        .width('100%')
+        .height('100%')
+
+      // 顶层
+      Column() {
+        Text('Overlay Content')
+          .fontSize(30)
+          .fontColor(Color.White)
+      }
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+**对比 Web 开发**：类似 CSS `position: relative/absolute` 的层叠效果。
+
+#### List 组件（列表）
+
+```typescript
+@Entry
+@Component
+struct ListExample {
+  @State items: string[] = ['Apple', 'Banana', 'Orange', 'Grape'];
+
+  build() {
+    List() {
+      ForEach(this.items, (item: string, index: number) => {
+        ListItem() {
+          Row() {
+            Text(`${index + 1}. ${item}`)
+              .fontSize(20)
+          }
+          .width('100%')
+          .padding(10)
+          .justifyContent(FlexAlign.SpaceBetween)
+        }
+        .onClick(() => {
+          console.log(`Clicked: ${item}`);
+        })
+      })
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+**对比 Web 开发**：类似 React 的 `map` 渲染列表，或 Vue 的 `v-for`。
+
+### 3. 组件属性
+
+#### 通用属性
+
+```typescript
+@Entry
+@Component
+struct CommonPropsExample {
+  build() {
+    Column() {
+      Text('Styled Text')
+        .width(200)           // 宽度
+        .height(50)            // 高度
+        .margin(10)            // 外边距
+        .padding(15)           // 内边距
+        .backgroundColor(Color.Gray)  // 背景色
+        .borderRadius(8)       // 圆角
+        .border({              // 边框
+          width: 2,
+          color: Color.Blue,
+          style: BorderStyle.Solid
+        })
+        .opacity(0.8)          // 透明度
+        .visibility(Visibility.Visible)  // 可见性
+    }
+  }
+}
+```
+
+#### 布局属性
+
+```typescript
+@Entry
+@Component
+struct LayoutPropsExample {
+  build() {
+    Column() {
+      Text('Flex Item')
+        .layoutWeight(1)      // Flex 权重
+        .alignSelf(ItemAlign.Start)  // 自身对齐
+    }
+    .width('100%')
+    .justifyContent(FlexAlign.SpaceAround)  // 主轴对齐
+    .alignItems(HorizontalAlign.Center)      // 交叉轴对齐
+  }
+}
+```
+
+### 4. 事件绑定
+
+```typescript
+@Entry
+@Component
+struct EventExample {
+  @State message: string = 'Click the button';
+
+  build() {
+    Column() {
+      Text(this.message)
+        .fontSize(20)
+        .margin({ bottom: 20 })
+
+      Button('Click Me')
+        .onClick(() => {
+          this.message = 'Button clicked!';
+        })
+
+      Text('Tap Me')
+        .onTouch((event: TouchEvent) => {
+          if (event.type === TouchType.Down) {
+            this.message = 'Touch down';
+          } else if (event.type === TouchType.Up) {
+            this.message = 'Touch up';
+          }
+        })
+        .margin({ top: 20 })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+### 5. 组件复用
+
+#### 自定义组件
+
+```typescript
+// 定义可复用组件
+@Component
+struct UserCard {
+  name: string;
+  age: number;
+  @Prop avatar: ResourceStr;
+
+  build() {
+    Row() {
+      Image(this.avatar)
+        .width(50)
+        .height(50)
+        .borderRadius(25)
+
+      Column() {
+        Text(this.name)
+          .fontSize(18)
+          .fontWeight(FontWeight.Bold)
+        Text(`Age: ${this.age}`)
+          .fontSize(14)
+          .fontColor(Color.Gray)
+      }
+      .margin({ left: 10 })
+    }
+    .width('100%')
+    .padding(10)
+    .backgroundColor(Color.White)
+    .borderRadius(8)
+  }
+}
+
+// 使用组件
+@Entry
+@Component
+struct UserListPage {
+  build() {
+    Column() {
+      UserCard({
+        name: 'Tom',
+        age: 20,
+        avatar: $r('app.media.avatar1')
+      })
+
+      UserCard({
+        name: 'Jerry',
+        age: 25,
+        avatar: $r('app.media.avatar2')
+      })
+    }
+    .width('100%')
+    .padding(20)
+  }
+}
+```
+
+**对比 React**：类似 React 的函数组件或类组件。
+
+## 实践练习
+
+### 练习 1：创建登录表单
+
+**目标**：创建一个包含用户名和密码输入框的登录表单
+
+**要求**：
+
+1. 使用 TextInput 组件
+2. 添加登录按钮
+3. 使用 @State 管理输入状态
+
+**参考代码**：
+
+```typescript
+@Entry
+@Component
+struct LoginForm {
+  @State username: string = '';
+  @State password: string = '';
+
+  build() {
+    Column() {
+      Text('Login')
+        .fontSize(30)
+        .fontWeight(FontWeight.Bold)
+        .margin({ bottom: 40 })
+
+      TextInput({ placeholder: 'Username' })
+        .width('80%')
+        .onChange((value: string) => {
+          this.username = value;
+        })
+        .margin({ bottom: 20 })
+
+      TextInput({ placeholder: 'Password' })
+        .type(InputType.Password)
+        .width('80%')
+        .onChange((value: string) => {
+          this.password = value;
+        })
+        .margin({ bottom: 30 })
+
+      Button('Login')
+        .width('80%')
+        .type(ButtonType.Capsule)
+        .onClick(() => {
+          console.log(`Username: ${this.username}`);
+        })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+### 练习 2：创建商品卡片列表
+
+**目标**：创建一个商品列表，每个商品显示图片、名称和价格
+
+**要求**：
+
+1. 定义 Product 接口
+2. 使用 List 组件显示商品列表
+3. 创建 ProductCard 组件
+
+**参考代码**：
+
+```typescript
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: ResourceStr;
+}
+
+@Component
+struct ProductCard {
+  product: Product;
+
+  build() {
+    Column() {
+      Image(this.product.image)
+        .width('100%')
+        .height(150)
+        .objectFit(ImageFit.Cover)
+
+      Text(this.product.name)
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .margin({ top: 10 })
+
+      Text(`¥${this.product.price}`)
+        .fontSize(18)
+        .fontColor(Color.Red)
+        .margin({ top: 5 })
+    }
+    .width('100%')
+    .backgroundColor(Color.White)
+    .borderRadius(8)
+    .padding(10)
+  }
+}
+
+@Entry
+@Component
+struct ProductListPage {
+  @State products: Product[] = [
+    { id: 1, name: 'Product 1', price: 99, image: $r('app.media.product1') },
+    { id: 2, name: 'Product 2', price: 199, image: $r('app.media.product2') },
+    { id: 3, name: 'Product 3', price: 299, image: $r('app.media.product3') }
+  ];
+
+  build() {
+    List() {
+      ForEach(this.products, (product: Product) => {
+        ListItem() {
+          ProductCard({ product: product })
+        }
+        .margin({ bottom: 10 })
+      })
+    }
+    .width('100%')
+    .padding(10)
+  }
+}
+```
+
+### 练习 3：创建导航栏组件
+
+**目标**：创建一个可复用的导航栏组件
+
+**要求**：
+
+1. 显示标题
+2. 可选的返回按钮
+3. 可选的右侧操作按钮
+
+**参考代码**：
+
+```typescript
+@Component
+struct NavBar {
+  title: string;
+  showBack: boolean = false;
+  rightAction?: () => void;
+  rightText?: string;
+
+  build() {
+    Row() {
+      if (this.showBack) {
+        Image($r('app.media.ic_back'))
+          .width(24)
+          .height(24)
+          .onClick(() => {
+            router.back();
+          })
+      }
+
+      Text(this.title)
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .layoutWeight(1)
+        .textAlign(TextAlign.Center)
+
+      if (this.rightText) {
+        Text(this.rightText)
+          .fontSize(16)
+          .onClick(() => {
+            if (this.rightAction) {
+              this.rightAction();
+            }
+          })
+      }
+    }
+    .width('100%')
+    .height(56)
+    .padding({ left: 16, right: 16 })
+    .backgroundColor(Color.White)
+  }
+}
+
+@Entry
+@Component
+struct PageWithNavBar {
+  build() {
+    Column() {
+      NavBar({
+        title: 'My Page',
+        showBack: true,
+        rightText: 'Save',
+        rightAction: () => {
+          console.log('Save clicked');
+        }
+      })
+
+      // 页面内容
+      Text('Page Content')
+        .layoutWeight(1)
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
+```
+
+## 常见问题
+
+### Q1: 组件和页面的区别是什么？
+
+**A**:
+
+- 页面使用 `@Entry` 装饰器，是应用的入口点
+- 组件使用 `@Component` 装饰器，是可复用的 UI 单元
+- 页面可以包含多个组件
+
+### Q2: 如何设置组件的尺寸？
+
+**A**: 使用 `.width()` 和 `.height()` 方法，可以设置固定值（如 100）或百分比（如 '100%'）。
+
+### Q3: ForEach 的 key 参数是必须的吗？
+
+**A**: 当列表项可能变化时，建议提供唯一的 key，以提高渲染性能。
+
+### Q4: 如何实现条件渲染？
+
+**A**: 使用 `if-else` 语句：
+
+```typescript
+if (this.showContent) {
+  Text("Content");
+} else {
+  Text("No Content");
+}
+```
+
+### Q5: 组件可以嵌套使用吗？
+
+**A**: 可以，组件可以任意嵌套，形成组件树结构。
+
+## 扩展阅读
+
+- [ArkUI 组件参考](https://developer.harmonyos.com/cn/documentation/doc-references-V3/ts-basic-components-text-V3)
+- [ArkUI 布局参考](https://developer.harmonyos.com/cn/documentation/doc-references-V3/ts-container-column-V3)
+- [声明式 UI 开发指南](https://developer.harmonyos.com/cn/documentation/doc-guides-V3/arkui-overview-V3)
+
+## 下一步
+
+完成组件系统学习后，建议继续学习：
+
+- [ArkUI 布局系统](/blog/harmony/tutorial/05-arkui-layout) - 深入学习布局技巧

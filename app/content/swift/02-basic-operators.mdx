@@ -1,0 +1,270 @@
+---
+type: "Post"
+date: "2022-03-02"
+title: Swift - 基本运算符
+tags: [swift]
+description: Swift 支持常见的数学运算，包括算术运算、比较运算和逻辑运算。
+cover: https://cdn.jsdelivr.net/gh/manonicu/pics@master/uPic/qYwzrA.png
+---
+
+## 学习目标
+
+通过本教程，你将学会：
+
+- 掌握 Swift 中的算术运算符
+- 理解比较运算符的使用
+- 掌握逻辑运算符和组合逻辑
+- 了解区间运算符
+- 理解运算符的优先级
+
+## 前置知识
+
+- 完成 [基础知识](/blog/swift/01-basics) 的学习
+- 了解基本的数学运算概念
+
+Swift 支持常见的数学运算，包括算术运算、比较运算和逻辑运算。
+
+## 算术运算：
+
+- 加法（+）：将两个数值相加，例如：3 + 2 = 5。
+- 减法（-）：将两个数值相减，例如：3 - 2 = 1。
+- 乘法（_）：将两个数值相乘，例如：3 _ 2 = 6。
+- 除法（/）：将一个数值除以另一个数值，例如：3 / 2 = 1.5。
+- 取余（%）：返回除法操作的余数，例如：3 % 2 = 1。
+
+## 比较运算：
+
+- 相等（==）：检查两个数值是否相等，例如：3 == 2，结果为 false。
+- 不相等（!=）：检查两个数值是否不相等，例如：3 != 2，结果为 true。
+- 大于（\>）：检查第一个数值是否大于第二个数值，例如：3 \> 2，结果为 true。
+- 小于（\<）：检查第一个数值是否小于第二个数值，例如：3 \< 2，结果为 false。
+- 大于等于（\>=）：检查第一个数值是否大于或等于第二个数值，例如：3 \>= 2，结果为 true。
+- 小于等于（\<=）：检查第一个数值是否小于或等于第二个数值，例如：3 \<= 2，结果为 false。
+
+## 逻辑运算：
+
+- 逻辑非（!）：返回相反的布尔值，例如：!true，结果为 false。
+- 逻辑与（&&）：如果两个操作数都是 true，则返回 true；否则返回 false。例如：true && false，结果为 false。
+- 逻辑或（||）：如果两个操作数中有至少一个是 true，则返回 true；否则返回 false。例如：true || false，结果为 true。
+  在 Swift 中，这些运算符可以组合使用，以便进行复杂的数学、比较和逻辑运算。例如，您可以将加法和比较运算符组合在一起，以检查两个数值的总和是否大于或等于一个给定的值。
+
+以下是一个简单的示例，演示了如何使用 Swift 的运算符：
+
+```swift
+let a = 3
+let b = 2
+
+// 算术运算
+let sum = a + b
+let difference = a - b
+let product = a * b
+let quotient = a / b
+let remainder = a % b
+
+// 比较运算
+let isEqual = a == b
+let isNotEqual = a != b
+let isGreater = a > b
+let isLess = a < b
+let isGreaterOrEqual = a >= b
+let isLessOrEqual = a <= b
+
+// 逻辑运算
+let logicalNot = !isEqual
+let logicalAnd = isEqual && isGreater
+let logicalOr = isLess || isNotEqual
+```
+
+这个示例定义了两个常量 a 和 b，并使用算术运算、比较运算和逻辑运算符计算它们之间的关系。您可以将此示例复制并粘贴到您的 Xcode 项目中，以查看运算结果。
+
+## 区间运算符
+
+Swift 提供了两种区间运算符，用于表示值的范围：
+
+- **闭区间运算符**（`a...b`）：包含 a 和 b 的所有值
+- **半开区间运算符**（`a..<b`）：包含 a 但不包含 b 的所有值
+
+```swift
+// 闭区间
+for i in 1...5 {
+    print(i)  // 输出：1, 2, 3, 4, 5
+}
+
+// 半开区间
+for i in 1..<5 {
+    print(i)  // 输出：1, 2, 3, 4
+}
+
+// 单侧区间
+let numbers = [1, 2, 3, 4, 5]
+for number in numbers[..<3] {
+    print(number)  // 输出：1, 2
+}
+```
+
+## 练习
+
+### 练习 1：算术运算
+
+编写代码计算以下表达式：
+
+1. 计算圆的面积（半径 r = 5，使用公式：π × r²）
+2. 计算两个数的平均值
+3. 计算一个数的平方和立方
+
+**参考答案**：
+
+```swift
+// 1. 计算圆的面积
+let radius = 5
+let pi = 3.14159
+let area = pi * Double(radius * radius)
+print("半径为 \(radius) 的圆的面积是 \(area)")
+
+// 2. 计算平均值
+let num1 = 10
+let num2 = 20
+let average = (num1 + num2) / 2
+print("\(num1) 和 \(num2) 的平均值是 \(average)")
+
+// 3. 平方和立方
+let number = 4
+let square = number * number
+let cube = number * number * number
+print("\(number) 的平方是 \(square)，立方是 \(cube)")
+```
+
+### 练习 2：比较运算
+
+编写代码判断以下条件：
+
+1. 判断一个数是否在 0 到 100 之间
+2. 判断两个字符串是否相等
+3. 比较三个数的大小，找出最大值
+
+**参考答案**：
+
+```swift
+// 1. 判断范围
+let score = 85
+if score >= 0 && score <= 100 {
+    print("分数在有效范围内")
+} else {
+    print("分数无效")
+}
+
+// 2. 字符串比较
+let name1 = "Swift"
+let name2 = "swift"
+if name1 == name2 {
+    print("字符串相等")
+} else {
+    print("字符串不相等")
+}
+
+// 3. 找出最大值
+let a = 10
+let b = 25
+let c = 15
+let max = a > b ? (a > c ? a : c) : (b > c ? b : c)
+print("最大值是 \(max)")
+```
+
+### 练习 3：逻辑运算
+
+编写代码实现以下逻辑：
+
+1. 判断一个年份是否为闰年（能被 4 整除但不能被 100 整除，或者能被 400 整除）
+2. 判断一个数是否为偶数且大于 10
+3. 实现一个简单的登录判断（用户名和密码都不能为空）
+
+**参考答案**：
+
+```swift
+// 1. 闰年判断
+let year = 2024
+let isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+print("\(year) 年\(isLeapYear ? "是" : "不是")闰年")
+
+// 2. 偶数且大于10
+let num = 12
+let isValid = num % 2 == 0 && num > 10
+print("\(num) \(isValid ? "满足" : "不满足")条件")
+
+// 3. 登录判断
+let username: String? = "admin"
+let password: String? = "123456"
+let canLogin = (username != nil && !username!.isEmpty) &&
+               (password != nil && !password!.isEmpty)
+print(canLogin ? "可以登录" : "用户名或密码不能为空")
+```
+
+### 练习 4：区间运算符
+
+使用区间运算符完成以下任务：
+
+1. 使用闭区间打印 1 到 10 的所有偶数
+2. 使用半开区间访问数组的前 5 个元素
+3. 判断一个数是否在某个区间内
+
+**参考答案**：
+
+```swift
+// 1. 打印偶数
+for i in 1...10 {
+    if i % 2 == 0 {
+        print(i)
+    }
+}
+
+// 2. 访问数组前5个元素
+let fruits = ["苹果", "香蕉", "橙子", "葡萄", "西瓜", "草莓", "芒果"]
+for i in 0..<5 {
+    print(fruits[i])
+}
+
+// 3. 判断区间
+let value = 75
+if 60..<90 ~= value {
+    print("\(value) 在 60-90 之间")
+}
+```
+
+### 练习 5：综合练习
+
+编写一个简单的计算器程序，实现两个数的加、减、乘、除运算，并判断结果是否为正数。
+
+**参考答案**：
+
+```swift
+let a = 10
+let b = 5
+
+let sum = a + b
+let difference = a - b
+let product = a * b
+let quotient = Double(a) / Double(b)
+
+print("\(a) + \(b) = \(sum)")
+print("\(a) - \(b) = \(difference)")
+print("\(a) × \(b) = \(product)")
+print("\(a) ÷ \(b) = \(quotient)")
+
+// 判断结果是否为正数
+let results = [sum, difference, product, Int(quotient)]
+for result in results {
+    let isPositive = result > 0
+    print("\(result) \(isPositive ? "是正数" : "不是正数")")
+}
+```
+
+## 总结
+
+本章介绍了 Swift 中的基本运算符：
+
+- **算术运算符**：`+`, `-`, `*`, `/`, `%`
+- **比较运算符**：`==`, `!=`, `>`, `<`, `>=`, `<=`
+- **逻辑运算符**：`!`, `&&`, `||`
+- **区间运算符**：`...`（闭区间），`..<`（半开区间）
+
+这些运算符是构建复杂逻辑的基础，下一章我们将学习 [字符串和字符](/blog/swift/03-strings)，了解如何处理文本数据。

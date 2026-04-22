@@ -1,0 +1,488 @@
+---
+type: "Exercise"
+date: "2025-07-06 10:00:00"
+title: "第一个应用项目"
+tags: [HarmonyOS]
+description: "完成一个完整的 HarmonyOS 应用项目，巩固所学知识。"
+---
+
+## 练习目标
+
+通过本项目，你将能够：
+
+- 独立完成一个完整的 HarmonyOS 应用
+- 综合运用所学知识
+- 理解应用开发流程
+- 掌握项目结构设计
+
+## 前置要求
+
+- 完成所有阶段 01 的课程学习
+- 完成快速入门练习
+- 熟悉 ArkTS 基础语法
+- 熟悉 ArkUI 基础组件
+
+## 项目需求
+
+### 项目名称：个人记账应用
+
+创建一个简单的个人记账应用，帮助用户记录日常收支。
+
+### 功能需求
+
+1. **记账功能**：
+
+   - 添加收入记录
+   - 添加支出记录
+   - 记录金额、类别、备注、时间
+
+2. **统计功能**：
+
+   - 显示总收入和总支出
+   - 显示余额
+   - 按类别统计
+
+3. **列表功能**：
+
+   - 显示所有记账记录
+   - 支持删除记录
+   - 按时间排序
+
+4. **数据持久化**：
+   - 使用 Preferences 保存数据
+   - 应用重启后数据不丢失
+
+## 项目实现
+
+### 步骤 1：项目结构设计
+
+```
+AccountApp/
+├── entry/
+│   └── src/
+│       └── main/
+│           ├── ets/
+│           │   ├── pages/
+│           │   │   ├── Index.ets          # 主页面
+│           │   │   └── AddRecord.ets      # 添加记录页面
+│           │   ├── models/
+│           │   │   └── Record.ets          # 数据模型
+│           │   ├── utils/
+│           │   │   └── Storage.ets        # 数据存储工具
+│           │   └── components/
+│           │       └── RecordItem.ets     # 记录项组件
+│           └── resources/
+```
+
+### 步骤 2：数据模型定义
+
+```typescript
+// models/Record.ets
+export enum RecordType {
+  INCOME = "income", // 收入
+  EXPENSE = "expense", // 支出
+}
+
+export enum Category {
+  FOOD = "food", // 餐饮
+  TRANSPORT = "transport", // 交通
+  SHOPPING = "shopping", // 购物
+  ENTERTAINMENT = "entertainment", // 娱乐
+  SALARY = "salary", // 工资
+  BONUS = "bonus", // 奖金
+  OTHER = "other", // 其他
+}
+
+export interface Record {
+  id: string;
+  type: RecordType;
+  amount: number;
+  category: Category;
+  note: string;
+  date: number; // 时间戳
+}
+```
+
+### 步骤 3：数据存储工具
+
+```typescript
+// utils/Storage.ets
+import preferences from "@ohos.data.preferences";
+import { Record } from "../models/Record";
+
+export class Storage {
+  private static context = getContext(this);
+  private static store: preferences.Preferences | null = null;
+
+  // 初始化存储
+  static async init() {
+    if (!this.store) {
+      this.store = await preferences.getPreferences(
+        this.context,
+        "account_data"
+      );
+    }
+  }
+
+  // 保存记录列表
+  static async saveRecords(records: Record[]) {
+    await this.init();
+    const recordsJson = JSON.stringify(records);
+    await this.store.put("records", recordsJson);
+    await this.store.flush();
+  }
+
+  // 获取记录列表
+  static async getRecords(): Promise<Record[]> {
+    await this.init();
+    const recordsJson = await this.store.get("records", "[]");
+    return JSON.parse(recordsJson as string);
+  }
+}
+```
+
+### 步骤 4：主页面实现
+
+```typescript
+// pages/Index.ets
+import { Record, RecordType, Category } from '../models/Record';
+import { Storage } from '../utils/Storage';
+import router from '@ohos.router';
+
+@Entry
+@Component
+struct Index {
+  @State records: Record[] = [];
+  @State totalIncome: number = 0;
+  @State totalExpense: number = 0;
+
+  async aboutToAppear() {
+    await this.loadRecords();
+    this.calculateTotal();
+  }
+
+  // 加载记录
+  async loadRecords() {
+    this.records = await Storage.getRecords();
+  }
+
+  // 计算总额
+  calculateTotal() {
+    this.totalIncome = this.records
+      .filter(r => r.type === RecordType.INCOME)
+      .reduce((sum, r) => sum + r.amount, 0);
+
+    this.totalExpense = this.records
+      .filter(r => r.type === RecordType.EXPENSE)
+      .reduce((sum, r) => sum + r.amount, 0);
+  }
+
+  // 删除记录
+  async deleteRecord(id: string) {
+    this.records = this.records.filter(r => r.id !== id);
+    await Storage.saveRecords(this.records);
+    this.calculateTotal();
+  }
+
+  // 跳转到添加页面
+  navigateToAdd() {
+    router.pushUrl({
+      url: 'pages/AddRecord',
+      params: {
+        onAdd: async () => {
+          await this.loadRecords();
+          this.calculateTotal();
+        }
+      }
+    });
+  }
+
+  build() {
+    Column() {
+      // 统计卡片
+      Row() {
+        Column() {
+          Text('总收入')
+            .fontSize(14)
+            .fontColor(Color.Gray)
+          Text(`¥${this.totalIncome.toFixed(2)}`)
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .fontColor(Color.Green)
+            .margin({ top: 5 })
+        }
+        .layoutWeight(1)
+
+        Column() {
+          Text('总支出')
+            .fontSize(14)
+            .fontColor(Color.Gray)
+          Text(`¥${this.totalExpense.toFixed(2)}`)
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .fontColor(Color.Red)
+            .margin({ top: 5 })
+        }
+        .layoutWeight(1)
+
+        Column() {
+          Text('余额')
+            .fontSize(14)
+            .fontColor(Color.Gray)
+          Text(`¥${(this.totalIncome - this.totalExpense).toFixed(2)}`)
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .margin({ top: 5 })
+        }
+        .layoutWeight(1)
+      }
+      .width('100%')
+      .padding(20)
+      .backgroundColor(Color.White)
+      .borderRadius(10)
+      .margin({ top: 20, bottom: 20 })
+
+      // 添加按钮
+      Button('添加记录')
+        .width('90%')
+        .height(50)
+        .type(ButtonType.Capsule)
+        .onClick(() => {
+          this.navigateToAdd();
+        })
+        .margin({ bottom: 20 })
+
+      // 记录列表
+      if (this.records.length === 0) {
+        Column() {
+          Text('暂无记录')
+            .fontSize(18)
+            .fontColor(Color.Gray)
+        }
+        .layoutWeight(1)
+        .justifyContent(FlexAlign.Center)
+      } else {
+        List() {
+          ForEach(this.records, (record: Record) => {
+            ListItem() {
+              RecordItemComponent({
+                record: record,
+                onDelete: () => {
+                  this.deleteRecord(record.id);
+                }
+              })
+            }
+          })
+        }
+        .layoutWeight(1)
+        .width('100%')
+      }
+    }
+    .width('100%')
+    .height('100%')
+    .padding(20)
+    .backgroundColor('#F5F5F5')
+  }
+}
+```
+
+### 步骤 5：添加记录页面
+
+```typescript
+// pages/AddRecord.ets
+import { Record, RecordType, Category } from '../models/Record';
+import { Storage } from '../utils/Storage';
+import router from '@ohos.router';
+
+@Entry
+@Component
+struct AddRecord {
+  @State type: RecordType = RecordType.EXPENSE;
+  @State amount: string = '';
+  @State category: Category = Category.OTHER;
+  @State note: string = '';
+  private onAdd?: () => void;
+
+  aboutToAppear() {
+    const params = router.getParams() as Record<string, Object>;
+    if (params && params['onAdd']) {
+      this.onAdd = params['onAdd'] as () => void;
+    }
+  }
+
+  async saveRecord() {
+    if (!this.amount || parseFloat(this.amount) <= 0) {
+      return;
+    }
+
+    const record: Record = {
+      id: Date.now().toString(),
+      type: this.type,
+      amount: parseFloat(this.amount),
+      category: this.category,
+      note: this.note,
+      date: Date.now()
+    };
+
+    const records = await Storage.getRecords();
+    records.push(record);
+    await Storage.saveRecords(records);
+
+    if (this.onAdd) {
+      this.onAdd();
+    }
+
+    router.back();
+  }
+
+  build() {
+    Column() {
+      // 类型选择
+      Row() {
+        Button('支出')
+          .layoutWeight(1)
+          .backgroundColor(this.type === RecordType.EXPENSE ? Color.Blue : Color.Gray)
+          .onClick(() => {
+            this.type = RecordType.EXPENSE;
+          })
+
+        Button('收入')
+          .layoutWeight(1)
+          .margin({ left: 10 })
+          .backgroundColor(this.type === RecordType.INCOME ? Color.Blue : Color.Gray)
+          .onClick(() => {
+            this.type = RecordType.INCOME;
+          })
+      }
+      .width('100%')
+      .margin({ top: 20, bottom: 20 })
+
+      // 金额输入
+      TextInput({ placeholder: '输入金额' })
+        .type(InputType.Number)
+        .width('100%')
+        .height(50)
+        .onChange((value: string) => {
+          this.amount = value;
+        })
+        .margin({ bottom: 20 })
+
+      // 类别选择（简化版，实际可以使用选择器）
+      Text('类别: ' + this.category)
+        .fontSize(16)
+        .margin({ bottom: 20 })
+
+      // 备注输入
+      TextArea({ placeholder: '备注（可选）' })
+        .width('100%')
+        .height(100)
+        .onChange((value: string) => {
+          this.note = value;
+        })
+        .margin({ bottom: 20 })
+
+      // 保存按钮
+      Button('保存')
+        .width('100%')
+        .height(50)
+        .type(ButtonType.Capsule)
+        .onClick(() => {
+          this.saveRecord();
+        })
+    }
+    .width('100%')
+    .height('100%')
+    .padding(20)
+  }
+}
+```
+
+### 步骤 6：记录项组件
+
+```typescript
+// components/RecordItem.ets
+import { Record } from '../models/Record';
+
+@Component
+export struct RecordItemComponent {
+  record: Record;
+  onDelete: () => void;
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.record.type === 'income' ? '收入' : '支出')
+          .fontSize(14)
+          .fontColor(this.record.type === 'income' ? Color.Green : Color.Red)
+
+        Text(`¥${this.record.amount.toFixed(2)}`)
+          .fontSize(20)
+          .fontWeight(FontWeight.Bold)
+          .margin({ top: 5 })
+
+        if (this.record.note) {
+          Text(this.record.note)
+            .fontSize(12)
+            .fontColor(Color.Gray)
+            .margin({ top: 5 })
+        }
+      }
+      .alignItems(HorizontalAlign.Start)
+      .layoutWeight(1)
+
+      Button('删除')
+        .type(ButtonType.Normal)
+        .onClick(() => {
+          this.onDelete();
+        })
+    }
+    .width('100%')
+    .padding(15)
+    .backgroundColor(Color.White)
+    .borderRadius(8)
+    .margin({ bottom: 10 })
+  }
+}
+```
+
+## 项目扩展
+
+### 扩展功能 1：按类别统计
+
+添加按类别查看统计的功能。
+
+### 扩展功能 2：日期筛选
+
+添加按日期筛选记录的功能。
+
+### 扩展功能 3：数据导出
+
+添加将数据导出为 CSV 或 JSON 的功能。
+
+### 扩展功能 4：图表展示
+
+使用图表组件展示收支趋势。
+
+## 评分标准
+
+- **基础功能**（60 分）：
+
+  - 添加记录：20 分
+  - 显示列表：20 分
+  - 数据持久化：20 分
+
+- **统计功能**（20 分）：
+
+  - 计算总额：10 分
+  - 显示余额：10 分
+
+- **代码质量**（20 分）：
+  - 代码结构清晰：10 分
+  - 注释完整：10 分
+
+## 下一步
+
+完成本项目后，建议继续：
+
+- [02. 应用体验设计](/blog/harmony/journey/02-ux-design) - 学习如何设计更好的用户体验
+- 优化本项目，添加更多功能
