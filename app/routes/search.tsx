@@ -1,7 +1,6 @@
 import type { MetaFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { useLoaderData, useSearchParams } from "@remix-run/react";
-import { getPostsSorted } from "../utils/posts";
 import { SITE_URL, SITE_NAME } from "../utils/seo";
 import { PostCard } from "~/components/blog/PostCard";
 import { motion } from "motion/react";
@@ -22,6 +21,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const query = url.searchParams.get("q") || "";
 
+  const { getPostsSorted } = await import("../utils/posts.server");
+  const { default: contentMap } = (await import(
+    "../data/posts.content.json"
+  )) as { default: Record<string, string> };
+
   const allPosts = getPostsSorted();
 
   // 简单的全文搜索
@@ -30,7 +34,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         const searchText = query.toLowerCase();
         const title = post.data?.title?.toLowerCase() || "";
         const description = post.data?.description?.toLowerCase() || "";
-        const content = post.content?.toLowerCase() || "";
+        const content = contentMap[post.slug]?.toLowerCase() || "";
         const tags = post.data?.tags?.join(" ").toLowerCase() || "";
 
         return (

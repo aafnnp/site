@@ -1,6 +1,5 @@
 import { json } from "@remix-run/cloudflare";
 import type { ActionFunctionArgs } from "@remix-run/cloudflare";
-import { getPaginatedPosts } from "~/utils/posts";
 
 interface PostsRequestBody {
   pageSize?: number;
@@ -15,6 +14,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const body = (await request.json()) as PostsRequestBody;
   const { pageSize = 10, pageNum = 1, tag } = body;
+
+  const { getPaginatedPosts } = await import("../utils/posts.server");
 
   // Use shared utility function
   const result = getPaginatedPosts({

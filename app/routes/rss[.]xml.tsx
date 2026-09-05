@@ -1,5 +1,5 @@
 import type { LoaderFunction } from "@remix-run/cloudflare";
-import postsData from "../data/posts.json";
+import postsData from "../data/posts.meta.json";
 import { SITE_URL, SITE_NAME, DEFAULT_AUTHOR } from "../utils/seo";
 
 export const loader: LoaderFunction = async () => {

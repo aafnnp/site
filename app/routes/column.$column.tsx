@@ -3,7 +3,6 @@ import { json } from "@remix-run/cloudflare";
 import { useLoaderData, Link } from "@remix-run/react";
 import Ad from "../components/ad";
 import { SITE_NAME, generateSeoMeta } from "../utils/seo";
-import { getColumnPosts, getColumnStats, paginatePosts } from "../utils/posts";
 import { getColumnBySlug, isValidColumnSlug } from "../utils/columns";
 import { PostCard } from "~/components/blog/PostCard";
 import { Badge } from "~/components/ui/Badge";
@@ -56,6 +55,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   if (!column) {
     throw new Response("专栏未找到", { status: 404 });
   }
+
+  const { getColumnPosts, getColumnStats, paginatePosts } = await import(
+    "../utils/posts.server"
+  );
 
   // 获取专栏文章和统计信息
   const allPosts = getColumnPosts(columnSlug);

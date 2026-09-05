@@ -1,8 +1,28 @@
-import postsData from "~/data/posts.json";
+import postsMeta from "~/data/posts.meta.json";
 import { getColumnBySlug, type ColumnConfig } from "./columns";
 
+export interface PostData {
+  type?: string;
+  date?: string;
+  title?: string;
+  tags?: string[];
+  originalUrl?: string;
+  handle?: string;
+  description?: string | null;
+  cover?: string;
+  [key: string]: unknown;
+}
+
 // Post data type
-export type PostItem = (typeof postsData)[number];
+export interface PostItem {
+  data: PostData;
+  slug: string;
+  excerpt?: string;
+}
+
+const postsData = postsMeta as unknown as PostItem[];
+
+export { postsData };
 
 /**
  * Get all posts sorted by date (newest first)

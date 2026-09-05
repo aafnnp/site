@@ -8,17 +8,35 @@ declare global {
   }
 }
 
+const ADSENSE_URL =
+  "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3854566314387093";
+
+/**
+ * 按需延迟加载 AdSense 脚本，避免在没有广告的页面产生额外请求。
+ */
+function loadAdSense() {
+  if (document.querySelector(`script[src="${ADSENSE_URL}"]`)) return;
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.crossOrigin = "anonymous";
+  script.src = ADSENSE_URL;
+  document.head.appendChild(script);
+}
+
 export default function Ad() {
   const location = useLocation();
   const pathName = location.pathname;
   // 当路径改变时重新初始化广告
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (error) {
-        console.log("AdSense error:", error);
-      }
+    if (typeof window === "undefined") return;
+
+    loadAdSense();
+
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (error) {
+      console.log("AdSense error:", error);
     }
   }, [pathName]);
 

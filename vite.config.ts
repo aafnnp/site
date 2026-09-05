@@ -20,6 +20,21 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (!id.includes("node_modules")) return undefined;
+          if (/node_modules\/(react|react-dom|scheduler)\//.test(id)) {
+            return "react-vendor";
+          }
+          if (id.includes("node_modules/motion")) return "motion";
+          if (id.includes("node_modules/react-icons")) return "icons";
+          return undefined;
+        },
+      },
+    },
+  },
   ssr: {
     resolve: {
       conditions: ["workerd", "worker", "browser"],

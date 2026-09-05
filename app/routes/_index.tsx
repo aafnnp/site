@@ -12,7 +12,6 @@ import {
   FiTrendingUp,
 } from "react-icons/fi";
 import { SITE_URL, SITE_NAME, TWITTER_HANDLE } from "../utils/seo";
-import { getPostsSorted } from "../utils/posts";
 import { PostCard } from "~/components/blog/PostCard";
 import {
   Card,
@@ -52,6 +51,8 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
+  const { getPostsSorted } = await import("../utils/posts.server");
+
   // 获取最新文章
   const allPosts = getPostsSorted();
   const latestPosts = allPosts.slice(0, 6);

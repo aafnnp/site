@@ -2,7 +2,6 @@ import type { MetaFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { useLoaderData, Link } from "@remix-run/react";
 import { parseMarkdown } from "../utils/markdown";
-import postsData from "../data/posts.json";
 import {
   generatePostSeoMeta,
   generatePostJsonLd,
@@ -13,26 +12,8 @@ import { TableOfContents } from "~/components/blog/TableOfContents";
 import { PostNavigation } from "~/components/blog/PostNavigation";
 import { Badge } from "~/components/ui/Badge";
 import { Sidebar } from "~/components/layout";
-import { getPostsSorted } from "../utils/posts";
 import { motion } from "motion/react";
-
-// Post data interface
-interface PostData {
-  data: {
-    type?: string;
-    date?: string;
-    title?: string;
-    tags?: string[];
-    originalUrl?: string;
-    handle?: string;
-    description?: string | null;
-    cover?: string;
-  };
-  content?: string;
-  slug?: string;
-  isEmpty?: boolean;
-  excerpt?: string;
-}
+import type { PostItem } from "../utils/posts.server";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   if (!data || !data.post?.data) {
@@ -42,18 +23,18 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 // Get post data by slug (splat route)
-function getPostBySlug(slug: string): PostData | null {
+function getPostBySlug(slug: string, posts: PostItem[]): PostItem | null {
   const decodedSlug = decodeURIComponent(slug);
   const fullSlugPath = `/blog/${decodedSlug}`;
 
   // 首先尝试直接匹配
-  let post: PostData | null =
-    postsData.find((post) => post.slug === fullSlugPath) || null;
+  let post: PostItem | null =
+    posts.find((post) => post.slug === fullSlugPath) || null;
 
   // 如果找不到，尝试匹配 index 文件（处理目录下的 index.mdx）
   if (!post) {
     const indexSlugPath = `${fullSlugPath}/index`;
-    post = postsData.find((post) => post.slug === indexSlugPath) || null;
+    post = posts.find((post) => post.slug === indexSlugPath) || null;
   }
 
   return post;
@@ -66,13 +47,18 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Response("Not Found", { status: 404 });
   }
 
-  const post = getPostBySlug(splat);
+  const { postsData, getPostsSorted } = await import("../utils/posts.server");
+  const { default: contentMap } = (await import(
+    "../data/posts.content.json"
+  )) as { default: Record<string, string> };
+
+  const post = getPostBySlug(splat, postsData);
 
   if (!post || !post.data) {
     throw new Response("Not Found", { status: 404 });
   }
 
-  const articleContent = await parseMarkdown(post.content || "");
+  const articleContent = await parseMarkdown(contentMap[post.slug] || "");
   const jsonLd = generatePostJsonLd(post);
 
   // 获取相邻文章

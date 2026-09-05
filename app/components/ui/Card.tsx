@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 
 /**
  * 卡片组件属性接口
@@ -40,26 +39,17 @@ export const Card: React.FC<CardProps> = ({
   const baseStyles =
     "bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl";
   const hoverStyles = hoverable
-    ? "transition-all duration-300 hover:shadow-lg hover:border-primary-500/40 cursor-pointer"
+    ? "transition-all duration-300 hover:shadow-lg hover:border-primary-500/40 hover:-translate-y-0.5 cursor-pointer"
     : "";
   const paddingStyles = padding ? "p-6" : "";
 
-  const Component = hoverable ? motion.div : "div";
-  const motionProps = hoverable
-    ? {
-        whileHover: { y: -2 },
-        transition: { duration: 0.2 },
-      }
-    : {};
-
   return (
-    <Component
+    <div
       className={`${baseStyles} ${hoverStyles} ${paddingStyles} ${className}`}
       onClick={onClick}
-      {...motionProps}
     >
       {children}
-    </Component>
+    </div>
   );
 };
 

@@ -27,6 +27,7 @@ const Section: React.FC<SectionProps> = ({ browser, data }) => {
               src={`https://cdn.jsdelivr.net/gh/manonicu/pics@master/logos/${value}.svg`}
               alt={key}
               loading="lazy"
+              decoding="async"
               width={48}
               height={48}
             />

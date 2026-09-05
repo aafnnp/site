@@ -111,7 +111,10 @@ export function generateSeoMeta(options: SeoMetaOptions) {
       meta.push({ property: "article:published_time", content: publishedTime });
     }
     if (modifiedTime || publishedTime) {
-      meta.push({ property: "article:modified_time", content: modifiedTime || publishedTime });
+      meta.push({
+        property: "article:modified_time",
+        content: modifiedTime || publishedTime || "",
+      });
     }
     meta.push({ property: "article:author", content: author });
     

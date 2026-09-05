@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 
 /**
  * 按钮组件的尺寸类型
@@ -74,15 +73,13 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-lg border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center font-medium rounded-lg border transition duration-200 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
   const variantStyle = variantStyles[variant];
   const sizeStyle = sizeStyles[size];
   const widthStyle = fullWidth ? "w-full" : "";
 
   return (
-    <motion.button
-      whileHover={{ scale: disabled || loading ? 1 : 1.02 }}
-      whileTap={{ scale: disabled || loading ? 1 : 0.98 }}
+    <button
       className={`${baseStyles} ${variantStyle} ${sizeStyle} ${widthStyle} ${className}`}
       disabled={disabled || loading}
       {...props}
@@ -110,6 +107,6 @@ export const Button: React.FC<ButtonProps> = ({
         </svg>
       )}
       {children}
-    </motion.button>
+    </button>
   );
 };

@@ -65,30 +65,48 @@ function globFiles(dir) {
 
 // 检查内容目录是否存在
 const contentPath = CONTENT_ROOT;
-const outputPath = join(__dirname, "../app/data/posts.json");
+const metaOutputPath = join(__dirname, "../app/data/posts.meta.json");
+const contentOutputPath = join(__dirname, "../app/data/posts.content.json");
 let posts = [];
 
 try {
   const stats = statSync(contentPath);
   if (stats.isDirectory()) {
     posts = globFiles(contentPath);
-    // 生成静态数据文件
-    writeFileSync(outputPath, JSON.stringify(posts, null, 2));
-    console.log(`Generated ${posts.length} posts to ${outputPath}`);
+
+    // 元数据（不含正文），供列表页、RSS、站点地图等使用
+    const meta = posts.map((post) => ({
+      data: post.data,
+      slug: post.slug,
+      excerpt: post.excerpt,
+    }));
+
+    // 正文映射：slug -> content，供文章详情页与搜索按需读取
+    const contentMap = {};
+    for (const post of posts) {
+      contentMap[post.slug] = post.content;
+    }
+
+    writeFileSync(metaOutputPath, JSON.stringify(meta, null, 2));
+    writeFileSync(contentOutputPath, JSON.stringify(contentMap, null, 2));
+    console.log(
+      `Generated ${posts.length} posts -> ${metaOutputPath} & ${contentOutputPath}`
+    );
   } else {
     console.log(
-      "Content path exists but is not a directory, keeping existing posts.json"
+      "Content path exists but is not a directory, keeping existing data files"
     );
   }
 } catch (error) {
-  // 内容目录不存在，检查是否有现有的posts.json
+  // 内容目录不存在，检查是否有现有的元数据文件
   try {
-    statSync(outputPath);
-    console.log("Content directory not found, keeping existing posts.json");
+    statSync(metaOutputPath);
+    console.log("Content directory not found, keeping existing data files");
   } catch {
     console.log(
-      "Content directory not found and no existing posts.json, creating empty posts array"
+      "Content directory not found and no existing data, creating empty data files"
     );
-    writeFileSync(outputPath, JSON.stringify([], null, 2));
+    writeFileSync(metaOutputPath, JSON.stringify([], null, 2));
+    writeFileSync(contentOutputPath, JSON.stringify({}, null, 2));
   }
 }

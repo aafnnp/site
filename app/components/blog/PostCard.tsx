@@ -78,8 +78,11 @@ export const PostCard: React.FC<PostCardProps> = ({
           <img
             src={imageUrl}
             alt={title}
+            width={800}
+            height={400}
             className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
             loading="lazy"
+            decoding="async"
             onError={(e) => {
               // 图片加载失败时使用备用图片
               e.currentTarget.src = `https://picsum.photos/800/400?random=${Date.now()}`;

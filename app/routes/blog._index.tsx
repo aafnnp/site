@@ -4,12 +4,6 @@ import { json } from "@remix-run/cloudflare";
 import { useLoaderData, Link } from "@remix-run/react";
 import Ad from "../components/ad";
 import { generateSeoMeta } from "../utils/seo";
-import {
-  getPostsSorted,
-  filterPostsByTag,
-  paginatePosts,
-  extractTags,
-} from "../utils/posts";
 import { PostCard } from "~/components/blog/PostCard";
 import { Badge } from "~/components/ui/Badge";
 import { Button } from "~/components/ui/Button";
@@ -35,6 +29,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const page = url.searchParams.get("page") || "1";
   const pageSize = url.searchParams.get("pageSize") || "12";
   const tag = url.searchParams.get("tag") || undefined;
+
+  const { getPostsSorted, filterPostsByTag, paginatePosts, extractTags } =
+    await import("../utils/posts.server");
 
   let posts = getPostsSorted();
   posts = filterPostsByTag(posts, tag);

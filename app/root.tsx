@@ -27,15 +27,6 @@ export const links: LinksFunction = () => [
     href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
   },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-  // Highlight.js theme CSS
-  {
-    rel: "stylesheet",
-    href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css",
-  },
   // RSS Feed discovery
   {
     rel: "alternate",
@@ -51,6 +42,9 @@ export const links: LinksFunction = () => [
   },
 ];
 
+const FONT_STYLESHEET_URL =
+  "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap";
+
 function App() {
   return (
     <html lang="zh-CN">
@@ -63,6 +57,30 @@ function App() {
         />
         <Meta />
         <Links />
+        {/* Async, non-blocking stylesheets (fonts + self-hosted highlight theme) */}
+        <link
+          rel="stylesheet"
+          href={FONT_STYLESHEET_URL}
+          crossOrigin="anonymous"
+          media="print"
+          data-async-css
+        />
+        <link
+          rel="stylesheet"
+          href="/highlight-github-dark.css"
+          media="print"
+          data-async-css
+        />
+        <noscript>
+          <link rel="stylesheet" href={FONT_STYLESHEET_URL} />
+          <link rel="stylesheet" href="/highlight-github-dark.css" />
+        </noscript>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              '(function(){var l=document.querySelectorAll("link[data-async-css]");for(var i=0;i<l.length;i++){(function(x){function a(){x.media="all";}try{if(x.sheet&&x.sheet.cssRules){a();return;}}catch(e){}x.addEventListener("load",a);})(l[i]);}})();',
+          }}
+        />
       </head>
       <body>
         <LocaleProvider>
@@ -73,11 +91,6 @@ function App() {
         </LocaleProvider>
         <ScrollRestoration />
         <Scripts />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3854566314387093"
-          crossOrigin="anonymous"
-        />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
