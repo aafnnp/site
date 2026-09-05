@@ -1,0 +1,1020 @@
+---
+type: 'Post'
+date: '2026-08-17 10:00:00'
+title: '第 18 章 · Python 的补充特性'
+tags: [python]
+description: 'Python 语言的进阶特性。'
+slug: extras-de-python
+order: 19
+section: null
+source: "https://libropython.es/chap18.html"
+lang: zh
+---
+
+# 第 18 章 · Python 的补充特性
+
+> 本文译自 [libropython.es](https://libropython.es/chap18.html)。原文为西班牙语，翻译仅供学习使用。
+
+下面先给出第 17 章中 `Card`、`Deck` 和 `Hand` 类的版本，本章的一些例子会用到它们。
+
+```python
+class Card:
+    suit_names = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
+    rank_names = [None, 'Ace', '2', '3', '4', '5', '6', '7',
+                  '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
+
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        rank_name = Card.rank_names[self.rank]
+        suit_name = Card.suit_names[self.suit]
+        return f'{rank_name} of {suit_name}'
+
+import random
+
+class Deck:
+    def __init__(self, cards):
+        self.cards = cards
+
+    def __str__(self):
+        res = []
+        for card in self.cards:
+            res.append(str(card))
+        return '\n'.join(res)
+
+    def make_cards():
+        cards = []
+        for suit in range(4):
+            for rank in range(2, 15):
+                card = Card(suit, rank)
+                cards.append(card)
+        return cards
+
+    def shuffle(self):
+        random.shuffle(self.cards)
+
+    def pop_card(self):
+        return self.cards.pop()
+
+    def add_card(self, card):
+        self.cards.append(card)
+
+class Hand(Deck):
+    def __init__(self, label=''):
+        self.label = label
+        self.cards = []
+```
+
+我写这本书的一个目标，是尽可能少地教你 Python。当有两种方式做某件事时，我选择一种，避免提另一种。或者有时把第二种放进练习里。
+
+现在我想回头看看一些被遗漏的好东西。Python 提供了几个并非真正必需的特性——没有它们你也能写出好代码——但有了它们，你可以写出更简洁、更易读或更高效的代码，有时三者兼得。
+
+## 18.1 集合
+
+Python 提供了一个名为 `set` 的类，表示唯一元素的集合。要创建空集合，我们可以把类对象当函数用。
+
+```python
+s1 = set()
+s1
+# set()
+```
+
+我们可以用 `add` 方法添加元素。
+
+```python
+s1.add('a')
+s1.add('b')
+s1
+# {'a', 'b'}
+```
+
+或者我们可以把任何类型的序列传给 `set`。
+
+```python
+s2 = set('acd')
+s2
+# {'a', 'c', 'd'}
+```
+
+一个元素在集合中只能出现一次。如果你添加一个已存在的元素，没有任何效果。
+
+```python
+s1.add('a')
+s1
+# {'a', 'b'}
+```
+
+或者，如果你用包含重复项的序列创建集合，结果只包含唯一元素。
+
+```python
+set('banana')
+# {'b', 'n', 'a'}
+```
+
+本书的一些练习可以用集合简洁而高效地完成。例如，下面是第 11 章一个练习的解法，它用字典检查序列中是否有重复元素。
+
+```python
+def has_duplicates(t):
+    d = {}
+    for x in t:
+        d[x] = True
+    return len(d) < len(t)
+```
+
+用集合，可以更简洁：
+
+```python
+def has_duplicates(t):
+    return len(set(t)) < len(t)
+```
+
+一些算术运算符适用于集合。例如，运算符 `-` 执行集合减法——结果是一个新集合，包含第一个集合中不在第二个集合里的所有元素。
+
+```python
+s1 - s2
+# {'b'}
+```
+
+在第 12 章中，我们用字典找出文档中出现但不在单词列表中的单词。我们用了下面的函数，它接收两个字典并返回一个新字典，只包含第一个字典中不出现在第二个字典里的键。
+
+```python
+def subtract(d1, d2):
+    res = {}
+    for key in d1:
+        if key not in d2:
+            res[key] = d1[key]
+    return res
+```
+
+有了集合，我们不必自己写这个函数。如果 `word_counter` 是包含文档唯一单词的字典，`word_list` 是有效单词列表，我们可以这样计算集合差。
+
+```python
+# this cell creates a small example so we can run the following
+# cell without loading the actual data
+
+word_counter = {'word': 1}
+word_list = ['word']
+
+set(word_counter) - set(word_list)
+# set()
+```
+
+结果是一个集合，包含文档中不出现在单词列表里的单词。
+
+关系运算符适用于集合。例如，下面的表达式检查一个集合是否是另一个的子集：
+
+```python
+set('ab') <= set('abc')
+# True
+```
+
+`uses_only` 检查 `word` 的所有字母是否都在 `available` 中。
+
+```python
+def uses_only(word, available):
+    for letter in word:
+        if letter not in available:
+            return False
+    return True
+```
+
+用集合，我们可以这样重写它。
+
+```python
+def uses_only(word, available):
+    return set(word) <= set(available)
+```
+
+## 18.2 Counter
+
+`Counter` 像集合，但如果一个元素出现多次，`Counter` 会记录它出现的次数。如果你了解“多重集”的数学概念，`Counter` 就是表示多重集的一种自然方式。
+
+`Counter` 类定义在名为 `collections` 的模块中，所以你必须导入它。然后你可以把类对象当函数用，传入字符串、列表或任何其他类型的序列作为实参。
+
+```python
+from collections import Counter
+
+counter = Counter('banana')
+counter
+# Counter({'a': 3, 'n': 2, 'b': 1})
+```
+
+```python
+from collections import Counter
+
+t = (1, 1, 1, 2, 2, 3)
+counter = Counter(t)
+counter
+# Counter({1: 3, 2: 2, 3: 1})
+```
+
+`Counter` 对象像字典，把每个键与出现次数关联。和字典一样，键必须是可哈希的。
+
+与字典不同，如果你访问一个不出现的元素，`Counter` 对象不会抛出异常。相反，它们返回 `0`。
+
+```python
+counter['d']
+# 0
+```
+
+我们可以用 `Counter` 对象解决第 10 章的一个练习，它要求一个接收两个单词并检查它们是否为变位词的函数——即一个单词的字母能否重新排列成另一个。
+
+下面是使用 `Counter` 对象的解法。
+
+```python
+def is_anagram(word1, word2):
+    return Counter(word1) == Counter(word2)
+```
+
+如果两个单词是变位词，它们包含相同字母且计数相同，所以它们的 `Counter` 对象等价。
+
+`Counter` 提供一个名为 `most_common` 的方法，返回按从最常见到最不常见排序的值-频率对列表。
+
+```python
+counter.most_common()
+# [('a', 3), ('n', 2), ('b', 1)]
+```
+
+它们还提供方法和运算符来执行类似集合的操作，包括加法、减法、并集和交集。例如，`+` 运算符组合两个 `Counter` 对象，创建包含两者键和计数之和的新 `Counter`。
+
+我们可以用 `'bans'` 的字母创建 `Counter` 并把它加到 `'banana'` 的字母上来测试。
+
+```python
+counter2 = Counter('bans')
+counter + counter2
+# Counter({'a': 4, 'n': 3, 'b': 2, 's': 1})
+```
+
+你将有机会在本章末尾的练习中探索 `Counter` 的其他操作。
+
+## 18.3 defaultdict
+
+`collections` 模块还提供 `defaultdict`，它像字典，不同的是，如果你访问一个不存在的键，它会自动生成新值。
+
+创建 `defaultdict` 时，你提供一个用于创建新值的函数。创建对象的函数有时称为**工厂（fábrica）**。创建列表、集合和其他类型的内置函数可以用作工厂。
+
+例如，下面是一个在需要时创建新 `list` 的 `defaultdict`。
+
+```python
+from collections import defaultdict
+
+d = defaultdict(list)
+d
+```
+
+注意，实参是 `list`，即类对象，而不是 `list()`（创建新列表的函数调用）。工厂函数只有在我们访问不存在的键时才会被调用。
+
+```python
+t = d['new key']
+t
+# []
+```
+
+新列表（我们叫它 `t`）也被加入字典。所以如果我们修改 `t`，变化会出现在 `d` 中：
+
+```python
+t.append('new value')
+d['new key']
+# ['new value']
+```
+
+如果你在创建列表字典，通常可以用 `defaultdict` 写更简单的代码。
+
+在第 11 章的一个练习中，我做了个字典，把排序后的字母字符串与可由这些字母组成的单词列表关联。例如，字符串 `'opst'` 关联列表 `['opts', 'post', 'pots', 'spot', 'stop', 'tops']`。下面是原始代码。
+
+```python
+def all_anagrams(filename):
+    d = {}
+    for line in open(filename):
+        word = line.strip().lower()
+        t = signature(word)
+        if t not in d:
+            d[t] = [word]
+        else:
+            d[t].append(word)
+    return d
+```
+
+而这里是使用 `defaultdict` 的更简单版本。
+
+```python
+def all_anagrams(filename):
+    d = defaultdict(list)
+    for line in open(filename):
+        word = line.strip().lower()
+        t = signature(word)
+        d[t].append(word)
+    return d
+```
+
+在本章末尾的练习中，你将有机会练习使用 `defaultdict` 对象。
+
+```python
+from collections import defaultdict
+
+d = defaultdict(list)
+key = ('into', 'the')
+d[key].append('woods')
+d[key]
+# ['woods']
+```
+
+## 18.4 条件表达式
+
+条件语句常用于选择两个值之一，像这里：
+
+```python
+import math
+x = 5
+
+if x > 0:
+    y = math.log(x)
+else:
+    y = float('nan')
+
+y
+# 1.6094379124341003
+```
+
+这条语句检查 `x` 是否为正。如果是，计算它的对数。如果不是，`math.log` 会抛出 `ValueError`。为避免程序停止，我们生成 `NaN`，这是一个表示“Not a Number”的特殊浮点值。
+
+我们可以用**条件表达式（conditional expression）**更简洁地写这条语句。
+
+```python
+y = math.log(x) if x > 0 else float('nan')
+
+y
+```
+
+你几乎可以像读英语一样读这行：“如果 x 大于 0，y 得到 log x；否则得到 NaN。”
+
+递归函数有时可以用条件表达式简洁地写。例如，下面是带条件语句的 `factorial` 版本。
+
+```python
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+```
+
+而这里是带条件表达式的版本。
+
+```python
+def factorial(n):
+    return 1 if n == 0 else n * factorial(n-1)
+```
+
+条件表达式的另一个用途是处理可选实参。例如，下面是一个类定义，其 `__init__` 方法用条件语句检查带默认值的参数。
+
+```python
+class Kangaroo:
+    def __init__(self, name, contents=None):
+        self.name = name
+        if contents is None:
+            contents = []
+        self.contents = contents
+```
+
+下面是使用条件表达式的版本。
+
+```python
+def __init__(self, name, contents=None):
+    self.name = name
+    self.contents = [] if contents is None else contents
+```
+
+一般来说，如果两个分支都只包含一个表达式而没有语句，你可以用条件表达式替换条件语句。
+
+## 18.5 列表推导式
+
+在前面的章节中，我们见过一些例子，从空列表开始，用 `append` 方法逐个添加元素。例如，假设我们有一个包含电影标题的字符串，想把所有单词的首字母大写。
+
+```python
+title = 'monty python and the holy grail'
+```
+
+我们可以把它拆分成字符串列表，遍历这些字符串，把它们首字母大写，并加入列表。
+
+```python
+t = []
+for word in title.split():
+    t.append(word.capitalize())
+
+' '.join(t)
+# 'Monty Python And The Holy Grail'
+```
+
+我们可以用**列表推导式（comprensión de listas）**更简洁地做同样的事：
+
+```python
+t = [word.capitalize() for word in title.split()]
+
+' '.join(t)
+# 'Monty Python And The Holy Grail'
+```
+
+方括号表示我们在构建新列表。方括号内的表达式指定列表的元素，`for` 子句表示我们在遍历哪个序列。
+
+列表推导式的语法可能看起来奇怪，因为循环变量——这个例子中的 `word`——在到达其定义之前就出现在表达式里了。但你会习惯的。
+
+作为另一个例子，在第 9 章中，我们用这个循环从文件读取单词并加入列表。
+
+```python
+download('https://raw.githubusercontent.com/AllenDowney/ThinkPython2/master/code/words.txt')
+
+word_list = []
+
+for line in open('words.txt'):
+    word = line.strip()
+    word_list.append(word)
+
+len(word_list)
+```
+
+我们可以这样把它写成列表推导式。
+
+```python
+word_list = [line.strip() for line in open('words.txt')]
+
+len(word_list)
+```
+
+列表推导式也可以有 `if` 子句，决定哪些元素包含在列表中。例如，下面是我们在第 10 章用的 `for` 循环，只创建 `word_list` 中是回文的单词列表。
+
+```python
+def is_palindrome(word):
+    return list(reversed(word)) == list(word)
+
+palindromes = []
+
+for word in word_list:
+    if is_palindrome(word):
+        palindromes.append(word)
+
+palindromes[:10]
+```
+
+我们可以用列表推导式做同样的事。
+
+```python
+palindromes = [word for word in word_list if is_palindrome(word)]
+
+palindromes[:10]
+```
+
+当列表推导式用作函数实参时，通常可以省略方括号。例如，假设我们想对 \\(n\\) 从 0 到 9 求和 \\(1 / 2^n\\)。我们可以用这样的列表推导式。
+
+```python
+sum([1/2**n for n in range(10)])
+# 1.998046875
+```
+
+或者我们可以像这样去掉方括号。
+
+```python
+sum(1/2**n for n in range(10))
+```
+
+在这个例子中，严格来说实参是**生成器表达式（expresión generadora）**，而不是列表推导式，它实际上从不创建列表。但除此之外，行为是一样的。
+
+列表推导式和生成器表达式简洁易读，至少对简单表达式如此。而且它们通常比等价的 `for` 循环更快，有时快很多。所以如果你因为我之前没提它们而生气，我理解。
+
+但为自己辩护一下，列表推导式更难调试，因为你不能在循环里放 print 语句。我建议只在计算足够简单、你很可能一次就写对的情况下使用它们。或者考虑先写并调试 `for` 循环，然后把它转换成列表推导式。
+
+## 18.6 any 和 all
+
+Python 提供内置函数 `any`，它接收布尔值序列，如果其中任意值为 `True`，返回 `True`。
+
+```python
+any([False, False, True])
+# True
+```
+
+`any` 常用于生成器表达式。
+
+```python
+any(letter == 't' for letter in 'monty')
+# True
+```
+
+这个例子不是很有用，因为它和 `in` 运算符做同样的事。但我们可以用 `any` 为第 7 章的一些练习写简洁的解法。例如，我们可以这样写 `uses_none`。
+
+```python
+def uses_none(word, forbidden):
+    """Checks whether a word avoids forbidden letters."""
+    return not any(letter in forbidden for letter in word)
+```
+
+```python
+uses_none('banana', 'xyz')
+# True
+uses_none('apple', 'efg')
+# False
+```
+
+这个函数遍历 `word` 的字母，检查是否有任意一个在 `forbidden` 中。用 `any` 加生成器表达式很高效，因为如果找到 `True` 值它立即停止，所以不必遍历整个序列。
+
+Python 提供另一个内置函数 `all`，如果序列的所有元素都为 `True`，返回 `True`。我们可以用它写 `uses_all` 的简洁版本。
+
+```python
+def uses_all(word, required):
+    """Check whether a word uses all required letters."""
+    return all(letter in word for letter in required)
+```
+
+```python
+uses_all('banana', 'ban')
+# True
+uses_all('apple', 'api')
+# False
+```
+
+使用 `any` 和 `all` 的表达式可以简洁、高效且易读。
+
+## 18.7 具名元组
+
+`collections` 模块提供了一个名为 `namedtuple` 的函数，可用于创建简单类。例如，第 16 章的 `Point` 对象只有两个属性 `x` 和 `y`。我们是这样定义它的。
+
+```python
+class Point:
+    """Represents a point in 2-D space."""
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f'({self.x}, {self.y})'
+```
+
+这是用大量代码传达少量信息。`namedtuple` 提供了更简洁的定义这类类的方式。
+
+```python
+from collections import namedtuple
+
+Point = namedtuple('Point', ['x', 'y'])
+```
+
+第一个实参是你想创建的类名。第二个是 `Point` 对象应有属性的列表。结果是类对象，所以赋给首字母大写的变量名。
+
+用 `namedtuple` 创建的类提供 `__init__` 方法（给属性赋值）和 `__str__`（以可读方式显示对象）。所以我们可以这样创建并显示 `Point` 对象。
+
+```python
+p = Point(1, 2)
+p
+# Point(x=1, y=2)
+```
+
+`Point` 还提供 `__eq__` 方法，检查两个 `Point` 对象是否等价——即属性是否相等。
+
+```python
+p == Point(1, 2)
+# True
+```
+
+你可以按名字或索引访问具名元组的元素。
+
+```python
+p.x, p.y
+# (1, 2)
+p[0], p[1]
+# (1, 2)
+```
+
+你也可以把具名元组当元组处理，比如在赋值中。
+
+```python
+x, y = p
+x, y
+# (1, 2)
+```
+
+但 `namedtuple` 对象是不可变的。初始化属性后，不能修改它们。
+
+```python
+p[0] = 3
+# TypeError
+p.x = 3
+# AttributeError
+```
+
+`namedtuple` 提供了定义简单类的快速方式。缺点是简单类并不总是保持简单。你可能后来决定给具名元组添加方法。在这种情况下，你可以定义继承自具名元组的新类。
+
+```python
+class Pointier(Point):
+    """This class inherits from Point"""
+```
+
+或者在那个时点，你可以改成传统的类定义。
+
+## 18.8 打包关键字实参
+
+在第 11 章中，我们写了一个把实参打包成元组的函数。
+
+```python
+def mean(*args):
+    return sum(args) / len(args)
+```
+
+你可以用任意数量的实参调用这个函数。
+
+```python
+mean(1, 2, 3)
+# 2.0
+```
+
+但 `*` 运算符不打包关键字实参。所以用关键字实参调用这个函数会导致错误。
+
+```python
+mean(1, 2, start=3)
+# TypeError
+```
+
+要打包关键字实参，我们可以用 `**` 运算符：
+
+```python
+def mean(*args, **kwargs):
+    print(kwargs)
+    return sum(args) / len(args)
+```
+
+打包关键字的参数可以起任何名字，但 `kwargs` 是常见选择。结果是把关键字与值关联的字典。
+
+```python
+mean(1, 2, start=3)
+# {'start': 3}
+```
+
+在这个例子中，打印了 `kwargs` 的值，但除此之外它没有任何效果。
+
+但 `**` 运算符也可以用在实参列表中解包字典。例如，下面是 `mean` 的一个版本，它打包收到的任何关键字实参，然后作为关键字实参解包给 `sum`。
+
+```python
+def mean(*args, **kwargs):
+    return sum(args, **kwargs) / len(args)
+```
+
+现在，如果我们用 `start` 作为关键字实参调用 `mean`，它会被传给 `sum`，`sum` 把它作为求和的起点。在下面的例子中，`start=3` 在计算平均值之前给总和加了 3，所以总和是 6，结果是 3。
+
+```python
+mean(1, 2, start=3)
+# 3.0
+```
+
+作为另一个例子，如果我们有键为 `x` 和 `y` 的字典，可以用解包运算符创建 `Point` 对象。
+
+```python
+d = dict(x=1, y=2)
+Point(**d)
+# Point(x=1, y=2)
+```
+
+没有解包运算符，`d` 被当作单个位置实参，所以被赋给 `x`，我们会得到 `TypeError`，因为没有第二个实参赋给 `y`。
+
+```python
+d = dict(x=1, y=2)
+Point(d)
+# TypeError
+```
+
+当处理有大量关键字实参的函数时，创建并传递指定常用选项的字典往往很有用。
+
+```python
+def pack_and_print(**kwargs):
+    print(kwargs)
+
+pack_and_print(a=1, b=2)
+# {'a': 1, 'b': 2}
+```
+
+## 18.9 调试
+
+在前面的章节中，我们用 `doctest` 测试函数。例如，下面是一个名为 `add` 的函数，接收两个数字并返回它们的和。它包含一个检查 2 + 2 是否为 4 的 doctest。
+
+```python
+def add(a, b):
+    '''Add two numbers.
+
+    >>> add(2, 2)
+    4
+    '''
+    return a + b
+```
+
+这个函数接收函数对象并运行其 doctest。
+
+```python
+from doctest import run_docstring_examples
+
+def run_doctests(func):
+    run_docstring_examples(func, globals(), name=func.__name__)
+```
+
+所以我们可以这样测试 `add`。
+
+```python
+run_doctests(add)
+```
+
+没有输出，意味着所有测试都通过了。
+
+Python 提供了另一个运行自动化测试的工具，叫 `unittest`。它用起来稍微复杂一点，但下面是一个例子。
+
+```python
+from unittest import TestCase
+
+class TestExample(TestCase):
+
+    def test_add(self):
+        result = add(2, 2)
+        self.assertEqual(result, 4)
+```
+
+首先我们导入 `TestCase`，它是 `unittest` 模块中的一个类。要用它，我们必须定义继承自 `TestCase` 的新类，并至少提供一个测试方法。测试方法名必须以 `test` 开头，并应表明它测试哪个函数。
+
+在这个例子中，`test_add` 通过调用 `add`、保存结果并调用 `assertEqual`（从 `TestCase` 继承）来测试 `add` 函数。`assertEqual` 接收两个实参并检查它们是否相等。
+
+要运行这个测试方法，我们必须运行 `unittest` 中名为 `main` 的函数，并提供几个关键字实参。下面的函数展示了细节——如果你好奇，可以请虚拟助手解释它是如何工作的。
+
+```python
+import unittest
+
+def run_unittest():
+    unittest.main(argv=[''], verbosity=0, exit=False)
+```
+
+`run_unittest` 不接收 `TestExample` 作为实参——相反，它查找继承自 `TestCase` 的类。然后查找以 `test` 开头的方法并运行它们。这个过程叫**测试发现（test discovery）**。
+
+我们调用 `run_unittest` 时会发生以下情况。
+
+```python
+run_unittest()
+```
+
+`unittest.main` 报告运行的测试数量和结果。在这个例子中，`OK` 表示测试通过了。
+
+要看看测试失败时会发生什么，我们给 `TestExample` 添加一个错误的测试方法。
+
+```python
+%%add_method_to TestExample
+
+    def test_add_broken(self):
+        result = add(2, 2)
+        self.assertEqual(result, 100)
+```
+
+我们运行测试时会发生以下情况。
+
+```python
+run_unittest()
+```
+
+报告包括失败的测试方法和显示失败位置的消息。摘要显示运行了两个测试，一个失败。
+
+在下面的练习中，我会建议一些提示词，你可以用来向虚拟助手询问更多关于 `unittest` 的信息。
+
+## 18.10 词汇表
+
+**工厂：** 用于创建对象的函数，通常作为参数传给函数。
+
+**条件表达式：** 用条件选择两个值之一的表达式。
+
+**列表推导式：** 遍历序列并创建列表的简洁方式。
+
+**生成器表达式：** 类似列表推导式，但不创建列表。
+
+**测试发现：** 用于查找和运行测试的过程。
+
+## 18.11 练习
+
+```python
+# This cell tells Jupyter to provide detailed debugging information
+# when a runtime error occurs. Run it before working on the exercises.
+
+%xmode Verbose
+```
+
+### 18.11.1 问一个虚拟助手
+
+本章有一些你可能想进一步了解的主题。
+
+- “Python 集合类有哪些方法和运算符？”
+- “Python Counter 类有哪些方法和运算符？”
+- “Python 列表推导式和生成器表达式有什么区别？”
+- “什么时候应该用 Python 的 namedtuple 而不是定义新类？”
+- “打包和解包关键字实参有哪些用途？”
+- “unittest 如何做测试发现？”
+- “除了 assertEqual，unittest.TestCase 中最常用的方法有哪些？”
+- “doctest 和 unittest 各有什么优缺点？”
+
+对于下面的练习，考虑向虚拟助手求助，但和往常一样，记得测试结果。
+
+### 18.11.2 练习
+
+第 7 章的一个练习要求写名为 `uses_none` 的函数，接收单词和禁用字母串，如果单词不使用任何禁用字母，返回 `True`。下面是一个解法。
+
+```python
+def uses_none(word, forbidden):
+    for letter in word.lower():
+        if letter in forbidden.lower():
+            return False
+    return True
+```
+
+写一个用集合操作而不是 `for` 循环的这个函数版本。提示：问虚拟助手：“如何计算 Python 集合的交集？”
+
+你可以用这个框架开始。
+
+```python
+def uses_none(word, forbidden):
+    """Checks whether a word avoid forbidden letters.
+
+    >>> uses_none('banana', 'xyz')
+    True
+    >>> uses_none('apple', 'efg')
+    False
+    >>> uses_none('', 'abc')
+    True
+    """
+    return False
+
+from doctest import run_docstring_examples
+
+def run_doctests(func):
+    run_docstring_examples(func, globals(), name=func.__name__)
+
+run_doctests(uses_none)
+```
+
+### 18.11.3 练习
+
+Scrabble 是一种棋盘游戏，目标是用字母块组成单词。例如，如果我们有字母为 T、A、B、L、E 的块，我们可以用块的子集组成 BELT 和 LATE——但不能组成 BEET，因为我们没有两个 E。
+
+写一个函数，接收一个字母串和一个单词，检查这些字母能否组成该单词，要考虑每个字母出现的次数。
+
+你可以用下面的框架开始。
+
+```python
+def can_spell(letters, word):
+    """Check whether the letters can spell the word.
+
+    >>> can_spell('table', 'belt')
+    True
+    >>> can_spell('table', 'late')
+    True
+    >>> can_spell('table', 'beet')
+    False
+    """
+    return False
+
+run_doctests(can_spell)
+```
+
+### 18.11.4 练习
+
+在第 17 章的一个练习中，我解 `has_straightflush` 用了下面的方法，它把 `PokerHand` 分成四个手牌列表，每手只包含一种花色的牌。
+
+```python
+def partition(self):
+    """Make a list of four hands, each containing only one suit."""
+    hands = []
+    for i in range(4):
+        hands.append(PokerHand())
+
+    for card in self.cards:
+        hands[card.suit].add_card(card)
+
+    return hands
+```
+
+用 `defaultdict` 写这个函数的简化版本。
+
+下面是 `PokerHand` 类和 `partition` 函数的框架，供你开始。
+
+```python
+class PokerHand(Hand):
+
+    def partition(self):
+        return {}
+```
+
+要测试你的代码，我们创建一副牌并洗牌。
+
+```python
+cards = Deck.make_cards()
+deck = Deck(cards)
+deck.shuffle()
+```
+
+然后创建 `PokerHand` 并加入七张牌。
+
+```python
+random_hand = PokerHand('random')
+
+for i in range(7):
+    card = deck.pop_card()
+    random_hand.add_card(card)
+
+print(random_hand)
+```
+
+如果你调用 `partition` 并打印结果，每手应该只包含一种花色的牌。
+
+```python
+hand_dict = random_hand.partition()
+
+for hand in hand_dict.values():
+    print(hand)
+    print()
+```
+
+### 18.11.5 练习
+
+下面是第 11 章计算斐波那契数的函数。
+
+```python
+def fibonacci(n):
+    if n == 0:
+        return 0
+
+    if n == 1:
+        return 1
+
+    return fibonacci(n-1) + fibonacci(n-2)
+```
+
+写这个函数的一个只含一条 `return` 语句的版本，用两个嵌套的条件表达式。
+
+```python
+fibonacci(10)    # should be 55
+fibonacci(20)    # should be 6765
+```
+
+### 18.11.6 练习
+
+下面是一个递归计算二项式系数的函数。
+
+```python
+def binomial_coeff(n, k):
+    """Compute the binomial coefficient "n choose k".
+
+    n: number of trials
+    k: number of successes
+
+    returns: int
+    """
+    if k == 0:
+        return 1
+
+    if n == 0:
+        return 0
+
+    return binomial_coeff(n-1, k) + binomial_coeff(n-1, k-1)
+```
+
+用嵌套的条件表达式重写函数体。
+
+这个函数不太高效，因为它最终一遍又一遍地计算相同的值。按第 10 章描述的方式把它记忆化。
+
+```python
+binomial_coeff(10, 4)    # should be 210
+```
+
+### 18.11.7 练习
+
+下面是第 17 章 `Deck` 类的 `__str__` 方法。
+
+```python
+%%add_method_to Deck
+
+    def __str__(self):
+        res = []
+        for card in self.cards:
+            res.append(str(card))
+        return '\n'.join(res)
+```
+
+用列表推导式或生成器表达式写这个方法的更简洁版本。
+
+你可以用这个例子测试你的解法。
+
+```python
+cards = Deck.make_cards()
+deck = Deck(cards)
+print(deck)
+```
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

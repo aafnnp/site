@@ -1,0 +1,458 @@
+---
+type: 'Post'
+date: '2026-08-20 10:00:00'
+title: '第 15 章 · 类与方法'
+tags: [python]
+description: '__init__ 方法与对象方法。'
+slug: clases-y-metodos
+order: 16
+section: null
+source: "https://libropython.es/chap15.html"
+lang: zh
+---
+
+# 第 15 章 · 类与方法
+
+> 本文译自 [libropython.es](https://libropython.es/chap15.html)。原文为西班牙语，翻译仅供学习使用。
+
+Python 是一门**面向对象的语言**——也就是说，它提供了支持面向对象编程的功能，面向对象编程有以下定义性特征：
+
+*   大部分计算以对对象的操作来表达。
+
+*   对象通常代表现实世界中的事物，方法通常对应现实世界事物相互作用的方式。
+
+*   程序包含类和方法定义。
+
+例如，在上一章中，我们定义了一个 `Time` 类，对应人们记录一天中时刻的方式，并定义了对应人们处理时刻所做事情类型的函数。但 `Time` 类定义和后面的函数定义之间没有显式连接。我们可以把函数重写为**方法（método）**（在类定义内部定义）来让这个连接显式化。
+
+## 15.1 定义方法
+
+在上一章中，我们定义了一个名为 `Time` 的类，并写了一个名为 `print_time` 的函数来显示一天中的时刻。
+
+```python
+class Time:
+    """Represents the time of day."""
+
+def print_time(time):
+    s = f'{time.hour:02d}:{time.minute:02d}:{time.second:02d}'
+    print(s)
+```
+
+要把 `print_time` 转换成方法，我们只需把函数定义移到类定义内部。注意缩进的变化。
+
+同时，我们把参数名从 `time` 改成 `self`。这个改动不是必需的，但把方法的第一个参数命名为 `self` 是惯例。
+
+```python
+class Time:
+    """Represents the time of day."""
+
+    def print_time(self):
+        s = f'{self.hour:02d}:{self.minute:02d}:{self.second:02d}'
+        print(s)
+```
+
+要调用这个方法，你必须传入一个 `Time` 对象作为实参。下面是我们用来创建 `Time` 对象的函数。
+
+```python
+def make_time(hour, minute, second):
+    time = Time()
+    time.hour = hour
+    time.minute = minute
+    time.second = second
+    return time
+```
+
+而这里是一个 `Time` 实例。
+
+```python
+start = make_time(9, 40, 0)
+```
+
+现在有两种方式调用 `print_time`。第一种（较少见）是使用函数语法。
+
+```python
+Time.print_time(start)
+```
+
+在这个版本中，`Time` 是类名，`print_time` 是方法名，`start` 作为参数传入。第二种（更惯用的）方式是使用方法语法：
+
+```python
+start.print_time()
+```
+
+在这个版本中，`start` 是被调用方法的对象，称为**接收者（receptor）**，这是基于调用方法就像给对象发送消息的类比。
+
+无论哪种语法，方法的行为都一样。接收者被赋给第一个参数，所以在方法内部，`self` 指向与 `start` 相同的对象。
+
+## 15.2 另一个方法
+
+下面是上一章的 `time_to_int` 函数。
+
+```python
+def time_to_int(time):
+    minutes = time.hour * 60 + time.minute
+    seconds = minutes * 60 + time.second
+    return seconds
+```
+
+而这里是重写为方法的版本。
+
+```python
+%%add_method_to Time
+
+    def time_to_int(self):
+        minutes = self.hour * 60 + self.minute
+        seconds = minutes * 60 + self.second
+        return seconds
+```
+
+第一行使用了特殊命令 `add_method_to`，它给之前定义的类添加方法。这个命令在 Jupyter notebook 中有效，但不是 Python 的一部分，所以在其他环境中无法工作。通常，类的所有方法都在类定义内部，所以它们在定义类的同时定义。但对本书来说，一次定义一个方法很有用。
+
+和前一个例子一样，方法定义是缩进的，参数名是 `self`。除此之外，方法与函数完全相同。我们这样调用它。
+
+```python
+start.time_to_int()
+# 34800
+```
+
+人们常说“调用”函数、“调用”方法，但意思是一样的。
+
+## 15.3 静态方法
+
+作为另一个例子，考虑 `int_to_time` 函数。下面是上一章的版本。
+
+```python
+def int_to_time(seconds):
+    minute, second = divmod(seconds, 60)
+    hour, minute = divmod(minute, 60)
+    return make_time(hour, minute, second)
+```
+
+这个函数接收 `seconds` 作为参数，返回新的 `Time` 对象。如果我们把它转换成 `Time` 类的方法，就必须在 `Time` 对象上调用它。但如果我们正试图创建新的 `Time` 对象，我们应该在什么上调用它呢？
+
+我们可以用**静态方法（método estático）**解决这个先有鸡还是先有蛋的问题，静态方法是不需要类实例就能调用的方法。我们这样把这个函数重写为静态方法。
+
+```python
+%%add_method_to Time
+
+    def int_to_time(seconds):
+        minute, second = divmod(seconds, 60)
+        hour, minute = divmod(minute, 60)
+        return make_time(hour, minute, second)
+```
+
+因为它是静态方法，没有 `self` 参数。要调用它，我们用 `Time`，即类对象。
+
+```python
+start = Time.int_to_time(34800)
+```
+
+结果是一个表示 9:40 的新对象。
+
+```python
+start.print_time()
+# 09:40:00
+```
+
+现在我们有了 `Time.int_to_time`，可以用它把 `add_time` 写成方法。下面是上一章的函数。
+
+```python
+def add_time(time, hours, minutes, seconds):
+    duration = make_time(hours, minutes, seconds)
+    seconds = time_to_int(time) + time_to_int(duration)
+    return int_to_time(seconds)
+```
+
+而这里是重写为方法的版本。
+
+```python
+%%add_method_to Time
+
+    def add_time(self, hours, minutes, seconds):
+        duration = make_time(hours, minutes, seconds)
+        seconds = Time.time_to_int(self) + Time.time_to_int(duration)
+        return Time.int_to_time(seconds)
+```
+
+`add_time` 有 `self` 参数，因为它不是静态方法。它是普通方法——也叫**实例方法（método de instancia）**。要调用它，我们需要 `Time` 实例。
+
+```python
+end = start.add_time(1, 32, 0)
+end.print_time()
+# 11:12:00
+```
+
+## 15.4 比较 Time 对象
+
+再举一个例子，我们把 `is_after` 写成方法。下面是 `is_after` 函数，它是上一章一个练习的解法。
+
+```python
+def is_after(t1, t2):
+    return time_to_int(t1) > time_to_int(t2)
+```
+
+而这里是方法版本。
+
+```python
+%%add_method_to Time
+
+    def is_after(self, other):
+        return self.time_to_int() > other.time_to_int()
+```
+
+因为我们要比较两个对象，而第一个参数是 `self`，我们把第二个参数命名为 `other`。要使用这个方法，我们必须在对象上调用它，并把另一个对象作为实参传入。
+
+```python
+end.is_after(start)
+# True
+```
+
+这种语法的一个好处是它几乎读起来像个问题：“`end` 在 `start` 之后吗？”
+
+## 15.5 `__str__` 方法
+
+写方法时，你几乎可以选任何想要的名字。然而，有些名字有特殊含义。例如，如果对象有名为 `__str__` 的方法，Python 就用这个方法把对象转换成字符串。例如，下面是一个时刻对象的 `__str__` 方法。
+
+```python
+%%add_method_to Time
+
+    def __str__(self):
+        s = f'{self.hour:02d}:{self.minute:02d}:{self.second:02d}'
+        return s
+```
+
+这个方法类似上一章的 `print_time`，不同的是它返回字符串而不是打印它。
+
+你可以按常规方式调用这个方法。
+
+```python
+end.__str__()
+# '11:12:00'
+```
+
+但 Python 也可以替你调用它。如果你用内置函数 `str` 把 `Time` 对象转换成字符串，Python 会用 `Time` 类的 `__str__` 方法。
+
+```python
+str(end)
+# '11:12:00'
+```
+
+而如果你打印 `Time` 对象，它做同样的事。
+
+```python
+print(end)
+# 11:12:00
+```
+
+像 `__str__` 这样的方法叫**特殊方法（método especial）**。你可以通过名字以两个下划线开头和结尾来识别它们。
+
+## 15.6 init 方法
+
+特殊方法中最特殊的是 `__init__`，之所以这么叫，是因为它初始化新对象的属性。`Time` 类的 `__init__` 方法可能长这样：
+
+```python
+%%add_method_to Time
+
+    def __init__(self, hour=0, minute=0, second=0):
+        self.hour = hour
+        self.minute = minute
+        self.second = second
+```
+
+现在，当我们实例化 `Time` 对象时，Python 调用 `__init__` 并传入实参。这样我们可以同时创建对象和初始化属性。
+
+```python
+time = Time(9, 40, 0)
+print(time)
+# 09:40:00
+```
+
+在这个例子中，参数是可选的，所以如果你不带实参调用 `Time`，你会得到默认值。
+
+```python
+time = Time()
+print(time)
+# 00:00:00
+```
+
+如果你提供一个实参，它覆盖 `hour`：
+
+```python
+time = Time(9)
+print(time)
+# 09:00:00
+```
+
+如果你提供两个实参，它们覆盖 `hour` 和 `minute`。
+
+```python
+time = Time(9, 45)
+print(time)
+# 09:45:00
+```
+
+如果你提供三个实参，它们覆盖三个默认值。
+
+当我写新类时，我几乎总是从写 `__init__` 开始，它让创建对象更容易，以及 `__str__`，它对调试很有用。
+
+## 15.7 运算符重载
+
+通过定义其他特殊方法，你可以指定运算符在程序员定义类型上的行为。例如，如果你为 `Time` 类定义了名为 `__add__` 的方法，你就可以对 `Time` 对象使用 `+` 运算符。
+
+下面是一个 `__add__` 方法。
+
+```python
+%%add_method_to Time
+
+    def __add__(self, other):
+        seconds = self.time_to_int() + other.time_to_int()
+        return Time.int_to_time(seconds)
+```
+
+我们可以这样使用它。
+
+```python
+duration = Time(1, 32)
+end = start + duration
+print(end)
+```
+
+当我们执行这三行代码时，发生了很多事：
+
+*   当我们实例化 `Time` 对象时，`__init__` 方法被调用。
+
+*   当我们对 `Time` 对象使用 `+` 运算符时，它的 `__add__` 方法被调用。
+
+*   当我们打印 `Time` 对象时，它的 `__str__` 方法被调用。
+
+改变运算符行为使其适用于程序员定义类型，称为**运算符重载（sobrecarga de operadores）**。每个运算符（如 `+`）都有对应的特殊方法（如 `__add__`）。
+
+## 15.8 调试
+
+如果 `minute` 和 `second` 的值在 `0` 和 `60` 之间——包括 `0` 但不包括 `60`——且 `hour` 为正，那么 `Time` 对象是有效的。此外，`hour` 和 `minute` 应该是整数值，但我们可以允许 `second` 有小数部分。这样的要求称为**不变量（invariante）**，因为它们应该始终为真。换句话说，如果它们不为真，就说明出了问题。
+
+编写检查不变量的代码有助于发现错误并找到原因。例如，你可以有一个像 `is_valid` 这样的方法，接收 `Time` 对象，如果违反不变量就返回 `False`。
+
+```python
+%%add_method_to Time
+
+    def is_valid(self):
+        if self.hour < 0 or self.minute < 0 or self.second < 0:
+            return False
+        if self.minute >= 60 or self.second >= 60:
+            return False
+        if not isinstance(self.hour, int):
+            return False
+        if not isinstance(self.minute, int):
+            return False
+        return True
+```
+
+然后，在每个方法的开头，你可以检查实参以确保它们有效。
+
+```python
+%%add_method_to Time
+
+    def is_after(self, other):
+        assert self.is_valid(), 'self is not a valid Time'
+        assert other.is_valid(), 'other is not a valid Time'
+        return self.time_to_int() > other.time_to_int()
+```
+
+`assert` 语句对它后面的表达式求值。如果结果是 `True`，它什么都不做；如果结果是 `False`，它引发 `AssertionError`。下面是一个例子。
+
+```python
+duration = Time(minute=132)
+print(duration)
+# 00:132:00
+
+start.is_after(duration)
+# AssertionError: other is not a valid Time
+```
+
+`assert` 语句很有用，因为它们把处理正常条件的代码和检查错误的代码区分开来。
+
+## 15.9 词汇表
+
+**面向对象的语言：** 提供支持面向对象编程功能（尤其是用户定义类型）的语言。
+
+**方法：** 在类定义内部定义、并在该类的实例上调用的函数。
+
+**接收者：** 调用方法的对象。
+
+**静态方法：** 无需对象作为接收者即可调用的方法。
+
+**实例方法：** 必须以对象作为接收者调用的方法。
+
+**特殊方法：** 改变运算符和某些函数对对象的处理方式的方法。
+
+**运算符重载：** 用特殊方法改变运算符对用户定义类型的处理方式的过程。
+
+**不变量：** 程序执行期间应该始终为真的条件。
+
+## 15.10 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 15.10.1 问一个虚拟助手
+
+想了解更多关于静态方法的信息，问虚拟助手：
+
+*   “实例方法和静态方法有什么区别？”
+
+*   “为什么静态方法被称为 static？”
+
+如果你请虚拟助手生成静态方法，结果很可能会以 `@staticmethod` 开头，这是一个“装饰器”（decorator），表示它是静态方法。装饰器不在本书范围内，但如果你好奇，可以请虚拟助手提供更多信息。
+
+在本章中，我们把几个函数重写成了方法。虚拟助手通常擅长这种代码转换。作为例子，把下面的函数粘贴给虚拟助手，并请它：“把这个函数重写为 `Time` 类的方法。”
+
+```python
+def subtract_time(t1, t2):
+    return time_to_int(t1) - time_to_int(t2)
+```
+
+### 15.10.2 练习
+
+在上一章中，有一系列练习要求你写一个 `Date` 类和几个处理 `Date` 对象的函数。现在练习把这些函数重写为方法。
+
+1.  写一个表示日期的 `Date` 类定义——即年、月、日。
+
+2.  写一个 `__init__` 方法，接收 `year`、`month` 和 `day` 作为参数，并把参数赋给属性。创建一个表示 1933 年 6 月 22 日的对象。
+
+3.  写一个 `__str__` 方法，用 f 字符串格式化属性并返回结果。如果你用你创建的 `Date` 测试它，结果应该是 `1933-06-22`。
+
+4.  写一个名为 `is_after` 的方法，接收两个 `Date` 对象，如果第一个在第二个之后，返回 `True`。创建第二个表示 1933 年 9 月 17 日的对象，检查它是否在第一个对象之后。
+
+提示：你可能会发现写一个名为 `to_tuple` 的方法很有用，它返回包含 `Date` 对象属性的元组，顺序为年-月-日。
+
+你可以用这些例子测试你的解法。
+
+```python
+birthday1 = Date(1933, 6, 22)
+print(birthday1)
+# 1933-06-22
+
+birthday2 = Date(1933, 9, 17)
+print(birthday2)
+# 1933-09-17
+
+birthday1.is_after(birthday2)  # should be False
+birthday2.is_after(birthday1)  # should be True
+```
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

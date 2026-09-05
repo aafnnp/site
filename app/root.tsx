@@ -6,7 +6,7 @@ import {
   ScrollRestoration,
   LiveReload,
 } from "@remix-run/react";
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
 import { LocaleProvider } from "~/components/LocaleProvider";
 import Navigation from "~/components/Menu";
 import { SITE_URL, SITE_NAME } from "~/utils/seo";

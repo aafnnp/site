@@ -1,0 +1,756 @@
+---
+type: 'Post'
+date: '2026-08-27 10:00:00'
+title: '第 8 章 · 字符串与正则表达式'
+tags: [python]
+description: '字符串的遍历与操作、正则表达式入门。'
+slug: cadenas-y-expresiones-regulares
+order: 9
+section: null
+source: "https://libropython.es/chap08.html"
+lang: zh
+---
+
+# 第 8 章 · 字符串与正则表达式
+
+> 本文译自 [libropython.es](https://libropython.es/chap08.html)。原文为西班牙语，翻译仅供学习使用。
+
+字符串不像整数、浮点数和布尔值。字符串是一种**序列**，这意味着它按特定顺序包含多个值。在本章中，我们将看到如何访问组成字符串的值，并使用处理字符串的函数。
+
+我们还将使用正则表达式，它是在字符串中查找模式、执行搜索和替换等操作的强大工具。
+
+作为练习，你将有机会把这些工具应用到一个叫做 Wordle 的单词游戏上。
+
+## 8.1 字符串是一种序列
+
+字符串是字符的序列。**字符**可以是字母（几乎任何字母表中的）、数字、标点符号或空白。
+
+你可以用方括号运算符从字符串中选择一个字符。下面这条示例语句选择 `fruit` 的第 1 号字符并把它赋给 `letter`：
+
+```python
+fruit = 'banana'
+letter = fruit[1]
+```
+
+方括号中的表达式是**索引（índice）**，之所以这么叫，是因为它*指示*要选择序列中的哪个字符。但结果可能不是你所期望的。
+
+```python
+letter
+# 'a'
+```
+
+索引为 `1` 的字母实际上是字符串的第二个字母。索引是从字符串开头的偏移量，所以第一个字母的偏移量是 `0`。
+
+```python
+fruit[0]
+# 'b'
+```
+
+你可以把 `'b'` 看作 `'banana'` 的第 0 个字母——读作“第零个”。
+
+方括号中的索引可以是变量。
+
+```python
+i = 1
+fruit[i]
+# 'a'
+```
+
+或者是包含变量和运算符的表达式。
+
+```python
+fruit[i+1]
+# 'n'
+```
+
+但索引的值必须是整数——否则会得到 `TypeError`。
+
+```python
+fruit[1.5]
+# TypeError: string indices must be integers
+```
+
+正如我们在第 1 章中看到的，我们可以用内置函数 `len` 获取字符串的长度。
+
+```python
+n = len(fruit)
+n
+# 6
+```
+
+要获取字符串的最后一个字母，你可能会想这样写：
+
+```python
+fruit[n]
+# IndexError: string index out of range
+```
+
+但这会导致 `IndexError`，因为 `'banana'` 中没有索引为 6 的字母。因为我们从 `0` 开始计数，六个字母编号为 `0` 到 `5`。要获取最后一个字符，你必须从 `n` 中减去 `1`：
+
+```python
+fruit[n-1]
+# 'a'
+```
+
+但还有一种更简单的方法。要获取字符串的最后一个字母，你可以用负数索引，它从末尾向前计数。
+
+```python
+fruit[-1]
+# 'a'
+```
+
+索引 `-1` 选择最后一个字母，`-2` 选择倒数第二个，依此类推。
+
+## 8.2 字符串切片
+
+字符串的一部分称为**切片（segmento）**。选择切片与选择字符类似。
+
+```python
+fruit = 'banana'
+fruit[0:3]
+# 'ban'
+```
+
+运算符 `[n:m]` 返回字符串中从第 `n` 个字符到第 `m` 个字符的部分，包含第一个但不包含第二个。这种行为违反直觉，但想象索引指向字符*之间*会有所帮助，就像这张图展示的那样：
+
+```python
+from diagram import make_binding, Element, Value
+
+binding = make_binding("fruit", ' b a n a n a ')
+elements = [Element(Value(i), None) for i in range(7)]
+```
+
+例如，切片 `[3:6]` 选择字母 `ana`，这意味着 `6` 作为切片的一部分是合法的，但作为索引则不是。
+
+如果省略第一个索引，切片从字符串开头开始。
+
+```python
+fruit[:3]
+# 'ban'
+```
+
+如果省略第二个索引，切片一直到字符串末尾：
+
+```python
+fruit[3:]
+# 'ana'
+```
+
+如果第一个索引大于或等于第二个索引，结果是一个**空字符串**，用两个引号表示：
+
+```python
+fruit[3:3]
+# ''
+```
+
+空字符串不含字符，长度为 0。
+
+继续这个例子，你认为 `fruit[:]` 是什么意思？试试看。
+
+```python
+fruit[:]
+# 'banana'
+```
+
+## 8.3 字符串是不可变的
+
+把 `[]` 运算符用在赋值左侧、以改变字符串中的某个字符，是很诱人的做法，像这样：
+
+```python
+greeting = 'Hello, world!'
+greeting[0] = 'J'
+# TypeError: 'str' object does not support item assignment
+```
+
+结果是 `TypeError`。在错误消息中，“object”是字符串，“item”是我们试图赋值的字符。目前，**对象**与值是同一个意思，但我们稍后会细化这个定义。
+
+这个错误的原因是字符串是**不可变的**，也就是说你不能修改现有字符串。你最多只能创建一个新字符串，作为原字符串的变体。
+
+```python
+new_greeting = 'J' + greeting[1:]
+new_greeting
+# 'Jello, world!'
+```
+
+这个例子把新的首字母与 `greeting` 的一个切片拼接起来。它对原字符串没有任何影响。
+
+```python
+greeting
+# 'Hello, world!'
+```
+
+## 8.4 字符串比较
+
+关系运算符适用于字符串。要判断两个字符串是否相等，我们可以用 `==` 运算符。
+
+```python
+word = 'banana'
+
+if word == 'banana':
+    print('All right, banana.')
+```
+
+其他关系运算有助于按字母顺序排列单词：
+
+```python
+def compare_word(word):
+    if word < 'banana':
+        print(word, 'comes before banana.')
+    elif word > 'banana':
+        print(word, 'comes after banana.')
+    else:
+        print('All right, banana.')
+
+compare_word('apple')
+# apple comes before banana.
+```
+
+Python 处理大小写字母的方式与人不同。所有大写字母都排在小写字母之前，所以：
+
+```python
+compare_word('Pineapple')
+# Pineapple comes before banana.
+```
+
+要解决这个问题，我们可以在比较之前把字符串转换成标准格式，比如全部小写。如果你必须对付一个拿菠萝的人，请记住这一点。
+
+## 8.5 字符串方法
+
+字符串提供了执行各种有用操作的方法。方法与函数类似——接收实参并返回值——但语法不同。例如，`upper` 方法接收一个字符串并返回一个所有字母都大写的新字符串。
+
+它不使用函数语法 `upper(word)`，而是使用方法语法 `word.upper()`。
+
+```python
+word = 'banana'
+new_word = word.upper()
+new_word
+# 'BANANA'
+```
+
+点运算符的这种用法指定了方法名 `upper`，以及要应用该方法的字符串名 `word`。空括号表示该方法不接收实参。
+
+方法调用称为**调用（invocación）**；在这种情况下，我们会说我们在 `word` 上调用 `upper`。
+
+## 8.6 写文件
+
+字符串运算符和方法对读写文本文件很有用。作为例子，我们将处理《德古拉》（Dracula）的文本，这是布拉姆·斯托克的小说，可在古腾堡计划获取（[https://www.gutenberg.org/ebooks/345](https://www.gutenberg.org/ebooks/345)）。
+
+```python
+import os
+
+if not os.path.exists('pg345.txt'):
+    !wget https://www.gutenberg.org/cache/epub/345/pg345.txt
+```
+
+我把这本书下载到一个名为 `pg345.txt` 的纯文本文件中，我们可以这样打开它来读取：
+
+```python
+reader = open('pg345.txt')
+```
+
+除了书的正文，这个文件开头有一段关于本书的信息，结尾有一段关于许可证的信息。在处理文本之前，我们可以通过找到开头和结尾处以 `'***'` 开头的特殊行，来删除这些额外内容。
+
+下面的函数接收一行，检查它是否是特殊行之一。它使用 `startswith` 方法，检查字符串是否以给定的字符序列开头。
+
+```python
+def is_special_line(line):
+    return line.startswith('*** ')
+```
+
+我们可以用这个函数遍历文件中的行，只打印特殊行。
+
+```python
+for line in reader:
+    if is_special_line(line):
+        print(line.strip())
+```
+
+现在创建一个名为 `pg345_cleaned.txt` 的新文件，只包含书的正文。要再次遍历这本书，我们必须重新打开它来读取。而要写新文件，我们可以打开它来写入。
+
+```python
+reader = open('pg345.txt')
+writer = open('pg345_cleaned.txt', 'w')
+```
+
+`open` 接收一个可选参数来指定“模式”——在这个例子中，`'w'` 表示我们以写入方式打开文件。如果文件不存在，会被创建；如果已存在，内容会被替换。
+
+作为第一步，我们遍历文件直到找到第一行特殊行。
+
+```python
+for line in reader:
+    if is_special_line(line):
+        break
+```
+
+`break` 语句“中断”循环——也就是说，它让循环立即终止，还没到文件末尾就结束。
+
+当循环结束时，`line` 包含使条件为真的那行特殊行。
+
+```python
+line
+# "*** START OF THE PROJECT GUTENBERG EBOOK DRACULA ***\n"
+```
+
+因为 `reader` 记录它在文件中的位置，我们可以用第二个循环从上次停下的地方继续。
+
+下面的循环读取文件的其余部分，一次一行。当它遇到表示文本结束的特殊行时，中断循环。否则，把该行写入输出文件。
+
+```python
+for line in reader:
+    if is_special_line(line):
+        break
+    writer.write(line)
+```
+
+当这个循环结束时，`line` 包含第二行特殊行。
+
+```python
+line
+# "*** END OF THE PROJECT GUTENBERG EBOOK DRACULA ***\n"
+```
+
+此时 `reader` 和 `writer` 仍然打开，这意味着我们还能继续从 `reader` 读取行或往 `writer` 写入行。为了表示我们已经完成，我们可以调用 `close` 方法关闭两个文件。
+
+```python
+reader.close()
+writer.close()
+```
+
+要检查这个过程是否成功，我们可以读取刚创建的新文件的前几行。
+
+```python
+for line in open('pg345_cleaned.txt'):
+    line = line.strip()
+    if len(line) > 0:
+        print(line)
+    if line.endswith('Stoker'):
+        break
+```
+
+`endswith` 方法检查字符串是否以给定的字符序列结尾。
+
+## 8.7 查找与替换
+
+在 1901 年的冰岛语版《德古拉》中，一个角色的名字从“Jonathan”改成了“Thomas”。要在英文版中做这个改动，我们可以遍历全书，用 `replace` 方法把一个名字替换成另一个，然后把结果写入新文件。
+
+我们先计算干净版本文件中的行数。
+
+```python
+total = 0
+for line in open('pg345_cleaned.txt'):
+    total += 1
+
+total
+```
+
+要看某行是否包含“Jonathan”，我们可以用 `in` 运算符，它检查这个字符序列是否出现在该行的任意位置。
+
+```python
+total = 0
+for line in open('pg345_cleaned.txt'):
+    if 'Jonathan' in line:
+        total += 1
+
+total
+# 199
+```
+
+有 199 行包含这个名字，但这并不是它出现的总次数，因为它可能在一行中出现多次。要得到总数，我们可以用 `count` 方法，它返回一个序列在字符串中出现的次数。
+
+```python
+total = 0
+for line in open('pg345_cleaned.txt'):
+    total += line.count('Jonathan')
+
+total
+# 200
+```
+
+现在我们可以这样把 `'Jonathan'` 替换成 `'Thomas'`：
+
+```python
+writer = open('pg345_replaced.txt', 'w')
+
+for line in open('pg345_cleaned.txt'):
+    line = line.replace('Jonathan', 'Thomas')
+    writer.write(line)
+```
+
+结果是一个名为 `pg345_replaced.txt` 的新文件，其中包含一个 Jonathan Harker 被叫做 Thomas 的《德古拉》版本。
+
+```python
+total = 0
+for line in open('pg345_replaced.txt'):
+    total += line.count('Thomas')
+
+total
+# 200
+```
+
+## 8.8 正则表达式
+
+如果我们确切知道要找的字符序列，可以用 `in` 运算符找到它、用 `replace` 方法替换它。但还有另一种工具，叫做**正则表达式**，它也能执行这些操作——还有更多。
+
+为了演示，我先从一个简单的例子开始，然后逐步深入。再次假设我们想找到所有包含某个特定单词的行。换换口味，我们来找提到本书同名角色德古拉伯爵的行。下面是一行提到他的文字。
+
+```python
+text = "I am Dracula; and I bid you welcome, Mr. Harker, to my house."
+```
+
+而这是我们用于搜索的**模式**。
+
+```python
+pattern = 'Dracula'
+```
+
+一个名为 `re` 的模块提供了与正则表达式相关的函数。我们可以这样导入它，并用 `search` 函数检查模式是否出现在文本中。
+
+```python
+import re
+
+result = re.search(pattern, text)
+result
+```
+
+如果模式出现在文本中，`search` 返回一个 `Match` 对象，包含搜索的结果。除了其他信息，它还有一个名为 `string` 的变量，包含被搜索的文本。
+
+```python
+result.string
+```
+
+它还提供一个名为 `group` 的方法，返回与模式匹配的文本部分。
+
+```python
+result.group()
+# 'Dracula'
+```
+
+它还提供一个名为 `span` 的方法，返回模式在文本中开始和结束的索引。
+
+```python
+result.span()
+# (5, 12)
+```
+
+如果模式没有出现在文本中，`search` 的返回值是 `None`。
+
+```python
+result = re.search('Count', text)
+print(result)
+# None
+```
+
+所以我们可以通过检查结果是否为 `None` 来判断搜索是否成功。
+
+```python
+result == None
+# True
+```
+
+把这些整合起来，下面是一个函数，它遍历书中的行直到找到与给定模式匹配的一行，并返回 `Match` 对象。
+
+```python
+def find_first(pattern):
+    for line in open('pg345_cleaned.txt'):
+        result = re.search(pattern, line)
+        if result != None:
+            return result
+```
+
+我们可以用它来找到一个角色的第一次提及。
+
+```python
+result = find_first('Harker')
+result.string
+```
+
+对于这个例子，我们不必使用正则表达式——用 `in` 运算符可以更容易地做到同样的事。但正则表达式能做 `in` 运算符做不到的事。
+
+例如，如果模式包含竖线字符 `'|'`，它可以匹配左边的序列或右边的序列。假设我们想找到书中第一次提到 Mina Murray 的地方，但不确定她是以名还是姓被提及。我们可以用下面的模式，它匹配两个名字中的任意一个。
+
+```python
+pattern = 'Mina|Murray'
+result = find_first(pattern)
+result.string
+```
+
+我们可以用这样的模式来查看一个角色以两个名字中的任意一个被提及的次数。下面是一个遍历全书、统计与给定模式匹配的行数的函数。
+
+```python
+def count_matches(pattern):
+    count = 0
+    for line in open('pg345_cleaned.txt'):
+        result = re.search(pattern, line)
+        if result != None:
+            count += 1
+    return count
+```
+
+现在看看 Mina 被提及了多少次。
+
+```python
+count_matches('Mina|Murray')
+```
+
+特殊字符 `'^'` 匹配字符串的开头，所以我们可以找到以给定模式开头的行。
+
+```python
+result = find_first('^Dracula')
+result.string
+```
+
+而特殊字符 `'$'` 匹配字符串的结尾，所以我们可以找到以给定模式结尾的行（忽略末尾的换行符）。
+
+```python
+result = find_first('Harker$')
+result.string
+```
+
+## 8.9 字符串替换
+
+布拉姆·斯托克出生在爱尔兰，当《德古拉》于 1897 年出版时，他住在英格兰。所以我们可以预期他使用“centre”和“colour”这类单词的英式拼写。为了验证，我们可以用下面的模式，它匹配“centre”或美式拼写“center”。
+
+```python
+pattern = 'cent(er|re)'
+```
+
+在这个模式中，括号括起竖线所应用的模式部分。所以这个模式匹配一个以 `'cent'` 开头、以 `'er'` 或 `'re'` 结尾的序列。
+
+```python
+result = find_first(pattern)
+result.string
+```
+
+正如我们所料，他用了英式拼写。
+
+我们也可以检查他是否用了“colour”的英式拼写。下面的模式使用特殊字符 `'?'`，它表示前面的字符是可选的。
+
+```python
+pattern = 'colou?r'
+```
+
+这个模式匹配带 `'u'` 的“colour”或不带 `'u'` 的“color”。
+
+```python
+result = find_first(pattern)
+line = result.string
+line
+```
+
+同样，正如我们所料，他用了英式拼写。
+
+现在假设我们想制作一个美式拼写的版本。我们可以用 `re` 模块的 `sub` 函数，它做**字符串替换**。
+
+```python
+re.sub(pattern, 'color', line)
+```
+
+第一个参数是要查找并替换的模式，第二个参数是替换成什么，第三个参数是要在其中搜索的字符串。在结果中，你可以看到“colour”已被替换为“color”。
+
+```python
+# I used this function to search for lines to use as examples
+
+def all_matches(pattern):
+    for line in open('pg345_cleaned.txt'):
+        result = re.search(pattern, line)
+        if result:
+            print(line.strip())
+
+# Here's the pattern I used (which uses some features we haven't seen)
+
+names = r'(?<![.\s])[A-Z][a-zA-Z]+'
+
+all_matches(names)
+```
+
+## 8.10 调试
+
+当你读写文件时，调试可能会很棘手。如果你在 Jupyter notebook 中工作，可以用 **shell 命令**来帮忙。例如，要显示文件的前几行，你可以用 `!head` 命令，像这样：
+
+```python
+!head pg345_cleaned.txt
+```
+
+开头的感叹号 `!` 表示这是一个 shell 命令，不是 Python 的一部分。要显示最后几行，你可以用 `!tail`。
+
+```python
+!tail pg345_cleaned.txt
+```
+
+处理大文件时，调试可能很困难，因为输出太多，无法手动检查。一个好的调试策略是从文件的一小部分开始，让程序能工作，然后再用完整文件运行。
+
+要创建包含大文件一部分的小文件，我们可以再次使用 `!head` 加上重定向运算符 `>`，它表示结果应该写入文件而不是显示。
+
+```python
+!head pg345_cleaned.txt > pg345_cleaned_10_lines.txt
+```
+
+默认情况下，`!head` 读取前 10 行，但它接收一个可选参数来指定要读取的行数。
+
+```python
+!head -100 pg345_cleaned.txt > pg345_cleaned_100_lines.txt
+```
+
+这个 shell 命令读取 `pg345_cleaned.txt` 的前 100 行，并把它们写入名为 `pg345_cleaned_100_lines.txt` 的文件。
+
+注意：shell 命令 `!head` 和 `!tail` 并非在所有操作系统上都可用。如果它们在你那里不能用，我们可以用 Python 写类似的函数。参见本章末尾第一个练习的建议。
+
+## 8.11 词汇表
+
+**序列：** 值的有序集合，每个值用一个整数索引来标识。
+
+**字符：** 字符串的一个元素，包括字母、数字和符号。
+
+**索引：** 用于选择序列中某个元素（如字符串中的字符）的整数值。在 Python 中，索引从 `0` 开始。
+
+**切片：** 由索引范围指定的字符串的一部分。
+
+**空字符串：** 不含字符、长度为 `0` 的字符串。
+
+**对象：** 变量可以指向的东西。对象有类型和值。
+
+**不可变：** 如果对象的元素不能被修改，则该对象是不可变的。
+
+**调用：** 调用方法的表达式（或表达式的一部分）。
+
+**正则表达式：** 定义搜索模式的字符序列。
+
+**模式：** 规定字符串必须满足哪些要求才能构成匹配的规则。
+
+**字符串替换：** 用另一个字符串替换一个字符串（或字符串的一部分）。
+
+**shell 命令：** shell 语言中的语句，shell 是用于与操作系统交互的语言。
+
+## 8.12 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+
+download('https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/words.txt')
+```
+
+### 8.12.1 问一个虚拟助手
+
+在本章中，我们只是浅尝了正则表达式能做的事情。要了解可能性的概貌，问虚拟助手：“Python 正则表达式中最常用的特殊字符有哪些？”
+
+你也可以请它写匹配特定类型字符串的模式。例如，试试问：
+
+*   写一个 Python 正则表达式，匹配一个带连字符的 10 位电话号码。
+
+*   写一个 Python 正则表达式，匹配一个地址，包含门牌号和街道名，后跟 `ST` 或 `AVE`。
+
+*   写一个 Python 正则表达式，匹配一个全名，带任何常见称谓如 `Mr` 或 `Mrs`，后跟任意数量以大写开头的名字，某些名字之间可能有连字符。
+
+如果你想看更复杂的东西，试着请它写一个匹配任何合法 URL 的正则表达式。
+
+正则表达式通常在引号前有字母 `r`，表示它是“原始字符串”。想了解更多，问虚拟助手：“什么是 Python 中的原始字符串？”
+
+```python
+from doctest import run_docstring_examples
+
+def run_doctests(func):
+    run_docstring_examples(func, globals(), name=func.__name__)
+```
+
+### 8.12.2 练习
+
+看看你能不能写一个与 shell 命令 `!head` 做同样事情的函数。它接收的参数是：要读取的文件名、要读取的行数，以及要写入这些行的文件名。如果第三个参数是 `None`，它应该显示这些行而不是写入文件。
+
+考虑向虚拟助手求助，但如果这样做，告诉它不要使用 `with` 语句或 `try` 语句。
+
+你可以用下面的例子测试你的函数。
+
+```python
+head('pg345_cleaned.txt', 10)
+
+head('pg345_cleaned.txt', 100, 'pg345_cleaned_100_lines.txt')
+
+!tail pg345_cleaned_100_lines.txt
+```
+
+### 8.12.3 练习
+
+“Wordle”是一个在线单词游戏，目标是在六次以内猜出一个五个字母的单词。每次猜测必须是被认可的单词，不包括专有名词。每次猜测后，你会得到关于你猜的哪些字母出现在目标单词中、哪些在正确位置的信息。
+
+例如，假设目标单词是 `MOWER`，你猜了 `TRIED`。你会得知 `E` 在单词中且在正确位置，`R` 在单词中但不在正确位置，而 `T`、`I` 和 `D` 不在单词中。
+
+作为另一个例子，假设你猜了 `SPADE` 和 `CLERK`，得知 `E` 在单词中，但不在这些位置中的任何一个，而且其他字母都不出现在单词中。在单词列表中，有多少个可能是目标单词？写一个名为 `check_word` 的函数，接收一个五个字母的单词，检查在给定这些猜测的情况下它是否可能是目标单词。
+
+你可以使用上一章的任何函数，比如 `uses_any`。
+
+```python
+def uses_any(word, letters):
+    for letter in word.lower():
+        if letter in letters.lower():
+            return True
+    return False
+```
+
+你可以用下面的循环测试你的函数。
+
+```python
+for line in open('words.txt'):
+    word = line.strip()
+    if len(word) == 5 and check_word(word):
+        print(word)
+```
+
+### 8.12.4 练习
+
+继续上一个练习，假设你猜了单词 `TOTEM`，得知 `E` *仍然*不在正确位置，但 `M` 在正确位置。还剩多少个单词？
+
+### 8.12.5 练习
+
+《基督山伯爵》是亚历山大·仲马的小说，被认为是一部经典。然而，在这本书一个英译本的前言中，作家翁贝托·埃科坦言，他觉得这是“有史以来写得最糟的小说之一”。
+
+具体来说，他说它“厚颜无耻地重复同一个形容词”，并特别提到“它的人物多少次颤抖或脸色发白”。
+
+为了验证他的反对是否有道理，让我们统计包含 `pale` 任何形式的行数，包括 `pale`、`pales`、`paled` 和 `paleness`，以及相关单词 `pallor`。用一个能匹配这些单词中任意一个的正则表达式。作为额外挑战，确保它不匹配其他单词，比如 `impale`——你可能需要向虚拟助手求助。
+
+下面的单元格从古腾堡计划下载这本书 [https://www.gutenberg.org/ebooks/1184](https://www.gutenberg.org/ebooks/1184)。
+
+```python
+import os
+
+if not os.path.exists('pg1184.txt'):
+    !wget https://www.gutenberg.org/cache/epub/1184/pg1184.txt
+```
+
+下面的单元格运行一个函数，读取古腾堡计划文件并写一个只包含书正文的文件，不含关于本书的附加信息。
+
+```python
+def clean_file(input_file, output_file):
+    reader = open(input_file)
+    writer = open(output_file, 'w')
+
+    for line in reader:
+        if is_special_line(line):
+            break
+
+    for line in reader:
+        if is_special_line(line):
+            break
+        writer.write(line)
+
+    reader.close()
+    writer.close()
+
+clean_file('pg1184.txt', 'pg1184_cleaned.txt')
+```
+
+根据这个统计，这些单词出现在书中的 `223` 行里，所以埃科先生也许是对的。
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

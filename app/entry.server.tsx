@@ -1,5 +1,5 @@
 import type { AppLoadContext } from "@remix-run/cloudflare";
-import type { EntryContext } from "@remix-run/node";
+import type { EntryContext } from "@remix-run/cloudflare";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToReadableStream } from "react-dom/server";

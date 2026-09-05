@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/cloudflare";
 import postsData from "../data/posts.json";
 import { SITE_URL, SITE_NAME, DEFAULT_AUTHOR } from "../utils/seo";
 

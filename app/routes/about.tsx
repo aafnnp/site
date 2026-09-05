@@ -1,4 +1,4 @@
-import { MetaFunction } from "@remix-run/node";
+import { MetaFunction } from "@remix-run/cloudflare";
 import { Link } from "@remix-run/react";
 import { FaGithub, FaHome, FaSitemap, FaTwitter } from "react-icons/fa";
 import { motion } from "motion/react";

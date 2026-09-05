@@ -1,6 +1,6 @@
-import type { MetaFunction } from "@remix-run/node";
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { json } from "@remix-run/cloudflare";
 import { useLoaderData, Link } from "@remix-run/react";
 import Ad from "../components/ad";
 import { generateSeoMeta } from "../utils/seo";

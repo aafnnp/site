@@ -1,0 +1,540 @@
+---
+type: 'Post'
+date: '2026-08-31 10:00:00'
+title: '第 4 章 · 函数与接口'
+tags: [python]
+description: '使用 jupyturtle 模块绘制图形，学习接口设计与函数协同工作。'
+slug: funciones-e-interfaces
+order: 5
+section: null
+source: "https://libropython.es/chap04.html"
+lang: zh
+---
+
+# 第 4 章 · 函数与接口
+
+> 本文译自 [libropython.es](https://libropython.es/chap04.html)。原文为西班牙语，翻译仅供学习使用。
+
+本章介绍一个名为 `jupyturtle` 的模块，它让你通过给一只想象的海龟下指令来创作简单的图画。我们将用这个模块来编写绘制正方形、多边形和圆的函数，并演示**接口设计**，这是一种设计能够协同工作的函数的方法。
+
+## 4.1 jupyturtle 模块
+
+要使用 `jupyturtle` 模块，我们可以这样导入它。
+
+```python
+import jupyturtle
+```
+
+现在我们可以使用模块中定义的函数，比如 `make_turtle` 和 `forward`。
+
+```python
+jupyturtle.make_turtle()
+jupyturtle.forward(100)
+```
+
+`make_turtle` 创建一个**画布（canvas）**（屏幕上我们可以画图的空间）和一只海龟（用圆形壳和三角形头表示）。圆表示海龟的位置，三角形表示它面朝的方向。
+
+`forward` 让海龟沿着它面朝的方向移动给定的距离，沿途画出一条线段。距离的单位是任意的：实际大小取决于你的电脑屏幕。
+
+我们会多次使用 `jupyturtle` 模块中定义的函数，所以如果不用每次都写模块名就好了。如果我们这样导入模块，就可以做到。
+
+```python
+from jupyturtle import make_turtle, forward
+```
+
+这个版本的 `import` 语句从 `jupyturtle` 模块导入 `make_turtle` 和 `forward`，这样我们就可以直接这样调用它们。
+
+```python
+make_turtle()
+forward(100)
+```
+
+`jupyturtle` 还提供了另外两个我们会用到的函数，叫做 `left` 和 `right`。我们这样导入它们。
+
+```python
+from jupyturtle import left, right
+```
+
+`left` 让海龟向左转。它接收一个参数，即转向的角度（以度为单位）。例如，我们可以这样向左转 90 度。
+
+```python
+make_turtle()
+forward(50)
+left(90)
+forward(50)
+```
+
+这个程序让海龟先向东移动，然后向北移动，身后留下两条线段。在继续之前，试试看你能不能修改上面的程序来画一个正方形。
+
+## 4.2 画一个正方形
+
+下面是一种画正方形的方法。
+
+```python
+make_turtle()
+
+forward(50)
+left(90)
+
+forward(50)
+left(90)
+
+forward(50)
+left(90)
+
+forward(50)
+left(90)
+```
+
+因为这个程序把同一对行重复了四次，我们可以用 `for` 循环更简洁地做到同样的事。
+
+```python
+make_turtle()
+for i in range(4):
+    forward(50)
+    left(90)
+```
+
+## 4.3 封装与泛化
+
+我们把上一节画正方形的代码放进一个名为 `square` 的函数里。
+
+```python
+def square():
+    for i in range(4):
+        forward(50)
+        left(90)
+```
+
+现在我们可以这样调用这个函数。
+
+```python
+make_turtle()
+square()
+```
+
+把一段代码包裹进函数中称为**封装（encapsulación）**。封装的好处之一是它给代码起了个名字，起到某种文档的作用。另一个好处是，如果你复用代码，调用两次函数比复制粘贴函数体更简洁！
+
+在当前版本中，正方形的尺寸始终是 `50`。如果我们想画不同尺寸的正方形，可以把边长作为参数。
+
+```python
+def square(length):
+    for i in range(4):
+        forward(length)
+        left(90)
+```
+
+现在我们可以画不同尺寸的正方形了。
+
+```python
+make_turtle()
+square(30)
+square(60)
+```
+
+给函数添加参数称为**泛化（generalización）**，因为它让函数更通用：在旧版本中，正方形始终是同一尺寸；在新版本中，它可以是任意尺寸。
+
+如果我们再添加一个参数，可以让它更加通用。下面的函数用给定的边数绘制正多边形。
+
+```python
+def polygon(n, length):
+    angle = 360 / n
+    for i in range(n):
+        forward(length)
+        left(90)  # 注：原书这里应为 left(angle)
+```
+
+在具有 `n` 条边的正多边形中，相邻边之间的角度是 `360 / n` 度。
+
+下面的例子画一个边长 `30` 的 `7` 边形。
+
+```python
+make_turtle()
+polygon(7, 30)
+```
+
+当一个函数有多个数值参数时，很容易忘记它们是什么、按什么顺序排列。把参数名包含在实参列表里是个好主意。
+
+```python
+make_turtle()
+polygon(n=7, length=30)
+```
+
+有时这被称为“带名字的实参”，因为它们包含了参数名。但在 Python 中，它们更常被称为**关键字实参（keyword arguments）**（不要与 `for` 和 `def` 这类 Python 关键字混淆）。
+
+赋值运算符 `=` 的这种用法，提醒我们实参和参数如何工作：调用函数时，实参被赋给参数。
+
+## 4.4 近似画圆
+
+现在假设我们想画一个圆。我们可以近似地做到：画一个边数很多的多边形，使每条边都小到几乎看不见。下面是一个使用 `polygon` 绘制 `30` 边形来近似圆的函数。
+
+```python
+import math
+
+def circle(radius):
+    circumference = 2 * math.pi * radius
+    n = 30
+    length = circumference / n
+    polygon(n, length)
+```
+
+`circle` 把圆的半径作为参数。它计算 `circumference`，即给定半径的圆的周长。`n` 是边数，所以 `circumference / n` 是每条边的长度。
+
+这个函数可能需要很长时间执行。我们可以通过调用 `make_turtle` 并传入一个名为 `delay` 的关键字实参来加快速度，该实参设置海龟每步之后等待的时间（以秒为单位）。默认值是 `0.2` 秒；如果设为 `0.02`，运行速度约快 10 倍。
+
+```python
+make_turtle(delay=0.02)
+circle(30)
+```
+
+这个方案的一个局限是 `n` 是常量，这意味着对于很大的圆，边太长；而对于很小的圆，我们在画很短的边上浪费时间。一种选择是通过把 `n` 作为参数来泛化函数。不过现在我们先保持简单。
+
+## 4.5 重构
+
+现在写一个更通用的 `circle` 版本，叫做 `arc`，它接收第二个参数 `angle`，画出跨越给定角度的圆弧。例如，如果 `angle` 是 `360` 度，它画一个完整的圆。如果 `angle` 是 `180` 度，它画一个半圆。
+
+要写 `circle`，我们可以复用 `polygon`，因为边数很多的多边形是圆的很好近似。但我们不能用 `polygon` 来写 `arc`。
+
+相反，我们创建一个更通用的 `polygon` 版本，叫做 `polyline`。
+
+```python
+def polyline(n, length, angle):
+    for i in range(n):
+        forward(length)
+        left(angle)
+```
+
+`polyline` 接收以下参数：要画的线段数量 `n`、线段长度 `length`，以及线段之间的角度 `angle`。
+
+现在我们可以重写 `polygon` 以使用 `polyline`。
+
+```python
+def polygon(n, length):
+    angle = 360.0 / n
+    polyline(n, length, angle)
+```
+
+我们也可以用 `polyline` 来写 `arc`。
+
+```python
+def arc(radius, angle):
+    arc_length = 2 * math.pi * radius * angle / 360
+    n = 30
+    length = arc_length / n
+    step_angle = angle / n
+    polyline(n, length, step_angle)
+```
+
+`arc` 与 `circle` 类似，只是它计算 `arc_length`，即圆周的一部分。
+
+最后，我们可以重写 `circle` 以使用 `arc`。
+
+```python
+def circle(radius):
+    arc(radius, 360)
+```
+
+为了检查这些函数是否按预期工作，我们用它们画一个像蜗牛的东西。用 `delay=0`，海龟会尽可能快。
+
+```python
+make_turtle(delay=0)
+polygon(n=20, length=9)
+arc(radius=70, angle=70)
+circle(radius=10)
+```
+
+在这个例子中，我们从能工作的代码开始，用不同的函数重新组织它。这类改进代码但不改变其行为的改动，称为**重构（refactorización）**。
+
+如果我们事先规划好，也许应该先写 `polyline`，从而避免重构，但在项目开始阶段，你往往了解得不够多，无法设计出所有函数。一旦开始编程，你会更深入地理解问题。有时重构正是你学到新东西的标志。
+
+## 4.6 栈图
+
+当我们调用 `circle` 时，它调用 `arc`，`arc` 又调用 `polyline`。我们可以用栈图来展示这个函数调用序列以及每个函数的参数。
+
+```python
+from diagram import make_binding, make_frame, Frame, Stack
+
+frame1 = make_frame(dict(radius=30), name='circle', loc='left')
+
+frame2 = make_frame(dict(radius=30, angle=360), name='arc', loc='left', dx=1.1)
+
+frame3 = make_frame(dict(n=60, length=3.04, angle=5.8),
+                    name='polyline', loc='left', dx=1.1, offsetx=-0.27)
+
+stack = Stack([frame1, frame2, frame3], dy=-0.4)
+```
+
+注意，`polyline` 中 `angle` 的值与 `arc` 中 `angle` 的值不同。参数是局部的，这意味着你可以在不同的函数中使用相同的参数名；它在每个函数中是不同的变量，可以指向不同的值。
+
+## 4.7 开发计划
+
+**开发计划**是编写程序的过程。本章使用的过程是“封装与泛化”。其步骤如下：
+
+1.  先写一个不含函数定义的小程序。
+
+2.  让程序跑起来后，识别出一个连贯的部分，把该部分封装进函数并给它命名。
+
+3.  通过添加合适的参数来泛化函数。
+
+4.  重复步骤 1 到 3，直到你得到一组能工作的函数。
+
+5.  寻找通过重构改进程序的机会。例如，如果多处有相似的代码，考虑把它提取成一个适当通用的函数。
+
+这个过程有一些缺点（我们稍后会看到替代方案），但当你事先不知道如何把程序拆分成函数时，它可能很有用。这种方法让你能够边做边设计。
+
+函数设计包含两部分：
+
+*   **接口（interfaz）** 是函数的使用方式，包括它的名字、它接收的参数，以及它应该做什么。
+
+*   **实现（implementación）** 是函数如何完成它该做的事。
+
+例如，下面是我们最初写的、使用 `polygon` 的 `circle` 版本。
+
+```python
+def circle(radius):
+    circumference = 2 * math.pi * radius
+    n = 30
+    length = circumference / n
+    polygon(n, length)
+```
+
+而这里是使用 `arc` 的重构版本。
+
+```python
+def circle(radius):
+    arc(radius, 360)
+```
+
+这两个函数有相同的接口：它们接收相同的参数、做相同的事，但实现不同。
+
+## 4.8 文档字符串
+
+**文档字符串（docstring）** 是函数开头的字符串，用于解释接口（“doc” 是 “documentation” 的缩写）。下面是一个例子：
+
+```python
+def polyline(n, length, angle):
+    """Draws line segments with the given length and angle between them.
+
+    n: integer number of line segments
+    length: length of the line segments
+    angle: angle between segments (in degrees)
+    """
+    for i in range(n):
+        forward(length)
+        left(angle)
+```
+
+按照惯例，文档字符串是用三引号括起来的字符串，也称为**多行字符串**，因为三引号允许字符串跨越多行。
+
+文档字符串应该：
+
+*   简洁地解释函数做什么，而不涉及它如何工作的细节，
+
+*   解释每个参数对函数行为的影响，以及
+
+*   如果参数类型不明显，说明每个参数应该是什么类型。
+
+编写这类文档是接口设计的重要组成部分。设计良好的接口应该易于解释；如果你很难解释自己的某个函数，也许接口还可以改进。
+
+## 4.9 调试
+
+接口就像函数与调用者之间的契约。调用者同意提供某些实参，函数同意完成某些工作。
+
+例如，`polyline` 需要三个实参：`n` 必须是整数；`length` 应该是正数；`angle` 必须是数字，且理解为以度为单位。
+
+这些要求称为**前置条件（precondiciones）**，因为它们假定在函数开始执行之前就为真。相反，函数结束时满足的条件是**后置条件（postcondiciones）**。后置条件包括函数的预期效果（如绘制线段）以及任何副作用（如移动海龟或做其他改动）。
+
+前置条件是调用者的责任。如果调用者违反了前置条件，导致函数不能正确工作，那么 bug 在调用者身上，而不是函数。
+
+如果前置条件都满足而后置条件不满足，bug 在函数里。如果你的前置条件和后置条件清晰，它们就能帮助调试。
+
+## 4.10 词汇表
+
+**接口设计：** 设计函数接口的过程，包括它应该接收的参数。
+
+**画布：** 用于显示图形元素（包括线条、圆、矩形和其他形状）的窗口。
+
+**封装：** 把一段语句序列转化为函数定义的过程。
+
+**泛化：** 把不必要地具体的东西（如一个数字）替换为适当通用的东西（如变量或参数）的过程。
+
+**关键字实参：** 包含参数名的实参。
+
+**重构：** 修改能工作的程序以改进函数接口和代码其他质量的过程。
+
+**开发计划：** 编写程序的过程。
+
+**文档字符串：** 出现在函数定义开头的字符串，用于记录函数的接口。
+
+**多行字符串：** 用三引号括起来的字符串，可以跨越多行程序。
+
+**前置条件：** 调用者在函数开始之前应满足的要求。
+
+**后置条件：** 函数在结束之前应满足的要求。
+
+## 4.11 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+对于下面的练习，还有一些你可能想用的海龟函数。
+
+*   `penup` 抬起海龟想象中的笔，这样它移动时就不会留下痕迹。
+
+*   `pendown` 把笔再放下来。
+
+下面的函数用 `penup` 和 `pendown` 移动海龟而不留下痕迹。
+
+```python
+from jupyturtle import penup, pendown
+
+def jump(length):
+    """Move forward length units without leaving a trail.
+
+    Postcondition: Leaves the pen down.
+    """
+    penup()
+    forward(length)
+    pendown()
+```
+
+### 4.11.1 练习
+
+写一个名为 `rectangle` 的函数，用给定的边长画一个矩形。例如，下面是一个宽 `80`、高 `40` 的矩形。
+
+你可以用下面的代码测试你的函数。
+
+```python
+make_turtle()
+rectangle(80, 40)
+```
+
+### 4.11.2 练习
+
+写一个名为 `rhombus` 的函数，用给定的边长和内角画一个菱形。例如，下面是一个边长 `50`、内角 `60` 度的菱形。
+
+你可以用下面的代码测试你的函数。
+
+```python
+make_turtle()
+rhombus(50, 60)
+```
+
+### 4.11.3 练习
+
+现在写一个更通用的函数 `parallelogram`，画一个对边平行的四边形。然后重写 `rectangle` 和 `rhombus`，让它们使用 `parallelogram`。
+
+你可以用下面的代码测试你的函数。
+
+```python
+make_turtle(width=400)
+jump(-120)
+
+rectangle(80, 40)
+jump(100)
+rhombus(50, 60)
+jump(80)
+parallelogram(80, 50, 60)
+```
+
+### 4.11.4 练习
+
+写一组适当通用的函数，能画出这样的形状。
+
+![](https://github.com/AllenDowney/ThinkPython/raw/v3/jupyturtle_pie.png)
+
+提示：写一个名为 `triangle` 的函数，画一个三角形扇区，然后写一个名为 `draw_pie` 的函数，使用 `triangle`。
+
+你可以用下面的代码测试你的函数。
+
+```python
+turtle = make_turtle(delay=0)
+jump(-80)
+
+size = 40
+draw_pie(5, size)
+jump(2*size)
+draw_pie(6, size)
+jump(2*size)
+draw_pie(7, size)
+```
+
+### 4.11.5 练习
+
+写一组适当通用的函数，能画出这样的花。
+
+![](https://github.com/AllenDowney/ThinkPython/raw/v3/jupyturtle_flower.png)
+
+提示：用 `arc` 写一个名为 `petal` 的函数，画一片花瓣。
+
+你可以用下面的代码测试你的函数。
+
+由于这个解法画了很多小线段，运行时往往会变慢。为避免这一点，你可以加上关键字实参 `auto_render=False`，避免每步之后都渲染，最后再调用 `render` 函数显示结果。
+
+调试时，你可能想移除 `auto_render=False`。
+
+```python
+from jupyturtle import render
+
+turtle = make_turtle(auto_render=False)
+
+jump(-60)
+n = 7
+radius = 60
+angle = 60
+flower(n, radius, angle)
+
+jump(120)
+n = 9
+radius = 40
+angle = 85
+flower(n, radius, angle)
+
+render()
+```
+
+### 4.11.6 问一个虚拟助手
+
+Python 中有好几个类似 `jupyturtle` 的模块，而本章用的这个是为本书定制的。所以，如果你向虚拟助手求助，它不知道该用哪个模块。但如果你给它一些可参考的例子，它大概能推断出来。例如，试试下面这个提示，看它能不能写出一个画螺旋线的函数：
+
+> The following program uses a turtle graphics module to draw a circle:
+>
+> ```python
+> from jupyturtle import make_turtle, forward, left
+> import math
+>
+> def polygon(n, length):
+>     angle = 360 / n
+>     for i in range(n):
+>         forward(length)
+>         left(angle)
+>
+> def circle(radius):
+>     circumference = 2 * math.pi * radius
+>     n = 30
+>     length = circumference / n
+>     polygon(n, length)
+>
+> make_turtle(delay=0)
+> circle(30)
+> ```
+>
+> Write a function that draws a spiral.
+
+请注意，结果可能会用到我们还没见过的特性，也可能有错误。复制虚拟助手的代码，看看能不能让它运行起来。如果没得到你想要的结果，试着修改提示。
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

@@ -1,0 +1,873 @@
+---
+type: 'Post'
+date: '2026-08-23 10:00:00'
+title: '第 12 章 · 文本分析与生成'
+tags: [python]
+description: '文本分析与马尔可夫文本生成。'
+slug: analisis-y-generacion-de-texto
+order: 13
+section: null
+source: "https://libropython.es/chap12.html"
+lang: zh
+---
+
+# 第 12 章 · 文本分析与生成
+
+> 本文译自 [libropython.es](https://libropython.es/chap12.html)。原文为西班牙语，翻译仅供学习使用。
+
+到目前为止，我们已经涵盖了 Python 的主要数据结构——列表、字典和元组——以及一些使用它们的算法。在本章中，我们将用它们来探索文本分析和马尔可夫生成：
+
+*   文本分析是描述文档中单词之间统计关系的一种方式，例如一个单词后跟另一个单词的概率，以及
+
+*   马尔可夫生成是用与原文相似的单词和短语生成新文本的一种方式。
+
+这些算法与大语言模型（LLM）的某些部分类似，而 LLM 是聊天机器人的关键组件。
+
+我们先统计一本书中每个单词出现的次数。然后观察单词对，为每个单词制作一个后续词列表。我们会做一个简单的马尔可夫生成器版本，作为练习，你将有机会做一个更通用的版本。
+
+## 12.1 独特单词
+
+作为文本分析的第一步，我们读一本书——罗伯特·路易斯·史蒂文森的《化身博士》（The Strange Case of Dr. Jekyll and Mr. Hyde）——并统计独特单词的数量。下载本书的说明在本章的 notebook 中。
+
+下面的单元格从古腾堡计划下载这本书。
+
+```python
+download('https://www.gutenberg.org/cache/epub/43/pg43.txt')
+```
+
+古腾堡计划提供的版本开头包含本书的信息，结尾包含许可证信息。我们将用第 8 章的 `clean_file` 删除这些内容，写一个只包含书正文的“干净”文件。
+
+```python
+def is_special_line(line):
+    return line.strip().startswith('*** ')
+
+def clean_file(input_file, output_file):
+    reader = open(input_file, encoding='utf-8')
+    writer = open(output_file, 'w')
+
+    for line in reader:
+        if is_special_line(line):
+            break
+
+    for line in reader:
+        if is_special_line(line):
+            break
+        writer.write(line)
+
+    reader.close()
+    writer.close()
+
+filename = 'dr_jekyll.txt'
+
+clean_file('pg43.txt', filename)
+```
+
+我们用 `for` 循环读取文件的行，用 `split` 把行拆分成单词。然后，为了跟踪独特单词，我们把每个单词作为字典的键保存起来。
+
+```python
+unique_words = {}
+for line in open(filename):
+    seq = line.split()
+    for word in seq:
+        unique_words[word] = 1
+
+len(unique_words)
+```
+
+字典的长度就是独特单词的数量——用这种计数方式大约有 `6000` 个。但如果我们检查一下，会发现有些并不是有效的单词。
+
+例如，我们看看 `unique_words` 中最长的单词。我们可以用 `sorted` 对单词排序，传入 `len` 函数作为关键字参数，使单词按长度排序。
+
+```python
+sorted(unique_words, key=len)[-5:]
+```
+
+切片索引 `[-5:]` 选择排序列表的最后 `5` 个元素，即最长的单词。
+
+列表中包含一些合法地长的单词，如“circumscription”，以及一些带连字符的单词，如“chocolate-coloured”。但一些最长的“单词”实际上是用破折号分隔的两个单词。还有一些单词包含标点，如句号、感叹号和引号。
+
+所以，在继续之前，我们先处理破折号和其他标点。
+
+## 12.2 标点
+
+要识别文本中的单词，我们需要解决两个问题：
+
+*   当一行中出现破折号时，我们应该把它替换成空格——这样当我们用 `split` 时，单词就会分开。
+
+*   拆分单词后，我们可以用 `strip` 去除标点。
+
+要处理第一个问题，我们可以用下面的函数，它接收一个字符串，把破折号替换成空格，拆分字符串并返回结果列表。
+
+```python
+def split_line(line):
+    return line.replace('—', ' ').split()
+```
+
+注意，`split_line` 只替换破折号，不替换连字符。下面是一个例子。
+
+```python
+split_line('coolness—frightened')
+# ['coolness', 'frightened']
+```
+
+现在，要去除每个单词开头和结尾的标点，我们可以用 `strip`，但我们需要一个被视为标点的字符列表。
+
+Python 字符串中的字符在 Unicode 中，这是一个用于表示几乎所有字母表的字母、数字、符号、标点等的国际标准。`unicodedata` 模块提供了一个 `category` 函数，我们可以用它来了解哪些字符是标点。给定一个字符，它返回一个包含该字符所属类别信息的字符串。
+
+```python
+import unicodedata
+
+unicodedata.category('A')
+# 'Lu'
+```
+
+`'A'` 的类别字符串是 `'Lu'`——`'L'` 表示它是字母，`'u'` 表示它是大写。
+
+`'.'` 的类别字符串是 `'Po'`——`'P'` 表示它是标点，`'o'` 表示它的子类别是“other”。
+
+```python
+unicodedata.category('.')
+# 'Po'
+```
+
+我们可以通过检查类别以 `'P'` 开头的字符来找出书中的标点符号。下面的循环把独特的标点保存到字典中。
+
+```python
+punc_marks = {}
+for line in open(filename):
+    for char in line:
+        category = unicodedata.category(char)
+        if category.startswith('P'):
+            punc_marks[char] = 1
+```
+
+要创建标点符号列表，我们可以把字典的键拼接成字符串。
+
+```python
+punctuation = ''.join(punc_marks)
+print(punctuation)
+```
+
+现在我们知道书中哪些字符是标点了，可以写一个函数，接收一个单词，去除开头和结尾的标点，并把它转换为小写。
+
+```python
+def clean_word(word):
+    return word.strip(punctuation).lower()
+```
+
+下面是一个例子。
+
+```python
+clean_word('“Behold!”')
+# 'behold'
+```
+
+因为 `strip` 只去除开头和结尾的字符，所以带连字符的单词保持不变。
+
+```python
+clean_word('pocket-handkerchief')
+# 'pocket-handkerchief'
+```
+
+现在这里有一个用 `split_line` 和 `clean_word` 来识别书中独特单词的循环。
+
+```python
+unique_words2 = {}
+for line in open(filename):
+    for word in split_line(line):
+        word = clean_word(word)
+        unique_words2[word] = 1
+
+len(unique_words2)
+```
+
+用这个更严格的“单词”定义，大约有 4000 个独特单词。我们可以确认最长单词列表已经被清理了。
+
+```python
+sorted(unique_words2, key=len)[-5:]
+```
+
+现在看看每个单词被用了多少次。
+
+## 12.3 词频
+
+下面的循环计算每个独特单词的频率。
+
+```python
+word_counter = {}
+for line in open(filename):
+    for word in split_line(line):
+        word = clean_word(word)
+        if word not in word_counter:
+            word_counter[word] = 1
+        else:
+            word_counter[word] += 1
+```
+
+第一次看到某个单词时，我们把它的频率初始化为 `1`。如果之后又看到同一个单词，我们递增它的频率。
+
+要查看哪些单词出现最频繁，我们可以用 `items` 获取 `word_counter` 的键值对，并按对的第二个元素（即频率）排序。我们先定义一个选择第二个元素的函数。
+
+```python
+def second_element(t):
+    return t[1]
+```
+
+现在我们可以用 `sorted` 加两个关键字参数：
+
+*   `key=second_element` 表示元素按单词频率排序。
+
+*   `reverse=True` 表示元素按逆序排序，最频繁的单词排在最前。
+
+```python
+items = sorted(word_counter.items(), key=second_element, reverse=True)
+```
+
+这里是五个最频繁的单词。
+
+```python
+for word, freq in items[:5]:
+    print(freq, word, sep='\t')
+```
+
+在下一节，我们将把这个循环封装成函数。并用它来演示一个新特性——可选参数。
+
+## 12.4 可选参数
+
+我们使用过接收可选参数的内置函数。例如，`round` 接收一个名为 `ndigits` 的可选参数，指示保留几位小数。
+
+```python
+round(3.141592653589793, ndigits=3)
+# 3.142
+```
+
+但不止内置函数——我们也可以写带可选参数的函数。例如，下面的函数接收两个参数，`word_counter` 和 `num`。
+
+```python
+def print_most_common(word_counter, num=5):
+    items = sorted(word_counter.items(), key=second_element, reverse=True)
+
+    for word, freq in items[:num]:
+        print(freq, word, sep='\t')
+```
+
+第二个参数看起来像赋值语句，但它不是——它是可选参数。
+
+如果你用一个实参调用这个函数，`num` 得到**默认值**，即 `5`。
+
+```python
+print_most_common(word_counter)
+```
+
+如果你用两个实参调用这个函数，第二个实参被赋给 `num` 而不是默认值。
+
+```python
+print_most_common(word_counter, 3)
+```
+
+在这种情况下，我们会说可选实参**覆盖（override）**了默认值。
+
+如果函数既有必需参数又有可选参数，所有必需参数必须在前，可选参数在后。
+
+```python
+def bad_function(n=5, word_counter):
+    return None
+# SyntaxError
+```
+
+## 12.5 字典减法
+
+假设我们想校对一本书的拼写——即找出可能拼错的单词列表。一种方法是找出书中不在有效单词列表中的单词。在前几章中，我们使用过一个在拼字游戏（如 Scrabble）中被视为有效的单词列表。现在我们用这个列表来检查罗伯特·路易斯·史蒂文森的拼写。
+
+我们可以把这个问题看作集合减法——即找出一个集合（书中的单词）中不在另一个集合（单词列表）里的所有单词。
+
+下面的单元格下载单词列表。
+
+```python
+download('https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/words.txt')
+```
+
+和之前一样，我们可以读取 `words.txt` 的内容并把它拆分成字符串列表。
+
+```python
+word_list = open('words.txt').read().split()
+```
+
+然后我们把单词作为键保存到字典中，以便用 `in` 运算符快速检查单词是否有效。
+
+```python
+valid_words = {}
+for word in word_list:
+    valid_words[word] = 1
+```
+
+现在，为了识别书中出现但不在单词列表中的单词，我们用 `subtract`，它接收两个字典作为参数，返回一个新字典，包含一个字典中有而另一个字典中没有的所有键。
+
+```python
+def subtract(d1, d2):
+    res = {}
+    for key in d1:
+        if key not in d2:
+            res[key] = d1[key]
+    return res
+```
+
+我们这样使用它。
+
+```python
+diff = subtract(word_counter, valid_words)
+```
+
+要得到可能拼错的单词样本，我们可以打印 `diff` 中最常见的单词。
+
+```python
+print_most_common(diff)
+```
+
+最常见的“拼错单词”大多是名字和一些单字母单词（Mr. Utterson 是 Jekyll 博士的朋友和律师）。
+
+如果我们选择只出现一次的单词，更可能是真正的拼写错误。我们可以通过循环遍历元素并创建频率为 `1` 的单词列表来实现。
+
+```python
+singletons = []
+for word, freq in diff.items():
+    if freq == 1:
+        singletons.append(word)
+```
+
+这里是列表的最后几个元素。
+
+```python
+singletons[-5:]
+```
+
+大多数是不在单词列表中的有效单词。但 `'reindue'` 看起来是 `'reinduce'` 的拼写错误，所以至少我们找到了一个真正的错误。
+
+## 12.6 随机数
+
+作为迈向马尔可夫文本生成的一步，接下来我们从 `word_counter` 中随机选择一组单词。但先谈谈随机性。
+
+给定相同的输入，大多数计算机程序是**确定性的（determinista）**，意思是它们每次都生成相同的输出。确定性通常是好事，因为我们期望相同的计算产生相同的结果。然而，对某些应用，我们希望计算机不可预测。游戏是一个例子，但还有更多。
+
+让程序真正非确定性其实很难，但有办法模拟它。一种办法是使用生成**伪随机（pseudorandom）**数的算法。伪随机数并不真正随机，因为它们是由确定性计算生成的，但光看数字几乎不可能把它们与随机数区分开。
+
+`random` 模块提供生成伪随机数的函数——下面我简称它们为“随机”。我们可以这样导入它。
+
+```python
+import random
+
+# this cell initializes the random number generator so it
+# generates the same sequence each time the notebook runs.
+
+random.seed(4)
+```
+
+`random` 模块提供了一个名为 `choice` 的函数，从列表中随机选择一个元素，每个元素被选中的概率相等。
+
+```python
+t = [1, 2, 3]
+random.choice(t)
+```
+
+如果你再次调用该函数，可能再次得到同一个元素，也可能得到不同的元素。
+
+```python
+random.choice(t)
+```
+
+从长远来看，我们期望每个元素被选中的次数大致相同。
+
+如果你对字典使用 `choice`，会得到 `KeyError`。
+
+```python
+random.choice(word_counter)
+# KeyError
+```
+
+要选择随机键，你必须把键放进列表，然后调用 `choice`。
+
+```python
+words = list(word_counter)
+random.choice(words)
+```
+
+如果我们生成一个随机单词序列，它没什么意义。
+
+```python
+for i in range(6):
+    word = random.choice(words)
+    print(word, end=' ')
+```
+
+部分问题在于我们没有考虑到有些单词比其他单词更常见。如果我们用不同的“权重”选择单词，让某些单词更常被选中，结果会更好。
+
+如果我们用 `word_counter` 的值作为权重，每个单词被选中的概率取决于它的频率。
+
+```python
+weights = word_counter.values()
+```
+
+`random` 模块提供另一个名为 `choices` 的函数，接收 weights 作为可选实参。
+
+```python
+random.choices(words, weights=weights)
+```
+
+它还接收另一个可选实参 `k`，指定要选择的单词数量。
+
+```python
+random_words = random.choices(words, weights=weights, k=6)
+random_words
+```
+
+结果是一个字符串列表，我们可以把它们拼接成更像句子的东西。
+
+```python
+' '.join(random_words)
+```
+
+如果随机选择书中的单词，你能了解它的词汇量，但一串随机单词很少有含义，因为相邻单词之间没有关系。例如，在真实句子中，你期望冠词“the”后面跟形容词或名词，很可能不是动词或副词。所以下一步是观察单词之间的这些关系。
+
+## 12.7 二元组
+
+与其每次只看一个单词，现在我们看两个单词的序列，称为**二元组（bigrama）**。三个单词的序列称为**三元组（trigram）**，而未指定数量的单词序列称为**n 元组（n-gram）**。
+
+我们写一个程序，找出书中所有的二元组以及每个出现的次数。要保存结果，我们用字典，其中
+
+*   键是表示二元组的字符串元组，以及
+
+*   值是表示频率的整数。
+
+我们把它叫做 `bigram_counter`。
+
+```python
+bigram_counter = {}
+```
+
+下面的函数接收一个含两个字符串的列表作为参数。它先用两个字符串创建元组，元组可以用作字典的键。然后把键加入 `bigram_counter`（如果不存在），或递增频率（如果存在）。
+
+```python
+def count_bigram(bigram):
+    key = tuple(bigram)
+    if key not in bigram_counter:
+        bigram_counter[key] = 1
+    else:
+        bigram_counter[key] += 1
+```
+
+当我们遍历书时，必须跟踪每对相邻的单词。所以如果我们看到序列“man is not truly one”，我们会添加二元组“man is”、“is not”、“not truly”，依此类推。
+
+要跟踪这些二元组，我们用一个名为 `window` 的列表，因为它像一扇在书页上滑动的窗口，一次只显示两个单词。最初，`window` 是空的。
+
+```python
+window = []
+```
+
+我们用下面的函数逐个处理单词。
+
+```python
+def process_word(word):
+    window.append(word)
+
+    if len(window) == 2:
+        count_bigram(window)
+        window.pop(0)
+```
+
+第一次调用这个函数时，它把给定单词添加到 `window`。因为窗口里只有一个单词，还没有二元组，所以函数结束。
+
+第二次调用时——以及之后每一次——它向 `window` 添加第二个单词。因为窗口里有两个单词，它调用 `count_bigram` 来记录每个二元组出现的次数。然后用 `pop` 移除窗口的第一个单词。
+
+下面的程序循环遍历书中的单词并逐个处理它们。
+
+```python
+for line in open(filename):
+    for word in split_line(line):
+        word = clean_word(word)
+        process_word(word)
+```
+
+结果是一个把每个二元组与出现次数关联的字典。我们可以用 `print_most_common` 查看最常见的二元组。
+
+```python
+print_most_common(bigram_counter)
+```
+
+观察这些结果，我们能了解哪些单词对更可能一起出现。我们也可以用结果生成随机文本，像这样。
+
+```python
+random.seed(0)
+
+bigrams = list(bigram_counter)
+weights = bigram_counter.values()
+random_bigrams = random.choices(bigrams, weights=weights, k=6)
+```
+
+`bigrams` 是书中出现的二元组列表。`weights` 是它们频率的列表，所以 `random_bigrams` 是一个样本，其中二元组被选中的概率与其频率成正比。
+
+下面是结果。
+
+```python
+for pair in random_bigrams:
+    print(' '.join(pair), end=' ')
+```
+
+这种生成文本的方式比随机选单词好，但仍然没什么意义。
+
+## 12.8 马尔可夫分析
+
+我们可以用马尔可夫链的文本分析做得更好，它为文本中的每个单词计算后续单词列表。作为例子，我们分析 Monty Python 歌曲《Eric, the Half a Bee》的这段歌词：
+
+```python
+song = """
+Half a bee, philosophically,
+Must, ipso facto, half not be.
+But half the bee has got to be
+Vis a vis, its entity. D'you see?
+"""
+```
+
+要保存结果，我们用字典把每个单词与后续单词列表关联起来。
+
+```python
+successor_map = {}
+```
+
+作为例子，我们从歌曲的前两个单词开始。
+
+```python
+first = 'half'
+second = 'a'
+```
+
+如果第一个单词不在 `successor_map` 中，我们需要添加一个新元素，把第一个单词与包含第二个单词的列表关联起来。
+
+```python
+successor_map[first] = [second]
+successor_map
+# {'half': ['a']}
+```
+
+如果第一个单词已经在字典中，我们可以查找它得到目前为止见过的后续词列表，并添加新的。
+
+```python
+first = 'half'
+second = 'not'
+
+successor_map[first].append(second)
+successor_map
+# {'half': ['a', 'not']}
+```
+
+下面的函数封装了这些步骤。
+
+```python
+def add_bigram(bigram):
+    first, second = bigram
+
+    if first not in successor_map:
+        successor_map[first] = [second]
+    else:
+        successor_map[first].append(second)
+```
+
+如果同一个二元组出现多次，第二个单词会被多次添加到列表中。这样，`successor_map` 就记录了每个后续词出现的次数。
+
+和上一节一样，我们用名为 `window` 的列表保存相邻的单词对。并用下面的函数逐个处理单词。
+
+```python
+def process_word_bigram(word):
+    window.append(word)
+
+    if len(window) == 2:
+        add_bigram(window)
+        window.pop(0)
+```
+
+我们这样用它处理歌曲的单词。
+
+```python
+successor_map = {}
+window = []
+
+for word in song.split():
+    word = clean_word(word)
+    process_word_bigram(word)
+```
+
+下面是结果。
+
+```python
+successor_map
+```
+
+单词 `'half'` 后面可以跟 `'a'`、`'not'` 或 `'the'`。单词 `'a'` 后面可以跟 `'bee'` 或 `'vis'`。其他大多数单词只出现一次，所以后面只跟一个单词。
+
+现在分析这本书。
+
+```python
+successor_map = {}
+window = []
+
+for line in open(filename):
+    for word in split_line(line):
+        word = clean_word(word)
+        process_word_bigram(word)
+```
+
+我们可以查找任意单词并找到可能跟随它的单词。
+
+```python
+# I used this cell to find a predecessor with a good number of possible successors
+# and at least one repeated word.
+
+def has_duplicates(t):
+    return len(set(t)) < len(t)
+
+for key, value in successor_map.items():
+    if len(value) == 7 and has_duplicates(value):
+        print(key, value)
+
+successor_map['going']
+```
+
+在这个后续词列表中，注意单词 `'to'` 出现了三次——其他后续词只出现一次。
+
+## 12.9 生成文本
+
+我们可以用上一节的结果生成新文本，其相邻单词之间的关系与原文相同。工作原理如下：
+
+*   从文本中出现的任意单词开始，查找它可能的后续词，随机选择一个。
+
+*   然后，用选中的单词，查找它可能的后续词，再随机选择一个。
+
+我们可以重复这个过程生成任意多的单词。作为例子，我们从单词 `'although'` 开始。下面是可能跟随它的单词。
+
+```python
+word = 'although'
+successors = successor_map[word]
+successors
+```
+
+```python
+# this cell initializes the random number generator so it
+# starts at the same point in the sequence each time this
+# notebook runs.
+
+random.seed(2)
+```
+
+我们可以用 `choice` 以相等概率从列表中选择。
+
+```python
+word = random.choice(successors)
+word
+```
+
+如果同一个单词在列表中出现多次，它更可能被选中。
+
+重复这些步骤，我们可以用下面的循环生成更长的序列。
+
+```python
+for i in range(10):
+    successors = successor_map[word]
+    word = random.choice(successors)
+    print(word, end=' ')
+```
+
+结果听起来更像真实句子，但仍然没什么意义。
+
+我们可以通过用多个单词作为 `successor_map` 的键做得更好。例如，我们可以创建把每个二元组——或三元组——与后续单词列表关联的字典。作为练习，你将有机会实现这个分析并看看结果如何。
+
+## 12.10 调试
+
+到这里，我们开始写更实质性的程序，你可能发现自己花更多时间调试。如果你被一个棘手的 bug 卡住了，这里有一些可以尝试的方法：
+
+*   **阅读**：检查你的代码，大声读给自己听，确认它表达了你想要的意思。
+
+*   **运行**：通过做改动、运行不同版本来实验。通常，如果你在程序的正确位置显示正确的东西，问题就显而易见了，但有时你必须构建辅助代码。
+
+*   **沉思**：花时间思考！这是什么类型的错误：语法、运行时还是语义？你能从错误消息或程序输出中得到什么信息？哪种错误可能导致你看到的问题？问题出现之前，你最后改了什么？
+
+*   **橡皮鸭调试**：如果你把问题解释给别人听，有时还没问完你就找到了答案。通常你不需要那个人；你可以对着一只橡皮鸭说话。这就是被称为**橡皮鸭调试**的策略的由来。我不是在开玩笑——参见 [https://en.wikipedia.org/wiki/Rubber_duck_debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging)。
+
+*   **撤退**：在某个时刻，最好的做法是后退——撤销最近的改动——直到回到能工作的程序。然后你可以重新开始构建。
+
+*   **休息**：如果你让大脑歇一歇，有时它会替你找到问题。
+
+初学者有时会卡在其中一个活动上，而忘了其他活动。每个活动都有自己的失败模式。
+
+例如，如果你的问题是拼写错误，阅读代码有效；但如果问题是概念上的误解，就无效。如果你不理解你的程序在做什么，你可以读 100 遍也看不到错误，因为错误在你的脑子里。
+
+运行实验可能有效，尤其是运行小而简单的测试。但如果你不思考、不读代码就做实验，可能要花很长时间才能搞清发生了什么。
+
+你必须花时间思考。调试像实验科学。你至少应该对问题是什么有一个假设。如果有两种或更多可能，试着想一个能排除其中一种的测试。
+
+但即使是最好的调试技巧，如果错误太多，或者你要修复的代码太大太复杂，也会失败。有时最好的选择是撤退，简化程序，直到回到能工作的状态。
+
+初学者常常抗拒撤退，因为他们受不了删掉一行代码（即使它是错的）。如果这让你好受些，在开始删减之前把你的程序复制到另一个文件。之后你可以把片段一个个复制回来。
+
+找到一个棘手的 bug 需要阅读、运行、沉思、撤退，有时还要休息。如果你卡在其中一个活动上，试试其他的。
+
+## 12.11 词汇表
+
+**默认值：** 如果没有提供实参，赋给参数的值。
+
+**覆盖：** 用实参替换默认值。
+
+**确定性的：** 给定相同输入，确定性程序每次运行都做同样的事。
+
+**伪随机：** 伪随机数字序列看起来随机，但由确定性程序生成。
+
+**二元组：** 两个元素的序列，通常是单词。
+
+**三元组：** 三个元素的序列。
+
+**n 元组：** 未指定数量的元素序列。
+
+**橡皮鸭调试：** 通过向无生命物体大声解释问题来调试的方法。
+
+## 12.12 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 12.12.1 问一个虚拟助手
+
+在 `add_bigram` 中，`if` 语句根据键是否已在字典中，来创建新列表或向现有列表添加元素。
+
+```python
+def add_bigram(bigram):
+    first, second = bigram
+
+    if first not in successor_map:
+        successor_map[first] = [second]
+    else:
+        successor_map[first].append(second)
+```
+
+字典提供了一个名为 `setdefault` 的方法，我们可以用它更简洁地做同样的事。问虚拟助手它是如何工作的，或者把 `add_bigram` 复制给虚拟助手并问“Can you rewrite this using `setdefault`?”
+
+在本章中，我们用马尔可夫链实现了文本分析和生成。如果你好奇，可以请虚拟助手提供更多关于这个主题的信息。你可能学到的一点是，虚拟助手使用的算法在很多方面类似——但在重要方面也不同。问虚拟助手：“What are the differences between large language models like GPT and Markov chain text analysis?”
+
+### 12.12.2 练习
+
+写一个函数，统计每个三元组（三个单词的序列）出现的次数。如果你用《化身博士》的文本测试你的函数，应该会发现最常见的三元组是“said the lawyer”。
+
+提示：写一个类似 `count_bigram` 的名为 `count_trigram` 的函数。然后写一个类似 `process_word_bigram` 的名为 `process_word_trigram` 的函数。
+
+你可以用下面的循环读取书并处理单词。
+
+```python
+trigram_counter = {}
+window = []
+
+for line in open(filename):
+    for word in split_line(line):
+        word = clean_word(word)
+        process_word_trigram(word)
+```
+
+然后用 `print_most_common` 找出书中最常见的三元组。
+
+```python
+print_most_common(trigram_counter)
+```
+
+### 12.12.3 练习
+
+现在用马尔可夫链实现文本分析，把每个二元组映射到可能后续词的列表。
+
+从 `add_bigram` 开始，写一个名为 `add_trigram` 的函数，接收一个三个单词的列表，在 `successor_map` 中添加或更新一个元素，用前两个单词作为键，第三个单词作为可能的后续词。
+
+下面是一个调用 `add_trigram` 的 `process_word_trigram` 版本。
+
+```python
+def process_word_trigram(word):
+    window.append(word)
+
+    if len(window) == 3:
+        add_trigram(window)
+        window.pop(0)
+```
+
+你可以用下面的循环，用“Eric, the Half a Bee”的歌词测试你的函数。
+
+```python
+successor_map = {}
+window = []
+
+for string in song.split():
+    word = string.strip(punctuation).lower()
+    process_word_trigram(word)
+```
+
+如果你的函数按预期工作，前驱 `('half', 'a')` 应该关联到一个唯一元素为 `'bee'` 的列表。事实上，这首歌的每个二元组都只出现一次，所以 `successor_map` 的所有值都只有一个元素。
+
+```python
+successor_map
+```
+
+你可以用下面的循环，用书中的单词测试你的函数。
+
+```python
+successor_map = {}
+window = []
+
+for line in open(filename):
+    for word in split_line(line):
+        word = clean_word(word)
+        process_word_trigram(word)
+```
+
+在下一个练习中，你将用结果生成新的随机文本。
+
+### 12.12.4 练习
+
+对于这个练习，我们假设 `successor_map` 是一个把每个二元组与后续单词列表关联的字典。
+
+```python
+# this cell initializes the random number generator so it
+# starts at the same point in the sequence each time this
+# notebook runs.
+
+random.seed(3)
+```
+
+要生成随机文本，我们先从 `successor_map` 选择一个随机键。
+
+```python
+successors = list(successor_map)
+bigram = random.choice(successors)
+bigram
+```
+
+现在写一个循环，按以下步骤再生成 50 个单词：
+
+1.  在 `successor_map` 中，查找可以跟随 `bigram` 的单词列表。
+
+2.  随机选择其中一个并打印它。
+
+3.  对于下一次迭代，创建一个包含 `bigram` 的第二个单词和所选后续词的新二元组。
+
+例如，如果我们从二元组 `('doubted', 'if')` 开始并选择 `'from'` 作为后续词，下一个二元组是 `('if', 'from')`。
+
+如果一切正常，你会发现生成的文本在风格上与原文明显相似，有些短语有意义，但文本可能从一个话题跳到另一个话题。
+
+作为额外练习，修改你最后两个练习的解法，用三元组作为 `successor_map` 的键，看看对结果有什么影响。
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

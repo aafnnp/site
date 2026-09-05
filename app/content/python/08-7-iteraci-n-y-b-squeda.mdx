@@ -1,0 +1,684 @@
+---
+type: 'Post'
+date: '2026-08-28 10:00:00'
+title: '第 7 章 · 迭代与搜索'
+tags: [python]
+description: 'for 循环、变量更新与线性搜索。'
+slug: iteracion-y-busqueda
+order: 8
+section: null
+source: "https://libropython.es/chap07.html"
+lang: zh
+---
+
+# 第 7 章 · 迭代与搜索
+
+> 本文译自 [libropython.es](https://libropython.es/chap07.html)。原文为西班牙语，翻译仅供学习使用。
+
+1939 年，欧内斯特·文森特·赖特出版了一本 5 万字的小说《Gadsby》，全书中没有一个字母“e”。由于“e”是英语中最常见的字母，即使不用它写几个词都很困难。为了感受这有多难，在本章中，我们将计算英语单词中至少含有一个“e”的单词所占的比例。
+
+为此，我们将使用 `for` 语句遍历字符串中的字母和文件中的单词，并在循环中更新变量，以计算含有“e”的单词数量。我们将使用 `in` 运算符检查一个字母是否出现在某个单词中，你还会学到一种称为“线性搜索”的编程模式。
+
+作为练习，你将使用这些工具来解决一个叫做“Spelling Bee”的单词游戏。
+
+## 7.1 循环与字符串
+
+在第 3 章中，我们见过一个使用 `range` 函数显示数字序列的 `for` 循环。
+
+```python
+for i in range(3):
+    print(i, end=' ')
+# 0 1 2
+```
+
+这个版本使用了关键字实参 `end`，让 `print` 函数在每个数字后添加一个空格而不是换行。
+
+我们也可以用 `for` 循环显示字符串中的字母。
+
+```python
+for letter in 'Gadsby':
+    print(letter, end=' ')
+# G a d s b y
+```
+
+注意，我把变量名从 `i` 改成了 `letter`，这提供了更多关于它所指的值的信息。在 `for` 循环中定义的变量称为**循环变量**。
+
+现在我们可以遍历单词的字母了，就能检查它是否含有字母“e”。
+
+```python
+for letter in "Gadsby":
+    if letter == 'E' or letter == 'e':
+        print('This word has an "e"')
+```
+
+在继续之前，我们把这个循环封装进函数。
+
+```python
+def has_e():
+    for letter in "Gadsby":
+        if letter == 'E' or letter == 'e':
+            print('This word has an "e"')
+```
+
+然后把它改成纯函数：如果单词含有“e”就返回 `True`，否则返回 `False`。
+
+```python
+def has_e():
+    for letter in "Gadsby":
+        if letter == 'E' or letter == 'e':
+            return True
+    return False
+```
+
+我们可以泛化它，把单词作为参数。
+
+```python
+def has_e(word):
+    for letter in word:
+        if letter == 'E' or letter == 'e':
+            return True
+    return False
+```
+
+现在我们可以这样测试它：
+
+```python
+has_e('Gadsby')
+# False
+has_e('Emma')
+# True
+```
+
+## 7.2 读取单词列表
+
+要查看有多少单词含有“e”，我们需要一份单词列表。我们使用的是一份约 114,000 个官方填字游戏单词的列表；也就是说，这些单词在填字游戏和其他单词游戏中被认为是有效的。
+
+下面的单元格下载单词列表，它是 Grady Ward 作为 Moby 词典项目（参见 [http://wikipedia.org/wiki/Moby_Project](http://wikipedia.org/wiki/Moby_Project)）的一部分整理并贡献给公共领域的列表的修改版。
+
+```python
+download('https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/words.txt')
+```
+
+单词列表在一个名为 `words.txt` 的文件中，它被下载到本章的 notebook 中。要读取它，我们使用内置函数 `open`，它接收文件名作为参数，返回一个**文件对象**，我们可以用它来读取文件。
+
+```python
+file_object = open('words.txt')
+```
+
+文件对象提供了一个名为 `readline` 的方法，它从文件中读取字符直到遇到换行符，并把结果作为字符串返回：
+
+```python
+file_object.readline()
+# 'aa\n'
+```
+
+注意，调用 `readline` 的语法与我们之前见过的函数不同。那是因为它是一个**方法**，即与对象关联的函数。在这种情况下，`readline` 与文件对象关联，所以我们用对象名、点运算符和方法名来调用它。
+
+列表中的第一个单词是“aa”，是一种熔岩。`\n` 序列表示分隔这个单词和下一个单词的换行符。
+
+文件对象会记录它在文件中的位置，所以如果你再次调用 `readline`，你会得到下一个单词：
+
+```python
+line = file_object.readline()
+line
+# 'aah\n'
+```
+
+要移除单词末尾的换行符，我们可以用 `strip`，它是与字符串关联的方法，所以我们可以这样调用它。
+
+```python
+word = line.strip()
+word
+# 'aah'
+```
+
+`strip` 从字符串的开头和结尾移除空白字符——包括空格、制表符和换行符。
+
+你也可以把文件对象用作 `for` 循环的一部分。这个程序读取 `words.txt` 并打印每个单词，每行一个：
+
+```python
+for line in open('words.txt'):
+    word = line.strip()
+    print(word)
+```
+
+现在我们可以读取单词列表了，下一步是数单词。为此，我们需要更新变量的能力。
+
+## 7.3 更新变量
+
+正如你可能已经发现的，对同一个变量做多次赋值是合法的。新的赋值让现有变量指向一个新值（并停止指向旧值）。
+
+例如，这里是一条创建变量的初始赋值。
+
+```python
+x = 5
+x
+# 5
+```
+
+而这里是一条改变变量值的赋值。
+
+```python
+x = 7
+x
+# 7
+```
+
+下面的图展示了这些赋值在状态图中的样子。
+
+```python
+from diagram import make_rebind, draw_bindings
+
+bindings = make_rebind('x', [5, 7])
+```
+
+虚线箭头表示 `x` 不再指向 `5`。实线箭头表示它现在指向 `7`。
+
+一种常见的赋值类型是**更新**，即变量的新值依赖于旧值。
+
+```python
+x = 7
+
+x = x + 1
+x
+# 8
+```
+
+这条语句的意思是“获取 `x` 的当前值，加一，再把结果赋回给 `x`。”
+
+如果你试图更新一个不存在的变量，会得到错误，因为 Python 在给左边的变量赋值之前，会先对右边的表达式求值。
+
+```python
+z = z + 1
+# NameError: name 'z' is not defined
+```
+
+在更新变量之前，你必须先**初始化**它，通常用一条简单的赋值：
+
+```python
+z = 0
+z = z + 1
+z
+# 1
+```
+
+增加变量的值称为**递增**；减小值称为**递减**。由于这些操作非常常见，Python 提供了**增强赋值运算符**，可以更简洁地更新变量。例如，`+=` 运算符把变量增加给定的量。
+
+```python
+z += 2
+z
+# 3
+```
+
+其他算术运算符也有增强赋值运算符，包括 `-=` 和 `*=`。
+
+## 7.4 遍历并计数
+
+下面的程序计算单词列表中的单词数量。
+
+```python
+total = 0
+
+for line in open('words.txt'):
+    word = line.strip()
+    total += 1
+```
+
+它先把 `total` 初始化为 `0`。每次经过循环，就把 `total` 加 `1`。所以当循环结束时，`total` 指的是单词的总数。
+
+```python
+total
+# 113783
+```
+
+像这样的变量，用来计算某事发生的次数，称为**计数器**。
+
+我们可以给程序添加第二个计数器，来记录含有“e”的单词数量。
+
+```python
+total = 0
+count = 0
+
+for line in open('words.txt'):
+    word = line.strip()
+    total = total + 1
+    if has_e(word):
+        count += 1
+```
+
+让我们看看有多少单词含有“e”。
+
+```python
+count
+# 76643
+```
+
+作为 `total` 的百分比，大约三分之二的单词使用了字母“e”。
+
+```python
+count / total * 100
+# 67.35...
+```
+
+这样你就能理解为什么不用这些单词写一本书很难了。
+
+## 7.5 in 运算符
+
+我们在本章写的 `has_e` 版本比必要的更复杂。Python 提供了一个运算符 `in`，用于检查一个字符是否出现在字符串中。
+
+```python
+word = 'Gadsby'
+'e' in word
+# False
+```
+
+所以我们可以这样重写 `has_e`。
+
+```python
+def has_e(word):
+    if 'E' in word or 'e' in word:
+        return True
+    else:
+        return False
+```
+
+由于 `if` 语句的条件有布尔值，我们可以去掉 `if` 语句，直接返回布尔值。
+
+```python
+def has_e(word):
+    return 'E' in word or 'e' in word
+```
+
+我们可以用 `lower` 方法进一步简化这个函数，它把字符串中的字母转换成小写。下面是一个例子。
+
+```python
+word.lower()
+# 'gadsby'
+```
+
+`lower` 创建新字符串——它不修改现有字符串——所以 `word` 的值不变。
+
+```python
+word
+# 'Gadsby'
+```
+
+下面是我们如何在 `has_e` 中使用 `lower`。
+
+```python
+def has_e(word):
+    return 'e' in word.lower()
+
+has_e('Gadsby')
+# False
+has_e('Emma')
+# True
+```
+
+## 7.6 搜索
+
+基于这个更简单的 `has_e` 版本，我们写一个更通用的函数 `uses_any`，它接收第二个参数，即一个字母串。如果单词使用了其中任意一个字母，返回 `True`；否则返回 `False`。
+
+```python
+def uses_any(word, letters):
+    for letter in word.lower():
+        if letter in letters.lower():
+            return True
+    return False
+```
+
+下面是一个结果为 `True` 的例子。
+
+```python
+uses_any('banana', 'aeiou')
+# True
+```
+
+以及一个结果为 `False` 的例子。
+
+```python
+uses_any('apple', 'xyz')
+# False
+```
+
+`uses_any` 把 `word` 和 `letters` 都转成小写，所以它适用于大小写的任意组合。
+
+```python
+uses_any('Banana', 'AEIOU')
+# True
+```
+
+`uses_any` 的结构与 `has_e` 类似。它遍历 `word` 的字母并逐一检查。如果找到一个出现在 `letters` 中的字母，立即返回 `True`。如果一直走到循环结束都没找到，返回 `False`。
+
+这种模式称为**线性搜索**。在本章末尾的练习中，你将编写更多使用这种模式的函数。
+
+## 7.7 doctest
+
+在[第 4 章](#section_docstring)中，我们用文档字符串来记录函数——即解释它做什么。也可以用文档字符串来*测试*函数。下面是一个带测试的文档字符串的 `uses_any` 版本。
+
+```python
+def uses_any(word, letters):
+    """Checks if a word uses any of a list of letters.
+
+    >>> uses_any('banana', 'aeiou')
+    True
+    >>> uses_any('apple', 'xyz')
+    False
+    """
+    for letter in word.lower():
+        if letter in letters.lower():
+            return True
+    return False
+```
+
+每个测试以 `>>>` 开头，它在一些 Python 环境中用作提示符，表示用户可以在这里输入代码。在 doctest 中，提示符后面跟着一个表达式，通常是函数调用。下一行表示如果函数正确工作，该表达式应有的值。
+
+在第一个例子中，`'banana'` 使用了 `'a'`，所以结果应该是 `True`。在第二个例子中，`'apple'` 没有使用 `'xyz'` 中的任何一个，所以结果应该是 `False`。
+
+要运行这些测试，我们需要导入 `doctest` 模块并运行一个名为 `run_docstring_examples` 的函数。为了让这个函数更容易使用，我写了下面的函数，它接收一个表示函数的对象作为实参。
+
+```python
+from doctest import run_docstring_examples
+
+def run_doctests(func):
+    run_docstring_examples(func, globals(), name=func.__name__)
+```
+
+我们还没学过 `globals` 和 `__name__`——你可以忽略它们。现在我们可以这样测试 `uses_any`。
+
+```python
+run_doctests(uses_any)
+```
+
+`run_doctests` 找到文档字符串中的表达式并求值。如果结果是期望值，测试**通过**。否则，测试**失败**。如果所有测试都通过，`run_doctests` 不显示任何输出——在这种情况下，没有消息就是好消息。要看看测试失败时会发生什么，这里有一个错误的 `uses_any` 版本。
+
+```python
+def uses_any_incorrect(word, letters):
+    """Checks if a word uses any of a list of letters.
+
+    >>> uses_any_incorrect('banana', 'aeiou')
+    True
+    >>> uses_any_incorrect('apple', 'xyz')
+    False
+    """
+    for letter in word.lower():
+        if letter in letters.lower():
+            return True
+        else:
+            return False     # INCORRECT!
+```
+
+我们测试它时会发生以下情况。
+
+```python
+run_doctests(uses_any_incorrect)
+```
+
+输出包括失败的例子、函数本应返回的值，以及它实际产生的值。
+
+如果你不清楚这个测试为什么失败，你将有机会在练习中调试它。
+
+## 7.8 词汇表
+
+**循环变量：** 在 `for` 循环头部定义的变量。
+
+**文件对象：** 表示已打开文件的对象，记录文件的哪些部分已被读取或写入。
+
+**方法：** 与对象关联、通过点运算符调用的函数。
+
+**更新：** 一种赋值语句，给已存在的变量赋新值，而不是创建新变量。
+
+**初始化：** 创建新变量并给它赋值。
+
+**递增：** 增加变量的值。
+
+**递减：** 减小变量的值。
+
+**计数器：** 用于计数的变量，通常初始化为零，然后递增。
+
+**线性搜索：** 一种计算模式，在元素序列中搜索，找到目标时停止。
+
+**通过：** 如果测试运行且结果符合预期，测试通过。
+
+**失败：** 如果测试运行且结果不符合预期，测试失败。
+
+## 7.9 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 7.9.1 问一个虚拟助手
+
+在 `uses_any` 中，你可能已经注意到第一条 `return` 语句在循环内，第二条在循环外。
+
+```python
+def uses_any(word, letters):
+    for letter in word.lower():
+        if letter in letters.lower():
+            return True
+    return False
+```
+
+人们第一次写这样的函数时，一个常见的错误是把两条 `return` 语句都放在循环内，像这样。
+
+```python
+def uses_any_incorrect(word, letters):
+    for letter in word.lower():
+        if letter in letters.lower():
+            return True
+        else:
+            return False     # INCORRECT!
+```
+
+问虚拟助手这个版本哪里错了。
+
+### 7.9.2 练习
+
+写一个名为 `uses_none` 的函数，接收一个单词和一个禁用字母串，如果单词没有使用任何禁用字母，返回 `True`。
+
+下面是一个包含两个 doctest 的函数框架。完成函数以通过这些测试，并至少再添加一个 doctest。
+
+```python
+def uses_none(word, forbidden):
+    """Checks whether a word avoid forbidden letters.
+
+    >>> uses_none('banana', 'xyz')
+    True
+    >>> uses_none('apple', 'efg')
+    False
+    """
+    return None
+
+run_doctests(uses_none)
+```
+
+### 7.9.3 练习
+
+写一个名为 `uses_only` 的函数，接收一个单词和一个字母串，如果单词只包含该字符串中的字母，返回 `True`。
+
+下面是一个包含两个 doctest 的函数框架。完成函数以通过这些测试，并至少再添加一个 doctest。
+
+```python
+def uses_only(word, available):
+    """Checks whether a word uses only the available letters.
+
+    >>> uses_only('banana', 'ban')
+    True
+    >>> uses_only('apple', 'apl')
+    False
+    """
+    return None
+
+run_doctests(uses_only)
+```
+
+### 7.9.4 练习
+
+写一个名为 `uses_all` 的函数，接收一个单词和一个字母串，如果单词至少一次包含该字符串中的所有字母，返回 `True`。
+
+下面是一个包含两个 doctest 的函数框架。完成函数以通过这些测试，并至少再添加一个 doctest。
+
+```python
+def uses_all(word, required):
+    """Checks whether a word uses all required letters.
+
+    >>> uses_all('banana', 'ban')
+    True
+    >>> uses_all('apple', 'api')
+    False
+    """
+    return None
+
+run_doctests(uses_all)
+```
+
+### 7.9.5 练习
+
+《纽约时报》发布了一个名为“Spelling Bee”的每日游戏，挑战读者只用七个字母拼出尽可能多的单词，其中有一个字母是必用的。单词必须至少包含四个字母。
+
+例如，我写这篇时，字母是 `ACDLORT`，其中 `R` 是必用字母。所以“color”是可接受的单词，但“told”不行，因为它没有使用 `R`；而“rat”也不行，因为它只有三个字母。字母可以重复，所以“ratatat”是可接受的。
+
+写一个名为 `check_word` 的函数，检查给定单词是否可接受。它接收的参数是：要检查的单词、一个包含七个可用字母的字符串，以及一个包含唯一必用字母的字符串。你可以使用前面练习中写的函数。
+
+下面是一个包含 doctest 的函数框架。完成函数，然后确认所有测试都通过。
+
+```python
+def check_word(word, available, required):
+    """Check whether a word is acceptable.
+
+    >>> check_word('color', 'ACDLORT', 'R')
+    True
+    >>> check_word('ratatat', 'ACDLORT', 'R')
+    True
+    >>> check_word('rat', 'ACDLORT', 'R')
+    False
+    >>> check_word('told', 'ACDLORT', 'R')
+    False
+    >>> check_word('bee', 'ACDLORT', 'R')
+    False
+    """
+    return False
+
+run_doctests(check_word)
+```
+
+根据“Spelling Bee”的规则，
+
+*   四个字母的单词每个得 1 分。
+
+*   更长的单词每个字母得 1 分。
+
+*   每个游戏至少包含一个使用所有字母的“全字母词”。这些词额外得 7 分！
+
+写一个名为 `score_word` 的函数，接收一个单词和一个可用字母串，返回它的得分。你可以假设单词是可接受的。
+
+同样，这里是一个带 doctest 的函数框架。
+
+```python
+def word_score(word, available):
+    """Compute the score for an acceptable word.
+
+    >>> word_score('card', 'ACDLORT')
+    1
+    >>> word_score('color', 'ACDLORT')
+    5
+    >>> word_score('cartload', 'ACDLORT')
+    15
+    """
+    return 0
+
+run_doctests(word_score)
+```
+
+当你的所有函数都通过测试后，用下面的循环在单词列表中搜索可接受的单词，并把它们的得分加起来。
+
+```python
+available = 'ACDLORT'
+required = 'R'
+
+total = 0
+
+file_object = open('words.txt')
+for line in file_object:
+    word = line.strip()
+    if check_word(word, available, required):
+        score = word_score(word, available)
+        total = total + score
+        print(word, score)
+
+print("Total score", total)
+```
+
+访问“Spelling Bee”页面 [https://www.nytimes.com/puzzles/spelling-bee](https://www.nytimes.com/puzzles/spelling-bee) 并写下当天的可用字母。中间的字母是必用字母。
+
+我找到了一组总分为 5820 的字母组合。你能超过它吗？找到最好的字母组合可能太难了——要现实一点。
+
+### 7.9.6 练习
+
+你可能已经注意到，前面练习中写的函数有很多共同点。事实上，它们非常相似，你常常可以用一个函数来写另一个。
+
+例如，如果一个单词不使用禁用字母集中的任何字母，那就意味着它不使用任何禁用字母。所以我们可以这样写 `uses_none` 的一个版本。
+
+```python
+def uses_none(word, forbidden):
+    """Checks whether a word avoids forbidden letters.
+
+    >>> uses_none('banana', 'xyz')
+    True
+    >>> uses_none('apple', 'efg')
+    False
+    >>> uses_none('', 'abc')
+    True
+    """
+    return not uses_any(word, forbidden)
+
+run_doctests(uses_none)
+```
+
+`uses_only` 和 `uses_all` 之间也有相似之处可以利用。如果你有一个能用的 `uses_only` 版本，看看你能不能写一个调用 `uses_only` 的 `uses_all` 版本。
+
+### 7.9.7 练习
+
+如果你在上一个问题中卡住了，试着问虚拟助手：“给定一个函数 `uses_only`，它接收两个字符串并检查第一个只使用第二个中的字母，用它来写 `uses_all`，它接收两个字符串并检查第一个是否使用了第二个中的所有字母，允许重复。”
+
+用 `run_doctests` 检查答案。
+
+```python
+run_doctests(uses_all)
+```
+
+### 7.9.8 练习
+
+现在看看我们能否基于 `uses_any` 写出 `uses_all`。
+
+问虚拟助手：“给定一个函数 `uses_any`，它接收两个字符串并检查第一个是否使用了第二个中的任意字母，你能用它来写 `uses_all`，它接收两个字符串并检查第一个是否使用了第二个中的所有字母，允许重复吗？”
+
+如果它说可以，一定要测试结果！
+
+```python
+# Here's what I got from ChatGPT 4o December 26, 2024
+# It's correct, but it makes multiple calls to uses_any
+
+def uses_all(s1, s2):
+    """Checks if all characters in s2 are in s1, allowing repeats."""
+    for char in s2:
+        if not uses_any(s1, char):
+            return False
+    return True
+```
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

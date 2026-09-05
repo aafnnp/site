@@ -1,0 +1,138 @@
+---
+type: 'Post'
+date: '2026-09-04 10:00:00'
+title: '前言'
+tags: [python]
+description: '本书的目标读者、写作目标，以及如何高效学习编程的建议。'
+slug: prefacio
+order: 1
+section: null
+source: "https://libropython.es/chap00.html"
+lang: zh
+---
+
+# 前言
+
+> 本文译自 [libropython.es（Think Python en español）](https://libropython.es/chap00.html)。原文为西班牙语，翻译仅供学习使用。
+
+> 你可以在 [Bookshop.org](https://bookshop.org/a/98697/9781098155438) 和 [Amazon](https://www.amazon.com/_/dp/1098155432) 购买 *Think Python 3e* 的纸质版和电子书版。
+
+## 这本书适合谁？
+
+如果你想学习编程，你来对地方了。Python 是最好的编程入门语言之一，同时也是最抢手的技能之一。
+
+你也来得正是时候，因为现在学习编程可能比以往任何时候都更容易。有了像 ChatGPT 这样的虚拟助手，你不再需要独自学习。在本书中，我会建议一些使用这些工具来加速学习的方法。
+
+这本书主要面向从未编程的人，以及有过其他编程语言经验的人。如果你的 Python 经验已经相当丰富，可能会觉得前面几章节奏太慢。
+
+学习编程的挑战之一，在于你必须学习*两*种语言：一种是编程语言本身；另一种是我们用来谈论程序的一套词汇。如果你只学了编程语言，那么当你需要解读错误信息、阅读文档、与他人交流或使用虚拟助手时，很可能会遇到困难。如果你写过一些程序，但没有同时学会这第二种语言，我希望这本书能对你有帮助。
+
+## 本书的目标
+
+写这本书时，我尽量注意用词。每个术语都会在第一次出现时给出定义。每一章末尾都有一份词汇表，回顾本章引入的术语。
+
+我也尽量做到简明扼要。阅读本书所需的心智负担越少，你用来编程的精力就越多。
+
+但光靠读书是学不会编程的：你必须动手练习。因此，本书每一章末尾都配有练习题，供你练习所学内容。
+
+如果你认真阅读并持续完成练习，你会不断进步。但我要提前提醒你：学习编程并不容易，即使对有经验的程序员来说，也可能令人沮丧。随着我们不断深入，我会建议一些策略，帮助你写出正确的程序，并修复有问题的程序。
+
+## 如何阅读这本书
+
+本书每一章都建立在前面章节的基础上，所以你应该按顺序阅读，并在继续之前花时间完成练习。
+
+前六章介绍基本元素，如算术、条件语句和循环。它们还介绍编程中最重要的概念——函数，以及一种强大的使用方式——递归。
+
+第 7 章和第 8 章介绍字符串（string），它可以表示字母、单词和短语，以及处理字符串的算法。
+
+第 9 到 12 章介绍 Python 的主要数据结构：列表、字典和元组，它们是编写高效程序的强大工具。第 12 章介绍分析文本和随机生成新文本的算法。这类算法正是大语言模型（LLM）的核心，所以这一章会让你对 ChatGPT 这类工具的工作原理有所了解。
+
+第 13 章讨论长期存储数据的方式：文件和数据库。作为练习，你可以编写一个程序，在文件系统中搜索并找出重复文件。
+
+第 14 到 17 章介绍面向对象编程（OOP），这是一种组织程序及其处理的数据的方式。许多 Python 库都是用面向对象风格编写的，所以这些章节会帮助你理解它们的设计，并定义你自己的对象。
+
+本书的目标不是覆盖 Python 的全部内容。相反，我专注于语言的一个子集，用最少的概念提供最大的能力。即便如此，Python 仍有许多可用于高效解决常见问题的特性。第 18 章会介绍其中一部分。
+
+最后，第 19 章给出我的最终思考，以及继续编程之路的建议。
+
+## 第三版有什么新内容？
+
+这一版最大的改动由两项新技术推动：Jupyter notebook 和虚拟助手。
+
+本书每一章都是一个 Jupyter notebook，它是一种同时包含普通文本和代码的文档。对我来说，这让我更容易编写代码、测试代码，并让代码与文字保持一致。对你来说，这意味着你可以运行代码、修改代码并完成练习，一切都在同一个地方完成。关于如何使用 notebook 的说明在第一章。
+
+另一个重大改动是，我增加了与 ChatGPT 这类虚拟助手协作、并用它们加速学习的建议。2016 年上一版出版时，这些工具的前身远没有现在有用，大多数人也不知道它们。如今它们已成为软件工程的标准工具，我相信它们会成为学习编程乃至学习许多其他东西的变革性工具。
+
+本书其余改动源于我对第二版的遗憾。
+
+第一个遗憾是我没有对软件测试给予足够重视。这在 2016 年就已经是一个令人遗憾的疏漏，而随着虚拟助手的出现，自动化测试变得更加重要。因此，这一版介绍了 Python 最常用的测试工具 `doctest` 和 `unittest`，并包含了多个可以练习使用它们的习题。
+
+我的另一个遗憾是第二版的习题质量参差不齐：有些比另一些更有趣，有些则太难。改用 Jupyter notebook 帮助我开发并测试了一套更有吸引力、更有效的习题序列。
+
+在这次修订中，主题的顺序几乎不变，但我重新组织了一些章节，并把两个较短的章节合并为一个。此外，我还扩展了字符串部分，加入了正则表达式。
+
+有些章节使用了 turtle 图形。在之前的版本中，我使用了 Python 的 `turtle` 模块，但遗憾的是它在 Jupyter notebook 中无法工作。所以我用一个更容易使用的新 turtle 模块替换了它。
+
+最后，我重写了相当一部分文字，在需要的地方加以澄清，在不够简洁的地方加以删减。
+
+我对这个新版本感到非常自豪。希望你喜欢！
+
+## 快速上手
+
+对于包括 Python 在内的大多数编程语言，都有许多工具可以用来编写和运行程序。这些工具被称为集成开发环境（IDE）。一般来说，IDE 分为两类：
+
+*   有些 IDE 处理包含代码的文件，因此提供编辑和运行这些文件的工具。
+
+*   另一些 IDE 主要处理 notebook，即包含文本和代码的文档。
+
+对于初学者，我建议从 Jupyter 这样的 notebook 开发环境开始。
+
+本书的 notebook 存放在一个在线仓库中：[https://allendowney.github.io/ThinkPython](https://allendowney.github.io/ThinkPython)。
+
+有两种使用方式：
+
+*   你可以下载 notebook 并在自己的电脑上运行。那样的话，你需要安装 Python 和 Jupyter，这并不难，但如果你想学 Python，花大量时间安装软件可能会令人沮丧。
+
+*   另一种方式是在 Colab 中运行 notebook。Colab 是一个在网页浏览器中运行的 Jupyter 环境，所以你什么都不用安装。Colab 由 Google 运营，并且免费。
+
+如果你刚开始，我强烈建议你从 Colab 开始。
+
+## 面向教师的资源
+
+如果你用这本书教学，这里有一些可能对你有用的资源。
+
+*   你可以在 [https://allendowney.github.io/ThinkPython](https://allendowney.github.io/ThinkPython) 找到包含习题答案的 notebook，以及下面这些额外资源的链接。
+
+*   每一章都有测验题，整本书还有一个总测验，可按需提供。
+
+*   《Teaching and Learning with Jupyter》是一本在线书籍，提供了在课堂上高效使用 Jupyter 的建议。你可以在 [https://jupyter4edu.github.io/jupyter-edu-book](https://jupyter4edu.github.io/jupyter-edu-book) 阅读。
+
+*   使用 notebook 的最佳方式之一是现场编程（live coding），即讲师编写代码，学生在自己的 notebook 中跟随。要了解现场编程，并获取其他关于编程教学的宝贵建议，我推荐 The Carpentries 提供的讲师培训，网址为 [https://carpentries.github.io/instructor-training](https://carpentries.github.io/instructor-training)。
+
+## 致谢
+
+非常感谢 Jeff Elkner，他把我的 Java 书翻译成了 Python，由此启动了这个项目，并把我引向了我最终最喜欢的语言。也感谢 Chris Meyers，他为《How to Think Like a Computer Scientist》贡献了若干章节。
+
+感谢自由软件基金会制定了 GNU 自由文档许可证，它促成了我与 Jeff 和 Chris 的合作；感谢 Creative Commons 提供我现在使用的许可证。
+
+感谢 Python 语言及其库（包括 Turtle 图形模块）的开发者与维护者；感谢我用来编写本书的工具（包括 Jupyter 和 JupyterBook）；感谢我用到的服务（包括 ChatGPT、Copilot、Colab 和 GitHub）。
+
+感谢参与《How to Think Like a Computer Scientist》的 Lulu 编辑，以及参与《Think Python》的 O'Reilly Media 编辑。
+
+特别感谢第二版的技术审校 Melissa Lewis 和 Luciano Ramalho，以及第三版的 Sam Lau 和 Luciano Ramalho（又是他！）。也感谢 Luciano 开发了我多个章节中使用的 turtle 图形模块 `jupyturtle`。
+
+感谢所有使用本书早期版本的学生，以及所有提交纠错和建议的贡献者。过去几年里，有超过 100 位认真而用心的读者提交了建议和纠错。他们的贡献，以及他们对这个项目的热情，给了我巨大的帮助。
+
+如果你有建议或纠错，请发送邮件到 `feedback@thinkpython.com`。如果你附上出错句子的至少一部分，会方便我查找。页码和章节号也有帮助，但处理起来不那么方便。谢谢！
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。

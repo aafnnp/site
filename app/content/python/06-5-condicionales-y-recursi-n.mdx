@@ -1,0 +1,666 @@
+---
+type: 'Post'
+date: '2026-08-30 10:00:00'
+title: '第 5 章 · 条件与递归'
+tags: [python]
+description: '条件判断、取模运算与递归。'
+slug: condicionales-y-recursion
+order: 6
+section: null
+source: "https://libropython.es/chap05.html"
+lang: zh
+---
+
+# 第 5 章 · 条件与递归
+
+> 本文译自 [libropython.es](https://libropython.es/chap05.html)。原文为西班牙语，翻译仅供学习使用。
+
+本章的主题是 `if` 语句，它根据程序的状态执行不同的代码。借助 `if` 语句，我们将探索计算机科学中最强大的思想之一：**递归**。
+
+但我们会先介绍三个新特性：取模运算符、布尔表达式和逻辑运算符。
+
+## 5.1 整数除法与取模
+
+回想一下，整数除法运算符 `//` 对两个数做除法并向下舍入到整数。例如，假设一部电影的时长是 105 分钟。你可能想知道这相当于多少小时。常规除法返回一个浮点数：
+
+```python
+minutes = 105
+minutes / 60
+# 1.75
+```
+
+但我们通常不用小数来表示小时。整数除法返回整小时数，向下舍入：
+
+```python
+minutes = 105
+hours = minutes // 60
+hours
+# 1
+```
+
+要得到余数，你可以减去以分钟表示的一小时：
+
+```python
+remainder = minutes - hours * 60
+remainder
+# 45
+```
+
+或者你可以使用**取模运算符** `%`，它对两个数做除法并返回余数。
+
+```python
+remainder = minutes % 60
+remainder
+# 45
+```
+
+取模运算符比看上去更有用。例如，它可以检查一个数是否能被另一个数整除：如果 `x % y` 为零，那么 `x` 能被 `y` 整除。
+
+它还可以提取一个数最右边的数字。例如，`x % 10` 得到 `x`（十进制）最右边的一位数字。类似地，`x % 100` 得到最后两位数字。
+
+```python
+x = 123
+x % 10
+# 3
+x % 100
+# 23
+```
+
+最后，取模运算符可以做“时钟算术”。例如，如果一个活动在上午 11 点开始，持续三个小时，我们可以用取模运算符算出它几点结束。
+
+```python
+start = 11
+duration = 3
+end = (start + duration) % 12
+end
+# 2
+```
+
+活动会在下午 2 点结束。
+
+## 5.2 布尔表达式
+
+**布尔表达式**是结果为真或假的表达式。例如，下面的表达式使用相等运算符 `==`，它比较两个值，如果相等则得到 `True`，否则得到 `False`：
+
+```python
+5 == 5
+# True
+5 == 7
+# False
+```
+
+一个常见的错误是用单个等号（`=`）代替双等号（`==`）。记住，`=` 给变量赋值，而 `==` 比较两个值。
+
+```python
+x = 5
+y = 7
+x == y
+# False
+```
+
+`True` 和 `False` 是特殊的值，属于 `bool` 类型；它们不是字符串：
+
+```python
+type(True)
+# bool
+type(False)
+# bool
+```
+
+`==` 运算符是**关系运算符**之一；其他关系运算符有：
+
+```python
+x != y               # x is not equal to y
+x > y                # x is greater than y
+x < y                # x is less than y
+x >= y               # x is greater than or equal to y
+x <= y               # x is less than or equal to y
+```
+
+## 5.3 逻辑运算符
+
+要把布尔值组合成表达式，我们可以使用**逻辑运算符**。最常见的是 `and`、`or` 和 `not`。这些运算符的含义与它们在英语中的含义相似。例如，只有当 `x` 大于 `0` *且*小于 `10` 时，下面表达式的值才为 `True`。
+
+```python
+x > 0 and x < 10
+```
+
+下面的表达式在*一个或两个*条件为真时为 `True`，也就是说，如果这个数能被 2 *或* 3 整除：
+
+```python
+x % 2 == 0 or x % 3 == 0
+```
+
+最后，`not` 运算符对布尔表达式取反，所以当 `x > y` 为 `False` 时，下面的表达式为 `True`。
+
+```python
+not x > y
+```
+
+严格来说，逻辑运算符的操作数应该是布尔表达式，但 Python 并不十分严格。任何非零数字都被解释为 `True`：
+
+```python
+42 and True
+# True
+```
+
+这种灵活性可能有用，但它有一些微妙之处，可能令人困惑。也许你最好避免使用它。
+
+## 5.4 if 语句
+
+要写出有用的程序，我们几乎总需要检查条件并据此改变程序行为的能力。**条件语句**给了我们这种能力。最简单的形式是 `if` 语句：
+
+```python
+if x > 0:
+    print('x is positive')
+```
+
+`if` 是 Python 的关键字。`if` 语句的结构与函数定义相同：一个头部后跟一条缩进语句，或一段称为**块（bloque）**的语句序列。
+
+`if` 后面的布尔表达式称为**条件**。如果为真，就执行缩进块中的语句。否则，不执行。
+
+块中的语句数量没有限制，但至少要有一条。有时有一个什么都不做的块会很有用，通常是作为你还没写的代码的占位符。在这种情况下，你可以使用 `pass` 语句，它什么都不做。
+
+```python
+if x < 0:
+    pass          # TODO: need to handle negative values!
+```
+
+注释中的 `TODO` 一词是一个约定俗成的提醒，表示有些事情你需要稍后处理。
+
+## 5.5 else 子句
+
+`if` 语句可以有第二部分，称为 `else` 子句。语法如下：
+
+```python
+if x % 2 == 0:
+    print('x is even')
+else:
+    print('x is odd')
+```
+
+如果条件为真，执行第一条缩进语句；否则，执行第二条缩进语句。
+
+在这个例子中，如果 `x` 是偶数，`x` 除以 `2` 的余数是 `0`，所以条件为真，程序显示 `x is even`。如果 `x` 是奇数，余数是 `1`，所以条件为假，程序显示 `x is odd`。
+
+由于条件必然为真或为假，因此恰好会执行其中一个分支。这些分支称为**分支（ramas）**。
+
+## 5.6 链式条件
+
+有时可能性不止两种，我们需要两个以上的分支。表达这种计算的一种方式是**链式条件（condicional encadenado）**，它包含一个 `elif` 子句。
+
+```python
+if x < y:
+    print('x is less than y')
+elif x > y:
+    print('x is greater than y')
+else:
+    print('x and y are equal')
+```
+
+`elif` 是 “else if” 的缩写。`elif` 子句的数量没有限制。如果有 `else` 子句，它必须放在最后，但不是必须有。
+
+每个条件按顺序检查。如果第一个为假，就检查下一个，依此类推。如果其中一个为真，就执行相应的分支，`if` 语句结束。即使有多个条件为真，也只会执行第一个为真的分支。
+
+## 5.7 嵌套条件
+
+条件语句也可以嵌套在另一个条件语句里。我们可以把上一节的例子写成这样：
+
+```python
+if x == y:
+    print('x and y are equal')
+else:
+    if x < y:
+        print('x is less than y')
+    else:
+        print('x is greater than y')
+```
+
+外层的 `if` 语句包含两个分支。第一个分支包含一条简单语句。第二个分支包含另一个 `if` 语句，它有两个自己的分支。这两个分支都是简单语句，但它们也可以是条件语句。
+
+尽管语句的缩进让结构清晰可见，但**嵌套条件**可能难以阅读。我建议尽可能避免它们。
+
+逻辑运算符通常提供了一种简化嵌套条件语句的方法。下面是一个嵌套条件的例子。
+
+```python
+if 0 < x:
+    if x < 10:
+        print('x is a positive single-digit number.')
+```
+
+只有当两个条件都通过时才会执行 `print` 语句，所以我们可以用 `and` 运算符达到同样的效果。
+
+```python
+if 0 < x and x < 10:
+    print('x is a positive single-digit number.')
+```
+
+对于这类条件，Python 提供了更简洁的写法：
+
+```python
+if 0 < x < 10:
+    print('x is a positive single-digit number.')
+```
+
+## 5.8 递归
+
+函数调用自身是合法的。这可能看起来不是什么好事，但事实证明这是程序能做的最神奇的事情之一。下面是一个例子。
+
+```python
+def countdown(n):
+    if n <= 0:
+        print('Blastoff!')
+    else:
+        print(n)
+        countdown(n-1)
+```
+
+如果 `n` 是 0 或负数，`countdown` 显示单词 “Blastoff!”。否则，它显示 `n`，然后调用自身，把 `n-1` 作为实参传入。
+
+当我们用实参 `3` 调用这个函数时，会发生以下情况。
+
+```python
+countdown(3)
+# 3
+# 2
+# 1
+# Blastoff!
+```
+
+`countdown` 的执行从 `n=3` 开始，因为 `n` 大于 `0`，它显示 `3`，然后调用自身……
+
+> `countdown` 的执行从 `n=2` 开始，因为 `n` 大于 `0`，它显示 `2`，然后调用自身……
+>
+> > `countdown` 的执行从 `n=1` 开始，因为 `n` 大于 `0`，它显示 `1`，然后调用自身……
+> >
+> > > `countdown` 的执行从 `n=0` 开始，因为 `n` 不大于 `0`，它显示 “Blastoff!”，然后返回。
+> >
+> > 接收 `n=1` 的 `countdown` 返回。
+>
+> 接收 `n=2` 的 `countdown` 返回。
+
+接收 `n=3` 的 `countdown` 返回。
+
+调用自身的函数是**递归的**。作为另一个例子，我们可以写一个把字符串打印 `n` 次的函数。
+
+```python
+def print_n_times(string, n):
+    if n > 0:
+        print(string)
+        print_n_times(string, n-1)
+```
+
+如果 `n` 为正，`print_n_times` 显示 `string` 的值，然后调用自身，传入 `string` 和 `n-1` 作为实参。
+
+如果 `n` 是 `0` 或负数，条件为假，`print_n_times` 什么都不做。
+
+它的工作方式如下。
+
+```python
+print_n_times('Spam ', 4)
+# Spam Spam Spam Spam
+```
+
+对于像这样的简单例子，用 `for` 循环可能更容易。但稍后我们会看到用 `for` 循环很难写、用递归很容易写的例子，所以早点开始也好。
+
+## 5.9 递归函数的栈图
+
+下面是一个栈图，展示我们用 `n = 3` 调用 `countdown` 时创建的帧。
+
+```python
+from diagram import make_frame, Stack
+
+frames = []
+for n in [3,2,1,0]:
+    d = dict(n=n)
+    frame = make_frame(d, name='countdown', dy=-0.3, loc='left')
+    frames.append(frame)
+
+stack = Stack(frames, dy=-0.5)
+```
+
+四个 `countdown` 帧对参数 `n` 有不同的值。栈的最底部，即 `n=0` 处，称为**基例（caso base）**。它不做递归调用，所以没有更多帧了。
+
+```python
+from diagram import make_frame, Stack
+from diagram import diagram, adjust
+
+frames = []
+for n in [2,1,0]:
+    d = dict(string='Hello', n=n)
+    frame = make_frame(d, name='print_n_times', dx=1.3, loc='left')
+    frames.append(frame)
+
+stack = Stack(frames, dy=-0.5)
+```
+
+## 5.10 无限递归
+
+如果递归永远到不了基例，它就会永远递归调用下去，程序永远不会终止。这称为**无限递归**，通常不是好事。下面是一个无限递归的最小函数。
+
+```python
+def recurse():
+    recurse()
+```
+
+每次调用 `recurse` 时，它都调用自身，从而创建另一个帧。在 Python 中，栈中同时能存在的帧数量是有限制的。如果程序超过这个限制，就会引发运行时错误。
+
+```python
+%xmode Context
+
+recurse()
+# RecursionError: maximum recursion depth exceeded
+```
+
+回溯表明，发生错误时栈里有将近 3000 个帧。
+
+如果你不小心遇到了无限递归，请检查你的函数，确认存在一个不做递归调用的基例。如果有基例，再检查你是否保证能到达它。
+
+## 5.11 键盘输入
+
+到目前为止我们写的程序都不接受用户输入。它们每次只是做同样的事情。
+
+Python 提供了一个内置函数 `input`，它会暂停程序，等待用户输入。当用户按下 *Return* 或 *Enter* 键时，程序继续，`input` 把用户输入的内容作为字符串返回。
+
+```python
+text = input()
+```
+
+在获取用户输入之前，你可能想显示一个提示，告诉用户该输入什么。`input` 可以接收一个提示作为实参：
+
+```python
+name = input('What...is your name?\n')
+name
+```
+
+提示末尾的序列 `\n` 表示一个**换行符**，这是一个导致换行的特殊字符；这样用户的输入会出现在提示下方。
+
+如果你希望用户输入整数，可以用 `int` 函数把返回值转换成 `int`。
+
+```python
+prompt = 'What...is the airspeed velocity of an unladen swallow?\n'
+speed = input(prompt)
+speed
+```
+
+但如果用户输入的不是整数，你会得到运行时错误。
+
+```python
+%xmode Minimal
+
+int(speed)
+# ValueError: invalid literal for int()
+```
+
+稍后我们会看到如何处理这类错误。
+
+## 5.12 调试
+
+当发生语法错误或运行时错误时，错误消息包含大量信息，但可能让人不知所措。最有用的部分通常是：
+
+*   是什么类型的错误，以及
+
+*   它发生在哪里。
+
+语法错误通常很容易找到，但也有一些陷阱。与空格和制表符相关的错误可能很棘手，因为它们是看不见的，而我们习惯忽略它们。
+
+```python
+x = 5
+ y = 6
+```
+
+在这个例子中，问题是第二行缩进了一个空格。但错误消息指向 `y`，这有误导性。错误消息指示问题被发现的位置，但真正的错误可能在代码更靠前的地方。
+
+运行时错误也是如此。例如，假设你试图把比值转换成以分贝为单位，像这样：
+
+```python
+%xmode Context
+
+import math
+numerator = 9
+denominator = 10
+ratio = numerator // denominator
+decibels = 10 * math.log10(ratio)
+# ValueError: math domain error
+```
+
+错误消息指向第 5 行，但那行并没有问题。问题在第 4 行，它用了整数除法而不是浮点除法；结果 `ratio` 的值是 `0`。当我们调用 `math.log10` 时，得到 `ValueError`，消息是 `math domain error`，因为 `0` 不在 `math.log10` 的有效实参“域”内——`0` 的对数没有定义。
+
+一般来说，你应该花时间仔细阅读错误消息，但不要假定它们说的每句话都是对的。
+
+## 5.13 词汇表
+
+**递归：** 调用当前正在执行的函数的过程。
+
+**取模运算符：** 运算符 `%`，作用于整数，返回一个数除以另一个数后的余数。
+
+**布尔表达式：** 值为 `True` 或 `False` 的表达式。
+
+**关系运算符：** 比较操作数的运算符之一：`==`、`!=`、`>`、`<`、`>=` 和 `<=`。
+
+**逻辑运算符：** 组合布尔表达式的运算符之一，包括 `and`、`or` 和 `not`。
+
+**条件语句：** 根据某个条件控制执行流程的语句。
+
+**条件：** 条件语句中决定执行哪个分支的布尔表达式。
+
+**块：** 一条或多条缩进语句，表示它们是另一条语句的一部分。
+
+**分支：** 条件语句中备选的语句序列之一。
+
+**链式条件：** 带有一系列备选分支的条件语句。
+
+**嵌套条件：** 出现在另一条条件语句某个分支中的条件语句。
+
+**递归的：** 调用自身的函数是递归的。
+
+**基例：** 递归函数中不做递归调用的条件分支。
+
+**无限递归：** 没有基例、或永远到不了基例的递归。无限递归最终会引发运行时错误。
+
+**换行符：** 在字符串两部分之间产生换行的字符。
+
+## 5.14 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 5.14.1 问一个虚拟助手
+
+*   问虚拟助手：“取模运算符有哪些用途？”
+
+*   Python 提供了计算逻辑运算 `and`、`or` 和 `not` 的运算符，但没有计算异或运算（通常写作 `xor`）的运算符。问助手：“什么是逻辑 xor 运算，我在 Python 中如何计算它？”
+
+在本章中，我们看到了两种写三分支 `if` 语句的方式：使用链式条件或嵌套条件。你可以用虚拟助手在两种形式之间转换。例如，问虚拟助手：“把这条语句转换成链式条件”。
+
+```python
+x = 5
+y = 7
+
+if x == y:
+    print('x and y are equal')
+else:
+    if x < y:
+        print('x is less than y')
+    else:
+        print('x is greater than y')
+```
+
+问虚拟助手：“用单个条件重写这条语句”。
+
+```python
+if 0 < x:
+    if x < 10:
+        print('x is a positive single-digit number.')
+```
+
+看看虚拟助手能否简化这个不必要的复杂写法。
+
+```python
+if not x <= 0 and not x >= 10:
+    print('x is a positive single-digit number.')
+```
+
+下面是一个尝试以 2 为步长倒计时的递归函数。
+
+```python
+def countdown_by_two(n):
+    if n == 0:
+        print('Blastoff!')
+    else:
+        print(n)
+        countdown_by_two(n-2)
+```
+
+它看起来能工作。
+
+```python
+countdown_by_two(6)
+# 6
+# 4
+# 2
+# Blastoff!
+```
+
+但它有一个 bug。问虚拟助手哪里错了、如何修复。把它给出的解法粘贴到这里并测试。
+
+### 5.14.2 练习
+
+`time` 模块提供了一个也叫 `time` 的函数，它返回自“Unix 纪元”（1970 年 1 月 1 日 00:00:00 UTC，协调世界时）以来经过的秒数。
+
+```python
+from time import time
+
+now = time()
+now
+```
+
+用整数除法和取模运算符计算自 1970 年 1 月 1 日以来经过的天数，以及当前一天中的时、分、秒。
+
+你可以在 [https://docs.python.org/3/library/time.html](https://docs.python.org/3/library/time.html) 阅读更多关于 `time` 模块的内容。
+
+### 5.14.3 练习
+
+如果给你三根木棍，你可能能也可能不能把它们摆成三角形。例如，如果一根木棍长 12 英寸，另外两根各长 1 英寸，你就无法让两根短棍在中间相接。对于任意三个长度，有一个判断能否构成三角形的测试：
+
+> 如果三个长度中的任何一个大于另外两个之和，那么你就不能构成三角形。否则，可以。（如果两个长度之和等于第三个，它们构成所谓的“退化”三角形。）
+
+写一个名为 `is_triangle` 的函数，接收三个整数作为实参，根据能否用给定长度的木棍构成三角形，打印 “Yes” 或 “No”。提示：使用链式条件。
+
+用以下情况测试你的函数。
+
+```python
+is_triangle(4, 5, 6)   # should be Yes
+is_triangle(1, 2, 3)   # should be Yes
+is_triangle(6, 2, 3)   # should be No
+is_triangle(1, 1, 12)  # should be No
+```
+
+### 5.14.4 练习
+
+下面程序的输出是什么？画一个栈图，展示程序打印结果时的状态。
+
+```python
+def recurse(n, s):
+    if n == 0:
+        print(s)
+    else:
+        recurse(n-1, n+s)
+
+recurse(3, 0)
+```
+
+### 5.14.5 练习
+
+下面的练习使用第 4 章描述的 `jupyturtle` 模块。
+
+阅读下面的函数，看看你能不能弄明白它做什么。然后运行它，看看你是否猜对了。调整 `length`、`angle` 和 `factor` 的值，观察它们对结果的影响。如果你不清楚它是如何工作的，试着问虚拟助手。
+
+```python
+from jupyturtle import forward, left, right, back
+
+def draw(length):
+    angle = 50
+    factor = 0.6
+
+    if length > 5:
+        forward(length)
+        left(angle)
+        draw(factor * length)
+        right(2 * angle)
+        draw(factor * length)
+        left(angle)
+        back(length)
+```
+
+### 5.14.6 练习
+
+问虚拟助手：“什么是科赫曲线（Koch curve）？”
+
+要画一条长度为 `x` 的科赫曲线，你只需：
+
+1.  画一条长度为 `x/3` 的科赫曲线。
+
+2.  左转 60 度。
+
+3.  画一条长度为 `x/3` 的科赫曲线。
+
+4.  右转 120 度。
+
+5.  画一条长度为 `x/3` 的科赫曲线。
+
+6.  左转 60 度。
+
+7.  画一条长度为 `x/3` 的科赫曲线。
+
+例外是当 `x` 小于 `5` 时；在这种情况下，你可以直接画一条长度为 `x` 的直线。
+
+写一个名为 `koch` 的函数，接收 `x` 作为实参，画出给定长度的科赫曲线。
+
+结果应该像这样：
+
+```python
+make_turtle(delay=0)
+koch(120)
+```
+
+当 `koch` 可以工作后，你可以用这个循环画出三条科赫曲线组成雪花形状。
+
+```python
+make_turtle(delay=0, height=300)
+for i in range(3):
+    koch(120)
+    right(120)
+```
+
+### 5.14.7 练习
+
+虚拟助手知道 `jupyturtle` 模块的函数，但这些函数有很多版本，名字各不相同，所以虚拟助手可能不知道你说的是哪一个。
+
+要解决这个问题，你可以在提问前提供额外信息。例如，你可以以“下面是一个使用 `jupyturtle` 模块的程序”开头，然后粘贴本章中的一个例子。之后，虚拟助手应该能生成使用这个模块的代码。
+
+作为例子，请虚拟助手写一个画谢尔宾斯基三角形（Sierpiński triangle）的程序。你得到的代码应该是一个不错的起点，但你可能需要做一些调试。如果第一次尝试不成功，你可以告诉虚拟助手发生了什么并请求帮助，或者自己调试。
+
+结果可能长这样，不过你得到的版本可能不同。
+
+```python
+make_turtle(delay=0, height=200)
+
+draw_sierpinski(100, 3)
+```
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

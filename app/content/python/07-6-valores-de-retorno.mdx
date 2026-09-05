@@ -1,0 +1,748 @@
+---
+type: 'Post'
+date: '2026-08-29 10:00:00'
+title: '第 6 章 · 返回值'
+tags: [python]
+description: '返回值、增量开发与布尔函数。'
+slug: valores-de-retorno
+order: 7
+section: null
+source: "https://libropython.es/chap06.html"
+lang: zh
+---
+
+# 第 6 章 · 返回值
+
+> 本文译自 [libropython.es](https://libropython.es/chap06.html)。原文为西班牙语，翻译仅供学习使用。
+
+在前面的章节中，我们使用过内置函数——如 `abs` 和 `round`——以及 math 模块的函数——如 `sqrt` 和 `pow`。当你调用这些函数之一时，它会返回一个值，你可以把它赋给变量，或用作表达式的一部分。
+
+到目前为止我们写的函数则不同。有些使用 `print` 函数显示值，有些使用海龟函数画图。但它们不返回我们可以赋给变量或用于表达式的值。
+
+在本章中，我们将看到如何编写返回值函数。
+
+## 6.1 有些函数有返回值
+
+当你调用像 `math.sqrt` 这样的函数时，结果称为**返回值**。如果函数调用出现在单元格末尾，Jupyter 会立即显示返回值。
+
+```python
+import math
+
+math.sqrt(42 / math.pi)
+# 3.656...
+```
+
+如果你把返回值赋给变量，它就不会显示。
+
+```python
+radius = math.sqrt(42 / math.pi)
+```
+
+但你可以在之后显示它。
+
+```python
+radius
+# 3.656...
+```
+
+或者你可以把返回值用作表达式的一部分。
+
+```python
+radius + math.sqrt(42 / math.pi)
+# 7.312...
+```
+
+下面是一个返回值的函数示例。
+
+```python
+def circle_area(radius):
+    area = math.pi * radius**2
+    return area
+```
+
+`circle_area` 接收 `radius` 作为参数，计算以该半径为圆的面积。
+
+最后一行是一条 `return` 语句，返回 `area` 的值。
+
+如果我们这样调用函数，Jupyter 会显示返回值。
+
+```python
+circle_area(radius)
+```
+
+我们可以把返回值赋给变量。
+
+```python
+a = circle_area(radius)
+```
+
+或者把它用作表达式的一部分。
+
+```python
+circle_area(radius) + 2 * circle_area(radius / 2)
+```
+
+稍后我们可以显示我们赋值结果的那个变量的值。
+
+```python
+a
+```
+
+但我们无法访问 `area`。
+
+```python
+area
+# NameError: name 'area' is not defined
+```
+
+`area` 是函数内部的局部变量，所以我们无法从函数外部访问它。
+
+## 6.2 而有些函数返回 None
+
+如果函数没有 `return` 语句，它返回 `None`，这是一个像 `True` 和 `False` 一样的特殊值。例如，这里是第 3 章中的 `repeat` 函数。
+
+```python
+def repeat(word, n):
+    print(word * n)
+```
+
+如果我们这样调用它，它会显示 Monty Python 歌曲“Finland”的第一行。
+
+```python
+repeat('Finland, ', 3)
+# Finland, Finland, Finland, 
+```
+
+这个函数用 `print` 函数显示字符串，但没有用 `return` 语句返回值。如果我们把结果赋给变量，它仍然会显示字符串。
+
+```python
+result = repeat('Finland, ', 3)
+# Finland, Finland, Finland, 
+```
+
+而如果我们显示变量的值，什么都得不到。
+
+```python
+result
+```
+
+`result` 实际上有一个值，但 Jupyter 不显示它。不过我们可以这样显示它。
+
+```python
+print(result)
+# None
+```
+
+`repeat` 的返回值是 `None`。
+
+现在这里有一个类似 `repeat` 的函数，不同的是它确实有返回值。
+
+```python
+def repeat_string(word, n):
+    return word * n
+```
+
+注意，我们可以在 `return` 语句中使用表达式，而不仅仅是变量。
+
+在这个版本中，我们可以把结果赋给变量。函数执行时不显示任何东西。
+
+```python
+line = repeat_string('Spam, ', 4)
+```
+
+但之后我们可以显示赋给 `line` 的值。
+
+```python
+line
+# 'Spam, Spam, Spam, Spam, '
+```
+
+像这样的函数称为**纯函数（función pura）**，因为它除了返回值之外，不显示任何东西，也没有任何其他效果。
+
+## 6.3 返回值与条件语句
+
+如果 Python 没有提供 `abs`，我们可以这样写它。
+
+```python
+def absolute_value(x):
+    if x < 0:
+        return -x
+    else:
+        return x
+```
+
+如果 `x` 是负数，第一条 `return` 语句返回 `-x`，函数立即结束。否则，第二条 `return` 语句返回 `x`，函数结束。所以这个函数是正确的。
+
+然而，如果你把 `return` 语句放在条件语句中，你必须确保程序所有可能的路径都能到达一条 `return` 语句。例如，下面是一个错误的 `absolute_value` 版本。
+
+```python
+def absolute_value_wrong(x):
+    if x < 0:
+        return -x
+    if x > 0:
+        return x
+```
+
+如果我们用 `0` 作为实参调用这个函数，会发生以下情况。
+
+```python
+absolute_value_wrong(0)
+```
+
+我们什么都没得到！问题在于：当 `x` 是 `0` 时，没有条件为真，函数结束时没有到达 `return` 语句，这意味着返回值是 `None`，所以 Jupyter 什么都不显示。
+
+作为另一个例子，这里是一个在末尾多了一条 `return` 语句的 `absolute_value` 版本。
+
+```python
+def absolute_value_extra_return(x):
+    if x < 0:
+        return -x
+    else:
+        return x
+
+    return 'This is dead code'
+```
+
+如果 `x` 是负数，执行第一条 `return` 语句，函数结束。否则，执行第二条 `return` 语句，函数结束。无论哪种情况，我们都不会到达第三条 `return` 语句——所以它永远不会执行。
+
+永远不会执行的代码称为**死代码（código muerto）**。一般来说，死代码无害，但它通常表明存在误解，并可能让试图理解程序的人感到困惑。
+
+## 6.4 增量开发
+
+随着你编写越来越大的函数，你可能会发现自己花更多时间在调试上。为了应对日益复杂的程序，你可能想尝试**增量开发**，这是一种每次只添加和测试少量代码的方法。
+
+例如，假设你想求坐标 \\((x_1, y_1)\\) 和 \\((x_2, y_2)\\) 表示的两点之间的距离。根据勾股定理，距离是：
+
+\\[\\mathrm{distance} = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}\\]
+
+第一步是考虑 Python 中的 `distance` 函数应该是什么样子——即输入（参数）是什么、输出（返回值）是什么。
+
+对于这个函数，输入是点的坐标。返回值是距离。你可以立即写出函数的框架：
+
+```python
+def distance(x1, y1, x2, y2):
+    return 0.0
+```
+
+这个版本还不计算距离——它总是返回零。但它是一个有返回值的完整函数，这意味着你可以在把它变得更复杂之前先测试它。
+
+要测试新函数，我们用示例实参调用它：
+
+```python
+distance(1, 2, 4, 6)
+# 0.0
+```
+
+我选择这些值，使水平距离为 `3`，垂直距离为 `4`。这样结果就是 `5`，即 `3-4-5` 直角三角形的斜边。测试函数时，知道正确答案会很有用。
+
+至此，我们已经确认函数能运行并返回值，可以开始往函数体里添加代码了。一个好的下一步是求出差值 `x2 - x1` 和 `y2 - y1`。下面是一个把这些值存入临时变量并显示它们的版本。
+
+```python
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    print('dx is', dx)
+    print('dy is', dy)
+    return 0.0
+```
+
+如果函数工作正常，它应该显示 `dx is 3` 和 `dy is 4`。如果是这样，我们就知道函数收到了正确的实参，并且正确地完成了第一次计算。如果不是，需要检查的只有几行。
+
+```python
+distance(1, 2, 4, 6)
+# dx is 3
+# dy is 4
+```
+
+到目前为止一切顺利。接下来我们计算 `dx` 和 `dy` 的平方和：
+
+```python
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    dsquared = dx**2 + dy**2
+    print('dsquared is: ', dsquared)
+    return 0.0
+```
+
+同样，我们可以运行函数并检查输出，应该是 `25`。
+
+```python
+distance(1, 2, 4, 6)
+# dsquared is:  25
+```
+
+最后，我们可以用 `math.sqrt` 计算距离：
+
+```python
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    dsquared = dx**2 + dy**2
+    result = math.sqrt(dsquared)
+    print("result is", result)
+```
+
+并测试它。
+
+```python
+distance(1, 2, 4, 6)
+# result is 5.0
+```
+
+结果正确，但这个版本的函数显示结果而不是返回它，所以返回值是 `None`。
+
+我们可以通过用 `return` 语句替换 `print` 函数来修复它。
+
+```python
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    dsquared = dx**2 + dy**2
+    result = math.sqrt(dsquared)
+    return result
+```
+
+这个版本的 `distance` 是纯函数。如果我们这样调用它，只显示结果。
+
+```python
+distance(1, 2, 4, 6)
+# 5.0
+```
+
+如果我们把结果赋给变量，什么都不显示。
+
+```python
+d = distance(1, 2, 4, 6)
+```
+
+我们写的 `print` 语句对调试很有用，但一旦函数能正常工作，就可以删除它们。这类代码称为**脚手架（andamiaje）**，因为它有助于构建程序，但不是最终产品的一部分。
+
+这个例子展示了增量开发。这个过程的关键点是：
+
+1.  从能工作的程序开始，做小的改动，每次改动后测试。
+
+2.  用变量保存中间值，这样你就可以显示并检查它们。
+
+3.  一旦程序能工作，删除脚手架。
+
+在任何时候，如果出现错误，你应该都能大致知道它在哪里。增量开发可以为你节省大量调试时间。
+
+## 6.5 布尔函数
+
+函数可以返回布尔值 `True` 和 `False`，这通常便于把复杂的测试封装进函数。例如，`is_divisible` 检查 `x` 是否能被 `y` 整除（没有余数）。
+
+```python
+def is_divisible(x, y):
+    if x % y == 0:
+        return True
+    else:
+        return False
+```
+
+我们这样使用它。
+
+```python
+is_divisible(6, 4)
+# False
+is_divisible(6, 3)
+# True
+```
+
+在函数内部，`==` 运算符的结果是布尔值，所以我们可以直接返回它，从而更简洁地编写函数。
+
+```python
+def is_divisible(x, y):
+    return x % y == 0
+```
+
+布尔函数常用于条件语句中。
+
+```python
+if is_divisible(6, 2):
+    print('divisible')
+```
+
+写这样的代码可能会很有诱惑力：
+
+```python
+if is_divisible(6, 2) == True:
+    print('divisible')
+```
+
+但这个比较是不必要的。
+
+## 6.6 带返回值的递归
+
+既然我们能写带返回值的函数，我们就能写带返回值的递归函数。有了这个能力，我们就跨过了一个重要的门槛——我们现在拥有的 Python 子集是**图灵完备**的，这意味着我们可以执行任何能用算法描述的计算。
+
+为了演示带返回值的递归，我们将计算一些递归定义的数学函数。递归定义看起来像循环定义，因为定义引用了正在被定义的东西。一个真正的循环定义没什么用：
+
+> vorpal：用来描述某物是 vorpal 的形容词。
+
+如果你在字典里看到这个定义，你可能会不高兴。另一方面，如果你查找阶乘函数（用符号 \\(!\\) 表示）的定义，你可能会找到这样的内容：
+
+\\[\\begin{aligned} 0! &= 1 \\\\ n! &= n~(n-1)! \\end{aligned}\\]
+
+这个定义说，`0` 的阶乘是 `1`，而任何其他值 `n` 的阶乘是 `n` 乘以 `n-1` 的阶乘。
+
+如果你能写出某个东西的递归定义，你就能写出 Python 程序来计算它。按照增量开发的过程，我们从一个接收 `n` 作为参数、总是返回 `0` 的函数开始。
+
+```python
+def factorial(n):
+    return 0
+```
+
+现在加上定义的第一部分——如果实参恰好是 `0`，我们只需返回 `1`：
+
+```python
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return 0
+```
+
+现在补上第二部分——如果 `n` 不是 `0`，我们需要做一次递归调用来求 `n-1` 的阶乘，然后把结果乘以 `n`：
+
+```python
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        recurse = factorial(n-1)
+        return n * recurse
+```
+
+这个程序的执行流程与第 5 章中 `countdown` 的流程类似。如果我们用值 `3` 调用 `factorial`：
+
+因为 `3` 不是 `0`，我们走第二个分支，计算 `n-1` 的阶乘……
+
+> 因为 `2` 不是 `0`，我们走第二个分支，计算 `n-1` 的阶乘……
+>
+> > 因为 `1` 不是 `0`，我们走第二个分支，计算 `n-1` 的阶乘……
+> >
+> > > 因为 `0` 等于 `0`，我们走第一个分支，返回 `1`，不再做递归调用。
+> >
+> > 返回值 `1` 乘以 `n`（即 `1`），返回结果。
+>
+> 返回值 `1` 乘以 `n`（即 `2`），返回结果。
+
+返回值 `2` 乘以 `n`（即 `3`），结果 `6` 成为启动整个过程的函数调用的返回值。
+
+下面的图展示了这一系列函数调用的栈图。
+
+```python
+from diagram import Frame, Stack, make_binding
+
+main = Frame([], name='__main__', loc='left')
+frames = [main]
+
+ns = 3, 2, 1
+recurses = 2, 1, 1
+results = 6, 2, 1
+
+for n, recurse, result in zip(ns, recurses, results):
+    binding1 = make_binding('n', n)
+    binding2 = make_binding('recurse', recurse)
+    frame = Frame([binding1, binding2],
+                  name='factorial', value=result,
+                  loc='left', dx=1.2)
+    frames.append(frame)
+
+binding1 = make_binding('n', 0)
+frame = Frame([binding1], name='factorial', value=1,
+              shim=1.2, loc='left', dx=1.4)
+frames.append(frame)
+
+stack = Stack(frames, dy=-0.45)
+```
+
+返回值沿着栈向上传递回来。在每个帧中，返回值是 `n` 与 `recurse` 的乘积。
+
+在最后一个帧中，局部变量 `recurse` 不存在，因为创建它的那个分支没有执行。
+
+## 6.7 信念之跃
+
+跟踪执行流程是阅读程序的一种方式，但它很快就会让人不堪重负。另一种方式是我所说的“信念之跃”。当你遇到函数调用时，与其跟踪执行流程，不如*假设*该函数能正确工作并返回适当的结果。
+
+事实上，你在使用内置函数时已经在实践这种信念之跃了。当你调用 `abs` 或 `math.sqrt` 时，你不会去检查这些函数的函数体——你只是假设它们能工作。
+
+调用你自己的函数时也是如此。例如，我们之前写过一个名为 `is_divisible` 的函数，它判断一个数能否被另一个数整除。一旦我们确信这个函数是正确的，就可以使用它而不必再看函数体。
+
+递归程序也是如此。当你遇到递归调用时，与其跟踪执行流程，不如假设递归调用能正常工作，然后问自己：“假设我能计算 `n-1` 的阶乘，我能计算 `n` 的阶乘吗？”阶乘的递归定义暗示你可以，只要乘以 `n`。
+
+当然，在你还没写完函数时就假设它能正确工作有点奇怪，但这就是它被称为信念之跃的原因！
+
+## 6.8 斐波那契
+
+在 `factorial` 之后，递归函数最常见的例子是 `fibonacci`，其定义如下：
+
+\\[\\begin{aligned} \\mathrm{fibonacci}(0) &= 0 \\\\ \\mathrm{fibonacci}(1) &= 1 \\\\ \\mathrm{fibonacci}(n) &= \\mathrm{fibonacci}(n-1) + \\mathrm{fibonacci}(n-2) \\end{aligned}\\]
+
+翻译成 Python，看起来是这样：
+
+```python
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+```
+
+如果你试图在这里跟踪执行流程，即使 `n` 的值很小，你的脑袋也会爆炸。但根据信念之跃，如果你假设两次递归调用都能正确工作，你就可以相信最后一条 `return` 语句是正确的。
+
+顺便说一句，这种计算斐波那契数的方法非常低效。在[第 10 章](#section_memos)中我会解释原因，并建议一种改进方法。
+
+## 6.9 类型检查
+
+如果我们调用 `factorial` 并传入 `1.5` 作为实参，会发生什么？
+
+```python
+factorial(1.5)
+# RecursionError: maximum recursion depth exceeded
+```
+
+看起来像是无限递归。怎么会这样？函数有 `n == 1` 或 `n == 0` 的基例。但如果 `n` 不是整数，我们可能会*跳过*基例，永远递归下去。
+
+在这个例子中，`n` 的初始值是 `1.5`。第一次递归调用时，`n` 的值是 `0.5`。下一次是 `-0.5`。从那以后，它越来越小（越来越负），但永远不会是 `0`。
+
+为了避免无限递归，我们可以用内置函数 `isinstance` 检查实参的类型。我们这样检查一个值是否为整数。
+
+```python
+isinstance(3, int)
+# True
+isinstance(1.5, int)
+# False
+```
+
+现在这里是一个带错误检查的 `factorial` 版本。
+
+```python
+def factorial(n):
+    if not isinstance(n, int):
+        print('factorial is only defined for integers.')
+        return None
+    elif n < 0:
+        print('factorial is not defined for negative numbers.')
+        return None
+    elif n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+```
+
+它首先检查 `n` 是否为整数。如果不是，显示错误消息并返回 `None`。
+
+```python
+factorial('crunchy frog')
+# factorial is only defined for integers.
+```
+
+然后检查 `n` 是否为负数。如果是，显示错误消息并返回 `None`。
+
+```python
+factorial(-2)
+# factorial is not defined for negative numbers.
+```
+
+如果通过了这两项检查，我们就知道 `n` 是非负整数，所以可以确信递归会终止。检查函数的参数以确保它们有正确的类型和值，称为**输入验证**。
+
+## 6.10 调试
+
+把大程序拆分成较小的函数，会为调试创造自然的检查点。如果一个函数不工作，有三种可能要考虑：
+
+*   函数接收的实参有问题——即违反了前置条件。
+
+*   函数本身有问题——即违反了后置条件。
+
+*   调用者处理返回值的方式有问题。
+
+要排除第一种可能，你可以在函数开头添加一条 `print` 语句，显示参数的值（也许还有它们的类型）。或者你可以写显式检查前置条件的代码。
+
+如果参数看起来正确，你可以在每条 `return` 语句之前添加一条 `print` 语句，显示返回值。如果可能，用便于检查结果的实参调用函数。
+
+如果函数看起来正常，检查函数调用处，确保返回值被正确使用——或者确保它确实被使用了！
+
+在函数的开头和结尾添加 `print` 语句有助于让执行流程更可见。例如，下面是一个带 `print` 语句的 `factorial` 版本：
+
+```python
+def factorial(n):
+    space = ' ' * (4 * n)
+    print(space, 'factorial', n)
+    if n == 0:
+        print(space, 'returning 1')
+        return 1
+    else:
+        recurse = factorial(n-1)
+        result = n * recurse
+        print(space, 'returning', result)
+        return result
+```
+
+`space` 是一串空格字符，控制输出的缩进。这是 `factorial(3)` 的结果：
+
+```python
+factorial(3)
+#              factorial 3
+#          factorial 2
+#      factorial 1
+#  factorial 0
+#  returning 1
+#      returning 1
+#          returning 2
+#              returning 6
+```
+
+如果你对执行流程有疑问，这类输出会很有帮助。开发有效的脚手架需要时间，但一点点脚手架可以省下大量调试。
+
+## 6.11 词汇表
+
+**返回值：** 函数的结果。如果函数调用被用作表达式，返回值就是表达式的值。
+
+**纯函数：** 除了返回一个值之外，不显示任何东西、也没有任何其他效果的函数。
+
+**死代码：** 程序中永远不会执行的部分，通常因为它出现在 `return` 语句之后。
+
+**增量开发：** 一种程序开发计划，通过每次只添加和测试少量代码来避免调试。
+
+**脚手架：** 在程序开发期间使用、但不属于最终版本的代码。
+
+**图灵完备：** 如果一种语言（或语言的一个子集）能执行任何可用算法描述的计算，它就是图灵完备的。
+
+**输入验证：** 检查函数的参数，确保它们有正确的类型和值。
+
+## 6.12 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 6.12.1 问一个虚拟助手
+
+在本章中，我们看到了一个可能在没有返回值的情况下就结束的错误函数。
+
+```python
+def absolute_value_wrong(x):
+    if x < 0:
+        return -x
+    if x > 0:
+        return x
+```
+
+以及同一个函数的一个末尾有死代码的版本。
+
+```python
+def absolute_value_extra_return(x):
+    if x < 0:
+        return -x
+    else:
+        return x
+
+    return 'This is dead code.'
+```
+
+我们还看到了下面这个例子，它正确但不地道。
+
+```python
+def is_divisible(x, y):
+    if x % y == 0:
+        return True
+    else:
+        return False
+```
+
+问虚拟助手这些函数各有什么问题，看看它能否发现错误或改进风格。
+
+然后问：“写一个函数，接收两个点的坐标，计算它们之间的距离。”看看结果是否与我们本章写的 `distance` 版本相似。
+
+### 6.12.2 练习
+
+用增量开发写一个名为 `hypot` 的函数，给定直角三角形另外两条直角边的长度作为实参，返回斜边的长度。
+
+注意：math 模块中有一个也叫 `hypot` 的函数做同样的事，但本练习你不应该使用它！
+
+即使你能一次写对函数，也请从一个总是返回 `0` 的函数开始，练习做小的改动，边做边测试。完成后，函数应该只返回一个值——不应该显示任何东西。
+
+### 6.12.3 练习
+
+写一个布尔函数 `is_between(x, y, z)`，如果 \\(x < y < z\\) 或 \\(z < y < x\\)，返回 `True`；否则返回 `False`。
+
+你可以用这些例子测试你的函数。
+
+```python
+is_between(1, 2, 3)  # should be True
+is_between(3, 2, 1)  # should be True
+is_between(1, 3, 2)  # should be False
+is_between(2, 3, 1)  # should be False
+```
+
+### 6.12.4 练习
+
+阿克曼函数 \\(A(m, n)\\) 定义如下：
+
+\\[\\begin{aligned} A(m, n) = \\begin{cases} n+1 & \\mbox{if } m = 0 \\\\ A(m-1, 1) & \\mbox{if } m > 0 \\mbox{ and } n = 0 \\\\ A(m-1, A(m, n-1)) & \\mbox{if } m > 0 \\mbox{ and } n > 0. \\end{cases} \\end{aligned}\\]
+
+写一个名为 `ackermann` 的函数，计算阿克曼函数。如果你调用 `ackermann(5, 5)`，会发生什么？
+
+你可以用这些例子测试你的函数。
+
+```python
+ackermann(3, 2)  # should be 29
+ackermann(3, 3)  # should be 61
+ackermann(3, 4)  # should be 125
+```
+
+如果你用大于 4 的值调用这个函数，会得到 `RecursionError`。
+
+```python
+ackermann(5, 5)
+# RecursionError: maximum recursion depth exceeded
+```
+
+要了解原因，在函数开头加一条 `print` 语句显示参数值，然后重新运行这些例子。
+
+### 6.12.5 练习
+
+如果一个数 \\(a\\) 能被 \\(b\\) 整除，且 \\(a/b\\) 是 \\(b\\) 的幂，那么 \\(a\\) 是 \\(b\\) 的幂。写一个名为 `is_power` 的函数，接收参数 `a` 和 `b`，如果 `a` 是 `b` 的幂，返回 `True`。注意：你需要考虑基例。
+
+你可以用这些例子测试你的函数。
+
+```python
+is_power(65536, 2)   # should be True
+is_power(27, 3)      # should be True
+is_power(24, 2)      # should be False
+is_power(1, 17)      # should be True
+```
+
+### 6.12.6 练习
+
+\\(a\\) 和 \\(b\\) 的最大公约数（MCD）是能同时整除两者且没有余数的最大数。
+
+求两个数的最大公约数的一种方法基于如下观察：如果 \\(r\\) 是 \\(a\\) 除以 \\(b\\) 的余数，那么 \\(gcd(a, b) = gcd(b, r)\\)。作为基例，我们可以使用 \\(gcd(a, 0) = a\\)。
+
+写一个名为 `gcd` 的函数，接收参数 `a` 和 `b`，返回它们的最大公约数。
+
+你可以用这些例子测试你的函数。
+
+```python
+gcd(12, 8)    # should be 4
+gcd(13, 17)   # should be 1
+```
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

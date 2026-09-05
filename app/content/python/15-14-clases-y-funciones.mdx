@@ -1,0 +1,671 @@
+---
+type: 'Post'
+date: '2026-08-21 10:00:00'
+title: '第 14 章 · 类与函数'
+tags: [python]
+description: '面向对象编程入门：类与函数。'
+slug: clases-y-funciones
+order: 15
+section: null
+source: "https://libropython.es/chap14.html"
+lang: zh
+---
+
+# 第 14 章 · 类与函数
+
+> 本文译自 [libropython.es](https://libropython.es/chap14.html)。原文为西班牙语，翻译仅供学习使用。
+
+到这里，你已经知道如何用函数组织代码、用内置类型组织数据。下一步是**面向对象编程**，它使用程序员定义的类型来同时组织代码和数据。
+
+面向对象编程是个大话题，所以我们会逐步推进。在本章中，我们先从非惯用的代码开始——也就是说，不是有经验的程序员写的那种代码——但它是个好的起点。在接下来的两章中，我们会用更多特性写出更惯用的代码。
+
+## 14.1 程序员定义的类型
+
+我们已经用过很多 Python 内置类型——现在定义一个新类型。作为第一个例子，我们创建一个名为 `Time` 的类型，表示一天中的某个时刻。程序员定义的类型也叫**类（clase）**。类定义长这样：
+
+```python
+class Time:
+    """Represents a time of day."""
+```
+
+头部表明新类叫 `Time`。函数体是一个文档字符串，解释这个类的用途。定义类会创建一个**类对象**。
+
+类对象像创建对象的工厂。要创建 `Time` 对象，你像调用函数一样调用 `Time`。
+
+```python
+lunch = Time()
+```
+
+结果是一个新对象，其类型是 `__main__.Time`，其中 `__main__` 是定义 `Time` 的模块名。
+
+```python
+type(lunch)
+# __main__.Time
+```
+
+当你打印对象时，Python 告诉你它是什么类型、存储在内存的哪里（前缀 `0x` 表示后面的数字是十六进制）。
+
+```python
+print(lunch)
+# <__main__.Time object at 0x...>
+```
+
+创建新对象称为**实例化（instanciación）**，该对象是类的**实例（instancia）**。
+
+## 14.2 属性
+
+对象可以包含变量，称为**属性（atributo）**。我们可以用点号表示法创建属性。
+
+```python
+lunch.hour = 11
+lunch.minute = 59
+lunch.second = 1
+```
+
+这个例子创建了名为 `hour`、`minute` 和 `second` 的属性，包含时刻 `11:59:01` 的时、分、秒——就我而言，这是吃午饭的时间。
+
+下面的图展示了这些赋值之后 `lunch` 及其属性的状态。
+
+```python
+from diagram import make_frame, make_binding
+
+d1 = dict(hour=11, minute=59, second=1)
+frame = make_frame(d1, name='Time', dy=-0.3, offsetx=0.48)
+binding = make_binding('lunch', frame)
+```
+
+变量 `lunch` 指向一个 `Time` 对象，它包含三个属性。每个属性指向一个整数。像这样展示对象及其属性的状态图称为**对象图（diagrama de objeto）**。
+
+你可以用点运算符读取属性的值。
+
+```python
+lunch.hour
+# 11
+```
+
+你可以把属性用作任何表达式的一部分。
+
+```python
+total_minutes = lunch.hour * 60 + lunch.minute
+total_minutes
+# 719
+```
+
+你可以在 f 字符串的表达式中使用点运算符。
+
+```python
+f'{lunch.hour}:{lunch.minute}:{lunch.second}'
+# '11:59:1'
+```
+
+但注意，上面的例子不是标准格式。要修正它，我们必须用前导零打印 `minute` 和 `second` 属性。我们可以通过给花括号中的表达式加上**格式说明符（especificador de formato）**来实现。在下面的例子中，格式说明符表示 `minute` 和 `second` 应该至少显示两位数字，必要时补前导零。
+
+```python
+f'{lunch.hour}:{lunch.minute:02d}:{lunch.second:02d}'
+# '11:59:01'
+```
+
+我们将用这个 f 字符串写一个显示 `Time` 对象值的函数。你可以按常规方式把对象作为实参传入。例如，下面的函数接收一个 `Time` 对象作为实参。
+
+```python
+def print_time(time):
+    s = f'{time.hour:02d}:{time.minute:02d}:{time.second:02d}'
+    print(s)
+```
+
+调用它时，我们可以把 `lunch` 作为实参传入。
+
+```python
+print_time(lunch)
+# 11:59:01
+```
+
+## 14.3 对象作为返回值
+
+函数可以返回对象。例如，`make_time` 接收名为 `hour`、`minute` 和 `second` 的参数，把它们作为属性存储在 `Time` 对象中，并返回新对象。
+
+```python
+def make_time(hour, minute, second):
+    time = Time()
+    time.hour = hour
+    time.minute = minute
+    time.second = second
+    return time
+```
+
+参数名与属性名相同可能让人惊讶，但这是写这类函数的惯用方式。我们这样用 `make_time` 创建 `Time` 对象。
+
+```python
+time = make_time(11, 59, 1)
+print_time(time)
+# 11:59:01
+```
+
+## 14.4 对象是可变的
+
+假设你去看电影，比如《巨蟒与圣杯》，它晚上 `9:20` 开始，片长 `92` 分钟，即 1 小时 `32` 分钟。电影什么时候结束？
+
+首先，我们创建一个表示开始时刻的 `Time` 对象。
+
+```python
+start = make_time(9, 20, 0)
+print_time(start)
+# 09:20:00
+```
+
+要找到结束时刻，我们可以修改 `Time` 对象的属性，加上片长。
+
+```python
+start.hour += 1
+start.minute += 32
+print_time(start)
+# 10:52:00
+```
+
+电影会在晚上 10:52 结束。
+
+我们把这个计算封装成函数，并泛化它，让它接收片长作为三个参数：`hours`、`minutes` 和 `seconds`。
+
+```python
+def increment_time(time, hours, minutes, seconds):
+    time.hour += hours
+    time.minute += minutes
+    time.second += seconds
+```
+
+下面是一个演示效果的例子。
+
+```python
+start = make_time(9, 20, 0)
+increment_time(start, 1, 32, 0)
+print_time(start)
+# 10:52:00
+```
+
+下面的栈图展示了 `increment_time` 修改对象之前程序的状态。
+
+```python
+from diagram import Frame, Binding, Value, Stack
+
+d1 = dict(hour=9, minute=20, second=0)
+obj1 = make_frame(d1, name='Time', dy=-0.25, offsetx=0.78)
+
+binding1 = make_binding('start', frame, draw_value=False, dx=0.7)
+frame1 = Frame([binding1], name='__main__', loc='left', offsetx=-0.2)
+
+binding2 = Binding(Value('time'), draw_value=False, dx=0.7, dy=0.35)
+binding3 = make_binding('hours', 1)
+binding4 = make_binding('minutes', 32)
+binding5 = make_binding('seconds', 0)
+frame2 = Frame([binding2, binding3, binding4, binding5], name='increment_time',
+               loc='left', dy=-0.25, offsetx=0.08)
+
+stack = Stack([frame1, frame2], dx=-0.3, dy=-0.5)
+```
+
+在函数内部，`time` 是 `start` 的别名，所以当修改 `time` 时，也改变了 `start`。
+
+这个函数能用，但执行之后，我们只剩下一个指向表示*结束*时刻对象的变量 `start`，而不再有表示开始时刻的对象。更好的做法是让 `start` 保持不变，创建一个表示结束时刻的新对象。我们可以通过复制 `start` 并修改副本来实现。
+
+## 14.5 复制
+
+`copy` 模块提供了一个名为 `copy` 的函数，可以复制任何对象。我们可以这样导入它。
+
+```python
+from copy import copy
+```
+
+要看看它如何工作，我们先创建一个表示电影开始时刻的新 `Time` 对象。
+
+```python
+start = make_time(9, 20, 0)
+```
+
+然后做一个副本。
+
+```python
+end = copy(start)
+```
+
+现在 `start` 和 `end` 包含相同的数据。
+
+```python
+print_time(start)
+print_time(end)
+```
+
+但 `is` 运算符确认它们不是同一个对象。
+
+```python
+start is end
+# False
+```
+
+看看 `==` 运算符做什么。
+
+```python
+start == end
+# False
+```
+
+你可能期望 `==` 得到 `True`，因为对象包含相同数据。但对于程序员定义的类，`==` 运算符的默认行为与 `is` 运算符相同——它检查同一性，而不是等价性。
+
+## 14.6 纯函数
+
+我们可以用 `copy` 写不修改其参数的纯函数。例如，下面是一个接收 `Time` 对象和以时、分、秒表示的时长的函数。它复制原对象，用 `increment_time` 修改副本，并返回副本。
+
+```python
+def add_time(time, hours, minutes, seconds):
+    total = copy(time)
+    increment_time(total, hours, minutes, seconds)
+    return total
+```
+
+我们这样使用它。
+
+```python
+end = add_time(start, 1, 32, 0)
+print_time(end)
+```
+
+返回值是一个表示电影结束时刻的新对象。我们可以确认 `start` 没变。
+
+```python
+print_time(start)
+```
+
+`add_time` 是**纯函数**，因为它不修改任何作为实参传入的对象，它唯一的效果是返回值。
+
+任何用非纯函数能做的事，也能用纯函数做。事实上，有些编程语言只允许纯函数。使用纯函数的程序可能更不容易出错，但非纯函数有时更方便，也可能更高效。
+
+一般来说，我建议你在合理的情况下尽量写纯函数，只有在有充分优势时才使用非纯函数。这种方法可以称为**函数式编程风格**。
+
+## 14.7 先原型后修补
+
+在上面的例子中，`increment_time` 和 `add_time` 看起来能用，但如果我们试另一个例子，会发现它们并不完全正确。
+
+假设你到电影院，发现电影 `9:40` 开始，而不是 `9:20`。当我们计算更新后的结束时刻时，会发生以下情况。
+
+```python
+start = make_time(9, 40, 0)
+end = add_time(start, 1, 32, 0)
+print_time(end)
+# 10:72:00
+```
+
+结果不是一个有效时刻。问题在于 `increment_time` 没有处理秒数或分钟数加起来超过 `60` 的情况。
+
+下面是一个改进版本，检查 `second` 是否超过或等于 `60`——如果是，递增 `minute`——然后检查 `minute` 是否超过或等于 `60`——如果是，递增 `hour`。
+
+```python
+def increment_time(time, hours, minutes, seconds):
+    time.hour += hours
+    time.minute += minutes
+    time.second += seconds
+
+    if time.second >= 60:
+        time.second -= 60
+        time.minute += 1
+
+    if time.minute >= 60:
+        time.minute -= 60
+        time.hour += 1
+```
+
+修复 `increment_time` 也就修复了使用它的 `add_time`。所以现在上面的例子能正确工作了。
+
+```python
+end = add_time(start, 1, 32, 0)
+print_time(end)
+# 11:12:00
+```
+
+但这个函数仍然不正确，因为实参可能大于 `60`。例如，假设我们收到的时长是 `92` 分钟，而不是 1 小时 `32` 分钟。我们可能这样调用 `add_time`。
+
+```python
+end = add_time(start, 0, 92, 0)
+print_time(end)
+# 09:132:00
+```
+
+结果不是有效时刻。所以我们试另一种方法，用 `divmod` 函数。我们复制 `start`，通过递增 `minute` 属性来修改它。
+
+```python
+end = copy(start)
+end.minute = start.minute + 92
+end.minute
+# 132
+```
+
+现在 `minute` 是 `132`，即 `2` 小时 `12` 分钟。我们可以用 `divmod` 除以 `60`，返回完整小时数和剩余分钟数。
+
+```python
+carry, end.minute = divmod(end.minute, 60)
+carry, end.minute
+# (2, 12)
+```
+
+现在 `minute` 正确了，我们可以把小时加到 `hour`。
+
+```python
+end.hour += carry
+print_time(end)
+# 11:12:00
+```
+
+结果是一个有效时刻。我们可以对 `hour` 和 `second` 做同样的事，并把整个过程封装成函数。
+
+```python
+def increment_time(time, hours, minutes, seconds):
+    time.hour += hours
+    time.minute += minutes
+    time.second += seconds
+
+    carry, time.second = divmod(time.second, 60)
+    carry, time.minute = divmod(time.minute + carry, 60)
+    carry, time.hour = divmod(time.hour + carry, 24)
+```
+
+用这个版本的 `increment_time`，`add_time` 就能正确工作，即使实参超过 `60`。
+
+```python
+end = add_time(start, 0, 90, 120)
+print_time(end)
+# 11:12:00
+```
+
+这一节展示了一种我称为**先原型后修补（prototype and patch）**的程序开发计划。我们从一个对第一个例子正确工作的简单原型开始。然后用更难的例子测试它——当发现错误时，修改程序来修复，就像给漏气轮胎打补丁。
+
+这种方法可能有效，尤其是当你对问题还没有深入理解时。但增量修复可能产生不必要地复杂的代码——因为它处理很多特殊情况——以及不可靠的代码——因为很难知道你是否找到了所有错误。
+
+## 14.8 先设计后开发
+
+另一种计划是**先设计后开发（design-first development）**，它涉及在原型之前做更多规划。在先设计的过程中，有时对问题的高层想法会让编程简单得多。
+
+在这个例子中，想法是我们可以把 `Time` 对象看作一个三位数的 60 进制数——也叫六十进制。`second` 属性是“个位列”，`minute` 属性是“六十列”，`hour` 属性是“三千六百列”。当我们写 `increment_time` 时，实际上是在做 60 进制加法，所以我们必须从一列进位到下一列。
+
+这个观察为整个问题提示了另一种方法——我们可以把 `Time` 对象转换成整数，利用 Python 会做整数算术这一点。
+
+下面是一个把 `Time` 转换成整数的函数。
+
+```python
+def time_to_int(time):
+    minutes = time.hour * 60 + time.minute
+    seconds = minutes * 60 + time.second
+    return seconds
+```
+
+结果是从一天开始以来的秒数。例如，`01:01:01` 是从一天开始 1 小时、1 分钟和 1 秒，即 `3600` 秒、`60` 秒和 `1` 秒的和。
+
+```python
+time = make_time(1, 1, 1)
+print_time(time)
+time_to_int(time)
+# 3661
+```
+
+而这里是一个反方向的函数——用 `divmod` 函数把整数转换成 `Time` 对象。
+
+```python
+def int_to_time(seconds):
+    minute, second = divmod(seconds, 60)
+    hour, minute = divmod(minute, 60)
+    return make_time(hour, minute, second)
+```
+
+我们可以通过把上面的例子转换回 `Time` 来测试它。
+
+```python
+time = int_to_time(3661)
+print_time(time)
+# 01:01:01
+```
+
+用这些函数，我们可以写一个更简洁的 `add_time` 版本。
+
+```python
+def add_time(time, hours, minutes, seconds):
+    duration = make_time(hours, minutes, seconds)
+    seconds = time_to_int(time) + time_to_int(duration)
+    return int_to_time(seconds)
+```
+
+第一行把实参转换成名为 `duration` 的 `Time` 对象。第二行把 `time` 和 `duration` 转换成秒并相加。第三行把和转换成 `Time` 对象并返回。
+
+它的工作方式如下。
+
+```python
+start = make_time(9, 40, 0)
+end = add_time(start, 1, 32, 0)
+print_time(end)
+# 11:12:00
+```
+
+从某种意义上说，从 60 进制转换到 10 进制再转换回来，比直接处理时刻更难。进制转换更抽象；我们处理时间值的直觉更好。
+
+但如果我们有把时刻当作 60 进制数字的想法——并投入精力写 `time_to_int` 和 `int_to_time` 转换函数——我们会得到一个更短、更易读易调试、也更可靠的程序。
+
+以后也更容易添加特性。例如，想象两个 `Time` 对象相减以求出它们之间的时长。朴素的方法是实现带借位的减法。使用转换函数更容易，也更可能正确。
+
+讽刺的是，有时让问题更难——或更一般——反而让它更简单，因为特殊情况更少，出错的机会也更少。
+
+## 14.9 调试
+
+Python 提供几个内置函数，对测试和调试处理对象的程序很有用。例如，如果你不确定对象是什么类型，可以问它。
+
+```python
+type(start)
+# __main__.Time
+```
+
+你也可以用 `isinstance` 检查对象是否是某个具体类的实例。
+
+```python
+isinstance(end, Time)
+# True
+```
+
+如果你不确定对象是否有某个具体属性，可以用内置函数 `hasattr`。
+
+```python
+hasattr(start, 'hour')
+# True
+```
+
+要在一个字典中获取所有属性及其值，你可以用 `vars`。
+
+```python
+vars(start)
+# {'hour': 9, 'minute': 40, 'second': 0}
+```
+
+我们在[第 11 章](#section_depuraci%C3%B3n_11)看到的 `structshape` 模块也适用于程序员定义的类型。
+
+```python
+download('https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/structshape.py')
+
+from structshape import structshape
+
+t = start, end
+structshape(t)
+```
+
+## 14.10 词汇表
+
+**面向对象编程：** 使用对象组织代码和数据的编程风格。
+
+**类：** 程序员定义的类型。类定义创建新的类对象。
+
+**类对象：** 表示类的对象——是类定义的结果。
+
+**实例化：** 创建属于某个类的对象的过程。
+
+**实例：** 属于某个类的对象。
+
+**属性：** 与对象关联的变量，也叫实例变量。
+
+**对象图：** 对象、其属性及其值的图形化表示。
+
+**格式说明符：** 在 f 字符串中，格式说明符决定值如何转换成字符串。
+
+**纯函数：** 不修改其参数、除返回值外没有其他效果的函数。
+
+**函数式编程风格：** 尽可能使用纯函数的编程方式。
+
+**先原型后修补：** 从粗略草稿开始，逐步添加特性并修复 bug 的程序开发方式。
+
+**先设计后开发：** 比“先原型后修补”更仔细规划的程序开发方式。
+
+## 14.11 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 14.11.1 问一个虚拟助手
+
+本章有很多新词汇。与虚拟助手对话可以帮助你巩固理解。考虑问：
+
+*   “类和类型有什么区别？”
+
+*   “对象和实例有什么区别？”
+
+*   “变量和属性有什么区别？”
+
+*   “与非纯函数相比，纯函数有哪些优缺点？”
+
+因为我们刚刚开始面向对象编程，本章的代码不是惯用的——不是有经验的程序员写的那种代码。如果你向虚拟助手求助练习，很可能会看到我们还没覆盖的特性。特别是，你很可能看到名为 `__init__` 的方法被用来初始化实例的属性。
+
+如果这些特性对你有意义，就用它们。如果没有，请耐心——我们很快就会讲到。与此同时，看看你能不能只用我们目前覆盖的特性解决下面的练习。
+
+此外，在本章中我们看到了一个格式说明符的例子。想了解更多，问“Python f 字符串中可以使用哪些格式说明符？”
+
+### 14.11.2 练习
+
+写一个名为 `subtract_time` 的函数，接收两个 `Time` 对象，返回它们之间的间隔秒数——假设它们是同一天的两个时刻。
+
+下面是一个函数框架，供你开始。
+
+```python
+def subtract_time(t1, t2):
+    """Compute the difference between two times in seconds.
+
+    >>> subtract_time(make_time(3, 2, 1), make_time(3, 2, 0))
+    1
+    >>> subtract_time(make_time(3, 2, 1), make_time(3, 0, 0))
+    121
+    >>> subtract_time(make_time(11, 12, 0), make_time(9, 40, 0))
+    5520
+    """
+    return None
+```
+
+你可以用 `doctest` 测试你的函数。
+
+```python
+from doctest import run_docstring_examples
+
+def run_doctests(func):
+    run_docstring_examples(func, globals(), name=func.__name__)
+
+run_doctests(subtract_time)
+```
+
+### 14.11.3 练习
+
+写一个名为 `is_after` 的函数，接收两个 `Time` 对象，如果第一个时刻在一天中晚于第二个，返回 `True`，否则返回 `False`。
+
+下面是一个函数框架，供你开始。
+
+```python
+def is_after(t1, t2):
+    """Checks whether `t1` is after `t2`.
+
+    >>> is_after(make_time(3, 2, 1), make_time(3, 2, 0))
+    True
+    >>> is_after(make_time(3, 2, 1), make_time(3, 2, 1))
+    False
+    >>> is_after(make_time(11, 12, 0), make_time(9, 40, 0))
+    True
+    """
+    return None
+```
+
+你可以用 `doctest` 测试你的函数。
+
+```python
+run_doctests(is_after)
+```
+
+### 14.11.4 练习
+
+下面是一个 `Date` 类的定义，它表示一个日期——即年、月、日。
+
+```python
+class Date:
+    """Represents a year, month, and day"""
+```
+
+1.  写一个名为 `make_date` 的函数，接收 `year`、`month` 和 `day` 作为参数，创建 `Date` 对象，把参数赋给属性，并返回新对象。创建一个表示 1933 年 6 月 22 日的对象。
+
+2.  写一个名为 `print_date` 的函数，接收 `Date` 对象，用 f 字符串格式化属性并打印结果。如果你用你创建的 `Date` 测试它，结果应该是 `1933-06-22`。
+
+3.  写一个名为 `is_after` 的函数，接收两个 `Date` 对象作为参数，如果第一个在第二个之后，返回 `True`。创建第二个表示 1933 年 9 月 17 日的对象，检查它是否在第一个对象之后。
+
+提示：你可能会发现写一个名为 `date_to_tuple` 的函数很有用，它接收 `Date` 对象并返回包含其属性的元组，顺序为年、月、日。
+
+你可以用这个函数框架开始。
+
+```python
+def make_date(year, month, day):
+    return None
+```
+
+你可以用这些例子测试 `make_date`。
+
+```python
+birthday1 = make_date(1933, 6, 22)
+birthday2 = make_date(1933, 9, 17)
+```
+
+你可以用这个函数框架开始。
+
+```python
+def print_date(date):
+    print('')
+```
+
+你可以用这个例子测试 `print_date`。
+
+```python
+print_date(birthday1)
+```
+
+你可以用这个函数框架开始。
+
+```python
+def is_after(date1, date2):
+    return None
+```
+
+你可以用这些例子测试 `is_after`。
+
+```python
+is_after(birthday1, birthday2)  # should be False
+is_after(birthday2, birthday1)  # should be True
+```
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

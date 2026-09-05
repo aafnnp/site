@@ -1,0 +1,757 @@
+---
+type: 'Post'
+date: '2026-08-22 10:00:00'
+title: '第 13 章 · 文件与数据库'
+tags: [python]
+description: '文件读写、数据持久化与数据库基础。'
+slug: archivos-y-bases-de-datos
+order: 14
+section: null
+source: "https://libropython.es/chap13.html"
+lang: zh
+---
+
+# 第 13 章 · 文件与数据库
+
+> 本文译自 [libropython.es](https://libropython.es/chap13.html)。原文为西班牙语，翻译仅供学习使用。
+
+> 图片来源：图片从 [Lorem Picsum](https://picsum.photos/) 下载，这是一个提供占位图片的服务。这个名字来自“lorem ipsum”，即占位文本的名称。
+
+到目前为止我们看到的大多数程序都是**短暂的（efímero）**，意思是它们运行一小段时间并产生输出，但当它们结束时，数据就消失了。每次运行短暂程序时，它都从零开始。
+
+其他程序是**持久的（persistente）**：它们长时间（或一直）运行；把至少一部分数据保存在长期存储中；如果被关闭并重启，会从上次停下的地方继续。
+
+程序保存数据的一种简单方式是读写文本文件。一种更灵活的替代方案是把数据存储在数据库中。数据库是专门的、可以比文本文件更高效地读写的文件，并提供额外能力。
+
+在本章中，我们将编写读写文本文件和数据库的程序，作为练习，你将编写一个在一组照片中查找重复文件的程序。但在操作文件之前，你必须先找到它，所以我们从文件名、路径和目录开始。
+
+## 13.1 文件名与路径
+
+文件组织在**目录（directorio）**中，也叫“文件夹”。每个运行中的程序都有一个**当前工作目录**，即大多数操作的默认目录。例如，当你打开文件时，Python 在当前工作目录中查找它。
+
+`os` 模块提供处理文件和目录的函数（“os”意为“operating system”，操作系统）。它提供一个名为 `getcwd` 的函数，获取当前工作目录的名字。
+
+```python
+# this cell replaces `os.cwd` with a function that returns a fake path
+
+import os
+
+def getcwd():
+    return "/home/dinsdale"
+
+os.getcwd = getcwd
+
+import os
+
+os.getcwd()
+# '/home/dinsdale'
+```
+
+这个例子中的结果是一个名为 `dinsdale` 的用户的个人目录。像 `'/home/dinsdale'` 这样标识文件或目录的字符串称为**路径（ruta）**。
+
+一个简单的文件名如 `'memo.txt'` 也被视为路径，但它是**相对路径**，因为它指定的是相对于当前目录的文件名。在这个例子中，当前目录是 `/home/dinsdale`，所以 `'memo.txt'` 等价于完整路径 `'/home/dinsdale/memo.txt'`。
+
+以 `/` 开头的路径不依赖于当前目录——它被称为**绝对路径**。要找到文件的绝对路径，你可以用 `abspath`。
+
+```python
+os.path.abspath('memo.txt')
+# '/home/dinsdale/memo.txt'
+```
+
+`os` 模块提供其他处理文件名和路径的函数。`listdir` 返回一个列表，包含指定目录的内容，包括文件和其他目录。下面是一个列出名为 `photos` 目录内容的例子。
+
+```python
+os.listdir('photos')
+# ['notes.txt', 'jan-2023', 'feb-2023', 'mar-2023']
+```
+
+这个目录包含一个名为 `notes.txt` 的文本文件和三个目录。这些目录包含 JPEG 格式的图像文件。
+
+```python
+os.listdir('photos/jan-2023')
+```
+
+要检查文件或目录是否存在，我们可以用 `os.path.exists`。
+
+```python
+os.path.exists('photos')
+# True
+os.path.exists('photos/apr-2023')
+# False
+```
+
+要检查路径是指文件还是目录，我们可以用 `isdir`，如果路径指向目录，它返回 `True`。
+
+```python
+os.path.isdir('photos')
+# True
+```
+
+以及 `isfile`，如果路径指向文件，它返回 `True`。
+
+```python
+os.path.isfile('photos/notes.txt')
+# True
+```
+
+处理路径的一个挑战是它们在不同操作系统上看起来不同。在 macOS 和 UNIX 系统（如 Linux）上，路径中的目录名和文件名用正斜杠 `/` 分隔。Windows 用反斜杠 `\`。所以，如果你在 Windows 上运行这些例子，你会看到路径中的反斜杠，并且需要替换例子中的正斜杠。
+
+或者，要写在这两个系统上都能工作的代码，你可以用 `os.path.join`，它根据你使用的操作系统，用正斜杠或反斜杠把目录名和文件名连接成路径。
+
+```python
+os.path.join('photos', 'jan-2023', 'photo1.jpg')
+# 'photos/jan-2023/photo1.jpg'
+```
+
+本章稍后，我们将用这些函数搜索一组目录并找到所有图像文件。
+
+## 13.2 f 字符串
+
+程序存储数据的一种方式是把它们写入文本文件。例如，假设你观察骆驼，想记录在一段观察期间看到的骆驼数量。再假设在一年半里你看到了 `23` 头骆驼。你的骆驼观察笔记本中的数据可能长这样。
+
+```python
+num_years = 1.5
+num_camels = 23
+```
+
+要把这些数据写入文件，你可以用第 8 章见过的 `write` 方法。`write` 的实参必须是字符串，所以如果我们想把其他值放进文件，必须把它们转换成字符串。最简单的方法是用内置函数 `str`。
+
+它看起来是这样：
+
+```python
+writer = open('camel-spotting-book.txt', 'w')
+writer.write(str(num_years))
+writer.write(str(num_camels))
+writer.close()
+```
+
+这样可行，但 `write` 不会添加空格或换行，除非你显式包含它们。如果我们重新读取文件，会看到两个数字粘在一起。
+
+```python
+open('camel-spotting-book.txt').read()
+# '1.523'
+```
+
+至少，我们应该在数字之间添加空白。顺便，再添加一些说明文字。
+
+要写字符串和其他值的组合，我们可以用 **f 字符串**，它是一个在开引号前有字母 `f` 的字符串，并在花括号之间包含一个或多个 Python 表达式。下面的 f 字符串包含一个表达式，即变量名。
+
+```python
+f'I have spotted {num_camels} camels'
+# 'I have spotted 23 camels'
+```
+
+结果是一个字符串，其中表达式已被求值并替换为结果。可以有多个表达式。
+
+```python
+f'In {num_years} years I have spotted {num_camels} camels'
+# 'In 1.5 years I have spotted 23 camels'
+```
+
+而且表达式可以包含运算符和函数调用。
+
+```python
+line = f'In {round(num_years * 12)} months I have spotted {num_camels} camels'
+line
+# 'In 18 months I have spotted 23 camels'
+```
+
+所以我们可以这样把数据写入文本文件。
+
+```python
+writer = open('camel-spotting-book.txt', 'w')
+writer.write(f'Years of observation: {num_years}\n')
+writer.write(f'Camels spotted: {num_camels}\n')
+writer.close()
+```
+
+两个 f 字符串都以 `\n` 序列结尾，它添加换行符。
+
+我们可以这样重新读取文件：
+
+```python
+data = open('camel-spotting-book.txt').read()
+print(data)
+```
+
+在 f 字符串中，花括号之间的表达式被转换成字符串，所以你可以包含列表、字典和其他类型。
+
+```python
+t = [1, 2, 3]
+d = {'one': 1}
+f'Here is a list {t} and a dictionary {d}'
+# "Here is a list [1, 2, 3] and a dictionary {'one': 1}"
+```
+
+如果 f 字符串包含无效表达式，结果是错误。
+
+```python
+f'This is not a valid expression {t + 2}'
+# TypeError
+```
+
+## 13.3 YAML
+
+程序读写文件的原因之一是存储**配置数据**，即指定程序应该做什么以及如何做的信息。
+
+例如，在查找重复照片的程序中，我们可以有一个名为 `config` 的字典，包含要搜索的目录名、存储结果的另一个目录名，以及用于识别图像文件的文件扩展名列表。
+
+它可能长这样：
+
+```python
+config = {
+    'photo_dir': 'photos',
+    'data_dir': 'photo_info',
+    'extensions': ['jpg', 'jpeg'],
+}
+```
+
+要把这些数据写入文本文件，我们可以像上一节那样用 f 字符串。但用名为 `yaml` 的模块更容易，它正是为这类事情设计的。
+
+`yaml` 模块提供处理 YAML 文件的函数，YAML 是一种文本文件格式，旨在让人*和*程序都容易读写。
+
+下面是一个用 `dump` 函数把 `config` 字典写入 YAML 文件的例子。
+
+```python
+# this cell installs the pyyaml package, which provides the yaml module
+
+try:
+    import yaml
+except ImportError:
+    !pip install pyyaml
+
+import yaml
+
+config_filename = 'config.yaml'
+writer = open(config_filename, 'w')
+yaml.dump(config, writer)
+writer.close()
+```
+
+如果我们重新读取文件内容，可以看到 YAML 格式的样子。
+
+```python
+readback = open(config_filename).read()
+print(readback)
+```
+
+现在我们可以用 `safe_load` 重新读取 YAML 文件。
+
+```python
+reader = open(config_filename)
+config_readback = yaml.safe_load(reader)
+config_readback
+```
+
+结果是一个包含与原始信息相同的新字典，但不是同一个字典。
+
+```python
+config is config_readback
+# False
+```
+
+把字典这样的对象转换成字符串称为**序列化**。把字符串转换回对象称为**反序列化**。如果你先序列化再反序列化一个对象，结果应该与原始等价。
+
+## 13.4 Shelve
+
+到目前为止我们一直在读写文本文件——现在考虑数据库。**数据库**是为存储数据而组织的文件。有些数据库组织成包含行和列信息的表。另一些组织成把键映射到值的字典；有时被称为**键值存储**。
+
+`shelve` 模块提供创建和更新名为“shelf”的键值存储的函数。作为例子，我们创建一个 shelf 来保存 `photos` 目录中图片的标题。我们用 `config` 字典获取应该放置 shelf 的目录名。
+
+```python
+config['data_dir']
+# 'photo_info'
+```
+
+我们可以用 `os.makedirs` 创建这个目录（如果它还不存在）。
+
+```python
+os.makedirs(config['data_dir'], exist_ok=True)
+```
+
+以及用 `os.path.join` 创建一个包含目录名和 shelf 文件名 `captions` 的路径。
+
+```python
+db_file = os.path.join(config['data_dir'], 'captions')
+db_file
+# 'photo_info/captions'
+```
+
+现在我们可以用 `shelve.open` 打开 shelf 文件。实参 `c` 表示如果需要应该创建该文件。
+
+```python
+import shelve
+
+db = shelve.open(db_file, 'c')
+db
+```
+
+如果你得到 `db type could not be determined` 这样的错误，最可能的原因是已经存在同名文件，但它不是有效的 shelve 数据库（例如，它可能损坏，或由其他东西创建）。
+
+在这种情况下，最简单的解决方案是删除现有文件并重新运行代码，让 `shelve.open` 创建新数据库。
+
+返回值正式来说是一个 `DbfilenameShelf` 对象，更随意地称为 shelf 对象。
+
+shelf 对象在很多方面表现得像字典。例如，我们可以用方括号运算符添加一个元素，它是键到值的映射。
+
+```python
+key = 'jan-2023/photo1.jpg'
+db[key] = 'Cat nose'
+```
+
+在这个例子中，键是图像文件的路径，值是描述图像的字符串。
+
+我们也用方括号运算符查找键并获取对应的值。
+
+```python
+value = db[key]
+value
+# 'Cat nose'
+```
+
+如果你对现有键再次赋值，`shelve` 会替换旧值。
+
+```python
+db[key] = 'Close up view of a cat nose'
+db[key]
+# 'Close up view of a cat nose'
+```
+
+一些字典方法，如 `keys`、`values` 和 `items`，也适用于 shelf 对象。
+
+```python
+list(db.keys())
+list(db.values())
+```
+
+我们可以用 `in` 运算符检查键是否出现在 shelf 中。
+
+```python
+key in db
+# True
+```
+
+我们可以用 `for` 语句迭代键。
+
+```python
+for key in db:
+    print(key, ':', db[key])
+```
+
+和其他文件一样，完成后你应该关闭数据库。
+
+```python
+db.close()
+```
+
+现在，如果我们列出数据目录的内容，会看到两个文件。
+
+```python
+# 当你打开 shelve 文件时，会创建一个后缀为 `.bak` 的备份文件。
+# 如果你多次运行这个 notebook，可能会看到那个文件被留下。
+# 这个单元格移除它，使书中显示的输出正确。
+
+!rm -f photo_info/captions.bak
+
+os.listdir(config['data_dir'])
+```
+
+`captions.dat` 包含我们刚存储的数据。`captions.dir` 包含关于数据库组织的信息，使访问更高效。后缀 `dir` 意为“directory”，但它与我们一直在处理的、包含文件的目录无关。
+
+## 13.5 存储数据结构
+
+在上面的例子中，shelf 的键和值都是字符串。但我们也可以用 shelf 保存列表和字典这样的数据结构。
+
+作为例子，回到[第 11 章](#section_exercise_11)一个练习中的变位词例子。回忆一下，我们做了一个字典，把排序后的字母字符串映射到可以由这些字母组成的单词列表。例如，键 `'opst'` 映射到列表 `['opts', 'post', 'pots', 'spot', 'stop', 'tops']`。
+
+我们用下面的函数对单词的字母排序。
+
+```python
+def sort_word(word):
+    return ''.join(sorted(word))
+```
+
+下面是一个例子。
+
+```python
+word = 'pots'
+key = sort_word(word)
+key
+# 'opst'
+```
+
+现在打开一个名为 `anagram_map` 的 shelf。实参 `'n'` 表示我们应该总是创建一个新的空 shelf，即使已经存在一个。
+
+```python
+db = shelve.open('anagram_map', 'n')
+```
+
+现在我们可以这样向 shelf 添加元素。
+
+```python
+db[key] = [word]
+db[key]
+# ['pots']
+```
+
+在这个元素中，键是字符串，值是字符串列表。
+
+现在假设我们找到另一个包含相同字母的单词，比如 `tops`。
+
+```python
+word = 'tops'
+key = sort_word(word)
+key
+# 'opst'
+```
+
+键与上一个例子相同，所以我们想向同一个字符串列表添加第二个单词。如果 `db` 是字典，我们会这样做。
+
+```python
+db[key].append(word)          # INCORRECT
+```
+
+但如果我们运行它，然后在 shelf 中查找该键，它似乎没有被更新。
+
+```python
+db[key]
+# ['pots']
+```
+
+问题在于：当我们查找键时，得到字符串列表，但如果我们修改字符串列表，这不会影响 shelf。如果我们想更新 shelf，必须读取旧值，更新它，然后把新值写回 shelf。
+
+```python
+anagram_list = db[key]
+anagram_list.append(word)
+db[key] = anagram_list
+```
+
+现在 shelf 的值更新了。
+
+```python
+db[key]
+# ['pots', 'tops']
+```
+
+作为练习，你可以通过读取单词列表并把所有变位词存储到 shelf 来完成这个例子。
+
+```python
+db.close()
+```
+
+## 13.6 检查等价文件
+
+现在回到本章的目标：查找包含相同数据的不同文件。一种检查方式是读取两个文件的内容并比较。
+
+如果文件包含图像，我们必须用模式 `'rb'` 打开它们，其中 `'r'` 表示我们要读取内容，`'b'` 表示**二进制模式**。在二进制模式下，内容不被解释为文本——它被当作字节序列处理。
+
+下面是一个打开并读取图像文件的例子。
+
+```python
+path1 = 'photos/jan-2023/photo1.jpg'
+data1 = open(path1, 'rb').read()
+type(data1)
+# bytes
+```
+
+`read` 的结果是一个 `bytes` 对象——顾名思义，它包含字节序列。
+
+一般来说，图像文件的内容对人类不可读。但如果我们读取第二个文件的内容，可以用 `==` 运算符比较。
+
+```python
+path2 = 'photos/jan-2023/photo2.jpg'
+data2 = open(path2, 'rb').read()
+data1 == data2
+# False
+```
+
+这两个文件不等价。
+
+把我们目前有的东西封装成函数。
+
+```python
+def same_contents(path1, path2):
+    data1 = open(path1, 'rb').read()
+    data2 = open(path2, 'rb').read()
+    return data1 == data2
+```
+
+如果只有两个文件，这个函数是不错的选择。但假设我们有大量文件，想知道是否任意两个包含相同数据。比较每一对文件是低效的。
+
+一种替代方案是用**哈希函数**，它接收文件内容并计算一个**摘要（digest）**，通常是一个大整数。如果两个文件包含相同数据，它们会有相同的摘要。如果两个文件不同，它们*几乎总是*有不同的摘要。
+
+`hashlib` 模块提供几种哈希函数——我们要用的叫 `md5`。我们先用 `hashlib.md5` 创建一个 `HASH` 对象。
+
+```python
+import hashlib
+
+md5_hash = hashlib.md5()
+type(md5_hash)
+```
+
+`HASH` 对象提供一个 `update` 方法，接收文件内容作为实参。
+
+```python
+md5_hash.update(data1)
+```
+
+现在我们可以用 `hexdigest` 把摘要作为十六进制数字的字符串获取，表示一个 16 进制整数。
+
+```python
+digest = md5_hash.hexdigest()
+digest
+```
+
+下面的函数封装这些步骤。
+
+```python
+def md5_digest(filename):
+    data = open(filename, 'rb').read()
+    md5_hash = hashlib.md5()
+    md5_hash.update(data)
+    digest = md5_hash.hexdigest()
+    return digest
+```
+
+如果我们对不同文件的内容做哈希，可以确认得到不同的摘要。
+
+```python
+filename2 = 'photos/feb-2023/photo2.jpg'
+md5_digest(filename2)
+```
+
+现在我们几乎有了查找等价文件所需的一切。最后一步是搜索目录并找到所有图像文件。
+
+## 13.7 遍历目录
+
+下面的函数接收我们要搜索的目录作为实参。它用 `listdir` 迭代目录内容。当它找到文件时，打印完整路径。当它找到目录时，递归调用自身搜索子目录。
+
+```python
+def walk(dirname):
+    for name in os.listdir(dirname):
+        path = os.path.join(dirname, name)
+
+        if os.path.isfile(path):
+            print(path)
+        elif os.path.isdir(path):
+            walk(path)
+```
+
+我们可以这样使用它：
+
+```python
+walk('photos')
+```
+
+结果的顺序取决于操作系统的细节。
+
+## 13.8 调试
+
+当你读写文件时，可能会遇到与空白相关的问题。这些错误很难调试，因为空白字符通常不可见。例如，下面是一个字符串，包含空格、用 `\t` 序列表示的制表符，以及用 `\n` 序列表示的换行符。当我们打印它时，看不到空白字符。
+
+```python
+s = '1 2\t 3\n 4'
+print(s)
+```
+
+内置函数 `repr` 可以帮忙。它接收任何对象作为实参，返回对象的字符串表示。对于字符串，它用反斜杠序列表示空白字符。
+
+```python
+print(repr(s))
+# '1 2\t 3\n 4'
+```
+
+这对调试很有用。
+
+你可能遇到的另一个问题是，不同系统用不同字符表示行尾。有些系统用换行符，表示为 `\n`。其他系统用回车符，表示为 `\r`。有些两者都用。如果你在不同系统之间移动文件，这些不一致可能导致问题。
+
+文件名的字母大小写是你在不同操作系统上工作时可能遇到的另一个问题。在 macOS 和 UNIX 上，文件名可以包含小写和大写字母、数字和大多数符号。但许多 Windows 应用程序忽略大小写字母的区别，而一些在 macOS 和 UNIX 上允许的符号在 Windows 上不允许。
+
+## 13.9 词汇表
+
+**短暂的：** 短暂程序通常运行一小段时间，结束时数据丢失。
+
+**持久的：** 持久程序无限期运行，并把至少一部分数据保存在永久存储中。
+
+**目录：** 文件和其他目录的集合。
+
+**当前工作目录：** 程序默认使用的目录，除非指定了其他目录。
+
+**路径：** 指定目录序列的字符串，通常指向文件。
+
+**相对路径：** 从当前工作目录（或某个其他指定目录）开始的路径。
+
+**绝对路径：** 不依赖当前目录的路径。
+
+**f 字符串：** 开引号前有字母 `f` 的字符串，花括号之间包含一个或多个表达式。
+
+**配置数据：** 指定程序应该做什么以及如何做的数据，通常存储在文件中。
+
+**序列化：** 把对象转换成字符串。
+
+**反序列化：** 把字符串转换成对象。
+
+**数据库：** 内容被组织以便高效执行某些操作的文件。
+
+**键值存储：** 内容组织成字典（键对应值）的数据库。
+
+**二进制模式：** 打开文件的一种方式，内容被解释为字节序列而不是字符序列。
+
+**哈希函数：** 接收对象并计算整数的函数，该整数有时称为摘要。
+
+**摘要：** 哈希函数的结果，尤其是用于检查两个对象是否相等时。
+
+## 13.10 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 13.10.1 问一个虚拟助手
+
+本章出现了几个我没有详细解释的主题。下面是一些你可以问虚拟助手以获取更多信息的问题。
+
+*   “短暂程序和持久程序有什么区别？”
+
+*   “持久程序有哪些例子？”
+
+*   “相对路径和绝对路径有什么区别？”
+
+*   “为什么 `yaml` 模块有名为 `load` 和 `safe_load` 的函数？”
+
+*   “当我写一个 Python shelf 时，后缀为 `dat` 和 `dir` 的文件是什么？”
+
+*   “除了键值存储，还有哪些类型的数据库？”
+
+*   “读取文件时，二进制模式和文本模式有什么区别？”
+
+*   “bytes 对象和字符串有什么区别？”
+
+*   “什么是哈希函数？”
+
+*   “什么是 MD5 摘要？”
+
+和往常一样，如果你在下面的任何练习中卡住了，考虑向虚拟助手求助。连同你的问题，你可能想粘贴本章相关的函数。
+
+### 13.10.2 练习
+
+写一个名为 `replace_all` 的函数，接收模式字符串、替换字符串和两个文件名作为实参。它应该读取第一个文件，并把内容写入第二个文件（如果需要就创建它）。如果模式字符串出现在内容的任何位置，应该替换成替换字符串。
+
+下面是一个函数框架，供你开始。
+
+```python
+def replace_all(old, new, source_path, dest_path):
+    # read the contents of the source file
+    reader = open(source_path)
+
+    # replace the old string with the new
+
+    # write the result into the destination file
+```
+
+要测试你的函数，读取 `photos/notes.txt` 文件，把 `'photos'` 替换成 `'images'`，并把结果写入 `photos/new_notes.txt` 文件。
+
+```python
+source_path = 'photos/notes.txt'
+open(source_path).read()
+
+dest_path = 'photos/new_notes.txt'
+old = 'photos'
+new = 'images'
+replace_all(old, new, source_path, dest_path)
+
+open(dest_path).read()
+```
+
+### 13.10.3 练习
+
+在[前面一节](#section_storing_data_structure)中，我们用 `shelve` 模块创建了一个键值存储，把排序后的字母字符串映射到变位词列表。要完成这个例子，写一个名为 `add_word` 的函数，接收一个字符串和一个 shelf 对象作为实参。
+
+它应该对单词的字母排序以创建键，然后检查键是否已在 shelf 中。如果不在，应该创建一个包含新单词的列表并把它加入 shelf。如果在，应该把新单词添加到现有值。
+
+你可以用这个循环测试你的函数。
+
+```python
+download('https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/words.txt')
+
+word_list = open('words.txt').read().split()
+
+db = shelve.open('anagram_map', 'n')
+for word in word_list:
+    add_word(word, db)
+```
+
+如果一切正常，你应该能查找像 `'opst'` 这样的键，得到可以由这些字母组成的单词列表。
+
+```python
+db['opst']
+
+for key, value in db.items():
+    if len(value) > 8:
+        print(value)
+
+db.close()
+```
+
+### 13.10.4 练习
+
+在一个大文件集合中，同一文件可能有多个副本，存储在不同目录或不同文件名下。这个练习的目标是查找重复文件。作为例子，我们处理 `photos` 目录中的图像文件。
+
+它的工作方式如下：
+
+*   我们用 [`section_walking_directories`](#section_walking_directories) 的 `walk` 函数，在这个目录中搜索以 `config['extensions']` 中的某个扩展名结尾的文件。
+
+*   对每个文件，我们用 [`section_md5_digest`](#section_md5_digest) 的 `md5_digest` 计算内容的摘要。
+
+*   用一个 shelf，把每个摘要映射到具有该摘要的路径列表。
+
+*   最后，搜索 shelf 中映射到多个文件的摘要。
+
+*   如果找到任何，我们用 `same_contents` 确认这些文件包含相同数据。
+
+我建议先写几个函数，然后把它们整合起来。
+
+1.  要识别图像文件，写一个名为 `is_image` 的函数，接收路径和文件扩展名列表，如果路径以列表中的某个扩展名结尾，返回 `True`。提示：用 `os.path.splitext`——或者请虚拟助手为你写这个函数。
+
+你可以用 `doctest` 测试你的函数。
+
+```python
+from doctest import run_docstring_examples
+
+def run_doctests(func):
+    run_docstring_examples(func, globals(), name=func.__name__)
+
+run_doctests(is_image)
+```
+
+2.  写一个名为 `add_path` 的函数，接收路径和 shelf 作为实参。它应该用 `md5_digest` 计算文件内容的摘要。然后更新 shelf，要么创建把摘要映射到包含该路径的列表的新元素，要么在列表已存在时把路径添加到列表。
+
+3.  写一个名为 `walk_images` 的 `walk` 版本，接收目录并遍历目录及其子目录中的文件。对每个文件，它应该用 `is_image` 检查是否为图像文件，并用 `add_path` 把它加入 shelf。
+
+当一切正常后，你可以用下面的程序创建 shelf，搜索 `photos` 目录并把路径加入 shelf，然后检查是否有多个文件具有相同摘要。
+
+```python
+db = shelve.open('photos/digests', 'n')
+walk_images('photos')
+
+for digest, paths in db.items():
+    if len(paths) > 1:
+        print(paths)
+```
+
+你应该找到一对具有相同摘要的文件。用 `same_contents` 检查它们是否包含相同数据。
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

@@ -1,0 +1,885 @@
+---
+type: 'Post'
+date: '2026-08-24 10:00:00'
+title: '第 11 章 · 元组'
+tags: [python]
+description: '元组、不可变性与解包。'
+slug: tuplas
+order: 12
+section: null
+source: "https://libropython.es/chap11.html"
+lang: zh
+---
+
+# 第 11 章 · 元组
+
+> 本文译自 [libropython.es](https://libropython.es/chap11.html)。原文为西班牙语，翻译仅供学习使用。
+
+本章再介绍一种内置类型——元组，然后展示列表、字典和元组如何协同工作。本章还介绍元组赋值，以及一个对参数列表长度可变的函数很有用的特性：打包和解包运算符。
+
+在练习中，我们将用元组，连同列表和字典，来解决更多单词谜题并实现高效算法。
+
+一个说明：英文“tupla”（元组）有两种读法。有人读作“tuh-ple”，与“supple”押韵。但在编程语境中，大多数人读作“too-ple”，与“quadruple”押韵。
+
+## 11.1 元组很像列表
+
+元组是值的序列。值可以是任何类型，并用整数索引，所以元组与列表非常相似。重要的区别是元组是不可变的。
+
+要创建元组，你可以写一串用逗号分隔的值。
+
+```python
+t = 'l', 'u', 'p', 'i', 'n'
+type(t)
+# tuple
+```
+
+虽然不是必需的，但通常用圆括号把元组括起来。
+
+```python
+t = ('l', 'u', 'p', 'i', 'n')
+type(t)
+# tuple
+```
+
+要创建只有一个元素的元组，你必须加上末尾的逗号。
+
+```python
+t1 = 'p',
+type(t1)
+# tuple
+```
+
+圆括号里的单个值不是元组。
+
+```python
+t2 = ('p')
+type(t2)
+# str
+```
+
+创建元组的另一种方法是内置函数 `tuple`。没有实参时，它创建一个空元组。
+
+```python
+t = tuple()
+t
+# ()
+```
+
+如果实参是序列（字符串、列表或元组），结果是一个含该序列元素的元组。
+
+```python
+t = tuple('lupin')
+t
+# ('l', 'u', 'p', 'i', 'n')
+```
+
+因为 `tuple` 是内置函数的名字，你应该避免把它用作变量名。
+
+大多数列表运算符也适用于元组。例如，方括号运算符对元素索引。
+
+```python
+t[0]
+# 'l'
+```
+
+而切片运算符选择一定范围的元素。
+
+```python
+t[1:3]
+# ('u', 'p')
+```
+
+`+` 运算符拼接元组。
+
+```python
+tuple('lup') + ('i', 'n')
+# ('l', 'u', 'p', 'i', 'n')
+```
+
+而 `*` 运算符把元组重复给定的次数。
+
+```python
+tuple('spam') * 2
+# ('s', 'p', 'a', 'm', 's', 'p', 'a', 'm')
+```
+
+`sorted` 函数适用于元组——但结果是列表，不是元组。
+
+```python
+sorted(t)
+# ['i', 'l', 'n', 'p', 'u']
+```
+
+`reversed` 函数也适用于元组。
+
+```python
+reversed(t)
+```
+
+结果是一个 `reversed` 对象，我们可以把它转换成列表或元组。
+
+```python
+tuple(reversed(t))
+# ('n', 'i', 'p', 'u', 'l')
+```
+
+根据目前这些例子，元组似乎和列表完全一样。
+
+## 11.2 但元组是不可变的
+
+如果你试图用方括号运算符修改元组，会得到 `TypeError`。
+
+```python
+t[0] = 'L'
+# TypeError: 'tuple' object does not support item assignment
+```
+
+而且元组没有 `append` 和 `remove` 这些修改列表的方法。
+
+```python
+t.remove('l')
+# AttributeError: 'tuple' object has no attribute 'remove'
+```
+
+记住，“属性”是与对象关联的变量或方法——这个错误消息意味着元组没有名为 `remove` 的方法。
+
+因为元组不可变，它们是可哈希的，这意味着它们可以用作字典的键。例如，下面的字典包含两个元组作为键，与整数关联。
+
+```python
+d = {}
+d[1, 2] = 3
+d[3, 4] = 7
+```
+
+我们可以这样在字典中查找元组：
+
+```python
+d[1, 2]
+# 3
+```
+
+或者，如果我们有一个指向元组的变量，可以把它用作键。
+
+```python
+t = (3, 4)
+d[t]
+# 7
+```
+
+元组也可以作为字典中的值出现。
+
+```python
+t = tuple('abc')
+d = {'key': t}
+d
+# {'key': ('a', 'b', 'c')}
+```
+
+## 11.3 元组赋值
+
+你可以把变量的元组放在赋值左侧，把值的元组放在右侧。
+
+```python
+a, b = 1, 2
+```
+
+值从左到右赋给变量——在这个例子中，`a` 得到值 `1`，`b` 得到值 `2`。我们可以这样显示结果：
+
+```python
+a, b
+# (1, 2)
+```
+
+更一般地，如果赋值的左侧是元组，右侧可以是任何类型的序列——字符串、列表或元组。例如，要把电子邮件地址拆成用户名和域名，你可以写：
+
+```python
+email = 'monty@python.org'
+username, domain = email.split('@')
+```
+
+`split` 的返回值是一个含两个元素的列表——第一个元素赋给 `username`，第二个赋给 `domain`。
+
+```python
+username, domain
+# ('monty', 'python.org')
+```
+
+左侧变量的数量和右侧值的数量必须相等——否则会得到 `ValueError`。
+
+```python
+a, b = 1, 2, 3
+# ValueError: too many values to unpack
+```
+
+元组赋值在交换两个变量的值时很有用。用传统赋值，你必须用一个临时变量，像这样：
+
+```python
+temp = a
+a = b
+b = temp
+```
+
+这样可行，但用元组赋值我们可以不用临时变量做同样的事。
+
+```python
+a, b = b, a
+```
+
+这之所以可行，是因为右侧的所有表达式在任何赋值发生之前就已经求值。
+
+我们也可以在 `for` 语句中使用元组赋值。例如，要循环遍历字典的元素，我们可以用 `items` 方法。
+
+```python
+d = {'one': 1, 'two': 2}
+
+for item in d.items():
+    key, value = item
+    print(key, '->', value)
+```
+
+每次经过循环，`item` 被赋为一个包含键和对应值的元组。
+
+我们可以这样更简洁地写这个循环：
+
+```python
+for key, value in d.items():
+    print(key, '->', value)
+```
+
+每次经过循环，键和对应的值被直接赋给 `key` 和 `value`。
+
+## 11.4 元组作为返回值
+
+严格来说，函数只能返回一个值，但如果那个值是元组，效果就和返回多个值一样。例如，如果你想对两个整数做除法并计算商和余数，先算 `x//y` 再算 `x%y` 是低效的。最好同时计算两者。
+
+内置函数 `divmod` 接收两个实参，返回一个含两个值的元组：商和余数。
+
+```python
+divmod(7, 3)
+# (2, 1)
+```
+
+我们可以用元组赋值把元组的元素保存到两个变量中。
+
+```python
+quotient, remainder = divmod(7, 3)
+quotient
+# 2
+remainder
+# 1
+```
+
+下面是一个返回元组的函数示例。
+
+```python
+def min_max(t):
+    return min(t), max(t)
+```
+
+`max` 和 `min` 是内置函数，找出序列的最大和最小元素。`min_max` 计算两者并返回两个值的元组。
+
+```python
+min_max([2, 4, 1, 3])
+# (1, 4)
+```
+
+我们可以这样把结果赋给变量：
+
+```python
+low, high = min_max([2, 4, 1, 3])
+low, high
+# (1, 4)
+```
+
+## 11.5 参数打包
+
+函数可以接收数量可变的实参。以 `*` 运算符开头的参数名把实参**打包（pack）**成一个元组。例如，下面的函数接收任意数量的实参并计算它们的算术平均值——即它们的和除以实参数量。
+
+```python
+def mean(*args):
+    return sum(args) / len(args)
+```
+
+参数名可以起任何名字，但 `args` 是惯例。我们可以这样调用函数：
+
+```python
+mean(1, 2, 3)
+# 2.0
+```
+
+如果你有一个值序列，想把它们作为多个实参传给函数，可以用 `*` 运算符来**解包（unpack）**元组。例如，`divmod` 恰好接收两个实参——如果你把元组作为参数传入，会得到错误。
+
+```python
+t = (7, 3)
+divmod(t)
+# TypeError: divmod expected 2 arguments, got 1
+```
+
+虽然元组包含两个元素，但它算作一个实参。但如果你解包元组，它就被当作两个实参。
+
+```python
+divmod(*t)
+# (2, 1)
+```
+
+打包和解包在你想要调整现有函数行为时会很有用。例如，这个函数接收任意数量的实参，去掉最小和最大的，然后计算其余部分的平均值。
+
+```python
+def trimmed_mean(*args):
+    low, high = min_max(args)
+    trimmed = list(args)
+    trimmed.remove(low)
+    trimmed.remove(high)
+    return mean(*trimmed)
+```
+
+它先用 `min_max` 找出最小和最大元素。然后把 `args` 转换成列表，以便使用 `remove` 方法。最后解包列表，使元素作为分开的实参传给 `mean`，而不是作为单个列表。
+
+下面是一个展示效果的例子。
+
+```python
+mean(1, 2, 3, 10)
+# 4.0
+trimmed_mean(1, 2, 3, 10)
+# 2.5
+```
+
+这种“截尾”平均在一些有主观评分的运动中（如跳水和体操）用来减少某位评委评分偏离其他评委的影响。
+
+## 11.6 Zip
+
+元组很适合用来循环遍历两个序列的元素，并对相应的元素执行操作。例如，假设两个队打七场比赛，我们把它们的得分记录在两个列表中，每队一个。
+
+```python
+scores1 = [1, 2, 4, 5, 1, 5, 2]
+scores2 = [5, 5, 2, 2, 5, 2, 3]
+```
+
+我们看看每队赢了多少场。我们用 `zip`，这是一个内置函数，接收两个或更多序列，返回一个 **zip 对象**，之所以这么叫，是因为它像拉链的齿一样把序列的元素配对。
+
+```python
+zip(scores1, scores2)
+```
+
+我们可以用 zip 对象按对循环遍历序列的值。
+
+```python
+for pair in zip(scores1, scores2):
+     print(pair)
+```
+
+每次经过循环，`pair` 收到一个得分元组。所以我们可以把得分赋给变量，并统计第一队的胜利场次，像这样：
+
+```python
+wins = 0
+for team1, team2 in zip(scores1, scores2):
+    if team1 > team2:
+        wins += 1
+
+wins
+# 3
+```
+
+遗憾的是，第一队只赢了三场，输掉了系列赛。
+
+如果你有两个列表，想要一个配对的列表，可以用 `zip` 和 `list`。
+
+```python
+t = list(zip(scores1, scores2))
+t
+```
+
+结果是一个元组列表，所以我们可以这样得到最后一场比赛的结果：
+
+```python
+t[-1]
+# (2, 3)
+```
+
+如果你有一个键列表和一个值列表，可以用 `zip` 和 `dict` 创建字典。例如，我们可以这样创建一个把每个字母与它在字母表中的位置关联起来的字典。
+
+```python
+letters = 'abcdefghijklmnopqrstuvwxyz'
+numbers = range(len(letters))
+letter_map = dict(zip(letters, numbers))
+```
+
+现在我们可以查找一个字母，得到它在字母表中的索引。
+
+```python
+letter_map['a'], letter_map['z']
+# (0, 25)
+```
+
+在这个映射中，`'a'` 的索引是 `0`，`'z'` 的索引是 `25`。
+
+如果你需要循环遍历序列的元素及其索引，可以用内置函数 `enumerate`。
+
+```python
+enumerate('abc')
+```
+
+结果是一个 **enumerate 对象**，它循环遍历一对序列，其中每对包含一个索引（从 0 开始）和给定序列的一个元素。
+
+```python
+for index, element in enumerate('abc'):
+    print(index, element)
+```
+
+## 11.7 比较与排序
+
+关系运算符适用于元组和其他序列。例如，如果你对元组使用 `<` 运算符，它先比较每个序列的第一个元素。如果相等，再比较下一对元素，依此类推，直到找到不同的一对。
+
+```python
+(0, 1, 2) < (0, 3, 4)
+# True
+```
+
+后面的元素不被考虑——即使它们真的很大。
+
+```python
+(0, 1, 2000000) < (0, 3, 4)
+# True
+```
+
+这种比较元组的方式对排序元组列表、或找最小值或最大值很有用。作为例子，我们找单词中最常见的字母。在上一章，我们写了 `value_counts`，它接收一个字符串并返回一个把每个字母与出现次数关联的字典。
+
+```python
+def value_counts(string):
+    counter = {}
+    for letter in string:
+        if letter not in counter:
+            counter[letter] = 1
+        else:
+            counter[letter] += 1
+    return counter
+```
+
+这里是字符串 `'banana'` 的结果。
+
+```python
+counter = value_counts('banana')
+counter
+# {'b': 1, 'a': 3, 'n': 2}
+```
+
+只有三个元素，我们很容易看出最频繁的字母是 `'a'`，出现三次。但如果有更多元素，自动排序会很有用。
+
+我们可以这样获取 `counter` 的元素。
+
+```python
+items = counter.items()
+items
+```
+
+结果是一个 `dict_items` 对象，行为像元组列表，所以我们可以这样排序它。
+
+```python
+sorted(items)
+```
+
+默认行为是用每个元组的第一个元素排序列表，并用第二个元素打破平局。
+
+然而，要找到计数最高的元素，我们想用第二个元素排序列表。我们可以写一个接收元组并返回第二个元素的函数来实现。
+
+```python
+def second_element(t):
+    return t[1]
+```
+
+然后我们可以把这个函数作为名为 `key` 的可选实参传给 `sorted`，表示应该用这个函数来计算每个元素的**排序键（sort key）**。
+
+```python
+sorted_items = sorted(items, key=second_element)
+sorted_items
+```
+
+排序键决定列表中元素的顺序。计数最低的字母排在最前，计数最高的字母排在最后。这样我们就能找到最常见的字母。
+
+```python
+sorted_items[-1]
+# ('a', 3)
+```
+
+如果我们只想要最大值，不必排序列表。我们可以用 `max`，它也可以把 `key` 作为可选实参。
+
+```python
+max(items, key=second_element)
+# ('a', 3)
+```
+
+要找到计数最低的字母，我们可以用同样的方式使用 `min`。
+
+## 11.8 反转字典
+
+假设你想反转字典，以便通过值查找对应的键。例如，如果你有一个把每个单词与出现次数关联的单词计数器，你可能想创建一个把整数与出现该次数的单词关联的字典。
+
+但有一个问题——字典的键必须是唯一的，而值不必。例如，在单词计数器中，可能有很多单词有相同的计数。
+
+所以反转字典的一种方式是创建一个新字典，其中值是原字典的键列表。作为例子，我们统计 `parrot` 中的字母。
+
+```python
+d = value_counts('parrot')
+d
+# {'p': 1, 'a': 1, 'r': 2, 'o': 1, 't': 1}
+```
+
+如果我们反转这个字典，结果应该是 `{1: ['p', 'a', 'o', 't'], 2: ['r']}`，表示出现一次的字母是 `'p'`、`'a'`、`'o'` 和 `'t'`，出现两次的字母是 `'r'`。
+
+下面的函数接收一个字典并返回它的反转（作为新字典）。
+
+```python
+def invert_dict(d):
+    new = {}
+    for key, value in d.items():
+        if value not in new:
+            new[value] = [key]
+        else:
+            new[value].append(key)
+    return new
+```
+
+`for` 语句循环遍历 `d` 的键和值。如果值还不在新字典中，就添加它并与含单个元素的列表关联。否则，把它添加到现有列表中。
+
+我们可以这样测试它：
+
+```python
+invert_dict(d)
+# {1: ['p', 'a', 'o', 't'], 2: ['r']}
+```
+
+我们得到了预期的结果。
+
+这是我们看到的第一个字典中的值是列表的例子。还会有更多！
+
+## 11.9 调试
+
+列表、字典和元组是**数据结构**。在本章中，我们开始看到复合数据结构，比如元组列表，或包含元组作为键、列表作为值的字典。复合数据结构很有用，但当数据结构具有错误的类型、大小或结构时，很容易出错。例如，如果一个函数期望一个整数列表，而你给它一个光秃秃的整数（不在列表里），它很可能无法工作。
+
+为了帮助调试这类错误，我写了一个名为 `structshape` 的模块，它提供一个也叫 `structshape` 的函数，接收任何类型的数据结构作为实参，返回一个总结其结构的字符串。你可以从 [https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/structshape.py](https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/structshape.py) 下载它。
+
+```python
+download('https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/structshape.py')
+```
+
+我们可以这样导入它。
+
+```python
+from structshape import structshape
+```
+
+下面是一个简单列表的例子。
+
+```python
+t = [1, 2, 3]
+structshape(t)
+# 'list of 3 int'
+```
+
+下面是一个列表的列表。
+
+```python
+t2 = [[1,2], [3,4], [5,6]]
+structshape(t2)
+# 'list of 3 list of 2 int'
+```
+
+如果列表的元素不是同一类型，`structshape` 按类型对它们分组。
+
+```python
+t3 = [1, 2, 3, 4.0, '5', '6', [7], [8], 9]
+structshape(t3)
+```
+
+下面是一个元组列表。
+
+```python
+s = 'abc'
+lt = list(zip(t, s))
+structshape(lt)
+```
+
+而这里是一个把整数与字符串关联的三元素字典。
+
+```python
+d = dict(lt)
+structshape(d)
+```
+
+如果你难以跟踪自己的数据结构，`structshape` 可以帮忙。
+
+## 11.10 词汇表
+
+**打包：** 把多个实参收集到一个元组中。
+
+**解包：** 把元组（或其他序列）当作多个实参处理。
+
+**zip 对象：** 调用内置函数 `zip` 的结果；可用于循环遍历元组序列。
+
+**enumerate 对象：** 调用内置函数 `enumerate` 的结果；可用于循环遍历元组序列。
+
+**排序键：** 用于对集合元素排序的值，或计算该值的函数。
+
+**数据结构：** 值的集合，以某种方式组织以高效执行某些操作。
+
+## 11.11 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 11.11.1 问一个虚拟助手
+
+本章的练习可能比前几章更难，所以我鼓励你向虚拟助手求助。当你提出更难的问题时，答案可能第一次就不正确，所以这是练习构建好提示词、做好改进的机会。
+
+你可以考虑的一个策略是把大问题拆成能用简单函数解决的小块。请虚拟助手编写这些函数并测试它们。然后，当它们能工作时，再请求解决原始问题。
+
+对于下面的一些练习，我建议使用哪些数据结构和算法。这些建议在你解决问题时可能有用，但它们也是很好的可以传给虚拟助手的提示词。
+
+### 11.11.2 练习
+
+在本章中，我说元组可以用作字典的键，因为它们是可哈希的，而它们可哈希是因为不可变。但这并不总是正确的。
+
+如果元组包含可变值，比如列表或字典，该元组就不再是可哈希的，因为它包含不可哈希的元素。作为例子，这里是一个包含两个整数列表的元组。
+
+```python
+list0 = [1, 2, 3]
+list1 = [4, 5]
+
+t = (list0, list1)
+t
+# ([1, 2, 3], [4, 5])
+```
+
+写一行代码，把值 `6` 加到 `t` 中第二个列表的末尾。如果你显示 `t`，结果应该是 `([1, 2, 3], [4, 5, 6])`。
+
+尝试创建一个把 `t` 与字符串关联的字典，并确认你得到 `TypeError`。
+
+要了解更多关于这个主题，问虚拟助手：“Are Python tuples always hashable?”
+
+### 11.11.3 练习
+
+在本章中，我们做了一个把每个字母与其字母表索引关联的字典。
+
+```python
+letters = 'abcdefghijklmnopqrstuvwxyz'
+numbers = range(len(letters))
+letter_map = dict(zip(letters, numbers))
+```
+
+例如，`'a'` 的索引是 `0`。
+
+```python
+letter_map['a']
+# 0
+```
+
+要反方向进行，我们可以用列表索引。例如，索引 `1` 处的字母是 `'b'`。
+
+```python
+letters[1]
+# 'b'
+```
+
+我们可以用 `letter_map` 和 `letters` 通过凯撒密码来编码和解码单词。
+
+凯撒密码是一种弱加密方式，把每个字母在字母表中移动固定数量的位置，必要时回到开头。例如，`'a'` 移动 2 位是 `'c'`，`'z'` 移动 1 位是 `'a'`。
+
+写一个名为 `shift_word` 的函数，接收一个字符串和一个整数作为参数，返回一个新字符串，其中包含移动给定数量位置的字符串字母。
+
+要测试你的函数，确认“cheer”移动 7 位是“jolly”，“melon”移动 16 位是“cubed”。
+
+提示：用取模运算符从 `'z'` 回到 `'a'`。循环遍历单词的字母，移动每个字母，把结果添加到一个字母列表。然后用 `join` 把字母拼接成字符串。
+
+你可以用这个框架开始。
+
+```python
+def shift_word(word, n):
+    """Shift the letters of `word` by `n` places.
+
+    >>> shift_word('cheer', 7)
+    'jolly'
+    >>> shift_word('melon', 16)
+    'cubed'
+    """
+    return None
+
+shift_word('cheer', 7)
+shift_word('melon', 16)
+```
+
+你可以用 `doctest` 测试你的函数。
+
+```python
+from doctest import run_docstring_examples
+
+def run_doctests(func):
+    run_docstring_examples(func, globals(), name=func.__name__)
+
+run_doctests(shift_word)
+```
+
+### 11.11.4 练习
+
+写一个名为 `most_frequent_letters` 的函数，接收一个字符串，按频率递减顺序打印字母。
+
+要按递减顺序获取元素，你可以把 `reversed` 和 `sorted` 一起用，或者把 `reverse=True` 作为关键字参数传给 `sorted`。
+
+你可以用这个函数框架开始。
+
+```python
+def most_frequent_letters(string):
+    return None
+```
+
+用这个例子测试你的函数。
+
+```python
+most_frequent_letters('brontosaurus')
+```
+
+当你的函数能工作后，你可以用下面的代码打印《德古拉》中最常见的字母，我们可以从古腾堡计划下载它。
+
+```python
+download('https://www.gutenberg.org/cache/epub/345/pg345.txt')
+
+string = open('pg345.txt').read()
+most_frequent_letters(string)
+```
+
+根据 Zim 的《Codes and Secret Writing》，英语中按频率递减顺序的字母序列以“ETAONRISH”开头。这个序列与《德古拉》的结果相比如何？
+
+### 11.11.5 练习
+
+在之前的练习中，我们通过排序两个单词的字母并检查排序后的字母是否相等来测试两个字符串是否为变位词。现在我们把问题变得更有挑战性一点。
+
+我们将写一个程序，接收单词列表并打印所有互为变位词的单词集合。下面是一个输出可能的样子：
+
+```
+['deltas', 'desalt', 'lasted', 'salted', 'slated', 'staled']
+['retainers', 'ternaries']
+['generating', 'greatening']
+['resmelts', 'smelters', 'termless']
+```
+
+提示：对单词列表中的每个单词，排序字母并把它们重新拼接成字符串。创建一个字典，把这个排序后的字符串与它的变位词列表关联起来。
+
+下面的单元格下载 `words.txt` 并把单词读入列表。
+
+```python
+download('https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/words.txt')
+
+word_list = open('words.txt').read().split()
+```
+
+这里是我们之前用过的 `sort_word` 函数。
+
+```python
+def sort_word(word):
+    return ''.join(sorted(word))
+```
+
+要找到最长的变位词列表，你可以用下面的函数，它接收一个键值对，其中键是字符串，值是单词列表。它返回列表的长度。
+
+```python
+def value_length(pair):
+    key, value = pair
+    return len(value)
+```
+
+我们可以用这个函数作为排序键来找到最长的变位词列表。
+
+```python
+anagram_items = sorted(anagram_dict.items(), key=value_length)
+for key, value in anagram_items[-10:]:
+    print(value)
+```
+
+如果你想知道有变位词的最长单词是什么，可以用下面的循环打印一些。
+
+```python
+longest = 7
+
+for key, value in anagram_items:
+    if len(value) > 1:
+        word_len = len(value[0])
+        if word_len > longest:
+            longest = word_len
+            print(value)
+```
+
+### 11.11.6 练习
+
+写一个名为 `word_distance` 的函数，接收两个长度相同的单词，返回两个单词不同的位置数量。
+
+提示：用 `zip` 循环遍历单词对应的字母。
+
+下面是一个带 doctest 的函数框架，你可以用它检查你的函数。
+
+```python
+def word_distance(word1, word2):
+    """Computes the number of places where two word differ.
+
+    >>> word_distance("hello", "hxllo")
+    1
+    >>> word_distance("ample", "apply")
+    2
+    >>> word_distance("kitten", "mutton")
+    3
+    """
+    return None
+
+from doctest import run_docstring_examples
+
+def run_doctests(func):
+    run_docstring_examples(func, globals(), name=func.__name__)
+
+run_doctests(word_distance)
+```
+
+### 11.11.7 练习
+
+“换位词”（Metathesis）是单词中字母的换位。如果两个单词可以通过交换两个字母相互转换，比如 `converse` 和 `conserve`，它们就组成一对“换位词对”。写一个程序，找出单词列表中的所有换位词对。
+
+提示：换位词对中的单词必须互为变位词。
+
+致谢：这个练习的灵感来自 [http://puzzlers.org](http://puzzlers.org) 的一个例子。
+
+### 11.11.8 练习
+
+这是一个书之外的额外练习。它比本章其他练习更有挑战性，所以你可能想向虚拟助手求助，或者读完更多章节后再回来做。
+
+这是另一个 Car Talk 谜题（[http://www.cartalk.com/content/puzzlers](http://www.cartalk.com/content/puzzlers)）：
+
+> 最长的、在逐个去掉字母后仍然是有效英语单词的英语单词是什么？
+>
+> 字母可以从任意一端或中间去掉，但你不能重新排列任何字母。每次去掉一个字母，你都会得到另一个英语单词。如果一直这样做，最后会剩下一个字母，那也是一个英语单词——一个出现在字典里的词。我想知道最长的单词是什么，它有多少个字母。
+>
+> 我给你一个小例子：Sprite。好吧？你从 sprite 开始，去掉一个字母，一个在单词内部的字母，去掉 r，剩下单词 spite；然后去掉末尾的 e，剩下 spit；去掉 s，剩下 pit、it 和 I。
+
+写一个程序找出所有能以这种方式缩减的单词，然后找出最长的那个。
+
+这个练习比大多数都更有挑战性，所以这里有一些建议：
+
+1.  你可能想写一个函数，接收一个单词，计算去掉一个字母后能得到的所有单词的列表。这些是单词的“子词”（children）。
+
+2.  递归地，一个单词是可缩减的，如果它的任何一个子词是可缩减的。作为基例，你可以认为空字符串是可缩减的。
+
+3.  我们一直在用的单词列表不包含单个字母的单词。所以你可能需要添加“I”和“a”。
+
+4.  为了提高程序性能，你可能想把已知可缩减的单词记忆化（memoize）。
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

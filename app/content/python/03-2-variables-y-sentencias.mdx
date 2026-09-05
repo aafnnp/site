@@ -1,0 +1,469 @@
+---
+type: 'Post'
+date: '2026-09-02 10:00:00'
+title: '第 2 章 · 变量与语句'
+tags: [python]
+description: '变量、表达式与语句等 Python 基础语法。'
+slug: variables-y-sentencias
+order: 3
+section: null
+source: "https://libropython.es/chap02.html"
+lang: zh
+---
+
+# 第 2 章 · 变量与语句
+
+> 本文译自 [libropython.es](https://libropython.es/chap02.html)。原文为西班牙语，翻译仅供学习使用。
+
+在上一章，我们用运算符编写了执行算术计算的表达式。
+
+在这一章，你将学习变量和语句、`import` 语句以及 `print` 函数。我还会介绍更多我们用来谈论程序的词汇，包括“参数（argumento）”和“模块（módulo）”。
+
+## 2.1 变量
+
+**变量**是指向某个值的名字。要创建变量，我们可以写一条像这样的**赋值语句**。
+
+```python
+n = 17
+```
+
+赋值语句有三个部分：左边的变量名，等号运算符 `=`，以及右边的表达式。在这个例子中，表达式是一个整数。在下一个例子中，表达式是一个浮点数。
+
+```python
+pi = 3.141592653589793
+```
+
+而在下一个例子中，表达式是一个字符串。
+
+```python
+message = 'And now for something completely different'
+```
+
+当你执行赋值语句时，不会有输出。Python 创建变量并给它赋值，但赋值语句本身没有任何可见效果。不过，在创建变量之后，你可以把它当作表达式来使用。所以我们可以这样显示 `message` 的值：
+
+```python
+message
+# 'And now for something completely different'
+```
+
+你也可以把变量作为含算术运算符的表达式的一部分来使用。
+
+```python
+n + 25
+# 42
+2 * pi
+# 6.283185307179586
+```
+
+而且你可以在调用函数时使用变量。
+
+```python
+round(pi)
+# 3
+len(message)
+# 42
+```
+
+## 2.2 状态图
+
+在纸上表示变量的一种常用方法是写出名字，并用箭头指向它的值。
+
+```python
+import math
+from diagram import make_binding, Frame
+
+binding = make_binding("message", 'And now for something completely different')
+binding2 = make_binding("n", 17)
+binding3 = make_binding("pi", 3.141592653589793)
+
+frame = Frame([binding2, binding3, binding])
+
+from diagram import diagram, adjust
+width, height, x, y = [3.62, 1.01, 0.6, 0.76]
+ax = diagram(width, height)
+bbox = frame.draw(ax, x, y, dy=-0.25)
+# adjust(x, y, bbox)
+```
+
+这种图被称为**状态图**，因为它展示了每个变量所处的状态（可以把它想象成变量的“心理状态”）。在本书中，我们会用状态图来表示 Python 如何存储变量及其值的模型。
+
+## 2.3 变量名
+
+变量名可以任意长。它们可以包含字母和数字，但不能以数字开头。使用大写字母是合法的，但按照惯例，变量名只使用小写字母。
+
+变量名中唯一可以出现的标点符号是下划线 `_`。它常用于多个单词组成的名字，比如 `your_name` 或 `airspeed_of_unladen_swallow`。
+
+如果你给变量起了一个无效的名字，会得到语法错误。名字 `million!` 无效，因为它包含标点。
+
+```python
+million! = 1000000
+# SyntaxError: invalid syntax
+```
+
+`76trombones` 无效，因为它以数字开头。
+
+```python
+76trombones = 'big parade'
+# SyntaxError: invalid syntax
+```
+
+`class` 也无效，但原因可能不那么明显。
+
+```python
+class = 'Self-Defence Against Fresh Fruit'
+# SyntaxError: invalid syntax
+```
+
+原来 `class` 是一个**关键字（keyword）**，这是一种用于指定程序结构的特殊单词。关键字不能用作变量名。
+
+下面是 Python 关键字的完整列表：
+
+```
+False      await      else       import     pass
+None       break      except     in         raise
+True       class      finally    is         return
+and        continue   for        lambda     try
+as         def        from       nonlocal   while
+assert     del        global     not        with
+async      elif       if         or         yield
+```
+
+```python
+from keyword import kwlist
+len(kwlist)
+# 35
+```
+
+你不需要记住这份列表。在大多数开发环境中，关键字会以不同颜色显示；如果你试图把它们用作变量名，你就会知道。
+
+## 2.4 import 语句
+
+要使用 Python 的某些功能，你必须先**导入**它们。例如，下面的语句导入了 `math` 模块。
+
+```python
+import math
+```
+
+**模块**是变量和函数的集合。`math` 模块提供了一个名为 `pi` 的变量，它保存了用 \\(\pi\\) 表示的数学常数的值。我们可以这样显示它的值。
+
+```python
+math.pi
+# 3.141592653589793
+```
+
+要使用模块中的变量，你必须在模块名和变量名之间使用**点运算符（`.`）**。
+
+`math` 模块还包含函数。例如，`sqrt` 计算平方根。
+
+```python
+math.sqrt(25)
+# 5.0
+```
+
+而 `pow` 把一个数提升到第二个数的幂。
+
+```python
+math.pow(5, 2)
+# 25.0
+```
+
+到目前为止，我们已经见过两种把一个数提升到幂的方法：可以使用 `math.pow` 函数，也可以使用乘方运算符 `**`。两种都可以，但运算符比函数更常用。
+
+## 2.5 表达式与语句
+
+到目前为止，我们已经见过几种表达式。表达式可以是一个单独的值，比如整数、浮点数或字符串。它也可以是值和运算符的组合。它还可以包含变量名和函数调用。下面是一个包含其中多个元素的表达式。
+
+```python
+19 + n + round(math.pi) * 2
+```
+
+我们也见过几种语句。**语句**是一段有作用但没有值的代码单元。例如，赋值语句创建一个变量并给它赋值，但语句本身没有值。
+
+```python
+n = 17
+```
+
+类似地，`import` 语句有作用——它导入一个模块，这样我们就能使用其中包含的变量和函数——但它没有可见的输出。
+
+```python
+import math
+```
+
+计算表达式的值称为**求值（evaluation）**。执行语句称为**执行（execution）**。
+
+## 2.6 print 函数
+
+当你对一个表达式求值时，结果会显示出来。
+
+```python
+n + 1
+# 18
+```
+
+但如果你对多个表达式求值，只有最后一个的值会显示。
+
+```python
+n + 2
+n + 3
+# 20
+```
+
+要显示多个值，你可以使用 `print` 函数。
+
+```python
+print(n+2)
+print(n+3)
+# 19
+# 20
+```
+
+它也适用于浮点数和字符串。
+
+```python
+print('The value of pi is approximately')
+print(math.pi)
+# The value of pi is approximately
+# 3.141592653589793
+```
+
+你还可以使用由逗号分隔的表达式序列。
+
+```python
+print('The value of pi is approximately', math.pi)
+# The value of pi is approximately 3.141592653589793
+```
+
+注意，`print` 函数会在值之间放一个空格。
+
+## 2.7 参数
+
+当你调用一个函数时，括号中的表达式称为**参数（argument）**。通常我会解释为什么这么叫，但这里这个术语的技术含义与这个词的日常含义几乎毫无关系，所以我干脆不解释了。
+
+我们目前见过的一些函数只接收一个参数，比如 `int`。
+
+```python
+int('101')
+# 101
+```
+
+有些接收两个参数，比如 `math.pow`。
+
+```python
+math.pow(5, 2)
+# 25.0
+```
+
+有些可以接收可选的额外参数。例如，`int` 可以接收第二个参数来指定数字的进制。
+
+```python
+int('101', 2)
+# 5
+```
+
+数字序列 `101` 在二进制中表示十进制中的 5。
+
+`round` 也接收一个可选的第二个参数，即要舍入到的小数位数。
+
+```python
+round(math.pi, 3)
+# 3.142
+```
+
+有些函数可以接收任意数量的参数，比如 `print`。
+
+```python
+print('Any', 'number', 'of', 'arguments')
+# Any number of arguments
+```
+
+如果你调用函数时提供的参数过多，会得到一个 `TypeError`。
+
+```python
+float('123.0', 2)
+# TypeError: float expected at most 1 argument, got 2
+```
+
+如果你提供的参数过少，也会得到一个 `TypeError`。
+
+```python
+math.pow(2)
+# TypeError: pow expected 2 arguments, got 1
+```
+
+而如果你提供的参数类型是函数无法处理的，同样会得到一个 `TypeError`。
+
+```python
+math.sqrt('123')
+# TypeError: must be real number, not str
+```
+
+这种检查在你刚开始时可能有点烦人，但它能帮助你发现并修正错误。
+
+## 2.8 注释
+
+随着程序变得越来越大、越来越复杂，它们也变得越来越难读。形式语言很密集，常常很难只看一段代码就搞清楚它在做什么、为什么这么做。
+
+因此，在程序中添加注释，用自然语言解释程序正在做什么，是个好主意。这些注释称为**注释（comment）**，以 `#` 符号开头。
+
+```python
+# number of seconds in 42:42
+seconds = 42 * 60 + 42
+```
+
+在这个例子里，注释单独占一行。你也可以把注释放在一行的末尾：
+
+```python
+miles = 10 / 1.61     # 10 kilometers in miles
+```
+
+从 `#` 到行尾的所有内容都会被忽略——它不影响程序的执行。
+
+当注释记录了代码中不明显的地方时，注释最有价值。可以合理地假设读者能看出代码在*做*什么；更有用的是解释*为什么*这么做。
+
+这个注释与代码重复，没什么用：
+
+```python
+v = 8     # assign 8 to v
+```
+
+这个注释包含代码中没有的有用信息：
+
+```python
+v = 8     # velocity in miles per hour
+```
+
+好的变量名可以减少对注释的需求，但过长的名字会让复杂表达式更难读，所以这里需要权衡。
+
+## 2.9 调试
+
+程序中可能出现三种错误：语法错误、运行时错误和语义错误。区分它们有助于更快地定位问题。
+
+*   **语法错误**：“语法”指的是程序的结构以及关于该结构的规则。如果程序的任何地方有语法错误，Python 就不会执行该程序，而是立即显示错误消息。
+
+*   **运行时错误**：如果程序中没有语法错误，它就可以开始运行。但如果在运行中出了问题，Python 会显示错误消息并停止。这类错误称为运行时错误。它也被称为**异常（exception）**，因为它表明发生了异常的事情。
+
+*   **语义错误**：第三类错误是“语义”错误，即与含义相关的错误。如果程序中有语义错误，它会运行而不产生任何错误消息，但结果不是你想要做的。识别语义错误可能很棘手，因为它需要你从程序的输出倒推，试图弄清楚它到底在做什么。
+
+正如我们所见，无效的变量名是语法错误。
+
+```python
+million! = 1000000
+# SyntaxError: invalid syntax
+```
+
+如果你对某类型使用它不支持的运算符，那是运行时错误。
+
+```python
+'126' / 3
+# TypeError: unsupported operand type(s) for /: 'str' and 'int'
+```
+
+最后，这里有一个语义错误的例子。假设我们想计算 `1` 和 `3` 的平均值，却忘了运算顺序，写出了这样的代码：
+
+```python
+1 + 3 / 2
+# 2.5
+```
+
+对这个表达式求值时，它不会产生错误消息，所以没有语法错误也没有运行时错误。但结果并不是 `1` 和 `3` 的平均值，所以程序不正确。这是语义错误，因为程序能运行，但做的事情不是预期的。
+
+## 2.10 词汇表
+
+**变量：** 指向某个值的名字。
+
+**赋值语句：** 把一个值赋给变量的语句。
+
+**状态图：** 一组变量及其所指向的值的图形化表示。
+
+**关键字：** 用于指定程序结构的特殊单词。
+
+**import 语句：** 读取模块文件，以便我们使用其中包含的变量和函数的语句。
+
+**模块：** 包含 Python 代码的文件，包括函数定义，有时还有其他语句。
+
+**点运算符：** 运算符 `.`，通过指定模块名后跟一个点和函数名来访问另一个模块中的函数。
+
+**求值：** 执行表达式的运算以计算出一个值。
+
+**语句：** 表示一条命令或动作的一行或多行代码。
+
+**执行：** 运行一条语句并执行它所说的内容。
+
+**参数：** 调用函数时提供给函数的值。
+
+**注释：** 程序中提供程序相关信息、但不影响其执行的文本。
+
+**运行时错误：** 使程序显示错误消息并终止的错误。
+
+**异常：** 程序运行期间被检测到的错误。
+
+**语义错误：** 使程序做了错误的事、但不显示错误消息的错误。
+
+## 2.11 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 2.11.1 问一个虚拟助手
+
+再次鼓励你使用虚拟助手来学习更多关于本章任何主题的内容。
+
+如果你对我列出的某个关键字感到好奇，可以问“为什么 class 是关键字？”或“为什么变量名不能是关键字？”
+
+你可能已经注意到 `int`、`float` 和 `str` 不是 Python 的关键字。它们是表示类型的变量，可以当作函数使用。所以用这些名字作变量名或函数名是*合法*的，但强烈不建议这样做。问一下助手：“为什么用 int、float 和 str 作变量名是不好的主意？”
+
+再问：“Python 的内置函数有哪些？”如果对其中某个感兴趣，再请求更多信息。
+
+在本章中，我们导入了 `math` 模块并使用它提供的一些变量和函数。问一下助手：“math 模块中有哪些变量和函数？”以及“除了 math，还有哪些模块被认为是 Python 核心的一部分？”
+
+### 2.11.2 练习
+
+重申我在上一章的建议：每当你学习一个新特性时，都应该故意犯错，看看会发生什么。
+
+*   我们见过 `n = 17` 是合法的。那 `17 = n` 呢？
+
+*   `x = y = 1` 呢？
+
+*   在某些语言中，每条语句以分号（`;`）结尾。如果你在 Python 语句末尾加分号会怎样？
+
+*   如果你在语句末尾加一个点会怎样？
+
+*   如果你拼错模块名，试图导入 `maath`，会怎样？
+
+### 2.11.3 练习
+
+练习把 Python 解释器当计算器用：
+
+**第 1 部分。** 半径为 \\(r\\) 的球体体积是 \\(\frac{4}{3} \pi r^3\\)。半径为 5 的球体体积是多少？先创建一个名为 `radius` 的变量，然后把结果赋给名为 `volume` 的变量。显示结果。添加注释说明 `radius` 的单位是厘米，`volume` 的单位是立方厘米。
+
+**第 2 部分。** 三角学中有一条规则：对任意 \\(x\\) 值，都有 \\((\\cos x)^2 + (\\sin x)^2 = 1\\)。我们看看它对某个具体的 \\(x\\) 值（比如 42）是否成立。
+
+创建一个值为 42 的变量 `x`。然后用 `math.cos` 和 `math.sin` 计算 \\(x\\) 的正弦和余弦，以及它们平方的和。
+
+结果应该接近 1。它可能不完全是 1，因为浮点运算并不精确——只是近似正确。
+
+**第 3 部分。** 除了 `pi`，`math` 模块中定义的另一个变量是 `e`，它表示自然对数的底数，数学符号写作 \\(e\\)。如果你不知道这个值，问虚拟助手“什么是 `math.e`？”现在用三种方式计算 \\(e^2\\)：
+
+*   用 `math.e` 和乘方运算符（`**`）。
+
+*   用 `math.pow` 把 `math.e` 提升到 `2` 次幂。
+
+*   用 `math.exp`，它接收一个参数 \\(x\\)，计算 \\(e^x\\)。
+
+你可能会注意到最后一个结果与前面两个略有不同。看看你能不能弄清楚哪个是正确的。
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

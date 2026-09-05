@@ -1,0 +1,759 @@
+---
+type: 'Post'
+date: '2026-08-26 10:00:00'
+title: '第 9 章 · 列表'
+tags: [python]
+description: '列表的创建、遍历与常用操作。'
+slug: listas
+order: 10
+section: null
+source: "https://libropython.es/chap09.html"
+lang: zh
+---
+
+# 第 9 章 · 列表
+
+> 本文译自 [libropython.es](https://libropython.es/chap09.html)。原文为西班牙语，翻译仅供学习使用。
+
+本章介绍 Python 最有用的内置类型之一：列表。你还会学到更多关于对象的知识，以及当多个变量指向同一个对象时会发生什么。
+
+在本章末尾的练习中，我们将构建一个单词列表，并用它来搜索特殊的单词，如回文和变位词。
+
+## 9.1 列表是一种序列
+
+与字符串一样，**列表（lista）** 是值的序列。在字符串中，值是字符；在列表中，值可以是任何类型。列表中的值称为**元素（elementos）**。
+
+创建新列表有几种方式；最简单的是把元素放在方括号（`[` 和 `]`）之间。例如，下面是一个含两个整数的列表。
+
+```python
+numbers = [42, 123]
+```
+
+而这是一个含三个字符串的列表。
+
+```python
+cheeses = ['Cheddar', 'Edam', 'Gouda']
+```
+
+列表中的元素不必是同一类型。下面的列表包含一个字符串、一个浮点数、一个整数，甚至还有另一个列表。
+
+```python
+t = ['spam', 2.0, 5, [10, 20]]
+```
+
+列表中的列表是**嵌套的**。
+
+不含任何元素的列表叫空列表；你可以用空的方括号 `[]` 创建它。
+
+```python
+empty = []
+```
+
+`len` 函数返回列表的长度。
+
+```python
+len(cheeses)
+# 3
+```
+
+空列表的长度是 `0`。
+
+```python
+len(empty)
+# 0
+```
+
+下面的图展示了 `cheeses`、`numbers` 和 `empty` 的状态图。
+
+```python
+from diagram import make_list, Binding, Value
+
+list1 = make_list(cheeses, dy=-0.3, offsetx=0.17)
+binding1 = Binding(Value('cheeses'), list1)
+
+list2 = make_list(numbers, dy=-0.3, offsetx=0.17)
+binding2 = Binding(Value('numbers'), list2)
+
+list3 = make_list(empty, dy=-0.3, offsetx=0.1)
+binding3 = Binding(Value('empty'), list3)
+```
+
+列表用盒子表示，盒子外写着“list”，盒子内是编号的元素。
+
+## 9.2 列表是可变的
+
+要读取列表中的元素，我们可以用方括号运算符。第一个元素的索引是 `0`。
+
+```python
+cheeses[0]
+# 'Cheddar'
+```
+
+与字符串不同，列表是可变的。当方括号运算符出现在赋值左侧时，它标识要赋值的列表元素。
+
+```python
+numbers[1] = 17
+numbers
+# [42, 17]
+```
+
+`numbers` 的第二个元素原来为 `123`，现在变成了 `17`。
+
+列表索引的规则与字符串索引相同：
+
+*   任何整数表达式都可以用作索引。
+
+*   如果你试图读取或写入不存在的元素，会得到 `IndexError`。
+
+*   如果索引是负值，则从列表末尾向前计数。
+
+`in` 运算符适用于列表：它检查给定元素是否出现在列表的某个位置。
+
+```python
+'Edam' in cheeses
+# True
+'Wensleydale' in cheeses
+# False
+```
+
+虽然列表可以包含另一个列表，但嵌套列表仍然算作单个元素；因此，在下面的列表中，只有四个元素。
+
+```python
+t = ['spam', 2.0, 5, [10, 20]]
+len(t)
+# 4
+```
+
+而 `10` 不算 `t` 的元素，因为它是嵌套列表的元素，而不是 `t` 的。
+
+```python
+10 in t
+# False
+```
+
+## 9.3 列表切片
+
+切片运算符对列表的作用与对字符串的作用相同。下面的例子选择四个字母的列表中的第二个和第三个元素。
+
+```python
+letters = ['a', 'b', 'c', 'd']
+letters[1:3]
+# ['b', 'c']
+```
+
+如果省略第一个索引，切片从开头开始。
+
+```python
+letters[:2]
+# ['a', 'b']
+```
+
+如果省略第二个索引，切片一直到末尾。
+
+```python
+letters[2:]
+# ['c', 'd']
+```
+
+所以，如果两个都省略，切片是整个列表的副本。
+
+```python
+letters[:]
+# ['a', 'b', 'c', 'd']
+```
+
+复制列表的另一种方法是使用 `list` 函数。
+
+```python
+list(letters)
+# ['a', 'b', 'c', 'd']
+```
+
+因为 `list` 是内置函数的名字，你应该避免把它用作变量名。
+
+## 9.4 列表运算
+
+`+` 运算符拼接列表。
+
+```python
+t1 = [1, 2]
+t2 = [3, 4]
+t1 + t2
+# [1, 2, 3, 4]
+```
+
+`*` 运算符把列表重复指定的次数。
+
+```python
+['spam'] * 4
+# ['spam', 'spam', 'spam', 'spam']
+```
+
+没有其他数学运算符适用于列表，但内置函数 `sum` 可以求元素之和。
+
+```python
+sum(t1)
+# 3
+```
+
+而 `min` 和 `max` 找到最小和最大的元素。
+
+```python
+min(t1)
+# 1
+max(t2)
+# 4
+```
+
+## 9.5 列表方法
+
+Python 提供了操作列表的方法。例如，`append` 在列表末尾添加新元素：
+
+```python
+letters.append('e')
+letters
+# ['a', 'b', 'c', 'd', 'e']
+```
+
+`extend` 接收一个列表作为实参，添加它的所有元素：
+
+```python
+letters.extend(['f', 'g'])
+letters
+# ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+```
+
+有两个方法可以从列表中删除元素。如果你知道要删除元素的索引，可以用 `pop`。
+
+```python
+t = ['a', 'b', 'c']
+t.pop(1)
+# 'b'
+```
+
+返回值是被删除的元素。我们可以确认列表已被修改。
+
+```python
+t
+# ['a', 'c']
+```
+
+如果你知道要删除的元素（但不知道索引），可以用 `remove`：
+
+```python
+t = ['a', 'b', 'c']
+t.remove('b')
+```
+
+`remove` 的返回值是 `None`。但我们可以确认列表已被修改。
+
+```python
+t
+# ['a', 'c']
+```
+
+如果你要求删除的元素不在列表中，会得到 `ValueError`。
+
+```python
+t.remove('d')
+# ValueError: list.remove(x): x not in list
+```
+
+## 9.6 列表与字符串
+
+字符串是字符的序列，列表是值的序列，但字符列表与字符串不是一回事。要把字符串转换成字符列表，可以用 `list` 函数。
+
+```python
+s = 'spam'
+t = list(s)
+t
+# ['s', 'p', 'a', 'm']
+```
+
+`list` 函数把字符串拆分成单个字母。如果你想按单词拆分字符串，可以用 `split` 方法：
+
+```python
+s = 'pining for the fjords'
+t = s.split()
+t
+# ['pining', 'for', 'the', 'fjords']
+```
+
+一个名为**分隔符（delimitador）**的可选实参指定哪些字符用作单词之间的边界。下面的例子用连字符作为分隔符。
+
+```python
+s = 'ex-parrot'
+t = s.split('-')
+t
+# ['ex', 'parrot']
+```
+
+如果你有一个字符串列表，可以用 `join` 把它们拼接成一个字符串。`join` 是字符串方法，所以你必须把它调用在分隔符上，并把列表作为实参传入。
+
+```python
+delimiter = ' '
+t = ['pining', 'for', 'the', 'fjords']
+s = delimiter.join(t)
+s
+# 'pining for the fjords'
+```
+
+在这个例子中，分隔符是空格字符，所以 `join` 在单词之间放一个空格。要用无空格的方式连接字符串，可以用空字符串 `''` 作为分隔符。
+
+## 9.7 用循环遍历列表
+
+你可以用 `for` 语句遍历列表的元素。
+
+```python
+for cheese in cheeses:
+    print(cheese)
+```
+
+例如，在用 `split` 创建单词列表之后，我们可以用 `for` 遍历它们。
+
+```python
+s = 'pining for the fjords'
+
+for word in s.split():
+    print(word)
+```
+
+对空列表的 `for` 循环永远不会执行缩进的语句。
+
+```python
+for x in []:
+    print('This never happens.')
+```
+
+## 9.8 排序列表
+
+Python 提供了一个名为 `sorted` 的内置函数，对列表的元素排序。
+
+```python
+scramble = ['c', 'a', 'b']
+sorted(scramble)
+# ['a', 'b', 'c']
+```
+
+原列表不变。
+
+```python
+scramble
+# ['c', 'a', 'b']
+```
+
+`sorted` 适用于任何类型的序列，而不仅仅是列表。所以我们可以这样对字符串的字母排序。
+
+```python
+sorted('letters')
+# ['e', 'e', 'l', 'r', 's', 't', 't']
+```
+
+结果是一个列表。要把列表转换回字符串，我们可以用 `join`。
+
+```python
+''.join(sorted('letters'))
+# 'eelrstt'
+```
+
+用空字符串作为分隔符，列表元素之间没有任何东西地连接起来。
+
+## 9.9 对象与值
+
+如果我们执行这些赋值语句：
+
+```python
+a = 'banana'
+b = 'banana'
+```
+
+我们知道 `a` 和 `b` 都指向一个字符串，但我们不知道它们是否指向*同一个*字符串。有两种可能的状态，如下图所示。
+
+```python
+from diagram import Frame, Stack
+
+s = 'banana'
+bindings = [Binding(Value(name), Value(repr(s))) for name in 'ab']
+frame1 = Frame(bindings, dy=-0.25)
+
+binding1 = Binding(Value('a'), Value(repr(s)), dy=-0.11)
+binding2 = Binding(Value('b'), draw_value=False, dy=0.11)
+frame2 = Frame([binding1, binding2], dy=-0.25)
+
+stack = Stack([frame1, frame2], dx=1.7, dy=0)
+```
+
+在左图中，`a` 和 `b` 指向两个值相同但不同的对象。在右图中，它们指向同一个对象。要检查两个变量是否指向同一个对象，可以用 `is` 运算符。
+
+```python
+a = 'banana'
+b = 'banana'
+a is b
+# True
+```
+
+在这个例子中，Python 只创建了一个字符串对象，`a` 和 `b` 都指向它。但当你创建两个列表时，会得到两个对象。
+
+```python
+a = [1, 2, 3]
+b = [1, 2, 3]
+a is b
+# False
+```
+
+所以状态图看起来是这样。
+
+```python
+t = [1, 2, 3]
+binding1 = Binding(Value('a'), Value(repr(t)))
+binding2 = Binding(Value('b'), Value(repr(t)))
+frame = Frame([binding1, binding2], dy=-0.25)
+```
+
+在这种情况下，我们会说这两个列表是**等价的（equivalentes）**，因为它们有相同的元素，但不是**同一的（idénticos）**，因为它们不是同一个对象。如果两个对象是同一的，它们也是等价的；但如果它们是等价的，不一定同一。
+
+## 9.10 别名
+
+如果 `a` 指向一个对象，而你赋值 `b = a`，那么两个变量就指向同一个对象。
+
+```python
+a = [1, 2, 3]
+b = a
+b is a
+# True
+```
+
+所以状态图看起来是这样。
+
+```python
+t = [1, 2, 3]
+binding1 = Binding(Value('a'), Value(repr(t)), dy=-0.11)
+binding2 = Binding(Value('b'), draw_value=False, dy=0.11)
+frame = Frame([binding1, binding2], dy=-0.25)
+```
+
+变量与对象之间的关联称为**引用（referencia）**。在这个例子中，同一个对象有两个引用。
+
+有多个引用的对象有多个名字，所以我们说这个对象是**被别名的（aliased）**。如果被别名的对象是可变的，通过一个名字所做的修改会影响另一个。在这个例子中，如果我们修改 `b` 指向的对象，也就修改了 `a` 指向的对象。
+
+```python
+b[0] = 5
+a
+# [5, 2, 3]
+```
+
+所以我们会说 `a`“看到”了这个变化。虽然这种行为可能有用，但很容易出错。一般来说，处理可变对象时，避免别名更安全。
+
+对于字符串这样的不可变对象，别名不是什么大问题。在这个例子中：
+
+```python
+a = 'banana'
+b = 'banana'
+```
+
+`a` 和 `b` 是否指向同一个字符串几乎从不重要。
+
+## 9.11 列表作为实参
+
+当你把列表传给函数时，函数收到的是对列表的引用。如果函数修改了列表，调用方的代码会看到这个变化。例如，`pop_first` 用列表方法 `pop` 删除列表的第一个元素。
+
+```python
+def pop_first(lst):
+    return lst.pop(0)
+```
+
+我们可以这样使用它。
+
+```python
+letters = ['a', 'b', 'c']
+pop_first(letters)
+# 'a'
+```
+
+返回值是第一个元素，它已从列表中删除，我们可以通过显示修改后的列表看到这一点。
+
+```python
+letters
+# ['b', 'c']
+```
+
+在这个例子中，参数 `lst` 和变量 `letters` 是同一个对象的别名，所以状态图看起来是这样：
+
+```python
+lst = make_list('abc', dy=-0.3, offsetx=0.1)
+binding1 = Binding(Value('letters'), draw_value=False)
+frame1 = Frame([binding1], name='__main__', loc='left')
+
+binding2 = Binding(Value('lst'), draw_value=False, dx=0.61, dy=0.35)
+frame2 = Frame([binding2], name='pop_first', loc='left', offsetx=0.08)
+
+stack = Stack([frame1, frame2], dx=-0.3, dy=-0.5)
+```
+
+把对象的引用作为实参传给函数，会产生一种别名。如果函数修改了对象，这些变化会在函数结束后持续存在。
+
+## 9.12 创建单词列表
+
+在上一章中，我们读取了 `words.txt` 文件并搜索具有某些属性的单词，比如使用字母 `e`。但我们把整个文件读了很多次，效率不高。更好的做法是读取文件一次，把单词放进列表。下面的循环展示了如何做到。
+
+```python
+download('https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/words.txt')
+
+word_list = []
+
+for line in open('words.txt'):
+    word = line.strip()
+    word_list.append(word)
+
+len(word_list)
+# 113783
+```
+
+循环之前，`word_list` 被初始化为空列表。每次经过循环，`append` 方法都在末尾添加一个单词。循环结束时，列表中有超过 113,000 个单词。
+
+另一种做同样事情的方法是用 `read` 把整个文件读入一个字符串。
+
+```python
+string = open('words.txt').read()
+len(string)
+# 1011690
+```
+
+结果是一个包含超过一百万个字符的字符串。我们可以用 `split` 方法把它拆分成单词列表。
+
+```python
+word_list = string.split()
+len(word_list)
+# 113783
+```
+
+现在，要检查一个字符串是否出现在列表中，我们可以用 `in` 运算符。例如，`'demotic'` 在列表中。
+
+```python
+'demotic' in word_list
+# True
+```
+
+但 `'contrafibularities'` 不在。
+
+```python
+'contrafibularities' in word_list
+# False
+```
+
+我得说，这让我感到 anaspeptic（非常懊恼）。
+
+## 9.13 调试
+
+请注意，大多数列表方法都会修改实参并返回 `None`。这与字符串方法相反，字符串方法返回新字符串并保持原字符串不变。
+
+如果你习惯了这样写字符串代码：
+
+```python
+word = 'plumage!'
+word = word.strip('!')
+word
+# 'plumage'
+```
+
+你可能会想这样写列表代码：
+
+```python
+t = [1, 2, 3]
+t = t.remove(3)           # WRONG!
+```
+
+`remove` 修改列表并返回 `None`，所以你接下来对 `t` 做的操作很可能会失败。
+
+```python
+t.remove(2)
+# AttributeError: 'NoneType' object has no attribute 'remove'
+```
+
+这个错误消息需要一些解释。对象的**属性**是与它关联的变量或方法。在这个例子中，`t` 的值是 `None`，它是 `NoneType` 对象，没有名为 `remove` 的属性，所以结果是 `AttributeError`。
+
+如果你看到这样的错误消息，应该回头看看程序，想想你是否可能错误地调用了列表方法。
+
+## 9.14 词汇表
+
+**列表：** 包含值序列的对象。
+
+**元素：** 列表或其他序列中的值之一。
+
+**嵌套列表：** 作为另一个列表元素的列表。
+
+**分隔符：** 用于指示字符串应在何处分割的字符或字符串。
+
+**等价的：** 具有相同的值。
+
+**同一的：** 是同一个对象（意味着等价）。
+
+**引用：** 变量与其值之间的关联。
+
+**被别名的：** 如果有多个变量指向一个对象，该对象就是被别名的。
+
+**属性：** 与对象关联的命名值之一。
+
+## 9.15 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 9.15.1 问一个虚拟助手
+
+在本章中，我用了“contrafibularities”和“anaspeptic”这两个词，但它们其实不是英语单词。它们出自英国电视剧《黑爵士》第三季第二集“Ink and Incapability”。
+
+然而，当我问 ChatGPT 3.5（2023 年 8 月 3 日的版本）这些词从哪来时，它先声称来自 Monty Python，后来又声称来自汤姆·斯托帕德的作品《罗森克兰茨与吉尔登斯特恩已死》。
+
+如果你现在问，可能会得到不同的结果。但这个例子提醒我们，虚拟助手并不总是准确的，所以你应该核实结果的正确性。随着经验的积累，你会培养出对哪些问题虚拟助手能可靠回答的直觉。在这个例子中，一次常规的网络搜索就能快速确定这些词的来源。
+
+如果你在本章的任何练习中卡住了，考虑向虚拟助手求助。如果你得到的结果使用了我们还没学过的特性，你可以给虚拟助手分配一个“角色”。
+
+例如，在提问前试试输入“Role: Basic Python Programming Instructor”。之后你得到的回答应该只使用基础特性。如果你仍然看到我们没学过的特性，可以接着说“Can you write that using only basic Python features?”
+
+### 9.15.2 练习
+
+如果两个单词重新排列其中一个的字母就能写出另一个，它们就是变位词（anagram）。例如，`tops` 是 `stop` 的变位词。
+
+检查两个单词是否为变位词的一种方法是把两个单词的字母排序。如果排序后的字母列表相同，那么这两个单词就是变位词。
+
+写一个名为 `is_anagram` 的函数，接收两个字符串，如果它们是变位词，返回 `True`。
+
+开始之前，这里是一个带 doctest 的函数框架。
+
+```python
+def is_anagram(word1, word2):
+    """Checks whether two words are anagrams.
+
+    >>> is_anagram('tops', 'stop')
+    True
+    >>> is_anagram('skate', 'takes')
+    True
+    >>> is_anagram('tops', 'takes')
+    False
+    >>> is_anagram('skate', 'stop')
+    False
+    """
+    return None
+```
+
+你可以用 `doctest` 测试你的函数。
+
+```python
+from doctest import run_docstring_examples
+
+def run_doctests(func):
+    run_docstring_examples(func, globals(), name=func.__name__)
+
+run_doctests(is_anagram)
+```
+
+使用你的函数和单词列表，找出 `takes` 的所有变位词。
+
+### 9.15.3 练习
+
+Python 提供了一个名为 `reversed` 的内置函数，它接收一个元素序列（如列表或字符串）作为实参，返回一个包含逆序元素的 `reversed` 对象。
+
+```python
+reversed('parrot')
+```
+
+如果你想把逆序元素放进列表，可以用 `list` 函数。
+
+```python
+list(reversed('parrot'))
+# ['t', 'o', 'r', 'r', 'a', 'p']
+```
+
+如果你想把它们放进字符串，可以用 `join` 方法。
+
+```python
+''.join(reversed('parrot'))
+# 'torrap'
+```
+
+所以我们可以这样写一个反转单词的函数。
+
+```python
+def reverse_word(word):
+    return ''.join(reversed(word))
+```
+
+回文是正着读和倒着读一样的单词，如“noon”和“rotator”。写一个名为 `is_palindrome` 的函数，接收一个字符串实参，如果是回文返回 `True`，否则返回 `False`。
+
+下面是一个带 doctest 的函数框架，你可以用它检查你的函数。
+
+```python
+def is_palindrome(word):
+    """Check if a word is a palindrome.
+
+    >>> is_palindrome('bob')
+    True
+    >>> is_palindrome('alice')
+    False
+    >>> is_palindrome('a')
+    True
+    >>> is_palindrome('')
+    True
+    """
+    return False
+
+run_doctests(is_palindrome)
+```
+
+你可以用下面的循环找出单词列表中至少 7 个字母的所有回文。
+
+```python
+for word in word_list:
+    if len(word) >= 7 and is_palindrome(word):
+        print(word)
+```
+
+### 9.15.4 练习
+
+写一个名为 `reverse_sentence` 的函数，接收一个包含任意数量由空格分隔的单词的字符串作为实参。它应该返回一个新字符串，其中包含以逆序排列的相同单词。例如，如果实参是“Reverse this sentence”，结果应该是“Sentence this reverse”。
+
+提示：你可以用 `capitalize` 方法把第一个单词首字母大写，并把其他单词转换为小写。
+
+开始之前，这里是一个带 doctest 的函数框架。
+
+```python
+def reverse_sentence(input_string):
+    '''Reverse the words in a string and capitalize the first.
+
+    >>> reverse_sentence('Reverse this sentence')
+    'Sentence this reverse'
+
+    >>> reverse_sentence('Python')
+    'Python'
+
+    >>> reverse_sentence('')
+    ''
+
+    >>> reverse_sentence('One for all and all for one')
+    'One for all and all for one'
+    '''
+    return None
+
+run_doctests(reverse_sentence)
+```
+
+### 9.15.5 练习
+
+写一个名为 `total_length` 的函数，接收一个字符串列表，返回字符串的总长度。`word_list` 中单词的总长度应该是 \\(902{,}728\\)。
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)

@@ -1,0 +1,696 @@
+---
+type: 'Post'
+date: '2026-08-25 10:00:00'
+title: '第 10 章 · 字典'
+tags: [python]
+description: '字典、哈希表与查找。'
+slug: diccionarios
+order: 11
+section: null
+source: "https://libropython.es/chap10.html"
+lang: zh
+---
+
+# 第 10 章 · 字典
+
+> 本文译自 [libropython.es](https://libropython.es/chap10.html)。原文为西班牙语，翻译仅供学习使用。
+
+本章介绍一种名为字典的内置类型。它是 Python 最好的特性之一，也是许多高效而优雅的算法的基石。
+
+我们将用字典来计算一本书中独特单词的数量，以及每个单词出现的次数。在练习中，我们将用字典来解单词游戏。
+
+## 10.1 字典是一种映射
+
+**字典（diccionario）** 像列表，但更通用。在列表中，索引必须是整数；在字典中，索引可以是（几乎）任何类型。例如，假设我们做一个数字单词的列表，像这样。
+
+```python
+lst = ['zero', 'one', 'two']
+```
+
+我们可以用整数作为索引来获取对应的单词。
+
+```python
+lst[1]
+# 'one'
+```
+
+但假设我们想反方向查找，即通过单词获取对应的整数。用列表做不到，但用字典可以。我们先创建一个空字典并把它赋给 `numbers`。
+
+```python
+numbers = {}
+numbers
+# {}
+```
+
+花括号 `{}` 表示空字典。要向字典添加元素，我们用方括号。
+
+```python
+numbers['zero'] = 0
+```
+
+这条赋值向字典添加一个**元素（elemento）**，它表示一个**键（clave）** 和一个**值（valor）** 的关联。在这个例子中，键是字符串 `'zero'`，值是整数 `0`。如果我们显示字典，会看到它包含一个元素，其中键和值用冒号 `:` 分隔。
+
+```python
+numbers
+# {'zero': 0}
+```
+
+我们可以这样添加更多元素。
+
+```python
+numbers['one'] = 1
+numbers['two'] = 2
+numbers
+# {'zero': 0, 'one': 1, 'two': 2}
+```
+
+现在字典包含三个元素。
+
+要查找键并获取对应的值，我们用方括号运算符。
+
+```python
+numbers['two']
+# 2
+```
+
+如果键不在字典中，我们会得到 `KeyError`。
+
+```python
+numbers['three']
+# KeyError: 'three'
+```
+
+`len` 函数适用于字典；它返回元素的数量。
+
+```python
+len(numbers)
+# 3
+```
+
+用数学语言来说，字典表示从键到值的**映射（mapeo）**，所以你也可以说每个键“映射到”一个值。在这个例子中，每个数字单词映射到对应的整数。
+
+下面的图展示了 `numbers` 的状态图。
+
+```python
+from diagram import make_dict, Binding, Value
+
+d1 = make_dict(numbers, dy=-0.3, offsetx=0.37)
+binding1 = Binding(Value('numbers'), d1)
+```
+
+字典用一个盒子表示，盒子外写着“dict”，盒子内是元素。每个元素用一个键和指向一个值的箭头表示。引号表示这里的键是字符串，而不是变量名。
+
+## 10.2 创建字典
+
+在上一节中，我们创建了一个空字典，然后用方括号运算符逐个添加元素。我们本可以这样一次性创建字典。
+
+```python
+numbers = {'zero': 0, 'one': 1, 'two': 2}
+```
+
+每个元素由用冒号分隔的键和值组成。元素之间用逗号分隔，整体用花括号括起来。
+
+创建字典的另一种方法是使用 `dict` 函数。我们可以这样创建空字典。
+
+```python
+empty = dict()
+empty
+# {}
+```
+
+而我们可以这样复制一个字典。
+
+```python
+numbers_copy = dict(numbers)
+numbers_copy
+# {'zero': 0, 'one': 1, 'two': 2}
+```
+
+在执行修改字典的操作之前先复制一份，往往是很有用的。
+
+## 10.3 in 运算符
+
+`in` 运算符也适用于字典；它告诉你某个东西是否作为字典中的*键*出现。
+
+```python
+'one' in numbers
+# True
+```
+
+`in` 运算符*不*检查某个东西是否作为值出现。
+
+```python
+1 in numbers
+# False
+```
+
+要检查某个东西是否作为值出现在字典中，你可以用 `values` 方法，它返回值的序列，然后用 `in` 运算符。
+
+```python
+1 in numbers.values()
+# True
+```
+
+Python 字典的元素存储在一个**哈希表（hash table）**中，这是一种组织数据的方式，有一个显著特性：无论字典中有多少个元素，`in` 运算符花费的时间大致相同。这使得编写一些非常高效的算法成为可能。
+
+```python
+download('https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/words.txt')
+```
+
+为了演示，我们比较两种算法，用来找出互为反转词的单词对，比如 `stressed` 和 `desserts`。我们先把单词列表读进来。
+
+```python
+word_list = open('words.txt').read().split()
+len(word_list)
+# 113783
+```
+
+这里是上一章的 `reverse_word`。
+
+```python
+def reverse_word(word):
+    return ''.join(reversed(word))
+```
+
+下面的函数遍历列表中的单词。对每个单词，反转其字母，然后检查反转后的单词是否在单词列表中。
+
+```python
+def too_slow():
+    count = 0
+    for word in word_list:
+        if reverse_word(word) in word_list:
+            count += 1
+    return count
+```
+
+这个函数需要一分多钟才能运行完。问题在于 `in` 运算符从开头开始逐个检查列表中的单词。如果找不到目标（大多数情况下如此），它必须一直搜索到末尾。
+
+要测量函数运行的时间，我们可以用 `%time`，它是 Jupyter 的“内置魔法命令”之一。这些命令不是 Python 语言的一部分，所以在其他开发环境中可能无法使用。
+
+```python
+# %time too_slow()
+```
+
+而 `in` 运算符在循环内部，所以每个单词执行一次。由于列表中有超过 100,000 个单词，对每个单词又检查 100,000 多个单词，比较的总次数大约是单词数的平方——接近 130 亿。
+
+```python
+len(word_list)**2
+# 12946626889
+```
+
+我们可以用字典让这个函数快得多。下面的循环创建一个以单词为键的字典。
+
+```python
+word_dict = {}
+for word in word_list:
+    word_dict[word] = 1
+```
+
+`word_dict` 中的值都是 `1`，但可以是任何东西，因为我们永远不会去查找它们；我们只用这个字典来检查某个键是否存在。
+
+现在这里是上面函数的一个版本，用 `word_dict` 替换了 `word_list`。
+
+```python
+def much_faster():
+    count = 0
+    for word in word_dict:
+        if reverse_word(word) in word_dict:
+            count += 1
+    return count
+```
+
+这个函数只需不到百分之一秒，所以比前一个版本快大约 10,000 倍。
+
+一般来说，在列表中查找一个元素所需的时间与列表长度成正比。在字典中查找一个键所需的时间几乎恒定，与元素数量无关。
+
+```python
+%time much_faster()
+```
+
+## 10.4 计数器集合
+
+假设你收到一个字符串，想统计每个字母出现的次数。字典是这个工作的好工具。我们从一个空字典开始。
+
+```python
+counter = {}
+```
+
+当我们遍历字符串的字母时，假设第一次看到字母 `'a'`。我们可以这样把它加入字典。
+
+```python
+counter['a'] = 1
+```
+
+值 `1` 表示我们见过这个字母一次。之后，如果我们又看到同一个字母，可以这样递增计数器。
+
+```python
+counter['a'] += 1
+```
+
+现在与 `'a'` 关联的值是 `2`，因为我们见过这个字母两次。
+
+```python
+counter
+# {'a': 2}
+```
+
+下面的函数用这些特性来统计一个字符串中每个字母出现的次数。
+
+```python
+def value_counts(string):
+    counter = {}
+    for letter in string:
+        if letter not in counter:
+            counter[letter] = 1
+        else:
+            counter[letter] += 1
+    return counter
+```
+
+每次经过循环，如果 `letter` 不在字典中，我们创建一个新元素，键为 `letter`，值为 `1`。如果 `letter` 已在字典中，我们递增与 `letter` 关联的值。
+
+下面是一个例子。
+
+```python
+counter = value_counts('brontosaurus')
+counter
+# {'b': 1, 'r': 2, 'o': 2, 'n': 1, 't': 1, 's': 2, 'a': 1, 'u': 2}
+```
+
+`counter` 的元素显示字母 `'b'` 出现一次，`'r'` 出现两次，依此类推。
+
+## 10.5 循环与字典
+
+如果你在 `for` 语句中使用字典，它会遍历字典的键。为了演示，我们做一个统计 `'banana'` 字母的字典。
+
+```python
+counter = value_counts('banana')
+counter
+# {'b': 1, 'a': 3, 'n': 2}
+```
+
+下面的循环打印键，也就是字母。
+
+```python
+for key in counter:
+    print(key)
+```
+
+要打印值，我们可以用 `values` 方法。
+
+```python
+for value in counter.values():
+    print(value)
+```
+
+要打印键和值，我们可以遍历键并查找对应的值。
+
+```python
+for key in counter:
+    value = counter[key]
+    print(key, value)
+```
+
+在下一章，我们会看到一种更简洁的做同样事情的方法。
+
+## 10.6 列表与字典
+
+你可以把列表作为值放进字典。例如，这里是一个把数字 `4` 映射到四个字母列表的字典。
+
+```python
+d = {4: ['r', 'o', 'u', 's']}
+d
+# {4: ['r', 'o', 'u', 's']}
+```
+
+但你不能把列表作为键放进字典。如果我们尝试，会发生以下情况。
+
+```python
+letters = list('abcd')
+d[letters] = 4
+# TypeError: unhashable type: 'list'
+```
+
+我之前提到过字典使用哈希表，这意味着键必须是**可哈希的（hasheable）**。
+
+**哈希（hash）** 是一个函数，接收一个（任何类型的）值并返回一个整数。字典用这些整数（称为哈希值）来存储和查找键。
+
+这个系统只有在键不可变、使其哈希值始终保持不变时才有效。但如果键可变，它的哈希值可能改变，字典就无法工作。这就是键必须可哈希的原因，也是列表这类可变类型不可哈希的原因。
+
+由于字典是可变的，它们也不能用作键。但它们*可以*用作值。
+
+## 10.7 累积列表
+
+对许多编程任务来说，一边遍历列表或字典，一边构建另一个列表或字典是很有用的。作为例子，我们遍历 `word_dict` 中的单词，并制作回文列表，回文就是正着读和倒着读一样的单词，如“noon”和“rotator”。
+
+在上一章中，有一个练习要求你写一个检查单词是否为回文的函数。下面是用 `reverse_word` 的解法。
+
+```python
+def is_palindrome(word):
+    """Check if a word is a palindrome."""
+    return reverse_word(word) == word
+```
+
+如果我们遍历 `word_dict` 中的单词，可以这样计算回文的数量。
+
+```python
+count = 0
+
+for word in word_dict:
+    if is_palindrome(word):
+        count += 1
+
+count
+# 91
+```
+
+到这里，这个模式已经很熟悉了。
+
+*   循环之前，`count` 被初始化为 `0`。
+
+*   循环内，如果 `word` 是回文，我们递增 `count`。
+
+*   循环结束时，`count` 包含回文的总数。
+
+我们可以用类似的模式制作回文列表。
+
+```python
+palindromes = []
+
+for word in word_dict:
+    if is_palindrome(word):
+        palindromes.append(word)
+
+palindromes[:10]
+```
+
+它是这样工作的：
+
+*   循环之前，`palindromes` 被初始化为空列表。
+
+*   循环内，如果 `word` 是回文，我们把它添加到 `palindromes` 的末尾。
+
+*   循环结束时，`palindromes` 是回文列表。
+
+在这个循环中，`palindromes` 被用作**累加器（accumulator）**，即在计算过程中收集或累积数据的变量。
+
+现在假设我们只想选择七个或更多字母的回文。我们可以遍历 `palindromes`，制作一个只包含长回文的新列表。
+
+```python
+long_palindromes = []
+
+for word in palindromes:
+    if len(word) >= 7:
+        long_palindromes.append(word)
+
+long_palindromes
+```
+
+这样遍历列表、选择一些元素并省略另一些元素，称为**过滤（filtrado）**。
+
+## 10.8 记忆化
+
+如果你运行过[第 6 章](#section_fibonacci)的 `fibonacci` 函数，你可能注意到提供的实参越大，函数运行的时间越长。
+
+```python
+def fibonacci(n):
+    if n == 0:
+        return 0
+
+    if n == 1:
+        return 1
+
+    return fibonacci(n-1) + fibonacci(n-2)
+```
+
+而且运行时间增长得很快。要理解原因，请看下面的图，它展示了 `n=4` 时 `fibonacci` 的**调用图（call graph）**：
+
+```python
+from diagram import make_binding, Frame, Arrow
+
+bindings = [make_binding('n', i) for i in range(5)]
+frames = [Frame([binding]) for binding in bindings]
+
+# ...（图中用箭头连接每个帧与它调用的函数帧）...
+```
+
+调用图展示一组函数帧，用线把每个帧与它调用的函数的帧连接起来。在图的最上方，`n=4` 的 `fibonacci` 调用 `n=3` 和 `n=2` 的 `fibonacci`。接着，`n=3` 的 `fibonacci` 调用 `n=2` 和 `n=1` 的 `fibonacci`。依此类推。
+
+数一数 `fibonacci(0)` 和 `fibonacci(1)` 被调用了多少次。这是这个问题的低效解法，而且随着实参增大，情况越来越糟。
+
+一种解决方法是把已经计算过的值存储在字典中。预先计算好并存储起来供以后使用的值称为**备忘录（memo）**。下面是一个“记忆化”的 `fibonacci` 版本：
+
+```python
+known = {0:0, 1:1}
+
+def fibonacci_memo(n):
+    if n in known:
+        return known[n]
+
+    res = fibonacci_memo(n-1) + fibonacci_memo(n-2)
+    known[n] = res
+    return res
+```
+
+`known` 是一个字典，记录我们已经知道的斐波那契数。它以两个元素开始：`0` 映射到 `0`，`1` 映射到 `1`。
+
+每次调用 `fibonacci_memo` 时，它先检查 `known`。如果结果已经在那里，它立即返回。否则，它必须计算新值，把它加入字典，然后返回。
+
+比较这两个函数：`fibonacci(40)` 大约需要 30 秒运行。`fibonacci_memo(40)` 大约需要 30 微秒，所以快了大约一百万倍。在本章的 notebook 中，你会看到这些测量值的来源。
+
+```python
+# %time fibonacci(40)
+%time fibonacci_memo(40)
+```
+
+## 10.9 调试
+
+当你处理更大的数据集时，通过打印和手动检查输出来调试会变得难以管理。下面是一些调试大数据集的建议：
+
+1.  减小输入规模：如果可能，减小数据集的大小。例如，如果程序读取文本文件，先只用前 10 行，或者用你能找到的最小例子。你可以直接编辑文件，或者（更好）修改程序使其只读取前 `n` 行。
+
+    如果出现错误，你可以把 `n` 减小到错误发生的最小值。随着你找到并修复错误，可以逐步增大 `n`。
+
+2.  检查摘要和类型：与其打印并检查整个数据集，不如考虑打印数据的摘要；例如，字典中元素的数量，或数字列表的总和。
+
+    运行时错误的一个常见原因是值的类型不对。要调试这类错误，通常打印一个值的类型就够了。
+
+3.  编写自检：有时你可以编写代码来自动检查错误。例如，如果你在计算数字列表的平均值，可以检查结果既不大于列表的最大元素，也不小于最小元素。这叫做“健全性检查”（sanity check），因为它能发现“不健全”的结果。
+
+    另一种检查是比较两个不同计算的结果，看它们是否一致。这叫做“一致性检查”（consistency check）。
+
+4.  格式化输出：格式化调试输出可以更容易发现错误。我们在[第 6 章](#section_depuraci%C3%B3n_factorial)见过一个例子。另一个可能对你有用的工具是 `pprint` 模块，它提供一个 `pprint` 函数，以更易读的格式显示内置类型（`pprint` 意思是“pretty print”）。
+
+    同样，你花在构建辅助代码上的时间可以减少你花在调试上的时间。
+
+## 10.10 词汇表
+
+**字典：** 包含键值对（也叫元素）的对象。
+
+**元素：** 在字典中，键值对的另一个名称。
+
+**键：** 在字典中作为键值对第一部分出现的对象。
+
+**值：** 在字典中作为键值对第二部分出现的对象。这比我们之前对“值”一词的用法更具体。
+
+**映射：** 一种关系，其中一个集合的每个元素对应于另一个集合的一个元素。
+
+**哈希表：** 一种键值对集合，其组织方式使我们能高效地查找键并找到它的值。
+
+**可哈希的：** 整数、浮点数和字符串等不可变类型是可哈希的。列表和字典等可变类型则不是。
+
+**哈希函数：** 接收一个对象并计算一个整数、用于在哈希表中定位键的函数。
+
+**累加器：** 在循环中用于累加或累积结果的变量。
+
+**过滤：** 遍历序列并选择或省略元素。
+
+**调用图：** 展示程序执行期间创建的每个帧、并用箭头从每个调用方指向每个被调用方的图。
+
+**备忘录：** 存储起来以避免未来不必要计算的已计算值。
+
+## 10.11 练习
+
+```python
+# 这个单元格告诉 Jupyter 在发生运行时错误时提供详细的调试信息。
+# 在做练习之前先运行它。
+
+%xmode Verbose
+```
+
+### 10.11.1 问一个虚拟助手
+
+在本章中，我说字典的键必须是可哈希的，并做了简短解释。如果你想了解更多细节，问虚拟助手：“为什么 Python 字典的键必须是可哈希的？”
+
+在[前面一节](#section_dictionary_in_operator)中，我们把单词列表作为键存储在字典中，以便使用高效的 `in` 运算符版本。我们本可以用 `set` 做同样的事，`set` 是另一种内置数据类型。问虚拟助手：“How do I make a Python set from a list of strings and check whether a string is an element of the set?”
+
+### 10.11.2 练习
+
+字典有一个名为 `get` 的方法，接收一个键和一个默认值。如果键出现在字典中，`get` 返回对应的值；否则返回默认值。例如，这里是一个把字符串的字母映射到出现次数的字典。
+
+```python
+counter = value_counts('brontosaurus')
+```
+
+如果我们查找一个出现在单词中的字母，`get` 返回它出现的次数。
+
+```python
+counter.get('b', 0)
+# 1
+```
+
+如果我们查找一个不出现的字母，我们得到默认值 `0`。
+
+```python
+counter.get('c', 0)
+# 0
+```
+
+用 `get` 写一个更简洁的 `value_counts` 版本。你应该能去掉 `if` 语句。
+
+### 10.11.3 练习
+
+你能想到的、每个字母只出现一次的最长单词是什么？我们看看能不能找到比 `unpredictably` 更长的。
+
+写一个名为 `has_duplicates` 的函数，接收一个序列（如列表或字符串）作为参数，如果有任何元素在序列中出现超过一次，返回 `True`。
+
+开始之前，这里是一个带 doctest 的函数框架。
+
+```python
+def has_duplicates(t):
+    """Check whether any element in a sequence appears more than once.
+
+    >>> has_duplicates('banana')
+    True
+    >>> has_duplicates('ambidextrously')
+    False
+    >>> has_duplicates([1, 2, 2])
+    True
+    >>> has_duplicates([1, 2, 3])
+    False
+    """
+    return None
+```
+
+你可以用 `doctest` 测试你的函数。
+
+```python
+from doctest import run_docstring_examples
+
+def run_doctests(func):
+    run_docstring_examples(func, globals(), name=func.__name__)
+
+run_doctests(has_duplicates)
+```
+
+你可以用这个循环找出没有重复字母的最长单词。
+
+```python
+no_repeats = []
+
+for word in word_list:
+    if len(word) > 12 and not has_duplicates(word):
+        no_repeats.append(word)
+
+no_repeats
+```
+
+### 10.11.4 练习
+
+写一个名为 `find_repeats` 的函数，接收一个把每个键映射到计数的字典，比如 `value_counts` 的结果。它应该遍历字典并返回计数大于 `1` 的键列表。你可以用下面的框架开始。
+
+```python
+def find_repeats(counter):
+    """Makes a list of keys with values greater than 1.
+
+    counter: dictionary that maps from keys to counts
+
+    returns: list of keys
+    """
+    return []
+```
+
+你可以用下面的例子测试你的代码。首先，我们做一个把字母映射到计数的字典。
+
+```python
+counter1 = value_counts('banana')
+counter1
+# {'b': 1, 'a': 3, 'n': 2}
+```
+
+`find_repeats` 的结果应该是 `['a', 'n']`。
+
+```python
+repeats = find_repeats(counter1)
+repeats
+# ['a', 'n']
+```
+
+这里是另一个以数字列表开头的例子。结果应该是 `[1, 2]`。
+
+```python
+counter1 = value_counts([1, 2, 3, 2, 1])
+repeats = find_repeats(counter1)
+repeats
+# [1, 2]
+```
+
+### 10.11.5 练习
+
+假设你用两个不同的单词运行 `value_counts`，并把结果保存在两个字典中。
+
+```python
+counter1 = value_counts('brontosaurus')
+counter2 = value_counts('apatosaurus')
+```
+
+每个字典把一组字母映射到它们出现的次数。写一个名为 `add_counters` 的函数，接收两个这样的字典，返回一个新字典，其中包含所有字母以及它们在任一单词中出现的总次数。
+
+有很多方法解决这个问题。当你有一个能用的解法后，考虑请虚拟助手给出不同的解法。
+
+### 10.11.6 练习
+
+如果一个单词可以取隔位字母拆成两个单词，它就是“交织词”（interlocking）。例如，“schooled”是一个交织词，因为它可以拆成“shoe”和“cold”。
+
+要从字符串中选择隔位字母，你可以用带三个组件的切片运算符，指定从哪里开始、在哪里停止，以及字母之间的“步长”。
+
+在下面的切片中，第一个组件是 `0`，所以我们从第一个字母开始。第二个组件是 `None`，意思是我们应该一直到达字符串末尾。第三个组件是 `2`，所以我们选择的字母之间间隔两步。
+
+```python
+word = 'schooled'
+first = word[0:None:2]
+first
+# 'shoe'
+```
+
+与其提供 `None` 作为第二个组件，我们也可以完全省略它来达到同样效果。例如，下面的切片选择隔位字母，从第二个字母开始。
+
+```python
+second = word[1::2]
+second
+# 'cold'
+```
+
+写一个名为 `is_interlocking` 的函数，接收一个单词作为实参，如果它能拆成两个交织词，返回 `True`。
+
+你可以用下面的循环找出单词列表中的交织词。
+
+```python
+for word in word_list:
+    if len(word) >= 8 and is_interlocking(word):
+        first = word[0::2]
+        second = word[1::2]
+        print(word, first, second)
+```
+
+---
+
+[Think Python：第 3 版](https://allendowney.github.io/ThinkPython/index.html)
+
+版权所有 2024 [Allen B. Downey](https://allendowney.com)
+
+西班牙语翻译：midudev（Miguel Ángel Durán）。
+
+代码许可证：[MIT License](https://mit-license.org/)
+
+文字许可证：[Creative Commons 署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)
