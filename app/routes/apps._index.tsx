@@ -52,6 +52,22 @@ const apps: AppInfo[] = [
     features: ["70+ 工具", "本地运行", "隐私安全", "跨平台"],
     status: "active",
   },
+  {
+    id: "packet-sniffer",
+    name: "Packet Sniffer",
+    description:
+      "基于 Rust 与 NSH 构建的本地 HTTP/HTTPS 抓包与调试工具，支持 HTTPS 解密、系统代理集成和多平台原生界面",
+    icon: <FiZap className="w-8 h-8" />,
+    href: "https://github.com/aafnnp/packet-sniffer",
+    tags: ["开发", "网络", "调试"],
+    features: [
+      "HTTP/HTTPS 抓包",
+      "HTTPS 解密",
+      "系统代理集成",
+      "macOS / Windows / Linux",
+    ],
+    status: "active",
+  },
   // 可以在这里添加更多应用
 ];
 
