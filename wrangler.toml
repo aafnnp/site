@@ -1,6 +1,6 @@
 # Cloudflare Pages 配置文件
 # 域名: https://manon.icu/
-name = "blog-remix-site"
+name = "site"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
 
