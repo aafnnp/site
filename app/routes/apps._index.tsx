@@ -58,7 +58,7 @@ const apps: AppInfo[] = [
     description:
       "基于 Rust 与 NSH 构建的本地 HTTP/HTTPS 抓包与调试工具，支持 HTTPS 解密、系统代理集成和多平台原生界面",
     icon: <FiZap className="w-8 h-8" />,
-    href: "https://github.com/aafnnp/packet-sniffer",
+    href: "/apps/packet-sniffer",
     tags: ["开发", "网络", "调试"],
     features: [
       "HTTP/HTTPS 抓包",
